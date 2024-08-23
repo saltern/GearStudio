@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0utvdt6m12v6"]
+
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PLAYER/tab_sprites.gd" id="1_w8w61"]
+[ext_resource type="Shader" path="res://palette.gdshader" id="2_01hcc"]
+[ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_h6j3j"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PLAYER/SPRITES/sprite_bounds.gd" id="4_1jvt1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
+bg_color = Color(0.25098, 0.313726, 0.156863, 1)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdkbj"]
+shader = ExtResource("2_01hcc")
+shader_parameter/palette = null
+
+[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index", "palette_index", "sprite_node", "sprite_bounds")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w8w61")
+sprite_index = NodePath("ScrollContainer/content/data/sprite_index/value")
+palette_index = NodePath("ScrollContainer/content/data/palette/value")
+sprite_node = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite")
+sprite_bounds = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite/bounds_draw")
+metadata/_tab_index = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="content" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="data" type="VBoxContainer" parent="ScrollContainer/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="display_bounds" type="HBoxContainer" parent="ScrollContainer/content/data"]
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/display_bounds"]
+layout_mode = 2
+text = "Display bounds"
+
+[node name="value" type="CheckButton" parent="ScrollContainer/content/data/display_bounds"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+
+[node name="sprite_index" type="HBoxContainer" parent="ScrollContainer/content/data"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/sprite_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sprite #"
+
+[node name="value" type="SpinBox" parent="ScrollContainer/content/data/sprite_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+
+[node name="palette" type="HBoxContainer" parent="ScrollContainer/content/data"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/palette"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Palette #"
+
+[node name="value" type="SpinBox" parent="ScrollContainer/content/data/palette"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="ScrollContainer/content"]
+layout_mode = 2
+
+[node name="visualizer" type="VBoxContainer" parent="ScrollContainer/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="title" type="Label" parent="ScrollContainer/content/visualizer"]
+layout_mode = 2
+text = "Preview"
+
+[node name="visualizer" type="PanelContainer" parent="ScrollContainer/content/visualizer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
+
+[node name="background" type="TextureRect" parent="ScrollContainer/content/visualizer/visualizer"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_h6j3j")
+stretch_mode = 1
+
+[node name="content" type="CenterContainer" parent="ScrollContainer/content/visualizer/visualizer"]
+layout_mode = 2
+
+[node name="sprite" type="TextureRect" parent="ScrollContainer/content/visualizer/visualizer/content"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_mdkbj")
+layout_mode = 2
+
+[node name="bounds_draw" type="Control" parent="ScrollContainer/content/visualizer/visualizer/content/sprite"]
+show_behind_parent = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_1jvt1")
+
+[connection signal="toggled" from="ScrollContainer/content/data/display_bounds/value" to="ScrollContainer/content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]
