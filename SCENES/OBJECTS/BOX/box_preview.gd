@@ -18,6 +18,7 @@ var resizers: Array[BoxResizer] = []
 
 func _ready() -> void:
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
+	#mouse_filter = MOUSE_FILTER_STOP
 	
 	for i in 8:
 		var resizer := BoxResizer.new()
@@ -110,21 +111,21 @@ func clicked(event: InputEventMouseButton) -> void:
 					being_dragged = false
 				
 				# Select/deselect
-				if tentative_select:
+				if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
 					is_selected = !is_selected
+				
+					# Just selected
+					if is_selected:
+						mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
+						SharedData.select_box(box_index)
+					
+					# Just deselected
+					else:
+						mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
+						SharedData.deselect_boxes()
 				
 				tentative_select = false
 				
-				# Just selected
-				if is_selected:
-					mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-					SharedData.select_box(box_index)
-				
-				# Just deselected
-				else:
-					mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
-					SharedData.deselect_boxes()
-			
 			# Update resizer visibility
 			for resizer in resizers:
 				resizer.visible = is_selected
@@ -168,4 +169,5 @@ func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:
 
 
 func broadcast_changes() -> void:
+	# Received by box parent
 	register_changes.emit(box_index, Rect2i(position, size))
