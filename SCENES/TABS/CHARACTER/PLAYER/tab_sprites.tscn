@@ -15,9 +15,10 @@ border_width_bottom = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdkbj"]
 shader = ExtResource("2_01hcc")
+shader_parameter/highlight_index = -1
 shader_parameter/palette = null
 
-[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index", "palette_index", "sprite_node", "sprite_bounds")]
+[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index", "palette_index", "sprite_node", "sprite_bounds", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,6 +29,9 @@ sprite_index = NodePath("ScrollContainer/content/data/sprite_index/value")
 palette_index = NodePath("ScrollContainer/content/data/palette/value")
 sprite_node = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite")
 sprite_bounds = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite/bounds_draw")
+info_dimensions = NodePath("ScrollContainer/content/data/dimensions/value")
+info_color_depth = NodePath("ScrollContainer/content/data/color_depth/value")
+info_embedded_pal = NodePath("ScrollContainer/content/data/embedded_pal/value")
 metadata/_tab_index = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -83,6 +87,48 @@ layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/content/data"]
+layout_mode = 2
+
+[node name="dimensions" type="HBoxContainer" parent="ScrollContainer/content/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/dimensions"]
+layout_mode = 2
+text = "Dimensions"
+
+[node name="value" type="Label" parent="ScrollContainer/content/data/dimensions"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "256 x 256"
+
+[node name="color_depth" type="HBoxContainer" parent="ScrollContainer/content/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/color_depth"]
+layout_mode = 2
+text = "Color depth"
+
+[node name="value" type="Label" parent="ScrollContainer/content/data/color_depth"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "8 bpp"
+
+[node name="embedded_pal" type="HBoxContainer" parent="ScrollContainer/content/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="ScrollContainer/content/data/embedded_pal"]
+layout_mode = 2
+text = "Embedded palette"
+
+[node name="value" type="Label" parent="ScrollContainer/content/data/embedded_pal"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "No"
 
 [node name="VSeparator" type="VSeparator" parent="ScrollContainer/content"]
 layout_mode = 2

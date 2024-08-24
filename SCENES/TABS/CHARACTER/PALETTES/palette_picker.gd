@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func change_palette(new_palette: int) -> void:
-	SharedData.get_palette(new_palette)
+	SharedData.load_palette(new_palette)

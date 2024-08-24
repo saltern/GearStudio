@@ -2,6 +2,7 @@ extends Control
 
 
 func _ready() -> void:
+	@warning_ignore("narrowing_conversion")
 	var max_fps: int = DisplayServer.screen_get_refresh_rate()
 	
 	if max_fps < 30:

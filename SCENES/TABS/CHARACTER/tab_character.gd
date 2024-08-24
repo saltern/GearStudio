@@ -11,7 +11,7 @@ func load_from_path(path: String) -> void:
 	
 	var dir: DirAccess = DirAccess.open(path)
 	
-	if dir.get_open_error() != OK:
+	if DirAccess.get_open_error() != OK:
 		print("Could not load character!")
 		return
 	
@@ -19,7 +19,7 @@ func load_from_path(path: String) -> void:
 		tab_container.add_child(ObjTabPalettes.instantiate())
 	
 	if dir.dir_exists("player"):
-		var loaded_sprites: bool = \
+		var _loaded_sprites: bool = \
 			SharedData.data.load_sprites_from_path(path + "/player/sprites")
 		
 		var loaded_cells: bool = \

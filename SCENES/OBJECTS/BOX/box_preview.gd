@@ -21,7 +21,7 @@ func _ready() -> void:
 	
 	for i in 8:
 		var resizer := BoxResizer.new()
-		resizer.type = i
+		resizer.type = i as BoxResizer.Type
 		resizer.dragged.connect(resizer_dragged)
 		resizer.drag_stopped.connect(broadcast_changes)
 		resizer.visible = is_selected
@@ -44,19 +44,19 @@ func _draw() -> void:
 	
 	# Upper
 	draw_rect(
-		Rect2(Vector2i.ZERO, Vector2i(size.x, LINE_THICKNESS)), color)
+		Rect2(Vector2.ZERO, Vector2(size.x, LINE_THICKNESS)), color)
 	
 	# Lower
 	draw_rect(
-		Rect2(Vector2i(0, size.y - LINE_THICKNESS), Vector2i(size.x, LINE_THICKNESS)), color)
+		Rect2(Vector2(0, size.y - LINE_THICKNESS), Vector2(size.x, LINE_THICKNESS)), color)
 	
 	# Left
 	draw_rect(
-		Rect2(Vector2i.ZERO, Vector2i(LINE_THICKNESS, size.y)), color)
+		Rect2(Vector2.ZERO, Vector2(LINE_THICKNESS, size.y)), color)
 	
 	# Right
 	draw_rect(
-		Rect2(Vector2i(size.x - LINE_THICKNESS, 0), Vector2i(LINE_THICKNESS, size.y)), color)
+		Rect2(Vector2(size.x - LINE_THICKNESS, 0), Vector2(LINE_THICKNESS, size.y)), color)
 
 
 # Clicked on box directly

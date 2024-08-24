@@ -6,9 +6,7 @@ var cells: Array[Cell] = []
 
 
 func load_palettes_from_path(path: String) -> bool:
-	var dir: DirAccess = DirAccess.open(path)
-	
-	if not dir.dir_exists(path):
+	if DirAccess.open(path) == null:
 		return false
 	
 	# Load palettes
@@ -19,9 +17,7 @@ func load_palettes_from_path(path: String) -> bool:
 
 
 func load_sprites_from_path(path: String) -> bool:
-	var dir: DirAccess = DirAccess.open(path)
-	
-	if dir.get_open_error() != OK:
+	if DirAccess.open(path) == null:
 		return false
 	
 	# Load sprites
@@ -31,9 +27,7 @@ func load_sprites_from_path(path: String) -> bool:
 
 
 func load_cells_from_path(path: String) -> bool:
-	var dir: DirAccess = DirAccess.open(path)
-	
-	if dir.get_open_error() != OK:
+	if DirAccess.open(path) == null:
 		return false
 	
 	# Load cells

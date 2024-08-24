@@ -1,9 +1,14 @@
 class_name PaletteColor extends ColorRect
 
+signal hovered
+signal clicked
+
+var index: int = 0
 var selected: bool = false
 
 
 func _ready() -> void:
+	mouse_filter = MOUSE_FILTER_STOP
 	custom_minimum_size = Vector2i(16, 16)
 
 
@@ -17,10 +22,11 @@ func _draw() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
+	if not event is InputEventMouse:
+		return
+		
 	if not event is InputEventMouseButton:
-		return
+		hovered.emit(get_index())
 	
-	if not event.pressed:
-		return
-	
-	selected = !selected
+	elif event.pressed:
+		clicked.emit(get_index())

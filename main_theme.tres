@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=38 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=40 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
@@ -97,6 +97,14 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxrua"]
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0it0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpn7q"]
 
@@ -237,6 +245,8 @@ CheckButton/styles/hover = SubResource("StyleBoxFlat_s4t8r")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_oh5x3")
 CheckButton/styles/normal = SubResource("StyleBoxFlat_djpj6")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_n86ds")
+ColorPicker/styles/tab_selected = SubResource("StyleBoxFlat_bxrua")
+ColorPicker/styles/tab_unselected = SubResource("StyleBoxFlat_o0it0")
 HBoxContainer/constants/separation = 6
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wpn7q")
 ItemList/styles/hovered = SubResource("StyleBoxFlat_bt44o")

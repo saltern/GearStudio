@@ -1,7 +1,5 @@
 extends TextureRect
 
-signal background_clicked
-
 var tentative: bool = false
 
 

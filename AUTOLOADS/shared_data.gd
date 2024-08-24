@@ -20,11 +20,35 @@ var this_box: BoxInfo
 var box_edits_allowed: bool = false
 
 
-func get_palette(number: int = 0) -> BinPalette:
+func load_palette(number: int = 0) -> void:
 	palette_index = number
 	this_palette = data.palettes[palette_index]
 	changed_palette.emit()
-	return this_palette
+
+
+func get_palette_colors() -> PackedByteArray:
+	return this_palette.palette
+
+
+func get_color(index: int = 0) -> Color:
+	return Color8(
+		this_palette.palette[4 * index + 0],
+		this_palette.palette[4 * index + 1],
+		this_palette.palette[4 * index + 2],
+		this_palette.palette[4 * index + 3])
+
+
+func set_color(index: int, color: Color) -> void:
+	this_palette.palette[4 * index + 0] = color.r8
+	this_palette.palette[4 * index + 1] = color.g8
+	this_palette.palette[4 * index + 2] = color.b8
+	this_palette.palette[4 * index + 3] = color.a8
+	
+	changed_palette.emit()
+
+
+func get_sprite(index: int = 0) -> BinSprite:
+	return data.sprites[index]
 
 
 func get_cell(cell: int = 0) -> Cell:
@@ -49,3 +73,9 @@ func select_box(index: int = 0) -> void:
 func deselect_boxes() -> void:
 	box_index = -1
 	deselected_boxes.emit()
+
+
+func set_box_editing(enabled: bool) -> void:
+	box_edits_allowed = enabled
+	box_editing_toggled.emit()
+	deselect_boxes()

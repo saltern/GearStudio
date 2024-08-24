@@ -23,6 +23,7 @@ draw_center = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nyu58"]
 shader = ExtResource("2_q0fc3")
+shader_parameter/highlight_index = -1
 shader_parameter/palette = null
 
 [node name="cells" type="MarginContainer" node_paths=PackedStringArray("cell_index", "preview_background", "sprite_index", "sprite_offset_x", "sprite_offset_y", "box_allow_edits", "box_list", "box_type", "box_offset_x", "box_offset_y", "box_width", "box_height", "sprite_node", "box_draw")]
@@ -280,7 +281,7 @@ max_value = 65535.0
 alignment = 2
 editable = false
 
-[node name="VSeparator" type="VSeparator" parent="scroll/content"]
+[node name="v_sep" type="VSeparator" parent="scroll/content"]
 layout_mode = 2
 
 [node name="visualizer" type="VBoxContainer" parent="scroll/content"]
