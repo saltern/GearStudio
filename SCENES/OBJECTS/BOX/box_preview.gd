@@ -1,6 +1,5 @@
 class_name BoxPreview extends Control
 
-signal box_selected
 signal register_changes
 
 const LINE_THICKNESS: int = 2
@@ -62,6 +61,9 @@ func _draw() -> void:
 
 # Clicked on box directly
 func _gui_input(event: InputEvent) -> void:
+	if not SharedData.box_edits_allowed:
+		return
+	
 	if event is InputEventMouseButton:
 		clicked(event)
 	
@@ -116,11 +118,12 @@ func clicked(event: InputEventMouseButton) -> void:
 				# Just selected
 				if is_selected:
 					mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-					box_selected.emit(box_index)
+					SharedData.select_box(box_index)
 				
 				# Just deselected
 				else:
 					mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
+					SharedData.deselect_boxes()
 			
 			# Update resizer visibility
 			for resizer in resizers:

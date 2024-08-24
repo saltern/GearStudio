@@ -17,6 +17,6 @@ func _gui_input(event) -> void:
 	
 	else:
 		if tentative:
-			background_clicked.emit()
+			SharedData.deselect_boxes()
 			
 		tentative = false

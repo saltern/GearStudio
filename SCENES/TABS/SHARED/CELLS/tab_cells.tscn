@@ -352,6 +352,3 @@ offset_left = -20.0
 offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
-
-[connection signal="empty_clicked" from="scroll/content/data/boxes/editable/list/items" to="." method="deselect_box"]
-[connection signal="item_clicked" from="scroll/content/data/boxes/editable/list/items" to="." method="select_box"]

@@ -21,42 +21,35 @@ extends MarginContainer
 @export var sprite_node: Sprite2D
 @export var box_draw: Control
 
-var data: CharacterData
-
 var palette_shader: ShaderMaterial
 
-var this_cell: Cell
-var this_box: BoxInfo
-var this_box_index: int
 var block_edits: bool = false
 
 
-func _ready() -> void:
-	box_list.data = data
-	box_draw.data = data
-	
-	preview_background.background_clicked.connect(deselect_box)
+func _ready() -> void:	
+	SharedData.selected_box.connect(select_box)
+	SharedData.deselected_boxes.connect(deselect_boxes)
 	
 	#region Sprite Info
-	sprite_index.max_value = data.sprites.size() - 1
+	sprite_index.max_value = SharedData.data.sprites.size() - 1
 	sprite_index.value_changed.connect(cell_change_sprite_index)
 	sprite_offset_x.value_changed.connect(cell_change_sprite_offset_x)
 	sprite_offset_y.value_changed.connect(cell_change_sprite_offset_y)
 	#endregion
 	
 	#region Cells
-	if data.cells.size() > 0:
+	if SharedData.data.cells.size() > 0:
 		load_cell(0)
 	
-	cell_index.max_value = data.cells.size() - 1
+	cell_index.max_value = SharedData.data.cells.size() - 1
 	cell_index.value_changed.connect(load_cell)
 	#endregion
 	
 	#region Palettes
 	palette_shader = sprite_node.material
-	if data.palettes.size() > 0:
+	if SharedData.data.palettes.size() > 0:
 		palette_shader.set_shader_parameter(
-				"palette", data.palettes[0].palette)
+				"palette", SharedData.data.palettes[0].palette)
 	#endregion
 	
 	#region Boxes
@@ -69,11 +62,10 @@ func _ready() -> void:
 
 
 func load_cell(index: int = 0) -> void:
-	data.cell_index = index
-	this_cell = data.cells[index]
+	var cell: Cell = SharedData.get_cell(index)
 	
-	if this_cell.sprite_info.index < data.sprites.size():
-		load_cell_sprite(this_cell.sprite_info.index)
+	if cell.sprite_info.index < SharedData.data.sprites.size():
+		load_cell_sprite(cell.sprite_info.index)
 	else:
 		sprite_node.texture = null
 	
@@ -82,7 +74,7 @@ func load_cell(index: int = 0) -> void:
 	box_list.update()
 	for node in get_tree().get_nodes_in_group("box_editors"):
 		node.set_value_no_signal(0)
-	deselect_box()
+	deselect_boxes()
 	
 	box_draw.load_boxes()
 	
@@ -92,30 +84,30 @@ func load_cell(index: int = 0) -> void:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 
-	sprite_index.set_value_no_signal(data.cells[index].sprite_info.index)
-	sprite_offset_x.set_value_no_signal(data.cells[index].sprite_info.position.x)
-	sprite_offset_y.set_value_no_signal(data.cells[index].sprite_info.position.y)
+	sprite_index.set_value_no_signal(cell.sprite_info.index)
+	sprite_offset_x.set_value_no_signal(cell.sprite_info.position.x)
+	sprite_offset_y.set_value_no_signal(cell.sprite_info.position.y)
 
 
 #region Sprite Info
 func load_cell_sprite(index: int = 0) -> void:
-	sprite_node.texture = data.sprites[index].texture
+	sprite_node.texture = SharedData.data.sprites[index].texture
 
 
 func load_cell_sprite_offset() -> void:
-	sprite_node.offset = this_cell.sprite_info.position
+	sprite_node.offset = SharedData.this_cell.sprite_info.position
 
 
 func cell_change_sprite_index(new_value: int = 0) -> void:		
-	this_cell.sprite_info.index = new_value
-	load_cell_sprite(this_cell.sprite_info.index)
+	SharedData.this_cell.sprite_info.index = new_value
+	load_cell_sprite(SharedData.this_cell.sprite_info.index)
 
 
 func cell_change_sprite_offset_x(new_value: int = 0) -> void:
 	if block_edits:
 		return
 		
-	this_cell.sprite_info.position.x = new_value
+	SharedData.this_cell.sprite_info.position.x = new_value
 	load_cell_sprite_offset()
 
 
@@ -123,34 +115,32 @@ func cell_change_sprite_offset_y(new_value: int = 0) -> void:
 	if block_edits:
 		return
 		
-	this_cell.sprite_info.position.y = new_value
+	SharedData.this_cell.sprite_info.position.y = new_value
 	load_cell_sprite_offset()
 #endregion
 
 
 #region Boxes
-func select_box(index: int, at_position := Vector2.ZERO, mouse_button_index: int = 0) -> void:
-	if mouse_button_index != MOUSE_BUTTON_LEFT:
-		return
-	
-	if this_cell.boxes[index] == this_box:
-		deselect_box(Vector2.ZERO, 0)
+func select_box(index: int) -> void:
+	if SharedData.this_cell.boxes[index] == SharedData.this_box:
+		deselect_boxes()
 		box_draw.get_child(index).external_select(false)
 		return
 	
-	deselect_box()
+	deselect_boxes()
 	box_draw.get_child(index).external_select(true)
-	this_box = this_cell.boxes[index]
-	this_box_index = index
+	SharedData.this_box = SharedData.this_cell.boxes[index]
+	SharedData.box_index = index
 	
-	await get_tree().physics_frame
-	await get_tree().physics_frame
+	# Apparently not necessary here?
+	#await get_tree().physics_frame
+	#await get_tree().physics_frame
 	
-	box_type.set_value_no_signal(this_box.type)
-	box_offset_x.set_value_no_signal(this_box.rect.position.x)
-	box_offset_y.set_value_no_signal(this_box.rect.position.y)
-	box_width.set_value_no_signal(this_box.rect.size.x)
-	box_height.set_value_no_signal(this_box.rect.size.y)
+	box_type.set_value_no_signal(SharedData.this_box.type)
+	box_offset_x.set_value_no_signal(SharedData.this_box.rect.position.x)
+	box_offset_y.set_value_no_signal(SharedData.this_box.rect.position.y)
+	box_width.set_value_no_signal(SharedData.this_box.rect.size.x)
+	box_height.set_value_no_signal(SharedData.this_box.rect.size.y)
 	
 	if not box_allow_edits.button_pressed:
 		return
@@ -159,39 +149,39 @@ func select_box(index: int, at_position := Vector2.ZERO, mouse_button_index: int
 		node.editable = true
 
 
-func deselect_box(_pos: Vector2 = Vector2.ZERO, _mouse_button: int = 0) -> void:
-	this_box = BoxInfo.new()
+func deselect_boxes() -> void:
+	SharedData.this_box = BoxInfo.new()
 	
 	for node in get_tree().get_nodes_in_group("box_editors"):
 		node.set_value_no_signal(0)
 	
-	box_list.deselect_all()
+	#box_list.deselect_all()
 	
 	for box in box_draw.get_child_count():
 		box_draw.get_child(box).external_select(false)
 
 
 func cell_change_box_type(new_value: int = 0) -> void:
-	this_box.type = new_value
-	box_draw.box_update(this_box_index)
+	SharedData.this_box.type = new_value
+	box_draw.box_update(SharedData.box_index)
 
 
 func cell_change_box_offset_x(new_value: int = 0) -> void:
-	this_box.rect.position.x = new_value
-	box_draw.box_update(this_box_index)
+	SharedData.this_box.rect.position.x = new_value
+	box_draw.box_update(SharedData.box_index)
 
 
 func cell_change_box_offset_y(new_value: int = 0) -> void:
-	this_box.rect.position.y = new_value
-	box_draw.box_update(this_box_index)
+	SharedData.this_box.rect.position.y = new_value
+	box_draw.box_update(SharedData.box_index)
 
 
 func cell_change_box_width(new_value: int = 0) -> void:
-	this_box.rect.size.x = new_value
-	box_draw.box_update(this_box_index)
+	SharedData.this_box.rect.size.x = new_value
+	box_draw.box_update(SharedData.box_index)
 
 
 func cell_change_box_height(new_value: int = 0) -> void:
-	this_box.rect.size.y = new_value
-	box_draw.box_update(this_box_index)
+	SharedData.this_box.rect.size.y = new_value
+	box_draw.box_update(SharedData.box_index)
 #endregion

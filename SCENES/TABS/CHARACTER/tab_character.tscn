@@ -19,15 +19,3 @@ metadata/_tab_index = 0
 [node name="objects" type="TabContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="objno0" type="TabContainer" parent="."]
-visible = false
-layout_mode = 2
-
-[node name="objno1" type="TabContainer" parent="."]
-visible = false
-layout_mode = 2
-
-[node name="palettes" type="TabContainer" parent="."]
-visible = false
-layout_mode = 2

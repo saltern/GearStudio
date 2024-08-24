@@ -11,5 +11,10 @@ func _ready() -> void:
 func load_character(path: String) -> void:
 	var new_character: Control = character_scene.instantiate()
 	new_character.load_from_path(path)
-	new_character.name = path.split("\\")[-1]
+	
+	var new_name: String = "%s - %s" % [
+		get_child_count(),
+		path.split("\\")[-1]]
+	
+	new_character.name = new_name
 	add_child(new_character)
