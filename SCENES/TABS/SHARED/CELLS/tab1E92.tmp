@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=12 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.gd" id="1_c4xwt"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_draw.gd" id="2_5521f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://palette.gdshader" id="2_q0fc3"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_list.gd" id="3_f1ar8"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_sw61b"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_allow_edits.gd" id="3_vstu0"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_background.gd" id="6_yy20r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
@@ -21,12 +22,11 @@ bg_color = Color(0.25098, 0.313726, 0.156863, 1)
 draw_center = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nyu58"]
-resource_local_to_scene = true
 shader = ExtResource("2_q0fc3")
 shader_parameter/highlight_index = -1
 shader_parameter/palette = null
 
-[node name="cells" type="MarginContainer" node_paths=PackedStringArray("cell_index", "preview_background", "sprite_index", "sprite_offset_x", "sprite_offset_y", "box_allow_edits", "box_display_regions", "box_list", "box_type", "box_offset_x", "box_offset_y", "box_width", "box_height", "sprite_node", "box_draw")]
+[node name="cells" type="MarginContainer" node_paths=PackedStringArray("cell_index", "preview_background", "sprite_index", "sprite_offset_x", "sprite_offset_y", "box_allow_edits", "box_list", "box_type", "box_offset_x", "box_offset_y", "box_width", "box_height", "sprite_node", "box_draw")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -40,7 +40,6 @@ sprite_index = NodePath("scroll/content/data/sprite_info/index/value_index")
 sprite_offset_x = NodePath("scroll/content/data/sprite_info/offset_x/value_x")
 sprite_offset_y = NodePath("scroll/content/data/sprite_info/offset_y/value_y")
 box_allow_edits = NodePath("scroll/content/data/boxes/editable/allow_edits/check")
-box_display_regions = NodePath("scroll/content/data/boxes/editable/regions/check")
 box_list = NodePath("scroll/content/data/boxes/editable/list/items")
 box_type = NodePath("scroll/content/data/boxes/editable/type/value")
 box_offset_x = NodePath("scroll/content/data/boxes/editable/offset_x/value")
@@ -179,17 +178,6 @@ editable_parent = NodePath("../../editable")
 [node name="editable" type="VBoxContainer" parent="scroll/content/data/boxes"]
 layout_mode = 2
 
-[node name="regions" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
-layout_mode = 2
-
-[node name="title" type="Label" parent="scroll/content/data/boxes/editable/regions"]
-layout_mode = 2
-text = "Display Sprite Regions"
-
-[node name="check" type="CheckButton" parent="scroll/content/data/boxes/editable/regions"]
-layout_mode = 2
-size_flags_horizontal = 10
-
 [node name="allow_edits" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
 
@@ -200,6 +188,7 @@ text = "Allow Editing"
 [node name="check" type="CheckButton" parent="scroll/content/data/boxes/editable/allow_edits"]
 layout_mode = 2
 size_flags_horizontal = 10
+script = ExtResource("3_vstu0")
 
 [node name="list" type="ScrollContainer" parent="scroll/content/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 130)

@@ -6,6 +6,7 @@ extends TabContainer
 
 func _ready() -> void:
 	load_dialog.dir_selected.connect(load_character)
+	tab_changed.connect(on_tab_changed)
 
 
 func load_character(path: String) -> void:
@@ -18,3 +19,7 @@ func load_character(path: String) -> void:
 	
 	new_character.name = new_name
 	add_child(new_character)
+
+
+func on_tab_changed(new_tab: int) -> void:
+	SessionData.load_tab(new_tab)

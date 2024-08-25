@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0utvdt6m12v6"]
 
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PLAYER/tab_sprites.gd" id="1_w8w61"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_sprites.gd" id="1_w8w61"]
 [ext_resource type="Shader" path="res://palette.gdshader" id="2_01hcc"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_h6j3j"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PLAYER/SPRITES/sprite_bounds.gd" id="4_1jvt1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_bounds.gd" id="4_1jvt1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -14,6 +14,7 @@ border_width_right = 1
 border_width_bottom = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdkbj"]
+resource_local_to_scene = true
 shader = ExtResource("2_01hcc")
 shader_parameter/highlight_index = -1
 shader_parameter/palette = null
@@ -85,7 +86,7 @@ text = "Palette #"
 [node name="value" type="SpinBox" parent="ScrollContainer/content/data/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 0.0
+max_value = 21.0
 alignment = 2
 
 [node name="HSeparator" type="HSeparator" parent="ScrollContainer/content/data"]

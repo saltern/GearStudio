@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqh1wnv1ogdi4"]
 
-[ext_resource type="PackedScene" uid="uid://cndn6lw5p0fsa" path="res://SCENES/TABS/CHARACTER/PLAYER/tab_player.tscn" id="1_f2bhy"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/tab_character.gd" id="1_yt0gk"]
+[ext_resource type="PackedScene" uid="uid://cndn6lw5p0fsa" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_object.tscn" id="2_si2yr"]
 [ext_resource type="PackedScene" uid="uid://d0on1hyt2xq0e" path="res://SCENES/TABS/CHARACTER/tab_palettes.tscn" id="3_w0mt7"]
 
 [node name="char" type="VBoxContainer" node_paths=PackedStringArray("tab_container")]
@@ -11,8 +11,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yt0gk")
-ObjTabPlayer = ExtResource("1_f2bhy")
-ObjTabPalettes = ExtResource("3_w0mt7")
+TabObject = ExtResource("2_si2yr")
+TabPalettes = ExtResource("3_w0mt7")
 tab_container = NodePath("objects")
 metadata/_tab_index = 0
 

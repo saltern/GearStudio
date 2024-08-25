@@ -16,21 +16,17 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ojqp5"]
-resource_local_to_scene = true
 shader = ExtResource("6_jqrsl")
 shader_parameter/highlight_index = -1
 shader_parameter/palette = PackedInt32Array()
 
-[node name="palettes" type="MarginContainer" node_paths=PackedStringArray("palette_number", "color_grid", "preview_sprite")]
+[node name="palettes" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_v7vdc")
-palette_number = NodePath("ScrollContainer/content/data/palette/value")
-color_grid = NodePath("ScrollContainer/content/data/editors/color_grid/background/palette")
-preview_sprite = NodePath("ScrollContainer/content/data/editors/preview/preview/sprite_center/sprite")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

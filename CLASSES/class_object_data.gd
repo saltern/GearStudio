@@ -1,19 +1,7 @@
-class_name CharacterData extends Resource
+class_name ObjectData extends Resource
 
-var palettes: Array[BinPalette] = []
 var sprites: Array[BinSprite] = []
 var cells: Array[Cell] = []
-
-
-func load_palettes_from_path(path: String) -> bool:
-	if DirAccess.open(path) == null:
-		return false
-	
-	# Load palettes
-	for file in FileSort.get_sorted_files(path, "bin"):
-		palettes.append(BinPalette.from_file(file))
-	
-	return true
 
 
 func load_sprites_from_path(path: String) -> bool:
@@ -38,4 +26,4 @@ func load_cells_from_path(path: String) -> bool:
 
 
 func get_boxes() -> Array[BoxInfo]:
-	return cells[SharedData.cell_index].boxes
+	return cells[SessionData.get_cell_index()].boxes

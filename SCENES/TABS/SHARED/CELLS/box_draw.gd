@@ -1,39 +1,37 @@
 extends Control
 
-@export var box_list: ItemList
-@export var box_offset_x: SpinBox
-@export var box_offset_y: SpinBox
-@export var box_width: SpinBox
-@export var box_height: SpinBox
+signal box_changed
+
+var obj_state: ObjectEditState
 
 
-func load_boxes() -> void:
+func load_boxes(boxes: Array[BoxInfo]) -> void:
 	for box in get_children():
 		box.queue_free()
 	
-	for box in SharedData.data.cells[SharedData.cell_index].boxes.size():
-		var this_box: BoxInfo = \
-				SharedData.data.cells[SharedData.cell_index].boxes[box]
-		
+	for box in boxes.size():
+		var this_box: BoxInfo = boxes[box]
 		var new_box := BoxPreview.new()
-		new_box.box_type = this_box.type
+		
+		new_box.obj_state = obj_state
+		
+		if this_box.type & 0xFFFF == 3:
+			new_box.box_type = 3
+		
+		else:
+			new_box.box_type = this_box.type
+			
 		new_box.box_index = box
 		new_box.position = this_box.rect.position
 		new_box.size = this_box.rect.size
-		new_box.register_changes.connect(box_changed)
+		new_box.register_changes.connect(on_box_changed)
 		
 		add_child(new_box)
 
 
-func box_changed(index: int, rect: Rect2i) -> void:
-	SharedData.data.cells[SharedData.cell_index].boxes[index].rect = rect
-	
-	box_offset_x.set_value_no_signal(rect.position.x)
-	box_offset_y.set_value_no_signal(rect.position.y)
-	box_width.set_value_no_signal(rect.size.x)
-	box_height.set_value_no_signal(rect.size.y)
+func on_box_changed(index: int, rect: Rect2i) -> void:
+	box_changed.emit(index, rect)
 
 
-func box_update(box_index: int) -> void:
-	get_child(box_index).external_update(
-			SharedData.data.cells[SharedData.cell_index].boxes[box_index])
+func box_update(box_index: int, box_info: BoxInfo) -> void:
+	get_child(box_index).external_update(box_info)

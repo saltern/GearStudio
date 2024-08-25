@@ -15,6 +15,8 @@ var is_selected: bool = false
 var being_dragged: bool = false
 var resizers: Array[BoxResizer] = []
 
+var obj_state: ObjectEditState
+
 
 func _ready() -> void:
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
@@ -35,6 +37,9 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
+	if !obj_state.box_display_regions && box_type == 3:
+		return
+	
 	var color: Color = Color.WHITE
 	
 	if box_type < box_colors.size():
@@ -62,7 +67,7 @@ func _draw() -> void:
 
 # Clicked on box directly
 func _gui_input(event: InputEvent) -> void:
-	if not SharedData.box_edits_allowed:
+	if not obj_state.box_edits_allowed:
 		return
 	
 	if event is InputEventMouseButton:
@@ -117,12 +122,12 @@ func clicked(event: InputEventMouseButton) -> void:
 					# Just selected
 					if is_selected:
 						mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-						SharedData.select_box(box_index)
+						obj_state.select_box(box_index)
 					
 					# Just deselected
 					else:
 						mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
-						SharedData.deselect_boxes()
+						obj_state.deselect_boxes()
 				
 				tentative_select = false
 				

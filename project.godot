@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SharedData="*res://AUTOLOADS/shared_data.gd"
+SessionData="*res://AUTOLOADS/session_data.gd"
 
 [display]
 
