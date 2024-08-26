@@ -209,6 +209,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_reselect = true
 allow_search = false
 script = ExtResource("3_f1ar8")
 

@@ -47,6 +47,7 @@ func _ready() -> void:
 	#endregion
 	
 	#region Palettes
+	pal_state.changed_palette.connect(pal_state_palette_changed)
 	palette_shader = sprite_node.material
 	#endregion
 	
@@ -169,12 +170,18 @@ func load_cell_sprite_pieces(
 	sprite_node.texture = new_texture
 
 
+func pal_state_palette_changed() -> void:
+	palette_shader.set_shader_parameter(
+		"palette", get_sprite_palette(obj_state.this_cell.sprite_info.index)
+	)
+
+
 func get_sprite_palette(index: int) -> PackedByteArray:
 	var sprite: BinSprite = obj_state.data.sprites[index]
 	
 	# No embedded pal
 	if sprite.palette.is_empty():
-		return pal_state.palettes[0].palette
+		return pal_state.this_palette.palette
 	
 	# Embedded pal
 	var palette: PackedByteArray = sprite.palette
