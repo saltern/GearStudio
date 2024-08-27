@@ -15,12 +15,9 @@ var is_selected: bool = false
 var being_dragged: bool = false
 var resizers: Array[BoxResizer] = []
 
-var obj_state: ObjectEditState
-
 
 func _ready() -> void:
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
-	#mouse_filter = MOUSE_FILTER_STOP
 	
 	for i in 8:
 		var resizer := BoxResizer.new()
@@ -33,11 +30,19 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	if !SessionData.box_get_display_regions() && (
+		box_type == 3 || box_type == 6
+	):
+	#if !obj_state.box_display_regions && (box_type == 3 || box_type == 6):
+		hide()
+	else:
+		show()
+	
 	queue_redraw()
 
 
 func _draw() -> void:
-	if !obj_state.box_display_regions && box_type == 3:
+	if !is_visible_in_tree():
 		return
 	
 	var color: Color = Color.WHITE
@@ -67,7 +72,11 @@ func _draw() -> void:
 
 # Clicked on box directly
 func _gui_input(event: InputEvent) -> void:
-	if not obj_state.box_edits_allowed:
+	if !is_visible_in_tree():
+		return
+	
+	#if not obj_state.box_edits_allowed:
+	if !SessionData.box_get_edits_allowed():
 		return
 	
 	if event is InputEventMouseButton:
@@ -88,6 +97,12 @@ func external_update(box: BoxInfo) -> void:
 
 
 func external_select(select: bool) -> void:
+	if !is_visible_in_tree():
+		return
+	
+	if select:
+		print("External select!")
+	
 	is_selected = select
 	for resizer in resizers:
 		resizer.visible = select
@@ -122,12 +137,12 @@ func clicked(event: InputEventMouseButton) -> void:
 					# Just selected
 					if is_selected:
 						mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-						obj_state.select_box(box_index)
+						SessionData.box_select(box_index)
 					
 					# Just deselected
 					else:
 						mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
-						obj_state.deselect_boxes()
+						SessionData.box_deselect()
 				
 				tentative_select = false
 				

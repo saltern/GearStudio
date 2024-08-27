@@ -13,10 +13,10 @@ var palette_shader: ShaderMaterial
 
 var embedded_pal: bool = false
 
-@onready var pal_state: PaletteEditState = SessionData.get_palette_state(
+@onready var pal_state: PaletteEditState = SessionData.palette_state_get(
 	get_parent().get_parent().get_index())
 
-@onready var obj_state: ObjectEditState = SessionData.get_object_state(
+@onready var obj_state: ObjectEditState = SessionData.object_state_get(
 	get_parent().name)
 
 
@@ -33,7 +33,8 @@ func _ready() -> void:
 	
 
 func update_sprite(new_value: int = 0) -> void:	
-	var new_sprite: BinSprite = obj_state.get_sprite(new_value)
+	#var new_sprite: BinSprite = obj_state.get_sprite(new_value)
+	var new_sprite: BinSprite = SessionData.sprite_get(new_value)
 	
 	var tex_size: Vector2i = new_sprite.texture.get_size()
 	
@@ -45,6 +46,7 @@ func update_sprite(new_value: int = 0) -> void:
 		
 		var opaque_pal: PackedByteArray = new_sprite.palette
 		
+		@warning_ignore("integer_division")
 		for color_index in range(1, opaque_pal.size() / 4):
 			var new_alpha: int = opaque_pal[4 * color_index + 3]
 			new_alpha = min(0xFF, new_alpha * 2)
@@ -55,6 +57,7 @@ func update_sprite(new_value: int = 0) -> void:
 	else:
 		embedded_pal = false
 		palette_index.editable = true
+		@warning_ignore("narrowing_conversion")
 		update_palette(palette_index.value)
 	
 	sprite_bounds.bounds = Rect2i(Vector2.ZERO, tex_size)

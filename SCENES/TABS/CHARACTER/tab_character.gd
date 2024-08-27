@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func load_from_path(path: String) -> void:
-	var tabs: PackedStringArray = SessionData.new_tab(path)
+	var tabs: PackedStringArray = SessionData.tab_new(path)
 	
 	for tab in tabs:
 		if tab == "palettes":
@@ -26,4 +26,4 @@ func load_from_path(path: String) -> void:
 func on_tab_changed(new_tab: int) -> void:
 	if tab_container.get_tab_title(new_tab) != "palettes":
 		var tab_name: String = tab_container.get_tab_title(new_tab)
-		SessionData.load_object_state(tab_name)
+		SessionData.object_state_load(tab_name)

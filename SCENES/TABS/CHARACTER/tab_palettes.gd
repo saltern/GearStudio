@@ -9,10 +9,10 @@ var obj_state: ObjectEditState
 
 
 func _enter_tree() -> void:
-	pal_state = SessionData.get_palette_state(get_parent().get_index())
+	pal_state = SessionData.palette_state_get(get_parent().get_index())
 	pal_state.load_palette(0)
 	
-	obj_state = SessionData.get_object_state("player")
+	obj_state = SessionData.object_state_get("player")
 	preview_sprite.obj_state = obj_state
 	
 	palette_number.value_changed.connect(change_palette)

@@ -31,11 +31,13 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	# Hovered color
 	if index_hovered > -1:
+		@warning_ignore("integer_division")
 		draw_rect(Rect2(
 			17 * (index_hovered % 16), 17 * (index_hovered / 16), 17, 17),
 			Color.CYAN, false, 1)
 	
 	# Active color
+	@warning_ignore("integer_division")
 	draw_rect(Rect2(
 		17 * (index_active % 16), 17 * (index_active / 16), 17, 17),
 		Color.RED, false, 1)

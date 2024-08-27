@@ -9,6 +9,11 @@ func _ready() -> void:
 	tab_changed.connect(on_tab_changed)
 
 
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("ui_undo"):
+		SessionData.undo()
+
+
 func load_character(path: String) -> void:
 	var new_character: Control = character_scene.instantiate()
 	new_character.load_from_path(path)
@@ -22,4 +27,4 @@ func load_character(path: String) -> void:
 
 
 func on_tab_changed(new_tab: int) -> void:
-	SessionData.load_tab(new_tab)
+	SessionData.tab_load(new_tab)
