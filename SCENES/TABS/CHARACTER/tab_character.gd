@@ -13,6 +13,9 @@ func _ready() -> void:
 func load_from_path(path: String) -> void:
 	var tabs: PackedStringArray = SessionData.tab_new(path)
 	
+	if tabs.is_empty():
+		return
+	
 	for tab in tabs:
 		if tab == "palettes":
 			$objects.add_child(TabPalettes.instantiate())

@@ -15,6 +15,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func load_character(path: String) -> void:
+	Status.set_status("Loading character from %s..." % path)
+	
 	var new_character: Control = character_scene.instantiate()
 	new_character.load_from_path(path)
 	
@@ -24,6 +26,8 @@ func load_character(path: String) -> void:
 	
 	new_character.name = new_name
 	add_child(new_character)
+	
+	Status.set_status("Loaded from path: [%s]." % path)
 
 
 func on_tab_changed(new_tab: int) -> void:

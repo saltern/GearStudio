@@ -1,5 +1,6 @@
 class_name BoxPreview extends Control
 
+signal box_clicked
 signal register_changes
 
 const LINE_THICKNESS: int = 2
@@ -13,6 +14,7 @@ var box_type: int = 0
 var tentative_select: bool = false
 var is_selected: bool = false
 var being_dragged: bool = false
+var have_dragged: bool = false
 var resizers: Array[BoxResizer] = []
 
 
@@ -30,10 +32,8 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if !SessionData.box_get_display_regions() && (
-		box_type == 3 || box_type == 6
-	):
-	#if !obj_state.box_display_regions && (box_type == 3 || box_type == 6):
+	if !SessionData.box_get_display_regions() && \
+	(box_type == 3 || box_type == 6):
 		hide()
 	else:
 		show()
@@ -70,12 +70,16 @@ func _draw() -> void:
 		Rect2(Vector2(size.x - LINE_THICKNESS, 0), Vector2(LINE_THICKNESS, size.y)), color)
 
 
+func resizer_visibility() -> void:
+	for resizer in resizers:
+		resizer.visible = is_selected
+
+
 # Clicked on box directly
 func _gui_input(event: InputEvent) -> void:
 	if !is_visible_in_tree():
 		return
 	
-	#if not obj_state.box_edits_allowed:
 	if !SessionData.box_get_edits_allowed():
 		return
 	
@@ -87,25 +91,35 @@ func _gui_input(event: InputEvent) -> void:
 			tentative_select = false
 		
 		if is_selected && being_dragged:
+			have_dragged = true
 			position += event.relative
 
 
-func external_update(box: BoxInfo) -> void:
+func external_update(index: int) -> void:
+	if index != box_index:
+		return
+	
+	var box: BoxInfo = SessionData.box_get(box_index)
+	
 	box_type = box.type
 	position = box.rect.position
 	size = box.rect.size
 
 
-func external_select(select: bool) -> void:
-	if !is_visible_in_tree():
+func external_make_active(index: int) -> void:
+	if index != box_index:
+		external_deselect()
 		return
 	
-	if select:
-		print("External select!")
-	
-	is_selected = select
-	for resizer in resizers:
-		resizer.visible = select
+	is_selected = true
+	resizer_visibility()
+	mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
+
+
+func external_deselect() -> void:
+	is_selected = false
+	resizer_visibility()
+	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
 
 
 func pulsate_color(color: Color) -> Color:
@@ -116,39 +130,33 @@ func pulsate_color(color: Color) -> Color:
 
 
 func clicked(event: InputEventMouseButton) -> void:
-	match event.button_index:
-		MOUSE_BUTTON_LEFT:
-			# Click
-			if event.pressed:
-				tentative_select = true
-				being_dragged = true
+	if not event.button_index == MOUSE_BUTTON_LEFT:
+		return
+	
+	# Click
+	if event.pressed:
+		tentative_select = true
+		being_dragged = true
+	
+	# Release
+	else:
+		# Save coords box was dragged to
+		if being_dragged:
+			if have_dragged:
+				broadcast_changes()
 			
-			# Release
+			being_dragged = false
+			have_dragged = false
+		
+		# Select/deselect
+		if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
+			if is_selected:
+				SessionData.box_deselect_all()
+			
 			else:
-				# Save coords box was dragged to
-				if being_dragged:
-					broadcast_changes()
-					being_dragged = false
-				
-				# Select/deselect
-				if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
-					is_selected = !is_selected
-				
-					# Just selected
-					if is_selected:
-						mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-						SessionData.box_select(box_index)
-					
-					# Just deselected
-					else:
-						mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
-						SessionData.box_deselect()
-				
-				tentative_select = false
-				
-			# Update resizer visibility
-			for resizer in resizers:
-				resizer.visible = is_selected
+				SessionData.box_set_active(box_index)
+		
+		tentative_select = false
 
 
 func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:

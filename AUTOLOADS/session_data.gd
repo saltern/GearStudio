@@ -1,9 +1,6 @@
 # SessionData autoload
 extends Node
 
-#signal box_updated
-#signal box_display_regions_changed
-
 var tab_index: int = 0
 var object_name: String
 var tabs: Dictionary = {}
@@ -11,6 +8,8 @@ var tabs: Dictionary = {}
 var this_tab: Dictionary = {}
 var this_object_state: ObjectEditState
 var this_palette_state: PaletteEditState
+
+var serialize_ignore: Array[String] = ["path", "current_object", "palettes"]
 
 # sessions = {
 #		0:	{
@@ -22,12 +21,62 @@ var this_palette_state: PaletteEditState
 #		},
 
 
+#region Undo/redo
 func undo() -> void:
-	this_object_state.action_undo()
+	if not this_object_state.undo.has_undo():
+		Status.set_status("Nothing to undo.")
+		return
+		
+	var action_name: String = this_object_state.undo.get_current_action_name()
+	Status.set_status("Undo: %s" % action_name)
+	
+	this_object_state.undo.undo()
 
 
 func redo() -> void:
-	this_object_state.action_redo()
+	if not this_object_state.undo.has_redo():
+		Status.set_status("Nothing to redo.")
+		return
+		
+	this_object_state.undo.redo()
+	
+	var action_name: String = this_object_state.undo.get_current_action_name()
+	Status.set_status("Redo: %s" % action_name)
+
+
+func undo_pal() -> void:
+	Status.set_status("Undo: %s" % 
+			this_palette_state.undo.get_current_action_name())
+			
+	this_palette_state.undo.undo()
+
+
+func redo_pal() -> void:
+	Status.set_status("Redo: %s" % 
+			this_palette_state.undo.get_current_action_name())
+			
+	this_palette_state.undo.redo()
+#endregion
+
+
+func save() -> void:
+	if this_tab.is_empty():
+		Status.set_status("Nothing to save.")
+		return
+	
+	if not this_tab.has("path"):
+		Status.set_status("Could not save! Cause: malformed dictionary")
+		return
+	
+	var save_path: String = this_tab["path"]
+	
+	for object in this_tab:
+		if object in serialize_ignore:
+			continue
+		
+		this_tab[object].serialize_and_save(save_path + "/%s" % object)
+		
+	#print(this_tab)
 
 
 func tab_new(path: String) -> PackedStringArray:
@@ -36,7 +85,8 @@ func tab_new(path: String) -> PackedStringArray:
 	var dir: DirAccess = DirAccess.open(path)
 	
 	if DirAccess.get_open_error() != OK:
-		print("Could not load character!")
+		Status.set_status(
+				"Could not load character! Reason: Could not open directory.")
 		return sub_tab_list
 	
 	var new_session: Dictionary = {}
@@ -68,6 +118,7 @@ func tab_new(path: String) -> PackedStringArray:
 	
 	tabs[tabs.size()] = new_session
 	this_tab = tabs[tabs.size() - 1]
+	this_tab["path"] = path
 	object_state_load(dir_list[0])
 	
 	return sub_tab_list
@@ -93,6 +144,7 @@ func palette_state_get(from_tab: int) -> PaletteEditState:
 
 
 # Redirects
+#region Palettes
 func palette_load(number: int = 0) -> void:
 	this_object_state.load_palette(number)
 
@@ -107,6 +159,7 @@ func palette_get_color(index: int = 0) -> Color:
 
 func palette_set_color(index: int, color: Color) -> void:
 	this_object_state.set_color(index, color)
+#endregion
 
 
 #region Sprites
@@ -123,11 +176,11 @@ func sprite_set_index(new_index: int) -> void:
 
 
 func sprite_set_position_x(new_position: int) -> void:
-	this_object_state.this_cell.sprite_info.position.x = new_position
+	this_object_state.sprite_set_position_x(new_position)
 
 
 func sprite_set_position_y(new_position: int) -> void:
-	this_object_state.this_cell.sprite_info.position.y = new_position
+	this_object_state.sprite_set_position_y(new_position)
 #endregion
 
 
@@ -150,23 +203,19 @@ func cell_get_index() -> int:
 
 
 #region Boxes
-func box_get(index: int = 0) -> BoxInfo:
-	return this_object_state.box_get(index)
+func box_get(index: int) -> BoxInfo:
+	return this_object_state.data.get_boxes()[index]
 
 
 func box_get_this() -> BoxInfo:
 	return this_object_state.this_box
 
 
-func box_get_all() -> Array[BoxInfo]:
-	return this_object_state.box_get_all()
+func box_set_active(index: int) -> void:
+	this_object_state.box_set_active(index)
 
 
-func box_select(index: int = 0) -> void:
-	this_object_state.box_select(index)
-
-
-func box_deselect() -> void:
+func box_deselect_all() -> void:
 	this_object_state.box_deselect()
 
 
@@ -187,29 +236,31 @@ func box_set_display_regions(enabled: bool) -> void:
 
 
 func box_set_type(new_type: int) -> void:
+	Status.set_status("Set box type.")
 	this_object_state.box_set_type(new_type)
 
 
 func box_set_offset_x(new_value: int) -> void:
+	Status.set_status("Set box X offset.")
 	this_object_state.box_set_offset_x(new_value)
 
 
 func box_set_offset_y(new_value: int) -> void:
+	Status.set_status("Set box Y offset.")
 	this_object_state.box_set_offset_y(new_value)
 
 
 func box_set_width(new_value: int) -> void:
+	Status.set_status("Set box width.")
 	this_object_state.box_set_width(new_value)
 
 
 func box_set_height(new_value: int) -> void:
+	Status.set_status("Set box height.")
 	this_object_state.box_set_height(new_value)
 
 
-func box_set_rect(rect: Rect2i) -> void:
-	this_object_state.box_set_rect(rect)
-
-
 func box_set_rect_for(index: int, rect: Rect2i) -> void:
+	Status.set_status("Set box rect.")
 	this_object_state.box_set_rect_for(index, rect)
 #endregion

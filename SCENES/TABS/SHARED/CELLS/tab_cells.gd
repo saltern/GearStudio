@@ -24,8 +24,6 @@ extends MarginContainer
 
 var palette_shader: ShaderMaterial
 
-var block_edits: bool = false
-
 @onready var obj_state: ObjectEditState = SessionData.object_state_get(
 	get_parent().name)
 
@@ -36,26 +34,11 @@ var block_edits: bool = false
 func _ready() -> void:
 	#region Focus bug workaround
 	cell_index.get_line_edit().focus_mode = Control.FOCUS_NONE
-	sprite_index.get_line_edit().focus_mode = Control.FOCUS_NONE
-	sprite_offset_x.get_line_edit().focus_mode = Control.FOCUS_NONE
-	sprite_offset_y.get_line_edit().focus_mode = Control.FOCUS_NONE
-	box_type.get_line_edit().focus_mode = Control.FOCUS_NONE
-	box_offset_x.get_line_edit().focus_mode = Control.FOCUS_NONE
-	box_offset_y.get_line_edit().focus_mode = Control.FOCUS_NONE
-	box_width.get_line_edit().focus_mode = Control.FOCUS_NONE
-	box_height.get_line_edit().focus_mode = Control.FOCUS_NONE
 	#endregion
 	
 	obj_state.cell_updated.connect(cell_load)
 	obj_state.box_selected.connect(box_select)
 	obj_state.boxes_deselected.connect(box_editors_clear)
-	
-	#region Sprite Info	
-	sprite_index.max_value = obj_state.data.sprites.size() - 1
-	sprite_index.value_changed.connect(obj_state.sprite_set_index)
-	sprite_offset_x.value_changed.connect(cell_change_sprite_offset_x)
-	sprite_offset_y.value_changed.connect(cell_change_sprite_offset_y)
-	#endregion
 	
 	#region Palettes
 	pal_state.changed_palette.connect(pal_state_palette_changed)
@@ -72,18 +55,7 @@ func _ready() -> void:
 	
 	#region Boxes
 	box_allow_edits.toggled.connect(SessionData.box_set_editing)
-	box_display_regions.toggled.connect(SessionData.box_set_display_regions)
-	
-	obj_state.box_selected.connect(box_list.external_selection)
-	obj_state.boxes_deselected.connect(box_list.external_clear_selection)
-	obj_state.box_editing_toggled.connect(box_list.check_enable)
-	
-	box_type.value_changed.connect(SessionData.box_set_type)
-	box_offset_x.value_changed.connect(SessionData.box_set_offset_x)
-	box_offset_y.value_changed.connect(SessionData.box_set_offset_y)
-	box_width.value_changed.connect(SessionData.box_set_width)
-	box_height.value_changed.connect(SessionData.box_set_height)
-	
+	box_display_regions.toggled.connect(SessionData.box_set_display_regions)	
 	box_toggle_editing(false)
 	#endregion
 
@@ -111,11 +83,11 @@ func cell_load(index: int = 0) -> void:
 	
 	# Load boxes first as they may contain sheet information
 	box_list.update(cell.boxes)
-	box_list.check_enable(obj_state.box_edits_allowed)
+	
 	for node in get_tree().get_nodes_in_group("box_editors"):
 		node.set_value_no_signal(0)
 	
-	SessionData.box_deselect()
+	SessionData.box_deselect_all()
 	
 	box_draw.load_boxes(cell.boxes)
 	
@@ -146,8 +118,8 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 		if box.type & 0xFFFF != 3 && box.type & 0xFFFF != 6:
 			continue
 		
-		var offset_x: int = 8 * ((box.type >> 16) & 0xFF)
-		var offset_y: int = 8 * ((box.type >> 24) & 0xFF)
+		var offset_x: int = 8 * box.crop_x_offset
+		var offset_y: int = 8 * box.crop_y_offset
 		offset_list.append(Vector2i(offset_x, offset_y))
 		cutout_list.append(box.rect)
 	
@@ -223,51 +195,11 @@ func get_sprite_palette(index: int) -> PackedByteArray:
 
 func load_cell_sprite_offset() -> void:
 	sprite_node.offset = obj_state.sprite_get_position()
-
-
-func cell_change_sprite_index(new_value: int = 0) -> void:
-	SessionData.sprite_set_index(new_value)
-	#obj_state.sprite_set_index(new_value)
-	#obj_state.this_cell.sprite_info.index = new_value
-	#load_cell_sprite(new_value, obj_state.this_cell.boxes)
-
-
-func cell_change_sprite_offset_x(new_value: int = 0) -> void:
-	if block_edits:
-		return
-		
-	#obj_state.this_cell.sprite_info.position.x = new_value
-	SessionData.sprite_set_position_x(new_value)
-	load_cell_sprite_offset()
-
-
-func cell_change_sprite_offset_y(new_value: int = 0) -> void:
-	if block_edits:
-		return
-		
-	#obj_state.this_cell.sprite_info.position.y = new_value
-	SessionData.sprite_set_position_y(new_value)
-	load_cell_sprite_offset()
 #endregion
 
 
 #region Boxes
-func box_select(index: int) -> void:
-	#if obj_state.this_cell.boxes[index] == obj_state.this_box:
-	if SessionData.box_get(index) == obj_state.this_box:
-		#deselect_boxes()
-		SessionData.box_deselect()
-		return
-	
-	box_draw.get_child(index).external_select(true)
-	#obj_state.this_box = obj_state.this_cell.boxes[index]
-	#obj_state.box_index = index
-	SessionData.box_select(index)
-	
-	# Apparently not necessary here?
-	#await get_tree().physics_frame
-	#await get_tree().physics_frame
-	
+func box_select(_index: int) -> void:	
 	box_editors_update(SessionData.box_get_this())
 	
 	if not box_allow_edits.button_pressed:
@@ -280,9 +212,6 @@ func box_select(index: int) -> void:
 func box_editors_clear() -> void:	
 	for node in get_tree().get_nodes_in_group("box_editors"):
 		node.set_value_no_signal(0)
-	
-	for box in box_draw.get_child_count():
-		box_draw.get_child(box).external_select(false)
 
 
 func box_editors_update(box_info: BoxInfo) -> void:
@@ -295,12 +224,10 @@ func box_editors_update(box_info: BoxInfo) -> void:
 
 
 func preview_background_clicked() -> void:
-	#obj_state.deselect_boxes()
-	SessionData.deselect_boxes()
+	SessionData.box_deselect_all()
 
 
 func on_box_changed(index: int, rect: Rect2i) -> void:
-	#obj_state.data.cells[obj_state.cell_index].boxes[index].rect = rect
 	SessionData.box_set_rect_for(index, rect)
 	
 	box_offset_x.set_value_no_signal(rect.position.x)
@@ -313,10 +240,8 @@ func box_toggle_editing(new_value: bool) -> void:
 	for node in get_tree().get_nodes_in_group("box_editors"):
 		node.editable = new_value
 	
-	#obj_state.set_box_editing(new_value)
 	SessionData.box_set_editing(new_value)
 
 
 func box_toggle_regions(new_value: bool) -> void:
-	#obj_state.set_box_regions(new_value)
 	SessionData.box_set_display_regions(new_value)

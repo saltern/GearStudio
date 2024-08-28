@@ -126,6 +126,7 @@ size_flags_vertical = 6
 theme_override_constants/margin = 0
 theme_override_constants/sv_height = 200
 color = Color(0.501407, 0.501406, 0.501406, 1)
+deferred_mode = true
 can_add_swatches = false
 sampler_visible = false
 presets_visible = false

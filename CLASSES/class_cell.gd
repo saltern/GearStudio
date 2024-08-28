@@ -24,7 +24,11 @@ static func from_file(file_path: String) -> Cell:
 			box["x_offset"], box["y_offset"],
 			box["width"], box["height"])
 		
-		new_box.type = box["box_type"]
+		var int_type: int = box["box_type"]
+		
+		new_box.type = int_type & 0xFFFF
+		new_box.crop_x_offset = (int_type >> 16) & 0xFF
+		new_box.crop_y_offset = (int_type >> 24) & 0xFF
 		
 		new_boxes.append(new_box)
 

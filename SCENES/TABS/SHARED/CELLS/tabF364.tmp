@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=14 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.gd" id="1_c4xwt"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_draw.gd" id="2_5521f"]
@@ -10,11 +10,6 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_x.gd" id="3_w74q5"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_y.gd" id="4_lq7mp"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_background.gd" id="6_yy20r"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_type.gd" id="7_yvfy8"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_x.gd" id="8_o3eoa"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_y.gd" id="9_6e5ym"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_width.gd" id="10_p4nda"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_height.gd" id="11_yct21"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -224,6 +219,9 @@ allow_reselect = true
 allow_search = false
 script = ExtResource("3_f1ar8")
 
+[node name="copy_paste" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+layout_mode = 2
+
 [node name="type" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
 
@@ -237,7 +235,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 editable = false
-script = ExtResource("7_yvfy8")
 
 [node name="offset_x" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
@@ -255,7 +252,6 @@ min_value = -32768.0
 max_value = 32767.0
 alignment = 2
 editable = false
-script = ExtResource("8_o3eoa")
 
 [node name="offset_y" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
@@ -272,7 +268,6 @@ min_value = -32768.0
 max_value = 32767.0
 alignment = 2
 editable = false
-script = ExtResource("9_6e5ym")
 
 [node name="width" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
@@ -288,7 +283,6 @@ size_flags_horizontal = 3
 max_value = 65535.0
 alignment = 2
 editable = false
-script = ExtResource("10_p4nda")
 
 [node name="height" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
@@ -304,7 +298,6 @@ size_flags_horizontal = 3
 max_value = 65535.0
 alignment = 2
 editable = false
-script = ExtResource("11_yct21")
 
 [node name="v_sep" type="VSeparator" parent="scroll/content"]
 layout_mode = 2

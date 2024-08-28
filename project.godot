@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 SessionData="*res://AUTOLOADS/session_data.gd"
+Status="*res://AUTOLOADS/status.gd"
+SaveErrors="*res://AUTOLOADS/save_errors.gd"
 
 [display]
 

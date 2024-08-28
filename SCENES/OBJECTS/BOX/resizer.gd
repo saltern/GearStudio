@@ -63,6 +63,10 @@ func _ready() -> void:
 	mouse_default_cursor_shape = mouse_shape[type]
 
 
+func _process(_delta: float) -> void:
+	queue_redraw()
+
+
 func _draw() -> void:
 	draw_rect(Rect2(0, 0, 12, 12), Color.BLACK)
 	draw_rect(Rect2(1, 1, 10, 10), Color.LIGHT_GRAY)

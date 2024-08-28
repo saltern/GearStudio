@@ -38,3 +38,6 @@ func menu_clicked(menu_id: int) -> void:
 	match menu_id:
 		ButtonID.LOAD:
 			load_dialog.show()
+		
+		ButtonID.SAVE:
+			SessionData.save()

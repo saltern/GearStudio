@@ -2,15 +2,8 @@ extends Control
 
 signal box_changed
 
-
-func _ready() -> void:
-	var obj_state = SessionData.object_state_get(get_owner().get_parent().name)
-	
-	obj_state.box_selected.connect(box_select)
-
-
-func box_select(index: int) -> void:
-	get_child(index).external_select(true)
+@onready var obj_state := SessionData.object_state_get(
+	get_owner().get_parent().name)
 
 
 func load_boxes(boxes: Array[BoxInfo]) -> void:
@@ -21,6 +14,9 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 		var this_box: BoxInfo = boxes[box]
 		var new_box := BoxPreview.new()
 		
+		obj_state.box_updated.connect(new_box.external_update)
+		obj_state.box_selected.connect(new_box.external_make_active)
+		obj_state.boxes_deselected.connect(new_box.external_deselect)
 		new_box.box_type = this_box.type & 0xFFFF
 		new_box.box_index = box
 		new_box.position = this_box.rect.position
