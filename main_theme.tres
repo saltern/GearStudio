@@ -151,22 +151,24 @@ content_margin_left = 10.0
 content_margin_top = 2.0
 content_margin_right = 10.0
 content_margin_bottom = 2.0
-bg_color = Color(0.389287, 0.389287, 0.389286, 1)
+bg_color = Color(0.197937, 0.197937, 0.197937, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3l2kb"]
 content_margin_left = 10.0
 content_margin_top = 2.0
 content_margin_right = 10.0
 content_margin_bottom = 2.0
+bg_color = Color(0.154876, 0.154876, 0.154876, 1)
+draw_center = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixoxi"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jlnt"]
 content_margin_left = 10.0
 content_margin_top = 2.0
 content_margin_right = 10.0
 content_margin_bottom = 2.0
-draw_center = false
+bg_color = Color(0.299547, 0.299547, 0.299547, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sw7q3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0bms5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7adf"]
 bg_color = Color(0, 0, 0, 1)
@@ -274,10 +276,9 @@ MarginContainer/constants/margin_top = 10
 MenuBar/colors/font_color = Color(1, 1, 1, 1)
 MenuBar/styles/hover = SubResource("StyleBoxFlat_05qtr")
 MenuBar/styles/normal = SubResource("StyleBoxFlat_3l2kb")
-MenuBar/styles/pressed = SubResource("StyleBoxFlat_ixoxi")
+MenuBar/styles/pressed = SubResource("StyleBoxFlat_3jlnt")
 MenuButton/colors/font_color = Color(1, 1, 1, 1)
-MenuButton/styles/focus = SubResource("StyleBoxEmpty_sw7q3")
-MenuButton/styles/pressed = SubResource("StyleBoxFlat_3l2kb")
+MenuButton/styles/focus = SubResource("StyleBoxEmpty_0bms5")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_r7adf")
 PopupMenu/colors/font_color = Color(1, 1, 1, 1)
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_42feg")

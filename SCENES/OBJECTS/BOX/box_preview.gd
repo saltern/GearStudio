@@ -5,6 +5,8 @@ signal register_changes
 
 const LINE_THICKNESS: int = 2
 
+var box_info: BoxInfo
+
 var box_colors: Array[Color] = [
 	Color.YELLOW, Color.RED, Color.GREEN, Color.CYAN, Color.PURPLE]
 
@@ -13,6 +15,7 @@ var box_type: int = 0
 
 var tentative_select: bool = false
 var is_selected: bool = false
+var being_resized: bool = false
 var being_dragged: bool = false
 var have_dragged: bool = false
 var resizers: Array[BoxResizer] = []
@@ -38,6 +41,10 @@ func _process(_delta: float) -> void:
 	else:
 		show()
 	
+	if !being_dragged && !being_resized:
+		position = box_info.rect.position
+		size = box_info.rect.size
+	
 	queue_redraw()
 
 
@@ -55,19 +62,31 @@ func _draw() -> void:
 	
 	# Upper
 	draw_rect(
-		Rect2(Vector2.ZERO, Vector2(size.x, LINE_THICKNESS)), color)
+		Rect2(
+			Vector2.ZERO,
+			Vector2(size.x, LINE_THICKNESS)),
+		color)
 	
 	# Lower
 	draw_rect(
-		Rect2(Vector2(0, size.y - LINE_THICKNESS), Vector2(size.x, LINE_THICKNESS)), color)
+		Rect2(
+			Vector2(0, size.y - LINE_THICKNESS),
+			Vector2(size.x, LINE_THICKNESS)),
+		color)
 	
 	# Left
 	draw_rect(
-		Rect2(Vector2.ZERO, Vector2(LINE_THICKNESS, size.y)), color)
+		Rect2(
+			Vector2.ZERO,
+			Vector2(LINE_THICKNESS, size.y)),
+		color)
 	
 	# Right
 	draw_rect(
-		Rect2(Vector2(size.x - LINE_THICKNESS, 0), Vector2(LINE_THICKNESS, size.y)), color)
+		Rect2(
+			Vector2(size.x - LINE_THICKNESS, 0),
+			Vector2(LINE_THICKNESS, size.y)),
+		color)
 
 
 func resizer_visibility() -> void:
@@ -95,19 +114,8 @@ func _gui_input(event: InputEvent) -> void:
 			position += event.relative
 
 
-func external_update(index: int) -> void:
-	if index != box_index:
-		return
-	
-	var box: BoxInfo = SessionData.box_get(box_index)
-	
-	box_type = box.type
-	position = box.rect.position
-	size = box.rect.size
-
-
-func external_make_active(index: int) -> void:
-	if index != box_index:
+func external_select(box: BoxInfo) -> void:
+	if box != box_info:
 		external_deselect()
 		return
 	
@@ -154,12 +162,14 @@ func clicked(event: InputEventMouseButton) -> void:
 				SessionData.box_deselect_all()
 			
 			else:
-				SessionData.box_set_active(box_index)
+				SessionData.box_select(box_index)
 		
 		tentative_select = false
 
 
 func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:
+	being_resized = true
+	
 	match type:
 		BoxResizer.Type.UP_LEFT:
 			position += motion
@@ -197,5 +207,5 @@ func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:
 
 
 func broadcast_changes() -> void:
-	# Received by box parent
-	register_changes.emit(box_index, Rect2i(position, size))
+	being_resized = false
+	SessionData.box_set_rect_for(get_index(), Rect2i(position, size))

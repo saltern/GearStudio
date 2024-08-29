@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=8 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/tab_palettes.gd" id="1_v7vdc"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="3_27bb1"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/background.gd" id="3_g53oy"]
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="3_yv852"]
+[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="5_355gl"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_fkw8w"]
-[ext_resource type="Shader" path="res://palette.gdshader" id="6_jqrsl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
 draw_center = false
@@ -14,12 +14,6 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojqp5"]
-resource_local_to_scene = true
-shader = ExtResource("6_jqrsl")
-shader_parameter/highlight_index = -1
-shader_parameter/palette = PackedInt32Array()
 
 [node name="palettes" type="MarginContainer" node_paths=PackedStringArray("palette_number", "color_grid", "preview_sprite")]
 anchors_preset = 15
@@ -164,7 +158,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_m215a")
 layout_mode = 2
 
 [node name="sprite" type="TextureRect" parent="ScrollContainer/content/data/editors/preview/preview/sprite_center" node_paths=PackedStringArray("sprite_index")]
-material = SubResource("ShaderMaterial_ojqp5")
+material = ExtResource("5_355gl")
 layout_mode = 2
 script = ExtResource("6_fkw8w")
 sprite_index = NodePath("../../../sprite/value")

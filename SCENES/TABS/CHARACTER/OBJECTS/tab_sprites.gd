@@ -33,8 +33,7 @@ func _ready() -> void:
 	
 
 func update_sprite(new_value: int = 0) -> void:	
-	#var new_sprite: BinSprite = obj_state.get_sprite(new_value)
-	var new_sprite: BinSprite = SessionData.sprite_get(new_value)
+	var new_sprite: BinSprite = obj_state.sprite_get(new_value)
 	
 	var tex_size: Vector2i = new_sprite.texture.get_size()
 	

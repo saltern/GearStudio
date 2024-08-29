@@ -1,20 +1,24 @@
-[gd_scene load_steps=19 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=22 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.gd" id="1_c4xwt"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/cell_index.gd" id="2_84jav"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_draw.gd" id="2_5521f"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_index.gd" id="2_b7bbx"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_display_toggle.gd" id="2_iyh46"]
-[ext_resource type="Shader" path="res://palette.gdshader" id="2_q0fc3"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_list.gd" id="3_f1ar8"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_sw61b"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_x.gd" id="3_w74q5"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_y.gd" id="4_lq7mp"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_background.gd" id="6_yy20r"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/display_regions.gd" id="7_5lhow"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/allow_edits.gd" id="7_8fqow"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_type.gd" id="7_yvfy8"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_x.gd" id="8_o3eoa"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_y.gd" id="9_6e5ym"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_width.gd" id="10_p4nda"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_height.gd" id="11_yct21"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_sprite.gd" id="15_ex61n"]
+[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="17_5g0bd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -28,13 +32,7 @@ border_width_bottom = 1
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
 draw_center = false
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_nyu58"]
-resource_local_to_scene = true
-shader = ExtResource("2_q0fc3")
-shader_parameter/highlight_index = -1
-shader_parameter/palette = null
-
-[node name="cells" type="MarginContainer" node_paths=PackedStringArray("cell_index", "preview_background", "sprite_index", "sprite_offset_x", "sprite_offset_y", "box_allow_edits", "box_display_regions", "box_list", "box_type", "box_offset_x", "box_offset_y", "box_width", "box_height", "sprite_node", "box_draw")]
+[node name="cells" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -42,21 +40,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_c4xwt")
-cell_index = NodePath("scroll/content/data/cell/value")
-preview_background = NodePath("scroll/content/visualizer/borders/cell/visualizer/background")
-sprite_index = NodePath("scroll/content/data/sprite_info/index/value_index")
-sprite_offset_x = NodePath("scroll/content/data/sprite_info/offset_x/value_x")
-sprite_offset_y = NodePath("scroll/content/data/sprite_info/offset_y/value_y")
-box_allow_edits = NodePath("scroll/content/data/boxes/editable/allow_edits/check")
-box_display_regions = NodePath("scroll/content/data/boxes/editable/regions/check")
-box_list = NodePath("scroll/content/data/boxes/editable/list/items")
-box_type = NodePath("scroll/content/data/boxes/editable/type/value")
-box_offset_x = NodePath("scroll/content/data/boxes/editable/offset_x/value")
-box_offset_y = NodePath("scroll/content/data/boxes/editable/offset_y/value")
-box_width = NodePath("scroll/content/data/boxes/editable/width/value")
-box_height = NodePath("scroll/content/data/boxes/editable/height/value")
-sprite_node = NodePath("scroll/content/visualizer/borders/cell/visualizer/origin/sprite")
-box_draw = NodePath("scroll/content/visualizer/borders/cell/visualizer/origin/box_parent")
 metadata/_tab_index = 1
 
 [node name="scroll" type="ScrollContainer" parent="."]
@@ -84,6 +67,7 @@ text = "Cell #"
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
+script = ExtResource("2_84jav")
 
 [node name="sprite_info" type="VBoxContainer" parent="scroll/content/data"]
 layout_mode = 2
@@ -200,6 +184,7 @@ text = "Display Sprite Regions"
 [node name="check" type="CheckButton" parent="scroll/content/data/boxes/editable/regions"]
 layout_mode = 2
 size_flags_horizontal = 10
+script = ExtResource("7_5lhow")
 
 [node name="allow_edits" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
 layout_mode = 2
@@ -211,6 +196,7 @@ text = "Allow Editing"
 [node name="check" type="CheckButton" parent="scroll/content/data/boxes/editable/allow_edits"]
 layout_mode = 2
 size_flags_horizontal = 10
+script = ExtResource("7_8fqow")
 
 [node name="list" type="ScrollContainer" parent="scroll/content/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 130)
@@ -351,9 +337,10 @@ size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="sprite" type="Sprite2D" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
-material = SubResource("ShaderMaterial_nyu58")
+material = ExtResource("17_5g0bd")
 position = Vector2(-128, -128)
 centered = false
+script = ExtResource("15_ex61n")
 
 [node name="box_parent" type="Control" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
 anchors_preset = 0
@@ -374,5 +361,4 @@ offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
 
-[connection signal="preview_background_clicked" from="scroll/content/visualizer/borders/cell/visualizer/background" to="." method="preview_background_clicked"]
 [connection signal="box_changed" from="scroll/content/visualizer/borders/cell/visualizer/origin/box_parent" to="." method="on_box_changed"]

@@ -1,9 +1,11 @@
 # SessionData autoload
 extends Node
 
+signal tab_closed
+
 var tab_index: int = 0
 var object_name: String
-var tabs: Dictionary = {}
+var tabs: Array = []
 
 var this_tab: Dictionary = {}
 var this_object_state: ObjectEditState
@@ -11,17 +13,41 @@ var this_palette_state: PaletteEditState
 
 var serialize_ignore: Array[String] = ["path", "current_object", "palettes"]
 
-# sessions = {
-#		0:	{
-#				"current_object": "player",
-#				"palettes": PaletteEditState,
-#				"player": ObjectEditState,
-#				"objno0": ObjectEditState,
-#				"objno1": ObjectEditState,
-#		},
+# tabs = [
+#	{
+#		"current_object": "player",
+#		"palettes": PaletteEditState,
+#		"player": ObjectEditState,
+#		"objno0": ObjectEditState,
+#		"objno1": ObjectEditState,
+#	},
+#
+#	...
 
 
 #region Undo/redo
+func menu_undo() -> void:
+	if tabs.size() == 0:
+		Status.set_status("Nothing currently loaded, can't undo.")
+		return
+		
+	if this_tab["current_object"] == "palettes":
+		undo_pal()
+	else:
+		undo()
+
+
+func menu_redo() -> void:
+	if tabs.size() == 0:
+		Status.set_status("Nothing currently loaded, can't redo.")
+		return
+		
+	if this_tab["current_object"] == "palettes":
+		redo_pal()
+	else:
+		redo()
+
+
 func undo() -> void:
 	if not this_object_state.undo.has_undo():
 		Status.set_status("Nothing to undo.")
@@ -45,6 +71,10 @@ func redo() -> void:
 
 
 func undo_pal() -> void:
+	if not this_palette_state.undo.has_undo():
+		Status.set_status("Nothing to undo.")
+		return
+	
 	Status.set_status("Undo: %s" % 
 			this_palette_state.undo.get_current_action_name())
 			
@@ -52,6 +82,10 @@ func undo_pal() -> void:
 
 
 func redo_pal() -> void:
+	if not this_palette_state.undo.has_redo():
+		Status.set_status("Nothing to redo.")
+		return
+	
 	Status.set_status("Redo: %s" % 
 			this_palette_state.undo.get_current_action_name())
 			
@@ -60,6 +94,8 @@ func redo_pal() -> void:
 
 
 func save() -> void:
+	SaveErrors.reset()
+	
 	if this_tab.is_empty():
 		Status.set_status("Nothing to save.")
 		return
@@ -75,10 +111,13 @@ func save() -> void:
 			continue
 		
 		this_tab[object].serialize_and_save(save_path + "/%s" % object)
-		
-	#print(this_tab)
+	
+	if this_tab.has("palettes"):
+		this_tab["palettes"].serialize_and_save(save_path + "/palettes")
 
+	SaveErrors.set_status()
 
+#region Tabs
 func tab_new(path: String) -> PackedStringArray:
 	var sub_tab_list: PackedStringArray = []
 	
@@ -95,6 +134,7 @@ func tab_new(path: String) -> PackedStringArray:
 	# Palettes loaded separately
 	if dir.dir_exists("palettes"):
 		var palette_data := PaletteEditState.new()
+		
 		palette_data.load_palettes_from_path(path + "/palettes")
 		new_session["palettes"] = palette_data
 		
@@ -106,8 +146,15 @@ func tab_new(path: String) -> PackedStringArray:
 	# Load objects
 	for directory in dir_list:
 		var object_data := ObjectData.new()
-		object_data.load_sprites_from_path(path + "/%s/sprites" % directory)
-		object_data.load_cells_from_path(path + "/%s/cells" % directory)
+		
+		if DirAccess.dir_exists_absolute(path + "/%s/sprites" % directory):
+			object_data.load_sprites_from_path(path + "/%s/sprites" % directory)
+		
+		if DirAccess.dir_exists_absolute(path + "/%s/cells" % directory):
+			object_data.load_cells_from_path(path + "/%s/cells" % directory)
+		
+		if object_data.sprites.is_empty() and object_data.cells.is_empty():
+			continue
 		
 		var object_edit_state := ObjectEditState.new()
 		object_edit_state.data = object_data
@@ -115,19 +162,36 @@ func tab_new(path: String) -> PackedStringArray:
 		new_session[directory] = object_edit_state
 		sub_tab_list.append(directory)
 	
-	
-	tabs[tabs.size()] = new_session
-	this_tab = tabs[tabs.size() - 1]
-	this_tab["path"] = path
-	object_state_load(dir_list[0])
+	if !sub_tab_list.is_empty():
+		tabs.append(new_session)
+		this_tab = new_session
+		this_tab["path"] = path
+		object_state_load(dir_list[0])
 	
 	return sub_tab_list
 
 
 func tab_load(index: int = 0) -> void:
+	if index < 0 || index >= tabs.size():
+		Status.set_ready()
+		return
+	
 	tab_index = index
 	this_tab = tabs[index]
 	this_palette_state = palette_state_get(tab_index)
+
+
+func tab_close(index: int = 0) -> void:
+	if tabs.size() < 1:
+		Status.set_status("Nothing currently open, can't close.")
+		return
+	
+	tab_closed.emit(index)
+	tabs.remove_at(tab_index)
+	this_tab = {}
+	tab_load(min(tab_index, tabs.size() - 1))
+	Status.set_status("Closed tab.")
+#endregion
 
 
 func object_state_load(object: String) -> void:
@@ -211,8 +275,8 @@ func box_get_this() -> BoxInfo:
 	return this_object_state.this_box
 
 
-func box_set_active(index: int) -> void:
-	this_object_state.box_set_active(index)
+func box_select(index: int) -> void:
+	this_object_state.box_select(index)
 
 
 func box_deselect_all() -> void:

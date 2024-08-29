@@ -2,15 +2,16 @@
 # Resource to be held in dictionary by SharedData.
 class_name ObjectEditState extends Resource
 
+signal sprite_index_updated
+signal sprite_offset_updated
+
 signal box_selected
+signal box_selected_index
 signal boxes_deselected
 signal box_editing_toggled
 signal box_updated
 signal box_display_regions_changed
 
-@warning_ignore("unused_signal")
-signal cell_unloading
-signal cell_loaded
 signal cell_updated
 
 var undo: UndoRedo = UndoRedo.new()
@@ -27,9 +28,7 @@ var box_display_regions: bool
 
 
 #region Serialization
-func serialize_and_save(path: String) -> void:
-	SaveErrors.cell_save_error = false
-	
+func serialize_and_save(path: String) -> void:	
 	var cell_json_array: Array[String] = data.serialize_cells()
 	
 	for cell in cell_json_array.size():		
@@ -45,23 +44,17 @@ func serialize_and_save(path: String) -> void:
 		new_json_file.store_string(cell_json_array[cell])
 		new_json_file.close()
 
-	if SaveErrors.cell_save_error:
-		Status.set_status("Could not save some cells!")
-	else:
-		Status.set_status("Saved cells.")
-
 #region Cells
 func cell_get(cell: int = 0) -> Cell:
 	return data.cells[cell]
 
 
 func cell_load(cell: int = 0) -> void:
-	cell_unloading.emit()
 	cell_index = cell
 	box_index = 0
 	this_cell = data.cells[cell_index]
 	this_box = BoxInfo.new()
-	cell_loaded.emit()
+	cell_updated.emit(this_cell)
 #endregion
 
 
@@ -89,25 +82,26 @@ func sprite_set_index(new_index: int) -> void:
 	var old_index: int = sprite_get_index()
 	
 	undo.add_do_property(this_cell.sprite_info, "index", new_index)
-	undo.add_do_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 			
 	undo.add_undo_property(this_cell.sprite_info, "index", old_index)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
 
-func sprite_set_position_x(new_x: int) -> void:
+func sprite_set_position_x(new_x: int) -> void:	
 	undo.create_action("Cell # %s: Set sprite X offset" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	var old_x: int = sprite_get_position().x
+	var old_pos: Vector2i = sprite_get_position()
 	
-	undo.add_do_property(this_cell.sprite_info, "position:x", new_x)
-	undo.add_do_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_do_property(this_cell.sprite_info, "position", Vector2i(
+			new_x, old_pos.y))
+	undo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	
-	undo.add_undo_property(this_cell.sprite_info, "position:x", old_x)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_property(this_cell.sprite_info, "position", old_pos)
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
@@ -116,13 +110,14 @@ func sprite_set_position_y(new_y: int) -> void:
 	undo.create_action("Cell # %s: Set sprite Y offset" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	var old_y: int = sprite_get_position().y
+	var old_pos: Vector2i = sprite_get_position()
 	
-	undo.add_do_property(this_cell.sprite_info, "position:y", new_y)
-	undo.add_do_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_do_property(this_cell.sprite_info, "position", Vector2i(
+			old_pos.x, new_y))
+	undo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	
-	undo.add_undo_property(this_cell.sprite_info, "position:y", old_y)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_property(this_cell.sprite_info, "position", old_pos)
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 #endregion
@@ -137,10 +132,11 @@ func box_get_all() -> Array[BoxInfo]:
 	return this_cell.boxes
 
 
-func box_set_active(index: int = 0) -> void:
+func box_select(index: int = 0) -> void:
 	box_index = index
 	this_box = box_get(box_index)
-	box_selected.emit(index)
+	box_selected.emit(this_box)
+	box_selected_index.emit(index)
 
 
 func box_list_empty_clicked(_ignored1, _ignored2) -> void:
@@ -169,7 +165,7 @@ func box_set_type(new_type: int) -> void:
 			UndoRedo.MERGE_ENDS)
 	
 	undo.add_do_property(this_box, "type", new_type)
-	undo.add_do_method(emit_signal.bind("box_updated", box_index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 			
 	undo.add_undo_property(this_box, "type", this_box.type)
 	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
@@ -182,10 +178,10 @@ func box_set_offset_x(new_value: int) -> void:
 			UndoRedo.MERGE_ENDS)
 	
 	undo.add_do_property(this_box, "rect:position:x", new_value)
-	undo.add_do_method(emit_signal.bind("box_updated", box_index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
 	undo.add_undo_property(this_box, "rect:position:x", this_box.rect.position.x)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
@@ -195,10 +191,10 @@ func box_set_offset_y(new_value: int) -> void:
 			UndoRedo.MERGE_ENDS)
 	
 	undo.add_do_property(this_box, "rect:position:y", new_value)
-	undo.add_do_method(emit_signal.bind("box_updated", box_index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
 	undo.add_undo_property(this_box, "rect:position:y", this_box.rect.position.y)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
@@ -208,10 +204,10 @@ func box_set_width(new_value: int) -> void:
 			UndoRedo.MERGE_ENDS)
 	
 	undo.add_do_property(this_box, "rect:size:x", new_value)
-	undo.add_do_method(emit_signal.bind("box_updated", box_index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
 	undo.add_undo_property(this_box, "rect:size:x", this_box.rect.size.x)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
@@ -221,10 +217,10 @@ func box_set_height(new_value: int) -> void:
 			UndoRedo.MERGE_ENDS)
 	
 	undo.add_do_property(this_box, "rect:size:y", new_value)
-	undo.add_do_method(emit_signal.bind("box_updated", box_index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
 	undo.add_undo_property(this_box, "rect:size:y", this_box.rect.size.y)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 
@@ -235,10 +231,10 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	var box: BoxInfo = box_get(index)
 	
 	undo.add_do_property(box, "rect", rect)
-	undo.add_do_method(emit_signal.bind("box_updated", index))
+	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
 	undo.add_undo_property(box, "rect", box.rect)
-	undo.add_undo_method(emit_signal.bind("cell_updated", cell_index))
+	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
 #endregion

@@ -28,8 +28,9 @@ func _ready() -> void:
 	for item in button_names:
 		if button_names[item] == "":
 			add_separator()
-		else:
-			add_item(button_names[item])
+			continue
+		
+		add_item(button_names[item])
 			
 	id_pressed.connect(menu_clicked)
 
@@ -41,3 +42,12 @@ func menu_clicked(menu_id: int) -> void:
 		
 		ButtonID.SAVE:
 			SessionData.save()
+
+		ButtonID.BUILD:
+			Status.set_status("Building character binaries is not currently available.")
+
+		ButtonID.CLOSE:
+			SessionData.tab_close(SessionData.tab_index)
+
+		ButtonID.EXIT:
+			get_tree().quit()

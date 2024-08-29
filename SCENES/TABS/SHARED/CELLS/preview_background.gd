@@ -1,7 +1,5 @@
 extends TextureRect
 
-signal preview_background_clicked
-
 var tentative: bool = false
 
 
@@ -17,7 +15,6 @@ func _gui_input(event) -> void:
 	
 	else:
 		if tentative:
-			preview_background_clicked.emit()
-			#SharedData.deselect_boxes()
+			SessionData.box_deselect_all()
 			
 		tentative = false
