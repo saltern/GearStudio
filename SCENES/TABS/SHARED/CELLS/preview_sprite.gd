@@ -17,8 +17,6 @@ func _ready() -> void:
 	
 	obj_state.cell_updated.connect(on_cell_update)
 	obj_state.box_updated.connect(on_box_update)
-	
-	pal_state.changed_palette.connect(pal_state_palette_changed)
 
 
 func on_cell_update(cell: Cell) -> void:

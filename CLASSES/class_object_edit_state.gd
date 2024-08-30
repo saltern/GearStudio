@@ -14,6 +14,8 @@ signal box_display_regions_changed
 
 signal cell_updated
 
+signal preview_palette_changed
+
 var undo: UndoRedo = UndoRedo.new()
 
 var data: ObjectData
@@ -43,6 +45,8 @@ func serialize_and_save(path: String) -> void:
 		
 		new_json_file.store_string(cell_json_array[cell])
 		new_json_file.close()
+#endregion
+
 
 #region Cells
 func cell_get(cell: int = 0) -> Cell:

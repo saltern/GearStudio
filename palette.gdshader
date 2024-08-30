@@ -4,6 +4,7 @@ shader_type canvas_item;
 #pragma disable_preprocessor
 
 uniform int highlight_index = -1;
+uniform bool[256] highlight;
 uniform int[0x400]	palette;
 
 
@@ -19,7 +20,7 @@ void fragment()
 	
 	float blend = 0.0;
 	
-	if (index == highlight_index) {
+	if (highlight[index]) {
 		blend = abs(sin(TIME * 5.0));
 		COLOR = mix(vec4(0.0, 0.0, 0.0, 1.0), vec4(1.0), blend);
 	}

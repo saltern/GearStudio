@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=26 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.gd" id="1_c4xwt"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/cell_index.gd" id="2_84jav"]
@@ -20,6 +20,7 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_height.gd" id="11_yct21"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_sprite.gd" id="15_ex61n"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="17_5g0bd"]
+[ext_resource type="Shader" path="res://palette.gdshader" id="18_8jtcf"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/onion_skin_sprite.gd" id="18_30r44"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
@@ -33,6 +34,12 @@ border_width_bottom = 1
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
 draw_center = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
+shader = ExtResource("18_8jtcf")
+shader_parameter/highlight_index = -1
+shader_parameter/highlight = null
+shader_parameter/palette = null
 
 [node name="cells" type="MarginContainer"]
 anchors_preset = 15
@@ -364,7 +371,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="onion" type="Sprite2D" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
-material = ExtResource("17_5g0bd")
+material = SubResource("ShaderMaterial_k4855")
 position = Vector2(-128, -128)
 centered = false
 script = ExtResource("18_30r44")

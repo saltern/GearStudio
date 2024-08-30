@@ -25,7 +25,7 @@ func _ready() -> void:
 	palette_index.value_changed.connect(update_palette)
 	palette_shader = sprite_node.material
 	
-	pal_state.changed_palette.connect(update_palette)
+	pal_state.changed_palette.connect(external_update_palette)
 	
 	if obj_state.data.sprites.size() > 0:
 		sprite_index.max_value = obj_state.data.sprites.size() - 1
@@ -67,10 +67,19 @@ func update_sprite(new_value: int = 0) -> void:
 
 
 func update_palette(new_palette: int = 0) -> void:
+	pal_state.load_palette(new_palette)
+	set_palette(new_palette)
+
+
+func external_update_palette(new_palette: int = 0) -> void:
+	set_palette(new_palette)
+	palette_index.call_deferred("set_value_no_signal", new_palette)
+
+
+func set_palette(new_palette: int = 0) -> void:
 	if embedded_pal:
 		return
 		
 	if pal_state.palettes.size() > new_palette:
 		palette_shader.set_shader_parameter(
 				"palette", pal_state.palettes[new_palette].palette)
-	
