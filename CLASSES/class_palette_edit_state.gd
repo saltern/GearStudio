@@ -74,27 +74,71 @@ func get_color_in(index: int = 0, palette: int = 0) -> Color:
 		palettes[palette].palette[4 * index + 3])
 
 
-func set_color(index: int, color: Color) -> void:
-	undo.create_action("Palette #%s set color #%s" % [palette_index, index])
+func set_color(selected: Array[bool], color: Color) -> void:
+	undo.create_action("Palette #%s set color(s)" % palette_index)
 	
-	var old_color: Color = Color8(
-		this_palette.palette[4 * index + 0],
-		this_palette.palette[4 * index + 1],
-		this_palette.palette[4 * index + 2],
-		this_palette.palette[4 * index + 3])
+	var old_palette: PackedByteArray = this_palette.palette.duplicate()
+	var new_palette: PackedByteArray = this_palette.palette.duplicate()
 	
-	undo.add_do_method(set_color_commit.bind(palette_index, index, color))
-	undo.add_undo_method(set_color_commit.bind(palette_index, index, old_color))
+	for cell in 256:
+		if !selected[cell]:
+			continue
+		
+		new_palette[4 * cell + 0] = color.r8
+		new_palette[4 * cell + 1] = color.g8
+		new_palette[4 * cell + 2] = color.b8
+		new_palette[4 * cell + 3] = color.a8
+	
+	undo.add_do_property(this_palette, "palette", new_palette)
+	undo.add_do_method(load_palette.bind(palette_index))
+	
+	undo.add_undo_property(this_palette, "palette", old_palette)
+	undo.add_undo_method(load_palette.bind(palette_index))
 	
 	undo.commit_action()
 
 
-func set_color_commit(pal_index: int, index: int, color: Color) -> void:
-	load_palette(pal_index)
+func paste_color(at_index: int) -> void:
+	var old_palette: PackedByteArray = this_palette.palette.duplicate()
+	var new_palette: PackedByteArray = this_palette.palette.duplicate()
 	
-	this_palette.palette[4 * index + 0] = color.r8
-	this_palette.palette[4 * index + 1] = color.g8
-	this_palette.palette[4 * index + 2] = color.b8
-	this_palette.palette[4 * index + 3] = color.a8
+	var start_index: int = 0
+	var current_color: int = 0
 	
-	changed_palette.emit(pal_index)
+	for cell in 256:
+		if Clipboard.pal_selection[cell]:
+			start_index = cell
+			break
+	
+	if at_index < 0 || at_index > 255:
+		return
+	
+	for cell in 256:
+		var this_index: int = at_index - start_index + cell
+		
+		if !Clipboard.pal_selection[cell]:
+			continue
+		
+		if this_index < 0 || this_index > 255:
+			continue
+		
+		new_palette[4 * cell + 0] = Clipboard.pal_data[current_color].r8
+		new_palette[4 * cell + 1] = Clipboard.pal_data[current_color].g8
+		new_palette[4 * cell + 2] = Clipboard.pal_data[current_color].b8
+		new_palette[4 * cell + 3] = Clipboard.pal_data[current_color].a8
+		
+		current_color += 1
+	
+	undo.create_action("Palette #%s paste color(s)" % palette_index)
+	
+	undo.add_do_property(this_palette, "palette", new_palette)
+	undo.add_do_method(load_palette.bind(palette_index))
+	
+	undo.add_undo_property(this_palette, "palette", old_palette)
+	undo.add_do_method(load_palette.bind(palette_index))
+	
+	undo.commit_action()
+	
+	
+func paste_color_into(selection: Array[bool]) -> void:
+	pass

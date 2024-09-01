@@ -2,19 +2,15 @@
 # Resource to be held in dictionary by SharedData.
 class_name ObjectEditState extends Resource
 
-signal sprite_index_updated
-signal sprite_offset_updated
-
 signal box_selected
 signal box_selected_index
 signal boxes_deselected
 signal box_editing_toggled
+@warning_ignore("unused_signal")
 signal box_updated
 signal box_display_regions_changed
 
 signal cell_updated
-
-signal preview_palette_changed
 
 var undo: UndoRedo = UndoRedo.new()
 

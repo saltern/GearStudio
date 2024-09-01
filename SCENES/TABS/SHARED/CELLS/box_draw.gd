@@ -1,5 +1,6 @@
 extends Control
 
+@warning_ignore("unused_signal")
 signal box_changed
 
 @onready var obj_state := SessionData.object_state_get(

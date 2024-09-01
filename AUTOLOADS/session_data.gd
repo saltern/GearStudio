@@ -85,11 +85,11 @@ func redo_pal() -> void:
 	if not this_palette_state.undo.has_redo():
 		Status.set_status("Nothing to redo.")
 		return
+			
+	this_palette_state.undo.redo()
 	
 	Status.set_status("Redo: %s" % 
 			this_palette_state.undo.get_current_action_name())
-			
-	this_palette_state.undo.redo()
 #endregion
 
 

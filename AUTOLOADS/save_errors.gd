@@ -13,19 +13,19 @@ func reset() -> void:
 
 
 func set_status() -> void:
-	var error_string: String = ""
+	var err_string: String = ""
 	
 	if files_read_only:
-		error_string = error_string + "Some files were read only! "
+		err_string = err_string + "Some files were read only! "
 	
 	if cell_save_error:
-		error_string = error_string + "Could not save some cells! "
+		err_string = err_string + "Could not save some cells! "
 	
 	if palette_save_error:
-		error_string = error_string + "Could not save some palettes!"
+		err_string = err_string + "Could not save some palettes!"
 	
-	if error_string.is_empty():
+	if err_string.is_empty():
 		Status.set_status("Saved cells and palettes.")
 	
 	else:
-		Status.set_status("Save had errors: %s" % error_string)
+		Status.set_status("Save had errors: %s" % err_string)

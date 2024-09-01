@@ -1,8 +1,5 @@
 class_name BoxPreview extends Control
 
-signal box_clicked
-signal register_changes
-
 const LINE_THICKNESS: int = 2
 
 var box_info: BoxInfo

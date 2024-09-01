@@ -34,29 +34,29 @@ func update(boxes: Array[BoxInfo]) -> void:
 	clear()
 	
 	for box in boxes:
-		var type_string: String = get_type_text(box)
+		var type: String = get_type_text(box)
 		
 		add_item("Box %02d, Type: %s (%s)" % [
-				item_count, box.type, type_string])
+				item_count, box.type, type])
 	
 	check_enable(SessionData.box_get_edits_allowed())
 
 
 func get_type_text(box_info: BoxInfo) -> String:
-	var type_string: String = "Unknown"
+	var type: String = "Unknown"
 	
 	if box_info.type == 3 || box_info.type == 6:
-		type_string = box_types[box_info.type]
+		type = box_types[box_info.type]
 		
 		var offset_x: String = "%s" % (8 * box_info.crop_x_offset)
 		var offset_y: String = "%s" % (8 * box_info.crop_y_offset)
 		
-		type_string  += " (%s, %s)" % [offset_x, offset_y]
+		type  += " (%s, %s)" % [offset_x, offset_y]
 	
 	elif box_info.type in box_types:
-		type_string = box_types[box_info.type]
+		type = box_types[box_info.type]
 	
-	return type_string
+	return type
 
 
 func check_enable(enabled: bool) -> void:

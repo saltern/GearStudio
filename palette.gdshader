@@ -3,7 +3,7 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
 
-uniform int highlight_index = -1;
+uniform int hover_index = -1;
 uniform bool[256] highlight;
 uniform int[0x400]	palette;
 
@@ -18,14 +18,17 @@ void fragment()
 		float(palette[4 * index + 2]) / 256.00,
 		float(palette[4 * index + 3]) / 256.00);
 	
-	float blend = 0.0;
+	lowp float blend = 0.0;
+	
+	COLOR = pal_color;
 	
 	if (highlight[index]) {
 		blend = abs(sin(TIME * 5.0));
 		COLOR = mix(vec4(0.0, 0.0, 0.0, 1.0), vec4(1.0), blend);
 	}
 	
-	else {
-		COLOR = pal_color;
+	if (index == hover_index) {
+		blend = abs(sin(TIME * 5.0));
+		COLOR = mix(vec4(0.0, 0.0, 0.0, 1.0), vec4(0.0, 1.0, 1.0, 1.0), blend);
 	}
 }

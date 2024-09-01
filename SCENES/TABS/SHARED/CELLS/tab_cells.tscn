@@ -37,7 +37,7 @@ draw_center = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
 shader = ExtResource("18_8jtcf")
-shader_parameter/highlight_index = -1
+shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = null
 

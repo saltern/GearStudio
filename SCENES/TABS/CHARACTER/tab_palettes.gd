@@ -11,17 +11,15 @@ var obj_state: ObjectEditState
 
 
 func _ready() -> void:
-	pal_state = SessionData.palette_state_get(get_parent().get_index())
-	print("Loading pal_state #%s" % get_parent().get_index())
-	pal_state.load_palette(0)
-	
 	obj_state = SessionData.object_state_get("player")
+	pal_state = SessionData.palette_state_get(get_parent().get_index())
+	pal_state.load_palette(0)
 
 
-func _input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:	
 	if not is_visible_in_tree():
 		return
-		
+	
 	if not event is InputEventKey:
 		return
 		

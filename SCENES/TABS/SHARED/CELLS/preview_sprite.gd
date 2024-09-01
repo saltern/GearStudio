@@ -17,6 +17,8 @@ func _ready() -> void:
 	
 	obj_state.cell_updated.connect(on_cell_update)
 	obj_state.box_updated.connect(on_box_update)
+	
+	pal_state.changed_palette.connect(pal_state_palette_changed)
 
 
 func on_cell_update(cell: Cell) -> void:
@@ -33,7 +35,7 @@ func on_box_update(_box: BoxInfo) -> void:
 	on_cell_update(SessionData.cell_get_this())
 
 
-func pal_state_palette_changed() -> void:
+func pal_state_palette_changed(_palette_number: int) -> void:
 	material.set_shader_parameter(
 		"palette", get_sprite_palette(obj_state.sprite_get_index()))
 
@@ -58,7 +60,7 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 		load_cell_sprite_pieces(index, cutout_list, offset_list)
 	
 	material.set_shader_parameter("palette", get_sprite_palette(index))
-	
+
 
 func load_cell_sprite_whole(index: int) -> void:
 	texture = obj_state.data.sprites[index].texture
