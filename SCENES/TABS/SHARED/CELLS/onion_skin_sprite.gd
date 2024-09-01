@@ -13,16 +13,23 @@ func _ready() -> void:
 	
 	material = material.duplicate()
 	
+	Settings.onion_color_changed.connect(update_color)
+	update_color()
+
+
+func update_color() -> void:
+	var new_color: Color = Settings.cell_onion_skin
+	
 	var onion_colors: PackedInt32Array = []
 	
 	for transp in 4:
 		onion_colors.append(0x00)
 		
 	for index in range(1, 256):
-		onion_colors.append(0xFF)
-		onion_colors.append(0x00)
-		onion_colors.append(0x00)
-		onion_colors.append(0xA0)
+		onion_colors.append(new_color.r8)
+		onion_colors.append(new_color.g8)
+		onion_colors.append(new_color.b8)
+		onion_colors.append(new_color.a8)
 	
 	material.set_shader_parameter("palette", PackedInt32Array(onion_colors))
 

@@ -1,6 +1,7 @@
 extends Node
 
 signal display_window
+signal onion_color_changed
 
 const FILENAME: String = "/gearstudio.ini"
 
@@ -35,7 +36,7 @@ enum BoxType {
 	SPAWN,
 }
 
-var cell_onion_skin: Color = Color(1.0, 0.0, 0.0, 0.625)
+var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 
 var box_thickness: int = 2
 var box_colors: Array[Color] = [
