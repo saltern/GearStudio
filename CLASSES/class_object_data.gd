@@ -47,7 +47,7 @@ func load_sprites_from_path(path: String) -> bool:
 		return false
 	
 	# Load sprites
-	sprites = SpriteLoader.load_sprites(path)
+	sprites = SpriteLoader.load_sprites(path, Settings.sprite_reindex)
 
 	return true
 

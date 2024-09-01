@@ -62,6 +62,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
 [node name="cell" type="HBoxContainer" parent="scroll/content/data"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/cell"]
@@ -76,6 +77,7 @@ alignment = 2
 script = ExtResource("2_84jav")
 
 [node name="onion" type="HBoxContainer" parent="scroll/content/data"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/onion"]
@@ -90,6 +92,7 @@ alignment = 2
 script = ExtResource("3_d6ka5")
 
 [node name="onion_in_front" type="HBoxContainer" parent="scroll/content/data"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/onion_in_front"]
@@ -120,6 +123,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="index" type="HBoxContainer" parent="scroll/content/data/sprite_info"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/sprite_info/index"]
@@ -135,6 +139,7 @@ alignment = 2
 script = ExtResource("2_b7bbx")
 
 [node name="offset_x" type="HBoxContainer" parent="scroll/content/data/sprite_info"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/sprite_info/offset_x"]
@@ -152,6 +157,7 @@ suffix = "px"
 script = ExtResource("3_w74q5")
 
 [node name="offset_y" type="HBoxContainer" parent="scroll/content/data/sprite_info"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/sprite_info/offset_y"]
@@ -188,6 +194,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="visibility" type="HBoxContainer" parent="scroll/content/data/boxes"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/visibility"]
@@ -206,6 +213,7 @@ editable_parent = NodePath("../../editable")
 layout_mode = 2
 
 [node name="regions" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/regions"]
@@ -218,6 +226,7 @@ size_flags_horizontal = 10
 script = ExtResource("7_5lhow")
 
 [node name="allow_edits" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/allow_edits"]
@@ -242,6 +251,7 @@ allow_search = false
 script = ExtResource("3_f1ar8")
 
 [node name="type" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/type"]
@@ -275,6 +285,7 @@ editable = false
 script = ExtResource("8_o3eoa")
 
 [node name="offset_y" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/offset_y"]
@@ -292,6 +303,7 @@ editable = false
 script = ExtResource("9_6e5ym")
 
 [node name="width" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/width"]
@@ -308,6 +320,7 @@ editable = false
 script = ExtResource("10_p4nda")
 
 [node name="height" type="HBoxContainer" parent="scroll/content/data/boxes/editable"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="scroll/content/data/boxes/editable/height"]

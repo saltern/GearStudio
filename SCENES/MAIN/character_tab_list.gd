@@ -19,6 +19,13 @@ func _physics_process(_delta: float) -> void:
 func load_character(path: String) -> void:
 	Status.set_status("Loading character from %s..." % path)
 	
+	if not Settings.misc_allow_reopen:
+		if Opened.path_is_open(path):
+			Status.set_status("Directory already open!")
+			return
+	
+	Opened.path_open(path)
+	
 	var tabs: PackedStringArray = SessionData.tab_new(path)
 	
 	if tabs.is_empty():
@@ -46,6 +53,7 @@ func on_tab_changed(new_tab: int) -> void:
 func on_tab_closed(index: int) -> void:
 	get_child(index).queue_free()
 	rename_all_tabs(index)
+	Opened.path_close(index)
 
 
 func rename_all_tabs(skip_index: int) -> void:

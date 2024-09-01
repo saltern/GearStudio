@@ -16,10 +16,12 @@ func _gui_input(event: InputEvent) -> void:
 		MOUSE_BUTTON_WHEEL_UP:
 			if event.pressed && event.is_command_or_control_pressed():
 				get_child(0).zoom_in()
+				get_viewport().set_input_as_handled()
 	
 		MOUSE_BUTTON_WHEEL_DOWN:
 			if event.pressed && event.is_command_or_control_pressed():
 				get_child(0).zoom_out()
+				get_viewport().set_input_as_handled()
 	
 		MOUSE_BUTTON_RIGHT:
 			if event.pressed:

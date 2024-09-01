@@ -18,15 +18,17 @@ func center_view() -> void:
 
 
 func zoom_in() -> void:
-	scale *= 2
+	scale += Vector2.ONE
 	clamp_zoom()
 	center_view()
+	Status.set_status("Zoomed in (%sx)" % scale.x)
 
 
 func zoom_out() -> void:
-	scale /= 2
+	scale -= Vector2.ONE
 	clamp_zoom()
 	center_view()
+	Status.set_status("Zoomed out (%sx)" % scale.x)
 
 
 func clamp_zoom() -> void:

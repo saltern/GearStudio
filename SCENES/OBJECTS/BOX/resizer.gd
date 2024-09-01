@@ -12,7 +12,7 @@ enum Type {
 	DOWN,
 	DOWN_LEFT,
 	LEFT,
-	CENTER,
+	#CENTER,
 }
 
 const anchor_points: Dictionary = {
@@ -76,6 +76,7 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			dragging = true
+			get_viewport().warp_mouse(global_position + get_warp_pos())
 		
 		else:
 			dragging = false
@@ -83,4 +84,8 @@ func _gui_input(event: InputEvent) -> void:
 			
 	
 	elif event is InputEventMouseMotion && dragging:
-		dragged.emit(type, event.relative)
+		dragged.emit(type, event.position - Vector2(6,6))
+
+
+func get_warp_pos() -> Vector2:
+	return Vector2(6,6) * get_global_transform().get_scale()

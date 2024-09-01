@@ -25,6 +25,10 @@ var box_edits_allowed: bool
 var box_display_regions: bool
 
 
+func _init() -> void:
+	undo.max_steps = Settings.misc_max_undo
+
+
 #region Serialization
 func serialize_and_save(path: String) -> void:	
 	var cell_json_array: Array[String] = data.serialize_cells()

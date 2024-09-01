@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene load_steps=24 format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -8,6 +8,19 @@
 [ext_resource type="Script" path="res://SCENES/MAIN/topmenu_edit.gd" id="3_lymwu"]
 [ext_resource type="Script" path="res://SCENES/MAIN/bbcode_links.gd" id="5_jbgtt"]
 [ext_resource type="Script" path="res://SCENES/MAIN/status.gd" id="6_x8l4e"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/preferences.gd" id="9_amh60"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_thickness.gd" id="9_t7qug"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/cell_onion_skin_color.gd" id="10_p1185"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_unknown.gd" id="11_5e06x"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_hurtbox.gd" id="12_3dcda"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_hitbox.gd" id="13_dgg1r"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_region.gd" id="14_iaa5t"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_spawn.gd" id="15_4p7l4"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/sprite_color_bounds.gd" id="16_n6nme"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/pal_auto_double_alpha.gd" id="17_aeq1i"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/sprite_reindex.gd" id="18_2gube"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/misc_max_undo.gd" id="19_w7ci1"]
+[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6eya"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
@@ -15,6 +28,9 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3catb"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -158,6 +174,328 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
+
+[node name="preferences" type="Window" parent="." node_paths=PackedStringArray("save_button")]
+title = "Preferences"
+initial_position = 2
+size = Vector2i(400, 500)
+exclusive = true
+min_size = Vector2i(400, 200)
+max_size = Vector2i(1200, 580)
+script = ExtResource("9_amh60")
+save_button = NodePath("background/margin/content/save")
+
+[node name="background" type="PanelContainer" parent="preferences"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3catb")
+
+[node name="margin" type="MarginContainer" parent="preferences/background"]
+layout_mode = 2
+
+[node name="content" type="VBoxContainer" parent="preferences/background/margin"]
+layout_mode = 2
+
+[node name="scroll" type="ScrollContainer" parent="preferences/background/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="settings_margin" type="MarginContainer" parent="preferences/background/margin/content/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="settings" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="cells" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/title"]
+layout_mode = 2
+text = "Cells"
+
+[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="onion" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/onion"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Onion skin color"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/onion"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("10_p1185")
+
+[node name="boxes" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/title"]
+layout_mode = 2
+text = "Boxes"
+
+[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/thickness"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edge thickness"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/thickness"]
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+script = ExtResource("9_t7qug")
+
+[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_unknown"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (unknown)"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_unknown"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("11_5e06x")
+
+[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hurtbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (hurtbox)"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hurtbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("12_3dcda")
+
+[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hitbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (hitbox)"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hitbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("13_dgg1r")
+
+[node name="color_region" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (region)"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("14_iaa5t")
+
+[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_spawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (effect spawn point)"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_spawn"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("15_4p7l4")
+
+[node name="sprites" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/title"]
+layout_mode = 2
+text = "Sprites"
+
+[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="color_bounds" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/color_bounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color (bounds)"
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/color_bounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("16_n6nme")
+
+[node name="reindex" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/reindex"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "(Leaving this setting on is recommended if you don't understand its purpose)
+
+Automatically reindex sprites when they are being loaded/saved.
+Enable this setting to make sprites appear as they do in game.
+
+Color order in palettes does not match color order in 8-bit sprites. For easier
+visualization within Gear Studio, sprites can be automatically reindexed so
+that their colors match the palette's mapping.
+
+When exporting, if this setting remains on, they'll be set back to their original state."
+mouse_filter = 0
+text = "Auto reindex (?)"
+text_overrun_behavior = 3
+
+[node name="value" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/reindex"]
+layout_mode = 2
+button_pressed = true
+script = ExtResource("18_2gube")
+
+[node name="palettes" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes/title"]
+layout_mode = 2
+text = "Palettes"
+
+[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="alpha_mode" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes/alpha_mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "(Leaving this setting on is recommended if you don't understand its purpose)
+
+Automatically double/halve transparency when palettes are being loaded/saved.
+Enable this setting to make sprites appear as they do in game.
+
+As AC+R uses half alpha (0-128) in its palettes, importing them as-is results in
+semi-transparent sprites. For easier visualization within Gear Studio, the
+value of the alpha channel can be duplicated when palettes are imported.
+
+When exporting, if this setting remains on, the alpha will be restored to half."
+mouse_filter = 0
+text = "Auto double alpha (?)"
+text_overrun_behavior = 3
+
+[node name="value" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/palettes/alpha_mode"]
+layout_mode = 2
+button_pressed = true
+script = ExtResource("17_aeq1i")
+
+[node name="misc" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/title"]
+layout_mode = 2
+text = "Miscellaneous"
+
+[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="max_undo" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/max_undo"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Max undo steps"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/max_undo"]
+layout_mode = 2
+script = ExtResource("19_w7ci1")
+
+[node name="reopen" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/reopen"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Allow reopening same folder"
+text_overrun_behavior = 3
+
+[node name="value" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/reopen"]
+layout_mode = 2
+button_pressed = true
+script = ExtResource("20_560p1")
+
+[node name="save" type="Button" parent="preferences/background/margin/content"]
+layout_mode = 2
+text = "Save preferences"
 
 [connection signal="meta_clicked" from="about/content/details/acknowledgments" to="about/content/details/acknowledgments" method="link_clicked"]
 [connection signal="meta_clicked" from="about/content/details/info" to="about/content/details/info" method="link_clicked"]

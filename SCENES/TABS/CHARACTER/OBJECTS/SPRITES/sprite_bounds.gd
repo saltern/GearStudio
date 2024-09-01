@@ -14,4 +14,4 @@ func update_mode(new_value: bool) -> void:
 
 
 func _draw() -> void:
-	draw_rect(bounds, Color.BLACK, true)
+	draw_rect(bounds, Settings.sprite_color_bounds, true)

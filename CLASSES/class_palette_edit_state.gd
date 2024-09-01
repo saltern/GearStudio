@@ -15,11 +15,15 @@ var palette_index: int = 0
 var this_palette: BinPalette
 
 
+func _init() -> void:
+	undo.max_steps = Settings.misc_max_undo
+
+
 func serialize_and_save(path: String) -> void:	
 	for palette in palettes.size():
 		var this_pal: BinPalette = palettes[palette].duplicate(true)
-		this_pal.alpha_halve()
-		#this_pal.reindex()
+		if Settings.palette_alpha_double:
+			this_pal.alpha_halve()
 		
 		var new_file: FileAccess = FileAccess.open(
 				path + "/pal_%s.bin" % palette,
@@ -43,8 +47,8 @@ func load_palettes_from_path(path: String) -> void:
 	# Load palettes
 	for file in FileSort.get_sorted_files(path, "bin"):
 		var new_palette := BinPalette.from_file(file)
-		new_palette.alpha_double()
-		#new_palette.reindex()
+		if Settings.palette_alpha_double:
+			new_palette.alpha_double()
 		palettes.append(new_palette)
 
 

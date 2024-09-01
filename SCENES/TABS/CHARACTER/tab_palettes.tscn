@@ -118,7 +118,8 @@ Shift + right click: Remove from selection
 CTRL + C: Copy
 CTRL + V: Paste
 CTRL: Preview paste
-Tab: Swap selection mode (box/range)"
+Tab: Swap selection mode (box/range)
+Escape: Clear selection"
 mouse_filter = 0
 text = "Hover over this text for help."
 

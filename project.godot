@@ -25,10 +25,13 @@ SessionData="*res://AUTOLOADS/session_data.gd"
 Status="*res://AUTOLOADS/status.gd"
 SaveErrors="*res://AUTOLOADS/save_errors.gd"
 Clipboard="*res://AUTOLOADS/clipboard.gd"
+Settings="*res://AUTOLOADS/settings.gd"
+Opened="*res://AUTOLOADS/opened.gd"
 
 [debug]
 
 gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
 
 [display]
 
@@ -49,6 +52,14 @@ theme/default_font_antialiasing=2
 
 [input]
 
+ui_focus_next={
+"deadzone": 0.5,
+"events": []
+}
+ui_focus_prev={
+"deadzone": 0.5,
+"events": []
+}
 ui_undo={
 "deadzone": 0.5,
 "events": []

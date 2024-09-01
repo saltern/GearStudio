@@ -40,4 +40,4 @@ func menu_clicked(menu_id: int) -> void:
 			Status.set_status("The Action History is not currently available.")
 		
 		ButtonID.PREFERENCES:
-			Status.set_status("The Preferences menu is not currently available.")
+			Settings.display_window.emit()

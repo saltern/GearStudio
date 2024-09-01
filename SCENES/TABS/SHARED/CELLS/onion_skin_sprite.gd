@@ -19,12 +19,6 @@ func _ready() -> void:
 		onion_colors.append(0x00)
 		
 	for index in range(1, 256):
-		var gray: int = \
-			pal_state.get_color(index).get_luminance() * 256
-		
-		#onion_colors.append(gray)
-		#onion_colors.append(gray)
-		#onion_colors.append(gray)
 		onion_colors.append(0xFF)
 		onion_colors.append(0x00)
 		onion_colors.append(0x00)
