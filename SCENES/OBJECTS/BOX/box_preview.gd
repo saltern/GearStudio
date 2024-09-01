@@ -57,32 +57,31 @@ func _draw() -> void:
 	if is_selected:
 		color = pulsate_color(color)
 	
+	# Using four separate draw_rect()s instead of just one
+	# as drawing unfilled boxes is off by a pixel or two
+	
 	# Upper
-	draw_rect(
-		Rect2(
-			Vector2.ZERO,
-			Vector2(size.x, LINE_THICKNESS)),
+	draw_rect(Rect2(
+			Vector2i.ZERO,
+			Vector2i(size.x, LINE_THICKNESS)),
 		color)
 	
 	# Lower
-	draw_rect(
-		Rect2(
-			Vector2(0, size.y - LINE_THICKNESS),
-			Vector2(size.x, LINE_THICKNESS)),
+	draw_rect(Rect2(
+			Vector2i(0, size.y - LINE_THICKNESS),
+			Vector2i(size.x, LINE_THICKNESS)),
 		color)
 	
 	# Left
-	draw_rect(
-		Rect2(
-			Vector2.ZERO,
-			Vector2(LINE_THICKNESS, size.y)),
+	draw_rect(Rect2(
+			Vector2i.ZERO,
+			Vector2i(LINE_THICKNESS, size.y)),
 		color)
 	
 	# Right
-	draw_rect(
-		Rect2(
-			Vector2(size.x - LINE_THICKNESS, 0),
-			Vector2(LINE_THICKNESS, size.y)),
+	draw_rect(Rect2(
+			Vector2i(size.x - LINE_THICKNESS, 0),
+			Vector2i(LINE_THICKNESS, size.y)),
 		color)
 
 
@@ -105,10 +104,12 @@ func _gui_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		if tentative_select && is_selected:
 			tentative_select = false
+			get_viewport().set_input_as_handled()
 		
 		if is_selected && being_dragged:
 			have_dragged = true
 			position += event.relative
+			get_viewport().set_input_as_handled()
 
 
 func external_select(box: BoxInfo) -> void:
@@ -119,6 +120,7 @@ func external_select(box: BoxInfo) -> void:
 	is_selected = true
 	resizer_visibility()
 	mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
+	move_to_front()
 
 
 func external_deselect() -> void:
@@ -137,6 +139,8 @@ func pulsate_color(color: Color) -> Color:
 func clicked(event: InputEventMouseButton) -> void:
 	if not event.button_index == MOUSE_BUTTON_LEFT:
 		return
+	
+	get_viewport().set_input_as_handled()
 	
 	# Click
 	if event.pressed:
@@ -205,4 +209,4 @@ func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:
 
 func broadcast_changes() -> void:
 	being_resized = false
-	SessionData.box_set_rect_for(get_index(), Rect2i(position, size))
+	SessionData.box_set_rect_for(box_index, Rect2i(position, size))

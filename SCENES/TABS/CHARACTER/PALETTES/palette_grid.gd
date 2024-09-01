@@ -335,7 +335,6 @@ func paste() -> void:
 		pal_state.paste_color_into(selected)
 	else:
 		pal_state.paste_color(index_hovered)
-		print("Paste!")
 #endregion
 
 
@@ -399,6 +398,10 @@ func set_selection(subtractive: bool) -> void:
 
 
 func update_color(new_color: Color) -> void:
+	if selected_count < 1:
+		Status.set_status("Nothing selected. Palette has not been modified.")
+		return
+	
 	for cell in selected.size():
 		if !selected[cell]:
 			continue

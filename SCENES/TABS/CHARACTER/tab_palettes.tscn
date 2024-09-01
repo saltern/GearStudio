@@ -76,7 +76,7 @@ size_flags_horizontal = 3
 
 [node name="title" type="Label" parent="scroll/content/data/editors/color_grid"]
 layout_mode = 2
-text = "Color picker"
+text = "Palette view"
 
 [node name="background" type="TextureRect" parent="scroll/content/data/editors/color_grid"]
 custom_minimum_size = Vector2(273, 273)
@@ -109,6 +109,18 @@ columns = 16
 script = ExtResource("3_27bb1")
 color_picker = NodePath("../../../color_edit/color_pick")
 preview = NodePath("../../../preview/preview/sprite_center/sprite")
+
+[node name="help" type="Label" parent="scroll/content/data/editors/color_grid"]
+layout_mode = 2
+tooltip_text = "Click: Select colors
+Shift + click: Add to selection
+Shift + right click: Remove from selection
+CTRL + C: Copy
+CTRL + V: Paste
+CTRL: Preview paste
+Tab: Swap selection mode (box/range)"
+mouse_filter = 0
+text = "Hover over this text for help."
 
 [node name="v_sep_1" type="VSeparator" parent="scroll/content/data/editors"]
 layout_mode = 2
@@ -154,6 +166,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 
 [node name="preview" type="PanelContainer" parent="scroll/content/data/editors/preview"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

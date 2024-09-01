@@ -1,11 +1,15 @@
 extends Sprite2D
 
 var obj_state: ObjectEditState
+var pal_state: PaletteEditState
 
 
 func _ready() -> void:
 	obj_state = SessionData.object_state_get(
 			get_owner().get_parent().name)
+	
+	pal_state = SessionData.palette_state_get(
+			get_owner().get_parent().get_parent().get_index())
 	
 	material = material.duplicate()
 	
@@ -14,7 +18,13 @@ func _ready() -> void:
 	for transp in 4:
 		onion_colors.append(0x00)
 		
-	for index in 255:
+	for index in range(1, 256):
+		var gray: int = \
+			pal_state.get_color(index).get_luminance() * 256
+		
+		#onion_colors.append(gray)
+		#onion_colors.append(gray)
+		#onion_colors.append(gray)
 		onion_colors.append(0xFF)
 		onion_colors.append(0x00)
 		onion_colors.append(0x00)

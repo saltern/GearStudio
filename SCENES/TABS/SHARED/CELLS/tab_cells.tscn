@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_sw61b"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_x.gd" id="3_w74q5"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/sprite_offset_y.gd" id="4_lq7mp"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_background.gd" id="6_yy20r"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/display_regions.gd" id="7_5lhow"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/allow_edits.gd" id="7_8fqow"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_type.gd" id="7_yvfy8"]
@@ -19,6 +18,8 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_width.gd" id="10_p4nda"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_height.gd" id="11_yct21"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_sprite.gd" id="15_ex61n"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview.gd" id="16_mkc88"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_parent.gd" id="16_mp6fd"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="17_5g0bd"]
 [ext_resource type="Shader" path="res://palette.gdshader" id="18_8jtcf"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/onion_skin_sprite.gd" id="18_30r44"]
@@ -31,15 +32,11 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
-bg_color = Color(0.25098, 0.313726, 0.156863, 1)
-draw_center = false
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
 shader = ExtResource("18_8jtcf")
 shader_parameter/hover_index = -1
 shader_parameter/highlight = null
-shader_parameter/palette = null
+shader_parameter/palette = PackedInt32Array()
 
 [node name="cells" type="MarginContainer"]
 anchors_preset = 15
@@ -202,7 +199,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 script = ExtResource("2_iyh46")
-box_draw_node = NodePath("../../../../visualizer/borders/cell/visualizer/origin/box_parent")
+box_draw_node = NodePath("../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
 editable_parent = NodePath("../../editable")
 
 [node name="editable" type="VBoxContainer" parent="scroll/content/data/boxes"]
@@ -341,53 +338,80 @@ text = "Preview"
 [node name="borders" type="PanelContainer" parent="scroll/content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 
-[node name="cell" type="ScrollContainer" parent="scroll/content/visualizer/borders"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="visualizer" type="PanelContainer" parent="scroll/content/visualizer/borders/cell"]
+[node name="clipper" type="PanelContainer" parent="scroll/content/visualizer/borders"]
+texture_filter = 1
 clip_contents = true
-custom_minimum_size = Vector2(1000, 1000)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
+script = ExtResource("16_mp6fd")
 
-[node name="background" type="TextureRect" parent="scroll/content/visualizer/borders/cell/visualizer"]
-layout_mode = 2
-mouse_filter = 0
+[node name="visualizer" type="Node2D" parent="scroll/content/visualizer/borders/clipper"]
+position = Vector2(-523, -663)
+script = ExtResource("16_mkc88")
+
+[node name="background" type="TextureRect" parent="scroll/content/visualizer/borders/clipper/visualizer"]
+custom_minimum_size = Vector2(6000, 6000)
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_sw61b")
 stretch_mode = 1
-script = ExtResource("6_yy20r")
+metadata/_edit_use_anchors_ = true
 
-[node name="origin" type="Control" parent="scroll/content/visualizer/borders/cell/visualizer"]
-layout_mode = 2
+[node name="origin" type="Control" parent="scroll/content/visualizer/borders/clipper/visualizer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1000.0
+offset_top = 1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="onion" type="Sprite2D" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="guide" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 2000)
+offset_left = -1.0
+offset_top = -2021.0
+offset_right = 1.0
+offset_bottom = 1979.0
+
+[node name="guide_horz" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 2)
+layout_mode = 0
+offset_left = -2020.0
+offset_top = 2020.0
+offset_right = 1980.0
+offset_bottom = 2022.0
+
+[node name="onion" type="Sprite2D" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 material = SubResource("ShaderMaterial_k4855")
 position = Vector2(-128, -128)
 centered = false
 script = ExtResource("18_30r44")
 
-[node name="sprite" type="Sprite2D" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="sprite" type="Sprite2D" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 material = ExtResource("17_5g0bd")
 position = Vector2(-128, -128)
 centered = false
 script = ExtResource("15_ex61n")
 
-[node name="box_parent" type="Control" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="box_parent" type="Control" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("2_5521f")
 
-[node name="cross_v2" type="ColorRect" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="cross_v2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 layout_mode = 0
 offset_left = -2.0
 offset_top = -21.0
@@ -395,7 +419,7 @@ offset_right = 2.0
 offset_bottom = 21.0
 color = Color(0, 0, 0, 1)
 
-[node name="cross_h2" type="ColorRect" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="cross_h2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 layout_mode = 0
 offset_left = -21.0
 offset_top = -2.0
@@ -403,26 +427,21 @@ offset_right = 21.0
 offset_bottom = 2.0
 color = Color(0, 0, 0, 1)
 
-[node name="cross_v" type="ColorRect" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="cross_v" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 layout_mode = 0
 offset_left = -1.0
 offset_top = -20.0
 offset_right = 1.0
 offset_bottom = 20.0
 
-[node name="cross_h" type="ColorRect" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
+[node name="cross_h" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 layout_mode = 0
 offset_left = -20.0
 offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
 
-[node name="Control" type="Control" parent="scroll/content/visualizer/borders/cell/visualizer/origin"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[connection signal="disable_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/cell/visualizer/origin/onion" method="on_onion_skin_disable"]
-[connection signal="update_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/cell/visualizer/origin/onion" method="on_onion_skin_update"]
-[connection signal="toggled" from="scroll/content/data/onion_in_front/check" to="scroll/content/visualizer/borders/cell/visualizer/origin/onion" method="on_toggle_front"]
-[connection signal="box_changed" from="scroll/content/visualizer/borders/cell/visualizer/origin/box_parent" to="." method="on_box_changed"]
+[connection signal="disable_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
+[connection signal="update_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
+[connection signal="toggled" from="scroll/content/data/onion_in_front/check" to="scroll/content/visualizer/borders/clipper/visualizer/origin/onion" method="on_toggle_front"]
+[connection signal="box_changed" from="scroll/content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
