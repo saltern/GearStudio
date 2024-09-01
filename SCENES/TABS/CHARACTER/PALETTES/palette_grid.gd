@@ -141,6 +141,11 @@ func _input(event: InputEvent) -> void:
 		KEY_V:
 			if event.ctrl_pressed:
 				paste()
+		
+		KEY_ESCAPE:
+			selected_count = 0
+			selected.resize(0)
+			selected.resize(256)
 
 
 func _gui_input(event: InputEvent) -> void:
