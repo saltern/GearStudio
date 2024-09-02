@@ -50,7 +50,7 @@ func on_onion_skin_disable() -> void:
 
 func on_toggle_front(toggled_on: bool) -> void:
 	if toggled_on:
-		z_index = 2
+		z_index = 1
 	else:
 		z_index = 0
 

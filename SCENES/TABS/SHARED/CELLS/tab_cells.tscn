@@ -246,7 +246,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-allow_reselect = true
 allow_search = false
 script = ExtResource("3_f1ar8")
 
@@ -405,16 +404,6 @@ offset_top = 1999.0
 offset_right = 2000.0
 offset_bottom = 2001.0
 
-[node name="guide2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin/guide"]
-show_behind_parent = true
-custom_minimum_size = Vector2(2, 100)
-layout_mode = 0
-offset_left = -200.0
-offset_top = 1950.0
-offset_right = -198.0
-offset_bottom = 2050.0
-mouse_filter = 2
-
 [node name="onion" type="Sprite2D" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 material = SubResource("ShaderMaterial_k4855")
 position = Vector2(-128, -128)
@@ -433,6 +422,7 @@ mouse_filter = 2
 script = ExtResource("2_5521f")
 
 [node name="cross_v2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
+z_index = 1
 layout_mode = 0
 offset_left = -2.0
 offset_top = -21.0
@@ -442,6 +432,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="cross_h2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
+z_index = 1
 layout_mode = 0
 offset_left = -21.0
 offset_top = -2.0
@@ -451,6 +442,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="cross_v" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
+z_index = 1
 layout_mode = 0
 offset_left = -1.0
 offset_top = -20.0
@@ -459,6 +451,7 @@ offset_bottom = 20.0
 mouse_filter = 2
 
 [node name="cross_h" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
+z_index = 1
 layout_mode = 0
 offset_left = -20.0
 offset_top = -1.0

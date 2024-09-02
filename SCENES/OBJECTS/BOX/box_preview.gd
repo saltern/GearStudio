@@ -27,6 +27,8 @@ func _ready() -> void:
 		resizer.visible = is_selected
 		resizers.append(resizer)
 		add_child(resizer)
+	
+	z_index = 1
 
 
 func _process(_delta: float) -> void:
