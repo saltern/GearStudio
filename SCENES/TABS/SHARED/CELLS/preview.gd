@@ -10,10 +10,8 @@ func _process(_delta: float) -> void:
 	if !is_visible_in_tree():
 		return
 	
-	position.x = clampi(
-		position.x, -1500 + get_parent().get_parent().size.x, 1500)
-	position.y = clampi(
-		position.y, -1500 + get_parent().get_parent().size.x, 1500)
+	position.x = clampi(position.x, -1500 + get_parent().size.x, 1500)
+	position.y = clampi(position.y, -1500 + get_parent().size.y, 1500)
 
 
 func center_view() -> void:
