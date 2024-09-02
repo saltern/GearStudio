@@ -179,6 +179,7 @@ text = "Close"
 title = "Preferences"
 initial_position = 2
 size = Vector2i(400, 500)
+visible = false
 exclusive = true
 min_size = Vector2i(400, 200)
 max_size = Vector2i(1200, 650)

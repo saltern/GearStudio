@@ -361,7 +361,7 @@ size_flags_vertical = 3
 script = ExtResource("16_mp6fd")
 
 [node name="visualizer" type="Node2D" parent="scroll/content/visualizer/borders/clipper"]
-position = Vector2(-523, -663)
+position = Vector2(400, 400)
 script = ExtResource("16_mkc88")
 
 [node name="background" type="TextureRect" parent="scroll/content/visualizer/borders/clipper/visualizer"]
@@ -380,10 +380,6 @@ metadata/_edit_use_anchors_ = true
 [node name="origin" type="Control" parent="scroll/content/visualizer/borders/clipper/visualizer"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1000.0
-offset_top = 1000.0
-offset_right = 1000.0
-offset_bottom = 1000.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
@@ -392,20 +388,32 @@ metadata/_edit_use_anchors_ = true
 [node name="guide" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
-custom_minimum_size = Vector2(2, 2000)
+custom_minimum_size = Vector2(2, 4000)
+layout_mode = 0
 offset_left = -1.0
-offset_top = -2021.0
+offset_top = -2000.0
 offset_right = 1.0
-offset_bottom = 1979.0
+offset_bottom = 2000.0
+mouse_filter = 2
 
 [node name="guide_horz" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
 custom_minimum_size = Vector2(2000, 2)
 layout_mode = 0
-offset_left = -2020.0
-offset_top = 2020.0
-offset_right = 1980.0
-offset_bottom = 2022.0
+offset_left = -2000.0
+offset_top = 1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+
+[node name="guide2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 100)
+layout_mode = 0
+offset_left = -200.0
+offset_top = 1950.0
+offset_right = -198.0
+offset_bottom = 2050.0
+mouse_filter = 2
 
 [node name="onion" type="Sprite2D" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 material = SubResource("ShaderMaterial_k4855")
@@ -430,6 +438,7 @@ offset_left = -2.0
 offset_top = -21.0
 offset_right = 2.0
 offset_bottom = 21.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="cross_h2" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
@@ -438,6 +447,7 @@ offset_left = -21.0
 offset_top = -2.0
 offset_right = 21.0
 offset_bottom = 2.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="cross_v" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
@@ -446,6 +456,7 @@ offset_left = -1.0
 offset_top = -20.0
 offset_right = 1.0
 offset_bottom = 20.0
+mouse_filter = 2
 
 [node name="cross_h" type="ColorRect" parent="scroll/content/visualizer/borders/clipper/visualizer/origin"]
 layout_mode = 0
@@ -453,6 +464,7 @@ offset_left = -20.0
 offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
+mouse_filter = 2
 
 [connection signal="disable_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
 [connection signal="update_onion_skin" from="scroll/content/data/onion/value" to="scroll/content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
