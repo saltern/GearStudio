@@ -87,6 +87,7 @@ func external_selection(index: int) -> void:
 
 func external_clear_selection() -> void:
 	deselect_all()
+	current_selection = -1
 
 
 func external_update(_box: BoxInfo) -> void:
