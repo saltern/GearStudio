@@ -181,10 +181,13 @@ func box_set_offset_x(new_value: int) -> void:
 	undo.create_action("Cell #%s set box X offset" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	undo.add_do_property(this_box, "rect:position:x", new_value)
+	var new_rect: Rect2i = this_box.rect
+	new_rect.position.x = new_value
+	
+	undo.add_do_property(this_box, "rect", new_rect)
 	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
-	undo.add_undo_property(this_box, "rect:position:x", this_box.rect.position.x)
+	undo.add_undo_property(this_box, "rect", this_box.rect)
 	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
@@ -194,10 +197,13 @@ func box_set_offset_y(new_value: int) -> void:
 	undo.create_action("Cell #%s set box Y offset" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	undo.add_do_property(this_box, "rect:position:y", new_value)
+	var new_rect: Rect2i = this_box.rect
+	new_rect.position.y = new_value
+	
+	undo.add_do_property(this_box, "rect", new_rect)
 	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
-	undo.add_undo_property(this_box, "rect:position:y", this_box.rect.position.y)
+	undo.add_undo_property(this_box, "rect", this_box.rect)
 	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
@@ -207,10 +213,13 @@ func box_set_width(new_value: int) -> void:
 	undo.create_action("Cell #%s set box width" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	undo.add_do_property(this_box, "rect:size:x", new_value)
+	var new_rect: Rect2i = this_box.rect
+	new_rect.size.x = new_value
+	
+	undo.add_do_property(this_box, "rect", new_rect)
 	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
-	undo.add_undo_property(this_box, "rect:size:x", this_box.rect.size.x)
+	undo.add_undo_property(this_box, "rect", this_box.rect)
 	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
@@ -220,10 +229,13 @@ func box_set_height(new_value: int) -> void:
 	undo.create_action("Cell #%s set box height" % cell_index,
 			UndoRedo.MERGE_ENDS)
 	
-	undo.add_do_property(this_box, "rect:size:y", new_value)
+	var new_rect: Rect2i = this_box.rect
+	new_rect.size.y = new_value
+	
+	undo.add_do_property(this_box, "rect", new_rect)
 	undo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
-	undo.add_undo_property(this_box, "rect:size:y", this_box.rect.size.y)
+	undo.add_undo_property(this_box, "rect", this_box.rect)
 	undo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
 	undo.commit_action()
