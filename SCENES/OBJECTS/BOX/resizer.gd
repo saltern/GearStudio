@@ -61,6 +61,7 @@ func _ready() -> void:
 	anchor_right = anchor_points[type][2]
 	anchor_bottom = anchor_points[type][3]
 	mouse_default_cursor_shape = mouse_shape[type]
+	z_index = 10
 
 
 func _process(_delta: float) -> void:

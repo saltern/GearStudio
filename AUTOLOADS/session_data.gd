@@ -327,4 +327,14 @@ func box_set_height(new_value: int) -> void:
 func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	Status.set_status("Set box rect.")
 	this_object_state.box_set_rect_for(index, rect)
+
+
+func box_set_crop_offset_x(new_value: int) -> void:
+	Status.set_status("Set sprite region X offset.")
+	this_object_state.box_set_crop_offset_x(new_value)
+
+
+func box_set_crop_offset_y(new_value: int) -> void:
+	Status.set_status("Set sprite region Y offset.")
+	this_object_state.box_set_crop_offset_y(new_value)
 #endregion
