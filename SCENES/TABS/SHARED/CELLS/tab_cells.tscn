@@ -463,6 +463,7 @@ offset_left = -2000.0
 offset_top = 1999.0
 offset_right = 2000.0
 offset_bottom = 2001.0
+mouse_filter = 2
 
 [node name="onion" type="Sprite2D" parent="content/visualizer/borders/clipper/visualizer/origin"]
 material = SubResource("ShaderMaterial_k4855")

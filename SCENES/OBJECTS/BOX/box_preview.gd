@@ -5,7 +5,7 @@ class_name BoxPreview extends Control
 var box_info: BoxInfo
 
 var box_index: int = -1
-var box_type: int = 0
+#var box_type: int = 0
 
 var tentative_select: bool = false
 var is_selected: bool = false
@@ -33,7 +33,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if !SessionData.box_get_display_regions() && \
-	(box_type == 3 || box_type == 6):
+	(box_info.type & 0xFFFF == 3 || box_info.type & 0xFFFF == 6):
 		hide()
 	else:
 		show()
@@ -50,7 +50,7 @@ func _draw() -> void:
 		return
 	
 	var color: Color = Settings.box_colors[Settings.BoxType.UNKNOWN]
-	var type_color: int = box_type
+	var type_color: int = box_info.type & 0xFFFF
 	
 	if type_color == 6:
 		type_color = 3

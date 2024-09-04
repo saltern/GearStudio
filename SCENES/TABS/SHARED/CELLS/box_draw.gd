@@ -26,7 +26,7 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 		obj_state.box_selected.connect(new_box.external_select)
 		obj_state.boxes_deselected.connect(new_box.external_deselect)
 		new_box.box_info = this_box
-		new_box.box_type = this_box.type & 0xFFFF
+		#new_box.box_type = this_box.type & 0xFFFF
 		new_box.box_index = box
 		new_box.mouse_filter = Control.MOUSE_FILTER_PASS
 		
