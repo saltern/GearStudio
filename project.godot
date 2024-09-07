@@ -27,6 +27,7 @@ SaveErrors="*res://AUTOLOADS/save_errors.gd"
 Clipboard="*res://AUTOLOADS/clipboard.gd"
 Settings="*res://AUTOLOADS/settings.gd"
 Opened="*res://AUTOLOADS/opened.gd"
+SpriteExport="*res://AUTOLOADS/sprite_export.gd"
 
 [debug]
 

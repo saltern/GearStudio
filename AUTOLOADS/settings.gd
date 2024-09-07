@@ -1,6 +1,8 @@
 extends Node
 
+@warning_ignore("unused_signal")
 signal display_window
+@warning_ignore("unused_signal")
 signal onion_color_changed
 
 const FILENAME: String = "/gearstudio.ini"

@@ -2,6 +2,7 @@
 # Resource to be held in dictionary by SharedData.
 class_name ObjectEditState extends Resource
 
+@warning_ignore("unused_signal")
 signal sprite_updated
 
 signal box_selected
@@ -284,8 +285,6 @@ func box_paste(overwrite: bool = false) -> void:
 		undo.create_action("Cell #%s paste boxes" % cell_index)
 	
 	for box in Clipboard.box_data:
-		var box_append_at: int = this_cell.boxes.size()
-		
 		undo.add_do_method(box_append_commit.bind(this_cell, box))
 		undo.add_undo_method(box_delete_commit.bind(this_cell, box))
 		

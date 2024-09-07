@@ -12,5 +12,5 @@ func _ready() -> void:
 	max_value = obj_state.data.cells.size() - 1
 
 
-func update(cell: Cell) -> void:
+func update(_cell: Cell) -> void:
 	call_deferred("set_value_no_signal", obj_state.cell_index)

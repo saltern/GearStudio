@@ -73,7 +73,7 @@ func check_enable(_enabled: bool) -> void:
 		set_item_disabled(item, !new_value)
 
 
-func on_multi_selected(index: int, selected: bool) -> void:
+func on_multi_selected(_index: int, _selected: bool) -> void:
 	SessionData.box_set_selection(get_selected_items())
 		
 

@@ -1,10 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=26 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_sprites.gd" id="1_w8w61"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_button.gd" id="2_2lm5e"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="3_dny3v"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_h6j3j"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_bounds.gd" id="4_1jvt1"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_texture.gd" id="4_7uxh2"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_range_start.gd" id="6_03nya"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_window.gd" id="6_bkihs"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_preview_sprite_index.gd" id="9_offsu"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_range_end.gd" id="9_shift"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_bin.gd" id="10_8ofoh"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_index.gd" id="10_dnbjd"]
+[ext_resource type="Material" uid="uid://cmrekkhn07td8" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/mat_exporter_preview.material" id="11_oyumr"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_preview_sprite.gd" id="11_wvhu1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_raw.gd" id="11_xdr4w"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_png.gd" id="12_k6s74"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_bmp.gd" id="13_3bqh1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_include.gd" id="16_3rs5u"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_override.gd" id="17_k1x02"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_save_dialog.gd" id="18_5ok6t"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_alpha_mode.gd" id="18_bfaac"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_sprite_reindex.gd" id="19_uiy5d"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_sprite_naming.gd" id="20_ht5g3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -25,7 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8w61")
 sprite_index = NodePath("content/scroll/margin/data/sprite_index/value")
-palette_index = NodePath("content/scroll/margin/data/palette/value")
+palette_index = NodePath("content/scroll/margin/data/palette_index/value")
 sprite_node = NodePath("content/visualizer/visualizer/content/sprite")
 sprite_bounds = NodePath("content/visualizer/visualizer/content/sprite/bounds_draw")
 info_dimensions = NodePath("content/scroll/margin/data/dimensions/value")
@@ -41,7 +59,7 @@ size_flags_vertical = 3
 [node name="scroll" type="ScrollContainer" parent="content"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.35
 
 [node name="margin" type="MarginContainer" parent="content/scroll"]
 layout_mode = 2
@@ -49,26 +67,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="data" type="VBoxContainer" parent="content/scroll/margin"]
+custom_minimum_size = Vector2(283, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="import_export" type="HBoxContainer" parent="content/scroll/margin/data"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="import" type="Button" parent="content/scroll/margin/data/import_export"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Import one or more sprites"
-text = "Import"
-
-[node name="export" type="Button" parent="content/scroll/margin/data/import_export"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Export one or more sprites"
-text = "Export"
-
-[node name="HSeparator3" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
 [node name="display_bounds" type="HBoxContainer" parent="content/scroll/margin/data"]
@@ -98,21 +101,21 @@ size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
 
-[node name="palette" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="palette_index" type="HBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/palette"]
+[node name="title" type="Label" parent="content/scroll/margin/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette #"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/palette"]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 21.0
 alignment = 2
 
-[node name="HSeparator" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep2" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
 [node name="dimensions" type="HBoxContainer" parent="content/scroll/margin/data"]
@@ -154,8 +157,26 @@ layout_mode = 2
 size_flags_horizontal = 10
 text = "No"
 
-[node name="HSeparator2" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep3" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
+
+[node name="import_export" type="HBoxContainer" parent="content/scroll/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="import" type="Button" parent="content/scroll/margin/data/import_export"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Import one or more sprites"
+text = "Import..."
+
+[node name="export" type="Button" parent="content/scroll/margin/data/import_export" node_paths=PackedStringArray("export_window")]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export one or more sprites"
+text = "Export..."
+script = ExtResource("2_2lm5e")
+export_window = NodePath("../../../../../../exporter")
 
 [node name="VSeparator" type="VSeparator" parent="content"]
 layout_mode = 2
@@ -197,12 +218,15 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_1jvt1")
 
-[node name="exporter" type="Window" parent="."]
+[node name="exporter" type="Window" parent="." node_paths=PackedStringArray("export_path_dialog")]
 title = "Export sprites..."
 initial_position = 2
-size = Vector2i(380, 532)
-min_size = Vector2i(380, 160)
-max_size = Vector2i(380, 532)
+size = Vector2i(900, 614)
+visible = false
+transient = true
+min_size = Vector2i(600, 160)
+script = ExtResource("6_bkihs")
+export_path_dialog = NodePath("../export_path")
 
 [node name="background" type="PanelContainer" parent="exporter"]
 anchors_preset = 15
@@ -212,240 +236,371 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_neyyb")
 
-[node name="window_content" type="VBoxContainer" parent="exporter/background"]
+[node name="content_margin" type="MarginContainer" parent="exporter/background"]
 layout_mode = 2
 
-[node name="scrollbar_margin" type="MarginContainer" parent="exporter/background/window_content"]
+[node name="window_content" type="HBoxContainer" parent="exporter/background/content_margin"]
 layout_mode = 2
+
+[node name="config_contents" type="VBoxContainer" parent="exporter/background/content_margin/window_content"]
+layout_mode = 2
+
+[node name="config_scroll" type="ScrollContainer" parent="exporter/background/content_margin/window_content/config_contents"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="scroll" type="ScrollContainer" parent="exporter/background/window_content/scrollbar_margin"]
-layout_mode = 2
-
-[node name="margin" type="MarginContainer" parent="exporter/background/window_content/scrollbar_margin/scroll"]
+[node name="config_margin" type="MarginContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin"]
+[node name="config" type="VBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="range" type="VBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 
-[node name="range" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+[node name="title" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+[node name="hsep_0" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+[node name="label" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 text = "Sprite range"
 
-[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+[node name="hsep_1" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="start" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+[node name="start" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/start"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/start"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "Start sprite"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/start"]
+[node name="value" type="SpinBox" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/start"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("6_03nya")
 
-[node name="end" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+[node name="end" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/end"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/end"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 text = "End sprite"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/end"]
+[node name="value" type="SpinBox" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/end" node_paths=PackedStringArray("sprite_range_start")]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("9_shift")
+sprite_range_start = NodePath("../../start/value")
 
-[node name="format" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+[node name="format" type="VBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+[node name="title" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+[node name="hsep_0" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+[node name="label" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
 text = "Output formats"
 
-[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+[node name="hsep_1" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="bin" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+[node name="bin" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bin"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bin"]
 layout_mode = 2
 text = "BIN (uncompressed)"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bin"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bin"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 15
+script = ExtResource("10_8ofoh")
 
-[node name="raw" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+[node name="raw" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/raw"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/raw"]
 layout_mode = 2
 text = "RAW"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/raw"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/raw"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 15
+script = ExtResource("11_xdr4w")
 
-[node name="png" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+[node name="png" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/png"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/png"]
 layout_mode = 2
 text = "PNG"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/png"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/png"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 15
+script = ExtResource("12_k6s74")
 
-[node name="bmp" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+[node name="bmp" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bmp"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bmp"]
 layout_mode = 2
 text = "BMP"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bmp"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bmp"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_font_sizes/font_size = 15
+script = ExtResource("13_3bqh1")
 
-[node name="palette" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+[node name="palette" type="VBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
+[node name="title" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+[node name="hsep_0" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+[node name="label" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
 text = "Palette"
 
-[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+[node name="hsep_1" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="include" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
+[node name="index" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Index"
+
+[node name="value" type="SpinBox" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index" node_paths=PackedStringArray("include_toggle", "override_toggle", "alpha_mode_menu", "reindex_toggle", "sprite_index")]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 21.0
+alignment = 2
+script = ExtResource("10_dnbjd")
+include_toggle = NodePath("../../include/button")
+override_toggle = NodePath("../../override/button")
+alpha_mode_menu = NodePath("../../alpha/mode")
+reindex_toggle = NodePath("../../../misc_options/reindex/button")
+palette_material = ExtResource("11_oyumr")
+sprite_index = NodePath("../../../../../../../preview/title/sprite_index")
+
+[node name="include" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/include"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Include"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/include"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("16_3rs5u")
+
+[node name="override" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="halve_alpha" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/halve_alpha"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/override"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Halve alpha"
+text = "Override embedded"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/halve_alpha"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/override"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("17_k1x02")
+
+[node name="alpha" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="misc_options" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/alpha"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Alpha mode"
+
+[node name="mode" type="OptionButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/alpha"]
+layout_mode = 2
+size_flags_horizontal = 3
+flat = true
+alignment = 1
+selected = 0
+item_count = 4
+popup/item_0/text = "Do nothing"
+popup/item_1/text = "Double"
+popup/item_1/id = 1
+popup/item_2/text = "Halve"
+popup/item_2/id = 2
+popup/item_3/text = "Make opaque"
+popup/item_3/id = 3
+script = ExtResource("18_bfaac")
+
+[node name="misc_options" type="VBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options"]
+[node name="title" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+[node name="hsep_0" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+[node name="label" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
 text = "Miscellaneous"
 
-[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+[node name="hsep_1" type="HSeparator" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="buttons" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options"]
+[node name="reindex" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/buttons"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/reindex"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reindex"
 
-[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/buttons"]
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/reindex"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("19_uiy5d")
+
+[node name="index_zero" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="confirmation" type="MarginContainer" parent="exporter/background/window_content"]
-layout_mode = 2
-
-[node name="buttons" type="HBoxContainer" parent="exporter/background/window_content/confirmation"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="export" type="Button" parent="exporter/background/window_content/confirmation/buttons"]
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/index_zero"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "Name output starting at 0"
+
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/index_zero"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("20_ht5g3")
+
+[node name="export" type="Button" parent="exporter/background/content_margin/window_content/config_contents"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
 text = "Export..."
 
-[node name="cancel" type="Button" parent="exporter/background/window_content/confirmation/buttons"]
+[node name="v_sep" type="VSeparator" parent="exporter/background/content_margin/window_content"]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="exporter/background/content_margin/window_content"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Cancel"
+
+[node name="title" type="HBoxContainer" parent="exporter/background/content_margin/window_content/preview"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/preview/title"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview sprite"
+vertical_alignment = 1
+
+[node name="sprite_index" type="SpinBox" parent="exporter/background/content_margin/window_content/preview/title" node_paths=PackedStringArray("sprite_range_start", "sprite_range_end")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("9_offsu")
+sprite_range_start = NodePath("../../../config_contents/config_scroll/config_margin/config/range/start/value")
+sprite_range_end = NodePath("../../../config_contents/config_scroll/config_margin/config/range/end/value")
+
+[node name="preview_panel" type="PanelContainer" parent="exporter/background/content_margin/window_content/preview"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
+
+[node name="background" type="TextureRect" parent="exporter/background/content_margin/window_content/preview/preview_panel"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_h6j3j")
+stretch_mode = 1
+
+[node name="center" type="CenterContainer" parent="exporter/background/content_margin/window_content/preview/preview_panel/background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sprite" type="TextureRect" parent="exporter/background/content_margin/window_content/preview/preview_panel/background/center" node_paths=PackedStringArray("sprite_index_spinbox")]
+material = ExtResource("11_oyumr")
+layout_mode = 2
+script = ExtResource("11_wvhu1")
+sprite_index_spinbox = NodePath("../../../../title/sprite_index")
+
+[node name="export_path" type="FileDialog" parent="." node_paths=PackedStringArray("export_button")]
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(640, 480)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+script = ExtResource("18_5ok6t")
+export_button = NodePath("../exporter/background/content_margin/window_content/config_contents/export")
 
 [connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]

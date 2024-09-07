@@ -1,6 +1,8 @@
 # SessionData autoload
 extends Node
 
+@warning_ignore("unused_signal")
+signal tab_loading_complete
 signal tab_closed
 
 var tab_index: int = 0
@@ -118,7 +120,7 @@ func save() -> void:
 	SaveErrors.set_status()
 
 #region Tabs
-func tab_new(path: String) -> PackedStringArray:
+func tab_new(path: String) -> void:
 	var sub_tab_list: PackedStringArray = []
 	
 	var dir: DirAccess = DirAccess.open(path)
@@ -126,7 +128,8 @@ func tab_new(path: String) -> PackedStringArray:
 	if DirAccess.get_open_error() != OK:
 		Status.set_status(
 				"Could not load character! Reason: Could not open directory.")
-		return sub_tab_list
+		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+		return
 	
 	var new_session: Dictionary = {}
 	var dir_list: PackedStringArray = dir.get_directories()
@@ -140,6 +143,11 @@ func tab_new(path: String) -> PackedStringArray:
 		
 		dir_list.remove_at(dir_list.find("palettes"))
 		sub_tab_list.append("palettes")
+	
+	if dir_list.size() < 1:
+		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+		return
+		
 	
 	new_session["current_object"] = dir_list[0]
 	
@@ -168,7 +176,7 @@ func tab_new(path: String) -> PackedStringArray:
 		this_tab["path"] = path
 		object_state_load(dir_list[0])
 	
-	return sub_tab_list
+	call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 
 
 func tab_load(index: int = 0) -> void:
