@@ -10,7 +10,7 @@ var pal_state: PaletteEditState
 var obj_state: ObjectEditState
 
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	obj_state = SessionData.object_state_get("player")
 	pal_state = SessionData.palette_state_get(get_parent().get_index())
 	pal_state.load_palette(0)

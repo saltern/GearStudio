@@ -11,7 +11,7 @@ func _ready() -> void:
 	obj_state.cell_updated.connect(on_cell_update)
 	obj_state.box_updated.connect(on_box_update)
 	obj_state.box_selected.connect(on_box_update)
-	obj_state.boxes_deselected.connect(reset)
+	obj_state.box_deselected_all.connect(reset)
 
 
 func reset() -> void:
@@ -19,11 +19,15 @@ func reset() -> void:
 
 
 func on_cell_update(_cell: Cell) -> void:
-	reset()
+	if not SessionData.box_get_draw_mode():
+		reset()
 
 
 func on_box_update(box: BoxInfo) -> void:
-	call_deferred("set_value_no_signal", box.type)
+	if SessionData.box_get_selected_count() > 1:
+		return
+	else:
+		call_deferred("set_value_no_signal", box.type)
 
 
 func on_editing_toggled(enabled: bool) -> void:

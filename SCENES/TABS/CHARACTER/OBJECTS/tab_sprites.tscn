@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=8 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_sprites.gd" id="1_w8w61"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="3_dny3v"]
@@ -14,6 +14,9 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neyyb"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
 [node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index", "palette_index", "sprite_node", "sprite_bounds", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,149 +24,428 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w8w61")
-sprite_index = NodePath("ScrollContainer/content/data/sprite_index/value")
-palette_index = NodePath("ScrollContainer/content/data/palette/value")
-sprite_node = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite")
-sprite_bounds = NodePath("ScrollContainer/content/visualizer/visualizer/content/sprite/bounds_draw")
-info_dimensions = NodePath("ScrollContainer/content/data/dimensions/value")
-info_color_depth = NodePath("ScrollContainer/content/data/color_depth/value")
-info_embedded_pal = NodePath("ScrollContainer/content/data/embedded_pal/value")
+sprite_index = NodePath("content/scroll/margin/data/sprite_index/value")
+palette_index = NodePath("content/scroll/margin/data/palette/value")
+sprite_node = NodePath("content/visualizer/visualizer/content/sprite")
+sprite_bounds = NodePath("content/visualizer/visualizer/content/sprite/bounds_draw")
+info_dimensions = NodePath("content/scroll/margin/data/dimensions/value")
+info_color_depth = NodePath("content/scroll/margin/data/color_depth/value")
+info_embedded_pal = NodePath("content/scroll/margin/data/embedded_pal/value")
 metadata/_tab_index = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-layout_mode = 2
-
-[node name="content" type="HBoxContainer" parent="ScrollContainer"]
+[node name="content" type="HBoxContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="data" type="VBoxContainer" parent="ScrollContainer/content"]
+[node name="scroll" type="ScrollContainer" parent="content"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 
-[node name="display_bounds" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="margin" type="MarginContainer" parent="content/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="data" type="VBoxContainer" parent="content/scroll/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="import_export" type="HBoxContainer" parent="content/scroll/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="import" type="Button" parent="content/scroll/margin/data/import_export"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Import one or more sprites"
+text = "Import"
+
+[node name="export" type="Button" parent="content/scroll/margin/data/import_export"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export one or more sprites"
+text = "Export"
+
+[node name="HSeparator3" type="HSeparator" parent="content/scroll/margin/data"]
+layout_mode = 2
+
+[node name="display_bounds" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/display_bounds"]
+[node name="title" type="Label" parent="content/scroll/margin/data/display_bounds"]
 layout_mode = 2
 text = "Display bounds"
 
-[node name="value" type="CheckButton" parent="ScrollContainer/content/data/display_bounds"]
+[node name="value" type="CheckButton" parent="content/scroll/margin/data/display_bounds"]
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 
-[node name="sprite_index" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="sprite_index" type="HBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/sprite_index"]
+[node name="title" type="Label" parent="content/scroll/margin/data/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sprite #"
 
-[node name="value" type="SpinBox" parent="ScrollContainer/content/data/sprite_index"]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
 
-[node name="palette" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="palette" type="HBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/palette"]
+[node name="title" type="Label" parent="content/scroll/margin/data/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette #"
 
-[node name="value" type="SpinBox" parent="ScrollContainer/content/data/palette"]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 21.0
 alignment = 2
 
-[node name="HSeparator" type="HSeparator" parent="ScrollContainer/content/data"]
+[node name="HSeparator" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="dimensions" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="dimensions" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/dimensions"]
+[node name="title" type="Label" parent="content/scroll/margin/data/dimensions"]
 layout_mode = 2
 text = "Dimensions"
 
-[node name="value" type="Label" parent="ScrollContainer/content/data/dimensions"]
+[node name="value" type="Label" parent="content/scroll/margin/data/dimensions"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "256 x 256"
 
-[node name="color_depth" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="color_depth" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/color_depth"]
+[node name="title" type="Label" parent="content/scroll/margin/data/color_depth"]
 layout_mode = 2
 text = "Color depth"
 
-[node name="value" type="Label" parent="ScrollContainer/content/data/color_depth"]
+[node name="value" type="Label" parent="content/scroll/margin/data/color_depth"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "8 bpp"
 
-[node name="embedded_pal" type="HBoxContainer" parent="ScrollContainer/content/data"]
+[node name="embedded_pal" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="ScrollContainer/content/data/embedded_pal"]
+[node name="title" type="Label" parent="content/scroll/margin/data/embedded_pal"]
 layout_mode = 2
 text = "Embedded palette"
 
-[node name="value" type="Label" parent="ScrollContainer/content/data/embedded_pal"]
+[node name="value" type="Label" parent="content/scroll/margin/data/embedded_pal"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "No"
 
-[node name="VSeparator" type="VSeparator" parent="ScrollContainer/content"]
+[node name="HSeparator2" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="visualizer" type="VBoxContainer" parent="ScrollContainer/content"]
+[node name="VSeparator" type="VSeparator" parent="content"]
+layout_mode = 2
+
+[node name="visualizer" type="VBoxContainer" parent="content"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="title" type="Label" parent="ScrollContainer/content/visualizer"]
+[node name="title" type="Label" parent="content/visualizer"]
 layout_mode = 2
 text = "Preview"
 
-[node name="visualizer" type="PanelContainer" parent="ScrollContainer/content/visualizer"]
+[node name="visualizer" type="PanelContainer" parent="content/visualizer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 
-[node name="background" type="TextureRect" parent="ScrollContainer/content/visualizer/visualizer"]
+[node name="background" type="TextureRect" parent="content/visualizer/visualizer"]
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("3_h6j3j")
 stretch_mode = 1
 
-[node name="content" type="CenterContainer" parent="ScrollContainer/content/visualizer/visualizer"]
+[node name="content" type="CenterContainer" parent="content/visualizer/visualizer"]
 layout_mode = 2
 
-[node name="sprite" type="TextureRect" parent="ScrollContainer/content/visualizer/visualizer/content"]
+[node name="sprite" type="TextureRect" parent="content/visualizer/visualizer/content"]
 texture_filter = 1
 material = ExtResource("3_dny3v")
 layout_mode = 2
 script = ExtResource("4_7uxh2")
 
-[node name="bounds_draw" type="Control" parent="ScrollContainer/content/visualizer/visualizer/content/sprite"]
+[node name="bounds_draw" type="Control" parent="content/visualizer/visualizer/content/sprite"]
 show_behind_parent = true
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("4_1jvt1")
 
-[connection signal="toggled" from="ScrollContainer/content/data/display_bounds/value" to="ScrollContainer/content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]
+[node name="exporter" type="Window" parent="."]
+title = "Export sprites..."
+initial_position = 2
+size = Vector2i(380, 532)
+min_size = Vector2i(380, 160)
+max_size = Vector2i(380, 532)
+
+[node name="background" type="PanelContainer" parent="exporter"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_neyyb")
+
+[node name="window_content" type="VBoxContainer" parent="exporter/background"]
+layout_mode = 2
+
+[node name="scrollbar_margin" type="MarginContainer" parent="exporter/background/window_content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="scroll" type="ScrollContainer" parent="exporter/background/window_content/scrollbar_margin"]
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="exporter/background/window_content/scrollbar_margin/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin"]
+layout_mode = 2
+
+[node name="range" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+layout_mode = 2
+text = "Sprite range"
+
+[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="start" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/start"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Start sprite"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/start"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="end" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/end"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "End sprite"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/range/end"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="format" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+layout_mode = 2
+text = "Output formats"
+
+[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="bin" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bin"]
+layout_mode = 2
+text = "BIN (uncompressed)"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bin"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 15
+
+[node name="raw" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/raw"]
+layout_mode = 2
+text = "RAW"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/raw"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 15
+
+[node name="png" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/png"]
+layout_mode = 2
+text = "PNG"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/png"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 15
+
+[node name="bmp" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bmp"]
+layout_mode = 2
+text = "BMP"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/format/bmp"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 15
+
+[node name="palette" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+layout_mode = 2
+text = "Palette"
+
+[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="include" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/include"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Include"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/include"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="halve_alpha" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/halve_alpha"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Halve alpha"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/palette/halve_alpha"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="misc_options" type="VBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="label" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+layout_mode = 2
+text = "Miscellaneous"
+
+[node name="hsep_1" type="HSeparator" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="buttons" type="HBoxContainer" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reindex"
+
+[node name="button" type="CheckButton" parent="exporter/background/window_content/scrollbar_margin/scroll/margin/content/misc_options/buttons"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="confirmation" type="MarginContainer" parent="exporter/background/window_content"]
+layout_mode = 2
+
+[node name="buttons" type="HBoxContainer" parent="exporter/background/window_content/confirmation"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="export" type="Button" parent="exporter/background/window_content/confirmation/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export..."
+
+[node name="cancel" type="Button" parent="exporter/background/window_content/confirmation/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Cancel"
+
+[connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]

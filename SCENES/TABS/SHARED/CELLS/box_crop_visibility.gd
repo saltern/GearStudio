@@ -8,7 +8,7 @@ func _ready() -> void:
 	obj_state.cell_updated.connect(on_cell_update)
 	obj_state.box_updated.connect(on_box_update)
 	obj_state.box_selected.connect(on_box_update)
-	obj_state.boxes_deselected.connect(hide)
+	obj_state.box_deselected_all.connect(hide)
 
 
 func on_cell_update(_cell: Cell) -> void:

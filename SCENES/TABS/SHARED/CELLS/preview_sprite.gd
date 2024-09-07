@@ -101,7 +101,7 @@ func get_sprite_palette(index: int) -> PackedByteArray:
 	var sprite: BinSprite = obj_state.sprite_get(index)
 	
 	# No embedded pal
-	if sprite.palette.is_empty():
+	if sprite.palette.is_empty() or get_owner().get_parent().name == "player":
 		return pal_state.this_palette.palette
 	
 	# Embedded pal

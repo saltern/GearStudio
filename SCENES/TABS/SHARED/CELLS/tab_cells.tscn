@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=31 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.gd" id="1_c4xwt"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/cell_index.gd" id="2_84jav"]
@@ -16,6 +16,8 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_x.gd" id="8_o3eoa"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_offset_y.gd" id="9_6e5ym"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_width.gd" id="10_p4nda"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_delete.gd" id="11_3nl3y"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_draw_mode.gd" id="11_f6mab"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_height.gd" id="11_yct21"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/preview_sprite.gd" id="15_ex61n"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELLS/box_crop_visibility.gd" id="16_7b752"]
@@ -254,23 +256,27 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+select_mode = 1
+allow_reselect = true
 allow_search = false
 script = ExtResource("3_f1ar8")
 
-[node name="add_remove" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="draw_delete" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="add" type="Button" parent="content/scroll/margin/data/boxes/editable/add_remove"]
+[node name="draw" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Draw Mode"
+script = ExtResource("11_f6mab")
 
-[node name="remove" type="Button" parent="content/scroll/margin/data/boxes/editable/add_remove"]
+[node name="delete" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delete"
+script = ExtResource("11_3nl3y")
 
 [node name="type" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
@@ -412,12 +418,14 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 
-[node name="clipper" type="PanelContainer" parent="content/visualizer/borders"]
+[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("visualizer", "box_parent")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("16_mp6fd")
+visualizer = NodePath("visualizer")
+box_parent = NodePath("visualizer/origin/box_parent")
 
 [node name="visualizer" type="Node2D" parent="content/visualizer/borders/clipper"]
 position = Vector2(400, 400)
@@ -425,6 +433,11 @@ script = ExtResource("16_mkc88")
 
 [node name="background" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer"]
 custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -3000.0
 offset_top = -3000.0
 offset_right = 3000.0
@@ -477,10 +490,11 @@ position = Vector2(-128, -128)
 centered = false
 script = ExtResource("15_ex61n")
 
-[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("2_5521f")
+box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
 
 [node name="cross_v2" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
 z_index = 1

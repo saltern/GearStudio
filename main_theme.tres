@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=44 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=47 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
@@ -126,6 +126,10 @@ corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0x12"]
 corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ols8d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g2cls"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpn7q"]
 
@@ -281,6 +285,10 @@ corner_detail = 1
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bksn"]
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1tnr"]
+content_margin_left = 7.0
+bg_color = Color(0, 0, 0, 1)
+
 [resource]
 default_font = ExtResource("1_mlsfx")
 default_font_size = 14
@@ -301,6 +309,8 @@ HBoxContainer/constants/separation = 6
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_gwgj5")
 HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mjd1p")
 HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_j0x12")
+ItemList/styles/cursor = SubResource("StyleBoxEmpty_ols8d")
+ItemList/styles/cursor_unfocused = SubResource("StyleBoxEmpty_g2cls")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wpn7q")
 ItemList/styles/hovered = SubResource("StyleBoxFlat_bt44o")
 ItemList/styles/panel = SubResource("StyleBoxFlat_2do2w")
@@ -338,3 +348,4 @@ VBoxContainer/constants/separation = 4
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_sgjox")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_f0vmr")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_1bksn")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_p1tnr")

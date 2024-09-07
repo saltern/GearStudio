@@ -17,6 +17,9 @@ var prev_rect: Rect2i
 
 
 func _ready() -> void:
+	if SessionData.box_get_draw_mode() or !SessionData.box_get_edits_allowed():
+		mouse_filter = MOUSE_FILTER_IGNORE
+	
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
 	
 	for i in 8:
@@ -116,6 +119,8 @@ func _gui_input(event: InputEvent) -> void:
 			have_dragged = true
 			position += event.relative
 			get_viewport().set_input_as_handled()
+			
+			SessionData.box_multi_drag(box_index, event.relative)
 
 
 func clicked(event: InputEventMouseButton) -> void:
@@ -135,33 +140,59 @@ func clicked(event: InputEventMouseButton) -> void:
 		if being_dragged:
 			if have_dragged:
 				broadcast_changes()
+				SessionData.box_multi_drag_stop(box_index)
 			
 			being_dragged = false
 			have_dragged = false
 		
 		# Select/deselect
 		if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
-			if is_selected:
-				SessionData.box_deselect_all()
-			
+			if event.is_command_or_control_pressed():
+				if is_selected:
+					SessionData.box_deselect(box_index)
+				else:
+					SessionData.box_select(box_index)
 			else:
-				SessionData.box_select(box_index)
+				if SessionData.box_get_selected_count() > 1:
+					SessionData.box_deselect_all()
+					SessionData.box_select(box_index)
+				
+				else:
+					var was_selected = is_selected
+					SessionData.box_deselect_all()
+					
+					if not was_selected:
+						SessionData.box_select(box_index)
 		
 		tentative_select = false
 
 
 func external_select(box: BoxInfo) -> void:
 	if box != box_info:
-		external_deselect()
+		if is_selected:
+			resizers_hide()
 		return
 	
 	is_selected = true
-	resizer_visibility()
-	mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
-	move_to_front()
+	
+	if SessionData.box_get_selected_count() > 1:
+		resizers_hide()
+	else:
+		resizer_visibility()
+		mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
+		move_to_front()
 
 
-func external_deselect() -> void:
+func external_deselect(index: int) -> void:
+	if index != box_index:
+		if SessionData.box_get_selected_count() == 1:
+			resizer_visibility()
+		return
+	
+	external_deselect_all()
+
+
+func external_deselect_all() -> void:
 	is_selected = false
 	resizer_visibility()
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
@@ -170,6 +201,11 @@ func external_deselect() -> void:
 func resizer_visibility() -> void:
 	for resizer in resizers:
 		resizer.visible = is_selected
+
+
+func resizers_hide() -> void:
+	for resizer in resizers:
+		resizer.hide()
 
 
 func resizer_dragged(type: BoxResizer.Type, motion: Vector2) -> void:
@@ -233,3 +269,27 @@ func clamp_rect() -> void:
 func broadcast_changes() -> void:
 	being_resized = false
 	SessionData.box_set_rect_for(box_index, Rect2i(position, size))
+
+
+func multi_drag(index: int, motion: Vector2) -> void:
+	if index != box_index and is_selected:
+		being_dragged = true
+		position += motion
+
+
+func multi_drag_stop(index: int) -> void:
+	if index == box_index:
+		return
+
+	being_dragged = false
+	
+	if is_selected:
+		broadcast_changes()
+
+
+func check_enable(_enabled: bool) -> void:
+	if SessionData.box_get_draw_mode() or !SessionData.box_get_edits_allowed():
+		mouse_filter = MOUSE_FILTER_IGNORE
+	
+	else:
+		mouse_filter = MOUSE_FILTER_STOP

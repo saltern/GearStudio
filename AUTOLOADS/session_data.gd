@@ -266,6 +266,12 @@ func cell_get_index() -> int:
 #endregion
 
 
+#region Sprite Info
+func sprite_info_paste() -> void:
+	this_object_state.sprite_info_paste()
+#endregion
+
+
 #region Boxes
 func box_get(index: int) -> BoxInfo:
 	return this_object_state.data.get_boxes()[index]
@@ -275,12 +281,28 @@ func box_get_this() -> BoxInfo:
 	return this_object_state.this_box
 
 
+func box_set_selection(list: PackedInt32Array) -> void:
+	this_object_state.box_set_selection(list)
+
+
 func box_select(index: int) -> void:
 	this_object_state.box_select(index)
 
 
+func box_deselect(index: int) -> void:
+	this_object_state.box_deselect(index)
+
+
 func box_deselect_all() -> void:
-	this_object_state.box_deselect()
+	this_object_state.box_deselect_all()
+
+
+func box_get_selected() -> Array[int]:
+	return this_object_state.boxes_selected
+
+
+func box_get_selected_count() -> int:
+	return this_object_state.boxes_selected.size()
 
 
 func box_set_editing(enabled: bool) -> void:
@@ -299,9 +321,37 @@ func box_set_display_regions(enabled: bool) -> void:
 	this_object_state.box_set_display_regions(enabled)
 
 
+func box_set_draw_mode(enabled: bool) -> void:
+	this_object_state.box_set_draw_mode(enabled)
+
+
+func box_get_draw_mode() -> bool:
+	return this_object_state.box_drawing_mode
+
+
+func box_append(box: BoxInfo) -> void:
+	this_object_state.box_append(box)
+
+
+func box_delete() -> void:
+	this_object_state.box_delete()
+
+
+func box_paste(overwrite: bool = false) -> void:
+	this_object_state.box_paste(overwrite)
+
+
 func box_set_type(new_type: int) -> void:
 	Status.set_status("Set box type.")
 	this_object_state.box_set_type(new_type)
+
+
+func box_multi_drag(index: int, motion: Vector2) -> void:
+	this_object_state.box_multi_drag(index, motion)
+
+
+func box_multi_drag_stop(index: int) -> void:
+	this_object_state.box_multi_drag_stop(index)
 
 
 func box_set_offset_x(new_value: int) -> void:
