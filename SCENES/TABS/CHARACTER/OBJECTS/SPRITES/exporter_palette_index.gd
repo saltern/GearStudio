@@ -81,15 +81,12 @@ func on_palette_index_changed(new_index: int) -> void:
 	var use_pal_state_pal: bool = false
 	var this_sprite := obj_state.sprite_get(sprite_index.value)
 	
-	if get_owner().get_parent().name == "player":
-		if override:
-			use_pal_state_pal = true
-		
-		if this_sprite.palette.is_empty():
-			use_pal_state_pal = true
+	if override or this_sprite.palette.is_empty():
+		use_pal_state_pal = true
 	
 	if not include:
 		pal_current = pal_gray
+		pal_current = process_reindex(pal_current)
 	
 	elif use_pal_state_pal:
 		pal_current = pal_state.get_palette_colors(new_index)

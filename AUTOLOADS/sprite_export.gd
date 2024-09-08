@@ -54,10 +54,39 @@ func export(output_path: String) -> void:
 		palette = pal_state.get_palette_colors(palette_index)
 	
 	if export_png:
-		SpriteExporter.export_sprites_png(
+		SpriteExporter.export_sprites(
+			"png",
 			output_path,
 			export_list,
 			name_start_index,
+			palette_include,
 			palette,
 			palette_alpha_mode,
+			palette_override,
+			sprite_reindex)
+
+	if export_bmp:
+		SpriteExporter.export_sprites(
+			"bmp",
+			output_path,
+			export_list,
+			name_start_index,
+			palette_include,
+			palette,
+			palette_alpha_mode,
+			palette_override,
+			sprite_reindex)
+	
+	if export_raw:
+		SpriteExporter.export_sprites(
+			"raw",
+			output_path,
+			export_list,
+			name_start_index,
+			# v Ignored
+			false,
+			PackedByteArray([]),
+			AlphaMode.AS_IS,
+			false,
+			# ^ Ignored
 			sprite_reindex)
