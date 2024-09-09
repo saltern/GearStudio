@@ -53,6 +53,37 @@ func export(output_path: String) -> void:
 	if palette_include:
 		palette = pal_state.get_palette_colors(palette_index)
 	
+	if export_bin:
+		var bin_palette_include: bool = palette_include
+		
+		if palette == pal_gray:
+			bin_palette_include = false
+		
+		SpriteExporter.export_sprites(
+			"bin",
+			output_path,
+			export_list,
+			name_start_index,
+			bin_palette_include,
+			palette,
+			palette_alpha_mode,
+			palette_override,
+			sprite_reindex)
+	
+	if export_raw:
+		SpriteExporter.export_sprites(
+			"raw",
+			output_path,
+			export_list,
+			name_start_index,
+			# v Ignored
+			false,
+			PackedByteArray([]),
+			AlphaMode.AS_IS,
+			false,
+			# ^ Ignored
+			sprite_reindex)
+	
 	if export_png:
 		SpriteExporter.export_sprites(
 			"png",
@@ -75,18 +106,4 @@ func export(output_path: String) -> void:
 			palette,
 			palette_alpha_mode,
 			palette_override,
-			sprite_reindex)
-	
-	if export_raw:
-		SpriteExporter.export_sprites(
-			"raw",
-			output_path,
-			export_list,
-			name_start_index,
-			# v Ignored
-			false,
-			PackedByteArray([]),
-			AlphaMode.AS_IS,
-			false,
-			# ^ Ignored
 			sprite_reindex)
