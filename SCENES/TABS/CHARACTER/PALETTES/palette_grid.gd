@@ -242,7 +242,7 @@ func draw_paste_region() -> void:
 	if Clipboard.pal_data.size() < 1:
 		return
 	
-	if selected_count > 1:
+	if selected_count > 0:
 		draw_paste_at_selection()
 	else:
 		draw_paste_at_cursor()
@@ -331,7 +331,7 @@ func paste() -> void:
 	if Clipboard.pal_data.size() < 1:
 		return
 	
-	if selected_count > 1:
+	if selected_count > 0:
 		pal_state.paste_color_into(selected)
 	else:
 		pal_state.paste_color(index_hovered)
