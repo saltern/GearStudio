@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=44 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_sprites.gd" id="1_w8w61"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_import_button.gd" id="2_2lm5e"]
@@ -6,24 +6,41 @@
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="3_h6j3j"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_bounds.gd" id="4_1jvt1"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_texture.gd" id="4_7uxh2"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_range_start.gd" id="6_03nya"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_window.gd" id="6_bkihs"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_preview_sprite_index.gd" id="9_offsu"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_range_end.gd" id="9_shift"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_bin.gd" id="10_8ofoh"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_index.gd" id="10_dnbjd"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_range_start.gd" id="6_03nya"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_window.gd" id="6_bkihs"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_preview_sprite_index.gd" id="9_offsu"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_range_end.gd" id="9_shift"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_format_bin.gd" id="10_8ofoh"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_palette_index.gd" id="10_dnbjd"]
 [ext_resource type="Material" uid="uid://cmrekkhn07td8" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/mat_exporter_preview.material" id="11_oyumr"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_preview_sprite.gd" id="11_wvhu1"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_raw.gd" id="11_xdr4w"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_png.gd" id="12_k6s74"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_format_bmp.gd" id="13_3bqh1"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_include.gd" id="16_3rs5u"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_override.gd" id="17_k1x02"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_save_dialog.gd" id="18_5ok6t"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_palette_alpha_mode.gd" id="18_bfaac"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_sprite_reindex.gd" id="19_uiy5d"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/exporter_sprite_naming.gd" id="20_ht5g3"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/importer_window.gd" id="24_1iuv4"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_preview_sprite.gd" id="11_wvhu1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_format_raw.gd" id="11_xdr4w"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_format_png.gd" id="12_k6s74"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_format_bmp.gd" id="13_3bqh1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_palette_include.gd" id="16_3rs5u"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_palette_override.gd" id="17_k1x02"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_save_dialog.gd" id="18_5ok6t"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_palette_alpha_mode.gd" id="18_bfaac"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_sprite_reindex.gd" id="19_uiy5d"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_sprite_naming.gd" id="20_ht5g3"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_window.gd" id="24_1iuv4"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_file_count.gd" id="25_4e6yc"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_file_dialog.gd" id="26_83oab"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_placement.gd" id="26_u46t8"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_placement_position_visibility.gd" id="27_c0cgy"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_placement_info.gd" id="28_ab2sv"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_insert_position.gd" id="28_yd1h0"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_embed_palette.gd" id="30_hw3el"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_halve_alpha.gd" id="31_lh3uw"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_flip_h.gd" id="32_p06lv"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_flip_v.gd" id="33_oy3vu"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_as_rgb.gd" id="34_eevaf"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_reindex.gd" id="35_0y6t0"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_bit_depth.gd" id="36_wbcvv"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_import_button.gd" id="37_7jtqc"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_preview.gd" id="38_31vi1"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_progress.gd" id="38_can1r"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_preview_sprite_index.gd" id="38_yg1jl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -416,6 +433,23 @@ text = "Palette"
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="include" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Include"
+
+[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include" node_paths=PackedStringArray("control_index", "control_override", "control_alpha")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("16_3rs5u")
+control_index = NodePath("../../index")
+control_override = NodePath("../../override")
+control_alpha = NodePath("../../alpha")
+
 [node name="index" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 layout_mode = 2
 
@@ -436,20 +470,6 @@ alpha_mode_menu = NodePath("../../alpha/mode")
 reindex_toggle = NodePath("../../../misc_options/reindex/button")
 palette_material = ExtResource("11_oyumr")
 sprite_index = NodePath("../../../../../../../preview/title/sprite_index")
-
-[node name="include" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Include"
-
-[node name="button" type="CheckButton" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-script = ExtResource("16_3rs5u")
 
 [node name="override" type="HBoxContainer" parent="exporter/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
@@ -481,6 +501,7 @@ alignment = 1
 selected = 0
 item_count = 4
 popup/item_0/text = "Do nothing"
+popup/item_0/id = 0
 popup/item_1/text = "Double"
 popup/item_1/id = 1
 popup/item_2/text = "Halve"
@@ -605,10 +626,14 @@ use_native_dialog = true
 script = ExtResource("18_5ok6t")
 export_button = NodePath("../exporter/background/content_margin/window_content/config_contents/export")
 
-[node name="importer" type="Window" parent="."]
+[node name="importer" type="Window" parent="." node_paths=PackedStringArray("import_path_dialog")]
 initial_position = 2
 size = Vector2i(900, 614)
+visible = false
+transient = true
+exclusive = true
 script = ExtResource("24_1iuv4")
+import_path_dialog = NodePath("../import_files")
 
 [node name="background" type="PanelContainer" parent="importer"]
 anchors_preset = 15
@@ -669,6 +694,7 @@ layout_mode = 2
 text = "Will import 0 sprites."
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("25_4e6yc")
 
 [node name="placement" type="VBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
@@ -705,10 +731,27 @@ alignment = 1
 selected = 0
 item_count = 3
 popup/item_0/text = "Append at end"
-popup/item_1/text = "Insert at position"
+popup/item_0/id = 0
+popup/item_1/text = "Replace"
 popup/item_1/id = 1
-popup/item_2/text = "Replace"
+popup/item_2/text = "Insert at position"
 popup/item_2/id = 2
+script = ExtResource("26_u46t8")
+
+[node name="position" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("27_c0cgy")
+
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/position"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Position"
+
+[node name="value" type="SpinBox" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/position"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("28_yd1h0")
 
 [node name="info" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
@@ -716,6 +759,7 @@ layout_mode = 2
 text = "Will not replace sprites. New sprite count: 0."
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("28_ab2sv")
 
 [node name="palette" type="VBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
@@ -749,20 +793,22 @@ text = "Embed palette"
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("30_hw3el")
 
-[node name="halve" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="halve_alpha" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/halve"]
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/halve_alpha"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Halve alpha"
 
-[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/halve"]
+[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/halve_alpha"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("31_lh3uw")
 
 [node name="sprite" type="VBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
@@ -783,33 +829,35 @@ text = "Sprite"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="h_flip" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="flip_h" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/h_flip"]
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/flip_h"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Flip horizontally"
 
-[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/h_flip"]
+[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/flip_h"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("32_p06lv")
 
-[node name="v_flip" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="flip_v" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/v_flip"]
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/flip_v"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Flip vertically"
 
-[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/v_flip"]
+[node name="value" type="CheckButton" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/flip_v"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("33_oy3vu")
 
 [node name="as_rgb" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
@@ -824,6 +872,7 @@ text = "Index with red channel"
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("34_eevaf")
 
 [node name="reindex" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
@@ -838,6 +887,7 @@ text = "Reindex"
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 1
+script = ExtResource("35_0y6t0")
 
 [node name="bit_depth" type="HBoxContainer" parent="importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
@@ -855,14 +905,17 @@ alignment = 1
 selected = 0
 item_count = 3
 popup/item_0/text = "No change"
+popup/item_0/id = 0
 popup/item_1/text = "Force 4-bit"
 popup/item_1/id = 1
 popup/item_2/text = "Force 8-bit"
 popup/item_2/id = 2
+script = ExtResource("36_wbcvv")
 
 [node name="confirm" type="Button" parent="importer/background/content_margin/window_content/config_contents"]
 layout_mode = 2
 text = "Proceed with import"
+script = ExtResource("37_7jtqc")
 
 [node name="v_sep" type="VSeparator" parent="importer/background/content_margin/window_content"]
 layout_mode = 2
@@ -885,6 +938,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
+script = ExtResource("38_yg1jl")
 
 [node name="preview_panel" type="PanelContainer" parent="importer/background/content_margin/window_content/preview"]
 clip_contents = true
@@ -910,5 +964,38 @@ grow_vertical = 2
 [node name="sprite" type="TextureRect" parent="importer/background/content_margin/window_content/preview/preview_panel/background/center"]
 material = ExtResource("11_oyumr")
 layout_mode = 2
+script = ExtResource("38_31vi1")
+
+[node name="import_progress" type="Window" parent="importer"]
+title = "Importing sprites..."
+initial_position = 2
+size = Vector2i(300, 100)
+visible = false
+transient = true
+exclusive = true
+force_native = true
+script = ExtResource("38_can1r")
+
+[node name="Label" type="Label" parent="importer/import_progress"]
+offset_top = 28.0
+offset_right = 300.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Please wait.
+0 / 0"
+horizontal_alignment = 1
+
+[node name="import_files" type="FileDialog" parent="." node_paths=PackedStringArray("browse_button")]
+title = "Open File(s)"
+initial_position = 2
+size = Vector2i(640, 480)
+ok_button_text = "Open"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.bin, *.raw, *.png, *.bmp; Supported image files")
+use_native_dialog = true
+script = ExtResource("26_83oab")
+browse_button = NodePath("../importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/select")
 
 [connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]
