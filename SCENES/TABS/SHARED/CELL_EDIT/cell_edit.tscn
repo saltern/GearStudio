@@ -23,9 +23,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_parent.gd" id="21_or5ee"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview.gd" id="22_4xx0u"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="23_h0klh"]
-[ext_resource type="Shader" path="res://palette.gdshader" id="24_nqtan"]
+[ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
-[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://SCENES/TABS/SHARED/mat_shared_palette.material" id="26_gliws"]
+[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 

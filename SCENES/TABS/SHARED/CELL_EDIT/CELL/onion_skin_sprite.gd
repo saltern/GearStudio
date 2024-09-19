@@ -1,14 +1,9 @@
 extends Sprite2D
 
-var pal_state: PaletteEditState
-
 @onready var cell_edit: CellEdit = get_owner()
 
 
 func _ready() -> void:
-	pal_state = SessionData.palette_state_get(
-			get_owner().get_parent().get_parent().get_index())
-	
 	material = material.duplicate()
 	
 	Settings.onion_color_changed.connect(update_color)

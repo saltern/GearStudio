@@ -4,7 +4,7 @@ extends SpinBox
 
 
 func _ready() -> void:
-	palette_edit.changed_palette.connect(on_palette_load)
+	palette_edit.palette_updated.connect(on_palette_load)
 	value_changed.connect(palette_edit.palette_load)
 
 

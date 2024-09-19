@@ -21,6 +21,7 @@ config/windows_native_icon="res://gear_studio.ico"
 
 [autoload]
 
+GlobalSignals="*res://AUTOLOADS/global_signals.gd"
 SessionData="*res://AUTOLOADS/session_data.gd"
 Status="*res://AUTOLOADS/status.gd"
 SaveErrors="*res://AUTOLOADS/save_errors.gd"

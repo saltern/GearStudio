@@ -1,5 +1,7 @@
 extends SpinBox
 
+@onready var sprite_edit: SpriteEdit = get_owner()
+
 
 func _ready() -> void:
 	SpriteImport.sprite_placement_finished.connect(update_max_value)
@@ -9,7 +11,4 @@ func _ready() -> void:
 
 
 func update_max_value() -> void:
-	var obj_state: ObjectEditState = SessionData.object_state_get(
-		get_owner().get_parent().name)
-	
-	max_value = obj_state.sprite_get_count()
+	max_value = sprite_edit.sprite_get_count()

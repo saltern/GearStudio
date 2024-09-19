@@ -1,6 +1,5 @@
 extends GridContainer
 
-#@export var color_picker: ColorPicker
 @export var preview: TextureRect
 
 const CELL_SIZE: int = 16
@@ -15,7 +14,6 @@ var selection_box: bool = false
 var selection_start: int = 0
 var selection_end: int = 0
 var selection_data: PackedByteArray
-#var selected: Array[bool] = []
 var selecting: Array[bool] = []
 var selected_count: int = 0
 
@@ -25,7 +23,7 @@ var selected_count: int = 0
 func _ready() -> void:
 	selecting.resize(256)
 	
-	palette_edit.palette_changed.connect(on_palette_load)
+	palette_edit.palette_updated.connect(on_palette_load)
 	
 	mouse_entered.connect(on_mouse_enter)
 	mouse_exited.connect(on_mouse_exit)

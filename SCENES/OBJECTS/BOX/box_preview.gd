@@ -1,11 +1,9 @@
 class_name BoxPreview extends Control
 
-#const LINE_THICKNESS: int = 2
+var cell_edit: CellEdit
 
 var box_info: BoxInfo
-
 var box_index: int = -1
-#var box_type: int = 0
 
 var tentative_select: bool = false
 var is_selected: bool = false
@@ -17,7 +15,7 @@ var prev_rect: Rect2i
 
 
 func _ready() -> void:
-	if SessionData.box_get_draw_mode() or !SessionData.box_get_edits_allowed():
+	if cell_edit.box_drawing_mode or not cell_edit.box_edits_allowed:
 		mouse_filter = MOUSE_FILTER_IGNORE
 	
 	mouse_default_cursor_shape = CursorShape.CURSOR_POINTING_HAND
@@ -35,13 +33,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if !SessionData.box_get_display_regions() && \
-	(box_info.type & 0xFFFF == 3 || box_info.type & 0xFFFF == 6):
+	if not cell_edit.box_display_regions && \
+	(box_info.type & 0xFFFF == 3 or box_info.type & 0xFFFF == 6):
 		hide()
 	else:
 		show()
 	
-	if !being_dragged && !being_resized:
+	if not being_dragged and not being_resized:
 		position = box_info.rect.position
 		size = box_info.rect.size
 	
@@ -104,7 +102,7 @@ func _gui_input(event: InputEvent) -> void:
 	if !is_visible_in_tree():
 		return
 	
-	if !SessionData.box_get_edits_allowed():
+	if not cell_edit.box_edits_allowed:
 		return
 	
 	if event is InputEventMouseButton:
@@ -120,7 +118,7 @@ func _gui_input(event: InputEvent) -> void:
 			position += event.relative
 			get_viewport().set_input_as_handled()
 			
-			SessionData.box_multi_drag(box_index, event.relative)
+			cell_edit.box_multi_drag(box_index, event.relative)
 
 
 func clicked(event: InputEventMouseButton) -> void:
@@ -140,7 +138,7 @@ func clicked(event: InputEventMouseButton) -> void:
 		if being_dragged:
 			if have_dragged:
 				broadcast_changes()
-				SessionData.box_multi_drag_stop(box_index)
+				cell_edit.box_multi_drag_stop(box_index)
 			
 			being_dragged = false
 			have_dragged = false
@@ -149,20 +147,20 @@ func clicked(event: InputEventMouseButton) -> void:
 		if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
 			if event.is_command_or_control_pressed():
 				if is_selected:
-					SessionData.box_deselect(box_index)
+					cell_edit.box_deselect(box_index)
 				else:
-					SessionData.box_select(box_index)
+					cell_edit.box_select(box_index)
 			else:
-				if SessionData.box_get_selected_count() > 1:
-					SessionData.box_deselect_all()
-					SessionData.box_select(box_index)
+				if cell_edit.boxes_selected.size() > 1:
+					cell_edit.box_deselect_all()
+					cell_edit.box_select(box_index)
 				
 				else:
 					var was_selected = is_selected
-					SessionData.box_deselect_all()
+					cell_edit.box_deselect_all()
 					
 					if not was_selected:
-						SessionData.box_select(box_index)
+						cell_edit.box_select(box_index)
 		
 		tentative_select = false
 
@@ -175,7 +173,7 @@ func external_select(box: BoxInfo) -> void:
 	
 	is_selected = true
 	
-	if SessionData.box_get_selected_count() > 1:
+	if cell_edit.boxes_selected.size() > 1:
 		resizers_hide()
 	else:
 		resizer_visibility()
@@ -185,7 +183,7 @@ func external_select(box: BoxInfo) -> void:
 
 func external_deselect(index: int) -> void:
 	if index != box_index:
-		if SessionData.box_get_selected_count() == 1:
+		if cell_edit.boxes_selected.size() == 1:
 			resizer_visibility()
 		return
 	
@@ -268,7 +266,7 @@ func clamp_rect() -> void:
 
 func broadcast_changes() -> void:
 	being_resized = false
-	SessionData.box_set_rect_for(box_index, Rect2i(position, size))
+	cell_edit.box_set_rect_for(box_index, Rect2i(position, size))
 
 
 func multi_drag(index: int, motion: Vector2) -> void:
@@ -288,7 +286,7 @@ func multi_drag_stop(index: int) -> void:
 
 
 func check_enable(_enabled: bool) -> void:
-	if SessionData.box_get_draw_mode() or !SessionData.box_get_edits_allowed():
+	if cell_edit.box_drawing_mode or not cell_edit.box_edits_allowed:
 		mouse_filter = MOUSE_FILTER_IGNORE
 	
 	else:

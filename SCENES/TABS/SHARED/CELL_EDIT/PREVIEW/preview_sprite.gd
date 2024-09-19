@@ -1,7 +1,5 @@
 extends Sprite2D
 
-var pal_state: PaletteEditState
-
 @onready var cell_edit: CellEdit = get_owner()
 
 
@@ -11,13 +9,8 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	pal_state = SessionData.palette_state_get(
-		get_owner().get_parent().get_parent().get_index())
-	
 	cell_edit.cell_updated.connect(on_cell_update)
 	cell_edit.box_updated.connect(on_box_update)
-	
-	pal_state.changed_palette.connect(pal_state_palette_changed)
 
 
 func on_cell_update(cell: Cell) -> void:
@@ -31,7 +24,7 @@ func on_cell_update(cell: Cell) -> void:
 
 
 func on_box_update(_box: BoxInfo) -> void:
-	on_cell_update(SessionData.cell_get_this())
+	on_cell_update(cell_edit.this_cell)
 
 
 func pal_state_palette_changed(_palette_number: int) -> void:
@@ -101,7 +94,7 @@ func get_sprite_palette(index: int) -> PackedByteArray:
 	
 	# No embedded pal
 	if sprite.palette.is_empty() or get_owner().get_parent().name == "player":
-		return pal_state.this_palette.palette
+		return cell_edit.this_palette.palette
 	
 	# Embedded pal
 	var palette: PackedByteArray = sprite.palette

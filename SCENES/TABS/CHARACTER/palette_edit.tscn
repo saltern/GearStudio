@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
-[ext_resource type="Shader" path="res://palette.gdshader" id="2_dydbr"]
+[ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_index.gd" id="3_nhpkb"]
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="4_612b6"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]

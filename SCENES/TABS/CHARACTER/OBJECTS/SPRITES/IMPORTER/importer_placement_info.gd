@@ -1,5 +1,7 @@
 extends Label
 
+@onready var sprite_edit: SpriteEdit = get_owner()
+
 
 func _ready() -> void:
 	SpriteImport.placement_method_set.connect(update)
@@ -8,10 +10,7 @@ func _ready() -> void:
 
 
 func update() -> void:
-	var obj_state: ObjectEditState = SessionData.object_state_get(
-		get_owner().get_parent().name)
-	
-	var sprite_count: int = obj_state.sprite_get_count()
+	var sprite_count: int = sprite_edit.sprite_get_count()
 	var import_count: int = SpriteImport.import_list.size()
 	
 	match SpriteImport.placement_method:

@@ -21,11 +21,7 @@ var reindex: bool
 var pal_gray: PackedByteArray = []
 var pal_current: PackedByteArray
 
-@onready var obj_state := SessionData.object_state_get(
-	get_owner().get_parent().name)
-
-@onready var pal_state := SessionData.palette_state_get(
-	get_owner().get_parent().get_parent().get_index())
+@onready var sprite_edit: SpriteEdit = get_owner()
 
 
 func _ready() -> void:
@@ -79,7 +75,7 @@ func on_palette_index_changed(new_index: int) -> void:
 	SpriteExport.palette_index = new_index
 	
 	var use_pal_state_pal: bool = false
-	var this_sprite := obj_state.sprite_get(sprite_index.value)
+	var this_sprite := sprite_edit.sprite_get(sprite_index.value)
 	
 	if override or this_sprite.palette.is_empty():
 		use_pal_state_pal = true
@@ -89,7 +85,7 @@ func on_palette_index_changed(new_index: int) -> void:
 		pal_current = process_reindex(pal_current)
 	
 	elif use_pal_state_pal:
-		pal_current = pal_state.get_palette_colors(new_index)
+		pal_current = sprite_edit.palette_get(new_index)
 		pal_current = process_reindex(pal_current)
 		pal_current = process_alpha(pal_current)
 	
@@ -110,7 +106,7 @@ func process_reindex(palette: PackedByteArray) -> PackedByteArray:
 	if not reindex:
 		return palette
 	
-	if obj_state.sprite_get(sprite_index.value).bit_depth == 4:
+	if sprite_edit.sprite_get(sprite_index.value).bit_depth == 4:
 		return palette
 	
 	var temp_pal: PackedByteArray = []

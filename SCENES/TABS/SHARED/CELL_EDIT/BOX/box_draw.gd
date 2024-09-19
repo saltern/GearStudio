@@ -15,6 +15,10 @@ var point_b: Vector2i
 @onready var cell_edit: CellEdit = get_owner()
 
 
+func _ready() -> void:
+	cell_edit.cell_updated.connect(on_cell_update)
+
+
 func _process(_delta: float) -> void:
 	queue_redraw()
 
@@ -81,6 +85,7 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 		cell_edit.box_drawing_mode_changed.connect(new_box.check_enable)
 		cell_edit.box_multi_dragged.connect(new_box.multi_drag)
 		cell_edit.box_multi_drag_stopped.connect(new_box.multi_drag_stop)
+		new_box.cell_edit = cell_edit
 		new_box.box_info = this_box
 		#new_box.box_type = this_box.type & 0xFFFF
 		new_box.box_index = box

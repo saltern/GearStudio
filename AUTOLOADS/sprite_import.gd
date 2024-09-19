@@ -65,7 +65,8 @@ func _physics_process(_delta: float) -> void:
 			waiting_tasks.pop_at(waiting_tasks.find(task))
 
 
-func import_files( object_name: String) -> void:
+func import_files(object_name: String) -> void:
+	obj_data = SessionData.object_data_get(object_name)
 	sprite_import_started.emit(object_name)
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
 

@@ -4,7 +4,7 @@ extends SpinBox
 
 
 func _ready() -> void:
-	value_changed.connect(SessionData.sprite_set_position_x)
+	value_changed.connect(cell_edit.sprite_set_position_x)
 	cell_edit.cell_updated.connect(on_cell_update)
 
 

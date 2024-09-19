@@ -31,10 +31,10 @@ func _ready() -> void:
 func menu_clicked(menu_id: int) -> void:
 	match menu_id:
 		ButtonID.UNDO:
-			SessionData.menu_undo()
+			GlobalSignals.menu_undo.emit()
 		
 		ButtonID.REDO:
-			SessionData.menu_redo()
+			GlobalSignals.menu_redo.emit()
 
 		ButtonID.ACTION_HISTORY:
 			Status.set_status("The Action History is not currently available.")

@@ -17,16 +17,14 @@ var color_selected_count: int = 0
 
 
 func _enter_tree() -> void:
-	undo.max_steps = Settings.misc_max_undo
-
-
-func _ready() -> void:
 	pal_data = SessionData.palette_data_get(
-		get_parent().get_parent().get_index())
+		get_parent().get_index())
 	
-	obj_data = SessionData.object_data_get(
-		get_parent().name)
+	obj_data = SessionData.object_data_get("player")
 	
+	this_palette = pal_data.palettes[0]
+	
+	undo.max_steps = Settings.misc_max_undo
 	colors_selected.resize(256)
 
 

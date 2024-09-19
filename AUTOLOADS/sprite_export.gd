@@ -24,8 +24,8 @@ var palette_alpha_mode: AlphaMode = AlphaMode.AS_IS
 var sprite_reindex: bool = false
 var name_from_zero: bool = false
 
-var obj_state: ObjectEditState
-var pal_state: PaletteEditState
+var obj_data: ObjectData
+var pal_data: PaletteData
 
 var pal_gray: PackedByteArray
 
@@ -42,7 +42,7 @@ func export(output_path: String) -> void:
 	export_list.clear()
 	
 	for sprite_index in range(export_start_index, export_end_index + 1):
-		export_list.append(obj_state.sprite_get(sprite_index))
+		export_list.append(obj_data.sprites[sprite_index])
 	
 	var name_start_index: int = 0
 	if not name_from_zero:
@@ -51,7 +51,7 @@ func export(output_path: String) -> void:
 	var palette: PackedByteArray = pal_gray
 	
 	if palette_include:
-		palette = pal_state.get_palette_colors(palette_index)
+		palette = pal_data.palettes[palette_index].palette
 	
 	if export_bin:
 		var bin_palette_include: bool = palette_include

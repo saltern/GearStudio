@@ -29,7 +29,6 @@ func load_tabs(tabs: PackedStringArray) -> void:
 func on_tab_changed(new_tab: int) -> void:
 	if get_tab_title(new_tab) != "palettes":
 		var tab_name: String = get_tab_title(new_tab)
-		SessionData.object_state_load(tab_name)
 
 	else:
 		SessionData.this_tab["current_object"] = "palettes"

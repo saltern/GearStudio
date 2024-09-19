@@ -43,7 +43,11 @@ func palette_set(index: int = 0) -> void:
 	palette_index = index
 	this_palette = pal_data.palettes[index]
 	palette_updated.emit(this_palette)
-	
+
+
+func palette_get(index: int) -> PackedByteArray:
+	return pal_data.palettes[index].palette
+
 
 #region Sprites
 func sprite_get(index: int) -> BinSprite:
@@ -54,7 +58,7 @@ func sprite_get_count() -> int:
 	return obj_data.sprites.size()
 
 
-func sprite_set_index(index: int) -> void:
+func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	sprite_updated.emit(this_sprite)
