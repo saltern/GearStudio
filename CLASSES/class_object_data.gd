@@ -61,7 +61,3 @@ func load_cells_from_path(path: String) -> bool:
 		cells.append(Cell.from_file(file))
 	
 	return true
-
-
-func get_boxes() -> Array[BoxInfo]:
-	return cells[SessionData.cell_get_index()].boxes

@@ -1,12 +1,11 @@
 extends SpinBox
 
+@onready var palette_edit: PaletteEdit = get_owner()
+
 
 func _ready() -> void:
-	var pal_state: PaletteEditState = SessionData.palette_state_get(
-		get_owner().get_parent().get_index())
-	
-	pal_state.changed_palette.connect(on_palette_load)
-	value_changed.connect(pal_state.load_palette)
+	palette_edit.changed_palette.connect(on_palette_load)
+	value_changed.connect(palette_edit.palette_load)
 
 
 func on_palette_load(new_palette: int) -> void:

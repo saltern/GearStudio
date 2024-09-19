@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cndn6lw5p0fsa"]
 
-[ext_resource type="PackedScene" uid="uid://b0utvdt6m12v6" path="res://SCENES/TABS/CHARACTER/OBJECTS/tab_sprites.tscn" id="1_5in11"]
-[ext_resource type="PackedScene" uid="uid://bb5abxm4foa3j" path="res://SCENES/TABS/SHARED/CELLS/tab_cells.tscn" id="2_waj0o"]
+[ext_resource type="PackedScene" uid="uid://b0utvdt6m12v6" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.tscn" id="1_5in11"]
+[ext_resource type="PackedScene" uid="uid://bb5abxm4foa3j" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.tscn" id="2_waj0o"]
 
 [node name="object" type="TabContainer"]
 anchors_preset = 15

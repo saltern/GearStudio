@@ -2,7 +2,7 @@ extends SpinBox
 
 
 func _ready() -> void:
-	SpriteImport.sprite_import_finished.connect(update_max_value)
+	SpriteImport.sprite_placement_finished.connect(update_max_value)
 	update_max_value()
 	
 	value_changed.connect(SpriteImport.set_insert_position)

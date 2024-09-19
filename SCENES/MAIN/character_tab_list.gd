@@ -35,8 +35,6 @@ func load_character(path: String) -> void:
 			Status.set_status("Directory already open!")
 			return
 	
-	Opened.path_open(path)
-	
 	var task_id := WorkerThreadPool.add_task(SessionData.tab_new.bind(path))
 	waiting_tasks.append(task_id)
 
@@ -45,6 +43,8 @@ func character_finished_loading(path: String, tabs: PackedStringArray) -> void:
 	if tabs.is_empty():
 		Status.set_status("No compatible data found at [%s]." % path)
 		return
+	
+	Opened.path_open(path)
 	
 	var new_character: Control = character_scene.instantiate()
 	new_character.load_tabs(tabs)

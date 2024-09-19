@@ -2,33 +2,21 @@ extends TextureRect
 
 @export var sprite_index: SpinBox
 
-var obj_state: ObjectEditState
-var pal_state: PaletteEditState
+@onready var palette_edit: PaletteEdit = get_owner()
 
 
 func _ready() -> void:
-	material = get_owner().palette_shader
+	sprite_index.max_value = palette_edit.sprite_get_count() - 1
+	sprite_index.value_changed.connect(on_sprite_changed)
+	palette_edit.palette_updated.connect(on_palette_updated)
 	
-	obj_state = SessionData.object_state_get("player")
-	pal_state = SessionData.palette_state_get(
-		get_owner().get_parent().get_index())
-	
-	sprite_index.max_value = obj_state.data.sprites.size() - 1
-	sprite_index.value_changed.connect(update_sprite)
-	pal_state.changed_palette.connect(on_palette_load)
-	
-	update_sprite(0)
-	on_palette_load(pal_state.palette_index)
+	on_sprite_changed(0)
+	on_palette_updated(palette_edit.this_palette)
 
 
-func update_sprite(new_index: int) -> void:
-	texture = obj_state.data.sprites[new_index].texture
+func on_sprite_changed(new_index: int) -> void:
+	texture = palette_edit.sprite_get(new_index).texture
 
 
-func on_palette_load(new_palette: int = 0) -> void:
-	material.set_shader_parameter("palette", pal_state.get_palette_colors(
-		new_palette))
-
-
-func update_palette() -> void:
-	on_palette_load(pal_state.palette_index)
+func on_palette_updated(new_palette: BinPalette) -> void:
+	material.set_shader_parameter("palette", new_palette.palette)
