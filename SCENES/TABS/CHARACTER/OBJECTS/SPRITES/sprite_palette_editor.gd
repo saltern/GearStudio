@@ -1,7 +1,18 @@
 extends Button
 
-@export var editor_window: Window
+@export var palette_grid: PaletteGrid
+@export var editor_panel: Control
 
 
 func _ready() -> void:
-	pressed.connect(editor_window.show)
+	toggled.connect(on_toggled)
+
+
+func on_toggled(enabled: bool) -> void:
+	if enabled:
+		editor_panel.show()
+		palette_grid.mouse_filter = MOUSE_FILTER_STOP
+	
+	else:
+		editor_panel.hide()
+		palette_grid.mouse_filter = MOUSE_FILTER_IGNORE

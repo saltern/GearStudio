@@ -1,7 +1,6 @@
 class_name PaletteProvider extends Resource
  
 signal palette_updated
-signal color_selected
 
 var sprite_mode: bool = false
 
@@ -76,6 +75,11 @@ func palette_load(index: int = 0) -> void:
 		palette_index = index
 		palette = pal_data.palettes[palette_index]
 		palette_updated.emit(palette.palette)
+
+
+func palette_load_player(index: int) -> void:
+	palette_index = index
+	palette = pal_data.palettes[palette_index]
 
 
 func palette_get_colors(index: int = 0) -> PackedByteArray:

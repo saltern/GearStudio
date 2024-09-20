@@ -1,5 +1,7 @@
 class_name PaletteGrid extends GridContainer
 
+signal color_selected
+
 @export var preview: TextureRect
 @export var color_picker: ColorPicker
 
@@ -23,6 +25,7 @@ var selecting: Array[bool] = []
 func _ready() -> void:
 	if color_picker:
 		color_picker.color_changed.connect(color_set)
+		color_selected.connect(color_picker.on_color_selected)
 	
 	selected.resize(256)
 	selecting.resize(256)
@@ -219,14 +222,6 @@ func get_color_index_at(at: Vector2i) -> int:
 
 
 #region Selection
-func color_select(index: int) -> void:
-	selected[index] = true
-
-
-func color_deselect(index: int) -> void:
-	selected[index] = false
-
-
 func color_deselect_all() -> void:
 	selected.resize(0)
 	selected.resize(256)
@@ -243,6 +238,9 @@ func color_set_selection(subtractive: bool) -> void:
 	
 	else:
 		selected = selecting.duplicate()
+
+	if get_selected_count() > 0:
+		color_selected.emit(selected.rfind(true))
 
 
 func get_selected_count() -> int:

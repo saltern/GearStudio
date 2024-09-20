@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=54 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_import_button.gd" id="2_dim6d"]
@@ -50,7 +50,6 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_progress.gd" id="42_k4ivw"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_file_dialog.gd" id="43_05050"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_editor_window.gd" id="51_apqt5"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="52_wfq3j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
@@ -72,9 +71,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ogryx")
 sprite_bounds = NodePath("")
-info_dimensions = NodePath("content/scroll/margin/data/dimensions/value")
-info_color_depth = NodePath("content/scroll/margin/data/color_depth/value")
-info_embedded_pal = NodePath("content/scroll/margin/data/embedded_pal/value")
+info_dimensions = NodePath("content/scroll/side_panel/data/dimensions/value")
+info_color_depth = NodePath("content/scroll/side_panel/data/color_depth/value")
+info_embedded_pal = NodePath("content/scroll/side_panel/data/embedded_pal/value")
 metadata/_tab_index = 2
 
 [node name="content" type="HBoxContainer" parent="."]
@@ -84,25 +83,23 @@ size_flags_vertical = 3
 
 [node name="scroll" type="ScrollContainer" parent="content"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.35
+horizontal_scroll_mode = 0
 
-[node name="margin" type="MarginContainer" parent="content/scroll"]
+[node name="side_panel" type="HBoxContainer" parent="content/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="data" type="VBoxContainer" parent="content/scroll/margin"]
-custom_minimum_size = Vector2(283, 0)
+[node name="data" type="VBoxContainer" parent="content/scroll/side_panel"]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="import_export" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="import_export" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="import" type="Button" parent="content/scroll/margin/data/import_export" node_paths=PackedStringArray("window")]
+[node name="import" type="Button" parent="content/scroll/side_panel/data/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Import one or more sprites"
@@ -110,7 +107,7 @@ text = "Import..."
 script = ExtResource("2_dim6d")
 window = NodePath("../../../../../../importer")
 
-[node name="export" type="Button" parent="content/scroll/margin/data/import_export" node_paths=PackedStringArray("window")]
+[node name="export" type="Button" parent="content/scroll/side_panel/data/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export one or more sprites"
@@ -118,114 +115,108 @@ text = "Export..."
 script = ExtResource("2_dim6d")
 window = NodePath("../../../../../../exporter")
 
-[node name="delete" type="Button" parent="content/scroll/margin/data/import_export"]
+[node name="delete" type="Button" parent="content/scroll/side_panel/data/import_export"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 text = "Delete..."
 
-[node name="h_sep" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep" type="HSeparator" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 
-[node name="display_bounds" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="display_bounds" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/display_bounds"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/display_bounds"]
 layout_mode = 2
 text = "Display bounds"
 
-[node name="value" type="CheckButton" parent="content/scroll/margin/data/display_bounds"]
+[node name="value" type="CheckButton" parent="content/scroll/side_panel/data/display_bounds"]
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 
-[node name="sprite_index" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="sprite_index" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_index"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sprite #"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/sprite_index"]
+[node name="value" type="SpinBox" parent="content/scroll/side_panel/data/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
 script = ExtResource("3_vy2oh")
 
-[node name="palette_index" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="palette_index" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/palette_index"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette #"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/palette_index"]
+[node name="value" type="SpinBox" parent="content/scroll/side_panel/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
 script = ExtResource("4_260ug")
 
-[node name="h_sep2" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep2" type="HSeparator" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 
-[node name="dimensions" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="dimensions" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/dimensions"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/dimensions"]
 layout_mode = 2
 text = "Dimensions"
 
-[node name="value" type="Label" parent="content/scroll/margin/data/dimensions"]
+[node name="value" type="Label" parent="content/scroll/side_panel/data/dimensions"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "256 x 256"
 script = ExtResource("5_lrujt")
 
-[node name="color_depth" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="color_depth" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/color_depth"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/color_depth"]
 layout_mode = 2
 text = "Color depth"
 
-[node name="value" type="Label" parent="content/scroll/margin/data/color_depth"]
+[node name="value" type="Label" parent="content/scroll/side_panel/data/color_depth"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "8 bpp"
 script = ExtResource("6_s2w76")
 
-[node name="embedded_pal" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="embedded_pal" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/embedded_pal"]
+[node name="title" type="Label" parent="content/scroll/side_panel/data/embedded_pal"]
 layout_mode = 2
 text = "Embedded palette"
 
-[node name="value" type="Label" parent="content/scroll/margin/data/embedded_pal"]
+[node name="value" type="Label" parent="content/scroll/side_panel/data/embedded_pal"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "No"
 script = ExtResource("7_7k1uo")
 
-[node name="h_sep3" type="HSeparator" parent="content/scroll/margin/data"]
+[node name="h_sep3" type="HSeparator" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 
-[node name="palette_editor" type="Button" parent="content/scroll/margin/data" node_paths=PackedStringArray("editor_window")]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Open palette editor"
-script = ExtResource("8_xwrgv")
-editor_window = NodePath("../../../../../palette_editor")
-
-[node name="background" type="TextureRect" parent="content/scroll/margin/data"]
+[node name="background" type="TextureRect" parent="content/scroll/side_panel/data"]
+visible = false
 texture_filter = 1
 custom_minimum_size = Vector2(273, 273)
 layout_mode = 2
@@ -234,7 +225,7 @@ size_flags_vertical = 0
 texture = ExtResource("8_dk3u7")
 stretch_mode = 1
 
-[node name="palette" type="GridContainer" parent="content/scroll/margin/data/background" node_paths=PackedStringArray("preview")]
+[node name="palette" type="GridContainer" parent="content/scroll/side_panel/data/background" node_paths=PackedStringArray("preview", "color_picker")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
 anchors_preset = -1
@@ -253,10 +244,47 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("9_c4mug")
-preview = NodePath("../../../../../../importer/background/content_margin/window_content/preview/preview_panel/background/center/sprite")
+preview = NodePath("../../../../../visualizer/visualizer/content/sprite")
+color_picker = NodePath("../../../pal_edit/color_picker/picker")
+
+[node name="palette_editor" type="Button" parent="content/scroll/side_panel/data" node_paths=PackedStringArray("palette_grid", "editor_panel")]
+layout_mode = 2
+size_flags_vertical = 10
+toggle_mode = true
+text = "Open palette editor"
+script = ExtResource("8_xwrgv")
+palette_grid = NodePath("../background/palette")
+editor_panel = NodePath("../../pal_edit")
+
+[node name="pal_edit" type="HBoxContainer" parent="content/scroll/side_panel"]
+visible = false
+layout_mode = 2
+
+[node name="v_sep" type="VSeparator" parent="content/scroll/side_panel/pal_edit"]
+layout_mode = 2
+
+[node name="color_picker" type="VBoxContainer" parent="content/scroll/side_panel/pal_edit"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/scroll/side_panel/pal_edit/color_picker"]
+layout_mode = 2
+text = "Color editor"
+
+[node name="picker" type="ColorPicker" parent="content/scroll/side_panel/pal_edit/color_picker"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+color_mode = 1
+deferred_mode = true
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false
+script = ExtResource("52_wfq3j")
 
 [node name="VSeparator" type="VSeparator" parent="content"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="visualizer" type="VBoxContainer" parent="content"]
 layout_mode = 2
@@ -1099,84 +1127,4 @@ use_native_dialog = true
 script = ExtResource("43_05050")
 browse_button = NodePath("../importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/select")
 
-[node name="palette_editor" type="Window" parent="."]
-title = "Embedded palette editor"
-initial_position = 2
-size = Vector2i(580, 520)
-visible = false
-min_size = Vector2i(580, 520)
-script = ExtResource("51_apqt5")
-
-[node name="margin" type="MarginContainer" parent="palette_editor"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="content" type="HBoxContainer" parent="palette_editor/margin"]
-layout_mode = 2
-
-[node name="palette_grid" type="VBoxContainer" parent="palette_editor/margin/content"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="title" type="Label" parent="palette_editor/margin/content/palette_grid"]
-layout_mode = 2
-text = "Palette view"
-
-[node name="background" type="TextureRect" parent="palette_editor/margin/content/palette_grid"]
-texture_filter = 1
-custom_minimum_size = Vector2(273, 273)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-texture = ExtResource("8_dk3u7")
-stretch_mode = 1
-
-[node name="palette" type="GridContainer" parent="palette_editor/margin/content/palette_grid/background" node_paths=PackedStringArray("preview", "color_picker")]
-custom_minimum_size = Vector2(272, 272)
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-mouse_filter = 0
-theme_override_constants/h_separation = 1
-theme_override_constants/v_separation = 1
-columns = 16
-script = ExtResource("9_c4mug")
-preview = NodePath("../../../../../../content/visualizer/visualizer/content/sprite")
-color_picker = NodePath("../../../color_picker/picker")
-
-[node name="v_sep" type="VSeparator" parent="palette_editor/margin/content"]
-layout_mode = 2
-
-[node name="color_picker" type="VBoxContainer" parent="palette_editor/margin/content"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="title" type="Label" parent="palette_editor/margin/content/color_picker"]
-layout_mode = 2
-text = "Color editor"
-
-[node name="picker" type="ColorPicker" parent="palette_editor/margin/content/color_picker"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-color_mode = 1
-deferred_mode = true
-picker_shape = 1
-can_add_swatches = false
-sampler_visible = false
-presets_visible = false
-script = ExtResource("52_wfq3j")
-
-[connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds" method="update_mode"]
+[connection signal="toggled" from="content/scroll/side_panel/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds" method="update_mode"]

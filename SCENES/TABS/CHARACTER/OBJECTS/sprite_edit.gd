@@ -38,6 +38,20 @@ func _ready() -> void:
 	sprite_set(0)
 
 
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not event is InputEventKey:
+		return
+	
+	if Input.is_action_just_pressed("undo"):
+		provider.undo()
+	
+	if Input.is_action_just_pressed("redo"):
+		provider.redo()
+
+
 func get_provider() -> PaletteProvider:
 	return provider
 
@@ -79,5 +93,11 @@ func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	sprite_updated.emit(this_sprite)
-	provider.palette_load(sprite_index)
+	
+	# Hardcoding yay
+	if get_parent().name == "player":
+		provider.palette_load_player(palette_index)
+	
+	else:
+		provider.palette_load(sprite_index)
 #endregion
