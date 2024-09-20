@@ -4,6 +4,28 @@ var sprites: Array[BinSprite] = []
 var cells: Array[Cell] = []
 
 
+func serialize_and_save(path: String) -> void:	
+	var cell_json_array: Array[String] = serialize_cells()
+
+	# Save cells
+	DirAccess.make_dir_recursive_absolute("%s/cells" % path)
+	
+	for cell in cell_json_array.size():
+		var new_json_file = FileAccess.open(
+			"%s/cells/cell_%s.json" % [path, cell], FileAccess.WRITE)
+
+		if FileAccess.get_open_error() != OK:
+			SaveErrors.cell_save_error = true
+			continue
+
+		new_json_file.store_string(cell_json_array[cell])
+		new_json_file.close()
+	
+	# Save sprites
+	DirAccess.make_dir_recursive_absolute("%s/sprites" % path)
+	save_sprites_to_path("%s/sprites" % path)
+
+
 func serialize_cells() -> Array[String]:
 	var array: Array[String]
 	
@@ -42,12 +64,20 @@ func serialize_cells() -> Array[String]:
 	return array
 
 
+func save_sprites_to_path(path: String) -> void:
+	if DirAccess.open(path) == null:
+		return
+	
+	# Save sprites
+	SpriteLoadSave.save_sprites(sprites, path, Settings.sprite_reindex)
+
+
 func load_sprites_from_path(path: String) -> bool:
 	if DirAccess.open(path) == null:
 		return false
 	
 	# Load sprites
-	sprites = SpriteLoader.load_sprites(path, Settings.sprite_reindex)
+	sprites = SpriteLoadSave.load_sprites(path, Settings.sprite_reindex)
 
 	return true
 

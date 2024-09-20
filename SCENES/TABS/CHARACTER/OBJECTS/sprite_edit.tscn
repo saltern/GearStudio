@@ -63,14 +63,13 @@ border_width_bottom = 1
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neyyb"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
 
-[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_bounds", "info_dimensions", "info_color_depth", "info_embedded_pal")]
+[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ogryx")
-sprite_bounds = NodePath("")
 info_dimensions = NodePath("content/scroll/side_panel/data/dimensions/value")
 info_color_depth = NodePath("content/scroll/side_panel/data/color_depth/value")
 info_embedded_pal = NodePath("content/scroll/side_panel/data/embedded_pal/value")
