@@ -2,6 +2,8 @@ extends FileDialog
 
 @export var export_button: Button
 
+@onready var sprite_edit: SpriteEdit = get_owner()
+
 
 func _ready() -> void:
 	export_button.pressed.connect(show)
@@ -9,10 +11,6 @@ func _ready() -> void:
 
 
 func on_dir_selected(path: String) -> void:
-	SpriteExport.obj_state = SessionData.object_state_get(
-		get_owner().get_parent().name)
-	
-	SpriteExport.pal_state = SessionData.palette_state_get(
-		get_owner().get_parent().get_parent().get_index())
-	
+	SpriteExport.obj_data = sprite_edit.obj_data
+	SpriteExport.pal_data = sprite_edit.pal_data
 	SpriteExport.export(path)

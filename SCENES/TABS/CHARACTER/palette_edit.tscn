@@ -56,7 +56,7 @@ text = "Palette number"
 [node name="value" type="SpinBox" parent="scroll/content/data/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 21.0
+max_value = 0.0
 script = ExtResource("3_nhpkb")
 
 [node name="h_sep" type="HSeparator" parent="scroll/content/data"]
@@ -82,7 +82,7 @@ size_flags_vertical = 6
 texture = ExtResource("4_612b6")
 stretch_mode = 1
 
-[node name="palette" type="GridContainer" parent="scroll/content/data/editors/color_grid/background" node_paths=PackedStringArray("preview")]
+[node name="palette" type="GridContainer" parent="scroll/content/data/editors/color_grid/background" node_paths=PackedStringArray("preview", "color_picker")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
 anchors_preset = 8
@@ -104,6 +104,7 @@ theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("5_ocm7y")
 preview = NodePath("../../../preview/preview/sprite_center/sprite")
+color_picker = NodePath("../../../color_edit/color_pick")
 
 [node name="help" type="Label" parent="scroll/content/data/editors/color_grid"]
 layout_mode = 2

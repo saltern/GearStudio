@@ -8,6 +8,7 @@ var embedded_palette: bool = false
 func _ready() -> void:
 	sprite_edit.sprite_updated.connect(on_sprite_updated)
 	sprite_edit.palette_updated.connect(apply_palette)
+	sprite_edit.provider.palette_updated.connect(apply_palette_confirm)
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
@@ -34,5 +35,9 @@ func on_sprite_updated(sprite: BinSprite) -> void:
 func apply_palette(palette: PackedByteArray) -> void:
 	if embedded_palette:
 		return
+	
+	apply_palette_confirm(palette)
 
+
+func apply_palette_confirm(palette: PackedByteArray) -> void:
 	material.set_shader_parameter("palette", palette)

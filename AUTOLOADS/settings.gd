@@ -4,6 +4,7 @@ extends Node
 signal display_window
 @warning_ignore("unused_signal")
 signal onion_color_changed
+signal sprite_bounds_color_changed
 
 const FILENAME: String = "/gearstudio.ini"
 
@@ -49,7 +50,11 @@ var box_colors: Array[Color] = [
 	Color.WHITE,
 	Color.GOLD]
 
-var sprite_color_bounds: Color = Color.BLACK
+var sprite_color_bounds: Color = Color.BLACK:
+	set(value):
+		sprite_color_bounds = value
+		sprite_bounds_color_changed.emit()
+
 var sprite_reindex: bool = true
 
 var palette_alpha_double: bool = true

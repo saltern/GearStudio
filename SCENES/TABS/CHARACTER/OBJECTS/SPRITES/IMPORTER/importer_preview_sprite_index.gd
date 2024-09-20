@@ -3,7 +3,7 @@ extends SpinBox
 
 func _ready() -> void:
 	SpriteImport.files_selected.connect(on_files_selected)
-	value_changed.connect(SpriteImport.set_preview_index)
+	value_changed.connect(SpriteImport.set_preview_sprite_index)
 
 
 func on_files_selected() -> void:

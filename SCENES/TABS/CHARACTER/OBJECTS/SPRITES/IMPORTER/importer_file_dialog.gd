@@ -2,6 +2,8 @@ extends FileDialog
 
 @export var browse_button: Button
 
+@onready var sprite_edit: SpriteEdit = get_owner()
+
 
 func _ready() -> void:
 	browse_button.pressed.connect(show)
@@ -9,7 +11,5 @@ func _ready() -> void:
 
 
 func on_files_selected(files: PackedStringArray) -> void:
-	SpriteImport.obj_state = SessionData.object_state_get(
-		get_owner().get_parent().name)
-	
+	SpriteImport.obj_data = sprite_edit.obj_data
 	SpriteImport.select_files(files)

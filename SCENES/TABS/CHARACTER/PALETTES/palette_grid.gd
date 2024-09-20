@@ -1,6 +1,7 @@
-extends GridContainer
+class_name PaletteGrid extends GridContainer
 
 @export var preview: TextureRect
+@export var color_picker: ColorPicker
 
 const CELL_SIZE: int = 16
 const GRID_SIZE: int = CELL_SIZE + 1
@@ -15,12 +16,15 @@ var index_hovered: int = -1
 var selection_box: bool = false
 var selection_start: int = 0
 var selection_end: int = 0
-var selection_data: PackedByteArray
+var selected: Array[bool] = []
 var selecting: Array[bool] = []
-#var selected_count: int = 0
 
 
 func _ready() -> void:
+	if color_picker:
+		color_picker.color_changed.connect(color_set)
+	
+	selected.resize(256)
 	selecting.resize(256)
 	
 	mouse_entered.connect(on_mouse_enter)
@@ -64,7 +68,7 @@ func _draw() -> void:
 		#endregion
 		
 		#region Previously selected
-		elif provider.colors_selected[cell]:
+		elif selected[cell]:
 			# Inner black outline
 			draw_rect(Rect2(
 					GRID_SIZE * (cell % 16) + 2,
@@ -121,20 +125,19 @@ func _input(event: InputEvent) -> void:
 		KEY_TAB:
 			selection_box = !selection_box
 			if is_dragging:
-				selecting = get_selection()
+				provider.colors_selecting = get_selection()
 				shader_set_highlight()
 		
 		KEY_C:
 			if event.ctrl_pressed:
-				provider.set_copy_data()
+				provider.set_copy_data(selected)
 		
 		KEY_V:
 			if event.ctrl_pressed:
-				provider.paste(index_hovered)
+				provider.paste(index_hovered, selected)
 		
 		KEY_ESCAPE:
-			provider.color_selected_count = 0
-			provider.color_deselect_all()
+			color_deselect_all()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -183,7 +186,7 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 		# Click and drag
 		if is_dragging:
 			selection_end = get_color_index_at(at)
-			selecting = get_selection()
+			provider.colors_selecting = get_selection()
 		
 		else:
 			color_hover(get_color_index_at(at))
@@ -195,8 +198,7 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 			var index: int = get_color_index_at(at)
 			selection_end = index
 			is_dragging = false
-			provider.color_selected.emit(index)
-			provider.color_set_selection(selecting, subtractive)
+			color_set_selection(subtractive)
 			selecting.resize(0)
 			selecting.resize(256)
 		
@@ -206,8 +208,7 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 			selection_start = index
 			selection_end = index
 			selecting = get_selection()
-			provider.color_selected.emit(index)
-			provider.color_set_selection(selecting, subtractive)
+			color_set_selection(subtractive)
 			selecting.resize(0)
 			selecting.resize(256)
 
@@ -217,12 +218,55 @@ func get_color_index_at(at: Vector2i) -> int:
 #endregion
 
 
+#region Selection
+func color_select(index: int) -> void:
+	selected[index] = true
+
+
+func color_deselect(index: int) -> void:
+	selected[index] = false
+
+
+func color_deselect_all() -> void:
+	selected.resize(0)
+	selected.resize(256)
+
+
+func color_set_selection(subtractive: bool) -> void:
+	if subtractive:
+		for index in 256:
+			selected[index] = selected[index] and not selecting[index]
+			
+	elif Input.is_key_pressed(KEY_SHIFT):
+		for index in 256:
+			selected[index] = selected[index] or selecting[index]
+	
+	else:
+		selected = selecting.duplicate()
+
+
+func get_selected_count() -> int:
+	var count: int = 0
+	
+	for is_selected in selected:
+		count += is_selected as int
+	
+	return count
+#endregion
+
+
+#region Setting colors
+func color_set(color: Color) -> void:
+	provider.palette_set_color(color, selected)
+#endregion
+
+
 #region Copy/Paste
 func draw_paste_region() -> void:
 	if Clipboard.pal_data.size() < 1:
 		return
 	
-	if provider.color_selected_count > 0:
+	if get_selected_count() > 0:
 		draw_paste_at_selection()
 	else:
 		draw_paste_at_cursor()
@@ -278,7 +322,7 @@ func draw_paste_at_selection() -> void:
 	var current_color: int = 0
 	
 	for index in 256:
-		if provider.colors_selected[index]:
+		if selected[index]:
 			# Color preview
 			draw_rect(Rect2(
 					GRID_SIZE * (index % 16),
@@ -373,9 +417,10 @@ func on_palette_load(palette: PackedByteArray) -> void:
 		get_parent().hide()
 	else:
 		get_parent().show()
+		get_parent().custom_minimum_size.y = 17 * (palette.size() / 64) + 1
+		custom_minimum_size.y = get_parent().custom_minimum_size.y - 1
 	
 	for index in 256:
-		#get_child(index).color = Color8(0, 0, 0, 0)
 		get_child(index).hide()
 	
 	if Settings.palette_alpha_double:

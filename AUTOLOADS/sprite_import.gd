@@ -12,6 +12,7 @@ signal reindex_set
 signal bit_depth_set
 
 signal preview_generated
+signal preview_palette_set
 
 signal sprite_import_started
 signal sprite_import_finished
@@ -32,9 +33,13 @@ enum BitDepth {
 
 # Used by preview
 var preview_index: int = 0
+var preview_sprite: BinSprite
+var preview_palette_index: int = 0
+var preview_palette: PackedByteArray
 
 # Used by this singleton
 var obj_data: ObjectData
+var pal_data: PaletteData
 var import_list: PackedStringArray = []
 var placement_method: int
 var insert_position: int
@@ -116,7 +121,7 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	call_deferred("emit_signal", "sprite_placement_finished")
 
 
-func set_preview_index(index: int) -> void:
+func set_preview_sprite_index(index: int) -> void:
 	preview_index = index
 	generate_preview(preview_index)
 
@@ -125,12 +130,19 @@ func generate_preview(sprite_index: int) -> void:
 	if sprite_index >= import_list.size():
 		return
 	
-	preview_generated.emit(
-		SpriteImporter.import_sprite(
-			import_list[sprite_index], embed_palette, halve_alpha,
-			flip_h, flip_v, as_rgb, reindex, bit_depth
-		)
-	)
+	preview_sprite = SpriteImporter.import_sprite(
+		import_list[sprite_index], embed_palette, halve_alpha,
+		flip_h, flip_v, as_rgb, reindex, bit_depth)
+	
+	preview_palette = pal_data.palettes[preview_palette_index].palette
+	
+	preview_generated.emit()
+
+
+func set_preview_palette_index(index: int) -> void:
+	preview_palette_index = index
+	preview_palette = pal_data.palettes[index].palette
+	preview_palette_set.emit()
 
 
 func select_files(files: PackedStringArray) -> void:

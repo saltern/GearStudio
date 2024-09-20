@@ -1,4 +1,4 @@
-extends Control
+extends ColorRect
 
 var draw_bounds: bool = true
 var bounds: Rect2i
@@ -7,20 +7,13 @@ var bounds: Rect2i
 
 
 func _ready() -> void:
-	sprite_edit.sprite_updated.connect(on_sprite_updated)
+	color = Settings.sprite_color_bounds
+	Settings.sprite_bounds_color_changed.connect(update_color)
 
 
-func _process(_delta: float) -> void:
-	queue_redraw()
+func update_color() -> void:
+	color = Settings.sprite_color_bounds
 
 
-func _draw() -> void:
-	draw_rect(bounds, Settings.sprite_color_bounds, true)
-
-
-func update_mode(new_value: bool) -> void:
-	visible = new_value
-
-
-func on_sprite_updated(sprite: BinSprite) -> void:
-	bounds = Rect2i(Vector2i.ZERO, sprite.texture.get_size())
+func update_mode(enabled: bool) -> void:
+	visible = enabled

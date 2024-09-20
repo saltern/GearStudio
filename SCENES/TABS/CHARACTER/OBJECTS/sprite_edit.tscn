@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=55 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_import_button.gd" id="2_dim6d"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_texture.gd" id="7_mx30f"]
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="8_dk3u7"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_bounds.gd" id="8_vk3xv"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_palette_editor.gd" id="8_xwrgv"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="9_c4mug"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_window.gd" id="9_oa8py"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_range_start.gd" id="10_tbtm3"]
@@ -48,6 +49,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_preview.gd" id="41_616vi"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_progress.gd" id="42_k4ivw"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_file_dialog.gd" id="43_05050"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_editor_window.gd" id="51_apqt5"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="52_wfq3j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -67,7 +71,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ogryx")
-sprite_bounds = NodePath("content/visualizer/visualizer/content/sprite/bounds_draw")
+sprite_bounds = NodePath("")
 info_dimensions = NodePath("content/scroll/margin/data/dimensions/value")
 info_color_depth = NodePath("content/scroll/margin/data/color_depth/value")
 info_embedded_pal = NodePath("content/scroll/margin/data/embedded_pal/value")
@@ -162,7 +166,7 @@ text = "Palette #"
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 21.0
+max_value = 0.0
 alignment = 2
 script = ExtResource("4_260ug")
 
@@ -214,10 +218,12 @@ script = ExtResource("7_7k1uo")
 [node name="h_sep3" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="palette_editor" type="Button" parent="content/scroll/margin/data"]
+[node name="palette_editor" type="Button" parent="content/scroll/margin/data" node_paths=PackedStringArray("editor_window")]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Open palette editor"
+script = ExtResource("8_xwrgv")
+editor_window = NodePath("../../../../../palette_editor")
 
 [node name="background" type="TextureRect" parent="content/scroll/margin/data"]
 texture_filter = 1
@@ -231,15 +237,13 @@ stretch_mode = 1
 [node name="palette" type="GridContainer" parent="content/scroll/margin/data/background" node_paths=PackedStringArray("preview")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -136.0
-offset_top = -136.0
-offset_right = 136.0
-offset_bottom = 136.0
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -284,11 +288,14 @@ material = ExtResource("6_pyihx")
 layout_mode = 2
 script = ExtResource("7_mx30f")
 
-[node name="bounds_draw" type="Control" parent="content/visualizer/visualizer/content/sprite"]
+[node name="bounds" type="ColorRect" parent="content/visualizer/visualizer/content/sprite"]
 show_behind_parent = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("8_vk3xv")
 
 [node name="exporter" type="Window" parent="." node_paths=PackedStringArray("export_path_dialog")]
@@ -991,21 +998,36 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="HBoxContainer" parent="importer/background/content_margin/window_content/preview"]
+[node name="sprite" type="HBoxContainer" parent="importer/background/content_margin/window_content/preview"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="importer/background/content_margin/window_content/preview/title"]
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/preview/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Preview sprite"
 vertical_alignment = 1
 
-[node name="sprite_index" type="SpinBox" parent="importer/background/content_margin/window_content/preview/title"]
+[node name="sprite_index" type="SpinBox" parent="importer/background/content_margin/window_content/preview/sprite"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("40_4fx2o")
+
+[node name="palette" type="HBoxContainer" parent="importer/background/content_margin/window_content/preview"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="importer/background/content_margin/window_content/preview/palette"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview palette"
+
+[node name="palette_index" type="SpinBox" parent="importer/background/content_margin/window_content/preview/palette"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("46_cp5l3")
 
 [node name="preview_panel" type="PanelContainer" parent="importer/background/content_margin/window_content/preview"]
 clip_contents = true
@@ -1077,4 +1099,84 @@ use_native_dialog = true
 script = ExtResource("43_05050")
 browse_button = NodePath("../importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/select")
 
-[connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds_draw" method="update_mode"]
+[node name="palette_editor" type="Window" parent="."]
+title = "Embedded palette editor"
+initial_position = 2
+size = Vector2i(580, 520)
+visible = false
+min_size = Vector2i(580, 520)
+script = ExtResource("51_apqt5")
+
+[node name="margin" type="MarginContainer" parent="palette_editor"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="HBoxContainer" parent="palette_editor/margin"]
+layout_mode = 2
+
+[node name="palette_grid" type="VBoxContainer" parent="palette_editor/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="palette_editor/margin/content/palette_grid"]
+layout_mode = 2
+text = "Palette view"
+
+[node name="background" type="TextureRect" parent="palette_editor/margin/content/palette_grid"]
+texture_filter = 1
+custom_minimum_size = Vector2(273, 273)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("8_dk3u7")
+stretch_mode = 1
+
+[node name="palette" type="GridContainer" parent="palette_editor/margin/content/palette_grid/background" node_paths=PackedStringArray("preview", "color_picker")]
+custom_minimum_size = Vector2(272, 272)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 16
+script = ExtResource("9_c4mug")
+preview = NodePath("../../../../../../content/visualizer/visualizer/content/sprite")
+color_picker = NodePath("../../../color_picker/picker")
+
+[node name="v_sep" type="VSeparator" parent="palette_editor/margin/content"]
+layout_mode = 2
+
+[node name="color_picker" type="VBoxContainer" parent="palette_editor/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="palette_editor/margin/content/color_picker"]
+layout_mode = 2
+text = "Color editor"
+
+[node name="picker" type="ColorPicker" parent="palette_editor/margin/content/color_picker"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+color_mode = 1
+deferred_mode = true
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+presets_visible = false
+script = ExtResource("52_wfq3j")
+
+[connection signal="toggled" from="content/scroll/margin/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds" method="update_mode"]

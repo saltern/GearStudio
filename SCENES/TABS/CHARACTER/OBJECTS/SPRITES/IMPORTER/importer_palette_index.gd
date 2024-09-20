@@ -4,5 +4,5 @@ extends SpinBox
 
 
 func _ready() -> void:
-	value_changed.connect(sprite_edit.palette_set)
 	max_value = sprite_edit.pal_data.palettes.size() - 1
+	value_changed.connect(SpriteImport.set_preview_palette_index)

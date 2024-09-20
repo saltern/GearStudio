@@ -20,13 +20,9 @@ var color_count: int
 
 var color_index: int = 0
 
-var colors_selected: Array[bool] = []
-var color_selected_count: int = 0
-
 
 func _init() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
-	colors_selected.resize(256)
 
 
 #region Undo/Redo
@@ -39,60 +35,31 @@ func redo() -> void:
 #endregion
 
 
-#region Selection
-func color_select(index: int) -> void:
-	colors_selected[index] = true
-
-
-func color_deselect(index: int) -> void:
-	colors_selected[index] = false
-
-
-func color_deselect_all() -> void:
-	colors_selected.resize(0)
-	colors_selected.resize(256)
-
-
-func color_set_selection(selecting: Array[bool], subtractive: bool) -> void:
-	if subtractive:
-		for index in 256:
-			colors_selected[index] = \
-				colors_selected[index] and not selecting[index]
-			
-	elif Input.is_key_pressed(KEY_SHIFT):
-		for index in 256:
-			colors_selected[index] = \
-				colors_selected[index] or selecting[index]
-	
-	else:
-		colors_selected = selecting.duplicate()
-	
-	color_selected_count = 0
-	for cell in 256:
-		color_selected_count += colors_selected[cell] as int
-#endregion
-
-
 #region Copy/Paste
-func set_copy_data() -> void:
+func set_copy_data(selection: Array[bool]) -> void:
 	var copy_data: Array[Color] = []
 	
 	for index in 256:
-		if not colors_selected[index]:
+		if not selection[index]:
 			continue
 		
 		copy_data.append(palette_get_color(index))
 	
-	Clipboard.pal_selection = colors_selected.duplicate()
+	Clipboard.pal_selection = selection.duplicate()
 	Clipboard.pal_data = copy_data
 
 
-func paste(at: int) -> void:
+func paste(at: int, selection: Array[bool]) -> void:
+	var selected_count: int = 0
+	
+	for selected in selection:
+		selected_count += selected as int
+	
 	if Clipboard.pal_data.size() < 1:
 		return
 	
-	if color_selected_count > 0:
-		palette_paste_color_into(colors_selected)
+	if selected_count > 0:
+		palette_paste_color_into(selection)
 	else:
 		palette_paste_color(at)
 #endregion
@@ -152,8 +119,13 @@ func palette_get_color_in(color: int = 0, index: int = 0) -> Color:
 			pal_data.palettes[index].palette[4 * color + 3])
 
 
-func palette_set_color(color: Color) -> void:
-	if color_selected_count < 1:
+func palette_set_color(color: Color, selection: Array[bool]) -> void:
+	var selected_count: int = 0
+	
+	for selected in selection:
+		selected_count += selected as int
+	
+	if selected_count < 1:
 		Status.set_status("Nothing selected. Palette has not been modified.")
 		return
 	
@@ -170,7 +142,7 @@ func palette_set_color(color: Color) -> void:
 		new_palette = palette.palette.duplicate()
 	
 	for index in 256:
-		if not colors_selected[index]:
+		if not selection[index]:
 			continue
 		
 		new_palette[4 * index + 0] = color.r8
