@@ -17,7 +17,7 @@ var selection_start: int = 0
 var selection_end: int = 0
 var selection_data: PackedByteArray
 var selecting: Array[bool] = []
-var selected_count: int = 0
+#var selected_count: int = 0
 
 
 func _ready() -> void:
@@ -133,7 +133,7 @@ func _input(event: InputEvent) -> void:
 				provider.paste(index_hovered)
 		
 		KEY_ESCAPE:
-			selected_count = 0
+			provider.color_selected_count = 0
 			provider.color_deselect_all()
 
 
@@ -208,6 +208,8 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 			selecting = get_selection()
 			provider.color_selected.emit(index)
 			provider.color_set_selection(selecting, subtractive)
+			selecting.resize(0)
+			selecting.resize(256)
 
 	
 func get_color_index_at(at: Vector2i) -> int:
@@ -220,7 +222,7 @@ func draw_paste_region() -> void:
 	if Clipboard.pal_data.size() < 1:
 		return
 	
-	if selected_count > 0:
+	if provider.color_selected_count > 0:
 		draw_paste_at_selection()
 	else:
 		draw_paste_at_cursor()
@@ -366,8 +368,15 @@ func on_mouse_exit() -> void:
 
 
 func on_palette_load(palette: PackedByteArray) -> void:
+	# Used for SpriteEdit...
+	if palette.is_empty():
+		get_parent().hide()
+	else:
+		get_parent().show()
+	
 	for index in 256:
-		get_child(index).color = Color8(0, 0, 0, 0)
+		#get_child(index).color = Color8(0, 0, 0, 0)
+		get_child(index).hide()
 	
 	if Settings.palette_alpha_double:
 		for index in palette.size() / 4:
@@ -375,6 +384,7 @@ func on_palette_load(palette: PackedByteArray) -> void:
 			palette[alpha] = min(palette[alpha] * 2, 0xFF)
 	
 	for index in palette.size() / 4:
+		get_child(index).show()
 		get_child(index).color = Color8(
 			palette[4 * index + 0],
 			palette[4 * index + 1],

@@ -59,7 +59,7 @@ func palette_set(index: int = 0) -> void:
 		
 	palette_index = index
 	this_palette = pal_data.palettes[index]
-	palette_updated.emit(this_palette)
+	palette_updated.emit(this_palette.palette)
 
 
 func palette_get(index: int) -> PackedByteArray:

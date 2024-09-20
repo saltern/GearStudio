@@ -2,19 +2,23 @@ extends TextureRect
 
 @onready var sprite_edit: SpriteEdit = get_owner()
 
+var embedded_palette: bool = false
+
 
 func _ready() -> void:
 	sprite_edit.sprite_updated.connect(on_sprite_updated)
+	sprite_edit.palette_updated.connect(apply_palette)
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
 	texture = sprite.texture
 
 	if sprite.palette.is_empty():
-		material.set_shader_parameter(
-			"palette", sprite_edit.this_palette.palette)
+		embedded_palette = false
+		apply_palette(sprite_edit.this_palette.palette)
 		
 	else:
+		embedded_palette = true
 		if Settings.palette_alpha_double:
 			var opaque_pal: PackedByteArray = sprite.palette
 			
@@ -25,3 +29,10 @@ func on_sprite_updated(sprite: BinSprite) -> void:
 			material.set_shader_parameter("palette", opaque_pal)
 		else:
 			material.set_shader_parameter("palette", sprite.palette)
+	
+
+func apply_palette(palette: PackedByteArray) -> void:
+	if embedded_palette:
+		return
+
+	material.set_shader_parameter("palette", palette)

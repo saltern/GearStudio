@@ -214,6 +214,11 @@ script = ExtResource("7_7k1uo")
 [node name="h_sep3" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
+[node name="palette_editor" type="Button" parent="content/scroll/margin/data"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Open palette editor"
+
 [node name="background" type="TextureRect" parent="content/scroll/margin/data"]
 texture_filter = 1
 custom_minimum_size = Vector2(273, 273)
@@ -245,11 +250,6 @@ theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("9_c4mug")
 preview = NodePath("../../../../../../importer/background/content_margin/window_content/preview/preview_panel/background/center/sprite")
-
-[node name="palette_editor" type="Button" parent="content/scroll/margin/data"]
-layout_mode = 2
-size_flags_vertical = 2
-text = "Open palette editor"
 
 [node name="VSeparator" type="VSeparator" parent="content"]
 layout_mode = 2
