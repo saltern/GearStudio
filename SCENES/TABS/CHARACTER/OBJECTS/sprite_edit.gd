@@ -27,13 +27,15 @@ func _enter_tree() -> void:
 	obj_data = SessionData.object_data_get(get_parent().name)
 	pal_data = SessionData.palette_data_get(get_parent().get_parent().get_index())
 	
-	palette_set(0)
-	
 	provider = PaletteProvider.new()
 	provider.sprite_mode = true
 	provider.obj_data = obj_data
 	provider.pal_data = pal_data
-	provider.palette_load(0)
+
+
+func _ready() -> void:
+	palette_set(0)
+	sprite_set(0)
 
 
 func get_provider() -> PaletteProvider:

@@ -10,6 +10,9 @@ func _enter_tree() -> void:
 	provider.sprite_mode = false
 	provider.pal_data = SessionData.palette_data_get(get_parent().get_index())
 	provider.obj_data = obj_data
+
+
+func _ready() -> void:
 	provider.palette_load(0)
 
 
