@@ -5,6 +5,8 @@ extends GridContainer
 const CELL_SIZE: int = 16
 const GRID_SIZE: int = CELL_SIZE + 1
 
+var provider: PaletteProvider
+
 var mouse_in: bool = false
 var is_clicking: bool = false
 var is_dragging: bool = false
@@ -34,6 +36,8 @@ func _ready() -> void:
 		new_color.mouse_filter = MOUSE_FILTER_IGNORE
 		new_color.show_behind_parent = true
 		add_child(new_color)
+	
+	provider = palette_edit.get_provider()
 
 
 #region Draw
