@@ -20,9 +20,24 @@ var this_palette: BinPalette
 
 var embedded_pal: bool = false
 
+var provider: PaletteProvider
+
 
 func _enter_tree() -> void:
 	obj_data = SessionData.object_data_get(get_parent().name)
+	pal_data = SessionData.palette_data_get(get_parent().get_parent().get_index())
+	
+	palette_set(0)
+	
+	provider = PaletteProvider.new()
+	provider.sprite_mode = true
+	provider.obj_data = obj_data
+	provider.pal_data = pal_data
+	provider.palette_load(0)
+
+
+func get_provider() -> PaletteProvider:
+	return provider
 
 
 func update_palette(new_palette: int = 0) -> void:
@@ -62,4 +77,5 @@ func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	sprite_updated.emit(this_sprite)
+	provider.palette_load(sprite_index)
 #endregion

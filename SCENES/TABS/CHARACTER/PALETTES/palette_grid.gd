@@ -11,7 +11,7 @@ var mouse_in: bool = false
 var is_clicking: bool = false
 var is_dragging: bool = false
 
-var index_hovered: int = 0
+var index_hovered: int = -1
 var selection_box: bool = false
 var selection_start: int = 0
 var selection_end: int = 0
@@ -19,13 +19,9 @@ var selection_data: PackedByteArray
 var selecting: Array[bool] = []
 var selected_count: int = 0
 
-@onready var palette_edit: PaletteEdit = get_owner()
-
 
 func _ready() -> void:
 	selecting.resize(256)
-	
-	palette_edit.palette_updated.connect(on_palette_load)
 	
 	mouse_entered.connect(on_mouse_enter)
 	mouse_exited.connect(on_mouse_exit)
@@ -37,7 +33,8 @@ func _ready() -> void:
 		new_color.show_behind_parent = true
 		add_child(new_color)
 	
-	provider = palette_edit.get_provider()
+	provider = get_owner().get_provider()
+	provider.palette_updated.connect(on_palette_load)
 
 
 #region Draw
@@ -67,7 +64,7 @@ func _draw() -> void:
 		#endregion
 		
 		#region Previously selected
-		elif palette_edit.colors_selected[cell]:
+		elif provider.colors_selected[cell]:
 			# Inner black outline
 			draw_rect(Rect2(
 					GRID_SIZE * (cell % 16) + 2,
@@ -129,15 +126,15 @@ func _input(event: InputEvent) -> void:
 		
 		KEY_C:
 			if event.ctrl_pressed:
-				palette_edit.set_copy_data()
+				provider.set_copy_data()
 		
 		KEY_V:
 			if event.ctrl_pressed:
-				palette_edit.paste(index_hovered)
+				provider.paste(index_hovered)
 		
 		KEY_ESCAPE:
 			selected_count = 0
-			palette_edit.color_deselect_all()
+			provider.color_deselect_all()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -198,8 +195,8 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 			var index: int = get_color_index_at(at)
 			selection_end = index
 			is_dragging = false
-			palette_edit.color_selected.emit(index)
-			palette_edit.color_set_selection(selecting, subtractive)
+			provider.color_selected.emit(index)
+			provider.color_set_selection(selecting, subtractive)
 			selecting.resize(0)
 			selecting.resize(256)
 		
@@ -209,8 +206,8 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 			selection_start = index
 			selection_end = index
 			selecting = get_selection()
-			palette_edit.color_selected.emit(index)
-			palette_edit.color_set_selection(selecting, subtractive)
+			provider.color_selected.emit(index)
+			provider.color_set_selection(selecting, subtractive)
 
 	
 func get_color_index_at(at: Vector2i) -> int:
@@ -279,7 +276,7 @@ func draw_paste_at_selection() -> void:
 	var current_color: int = 0
 	
 	for index in 256:
-		if palette_edit.colors_selected[index]:
+		if provider.colors_selected[index]:
 			# Color preview
 			draw_rect(Rect2(
 					GRID_SIZE * (index % 16),
@@ -348,8 +345,8 @@ func get_selection() -> Array[bool]:
 #endregion
 
 
-func shader_set_highlight() -> void:	
-	get_owner().palette_shader.set_shader_parameter("highlight", selecting)
+func shader_set_highlight() -> void:
+	preview.material.set_shader_parameter("highlight", selecting)
 
 
 func color_hover(index: int) -> void:
@@ -368,11 +365,19 @@ func on_mouse_exit() -> void:
 	color_hover(-1)
 
 
-func on_palette_load(palette: BinPalette) -> void:
-	for index in 256:		
+func on_palette_load(palette: PackedByteArray) -> void:
+	for index in 256:
+		get_child(index).color = Color8(0, 0, 0, 0)
+	
+	if Settings.palette_alpha_double:
+		for index in palette.size() / 4:
+			var alpha: int = 4 * index + 3
+			palette[alpha] = min(palette[alpha] * 2, 0xFF)
+	
+	for index in palette.size() / 4:
 		get_child(index).color = Color8(
-			palette.palette[4 * index + 0],
-			palette.palette[4 * index + 1],
-			palette.palette[4 * index + 2],
-			palette.palette[4 * index + 3])
+			palette[4 * index + 0],
+			palette[4 * index + 1],
+			palette[4 * index + 2],
+			palette[4 * index + 3])
 #endregion

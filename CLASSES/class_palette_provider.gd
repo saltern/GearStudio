@@ -1,5 +1,8 @@
 class_name PaletteProvider extends Resource
  
+signal palette_updated
+signal color_selected
+
 var sprite_mode: bool = false
 
 var undo_redo: UndoRedo = UndoRedo.new()
@@ -100,10 +103,12 @@ func palette_load(index: int = 0) -> void:
 	if sprite_mode:
 		sprite_index = index
 		sprite = obj_data.sprites[sprite_index]
+		palette_updated.emit(sprite.palette)
 		
 	else:
 		palette_index = index
 		palette = pal_data.palettes[palette_index]
+		palette_updated.emit(palette.palette)
 
 
 func palette_get_colors(index: int = 0) -> PackedByteArray:

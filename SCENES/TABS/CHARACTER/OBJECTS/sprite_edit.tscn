@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=51 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_import_button.gd" id="2_dim6d"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_color_depth.gd" id="6_s2w76"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_has_embedded_palette.gd" id="7_7k1uo"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_texture.gd" id="7_mx30f"]
+[ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="8_dk3u7"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_bounds.gd" id="8_vk3xv"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="9_c4mug"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_window.gd" id="9_oa8py"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_range_start.gd" id="10_tbtm3"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/EXPORTER/exporter_range_end.gd" id="11_o6jgh"]
@@ -212,10 +214,42 @@ script = ExtResource("7_7k1uo")
 [node name="h_sep3" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="content/scroll/margin/data"]
+[node name="background" type="TextureRect" parent="content/scroll/margin/data"]
+texture_filter = 1
+custom_minimum_size = Vector2(273, 273)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 2
+texture = ExtResource("8_dk3u7")
+stretch_mode = 1
+
+[node name="palette" type="GridContainer" parent="content/scroll/margin/data/background" node_paths=PackedStringArray("preview")]
+custom_minimum_size = Vector2(272, 272)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 16
+script = ExtResource("9_c4mug")
+preview = NodePath("../../../../../../importer/background/content_margin/window_content/preview/preview_panel/background/center/sprite")
+
+[node name="palette_editor" type="Button" parent="content/scroll/margin/data"]
 layout_mode = 2
 size_flags_vertical = 2
-text = "Edit"
+text = "Open palette editor"
 
 [node name="VSeparator" type="VSeparator" parent="content"]
 layout_mode = 2

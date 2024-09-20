@@ -1,8 +1,5 @@
 class_name PaletteEdit extends MarginContainer
 
-signal palette_updated
-signal color_selected
-
 var obj_data: ObjectData
 var provider: PaletteProvider = PaletteProvider.new()
 
