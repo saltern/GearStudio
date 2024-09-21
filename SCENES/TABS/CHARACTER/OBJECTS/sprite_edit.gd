@@ -1,5 +1,7 @@
 class_name SpriteEdit extends MarginContainer
 
+signal sprites_deleted
+
 signal sprite_updated
 signal palette_updated
 
@@ -100,4 +102,14 @@ func sprite_set(index: int) -> void:
 	
 	else:
 		provider.palette_load(sprite_index)
+
+
+func sprite_delete(from: int, to: int) -> void:
+	var how_many: int = to - from + 1
+	
+	for index in how_many:
+		obj_data.sprites.pop_at(from)
+	
+	#sprites_deleted.emit()
+	SpriteImport.sprite_placement_finished.emit()
 #endregion

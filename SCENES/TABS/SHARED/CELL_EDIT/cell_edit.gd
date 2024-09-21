@@ -45,6 +45,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
+	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
+	
 	this_palette = pal_data.palettes[0]
 	cell_load(0)
 
@@ -186,6 +188,10 @@ func sprite_get(index: int = 0) -> BinSprite:
 	
 func sprite_get_count() -> int:
 	return obj_data.sprites.size()
+
+
+func on_sprites_imported() -> void:
+	cell_load(cell_index)
 #endregion
 
 

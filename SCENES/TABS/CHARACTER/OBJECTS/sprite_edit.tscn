@@ -1,7 +1,8 @@
-[gd_scene load_steps=54 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=62 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/export_import_button.gd" id="2_dim6d"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/delete_button.gd" id="3_s68f0"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/sprite_index.gd" id="3_vy2oh"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_index.gd" id="4_260ug"]
 [ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="5_6ij5e"]
@@ -50,7 +51,14 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_progress.gd" id="42_k4ivw"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_file_dialog.gd" id="43_05050"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_range_from.gd" id="52_eg8u3"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_range_to.gd" id="52_ft3y0"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_window.gd" id="52_ujkov"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="52_wfq3j"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_sprite_index.gd" id="54_kmxcs"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_preview.gd" id="55_oqxu8"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_delete_button.gd" id="56_leetc"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/DELETE/delete_confirm_window.gd" id="59_nsx52"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -114,11 +122,13 @@ text = "Export..."
 script = ExtResource("2_dim6d")
 window = NodePath("../../../../../../exporter")
 
-[node name="delete" type="Button" parent="content/scroll/side_panel/data/import_export"]
+[node name="delete" type="Button" parent="content/scroll/side_panel/data/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 text = "Delete..."
+script = ExtResource("3_s68f0")
+window = NodePath("../../../../../../delete_sprites")
 
 [node name="h_sep" type="HSeparator" parent="content/scroll/side_panel/data"]
 layout_mode = 2
@@ -1125,5 +1135,144 @@ filters = PackedStringArray("*.bin, *.raw, *.png, *.bmp; Supported image files")
 use_native_dialog = true
 script = ExtResource("43_05050")
 browse_button = NodePath("../importer/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/select")
+
+[node name="delete_sprites" type="Window" parent="."]
+title = "Delete sprites"
+initial_position = 2
+size = Vector2i(720, 500)
+visible = false
+transient = true
+exclusive = true
+script = ExtResource("52_ujkov")
+
+[node name="PanelContainer" type="PanelContainer" parent="delete_sprites"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_neyyb")
+
+[node name="margin" type="MarginContainer" parent="delete_sprites/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="HBoxContainer" parent="delete_sprites/PanelContainer/margin"]
+layout_mode = 2
+
+[node name="panel" type="VBoxContainer" parent="delete_sprites/PanelContainer/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="delete_sprites/PanelContainer/margin/content/panel"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep" type="HSeparator" parent="delete_sprites/PanelContainer/margin/content/panel/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="delete_sprites/PanelContainer/margin/content/panel/title"]
+layout_mode = 2
+text = "Range"
+
+[node name="h_sep2" type="HSeparator" parent="delete_sprites/PanelContainer/margin/content/panel/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="from" type="HBoxContainer" parent="delete_sprites/PanelContainer/margin/content/panel"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="delete_sprites/PanelContainer/margin/content/panel/from"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From sprite"
+
+[node name="value" type="SpinBox" parent="delete_sprites/PanelContainer/margin/content/panel/from"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("52_eg8u3")
+
+[node name="to" type="HBoxContainer" parent="delete_sprites/PanelContainer/margin/content/panel"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="delete_sprites/PanelContainer/margin/content/panel/to"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To sprite"
+
+[node name="value" type="SpinBox" parent="delete_sprites/PanelContainer/margin/content/panel/to" node_paths=PackedStringArray("delete_from")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("52_ft3y0")
+delete_from = NodePath("../../from/value")
+
+[node name="delete" type="Button" parent="delete_sprites/PanelContainer/margin/content/panel" node_paths=PackedStringArray("confirmation_window")]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Delete selected"
+script = ExtResource("56_leetc")
+confirmation_window = NodePath("../../../../../delete_confirm")
+
+[node name="v_sep" type="VSeparator" parent="delete_sprites/PanelContainer/margin/content"]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="delete_sprites/PanelContainer/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="sprite_index" type="HBoxContainer" parent="delete_sprites/PanelContainer/margin/content/preview"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="delete_sprites/PanelContainer/margin/content/preview/sprite_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview sprite to delete"
+
+[node name="value" type="SpinBox" parent="delete_sprites/PanelContainer/margin/content/preview/sprite_index" node_paths=PackedStringArray("delete_from", "delete_to")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("54_kmxcs")
+delete_from = NodePath("../../../panel/from/value")
+delete_to = NodePath("../../../panel/to/value")
+
+[node name="preview_panel" type="PanelContainer" parent="delete_sprites/PanelContainer/margin/content/preview"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
+
+[node name="background" type="TextureRect" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel"]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("5_6ij5e")
+stretch_mode = 1
+
+[node name="content" type="CenterContainer" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel"]
+layout_mode = 2
+
+[node name="sprite" type="TextureRect" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel/content" node_paths=PackedStringArray("sprite_index")]
+material = ExtResource("6_pyihx")
+layout_mode = 2
+script = ExtResource("55_oqxu8")
+sprite_index = NodePath("../../../sprite_index/value")
+
+[node name="delete_confirm" type="ConfirmationDialog" parent="delete_sprites" node_paths=PackedStringArray("delete_from", "delete_to")]
+title = "Confirm action"
+initial_position = 2
+unresizable = true
+ok_button_text = "Delete"
+dialog_text = "Really delete %s sprites?"
+script = ExtResource("59_nsx52")
+delete_from = NodePath("../PanelContainer/margin/content/panel/from/value")
+delete_to = NodePath("../PanelContainer/margin/content/panel/to/value")
 
 [connection signal="toggled" from="content/scroll/side_panel/data/display_bounds/value" to="content/visualizer/visualizer/content/sprite/bounds" method="update_mode"]
