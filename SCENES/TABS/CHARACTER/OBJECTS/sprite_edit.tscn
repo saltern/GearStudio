@@ -87,6 +87,7 @@ metadata/_tab_index = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="scroll" type="ScrollContainer" parent="content"]
 layout_mode = 2
@@ -256,9 +257,23 @@ script = ExtResource("9_c4mug")
 preview = NodePath("../../../../../visualizer/visualizer/content/sprite")
 color_picker = NodePath("../../../pal_edit/color_picker/picker")
 
-[node name="palette_editor" type="Button" parent="content/scroll/side_panel/data" node_paths=PackedStringArray("palette_grid", "editor_panel")]
+[node name="buttons" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 layout_mode = 2
 size_flags_vertical = 10
+
+[node name="import" type="Button" parent="content/scroll/side_panel/data/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import palette"
+
+[node name="export" type="Button" parent="content/scroll/side_panel/data/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export palette"
+
+[node name="palette_editor" type="Button" parent="content/scroll/side_panel/data" node_paths=PackedStringArray("palette_grid", "editor_panel")]
+layout_mode = 2
+size_flags_vertical = 8
 toggle_mode = true
 text = "Open palette editor"
 script = ExtResource("8_xwrgv")
@@ -274,6 +289,7 @@ layout_mode = 2
 
 [node name="color_picker" type="VBoxContainer" parent="content/scroll/side_panel/pal_edit"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="title" type="Label" parent="content/scroll/side_panel/pal_edit/color_picker"]
 layout_mode = 2
@@ -291,9 +307,8 @@ sampler_visible = false
 presets_visible = false
 script = ExtResource("52_wfq3j")
 
-[node name="VSeparator" type="VSeparator" parent="content"]
+[node name="v_sep" type="VSeparator" parent="content/scroll/side_panel"]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="visualizer" type="VBoxContainer" parent="content"]
 layout_mode = 2
@@ -1143,6 +1158,7 @@ size = Vector2i(720, 500)
 visible = false
 transient = true
 exclusive = true
+min_size = Vector2i(450, 160)
 script = ExtResource("52_ujkov")
 
 [node name="PanelContainer" type="PanelContainer" parent="delete_sprites"]
@@ -1245,7 +1261,6 @@ delete_from = NodePath("../../../panel/from/value")
 delete_to = NodePath("../../../panel/to/value")
 
 [node name="preview_panel" type="PanelContainer" parent="delete_sprites/PanelContainer/margin/content/preview"]
-clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
@@ -1256,14 +1271,19 @@ layout_mode = 2
 texture = ExtResource("5_6ij5e")
 stretch_mode = 1
 
-[node name="content" type="CenterContainer" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel"]
 layout_mode = 2
 
-[node name="sprite" type="TextureRect" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel/content" node_paths=PackedStringArray("sprite_index")]
+[node name="content" type="CenterContainer" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sprite" type="TextureRect" parent="delete_sprites/PanelContainer/margin/content/preview/preview_panel/ScrollContainer/content" node_paths=PackedStringArray("sprite_index")]
 material = ExtResource("6_pyihx")
 layout_mode = 2
 script = ExtResource("55_oqxu8")
-sprite_index = NodePath("../../../sprite_index/value")
+sprite_index = NodePath("../../../../sprite_index/value")
 
 [node name="delete_confirm" type="ConfirmationDialog" parent="delete_sprites" node_paths=PackedStringArray("delete_from", "delete_to")]
 title = "Confirm action"

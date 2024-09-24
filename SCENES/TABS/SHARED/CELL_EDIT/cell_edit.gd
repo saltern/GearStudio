@@ -103,13 +103,13 @@ func _input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("ui_paste"):
 		if Input.is_key_pressed(KEY_ALT):
-			SessionData.sprite_info_paste()
+			sprite_info_paste()
 
 		elif Input.is_key_pressed(KEY_SHIFT):
-			SessionData.box_paste(true)
+			box_paste(true)
 		
 		else:
-			SessionData.box_paste(false)
+			box_paste(false)
 
 
 #region Undo/Redo
@@ -307,8 +307,8 @@ func box_deselect(index: int) -> void:
 
 
 func box_deselect_all() -> void:
-	box_deselected_all.emit()
 	boxes_selected.clear()
+	box_deselected_all.emit()
 
 
 func box_set_editing(enabled: bool) -> void:
@@ -328,13 +328,17 @@ func box_set_draw_mode(enabled: bool) -> void:
 
 
 func box_append(box: BoxInfo) -> void:
-	undo_redo.create_action("Cell #%s add box" % cell_index)
+	var action_text: String = "Cell #%s add box" % cell_index
+
+	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_method(box_delete_commit.bind(this_cell, box))
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
 	undo_redo.commit_action()
 	
@@ -346,12 +350,15 @@ func box_delete() -> void:
 		Status.set_status("No boxes selected, can't delete.")
 		return
 	
-	if boxes_selected.size() > 1:
-		undo_redo.create_action("Cell #%s delete boxes (%s)" %
-			[cell_index, Engine.get_physics_frames()], UndoRedo.MERGE_ALL)
-	else:
-		undo_redo.create_action("Cell #%s delete box" % cell_index)
+	var action_text: String
 	
+	if boxes_selected.size() > 1:
+		action_text = "Cell #%s delete boxes" % cell_index
+		undo_redo.create_action(action_text + " (%s)" %
+			Engine.get_physics_frames(), UndoRedo.MERGE_ALL)
+	else:
+		action_text = "Cell #%s delete box" % cell_index
+		undo_redo.create_action(action_text)
 	
 	for box_index in boxes_selected:
 		var deleted_box: BoxInfo = box_get(box_index)
@@ -361,6 +368,7 @@ func box_delete() -> void:
 		
 		undo_redo.add_undo_method(box_append_commit.bind(this_cell, deleted_box, box_index))
 		undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
+		undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 		
 	undo_redo.commit_action()	
 	Status.set_status("Deleted box.")
@@ -381,10 +389,17 @@ func box_paste(overwrite: bool = false) -> void:
 	if Clipboard.box_data.size() == 0:
 		Status.set_status("No boxes on clipboard, nothing pasted.")
 	
+	var action_text: String = "Cell #%s paste box(es)" % cell_index
+	
 	if overwrite:
-		undo_redo.create_action("Cell #%s paste boxes with overwrite" % cell_index)
-	else:
-		undo_redo.create_action("Cell #%s paste boxes" % cell_index)
+		action_text = action_text + " with overwrite"
+	
+	undo_redo.create_action(action_text)
+	
+	if overwrite:
+		for box in this_cell.boxes:
+			undo_redo.add_do_method(box_delete_commit.bind(this_cell, box))
+			undo_redo.add_undo_method(box_append_commit.bind(this_cell, box))
 	
 	for box in Clipboard.box_data:
 		undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
@@ -392,6 +407,7 @@ func box_paste(overwrite: bool = false) -> void:
 		
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
 	undo_redo.commit_action()
 	
@@ -535,6 +551,9 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 
 
 func box_set_crop_offset_x(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	undo_redo.create_action("Cell #%s set sprite region crop X offset" % cell_index,
 		UndoRedo.MERGE_ENDS)
 	
@@ -552,6 +571,9 @@ func box_set_crop_offset_x(new_value: int) -> void:
 
 
 func box_set_crop_offset_y(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	undo_redo.create_action("Cell #%s set sprite region crop Y offset" % cell_index,
 		UndoRedo.MERGE_ENDS)
 	

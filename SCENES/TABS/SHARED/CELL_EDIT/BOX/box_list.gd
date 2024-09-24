@@ -10,11 +10,12 @@ const box_types: Dictionary = {
 }
 
 @onready var cell_edit: CellEdit = get_owner()
+var current_cell: Cell
 
 
 func _ready() -> void:
 	cell_edit.cell_updated.connect(on_cell_update)
-	cell_edit.box_selected_index.connect(select)
+	cell_edit.box_selected_index.connect(external_select)
 	cell_edit.box_deselected.connect(deselect)
 	cell_edit.box_deselected_all.connect(external_clear_selection)
 	cell_edit.box_editing_toggled.connect(check_enable)
@@ -26,10 +27,15 @@ func _ready() -> void:
 
 
 func on_cell_update(cell: Cell) -> void:
-	update(cell.boxes)
+	if cell == current_cell:
+		update(cell.boxes, current_selection)
+	else:
+		update(cell.boxes)
+	
+	current_cell = cell
 
 
-func update(boxes: Array[BoxInfo]) -> void:
+func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 	current_selection = -1
 	clear()
 	
@@ -42,6 +48,10 @@ func update(boxes: Array[BoxInfo]) -> void:
 		set_item_tooltip_enabled(item_count - 1, false)
 	
 	check_enable(cell_edit.box_edits_allowed)
+	
+	if reselect != -1:
+		current_selection = reselect
+		select(current_selection)
 
 
 func get_type_text(box_info: BoxInfo) -> String:
@@ -69,7 +79,8 @@ func check_enable(_enabled: bool) -> void:
 		set_item_disabled(item, !new_value)
 
 
-func on_multi_selected(_index: int, _selected: bool) -> void:
+func on_multi_selected(index: int, _selected: bool) -> void:
+	current_selection = index
 	cell_edit.box_set_selection(get_selected_items())
 		
 
@@ -80,10 +91,18 @@ func on_empty_clicked(_ignored: Vector2, button_index: int) -> void:
 	cell_edit.box_deselect_all()
 
 
+func external_select(index: int) -> void:
+	select(index)
+	current_selection = index
+
+
 func external_clear_selection() -> void:
 	deselect_all()
 	current_selection = -1
 
 
 func external_update(_box: BoxInfo) -> void:
-	update(cell_edit.this_cell.boxes)
+	if current_cell == cell_edit.this_cell:
+		update(cell_edit.this_cell.boxes, current_selection)
+	else:
+		update(cell_edit.this_cell.boxes)

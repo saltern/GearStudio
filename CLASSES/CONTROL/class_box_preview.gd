@@ -13,6 +13,8 @@ var have_dragged: bool = false
 var resizers: Array[BoxResizer] = []
 var prev_rect: Rect2i
 
+var region_preview := BoxRegionPreview.new()
+
 
 func _ready() -> void:
 	if cell_edit.box_drawing_mode or not cell_edit.box_edits_allowed:
@@ -30,6 +32,10 @@ func _ready() -> void:
 		add_child(resizer)
 	
 	z_index = 1
+	
+	region_preview.cell_edit = cell_edit
+	region_preview.box_info = box_info
+	add_child(region_preview)
 
 
 func _process(_delta: float) -> void:
@@ -42,6 +48,8 @@ func _process(_delta: float) -> void:
 	if not being_dragged and not being_resized:
 		position = box_info.rect.position
 		size = box_info.rect.size
+	
+	region_preview.size = size
 	
 	queue_redraw()
 
@@ -59,8 +67,13 @@ func _draw() -> void:
 	if type_color < Settings.box_colors.size():
 		color = Settings.box_colors[type_color]
 	
+	self_modulate.a = 1.0
+	
 	if is_selected:
-		color = pulsate_color(color)
+		#color = pulsate_color(color)
+		self_modulate = pulsate_color(Color.WHITE)
+	
+	region_preview.modulate = self_modulate
 	
 	# Using four separate draw_rect()s instead of just one
 	# as drawing unfilled boxes is off by a pixel or two
@@ -145,7 +158,7 @@ func clicked(event: InputEventMouseButton) -> void:
 		
 		# Select/deselect
 		if tentative_select && Rect2i(Vector2.ZERO, size).has_point(event.position):
-			if event.is_command_or_control_pressed():
+			if event.shift_pressed:
 				if is_selected:
 					cell_edit.box_deselect(box_index)
 				else:

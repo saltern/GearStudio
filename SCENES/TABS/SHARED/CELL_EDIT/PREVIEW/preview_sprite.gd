@@ -1,4 +1,4 @@
-extends Sprite2D
+extends Control
 
 @onready var cell_edit: CellEdit = get_owner()
 
@@ -18,9 +18,9 @@ func on_cell_update(cell: Cell) -> void:
 		load_cell_sprite(cell.sprite_info.index, cell.boxes)
 	
 	else:
-		texture = null
+		unload_sprite()
 		
-	offset = cell.sprite_info.position
+	position = cell.sprite_info.position
 
 
 func on_box_update(_box: BoxInfo) -> void:
@@ -32,7 +32,14 @@ func pal_state_palette_changed(_palette_number: int) -> void:
 		"palette", get_sprite_palette(cell_edit.sprite_get_index()))
 
 
+func unload_sprite() -> void:
+	for child in get_children():
+		child.queue_free()
+
+
 func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
+	unload_sprite()
+	
 	var cutout_list: Array[Rect2i]
 	var offset_list: Array[Vector2i]
 	
@@ -46,7 +53,7 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 		cutout_list.append(box.rect)
 	
 	if cutout_list.size() == 0:
-		load_cell_sprite_whole(index)
+		load_cell_sprite_pieces(index, [], [])
 	
 	else:
 		load_cell_sprite_pieces(index, cutout_list, offset_list)
@@ -54,39 +61,41 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	material.set_shader_parameter("palette", get_sprite_palette(index))
 
 
-func load_cell_sprite_whole(index: int) -> void:
-	texture = cell_edit.sprite_get(index).texture
-
-
 func load_cell_sprite_pieces(
-	index: int,
-	rects: Array[Rect2i],
-	offsets: Array[Vector2i]
+	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
-	
 	var source_image := cell_edit.sprite_get(index).image
 	
-	var empty_pixels: PackedByteArray = []
-	empty_pixels.resize(source_image.get_data_size() * 4)
+	if rects.is_empty():
+		rects.append(Rect2i(0, 0, 
+			source_image.get_width(),
+			source_image.get_height()))
+		
+		offsets.append(Vector2i.ZERO)
 	
-	var target_image := Image.create_from_data(
-		source_image.get_width() * 2,
-		source_image.get_height() * 2,
-		false, Image.FORMAT_L8, empty_pixels
-	)
-	
+	# Likely slower, but more accurate (?) representation
 	for rect in rects.size():
+		var new_tex: TextureRect = TextureRect.new()
+		new_tex.position = (offsets[rect] + rects[rect].position) - Vector2i(128, 128)
+		
+		var empty_pixels: PackedByteArray = []
+		empty_pixels.resize(rects[rect].size.x * rects[rect].size.y)
+		
+		var target_image := Image.create_from_data(
+			rects[rect].size.x,
+			rects[rect].size.y,
+			false, Image.FORMAT_L8, empty_pixels
+		)
+		
 		target_image.blit_rect(
 			source_image,
-			# Cut from this location
 			rects[rect],
-			# To this location
-			offsets[rect] + rects[rect].position
+			Vector2i(0,0)
 		)
-	
-	var new_texture := ImageTexture.create_from_image(target_image)
-	
-	texture = new_texture
+		
+		new_tex.texture = ImageTexture.create_from_image(target_image)
+		new_tex.use_parent_material = true
+		add_child(new_tex)
 
 
 func get_sprite_palette(index: int) -> PackedByteArray:

@@ -87,11 +87,16 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 		cell_edit.box_multi_drag_stopped.connect(new_box.multi_drag_stop)
 		new_box.cell_edit = cell_edit
 		new_box.box_info = this_box
-		#new_box.box_type = this_box.type & 0xFFFF
 		new_box.box_index = box
 		new_box.mouse_filter = Control.MOUSE_FILTER_PASS
 		
 		add_child(new_box)
+		
+		if this_box.type == 3 or this_box.type == 6:
+			var new_region_preview := BoxRegionPreview.new()
+			new_region_preview.cell_edit = cell_edit
+			new_region_preview.box_info = this_box
+			add_child(new_region_preview)
 
 
 func start_drawing(at: Vector2) -> void:
