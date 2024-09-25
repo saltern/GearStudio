@@ -1,12 +1,14 @@
 extends Sprite2D
 
+@export var front_toggle: CheckButton
+
 @onready var cell_edit: CellEdit = get_owner()
 
 
 func _ready() -> void:
-	material = material.duplicate()
-	
 	Settings.onion_color_changed.connect(update_color)
+	front_toggle.toggled.connect(on_toggle_front)
+	material = material.duplicate()
 	update_color()
 
 

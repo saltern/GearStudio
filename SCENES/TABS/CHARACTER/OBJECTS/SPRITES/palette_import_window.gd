@@ -1,6 +1,6 @@
 extends FileDialog
 
-@onready var sprite_edit: SpriteEdit = get_owner()
+@onready var provider: PaletteProvider = get_owner().provider
 
 
 func _ready() -> void:
@@ -30,4 +30,4 @@ func on_file_selected(file: String) -> void:
 		return
 	
 	var pal_array: PackedByteArray = palette.palette.duplicate()
-	sprite_edit.provider.palette_import(pal_array)
+	provider.palette_import(pal_array)

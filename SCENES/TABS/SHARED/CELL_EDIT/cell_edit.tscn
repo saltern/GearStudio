@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=32 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
@@ -7,15 +7,11 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_x.gd" id="5_r3hxp"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_y.gd" id="6_ua8f0"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_toggle.gd" id="7_fl2cb"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_regions.gd" id="8_vj7k4"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/box_display_types_menu.gd" id="9_4ybbf"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_allow_edits.gd" id="9_6yg7t"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_list.gd" id="10_c571m"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_unknown.gd" id="10_e8oxg"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw_mode.gd" id="11_37q3d"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_hurtboxes.gd" id="11_w2wqg"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_delete.gd" id="12_j041y"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_hitboxes.gd" id="12_qq37l"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_spawns.gd" id="13_qfgga"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_type.gd" id="13_vxqe1"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_x.gd" id="14_1wdu3"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_y.gd" id="15_0f2v1"]
@@ -31,9 +27,8 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/box_display_types_window.gd" id="28_1ywin"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_collision_extension.gd" id="32_587ak"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -65,109 +60,95 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="scroll" type="ScrollContainer" parent="content"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
+size_flags_horizontal = 0
 
-[node name="margin" type="MarginContainer" parent="content/scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="data" type="VBoxContainer" parent="content/scroll/margin"]
+[node name="data" type="VBoxContainer" parent="content/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="cell" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="cell" type="HBoxContainer" parent="content/scroll/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/cell"]
+[node name="title" type="Label" parent="content/scroll/data/cell"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Cell #"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/cell"]
+[node name="value" type="SpinBox" parent="content/scroll/data/cell"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_whryn")
 
-[node name="onion" type="HBoxContainer" parent="content/scroll/margin/data"]
+[node name="onion" type="HBoxContainer" parent="content/scroll/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/onion"]
+[node name="title" type="Label" parent="content/scroll/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Onion skin #"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/onion"]
+[node name="value" type="SpinBox" parent="content/scroll/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("3_rc8ef")
 
-[node name="onion_in_front" type="HBoxContainer" parent="content/scroll/margin/data"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="content/scroll/margin/data/onion_in_front"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-text = "In front"
-
-[node name="check" type="CheckButton" parent="content/scroll/margin/data/onion_in_front"]
+[node name="onion_in_front" type="CheckButton" parent="content/scroll/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "In front"
+text = "Onion skin in front"
 
-[node name="sprite_info" type="VBoxContainer" parent="content/scroll/margin/data"]
+[node name="sprite_info" type="VBoxContainer" parent="content/scroll/data"]
 layout_mode = 2
 
-[node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
+[node name="title_bar" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
 layout_mode = 2
 
-[node name="left" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
+[node name="left" type="HSeparator" parent="content/scroll/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/title_bar"]
+[node name="title" type="Label" parent="content/scroll/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Sprite Info"
 
-[node name="right" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
+[node name="right" type="HSeparator" parent="content/scroll/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="index" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
+[node name="index" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/index"]
+[node name="title" type="Label" parent="content/scroll/data/sprite_info/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Index"
 
-[node name="value_index" type="SpinBox" parent="content/scroll/margin/data/sprite_info/index"]
+[node name="value_index" type="SpinBox" parent="content/scroll/data/sprite_info/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Controls which sprite number this cell will display in game."
 alignment = 2
 script = ExtResource("4_ckx06")
 
-[node name="offset_x" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
+[node name="offset_x" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_x"]
+[node name="title" type="Label" parent="content/scroll/data/sprite_info/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Offset X"
 
-[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_x"]
+[node name="value_x" type="SpinBox" parent="content/scroll/data/sprite_info/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -176,16 +157,16 @@ alignment = 2
 suffix = "px"
 script = ExtResource("5_r3hxp")
 
-[node name="offset_y" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
+[node name="offset_y" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_y"]
+[node name="title" type="Label" parent="content/scroll/data/sprite_info/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Offset Y"
 
-[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_y"]
+[node name="value_y" type="SpinBox" parent="content/scroll/data/sprite_info/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -194,42 +175,42 @@ alignment = 2
 suffix = "px"
 script = ExtResource("6_ua8f0")
 
-[node name="boxes" type="VBoxContainer" parent="content/scroll/margin/data"]
+[node name="boxes" type="VBoxContainer" parent="content/scroll/data"]
 layout_mode = 2
 
-[node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
+[node name="title_bar" type="HBoxContainer" parent="content/scroll/data/boxes"]
 layout_mode = 2
 
-[node name="left" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
+[node name="left" type="HSeparator" parent="content/scroll/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/title_bar"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Boxes"
 
-[node name="right" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
+[node name="right" type="HSeparator" parent="content/scroll/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="toggles" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
+[node name="toggles" type="HBoxContainer" parent="content/scroll/data/boxes"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="visibility" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_window_button")]
+[node name="visibility" type="CheckButton" parent="content/scroll/data/boxes/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_window_button")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 button_pressed = true
 text = "Display"
 script = ExtResource("7_fl2cb")
-box_draw_node = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
+box_draw_node = NodePath("../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
 editable_parent = NodePath("../../editable")
 edit_mode = NodePath("../edit_mode")
 type_window_button = NodePath("../../type_window_button")
 
-[node name="edit_mode" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("editable_parent")]
+[node name="edit_mode" type="CheckButton" parent="content/scroll/data/boxes/toggles" node_paths=PackedStringArray("editable_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -237,21 +218,53 @@ text = "Edit Mode"
 script = ExtResource("9_6yg7t")
 editable_parent = NodePath("../../editable")
 
-[node name="type_window_button" type="Button" parent="content/scroll/margin/data/boxes"]
+[node name="type_window_button" type="Button" parent="content/scroll/data/boxes"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Types to display..."
 
-[node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes"]
+[node name="type_menu_button" type="MenuButton" parent="content/scroll/data/boxes"]
+layout_mode = 2
+text = "Types to display..."
+flat = false
+item_count = 6
+popup/item_0/text = "Unknown types"
+popup/item_0/checkable = 1
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "Hitboxes"
+popup/item_1/checkable = 1
+popup/item_1/checked = true
+popup/item_1/id = 1
+popup/item_2/text = "Hurtboxes"
+popup/item_2/checkable = 1
+popup/item_2/checked = true
+popup/item_2/id = 2
+popup/item_3/text = "Sprite regions"
+popup/item_3/checkable = 1
+popup/item_3/checked = true
+popup/item_3/id = 3
+popup/item_4/text = "Collision box extension"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 4
+popup/item_5/text = "Spawn points"
+popup/item_5/checkable = 1
+popup/item_5/checked = true
+popup/item_5/id = 5
+script = ExtResource("9_4ybbf")
+
+[node name="editable" type="VBoxContainer" parent="content/scroll/data/boxes"]
 visible = false
 layout_mode = 2
 
-[node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="list" type="ScrollContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="items" type="ItemList" parent="content/scroll/margin/data/boxes/editable/list"]
+[node name="items" type="ItemList" parent="content/scroll/data/boxes/editable/list"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -260,49 +273,49 @@ allow_reselect = true
 allow_search = false
 script = ExtResource("10_c571m")
 
-[node name="draw_delete" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="draw_delete" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="draw" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
+[node name="draw" type="Button" parent="content/scroll/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "Draw Mode"
 script = ExtResource("11_37q3d")
 
-[node name="delete" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
+[node name="delete" type="Button" parent="content/scroll/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delete"
 script = ExtResource("12_j041y")
 
-[node name="type" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="type" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/type"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Type"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/type" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/type" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 editable = false
 script = ExtResource("13_vxqe1")
 
-[node name="offset_x" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="offset_x" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/offset_x"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Offset X"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/offset_x" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -311,16 +324,16 @@ alignment = 2
 editable = false
 script = ExtResource("14_1wdu3")
 
-[node name="offset_y" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="offset_y" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/offset_y"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Offset Y"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/offset_y" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -329,16 +342,16 @@ alignment = 2
 editable = false
 script = ExtResource("15_0f2v1")
 
-[node name="width" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="width" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/width"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/width"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Width"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/width" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/width" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 65535.0
@@ -346,16 +359,16 @@ alignment = 2
 editable = false
 script = ExtResource("16_88dc2")
 
-[node name="height" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="height" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/height"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/height"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Height"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/height" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/height" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 65535.0
@@ -363,17 +376,17 @@ alignment = 2
 editable = false
 script = ExtResource("17_7hjvn")
 
-[node name="crop_offset_x" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="crop_offset_x" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("18_u7qgc")
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/crop_offset_x"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/crop_offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Region Offset X"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -382,17 +395,17 @@ alignment = 2
 editable = false
 script = ExtResource("19_vpw2d")
 
-[node name="crop_offset_y" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
+[node name="crop_offset_y" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("18_u7qgc")
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/crop_offset_y"]
+[node name="title" type="Label" parent="content/scroll/data/boxes/editable/crop_offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Region Offset Y"
 
-[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -483,11 +496,12 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="onion" type="Sprite2D" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="onion" type="Sprite2D" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("front_toggle")]
 material = SubResource("ShaderMaterial_k4855")
 position = Vector2(-128, -128)
 centered = false
 script = ExtResource("25_4rpsl")
+front_toggle = NodePath("../../../../../../scroll/data/onion_in_front")
 
 [node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 material = ExtResource("26_gliws")
@@ -498,130 +512,91 @@ script = ExtResource("27_na53u")
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("28_h6aqa")
-box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
+box_type = NodePath("../../../../../../scroll/data/boxes/editable/type/value")
 
-[node name="cross_v2" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("29_uhtn5")
+
+[node name="vert_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -2.0
 offset_top = -21.0
 offset_right = 2.0
 offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="cross_h2" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="horz_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -21.0
 offset_top = -2.0
 offset_right = 21.0
 offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="cross_v" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="vert_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -1.0
 offset_top = -20.0
 offset_right = 1.0
 offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
-[node name="cross_h" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+[node name="horz_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -20.0
 offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
-mouse_filter = 2
-
-[node name="display_types" type="Window" parent="." node_paths=PackedStringArray("display_button")]
-title = "Box display types"
-initial_position = 2
-size = Vector2i(360, 260)
-visible = false
-unresizable = true
-script = ExtResource("28_1ywin")
-display_button = NodePath("../content/scroll/margin/data/boxes/type_window_button")
-
-[node name="margin" type="MarginContainer" parent="display_types"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+mouse_filter = 2
 
-[node name="content" type="VBoxContainer" parent="display_types/margin"]
-layout_mode = 2
-
-[node name="title" type="Label" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "Draw the following types of boxes:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="hitboxes" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Hitboxes"
-button_pressed = true
-text = "Hitboxes"
-script = ExtResource("12_qq37l")
-
-[node name="hurtboxes" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Hurtboxes"
-button_pressed = true
-text = "Hurtboxes"
-script = ExtResource("11_w2wqg")
-
-[node name="regions" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Sprite regions"
-button_pressed = true
-text = "Sprite regions"
-script = ExtResource("8_vj7k4")
-
-[node name="collision_extension" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Spawn points"
-button_pressed = true
-text = "Collision box extension"
-script = ExtResource("32_587ak")
-
-[node name="spawns" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Spawn points"
-button_pressed = true
-text = "Spawn points"
-script = ExtResource("13_qfgga")
-
-[node name="unknowns" type="CheckButton" parent="display_types/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-tooltip_text = "Unknown"
-button_pressed = true
-text = "Unknown types"
-script = ExtResource("10_e8oxg")
-
-[connection signal="disable_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
-[connection signal="update_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
-[connection signal="toggled" from="content/scroll/margin/data/onion_in_front/check" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_toggle_front"]
+[connection signal="disable_onion_skin" from="content/scroll/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
+[connection signal="update_onion_skin" from="content/scroll/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]

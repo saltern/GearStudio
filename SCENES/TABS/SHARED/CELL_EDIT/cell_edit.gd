@@ -30,12 +30,23 @@ var boxes_selected: Array[int] = []
 var box_drawing_mode: bool
 var box_edits_allowed: bool
 
-var box_display_unknown: bool = true
-var box_display_hurtboxes: bool = true
-var box_display_hitboxes: bool = true
-var box_display_regions: bool = true
-var box_display_collision_extension: bool = true
-var box_display_spawn: bool = true
+enum BoxTypes {
+	UNKNOWN,
+	HITBOX,
+	HURTBOX,
+	REGION,
+	COLLISION,
+	SPAWN,
+}
+
+var box_display_types: Dictionary = {
+	BoxTypes.UNKNOWN: true,
+	BoxTypes.HITBOX: true,
+	BoxTypes.HURTBOX: true,
+	BoxTypes.REGION: true,
+	BoxTypes.COLLISION: true,
+	BoxTypes.SPAWN: true,
+}
 
 var palette_index: int = 0
 var this_palette: BinPalette
@@ -325,6 +336,22 @@ func box_set_editing(enabled: bool) -> void:
 func box_set_draw_mode(enabled: bool) -> void:
 	box_drawing_mode = enabled
 	box_drawing_mode_changed.emit(enabled)
+
+
+func box_is_type_visible(type: int) -> bool:
+	# Front region, same as region
+	if type == 6:
+		type = 3
+	
+	# Unknown types
+	if type < 1 or type > 5:
+		type = 0
+	
+	return box_display_types[type]
+
+
+func box_set_type_visible(type: int, enabled: bool) -> void:
+	box_display_types[type] = enabled
 
 
 func box_append(box: BoxInfo) -> void:

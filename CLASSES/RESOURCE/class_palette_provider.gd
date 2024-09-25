@@ -87,12 +87,12 @@ func palette_get_color_count() -> int:
 	return palette_get_colors().size() / 4
 
 
-func palette_get_colors(index: int = 0) -> PackedByteArray:
+func palette_get_colors() -> PackedByteArray:
 	if sprite_mode:
-		return sprite.palette
+		return obj_data.sprites[sprite_index].palette
 	
 	else:
-		return pal_data.palettes[index].palette
+		return pal_data.palettes[palette_index].palette
 
 
 func palette_get_color(index: int = 0) -> Color:
@@ -271,25 +271,26 @@ func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> v
 
 
 func palette_import(pal_array: PackedByteArray) -> void:
-	if sprite_mode and obj_data.name == "player":
-		Status.set_status("Cannot import palettes for 'player' sprites.")
-		return
-	
-	# Should normally not appear
-	if sprite == null:
-		Status.set_status("Could not apply palette, no sprite selected.")
-		return
-	
-	# Adapt palette size to sprite bit depth
-	pal_array.append_array(sprite.palette)
-	pal_array.resize(4 * pow(2, sprite.bit_depth))
-	
 	if sprite_mode:
+		if obj_data.name == "player":
+			Status.set_status("Cannot import palettes for 'player' sprites.")
+			return
+		
+		# Should normally not appear
+		if sprite == null:
+			Status.set_status("Could not apply palette, no sprite selected.")
+			return
+		
+		# Adapt palette size to sprite bit depth
+		pal_array.append_array(sprite.palette)
+		pal_array.resize(4 * pow(2, sprite.bit_depth))
+		
 		var action_text: String = "Set palette for sprite %s" % sprite_index
 		
 		undo_redo.create_action(action_text)
 		
-		undo_redo.add_do_method(palette_import_commit.bind(sprite, pal_array))
+		undo_redo.add_do_method(
+			palette_import_sprite_commit.bind(sprite, pal_array))
 		undo_redo.add_do_method(palette_load.bind(sprite_index))
 		undo_redo.add_do_method(
 			emit_signal.bind("palette_imported", sprite_index))
@@ -297,7 +298,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		undo_redo.add_do_method(Status.set_status.bind("%s." % action_text))
 		
 		undo_redo.add_undo_method(
-			palette_import_commit.bind(sprite, sprite.palette))
+			palette_import_sprite_commit.bind(sprite, sprite.palette))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
 		undo_redo.add_undo_method(
 			emit_signal.bind("palette_imported", sprite_index))
@@ -306,8 +307,43 @@ func palette_import(pal_array: PackedByteArray) -> void:
 			Status.set_status.bind("Undo: %s" % action_text))
 		
 		undo_redo.commit_action()
+	
+	else:
+		# Ensure size of at least 256 colors.
+		pal_array.resize(1024)
+		
+		var action_text: String = "Set palette for index %s" % palette_index
+		
+		undo_redo.create_action(action_text)
+		
+		undo_redo.add_do_method(
+			palette_import_commit.bind(palette, pal_array))
+		undo_redo.add_do_method(palette_load.bind(palette_index))
+		undo_redo.add_do_method(
+			emit_signal.bind("palette_imported", palette_index))
+		
+		undo_redo.add_do_method(Status.set_status.bind("%s." % action_text))
+		
+		undo_redo.add_undo_method(
+			palette_import_commit.bind(palette, palette.palette))
+		undo_redo.add_undo_method(palette_load.bind(palette_index))
+		undo_redo.add_do_method(
+			emit_signal.bind("palette_imported", palette_index))
+		
+		undo_redo.add_undo_method(
+			Status.set_status.bind("Undo: %s." % action_text))
+		
+		undo_redo.commit_action()
 
 
-func palette_import_commit(spr: BinSprite, pal: PackedByteArray) -> void:
-	spr.palette = pal
+func palette_import_sprite_commit(
+	spr: BinSprite, pal_array: PackedByteArray
+) -> void:
+	spr.palette = pal_array
+
+
+func palette_import_commit(
+	pal: BinPalette, pal_array: PackedByteArray
+) -> void:
+	pal.palette = pal_array
 #endregion

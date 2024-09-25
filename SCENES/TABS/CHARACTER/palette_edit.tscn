@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=14 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
@@ -6,7 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="4_612b6"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/window_summon_button.gd" id="5_ylny5"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_import_window.gd" id="9_iqtpw"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_export_window.gd" id="10_dqgeq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
 draw_center = false
@@ -22,13 +26,14 @@ shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = null
 
-[node name="palettes" type="MarginContainer"]
+[node name="palettes" type="MarginContainer" node_paths=PackedStringArray("gradient_menu")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fj0lo")
+gradient_menu = NodePath("gradient_menu")
 
 [node name="scroll" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -67,12 +72,26 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="color_grid" type="VBoxContainer" parent="scroll/content/data/editors"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 
 [node name="title" type="Label" parent="scroll/content/data/editors/color_grid"]
 layout_mode = 2
 text = "Palette view"
+
+[node name="help" type="Label" parent="scroll/content/data/editors/color_grid"]
+layout_mode = 2
+tooltip_text = "Click: Select colors
+Shift + click: Add to selection
+Shift + right click: Remove from selection
+CTRL + C: Copy
+CTRL + V: Paste
+CTRL: Preview paste
+Tab: Swap selection mode (box/range)
+Escape: Clear selection"
+mouse_filter = 0
+text = "Hover over this text for help."
 
 [node name="background" type="TextureRect" parent="scroll/content/data/editors/color_grid"]
 custom_minimum_size = Vector2(273, 273)
@@ -106,18 +125,23 @@ script = ExtResource("5_ocm7y")
 preview = NodePath("../../../preview/preview/sprite_center/sprite")
 color_picker = NodePath("../../../color_edit/color_pick")
 
-[node name="help" type="Label" parent="scroll/content/data/editors/color_grid"]
+[node name="import_export" type="HBoxContainer" parent="scroll/content/data/editors/color_grid"]
 layout_mode = 2
-tooltip_text = "Click: Select colors
-Shift + click: Add to selection
-Shift + right click: Remove from selection
-CTRL + C: Copy
-CTRL + V: Paste
-CTRL: Preview paste
-Tab: Swap selection mode (box/range)
-Escape: Clear selection"
-mouse_filter = 0
-text = "Hover over this text for help."
+
+[node name="import" type="Button" parent="scroll/content/data/editors/color_grid/import_export" node_paths=PackedStringArray("window")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Import palette"
+script = ExtResource("5_ylny5")
+window = NodePath("../../../../../../../palette_import")
+
+[node name="export" type="Button" parent="scroll/content/data/editors/color_grid/import_export" node_paths=PackedStringArray("window")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Export palette"
+script = ExtResource("5_ylny5")
+window = NodePath("../../../../../../../palette_export")
 
 [node name="v_sep_1" type="VSeparator" parent="scroll/content/data/editors"]
 layout_mode = 2
@@ -180,3 +204,37 @@ material = SubResource("ShaderMaterial_oa07j")
 layout_mode = 2
 script = ExtResource("6_eajfu")
 sprite_index = NodePath("../../../sprite/value")
+
+[node name="gradient_menu" type="PopupMenu" parent="."]
+size = Vector2i(77, 80)
+prefer_native_menu = true
+item_count = 3
+item_0/text = "RGB"
+item_0/id = 0
+item_1/text = "HSL"
+item_1/id = 1
+item_2/text = "LAB"
+item_2/id = 2
+script = ExtResource("8_8p6ps")
+
+[node name="palette_import" type="FileDialog" parent="."]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 2
+size = Vector2i(640, 480)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
+use_native_dialog = true
+script = ExtResource("9_iqtpw")
+
+[node name="palette_export" type="FileDialog" parent="."]
+auto_translate_mode = 1
+initial_position = 2
+size = Vector2i(640, 480)
+dialog_hide_on_ok = true
+access = 2
+filters = PackedStringArray("*.bin; Binary file", "*.act; Adobe Color Table")
+use_native_dialog = true
+script = ExtResource("10_dqgeq")

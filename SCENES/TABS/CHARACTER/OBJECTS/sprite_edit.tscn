@@ -89,10 +89,11 @@ metadata/_tab_index = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 0
 
 [node name="scroll" type="ScrollContainer" parent="content"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 horizontal_scroll_mode = 0
 
 [node name="side_panel" type="HBoxContainer" parent="content/scroll"]
@@ -101,8 +102,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="data" type="VBoxContainer" parent="content/scroll/side_panel"]
-custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="import_export" type="HBoxContainer" parent="content/scroll/side_panel/data"]
 custom_minimum_size = Vector2(0, 30)
@@ -311,7 +312,7 @@ sampler_visible = false
 presets_visible = false
 script = ExtResource("52_wfq3j")
 
-[node name="v_sep" type="VSeparator" parent="content/scroll/side_panel"]
+[node name="v_sep" type="VSeparator" parent="content"]
 layout_mode = 2
 
 [node name="visualizer" type="VBoxContainer" parent="content"]

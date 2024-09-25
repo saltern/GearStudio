@@ -39,19 +39,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	match box_info.type:
-		1:
-			visible = cell_edit.box_display_hitboxes
-		2:
-			visible = cell_edit.box_display_hurtboxes
-		3, 6:
-			visible = cell_edit.box_display_regions
-		4:
-			visible = cell_edit.box_display_collision_extension
-		5:
-			visible = cell_edit.box_display_spawn
-		_:
-			visible = cell_edit.box_display_unknown
+	visible = cell_edit.box_is_type_visible(box_info.type)
 	
 	if not being_dragged and not being_resized:
 		position = box_info.rect.position

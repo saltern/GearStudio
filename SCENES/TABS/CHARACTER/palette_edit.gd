@@ -1,5 +1,7 @@
 class_name PaletteEdit extends MarginContainer
 
+@export var gradient_menu: PopupMenu
+
 var obj_data: ObjectData
 var provider: PaletteProvider = PaletteProvider.new()
 
@@ -24,6 +26,10 @@ func _input(event: InputEvent) -> void:
 		return
 		
 	if not event.pressed or event.echo:
+		return
+	
+	if event.keycode == KEY_G:
+		gradient_menu.display()
 		return
 	
 	if Input.is_action_just_pressed("undo"):

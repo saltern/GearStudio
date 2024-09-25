@@ -3,6 +3,8 @@ extends Node
 @warning_ignore("unused_signal")
 signal display_window
 @warning_ignore("unused_signal")
+signal draw_origin_changed
+@warning_ignore("unused_signal")
 signal onion_color_changed
 signal sprite_bounds_color_changed
 
@@ -10,6 +12,7 @@ const FILENAME: String = "/gearstudio.ini"
 
 const CFG_SECTION_CELLS: String = "cells"
 const CFG_CELL_ONION: String = "onion_color"
+const CFG_CELL_ORIGIN: String = "draw_origin"
 
 const CFG_SECTION_BOXES: String = "boxes"
 const CFG_BOX_THICKNESS: String = "thickness"
@@ -42,6 +45,7 @@ enum BoxType {
 	REGION_F,			# 6
 }
 
+var cell_draw_origin: bool = true
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 
 var box_thickness: int = 2
@@ -80,6 +84,9 @@ func load_config() -> bool:
 	if config.load(path + FILENAME) != OK:
 		return false
 	
+	cell_draw_origin = config.get_value(
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
+	
 	cell_onion_skin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, Color(1.0, 0.0, 0.0, 0.625))
 	
@@ -113,6 +120,8 @@ func load_config() -> bool:
 
 
 func save_config() -> bool:
+	config.set_value(
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin)
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	

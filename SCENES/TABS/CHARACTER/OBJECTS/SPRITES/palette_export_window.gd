@@ -1,6 +1,6 @@
 extends FileDialog
 
-@onready var sprite_edit: SpriteEdit = get_owner()
+@onready var provider: PaletteProvider = get_owner().provider
 
 
 func _ready() -> void:
@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func on_file_selected(path: String) -> void:
-	PaletteData.save_palette(sprite_edit.provider.sprite.palette, path)
+	PaletteData.save_palette(provider.palette_get_colors(), path)

@@ -8,9 +8,7 @@ signal tab_closed
 var tab_index: int = 0
 var object_name: String
 var tabs: Array = []
-
 var this_tab: Dictionary = {}
-#var this_palette_state: PaletteEditState
 
 var serialize_ignore: Array[String] = ["path", "current_object", "palettes"]
 
@@ -24,30 +22,6 @@ var serialize_ignore: Array[String] = ["path", "current_object", "palettes"]
 #	},
 #
 #	...
-
-
-#func undo_pal() -> void:
-	#if not this_palette_state.undo.has_undo():
-		#Status.set_status("Nothing to undo.")
-		#return
-	#
-	#Status.set_status("Undo: %s" % 
-			#this_palette_state.undo.get_current_action_name())
-			#
-	#this_palette_state.undo.undo()
-#
-#
-#func redo_pal() -> void:
-	#if not this_palette_state.undo.has_redo():
-		#Status.set_status("Nothing to redo.")
-		#return
-			#
-	#this_palette_state.undo.redo()
-	#
-	#Status.set_status("Redo: %s" % 
-			#this_palette_state.undo.get_current_action_name())
-#endregion
-
 
 func save() -> void:
 	SaveErrors.reset()
@@ -138,7 +112,6 @@ func tab_load(index: int = 0) -> void:
 	
 	tab_index = index
 	this_tab = tabs[index]
-	#this_palette_state = palette_state_get(tab_index)
 
 
 func tab_close(index: int = 0) -> void:
