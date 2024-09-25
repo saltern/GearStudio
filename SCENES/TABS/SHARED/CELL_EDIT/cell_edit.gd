@@ -117,7 +117,7 @@ func _input(event: InputEvent) -> void:
 				
 				Status.set_status("Copied box(es).")
 
-	if Input.is_action_just_pressed("ui_paste"):
+	elif Input.is_action_just_pressed("ui_paste"):
 		if Input.is_key_pressed(KEY_ALT):
 			sprite_info_paste()
 
@@ -126,6 +126,9 @@ func _input(event: InputEvent) -> void:
 		
 		else:
 			box_paste(false)
+
+	if Input.is_action_just_pressed("ui_text_delete"):
+		box_delete()
 
 
 #region Undo/Redo
