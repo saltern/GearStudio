@@ -6,8 +6,15 @@ extends FileDialog
 
 
 func _ready() -> void:
-	browse_button.pressed.connect(show)
+	browse_button.pressed.connect(on_browse_clicked)
 	files_selected.connect(on_files_selected)
+
+
+func on_browse_clicked() -> void:
+	if visible:
+		return
+	
+	show()
 
 
 func on_files_selected(files: PackedStringArray) -> void:

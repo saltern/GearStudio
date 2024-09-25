@@ -1,5 +1,6 @@
 class_name ObjectData extends Resource
 
+var name: String
 var sprites: Array[BinSprite] = []
 var cells: Array[Cell] = []
 

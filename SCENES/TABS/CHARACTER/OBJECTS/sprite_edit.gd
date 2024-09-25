@@ -5,6 +5,8 @@ signal sprites_deleted
 signal sprite_updated
 signal palette_updated
 
+var undo: UndoRedo = UndoRedo.new()
+
 var obj_data: ObjectData
 var pal_data: PaletteData
 
@@ -33,6 +35,8 @@ func _enter_tree() -> void:
 	provider.sprite_mode = true
 	provider.obj_data = obj_data
 	provider.pal_data = pal_data
+	
+	provider.palette_imported.connect(sprite_set)
 
 
 func _ready() -> void:
@@ -110,6 +114,5 @@ func sprite_delete(from: int, to: int) -> void:
 	for index in how_many:
 		obj_data.sprites.pop_at(from)
 	
-	#sprites_deleted.emit()
 	SpriteImport.sprite_placement_finished.emit()
 #endregion

@@ -109,6 +109,8 @@ func tab_new(path: String) -> void:
 	for directory in dir_list:
 		var object_data := ObjectData.new()
 		
+		object_data.name = directory
+		
 		if DirAccess.dir_exists_absolute(path + "/%s/sprites" % directory):
 			object_data.load_sprites_from_path(path + "/%s/sprites" % directory)
 		

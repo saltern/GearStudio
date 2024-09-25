@@ -1,6 +1,7 @@
 class_name PaletteProvider extends Resource
  
 signal palette_updated
+signal palette_imported
 
 var sprite_mode: bool = false
 
@@ -64,7 +65,7 @@ func paste(at: int, selection: Array[bool]) -> void:
 #endregion
 
 
-#region BinPalettes
+#region Palettes
 func palette_load(index: int = 0) -> void:
 	if sprite_mode:
 		sprite_index = index
@@ -80,6 +81,10 @@ func palette_load(index: int = 0) -> void:
 func palette_load_player(index: int) -> void:
 	palette_index = index
 	palette = pal_data.palettes[palette_index]
+
+
+func palette_get_color_count() -> int:
+	return palette_get_colors().size() / 4
 
 
 func palette_get_colors(index: int = 0) -> PackedByteArray:
@@ -172,6 +177,8 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 
 
 func palette_paste_color(at_index: int) -> void:
+	var color_count: int = palette_get_color_count()
+	
 	var old_palette: PackedByteArray
 	var new_palette: PackedByteArray
 	
@@ -186,21 +193,21 @@ func palette_paste_color(at_index: int) -> void:
 	var start_index: int = 0
 	var current_color: int = 0
 	
-	for cell in 256:
+	for cell in color_count:
 		if Clipboard.pal_selection[cell]:
 			start_index = cell
 			break
 	
-	if at_index < 0 || at_index > 255:
+	if at_index < 0 || at_index > color_count - 1:
 		return
 	
-	for cell in 256:
+	for cell in color_count:
 		var this_index: int = at_index - start_index + cell
 		
 		if !Clipboard.pal_selection[cell]:
 			continue
 		
-		if this_index < 0 || this_index > 255:
+		if this_index < 0 || this_index > color_count - 1:
 			continue
 		
 		new_palette[4 * this_index + 0] = Clipboard.pal_data[current_color].r8
@@ -261,4 +268,46 @@ func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> v
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	undo_redo.commit_action()
+
+
+func palette_import(pal_array: PackedByteArray) -> void:
+	if sprite_mode and obj_data.name == "player":
+		Status.set_status("Cannot import palettes for 'player' sprites.")
+		return
+	
+	# Should normally not appear
+	if sprite == null:
+		Status.set_status("Could not apply palette, no sprite selected.")
+		return
+	
+	# Adapt palette size to sprite bit depth
+	pal_array.append_array(sprite.palette)
+	pal_array.resize(4 * pow(2, sprite.bit_depth))
+	
+	if sprite_mode:
+		var action_text: String = "Set palette for sprite %s" % sprite_index
+		
+		undo_redo.create_action(action_text)
+		
+		undo_redo.add_do_method(palette_import_commit.bind(sprite, pal_array))
+		undo_redo.add_do_method(palette_load.bind(sprite_index))
+		undo_redo.add_do_method(
+			emit_signal.bind("palette_imported", sprite_index))
+		
+		undo_redo.add_do_method(Status.set_status.bind("%s." % action_text))
+		
+		undo_redo.add_undo_method(
+			palette_import_commit.bind(sprite, sprite.palette))
+		undo_redo.add_undo_method(palette_load.bind(sprite_index))
+		undo_redo.add_undo_method(
+			emit_signal.bind("palette_imported", sprite_index))
+		
+		undo_redo.add_undo_method(
+			Status.set_status.bind("Undo: %s" % action_text))
+		
+		undo_redo.commit_action()
+
+
+func palette_import_commit(spr: BinSprite, pal: PackedByteArray) -> void:
+	spr.palette = pal
 #endregion

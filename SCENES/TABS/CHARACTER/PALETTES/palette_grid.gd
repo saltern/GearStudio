@@ -50,7 +50,9 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-	for cell in 256:
+	var color_count: int = provider.palette_get_color_count()
+	
+	for cell in color_count:
 		#region Selection in progress (prioritized)
 		if selecting[cell]:
 			# Inner black outline
@@ -228,12 +230,14 @@ func color_deselect_all() -> void:
 
 
 func color_set_selection(subtractive: bool) -> void:
+	var color_count: int = provider.palette_get_color_count()
+	
 	if subtractive:
-		for index in 256:
+		for index in color_count:
 			selected[index] = selected[index] and not selecting[index]
 			
 	elif Input.is_key_pressed(KEY_SHIFT):
-		for index in 256:
+		for index in color_count:
 			selected[index] = selected[index] or selecting[index]
 	
 	else:
@@ -273,22 +277,23 @@ func draw_paste_region() -> void:
 func draw_paste_at_cursor() -> void:
 	var start_index: int = 0
 	var current_color: int = 0
+	var color_count: int = provider.palette_get_color_count()
 	
-	for cell in 256:
+	for cell in color_count:
 		if Clipboard.pal_selection[cell]:
 			start_index = cell
 			break
 	
-	if index_hovered < 0 || index_hovered > 255:
+	if index_hovered < 0 || index_hovered > color_count - 1:
 		return
 	
-	for cell in 256:
+	for cell in color_count:
 		var this_index: int = index_hovered - start_index + cell
 		
 		if !Clipboard.pal_selection[cell]:
 			continue
 		
-		if this_index < 0 || this_index > 255:
+		if this_index < 0 || this_index > color_count - 1:
 			continue
 		
 		# Actual color to paste
@@ -318,8 +323,9 @@ func draw_paste_at_cursor() -> void:
 
 func draw_paste_at_selection() -> void:
 	var current_color: int = 0
+	var color_count: int = provider.palette_get_color_count()
 	
-	for index in 256:
+	for index in color_count:
 		if selected[index]:
 			# Color preview
 			draw_rect(Rect2(

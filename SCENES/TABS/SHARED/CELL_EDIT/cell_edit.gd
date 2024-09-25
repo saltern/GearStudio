@@ -12,7 +12,6 @@ signal box_deselected_all
 signal box_editing_toggled
 @warning_ignore("unused_signal")
 signal box_updated
-signal box_display_regions_changed
 signal box_drawing_mode_changed
 signal box_multi_dragged
 signal box_multi_drag_stopped
@@ -30,7 +29,13 @@ var this_cell: Cell
 var boxes_selected: Array[int] = []
 var box_drawing_mode: bool
 var box_edits_allowed: bool
-var box_display_regions: bool
+
+var box_display_unknown: bool = true
+var box_display_hurtboxes: bool = true
+var box_display_hitboxes: bool = true
+var box_display_regions: bool = true
+var box_display_collision_extension: bool = true
+var box_display_spawn: bool = true
 
 var palette_index: int = 0
 var this_palette: BinPalette
@@ -315,11 +320,6 @@ func box_set_editing(enabled: bool) -> void:
 	box_edits_allowed = enabled
 	box_editing_toggled.emit(enabled)
 	box_deselect_all()
-
-
-func box_set_display_regions(enabled: bool) -> void:
-	box_display_regions = enabled
-	box_display_regions_changed.emit()
 
 
 func box_set_draw_mode(enabled: bool) -> void:

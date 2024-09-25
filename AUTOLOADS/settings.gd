@@ -16,7 +16,9 @@ const CFG_BOX_THICKNESS: String = "thickness"
 const CFG_BOX_COLOR_UNK: String = "color_unknown"
 const CFG_BOX_COLOR_HIT: String = "color_hitbox"
 const CFG_BOX_COLOR_HURT: String = "color_hurtbox"
-const CFG_BOX_COLOR_CROP: String = "color_region"
+const CFG_BOX_COLOR_CROP_B: String = "color_region_b"
+const CFG_BOX_COLOR_CROP_F: String = "color_region_f"
+const CFG_BOX_COLOR_COLL_EXT: String = "color_collision"
 const CFG_BOX_COLOR_SPAWN: String = "color_spawn"
 
 const CFG_SECTION_SPRITES: String = "sprites"
@@ -31,12 +33,13 @@ const CFG_MISC_MAX_UNDO: String = "max_undo"
 const CFG_MISC_REOPEN: String = "allow_reopen"
 
 enum BoxType {
-	UNKNOWN,
-	HITBOX,
-	HURTBOX,
-	REGION,
-	UNKNOWN_2,
-	SPAWN,
+	UNKNOWN,			# ...
+	HITBOX,				# 1
+	HURTBOX,			# 2
+	REGION_B,			# 3
+	COLLISION_EXTEND,	# 4
+	SPAWN,				# 5
+	REGION_F,			# 6
 }
 
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
@@ -46,9 +49,11 @@ var box_colors: Array[Color] = [
 	Color.WHITE,
 	Color.RED,
 	Color.GREEN,
+	Color.CORNFLOWER_BLUE,
+	Color.PURPLE,
+	Color.GOLD,
 	Color.CYAN,
-	Color.WHITE,
-	Color.GOLD]
+]
 
 var sprite_color_bounds: Color = Color.BLACK:
 	set(value):
@@ -80,12 +85,13 @@ func load_config() -> bool:
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
 	box_colors = [
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, Color.WHITE),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, Color.RED),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, Color.GREEN),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP, Color.CYAN),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, Color.WHITE),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, Color.GOLD)
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[0]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[1]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[2]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[3]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[4]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[5]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[6]),
 	]
 	
 	sprite_color_bounds = config.get_value(
@@ -119,9 +125,13 @@ func save_config() -> bool:
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[BoxType.HURTBOX])
 	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP, box_colors[BoxType.REGION])
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[BoxType.REGION_B])
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[BoxType.COLLISION_EXTEND])
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN])
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F])
 	
 	config.set_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)

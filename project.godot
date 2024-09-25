@@ -85,4 +85,4 @@ redo={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.1, 0.1, 0.1, 1)
+environment/defaults/default_clear_color=Color(0.180392, 0.180392, 0.180392, 1)

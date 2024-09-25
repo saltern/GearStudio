@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=37 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
@@ -10,8 +10,12 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_regions.gd" id="8_vj7k4"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_allow_edits.gd" id="9_6yg7t"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_list.gd" id="10_c571m"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_unknown.gd" id="10_e8oxg"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw_mode.gd" id="11_37q3d"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_hurtboxes.gd" id="11_w2wqg"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_delete.gd" id="12_j041y"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_hitboxes.gd" id="12_qq37l"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_spawns.gd" id="13_qfgga"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_type.gd" id="13_vxqe1"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_x.gd" id="14_1wdu3"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_y.gd" id="15_0f2v1"]
@@ -27,7 +31,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/box_display_types_window.gd" id="28_1ywin"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_collision_extension.gd" id="32_587ak"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -62,7 +68,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
-scroll_vertical = 76
 
 [node name="margin" type="MarginContainer" parent="content/scroll"]
 layout_mode = 2
@@ -94,7 +99,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Onion Skin #"
+text = "Onion skin #"
 
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
@@ -107,12 +112,16 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="content/scroll/margin/data/onion_in_front"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Onion Skin in front"
+text = "In front"
 
 [node name="check" type="CheckButton" parent="content/scroll/margin/data/onion_in_front"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_horizontal = 3
+text = "In front"
 
 [node name="sprite_info" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
@@ -204,54 +213,43 @@ text = "Boxes"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="visibility" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
+[node name="toggles" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/visibility"]
+[node name="visibility" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_window_button")]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Display"
-
-[node name="check" type="CheckButton" parent="content/scroll/margin/data/boxes/visibility" node_paths=PackedStringArray("box_draw_node", "editable_parent")]
-layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 button_pressed = true
+text = "Display"
 script = ExtResource("7_fl2cb")
 box_draw_node = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
 editable_parent = NodePath("../../editable")
+edit_mode = NodePath("../edit_mode")
+type_window_button = NodePath("../../type_window_button")
+
+[node name="edit_mode" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("editable_parent")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Edit Mode"
+script = ExtResource("9_6yg7t")
+editable_parent = NodePath("../../editable")
+
+[node name="type_window_button" type="Button" parent="content/scroll/margin/data/boxes"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Types to display..."
 
 [node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes"]
+visible = false
 layout_mode = 2
-
-[node name="regions" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/regions"]
-layout_mode = 2
-text = "Display Sprite Regions"
-
-[node name="check" type="CheckButton" parent="content/scroll/margin/data/boxes/editable/regions"]
-layout_mode = 2
-size_flags_horizontal = 10
-script = ExtResource("8_vj7k4")
-
-[node name="allow_edits" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/allow_edits"]
-layout_mode = 2
-text = "Allow Editing"
-
-[node name="check" type="CheckButton" parent="content/scroll/margin/data/boxes/editable/allow_edits"]
-layout_mode = 2
-size_flags_horizontal = 10
-script = ExtResource("9_6yg7t")
 
 [node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/editable"]
-custom_minimum_size = Vector2(0, 130)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="items" type="ItemList" parent="content/scroll/margin/data/boxes/editable/list"]
 layout_mode = 2
@@ -411,8 +409,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
-[node name="title" type="Label" parent="content/visualizer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="content/visualizer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/VBoxContainer"]
 layout_mode = 2
 text = "Preview"
 
@@ -535,6 +537,89 @@ offset_top = -1.0
 offset_right = 20.0
 offset_bottom = 1.0
 mouse_filter = 2
+
+[node name="display_types" type="Window" parent="." node_paths=PackedStringArray("display_button")]
+title = "Box display types"
+initial_position = 2
+size = Vector2i(360, 260)
+visible = false
+unresizable = true
+script = ExtResource("28_1ywin")
+display_button = NodePath("../content/scroll/margin/data/boxes/type_window_button")
+
+[node name="margin" type="MarginContainer" parent="display_types"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="display_types/margin"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Draw the following types of boxes:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hitboxes" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Hitboxes"
+button_pressed = true
+text = "Hitboxes"
+script = ExtResource("12_qq37l")
+
+[node name="hurtboxes" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Hurtboxes"
+button_pressed = true
+text = "Hurtboxes"
+script = ExtResource("11_w2wqg")
+
+[node name="regions" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Sprite regions"
+button_pressed = true
+text = "Sprite regions"
+script = ExtResource("8_vj7k4")
+
+[node name="collision_extension" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spawn points"
+button_pressed = true
+text = "Collision box extension"
+script = ExtResource("32_587ak")
+
+[node name="spawns" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Spawn points"
+button_pressed = true
+text = "Spawn points"
+script = ExtResource("13_qfgga")
+
+[node name="unknowns" type="CheckButton" parent="display_types/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+tooltip_text = "Unknown"
+button_pressed = true
+text = "Unknown types"
+script = ExtResource("10_e8oxg")
 
 [connection signal="disable_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
 [connection signal="update_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]

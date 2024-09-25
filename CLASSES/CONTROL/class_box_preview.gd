@@ -39,11 +39,19 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if not cell_edit.box_display_regions && \
-	(box_info.type & 0xFFFF == 3 or box_info.type & 0xFFFF == 6):
-		hide()
-	else:
-		show()
+	match box_info.type:
+		1:
+			visible = cell_edit.box_display_hitboxes
+		2:
+			visible = cell_edit.box_display_hurtboxes
+		3, 6:
+			visible = cell_edit.box_display_regions
+		4:
+			visible = cell_edit.box_display_collision_extension
+		5:
+			visible = cell_edit.box_display_spawn
+		_:
+			visible = cell_edit.box_display_unknown
 	
 	if not being_dragged and not being_resized:
 		position = box_info.rect.position
@@ -59,21 +67,13 @@ func _draw() -> void:
 		return
 	
 	var color: Color = Settings.box_colors[Settings.BoxType.UNKNOWN]
-	var type_color: int = box_info.type & 0xFFFF
-	
-	if type_color == 6:
-		type_color = 3
+	var type_color: int = box_info.type
 	
 	if type_color < Settings.box_colors.size():
 		color = Settings.box_colors[type_color]
 	
-	self_modulate.a = 1.0
-	
 	if is_selected:
-		#color = pulsate_color(color)
-		self_modulate = pulsate_color(Color.WHITE)
-	
-	region_preview.modulate = self_modulate
+		color = pulsate_color(color)
 	
 	# Using four separate draw_rect()s instead of just one
 	# as drawing unfilled boxes is off by a pixel or two

@@ -7,6 +7,8 @@ func _ready() -> void:
 	SpriteImport.placement_method_set.connect(update)
 	SpriteImport.insert_position_set.connect(update)
 	SpriteImport.files_selected.connect(update)
+	
+	update()
 
 
 func update() -> void:

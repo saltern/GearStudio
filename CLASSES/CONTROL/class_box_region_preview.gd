@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = box_info.type == 3 or box_info.type == 6
+	visible = (box_info.type == 3 or box_info.type == 6) and get_parent().is_selected
 	queue_redraw()
 
 
@@ -23,7 +23,13 @@ func _draw() -> void:
 	position -= Vector2(128, 128)
 	
 	var thickness: int = Settings.box_thickness
-	var color: Color = Settings.box_colors[Settings.BoxType.REGION]
+	var color: Color
+	
+	if box_info.type == 3:
+		color = Settings.box_colors[Settings.BoxType.REGION_B]
+	else:
+		color = Settings.box_colors[Settings.BoxType.REGION_F]
+	
 	color.a /= 2.0
 	
 	# Upper

@@ -4,9 +4,10 @@ var current_selection: int = -1
 const box_types: Dictionary = {
 	1: "Hitbox",
 	2: "Hurtbox",
-	3: "Region",
-	5: "Effect Spawn Point",
-	6: "Region",
+	3: "Region (Back)",
+	4: "Collision Extend",
+	5: "Spawn Point",
+	6: "Region (Front)",
 }
 
 @onready var cell_edit: CellEdit = get_owner()
@@ -49,7 +50,7 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 	
 	check_enable(cell_edit.box_edits_allowed)
 	
-	if reselect != -1:
+	if reselect != -1 and reselect < item_count:
 		current_selection = reselect
 		select(current_selection)
 
@@ -60,10 +61,10 @@ func get_type_text(box_info: BoxInfo) -> String:
 	if box_info.type == 3 || box_info.type == 6:
 		type = box_types[box_info.type]
 		
-		var offset_x: String = "%s" % (8 * box_info.crop_x_offset)
-		var offset_y: String = "%s" % (8 * box_info.crop_y_offset)
+		var offset_x: String = "%s" % (box_info.crop_x_offset)
+		var offset_y: String = "%s" % (box_info.crop_y_offset)
 		
-		type  += " (%s, %s)" % [offset_x, offset_y]
+		type  += " [%s, %s]" % [offset_x, offset_y]
 	
 	elif box_info.type in box_types:
 		type = box_types[box_info.type]

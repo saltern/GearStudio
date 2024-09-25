@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func on_toggle(enabled: bool) -> void:
-	cell_edit.box_display_regions = enabled
+	cell_edit.box_display_hitboxes = enabled
