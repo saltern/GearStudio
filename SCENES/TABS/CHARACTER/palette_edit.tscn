@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=17 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
@@ -8,8 +8,11 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/window_summon_button.gd" id="5_ylny5"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="7_nwdex"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="8_7jrqg"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_import_window.gd" id="9_iqtpw"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="9_tj8hv"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_export_window.gd" id="10_dqgeq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
@@ -195,6 +198,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_m215a")
+
+[node name="background_a" type="ColorRect" parent="scroll/content/data/editors/preview/preview"]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("7_nwdex")
+
+[node name="background_b" type="TextureRect" parent="scroll/content/data/editors/preview/preview/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_7jrqg")
+stretch_mode = 1
+script = ExtResource("9_tj8hv")
 
 [node name="sprite_center" type="CenterContainer" parent="scroll/content/data/editors/preview/preview"]
 layout_mode = 2

@@ -2,13 +2,27 @@ extends Node
 
 @warning_ignore("unused_signal")
 signal display_window
+
+# Customization
+@warning_ignore("unused_signal")
+signal custom_bg_color_a_changed
+@warning_ignore("unused_signal")
+signal custom_bg_color_b_changed
+
+# Cells
 @warning_ignore("unused_signal")
 signal draw_origin_changed
 @warning_ignore("unused_signal")
 signal onion_color_changed
+
+# Sprites
 signal sprite_bounds_color_changed
 
 const FILENAME: String = "/gearstudio.ini"
+
+const CFG_SECTION_CUSTOM: String = "customization"
+const CFG_CUSTOM_BG_A: String = "color_bg_a"
+const CFG_CUSTOM_BG_B: String = "color_bg_b"
 
 const CFG_SECTION_CELLS: String = "cells"
 const CFG_CELL_ONION: String = "onion_color"
@@ -44,6 +58,9 @@ enum BoxType {
 	SPAWN,				# 5
 	REGION_F,			# 6
 }
+
+var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
+var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
 
 var cell_draw_origin: bool = true
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
@@ -84,9 +101,13 @@ func load_config() -> bool:
 	if config.load(path + FILENAME) != OK:
 		return false
 	
+	custom_color_bg_a = config.get_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, Color8(0x60, 0x60, 0x60))
+	custom_color_bg_b = config.get_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, Color8(0x40, 0x40, 0x40))
+	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
-	
 	cell_onion_skin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, Color(1.0, 0.0, 0.0, 0.625))
 	
@@ -103,7 +124,6 @@ func load_config() -> bool:
 	
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, Color.BLACK)
-		
 	sprite_reindex = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, true)
 	
@@ -112,7 +132,6 @@ func load_config() -> bool:
 	
 	misc_max_undo = config.get_value(
 		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, 0)
-		
 	misc_allow_reopen = config.get_value(
 		CFG_SECTION_MISC, CFG_MISC_REOPEN, true)
 	
@@ -120,6 +139,11 @@ func load_config() -> bool:
 
 
 func save_config() -> bool:
+	config.set_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a)
+	config.set_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b)
+	
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin)
 	config.set_value(

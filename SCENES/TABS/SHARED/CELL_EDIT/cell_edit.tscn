@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=34 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
@@ -22,9 +22,11 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_y.gd" id="20_i2dqh"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_parent.gd" id="21_or5ee"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview.gd" id="22_4xx0u"]
-[ext_resource type="Texture2D" uid="uid://b55dw07xg72c3" path="res://GRAPHICS/CHECKERBOARD.PNG" id="23_h0klh"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="23_jn2pb"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="24_kifap"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="25_4scjx"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
@@ -449,23 +451,32 @@ box_parent = NodePath("visualizer/origin/box_parent")
 position = Vector2(400, 400)
 script = ExtResource("22_4xx0u")
 
-[node name="background" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer"]
+texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("23_h0klh")
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("23_jn2pb")
+
+[node name="background_b" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_kifap")
 stretch_mode = 1
-metadata/_edit_use_anchors_ = true
+script = ExtResource("25_4scjx")
 
 [node name="origin" type="Control" parent="content/visualizer/borders/clipper/visualizer"]
 layout_mode = 3
