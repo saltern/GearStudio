@@ -87,6 +87,14 @@ func palette_get_color_count() -> int:
 	return palette_get_colors().size() / 4
 
 
+func palette_get_colors_fallback() -> PackedByteArray:
+	if sprite_mode and sprite != null:
+		if not sprite.palette.is_empty():
+			return obj_data.sprites[sprite_index].palette
+	
+	return pal_data.palettes[palette_index].palette
+
+
 func palette_get_colors() -> PackedByteArray:
 	if sprite_mode:
 		return obj_data.sprites[sprite_index].palette
@@ -327,7 +335,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		undo_redo.add_undo_method(
 			palette_import_commit.bind(palette, palette.palette))
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
-		undo_redo.add_do_method(
+		undo_redo.add_undo_method(
 			emit_signal.bind("palette_imported", palette_index))
 		
 		undo_redo.add_undo_method(

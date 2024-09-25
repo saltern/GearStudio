@@ -58,99 +58,115 @@ metadata/_tab_index = 1
 
 [node name="content" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="scroll" type="ScrollContainer" parent="content"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+horizontal_scroll_mode = 0
 
-[node name="data" type="VBoxContainer" parent="content/scroll"]
+[node name="margin" type="MarginContainer" parent="content/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="cell" type="HBoxContainer" parent="content/scroll/data"]
+[node name="data" type="VBoxContainer" parent="content/scroll/margin"]
+layout_mode = 2
+
+[node name="cell" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/cell"]
+[node name="title" type="Label" parent="content/scroll/margin/data/cell"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Selects a cell to view or modify."
+mouse_filter = 0
 text = "Cell #"
 
-[node name="value" type="SpinBox" parent="content/scroll/data/cell"]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/cell"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_whryn")
 
-[node name="onion" type="HBoxContainer" parent="content/scroll/data"]
+[node name="onion" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/onion"]
+[node name="title" type="Label" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Selects which cell to display an onion skin in the preview for.
+Set this to '-1' to disable the onion skin."
+mouse_filter = 0
 text = "Onion skin #"
 
-[node name="value" type="SpinBox" parent="content/scroll/data/onion"]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("3_rc8ef")
 
-[node name="onion_in_front" type="CheckButton" parent="content/scroll/data"]
+[node name="onion_in_front" type="CheckButton" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Toggles whether the onion skin should appear behind or in front of the current cell's sprite."
 text = "Onion skin in front"
 
-[node name="sprite_info" type="VBoxContainer" parent="content/scroll/data"]
+[node name="sprite_info" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="title_bar" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
+[node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "These values control how cells display sprites."
+mouse_filter = 0
 
-[node name="left" type="HSeparator" parent="content/scroll/data/sprite_info/title_bar"]
+[node name="left" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="title" type="Label" parent="content/scroll/data/sprite_info/title_bar"]
+[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Sprite Info"
 
-[node name="right" type="HSeparator" parent="content/scroll/data/sprite_info/title_bar"]
+[node name="right" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="index" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
+[node name="index" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/sprite_info/index"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Index"
-
-[node name="value_index" type="SpinBox" parent="content/scroll/data/sprite_info/index"]
+[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Controls which sprite number this cell will display in game."
+mouse_filter = 0
+text = "Index"
+
+[node name="value_index" type="SpinBox" parent="content/scroll/margin/data/sprite_info/index"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("4_ckx06")
 
-[node name="offset_x" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
+[node name="offset_x" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/sprite_info/offset_x"]
+[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Controls the sprite's horizontal offset for this cell."
+mouse_filter = 0
 text = "Offset X"
 
-[node name="value_x" type="SpinBox" parent="content/scroll/data/sprite_info/offset_x"]
+[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -159,16 +175,18 @@ alignment = 2
 suffix = "px"
 script = ExtResource("5_r3hxp")
 
-[node name="offset_y" type="HBoxContainer" parent="content/scroll/data/sprite_info"]
+[node name="offset_y" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/sprite_info/offset_y"]
+[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Controls the sprite's vertical offset for this cell."
+mouse_filter = 0
 text = "Offset Y"
 
-[node name="value_y" type="SpinBox" parent="content/scroll/data/sprite_info/offset_y"]
+[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -177,56 +195,59 @@ alignment = 2
 suffix = "px"
 script = ExtResource("6_ua8f0")
 
-[node name="boxes" type="VBoxContainer" parent="content/scroll/data"]
+[node name="boxes" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
 
-[node name="title_bar" type="HBoxContainer" parent="content/scroll/data/boxes"]
+[node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "This section controls the boxes for this cell.
+Modifying them will cause desyncs!"
+mouse_filter = 0
 
-[node name="left" type="HSeparator" parent="content/scroll/data/boxes/title_bar"]
+[node name="left" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/title_bar"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Boxes"
 
-[node name="right" type="HSeparator" parent="content/scroll/data/boxes/title_bar"]
+[node name="right" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="toggles" type="HBoxContainer" parent="content/scroll/data/boxes"]
+[node name="toggles" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="visibility" type="CheckButton" parent="content/scroll/data/boxes/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_window_button")]
+[node name="visibility" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_menu_button")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Toggles whether to display boxes at all."
 button_pressed = true
 text = "Display"
 script = ExtResource("7_fl2cb")
-box_draw_node = NodePath("../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
+box_draw_node = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
 editable_parent = NodePath("../../editable")
 edit_mode = NodePath("../edit_mode")
-type_window_button = NodePath("../../type_window_button")
+type_menu_button = NodePath("../../type_menu_button")
 
-[node name="edit_mode" type="CheckButton" parent="content/scroll/data/boxes/toggles" node_paths=PackedStringArray("editable_parent")]
+[node name="edit_mode" type="CheckButton" parent="content/scroll/margin/data/boxes/toggles" node_paths=PackedStringArray("editable_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Toggles box editing on/off.
+Editing boxes will cause desyncs!"
 text = "Edit Mode"
 script = ExtResource("9_6yg7t")
 editable_parent = NodePath("../../editable")
 
-[node name="type_window_button" type="Button" parent="content/scroll/data/boxes"]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "Types to display..."
-
-[node name="type_menu_button" type="MenuButton" parent="content/scroll/data/boxes"]
+[node name="type_menu_button" type="MenuButton" parent="content/scroll/margin/data/boxes"]
 layout_mode = 2
 text = "Types to display..."
 flat = false
@@ -257,67 +278,78 @@ popup/item_5/checked = true
 popup/item_5/id = 5
 script = ExtResource("9_4ybbf")
 
-[node name="editable" type="VBoxContainer" parent="content/scroll/data/boxes"]
+[node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes"]
 visible = false
 layout_mode = 2
 
-[node name="list" type="ScrollContainer" parent="content/scroll/data/boxes/editable"]
+[node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="items" type="ItemList" parent="content/scroll/data/boxes/editable/list"]
+[node name="items" type="ItemList" parent="content/scroll/margin/data/boxes/editable/list"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "The list of boxes contained in this cell."
 select_mode = 1
 allow_reselect = true
 allow_search = false
 script = ExtResource("10_c571m")
 
-[node name="draw_delete" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="draw_delete" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="draw" type="Button" parent="content/scroll/data/boxes/editable/draw_delete"]
+[node name="draw" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Toggles drawing new boxes on/off."
 toggle_mode = true
 text = "Draw Mode"
 script = ExtResource("11_37q3d")
 
-[node name="delete" type="Button" parent="content/scroll/data/boxes/editable/draw_delete"]
+[node name="delete" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Deletes the selected boxes."
 text = "Delete"
 script = ExtResource("12_j041y")
 
-[node name="type" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="type" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/type"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/type"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Sets the type of selected boxes."
+mouse_filter = 0
 text = "Type"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/type" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/type" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 editable = false
 script = ExtResource("13_vxqe1")
 
-[node name="offset_x" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="offset_x" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/offset_x"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Sets the horizontal offset of selected boxes."
+mouse_filter = 0
 text = "Offset X"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/offset_x" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -326,16 +358,20 @@ alignment = 2
 editable = false
 script = ExtResource("14_1wdu3")
 
-[node name="offset_y" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="offset_y" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/offset_y"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Sets the vertical offset of selected boxes."
+mouse_filter = 0
 text = "Offset Y"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/offset_y" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -344,16 +380,20 @@ alignment = 2
 editable = false
 script = ExtResource("15_0f2v1")
 
-[node name="width" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="width" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/width"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/width"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Sets the width of selected boxes."
+mouse_filter = 0
 text = "Width"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/width" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/width" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 65535.0
@@ -361,16 +401,20 @@ alignment = 2
 editable = false
 script = ExtResource("16_88dc2")
 
-[node name="height" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="height" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/height"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/height"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Sets the height of selected boxes."
+mouse_filter = 0
 text = "Height"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/height" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/height" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 65535.0
@@ -378,17 +422,21 @@ alignment = 2
 editable = false
 script = ExtResource("17_7hjvn")
 
-[node name="crop_offset_x" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="crop_offset_x" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("18_u7qgc")
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/crop_offset_x"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/crop_offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Moves the cropped sprite region horizontally, 8 pixels at a time."
+mouse_filter = 0
 text = "Region Offset X"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -397,17 +445,21 @@ alignment = 2
 editable = false
 script = ExtResource("19_vpw2d")
 
-[node name="crop_offset_y" type="HBoxContainer" parent="content/scroll/data/boxes/editable"]
+[node name="crop_offset_y" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("18_u7qgc")
 
-[node name="title" type="Label" parent="content/scroll/data/boxes/editable/crop_offset_y"]
+[node name="title" type="Label" parent="content/scroll/margin/data/boxes/editable/crop_offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
+tooltip_text = "Moves the cropped sprite region vertically, 8 pixels at a time."
+mouse_filter = 0
 text = "Region Offset Y"
+vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/scroll/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
+[node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -512,7 +564,7 @@ material = SubResource("ShaderMaterial_k4855")
 position = Vector2(-128, -128)
 centered = false
 script = ExtResource("25_4rpsl")
-front_toggle = NodePath("../../../../../../scroll/data/onion_in_front")
+front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
 
 [node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 material = ExtResource("26_gliws")
@@ -523,7 +575,7 @@ script = ExtResource("27_na53u")
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("28_h6aqa")
-box_type = NodePath("../../../../../../scroll/data/boxes/editable/type/value")
+box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
 
 [node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 custom_minimum_size = Vector2(40, 40)
@@ -608,6 +660,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="disable_onion_skin" from="content/scroll/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
-[connection signal="update_onion_skin" from="content/scroll/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
+[connection signal="disable_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
+[connection signal="update_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
