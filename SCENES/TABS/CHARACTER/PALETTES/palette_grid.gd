@@ -23,6 +23,14 @@ var selecting: Array[bool] = []
 
 
 func _ready() -> void:
+	provider = get_owner().get_provider()
+	
+	if provider.sprite_mode and provider.obj_data.name == "player":
+		get_parent().queue_free()
+		return
+	
+	provider.palette_updated.connect(on_palette_load)
+	
 	if color_picker:
 		color_picker.color_changed.connect(color_set)
 		color_selected.connect(color_picker.on_color_selected)
@@ -39,9 +47,6 @@ func _ready() -> void:
 		new_color.mouse_filter = MOUSE_FILTER_IGNORE
 		new_color.show_behind_parent = true
 		add_child(new_color)
-	
-	provider = get_owner().get_provider()
-	provider.palette_updated.connect(on_palette_load)
 
 
 #region Draw
@@ -427,16 +432,13 @@ func on_palette_load(palette: PackedByteArray) -> void:
 	for index in 256:
 		get_child(index).hide()
 	
-	if Settings.palette_alpha_double:
-		for index in palette.size() / 4:
-			var alpha: int = 4 * index + 3
-			palette[alpha] = min(palette[alpha] * 2, 0xFF)
-	
 	for index in palette.size() / 4:
 		get_child(index).show()
+		var alpha: int = palette[4 * index + 3]
+		
 		get_child(index).color = Color8(
 			palette[4 * index + 0],
 			palette[4 * index + 1],
 			palette[4 * index + 2],
-			palette[4 * index + 3])
+			min(alpha * 2, 0xFF))
 #endregion
