@@ -8,4 +8,4 @@ func _ready() -> void:
 
 func update(new_color: Color) -> void:
 	Settings.custom_color_bg_a = new_color
-	Settings.custom_bg_color_a_changed.emit()
+	Settings.custom_color_bg_a_changed.emit()

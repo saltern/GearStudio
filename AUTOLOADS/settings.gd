@@ -5,9 +5,11 @@ signal display_window
 
 # Customization
 @warning_ignore("unused_signal")
-signal custom_bg_color_a_changed
+signal custom_color_bg_a_changed
 @warning_ignore("unused_signal")
-signal custom_bg_color_b_changed
+signal custom_color_bg_b_changed
+@warning_ignore("unused_signal")
+signal custom_color_status_changed
 
 # Cells
 @warning_ignore("unused_signal")
@@ -23,6 +25,7 @@ const FILENAME: String = "/gearstudio.ini"
 const CFG_SECTION_CUSTOM: String = "customization"
 const CFG_CUSTOM_BG_A: String = "color_bg_a"
 const CFG_CUSTOM_BG_B: String = "color_bg_b"
+const CFG_CUSTOM_STATUS: String = "color_status"
 
 const CFG_SECTION_CELLS: String = "cells"
 const CFG_CELL_ONION: String = "onion_color"
@@ -61,6 +64,7 @@ enum BoxType {
 
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
 var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
+var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
 
 var cell_draw_origin: bool = true
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
@@ -83,9 +87,9 @@ var sprite_color_bounds: Color = Color.BLACK:
 
 var sprite_reindex: bool = true
 
-var palette_alpha_double: bool = true
+#var palette_alpha_double: bool = true
 
-var misc_max_undo: int = 0
+var misc_max_undo: int = 200
 var misc_allow_reopen: bool = true
 
 var config: ConfigFile = ConfigFile.new()
@@ -101,15 +105,17 @@ func load_config() -> bool:
 	if config.load(path + FILENAME) != OK:
 		return false
 	
+	custom_color_status = config.get_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
 	custom_color_bg_a = config.get_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, Color8(0x60, 0x60, 0x60))
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a)
 	custom_color_bg_b = config.get_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, Color8(0x40, 0x40, 0x40))
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b)
 	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
 	cell_onion_skin = config.get_value(
-		CFG_SECTION_CELLS, CFG_CELL_ONION, Color(1.0, 0.0, 0.0, 0.625))
+		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
 	box_colors = [
@@ -123,22 +129,21 @@ func load_config() -> bool:
 	]
 	
 	sprite_color_bounds = config.get_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, Color.BLACK)
+		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
 	sprite_reindex = config.get_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, true)
-	
-	palette_alpha_double = config.get_value(
-		CFG_SECTION_PALETTES, CFG_PALETTE_ALPHA, true)
+		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
 	
 	misc_max_undo = config.get_value(
-		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, 0)
+		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	misc_allow_reopen = config.get_value(
-		CFG_SECTION_MISC, CFG_MISC_REOPEN, true)
+		CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)
 	
 	return true
 
 
 func save_config() -> bool:
+	config.set_value(
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
 	config.set_value(
 		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a)
 	config.set_value(
@@ -170,9 +175,6 @@ func save_config() -> bool:
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
 	config.set_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
-	
-	config.set_value(
-		CFG_SECTION_PALETTES, CFG_PALETTE_ALPHA, palette_alpha_double)
 	
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)

@@ -2,7 +2,7 @@ extends TextureRect
 
 
 func _ready() -> void:
-	Settings.custom_bg_color_b_changed.connect(update_color)
+	Settings.custom_color_bg_b_changed.connect(update_color)
 	update_color()
 
 
