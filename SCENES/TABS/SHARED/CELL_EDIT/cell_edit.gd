@@ -1,7 +1,5 @@
 class_name CellEdit extends MarginContainer
 
-signal palette_updated
-
 @warning_ignore("unused_signal")
 signal sprite_updated
 
@@ -48,8 +46,7 @@ var box_display_types: Dictionary = {
 	BoxTypes.SPAWN: true,
 }
 
-var palette_index: int = 0
-var this_palette: BinPalette
+var palette: PackedByteArray
 
 
 func _enter_tree() -> void:
@@ -63,7 +60,7 @@ func _ready() -> void:
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	
-	this_palette = pal_data.palettes[0]
+	palette = pal_data.palettes[0].palette
 	cell_load(0)
 
 
@@ -163,14 +160,6 @@ func serialize_and_save(path: String) -> void:
 		
 		new_json_file.store_string(cell_json_array[cell])
 		new_json_file.close()
-#endregion
-
-
-#region Palettes
-func palette_load(index: int) -> void:
-	palette_index = index
-	this_palette = pal_data.palettes[index]
-	palette_updated.emit(this_palette)
 #endregion
 
 

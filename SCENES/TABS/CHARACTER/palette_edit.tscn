@@ -25,6 +25,7 @@ border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oa07j"]
 shader = ExtResource("2_dydbr")
+shader_parameter/alpha_double = true
 shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = null
@@ -86,10 +87,7 @@ size_flags_horizontal = 0
 
 [node name="title" type="Label" parent="scroll/margin/content/data/editors/color_grid"]
 layout_mode = 2
-text = "Palette view"
-
-[node name="help" type="Label" parent="scroll/margin/content/data/editors/color_grid"]
-layout_mode = 2
+size_flags_vertical = 8
 tooltip_text = "Click: Select colors
 Shift + click: Add to selection
 Shift + right click: Remove from selection
@@ -99,7 +97,7 @@ CTRL: Preview paste
 Tab: Swap selection mode (box/range)
 Escape: Clear selection"
 mouse_filter = 0
-text = "Hover over this text for help."
+text = "Palette view"
 
 [node name="background" type="TextureRect" parent="scroll/margin/content/data/editors/color_grid"]
 custom_minimum_size = Vector2(273, 273)

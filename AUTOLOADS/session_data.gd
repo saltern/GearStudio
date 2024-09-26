@@ -47,6 +47,7 @@ func save() -> void:
 
 	SaveErrors.set_status()
 
+
 #region Tabs
 func tab_new(path: String) -> void:
 	var sub_tab_list: PackedStringArray = []

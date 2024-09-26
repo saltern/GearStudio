@@ -5,4 +5,4 @@ extends Control
 
 func _ready() -> void:
 	if sprite_edit.obj_data.name == "player":
-		hide()
+		queue_free()

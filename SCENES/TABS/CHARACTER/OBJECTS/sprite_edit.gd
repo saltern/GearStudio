@@ -40,7 +40,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	palette_set(0)
+	provider.palette_load(0)
 	sprite_set(0)
 
 
@@ -62,26 +62,6 @@ func get_provider() -> PaletteProvider:
 	return provider
 
 
-func update_palette(new_palette: int = 0) -> void:
-	palette_set(new_palette)
-
-
-func external_update_palette(new_palette: int = 0) -> void:
-	palette_set(new_palette)
-
-
-func palette_set(index: int = 0) -> void:
-	if embedded_pal:
-		return
-	
-	if pal_data.palettes.size() <= index:
-		return
-		
-	palette_index = index
-	this_palette = pal_data.palettes[index]
-	palette_updated.emit(this_palette.palette)
-
-
 func palette_get(index: int) -> PackedByteArray:
 	return pal_data.palettes[index].palette
 
@@ -101,8 +81,8 @@ func sprite_set(index: int) -> void:
 	sprite_updated.emit(this_sprite)
 	
 	# Hardcoding yay
-	if get_parent().name == "player":
-		provider.palette_load_player(palette_index)
+	if obj_data.name == "player":
+		pass
 	
 	else:
 		provider.palette_load(sprite_index)

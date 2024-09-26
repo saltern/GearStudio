@@ -1,8 +1,8 @@
 extends CheckButton
 
-@export var control_index: Control
-@export var control_override: Control
-@export var control_alpha: Control
+@export var control_index: HBoxContainer
+@export var control_override: CheckButton
+@export var control_alpha: HBoxContainer
 
 
 func _ready() -> void:

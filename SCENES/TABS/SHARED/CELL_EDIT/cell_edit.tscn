@@ -42,6 +42,7 @@ border_width_bottom = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
 shader = ExtResource("24_nqtan")
+shader_parameter/alpha_double = false
 shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = PackedInt32Array()

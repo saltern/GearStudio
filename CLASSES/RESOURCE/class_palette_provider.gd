@@ -81,6 +81,7 @@ func palette_load(index: int = 0) -> void:
 func palette_load_player(index: int) -> void:
 	palette_index = index
 	palette = pal_data.palettes[palette_index]
+	palette_updated.emit(palette.palette)
 
 
 func palette_get_color_count() -> int:
@@ -180,6 +181,9 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		
 		undo_redo.add_undo_property(palette, "palette", old_palette)
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
+	
+	undo_redo.add_do_method(pal_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(pal_data.emit_signal.bind("palette_updated"))
 	
 	undo_redo.commit_action()
 

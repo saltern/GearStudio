@@ -227,8 +227,7 @@ script = ExtResource("7_7k1uo")
 [node name="h_sep3" type="HSeparator" parent="content/scroll/margin/side_panel/data"]
 layout_mode = 2
 
-[node name="background" type="TextureRect" parent="content/scroll/margin/side_panel/data"]
-visible = false
+[node name="palette_grid" type="TextureRect" parent="content/scroll/margin/side_panel/data"]
 texture_filter = 1
 custom_minimum_size = Vector2(273, 273)
 layout_mode = 2
@@ -237,7 +236,7 @@ size_flags_vertical = 0
 texture = ExtResource("8_dk3u7")
 stretch_mode = 1
 
-[node name="palette" type="GridContainer" parent="content/scroll/margin/side_panel/data/background" node_paths=PackedStringArray("preview", "color_picker")]
+[node name="palette" type="GridContainer" parent="content/scroll/margin/side_panel/data/palette_grid" node_paths=PackedStringArray("preview", "color_picker")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
 anchors_preset = -1
@@ -287,7 +286,7 @@ layout_mode = 2
 toggle_mode = true
 text = "Open palette editor"
 script = ExtResource("8_xwrgv")
-palette_grid = NodePath("../../background/palette")
+palette_grid = NodePath("../../palette_grid/palette")
 editor_panel = NodePath("../../../pal_edit")
 
 [node name="pal_edit" type="HBoxContainer" parent="content/scroll/margin/side_panel"]
@@ -427,18 +426,23 @@ layout_mode = 2
 [node name="title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Select the range of sprites to export here.
+To export only one sprite, set both boxes to the same value."
+mouse_filter = 0
 
 [node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
+[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 text = "Sprite range"
 
 [node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="start" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 custom_minimum_size = Vector2(0, 30)
@@ -448,6 +452,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+tooltip_text = "Sets the starting sprite of the export range."
+mouse_filter = 0
 text = "Start sprite"
 vertical_alignment = 1
 
@@ -465,6 +471,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+tooltip_text = "Sets the ending sprite of the export range."
+mouse_filter = 0
 text = "End sprite"
 vertical_alignment = 1
 
@@ -481,10 +489,14 @@ layout_mode = 2
 [node name="title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Select formats to export to here.
+No sprites will be exported unless you select at least one."
+mouse_filter = 0
 
 [node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
@@ -493,65 +505,43 @@ text = "Output formats"
 [node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="bin" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
+[node name="bin" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bin"]
-layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export an uncompressed binary sprite.
+Supports palettes with transparency.
+These work in game, but are not recommended."
 text = "BIN (uncompressed)"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bin"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_font_sizes/font_size = 15
 script = ExtResource("12_gpmfg")
 
-[node name="raw" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
+[node name="raw" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/raw"]
-layout_mode = 2
-text = "RAW"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/raw"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
+tooltip_text = "Export a RAW file that can be used as a PalMod preview."
 theme_override_font_sizes/font_size = 15
+text = "RAW"
 script = ExtResource("13_a30bt")
 
-[node name="png" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
+[node name="png" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/png"]
-layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export an indexed PNG.
+Supports palettes with transparency."
 text = "PNG"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/png"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_font_sizes/font_size = 15
 script = ExtResource("14_dampd")
 
-[node name="bmp" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
+[node name="bmp" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bmp"]
-layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Export an indexed BMP.
+Supports palettes, but not transparency."
 text = "BMP"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/bmp"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_font_sizes/font_size = 15
 script = ExtResource("15_gwdvx")
 
 [node name="palette" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
@@ -560,10 +550,12 @@ layout_mode = 2
 [node name="title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Choose how to handle palettes for exported sprites here."
 
 [node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
@@ -572,23 +564,17 @@ text = "Palette"
 [node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="include" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette" node_paths=PackedStringArray("control_index", "control_override", "control_alpha")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include"]
-layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Whether to include a palette at all."
 text = "Include"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/include" node_paths=PackedStringArray("control_index", "control_override", "control_alpha")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
 script = ExtResource("16_2qa0c")
-control_index = NodePath("../../index")
-control_override = NodePath("../../override")
-control_alpha = NodePath("../../alpha")
+control_index = NodePath("../index")
+control_override = NodePath("../override")
+control_alpha = NodePath("../alpha")
 
 [node name="index" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 layout_mode = 2
@@ -596,6 +582,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Which palette number to apply to exported sprites."
+mouse_filter = 0
 text = "Index"
 
 [node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index" node_paths=PackedStringArray("include_toggle", "override_toggle", "alpha_mode_menu", "reindex_toggle", "sprite_index")]
@@ -604,25 +592,19 @@ size_flags_horizontal = 3
 max_value = 21.0
 alignment = 2
 script = ExtResource("17_er65l")
-include_toggle = NodePath("../../include/button")
-override_toggle = NodePath("../../override/button")
+include_toggle = NodePath("../../include")
+override_toggle = NodePath("../../override")
 alpha_mode_menu = NodePath("../../alpha/mode")
-reindex_toggle = NodePath("../../../misc_options/reindex/button")
+reindex_toggle = NodePath("../../../misc_options/reindex")
 palette_material = ExtResource("18_ebg8o")
 sprite_index = NodePath("../../../../../../../preview/title/sprite_index")
 
-[node name="override" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="override" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/override"]
-layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "By default, exports will prioritize embedded palettes.
+Enable this setting to force all sprites to use the selected global palette."
 text = "Override embedded"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/override"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
 script = ExtResource("19_4er2c")
 
 [node name="alpha" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
@@ -632,6 +614,12 @@ layout_mode = 2
 [node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/alpha"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Ways in which to alter the alpha of exported sprites.
+Do nothing: alpha will be left as-is.
+Double: double alpha of all colors.
+Halve: halve alpha of all colors.
+Make opaque: turn all colors completely solid."
+mouse_filter = 0
 text = "Alpha mode"
 
 [node name="mode" type="OptionButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/alpha"]
@@ -656,10 +644,13 @@ layout_mode = 2
 [node name="title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Set miscellaneous export options here."
+mouse_filter = 0
 
 [node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
@@ -668,33 +659,21 @@ text = "Miscellaneous"
 [node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="reindex" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
+[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/reindex"]
-layout_mode = 2
-size_flags_horizontal = 3
+tooltip_text = "Reindex output sprites, changing their color order from 1-2-3-4 to 1-3-2-4 and vice-versa."
 text = "Reindex"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/reindex"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
 script = ExtResource("21_qqr6w")
 
-[node name="index_zero" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
+[node name="name_from_zero" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/index_zero"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Name output starting at 0"
-
-[node name="button" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options/index_zero"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
+tooltip_text = "By default, exported sprites will be named according to their original indices.
+Enabling this setting will cause exported sprites to always be named 'sprite_0', 'sprite_1', 'sprite_2', etc."
+text = "Name outputs starting at 0"
 script = ExtResource("22_j4vvt")
 
 [node name="export" type="Button" parent="sprite_export/background/content_margin/window_content/config_contents"]
@@ -804,43 +783,46 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="config_scroll" type="ScrollContainer" parent="sprite_import/background/content_margin/window_content/config_contents"]
+[node name="scroll" type="ScrollContainer" parent="sprite_import/background/content_margin/window_content/config_contents"]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="config_margin" type="MarginContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll"]
+[node name="margin" type="MarginContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="config" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin"]
+[node name="config" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin"]
 layout_mode = 2
 
-[node name="files" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="files" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files"]
+[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Select files to import here."
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/title"]
+[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/title"]
+[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
 layout_mode = 2
 text = "Input files"
 
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/title"]
+[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="select" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files"]
+[node name="browse" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
 layout_mode = 2
 text = "Browse..."
 
-[node name="import_count" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files"]
+[node name="import_count" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Will import 0 sprites."
@@ -848,35 +830,43 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("27_r1shb")
 
-[node name="placement" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="placement" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
+[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/title"]
+[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/title"]
+[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
 layout_mode = 2
+tooltip_text = "The way in which sprites will be placed once imported.
+"
+mouse_filter = 0
 text = "Placement"
 
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/title"]
+[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="method" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
+[node name="method" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/method"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/method"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "The method used for placing sprites.
+Append: add sprites at the end. Existing sprites are not affected.
+Replace: replaces as many sprites as are being imported, starting at the set position. Excess sprites are appended.
+Insert: inserts sprites at the set position. Sprites that come after will be moved, affecting existing cells."
+mouse_filter = 0
 text = "Method"
 
-[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/method"]
+[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/method"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -886,26 +876,28 @@ popup/item_0/text = "Append"
 popup/item_0/id = 0
 popup/item_1/text = "Replace"
 popup/item_1/id = 1
-popup/item_2/text = "Insert at position"
+popup/item_2/text = "Insert"
 popup/item_2/id = 2
 script = ExtResource("28_stfek")
 
-[node name="position" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
+[node name="position" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("29_xvhlu")
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/position"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/position"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "What position to replace/insert sprites at."
+mouse_filter = 0
 text = "At position"
 
-[node name="value" type="SpinBox" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement/position"]
+[node name="value" type="SpinBox" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/position"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("30_yw1xa")
 
-[node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/placement"]
+[node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Will not replace sprites. New sprite count: 0."
@@ -913,96 +905,115 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("31_klf4c")
 
-[node name="palette" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="palette" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Set how to handle the palettes of imported sprites here."
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
+[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
+[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
 layout_mode = 2
 text = "Palette"
 
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/title"]
+[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="embed_pal" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="embed_pal" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Whether to include the palette of imported sprites.
+Ignored by 'player' sprites, but required by 'obj' sprites."
 text = "Embed palette"
 script = ExtResource("32_4i4k0")
 
-[node name="halve_alpha" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+[node name="halve_alpha" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Whether to halve the alpha of the imported sprites' palettes, if present."
 text = "Halve alpha"
 script = ExtResource("33_lxtrp")
 
-[node name="sprite" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="sprite" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "Configure additional processing to apply to imported sprites here."
+mouse_filter = 0
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/title"]
+[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/title"]
+[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
 layout_mode = 2
 text = "Sprite"
 
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/title"]
+[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="flip_h" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="flip_h" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Mirror imported sprites horizontally."
 text = "Flip horizontally"
 script = ExtResource("34_82qre")
 
-[node name="flip_v" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="flip_v" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Mirror imported sprites vertically."
 text = "Flip vertically"
 script = ExtResource("35_my7nx")
 
-[node name="as_rgb" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="as_rgb" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "If checked, sprites will be treated as RGB images, and the color index of each pixel will be obtained from its red channel, rather than the input pixel's actual color index."
 text = "Index with red channel"
 script = ExtResource("36_i6rxh")
 
-[node name="reindex" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="reindex" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Whether to reindex input sprites, changing their color order from 1-2-3-4 to 1-3-2-4 or vice-versa."
 text = "Reindex"
 script = ExtResource("37_ok3ax")
 
-[node name="bit_depth" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
+[node name="bit_depth" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/bit_depth"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/bit_depth"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Whether to modify the bit depth of imported sprites (note that resulting depth will always be at least 4 bpp).
+No change: bit depth will be left as-is.
+Force 4-bit: bit depth will be brought down to 4 bpp (16 colors) if higher.
+Force 8-bit: bit depth will be brought up to 8 bpp (256 colors) if lower."
+mouse_filter = 0
 text = "Bit depth"
 
-[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/bit_depth"]
+[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/bit_depth"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -1025,6 +1036,7 @@ layout_mode = 2
 [node name="confirm" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/import_container"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Click to begin importing sprites with the above settings."
 text = "Import"
 script = ExtResource("39_oitnq")
 
@@ -1047,6 +1059,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Set the imported sprite to preview."
+mouse_filter = 0
 text = "Preview sprite"
 vertical_alignment = 1
 
@@ -1063,6 +1077,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Set the palette to preview sprites with."
+mouse_filter = 0
 text = "Preview palette"
 
 [node name="palette_index" type="SpinBox" parent="sprite_import/background/content_margin/window_content/preview/palette"]
@@ -1148,7 +1164,7 @@ access = 2
 filters = PackedStringArray("*.bin, *.raw, *.png, *.bmp; Supported image files")
 use_native_dialog = true
 script = ExtResource("43_05050")
-browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/files/select")
+browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/browse")
 
 [node name="sprite_delete" type="Window" parent="."]
 title = "Delete sprites"

@@ -27,11 +27,6 @@ func on_box_update(_box: BoxInfo) -> void:
 	on_cell_update(cell_edit.this_cell)
 
 
-func pal_state_palette_changed(_palette_number: int) -> void:
-	material.set_shader_parameter(
-		"palette", get_sprite_palette(cell_edit.sprite_get_index()))
-
-
 func unload_sprite() -> void:
 	for child in get_children():
 		child.queue_free()
@@ -47,8 +42,7 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	# (Thanks Athenya)
 	for type in [3, 6]:
 		for box in boxes:
-			if box.type != type and box.type != type:
-				continue
+			if box.type != type: continue
 			
 			var offset_x: int = 8 * box.crop_x_offset
 			var offset_y: int = 8 * box.crop_y_offset
@@ -101,16 +95,8 @@ func get_sprite_palette(index: int) -> PackedByteArray:
 	var sprite: BinSprite = cell_edit.sprite_get(index)
 	
 	# No embedded pal
-	if sprite.palette.is_empty() or get_owner().get_parent().name == "player":
-		return cell_edit.this_palette.palette
+	if sprite.palette.is_empty() or cell_edit.obj_data.name == "player":
+		return cell_edit.palette
 	
 	# Embedded pal
-	var palette: PackedByteArray = sprite.palette
-	
-	@warning_ignore("integer_division")
-	for color_index in range(0, palette.size() / 4):
-		var new_alpha: int = palette[4 * color_index + 3]
-		new_alpha = min(0xFF, new_alpha * 2)
-		palette[4 * color_index + 3] = new_alpha
-	
-	return palette
+	return sprite.palette
