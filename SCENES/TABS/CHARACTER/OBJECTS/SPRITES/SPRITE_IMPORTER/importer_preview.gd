@@ -1,6 +1,13 @@
 extends TextureRect
 
+const ERR_STRING: String = \
+	"The file was not found or is not a valid sprite.\n(%s)"
+
+@export var invalid_file: Label
+
 var gray_pal: PackedInt32Array
+
+@onready var sprite_edit: SpriteEdit = get_owner()
 
 
 func _ready() -> void:
@@ -12,21 +19,27 @@ func _ready() -> void:
 
 
 func update_preview() -> void:
+	if sprite_edit.obj_data != SpriteImport.obj_data:
+		return
+	
 	var sprite: BinSprite = SpriteImport.preview_sprite
 	var global_palette: PackedByteArray = SpriteImport.preview_palette
 	
 	if sprite == null:
 		texture = null
+		invalid_file.show()
+		invalid_file.text = ERR_STRING % SpriteImport.get_preview_sprite_path()
 	else:
+		invalid_file.hide()
 		texture = sprite.texture
+		
+		# Is correct, double checked
+		material.set_shader_parameter("reindex",
+			sprite.bit_depth == 8 or SpriteImport.obj_data.name == "player")
+		
 		if sprite.palette.is_empty():
-			#material.set_shader_parameter("palette", gray_pal)
 			material.set_shader_parameter("palette", global_palette)
 			
 		else:
 			var palette: PackedByteArray = sprite.palette
-			
-			for color in palette.size() / 4:
-				palette[4 * color + 3] = min(palette[4 * color + 3] * 2, 0xFF)
-			
 			material.set_shader_parameter("palette", palette)

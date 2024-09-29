@@ -78,7 +78,6 @@ func sprite_get_count() -> int:
 func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
-	sprite_updated.emit(this_sprite)
 	
 	# Hardcoding yay
 	if obj_data.name == "player":
@@ -86,6 +85,8 @@ func sprite_set(index: int) -> void:
 	
 	else:
 		provider.palette_load(sprite_index)
+	
+	sprite_updated.emit(this_sprite)
 
 
 func sprite_delete(from: int, to: int) -> void:

@@ -57,7 +57,11 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
-	var source_image := cell_edit.sprite_get(index).image
+	var sprite: BinSprite = cell_edit.sprite_get(index)
+	if cell_edit.obj_data.name != "player":
+		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
+	
+	var source_image := sprite.image
 	
 	if rects.is_empty():
 		rects.append(Rect2i(0, 0, 
@@ -69,6 +73,7 @@ func load_cell_sprite_pieces(
 	# Likely slower, but more accurate (?) representation
 	for rect in rects.size():
 		var new_tex: TextureRect = TextureRect.new()
+		new_tex.mouse_filter = MOUSE_FILTER_IGNORE
 		new_tex.position = (offsets[rect] + rects[rect].position) - Vector2i(128, 128)
 		
 		var empty_pixels: PackedByteArray = []

@@ -3,6 +3,8 @@ extends Node
 
 @warning_ignore("unused_signal")
 signal tab_loading_complete
+@warning_ignore("unused_signal")
+signal save_complete
 signal tab_closed
 
 var tab_index: int = 0
@@ -27,12 +29,18 @@ func save() -> void:
 	SaveErrors.reset()
 	
 	if this_tab.is_empty():
-		Status.set_status("Nothing to save.")
+		Status.call_deferred("set_status", "Nothing to save.")
+		GlobalSignals.call_deferred("emit_signal", "save_complete")
 		return
 	
 	if not this_tab.has("path"):
-		Status.set_status("Could not save! Cause: malformed dictionary")
+		Status.call_deferred(\
+			"set_status", "Could not save! Cause: malformed dictionary")
+		GlobalSignals.call_deferred("emit_signal", "save_complete")
 		return
+	
+	GlobalSignals.call_deferred("emit_signal", "save_start")
+	Status.call_deferred("set_status", "Saving...")
 	
 	var save_path: String = this_tab["path"]
 	
@@ -45,7 +53,8 @@ func save() -> void:
 	if this_tab.has("palettes"):
 		this_tab["palettes"].serialize_and_save(save_path + "/palettes")
 
-	SaveErrors.set_status()
+	SaveErrors.call_deferred("set_status")
+	GlobalSignals.call_deferred("emit_signal", "save_complete")
 
 
 #region Tabs

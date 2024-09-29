@@ -85,8 +85,7 @@ var sprite_color_bounds: Color = Color.BLACK:
 		sprite_color_bounds = value
 		sprite_bounds_color_changed.emit()
 
-var sprite_reindex: bool = true
-
+#var sprite_reindex: bool = true
 #var palette_alpha_double: bool = true
 
 var misc_max_undo: int = 200
@@ -130,8 +129,8 @@ func load_config() -> bool:
 	
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
-	sprite_reindex = config.get_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
+	#sprite_reindex = config.get_value(
+		#CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
 	
 	misc_max_undo = config.get_value(
 		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
@@ -173,8 +172,8 @@ func save_config() -> bool:
 	
 	config.set_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
-	config.set_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
+	#config.set_value(
+		#CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
 	
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)

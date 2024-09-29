@@ -2,4 +2,14 @@ extends CheckButton
 
 
 func _ready() -> void:
-	toggled.connect(SpriteImport.set_reindex)
+	toggled.connect(update)
+	visibility_changed.connect(on_display)
+
+
+func on_display() -> void:
+	if visible:
+		update(button_pressed)
+
+
+func update(enabled: bool) -> void:
+	SpriteImport.set_reindex(enabled)

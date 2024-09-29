@@ -1,11 +1,22 @@
 extends Node
 
+signal export_start_index_set
+signal export_end_index_set
+signal palette_index_set
+signal palette_include_set
+signal palette_override_set
+signal palette_alpha_mode_set
+signal sprite_reindex_set
+
 enum AlphaMode {
 	AS_IS,
 	DOUBLE,
 	HALVE,
 	OPAQUE,
 }
+
+var preview_index: int = 0
+var preview_sprite: BinSprite
 
 var export_bin: bool = false
 var export_raw: bool = false
@@ -36,6 +47,49 @@ func _ready() -> void:
 		pal_gray.append(index)
 		pal_gray.append(index)
 		pal_gray.append(0xFF)
+
+
+func set_preview_index(index: int) -> void:
+	preview_index = index
+
+
+func set_export_start_index(index: int) -> void:
+	export_start_index = index
+	export_start_index_set.emit()
+
+
+func set_export_end_index(index: int) -> void:
+	export_end_index = index
+	export_end_index_set.emit()
+
+
+func set_palette_index(index: int) -> void:
+	palette_index = index
+	palette_index_set.emit()
+
+
+func set_palette_include(enabled: bool) -> void:
+	palette_include = enabled
+	palette_include_set.emit()
+
+
+func set_palette_override(enabled: bool) -> void:
+	palette_override = enabled
+	palette_override_set.emit()
+
+
+func set_palette_alpha_mode(mode: AlphaMode) -> void:
+	palette_alpha_mode = mode
+	palette_alpha_mode_set.emit()
+
+
+func set_sprite_reindex(enabled: bool) -> void:
+	sprite_reindex = enabled
+	sprite_reindex_set.emit()
+
+
+func set_name_from_zero(enabled: bool) -> void:
+	name_from_zero = enabled
 
 
 func export(output_path: String) -> void:

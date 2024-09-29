@@ -43,6 +43,7 @@ border_width_bottom = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
 shader = ExtResource("24_nqtan")
 shader_parameter/alpha_double = false
+shader_parameter/reindex = true
 shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = PackedInt32Array()
@@ -570,6 +571,7 @@ front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
 [node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 material = ExtResource("26_gliws")
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("27_na53u")
 
 [node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]

@@ -10,4 +10,6 @@ func _ready() -> void:
 
 
 func on_import_confirm() -> void:
+	
+	
 	SpriteImport.import_files(sprite_edit.obj_data.name)

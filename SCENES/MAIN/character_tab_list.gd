@@ -7,6 +7,8 @@ var waiting_tasks: Array[int] = []
 
 
 func _ready() -> void:
+	GlobalSignals.menu_save.connect(save_character)
+	
 	SessionData.tab_closed.connect(on_tab_closed)
 	SessionData.tab_loading_complete.connect(character_finished_loading)
 	
@@ -28,7 +30,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func load_character(path: String) -> void:
-	Status.set_status("Loading character from %s..." % path)
+	Status.set_status("Loading character from [%s]..." % path)
 	
 	if not Settings.misc_allow_reopen:
 		if Opened.path_is_open(path):
@@ -36,6 +38,11 @@ func load_character(path: String) -> void:
 			return
 	
 	var task_id := WorkerThreadPool.add_task(SessionData.tab_new.bind(path))
+	waiting_tasks.append(task_id)
+
+
+func save_character():
+	var task_id := WorkerThreadPool.add_task(SessionData.save)
 	waiting_tasks.append(task_id)
 
 

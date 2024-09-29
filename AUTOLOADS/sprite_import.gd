@@ -36,6 +36,7 @@ var preview_index: int = 0
 var preview_sprite: BinSprite
 var preview_palette_index: int = 0
 var preview_palette: PackedByteArray
+var regenerate_preview: bool = false
 
 # Used by this singleton
 var obj_data: ObjectData
@@ -68,6 +69,9 @@ func _physics_process(_delta: float) -> void:
 		if WorkerThreadPool.is_task_completed(task):
 			WorkerThreadPool.wait_for_task_completion(task)
 			waiting_tasks.pop_at(waiting_tasks.find(task))
+
+	if regenerate_preview:
+		generate_preview(preview_index)
 
 
 func import_files(object_name: String) -> void:
@@ -121,13 +125,24 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	call_deferred("emit_signal", "sprite_placement_finished")
 
 
+func get_preview_sprite_path() -> String:
+	if import_list.size() > preview_index:
+		return import_list[preview_index]
+	else:
+		return "(No file)"
+
+
 func set_preview_sprite_index(index: int) -> void:
 	preview_index = index
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func generate_preview(sprite_index: int) -> void:
+	regenerate_preview = false
+	
 	if sprite_index >= import_list.size():
+		preview_sprite = BinSprite.new()
+		preview_generated.emit()
 		return
 	
 	preview_sprite = SpriteImporter.import_sprite(
@@ -149,7 +164,7 @@ func select_files(files: PackedStringArray) -> void:
 	import_list = files
 	files_selected.emit()
 	preview_index = 0
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_placement_method(mode: PlaceMode) -> void:
@@ -165,40 +180,40 @@ func set_insert_position(position: int) -> void:
 func set_embed_palette(enabled: bool) -> void:
 	embed_palette = enabled
 	embed_palette_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_halve_alpha(enabled: bool) -> void:
 	halve_alpha = enabled
 	halve_alpha_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_flip_h(enabled: bool) -> void:
 	flip_h = enabled
 	flip_h_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_flip_v(enabled: bool) -> void:
 	flip_v = enabled
 	flip_v_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_as_rgb(enabled: bool) -> void:
 	as_rgb = enabled
 	as_rgb_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_reindex(enabled: bool) -> void:
 	reindex = enabled
 	reindex_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true
 
 
 func set_bit_depth(mode: BitDepth) -> void:
 	bit_depth = mode
 	bit_depth_set.emit()
-	generate_preview(preview_index)
+	regenerate_preview = true

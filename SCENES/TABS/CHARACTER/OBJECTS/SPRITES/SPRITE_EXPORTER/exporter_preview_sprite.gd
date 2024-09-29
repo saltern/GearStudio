@@ -11,4 +11,5 @@ func _ready() -> void:
 
 
 func update_texture(sprite_index: int) -> void:
-	texture = sprite_edit.sprite_get(sprite_index).texture
+	var sprite: BinSprite = sprite_edit.sprite_get(sprite_index)
+	texture = sprite.texture

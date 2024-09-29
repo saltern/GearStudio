@@ -6,4 +6,7 @@ func _ready() -> void:
 
 
 func on_files_selected() -> void:
+	if not visible:
+		return
+	
 	text = "Will import %s sprites." % SpriteImport.import_list.size()

@@ -5,6 +5,9 @@ extends SpinBox
 
 
 func _ready() -> void:
+	if sprite_edit.obj_data.name != "player":
+		get_parent().queue_free()
+	
 	value_changed.connect(select_palette)
 	max_value = sprite_edit.pal_data.palettes.size() - 1
 

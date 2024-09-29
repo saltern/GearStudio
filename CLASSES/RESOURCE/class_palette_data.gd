@@ -47,12 +47,12 @@ static func save_palette(pal_array: PackedByteArray, path: String) -> void:
 			new_file.close()
 
 
-func serialize_and_save(path: String) -> void:	
+func serialize_and_save(path: String) -> void:
+	GlobalSignals.call_deferred("emit_signal", "save_object", "palettes")
+	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "")
+	
 	for palette in palettes.size():
 		var this_pal: BinPalette = palettes[palette].duplicate(true)
-		
-		if Settings.palette_alpha_double:
-			this_pal.alpha_halve()
 		
 		var new_file: FileAccess = FileAccess.open(
 			path + "/pal_%s.bin" % palette, FileAccess.WRITE)

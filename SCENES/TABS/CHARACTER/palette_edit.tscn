@@ -26,6 +26,7 @@ border_color = Color(1, 1, 1, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oa07j"]
 shader = ExtResource("2_dydbr")
 shader_parameter/alpha_double = true
+shader_parameter/reindex = true
 shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = null

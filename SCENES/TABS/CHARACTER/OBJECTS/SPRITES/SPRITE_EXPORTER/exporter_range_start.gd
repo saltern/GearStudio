@@ -11,4 +11,4 @@ func _ready() -> void:
 
 
 func on_range_start_changed(new_value: int) -> void:
-	SpriteExport.export_start_index = new_value
+	SpriteExport.set_export_start_index(new_value)

@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cc2c834tdtbf7"]
+
+[ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="1_rdxlq"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_rdxlq")
+shader_parameter/alpha_double = true
+shader_parameter/reindex = true
+shader_parameter/hover_index = -1
+shader_parameter/highlight = null
+shader_parameter/palette = PackedInt32Array()

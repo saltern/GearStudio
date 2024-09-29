@@ -24,9 +24,9 @@
 [ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_region_front.gd" id="16_4ql6k"]
 [ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/sprite_color_bounds.gd" id="16_n6nme"]
 [ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/box_color_collision_extension.gd" id="17_jr1md"]
-[ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/sprite_reindex.gd" id="18_2gube"]
 [ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/misc_max_undo.gd" id="19_w7ci1"]
 [ext_resource type="Script" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
+[ext_resource type="Script" path="res://SCENES/MAIN/save_lock.gd" id="28_j0856"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6eya"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
@@ -223,7 +223,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-scroll_vertical = 68
+scroll_vertical = 34
 horizontal_scroll_mode = 0
 
 [node name="settings_margin" type="MarginContainer" parent="preferences/background/margin/content/scroll"]
@@ -501,13 +501,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("16_n6nme")
 
-[node name="reindex" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-button_pressed = true
-text = "Auto reindex"
-script = ExtResource("18_2gube")
-
 [node name="misc" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
 layout_mode = 2
 
@@ -547,6 +540,45 @@ script = ExtResource("20_560p1")
 [node name="save" type="Button" parent="preferences/background/margin/content"]
 layout_mode = 2
 text = "Save preferences"
+
+[node name="save_lock" type="Window" parent="."]
+title = "Saving..."
+initial_position = 2
+size = Vector2i(250, 120)
+visible = false
+transient = true
+exclusive = true
+unresizable = true
+force_native = true
+script = ExtResource("28_j0856")
+
+[node name="content" type="VBoxContainer" parent="save_lock"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -22.0
+offset_right = 44.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="save_lock/content"]
+layout_mode = 2
+text = "Please wait..."
+horizontal_alignment = 1
+
+[node name="step" type="Label" parent="save_lock/content"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sub" type="Label" parent="save_lock/content"]
+layout_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="meta_clicked" from="about/content/details/acknowledgments" to="about/content/details/acknowledgments" method="link_clicked"]
 [connection signal="meta_clicked" from="about/content/details/info" to="about/content/details/info" method="link_clicked"]

@@ -20,7 +20,6 @@ const button_names: Dictionary = {
 	ButtonID.EXIT: "Exit",
 }
 
-
 @export var load_dialog: FileDialog
 
 
@@ -41,7 +40,7 @@ func menu_clicked(menu_id: int) -> void:
 			load_dialog.show()
 		
 		ButtonID.SAVE:
-			SessionData.save()
+			GlobalSignals.menu_save.emit()
 
 		ButtonID.BUILD:
 			Status.set_status("Building character binaries is not currently available.")

@@ -5,11 +5,13 @@ var sprites: Array[BinSprite] = []
 var cells: Array[Cell] = []
 
 
-func serialize_and_save(path: String) -> void:	
+func serialize_and_save(path: String) -> void:
+	GlobalSignals.call_deferred("emit_signal", "save_object", name)
 	var cell_json_array: Array[String] = serialize_cells()
 
 	# Save cells
 	DirAccess.make_dir_recursive_absolute("%s/cells" % path)
+	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "cells")
 	
 	for cell in cell_json_array.size():
 		var new_json_file = FileAccess.open(
@@ -23,6 +25,7 @@ func serialize_and_save(path: String) -> void:
 		new_json_file.close()
 	
 	# Save sprites
+	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "sprites")
 	DirAccess.make_dir_recursive_absolute("%s/sprites" % path)
 	save_sprites_to_path("%s/sprites" % path)
 
@@ -70,7 +73,7 @@ func save_sprites_to_path(path: String) -> void:
 		return
 	
 	# Save sprites
-	SpriteLoadSave.save_sprites(sprites, path, Settings.sprite_reindex)
+	SpriteLoadSave.save_sprites(sprites, path)
 
 
 func load_sprites_from_path(path: String) -> bool:
@@ -78,7 +81,7 @@ func load_sprites_from_path(path: String) -> bool:
 		return false
 	
 	# Load sprites
-	sprites = SpriteLoadSave.load_sprites(path, Settings.sprite_reindex)
+	sprites = SpriteLoadSave.load_sprites(path)
 
 	return true
 
