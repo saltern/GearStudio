@@ -118,16 +118,17 @@ script = ExtResource("8_5nt50")
 
 [node name="about" type="Panel" parent="."]
 visible = false
+custom_minimum_size = Vector2(600, 320)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -100.0
-offset_right = 250.0
-offset_bottom = 100.0
+offset_left = -300.0
+offset_top = -160.0
+offset_right = 300.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -149,6 +150,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 0
 
 [node name="acknowledgments" type="RichTextLabel" parent="about/content/details"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -158,7 +160,14 @@ text = "[center]ACKNOWLEDGMENTS
 [b]Ryn[/b]
 [url={https://github.com/wistfulhopes}]Github[/url] / [url={https://twitter.com/wistfulhopes}]Twitter[/url]
 - Character BIN parser
-- +R sprite decoder"
+- +R sprite decoder
+
+[b]lovenus[/b]
+[url={https://github.com/MoonSquaredd}]Github[/url]
+- Parsers for various other resource files
+
+[b]Chloe (@chloegoaty)[/b]
+- Testing, various improvement suggestions"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
@@ -173,6 +182,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 bbcode_enabled = true
 text = "[center]GEAR STUDIO
+BETA 1
 
 by ALT_OhDude ([url={https://github.com/saltern}]Github[/url])."
 fit_content = true
@@ -186,7 +196,7 @@ layout_mode = 2
 [node name="close_button" type="CenterContainer" parent="about/content"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.3
+size_flags_stretch_ratio = 0.15
 
 [node name="button" type="Button" parent="about/content/close_button"]
 custom_minimum_size = Vector2(80, 0)
