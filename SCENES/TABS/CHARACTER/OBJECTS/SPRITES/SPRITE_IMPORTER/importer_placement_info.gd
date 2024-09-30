@@ -7,11 +7,14 @@ func _ready() -> void:
 	SpriteImport.placement_method_set.connect(update)
 	SpriteImport.insert_position_set.connect(update)
 	SpriteImport.files_selected.connect(update)
-	
-	update()
+	SpriteImport.sprite_placement_finished.connect(update)
+	visibility_changed.connect(update)
 
 
 func update() -> void:
+	if not visible:
+		return
+	
 	var sprite_count: int = sprite_edit.sprite_get_count()
 	var import_count: int = SpriteImport.import_list.size()
 	
