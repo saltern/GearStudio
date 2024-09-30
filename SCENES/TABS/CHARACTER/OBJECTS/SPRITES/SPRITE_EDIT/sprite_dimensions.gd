@@ -8,6 +8,8 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	var tex_size: Vector2i = sprite.texture.get_size()
-	
-	text = "%s x %s" % [tex_size.x, tex_size.y]
+	if sprite.texture == null:
+		text = "- x -"
+	else:
+		var tex_size: Vector2i = sprite.texture.get_size()
+		text = "%s x %s" % [tex_size.x, tex_size.y]
