@@ -193,7 +193,7 @@ func cell_ensure_selected(cell: Cell) -> void:
 
 #region Sprites
 func sprite_get(index: int = 0) -> BinSprite:
-	return obj_data.sprites[index]
+	return obj_data.sprite_get(index)
 	
 	
 func sprite_get_count() -> int:
@@ -484,6 +484,9 @@ func box_multi_drag_stop(index: int) -> void:
 
 
 func box_set_offset_x(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	var action_text: String = "Cell # %s: Set box X offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
@@ -506,6 +509,9 @@ func box_set_offset_x(new_value: int) -> void:
 
 
 func box_set_offset_y(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	var action_text: String = "Cell #%s set box Y offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
@@ -528,6 +534,9 @@ func box_set_offset_y(new_value: int) -> void:
 
 
 func box_set_width(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	var action_text: String = "Cell #%s set box width" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
@@ -550,6 +559,9 @@ func box_set_width(new_value: int) -> void:
 
 
 func box_set_height(new_value: int) -> void:
+	if boxes_selected.size() < 1:
+		return
+	
 	var action_text: String = "Cell #%s set box height" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
