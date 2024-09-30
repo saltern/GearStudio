@@ -11,7 +11,9 @@ uniform int[0x400]	palette;
 
 
 void fragment() {
-	int index = int(COLOR.r * 255.00);
+	
+	int index = int(COLOR.r * 256.00);
+	index = clamp(index, 0, 255);
 	
 	if (reindex) {
 		if (((index / 8) + 2) % 4 == 0) {
