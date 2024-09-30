@@ -68,7 +68,7 @@ func palette_get(index: int) -> PackedByteArray:
 
 #region Sprites
 func sprite_get(index: int) -> BinSprite:
-	return obj_data.sprites[index]
+	return obj_data.sprite_get(index)
 
 
 func sprite_get_count() -> int:
@@ -92,8 +92,14 @@ func sprite_set(index: int) -> void:
 func sprite_delete(from: int, to: int) -> void:
 	var how_many: int = to - from + 1
 	
+	if how_many >= obj_data.sprites.size():
+		Status.set_status("Can't delete all sprites!")
+		return
+	
 	for index in how_many:
 		obj_data.sprites.pop_at(from)
+	
+	obj_data.clamp_sprite_indices()
 	
 	SpriteImport.sprite_placement_finished.emit()
 #endregion

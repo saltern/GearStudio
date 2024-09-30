@@ -17,7 +17,7 @@ func on_sprites_changed() -> void:
 
 
 func update_sprite(index: int) -> void:
-	var sprite: BinSprite = sprite_edit.obj_data.sprites[index]
+	var sprite: BinSprite = sprite_edit.obj_data.sprite_get(index)
 	
 	texture = sprite.texture
 	

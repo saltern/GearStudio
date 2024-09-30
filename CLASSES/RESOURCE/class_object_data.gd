@@ -95,3 +95,19 @@ func load_cells_from_path(path: String) -> bool:
 		cells.append(Cell.from_file(file))
 	
 	return true
+
+
+# Surprisingly fast
+func clamp_sprite_indices() -> void:
+	var sprite_max: int = max(sprites.size() - 1, 0)
+	
+	for cell in cells:
+		cell.sprite_info.index = clampi(
+			cell.sprite_info.index, 0, sprite_max)
+
+
+func sprite_get(index: int) -> BinSprite:
+	if sprites.size() > index:
+		return sprites[index]
+	else:
+		return BinSprite.new()
