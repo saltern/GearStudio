@@ -1,6 +1,13 @@
-[gd_resource type="Theme" load_steps=48 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=49 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u221g"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j35e"]
 draw_center = false
@@ -304,6 +311,7 @@ bg_color = Color(0, 0, 0, 1)
 [resource]
 default_font = ExtResource("1_mlsfx")
 default_font_size = 14
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_u221g")
 Button/styles/focus = SubResource("StyleBoxFlat_4j35e")
 Button/styles/hover = SubResource("StyleBoxFlat_g1wju")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_op3vy")
