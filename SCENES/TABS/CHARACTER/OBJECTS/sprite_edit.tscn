@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=70 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/window_summon_button.gd" id="2_dim6d"]
@@ -65,6 +65,7 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_import_window.gd" id="59_vae45"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_export_window.gd" id="61_dcgxr"]
 [ext_resource type="Material" uid="uid://cc2c834tdtbf7" path="res://MATERIALS/mat_delete_preview.tres" id="61_n3lvp"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/SPRITE_DELETE/delete_cannot_delete.gd" id="64_vgp6d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -1352,7 +1353,7 @@ layout_mode = 2
 script = ExtResource("55_oqxu8")
 sprite_index = NodePath("../../../../sprite_index/value")
 
-[node name="delete_confirm" type="ConfirmationDialog" parent="sprite_delete" node_paths=PackedStringArray("delete_from", "delete_to")]
+[node name="delete_confirm" type="ConfirmationDialog" parent="sprite_delete" node_paths=PackedStringArray("delete_from", "delete_to", "cannot_delete")]
 title = "Confirm action"
 initial_position = 2
 unresizable = true
@@ -1361,6 +1362,16 @@ dialog_text = "Really delete %s sprites?"
 script = ExtResource("59_nsx52")
 delete_from = NodePath("../bg_panel/margin/content/config/from/value")
 delete_to = NodePath("../bg_panel/margin/content/config/to/value")
+cannot_delete = NodePath("../cant_delete_all")
+
+[node name="cant_delete_all" type="AcceptDialog" parent="sprite_delete"]
+title = "Can't delete"
+initial_position = 2
+size = Vector2i(369, 99)
+force_native = true
+dialog_text = "Can't delete all sprites! Object needs at least 1.
+Consider importing new sprites to replace the old ones."
+script = ExtResource("64_vgp6d")
 
 [node name="palette_import" type="FileDialog" parent="."]
 title = "Open a File"
