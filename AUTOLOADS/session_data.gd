@@ -72,39 +72,35 @@ func tab_new(path: String) -> void:
 	var new_session: Dictionary = {}
 	var dir_list: PackedStringArray = dir.get_directories()
 	
-	# Palettes loaded separately
-	if dir.dir_exists("palettes"):
-		var palette_data := PaletteData.new()
-		
-		palette_data.load_palettes_from_path(path + "/palettes")
-		new_session["palettes"] = palette_data
-		
-		dir_list.remove_at(dir_list.find("palettes"))
-		sub_tab_list.append("palettes")
-	
 	if dir_list.size() < 1:
 		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 		return
-		
 	
 	new_session["current_object"] = dir_list[0]
 	
 	# Load objects
 	for directory in dir_list:
+		if directory == "palettes":
+			continue
+		
 		var object_data := ObjectData.new()
 		
 		object_data.name = directory
 		
-		if DirAccess.dir_exists_absolute(path + "/%s/sprites" % directory):
+		# Load palettes as subresource of ObjectData...
+		if dir.dir_exists("palettes") and directory == "player":
+			object_data.load_palette_data_from_path(path + "/palettes")
+		
+		if dir.dir_exists("%s/sprites" % directory):
 			object_data.load_sprites_from_path(path + "/%s/sprites" % directory)
 		
-		if DirAccess.dir_exists_absolute(path + "/%s/cells" % directory):
+		if dir.dir_exists("%s/cells" % directory):
 			object_data.load_cells_from_path(path + "/%s/cells" % directory)
 		
 		if object_data.sprites.is_empty() and object_data.cells.is_empty():
 			continue
 		
-		new_session[directory] = object_data #object_edit_state
+		new_session[directory] = object_data
 		sub_tab_list.append(directory)
 	
 	if !sub_tab_list.is_empty():

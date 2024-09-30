@@ -16,12 +16,11 @@ func on_sprite_updated(sprite: BinSprite) -> void:
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	texture = sprite.texture
-	apply_palette(provider.palette_get_colors_fallback())
+	apply_palette(provider.palette_get_colors())
 
 
 func on_palette_updated(palette: PackedByteArray) -> void:
 	apply_palette(palette)
-	#on_sprite_updated(provider.sprite)
 
 
 func apply_palette(palette: PackedByteArray) -> void:

@@ -40,7 +40,6 @@ var regenerate_preview: bool = false
 
 # Used by this singleton
 var obj_data: ObjectData
-var pal_data: PaletteData
 var import_list: PackedStringArray = []
 var placement_method: int
 var insert_position: int
@@ -149,14 +148,13 @@ func generate_preview(sprite_index: int) -> void:
 		import_list[sprite_index], embed_palette, halve_alpha,
 		flip_h, flip_v, as_rgb, reindex, bit_depth)
 	
-	preview_palette = pal_data.palettes[preview_palette_index].palette
-	
+	preview_palette = obj_data.palette_get(preview_palette_index).palette
 	preview_generated.emit()
 
 
 func set_preview_palette_index(index: int) -> void:
 	preview_palette_index = index
-	preview_palette = pal_data.palettes[index].palette
+	preview_palette = obj_data.palette_get(index).palette
 	preview_palette_set.emit()
 
 

@@ -5,15 +5,20 @@ extends SpinBox
 
 
 func _ready() -> void:
-	if sprite_edit.obj_data.name != "player":
+	if not sprite_edit.obj_data.has_palettes():
 		get_parent().queue_free()
-	
-	value_changed.connect(select_palette)
-	max_value = sprite_edit.pal_data.palettes.size() - 1
-
-
-func select_palette(index: int) -> void:
-	if sprite_edit.obj_data.name != "player":
 		return
-		
-	provider.palette_load_player(index)
+	
+	max_value = sprite_edit.obj_data.palette_get_count() - 1
+	value_changed.connect(change_palette)
+	provider.obj_data.palette_selected.connect(external_update_value)
+
+
+func change_palette(index: int) -> void:
+	provider.palette_load(index)
+	provider.obj_data.palette_broadcast(index)
+
+
+func external_update_value(index: int) -> void:
+	call_deferred("set_value_no_signal", index)
+	provider.palette_load(index)

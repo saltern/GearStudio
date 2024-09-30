@@ -2,6 +2,8 @@ extends Control
 
 @onready var cell_edit: CellEdit = get_owner()
 
+var palette_index: int = 0
+
 
 func _enter_tree() -> void:
 	if get_owner().get_parent().name != "player":
@@ -11,6 +13,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	cell_edit.cell_updated.connect(on_cell_update)
 	cell_edit.box_updated.connect(on_box_update)
+	cell_edit.obj_data.palette_updated.connect(reload_palette)
+	cell_edit.obj_data.palette_selected.connect(load_palette)
 
 
 func on_cell_update(cell: Cell) -> void:
@@ -51,14 +55,15 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 			cutout_list.append(box.rect)
 	
 	load_cell_sprite_pieces(index, cutout_list, offset_list)
-	material.set_shader_parameter("palette", get_sprite_palette(index))
+	material.set_shader_parameter("palette", get_palette(index))
 
 
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
 	var sprite: BinSprite = cell_edit.sprite_get(index)
-	if cell_edit.obj_data.name != "player":
+	
+	if not cell_edit.obj_data.has_palettes():
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	var source_image := sprite.image
@@ -96,12 +101,20 @@ func load_cell_sprite_pieces(
 		add_child(new_tex)
 
 
-func get_sprite_palette(index: int) -> PackedByteArray:
+func get_palette(index: int) -> PackedByteArray:
+	# Global palette
+	if cell_edit.obj_data.has_palettes():
+		return cell_edit.obj_data.palette_get(palette_index).palette
+	
+	# Embedded palette
 	var sprite: BinSprite = cell_edit.sprite_get(index)
-	
-	# No embedded pal
-	if sprite.palette.is_empty() or cell_edit.obj_data.name == "player":
-		return cell_edit.palette
-	
-	# Embedded pal
 	return sprite.palette
+
+
+func load_palette(index: int) -> void:
+	palette_index = index
+	material.set_shader_parameter("palette", get_palette(palette_index))
+
+
+func reload_palette() -> void:
+	load_palette(cell_edit.sprite_get_index())

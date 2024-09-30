@@ -19,7 +19,6 @@ signal cell_updated
 var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: ObjectData
-var pal_data: PaletteData
 
 var cell_index: int
 var this_cell: Cell
@@ -47,20 +46,28 @@ var box_display_types: Dictionary = {
 }
 
 var palette: PackedByteArray
+var provider: PaletteProvider = PaletteProvider.new()
 
 
 func _enter_tree() -> void:
 	obj_data = SessionData.object_data_get(get_parent().name)
-	pal_data = SessionData.palette_data_get(
-		get_parent().get_parent().get_index())
+	
+	if not obj_data.has_cells():
+		queue_free()
+		return
+	
+	provider.obj_data = obj_data
 
 
 func _ready() -> void:
+	if is_queued_for_deletion():
+		return
+
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	
-	palette = pal_data.palettes[0].palette
+	palette = provider.palette_get_colors()
 	cell_load(0)
 
 
@@ -291,6 +298,7 @@ func sprite_info_paste() -> void:
 	
 	undo_redo.commit_action()
 #endregion
+	
 
 
 #region Boxes

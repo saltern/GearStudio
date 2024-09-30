@@ -2,6 +2,7 @@ class_name PaletteGrid extends GridContainer
 
 signal color_selected
 
+@export var sprite_mode: bool
 @export var preview: TextureRect
 @export var color_picker: ColorPicker
 
@@ -23,9 +24,12 @@ var selecting: Array[bool] = []
 
 
 func _ready() -> void:
+	selected.resize(256)
+	selecting.resize(256)
+	
 	provider = get_owner().get_provider()
 	
-	if provider.sprite_mode and provider.obj_data.name == "player":
+	if sprite_mode and provider.obj_data.has_palettes():
 		get_parent().queue_free()
 		return
 	
@@ -34,9 +38,6 @@ func _ready() -> void:
 	if color_picker:
 		color_picker.color_changed.connect(color_set)
 		color_selected.connect(color_picker.on_color_selected)
-	
-	selected.resize(256)
-	selecting.resize(256)
 	
 	mouse_entered.connect(on_mouse_enter)
 	mouse_exited.connect(on_mouse_exit)

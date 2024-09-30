@@ -8,7 +8,6 @@ signal palette_updated
 var undo: UndoRedo = UndoRedo.new()
 
 var obj_data: ObjectData
-var pal_data: PaletteData
 
 var sprite_index: int
 var this_sprite: BinSprite
@@ -29,14 +28,12 @@ var provider: PaletteProvider
 
 func _enter_tree() -> void:
 	obj_data = SessionData.object_data_get(get_parent().name)
-	pal_data = SessionData.palette_data_get(get_parent().get_parent().get_index())
 	
 	provider = PaletteProvider.new()
-	provider.sprite_mode = true
 	provider.obj_data = obj_data
-	provider.pal_data = pal_data
 	
 	provider.palette_imported.connect(sprite_set)
+	obj_data.palette_updated.connect(palette_reload)
 
 
 func _ready() -> void:
@@ -63,7 +60,14 @@ func get_provider() -> PaletteProvider:
 
 
 func palette_get(index: int) -> PackedByteArray:
-	return pal_data.palettes[index].palette
+	if obj_data.has_palettes():
+		return obj_data.palette_get(index).palette
+	else:
+		return sprite_get(index).palette
+
+
+func palette_reload() -> void:
+	provider.palette_load(palette_index)
 
 
 #region Sprites

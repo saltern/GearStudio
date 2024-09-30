@@ -18,6 +18,5 @@ func on_browse_clicked() -> void:
 
 
 func on_files_selected(files: PackedStringArray) -> void:
-	SpriteImport.pal_data = sprite_edit.pal_data
 	SpriteImport.obj_data = sprite_edit.obj_data
 	SpriteImport.select_files(files)

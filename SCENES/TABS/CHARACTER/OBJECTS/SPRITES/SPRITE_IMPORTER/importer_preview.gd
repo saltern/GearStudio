@@ -23,7 +23,6 @@ func update_preview() -> void:
 		return
 	
 	var sprite: BinSprite = SpriteImport.preview_sprite
-	var global_palette: PackedByteArray = SpriteImport.preview_palette
 	
 	if sprite == null:
 		texture = null
@@ -37,9 +36,11 @@ func update_preview() -> void:
 		material.set_shader_parameter("reindex",
 			sprite.bit_depth == 8 or SpriteImport.obj_data.name == "player")
 		
-		if sprite.palette.is_empty():
-			material.set_shader_parameter("palette", global_palette)
+		if sprite_edit.obj_data.has_palettes():
+			var pal_index: int = SpriteImport.preview_palette_index
 			
+			material.set_shader_parameter(
+				"palette", sprite_edit.obj_data.palette_get(pal_index).palette)
+				
 		else:
-			var palette: PackedByteArray = sprite.palette
-			material.set_shader_parameter("palette", palette)
+			material.set_shader_parameter("palette", sprite.palette)

@@ -34,7 +34,6 @@ func on_display() -> void:
 		return
 
 	SpriteImport.obj_data = sprite_edit.obj_data
-	SpriteImport.pal_data = sprite_edit.pal_data
 	update(local_file_list)
 
 
