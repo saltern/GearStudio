@@ -69,18 +69,21 @@ func paste(at: int, selection: Array[bool]) -> void:
 func palette_load(index: int = 0) -> void:
 	if sprite_mode:
 		sprite_index = index
-		sprite = obj_data.sprites[sprite_index]
+		sprite = obj_data.sprite_get(sprite_index)
+		bit_depth = sprite.bit_depth
 		palette_updated.emit(sprite.palette)
 		
 	else:
 		palette_index = index
 		palette = pal_data.palettes[palette_index]
+		bit_depth = 8
 		palette_updated.emit(palette.palette)
 
 
 func palette_load_player(index: int) -> void:
 	palette_index = index
 	palette = pal_data.palettes[palette_index]
+	bit_depth = 8
 	palette_updated.emit(palette.palette)
 
 
