@@ -53,12 +53,11 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	if !is_visible_in_tree():
 		return
-	
-	var color: Color = Settings.box_colors[Settings.BoxType.UNKNOWN]
+
 	var type_color: int = box_info.type
 	
-	if type_color < Settings.box_colors.size():
-		color = Settings.box_colors[type_color]
+	var color := Settings.box_colors[
+		clampi(type_color, 0, Settings.box_colors.size() - 1)]
 	
 	if is_selected:
 		color = pulsate_color(color)

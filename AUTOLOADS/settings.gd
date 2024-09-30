@@ -33,13 +33,13 @@ const CFG_CELL_ORIGIN: String = "draw_origin"
 
 const CFG_SECTION_BOXES: String = "boxes"
 const CFG_BOX_THICKNESS: String = "thickness"
-const CFG_BOX_COLOR_UNK: String = "color_unknown"
 const CFG_BOX_COLOR_HIT: String = "color_hitbox"
 const CFG_BOX_COLOR_HURT: String = "color_hurtbox"
 const CFG_BOX_COLOR_CROP_B: String = "color_region_b"
 const CFG_BOX_COLOR_CROP_F: String = "color_region_f"
 const CFG_BOX_COLOR_COLL_EXT: String = "color_collision"
 const CFG_BOX_COLOR_SPAWN: String = "color_spawn"
+const CFG_BOX_COLOR_UNK: String = "color_unknown"
 
 const CFG_SECTION_SPRITES: String = "sprites"
 const CFG_SPRITE_COLOR_BOUNDS: String = "color_bounds"
@@ -53,13 +53,14 @@ const CFG_MISC_MAX_UNDO: String = "max_undo"
 const CFG_MISC_REOPEN: String = "allow_reopen"
 
 enum BoxType {
-	UNKNOWN,			# ...
+	HITBOX_ALT,			# 0
 	HITBOX,				# 1
 	HURTBOX,			# 2
 	REGION_B,			# 3
 	COLLISION_EXTEND,	# 4
 	SPAWN,				# 5
 	REGION_F,			# 6
+	UNKNOWN,			# 7+
 }
 
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
@@ -71,22 +72,20 @@ var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 
 var box_thickness: int = 2
 var box_colors: Array[Color] = [
-	Color.WHITE,
+	Color.RED,
 	Color.RED,
 	Color.GREEN,
 	Color.CORNFLOWER_BLUE,
 	Color.PURPLE,
 	Color.GOLD,
 	Color.CYAN,
+	Color.WHITE,
 ]
 
 var sprite_color_bounds: Color = Color.BLACK:
 	set(value):
 		sprite_color_bounds = value
 		sprite_bounds_color_changed.emit()
-
-#var sprite_reindex: bool = true
-#var palette_alpha_double: bool = true
 
 var misc_max_undo: int = 200
 var misc_allow_reopen: bool = true
@@ -118,19 +117,18 @@ func load_config() -> bool:
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
 	box_colors = [
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[0]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[0]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[1]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[2]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[3]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[4]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[5]),
 		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[6]),
+		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[7]),
 	]
 	
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
-	#sprite_reindex = config.get_value(
-		#CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
 	
 	misc_max_undo = config.get_value(
 		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
@@ -156,8 +154,6 @@ func save_config() -> bool:
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_THICKNESS, box_thickness)
 	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN])
-	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[BoxType.HITBOX])
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[BoxType.HURTBOX])
@@ -169,11 +165,11 @@ func save_config() -> bool:
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN])
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F])
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN])
 	
 	config.set_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
-	#config.set_value(
-		#CFG_SECTION_SPRITES, CFG_SPRITE_REINDEX, sprite_reindex)
 	
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)

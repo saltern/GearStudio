@@ -1,7 +1,10 @@
 extends ItemList
 var current_selection: int = -1
 
+const STRING_BOX_TYPE_UNKNOWN: String = "Unknown"
+
 const box_types: Dictionary = {
+	0: "Hitbox",
 	1: "Hitbox",
 	2: "Hurtbox",
 	3: "Region (Back)",
@@ -56,7 +59,7 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 
 
 func get_type_text(box_info: BoxInfo) -> String:
-	var type: String = "Unknown"
+	var type: String = STRING_BOX_TYPE_UNKNOWN
 	
 	if box_info.type == 3 || box_info.type == 6:
 		type = box_types[box_info.type]
