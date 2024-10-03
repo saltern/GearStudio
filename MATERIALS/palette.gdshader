@@ -11,20 +11,19 @@ uniform int[0x400]	palette;
 
 
 void fragment() {
-	
 	int index = int(COLOR.r * 256.00);
 	index = clamp(index, 0, 255);
-	
+
 	if (reindex) {
 		if (((index / 8) + 2) % 4 == 0) {
 			index -= 8;
 		}
-		
+
 		else if (((index / 8) + 3) % 4 == 0) {
 			index += 8;
 		}
 	}
-	
+
 	float alpha = float(palette[4 * index + 3]) / 255.00;
 
 	if (alpha_double) {

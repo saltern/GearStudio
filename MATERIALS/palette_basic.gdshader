@@ -7,8 +7,7 @@ uniform bool alpha_double = true;
 uniform int[0x400]	palette;
 
 
-void fragment()
-{
+void fragment() {
 	int index = int(COLOR.r * 256.00);
 	index = clamp(index, 0, 255);
 
