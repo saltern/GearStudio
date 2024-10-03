@@ -1,13 +1,20 @@
-extends Sprite2D
+extends Control
 
+@export var onion_index: SpinBox
 @export var front_toggle: CheckButton
-
 @onready var cell_edit: CellEdit = get_owner()
+
+var cell_index: int = -1
 
 
 func _ready() -> void:
 	Settings.onion_color_changed.connect(update_color)
+	
+	cell_edit.cell_updated.connect(check_update.unbind(1))
+	cell_edit.box_updated.connect(check_update.unbind(1))
+	
 	front_toggle.toggled.connect(on_toggle_front)
+	onion_index.value_changed.connect(select_onion_skin)
 	material = material.duplicate()
 	update_color()
 
@@ -29,20 +36,6 @@ func update_color() -> void:
 	material.set_shader_parameter("palette", PackedInt32Array(onion_colors))
 
 
-func on_onion_skin_update(cell: Cell) -> void:
-	if cell.sprite_info.index < cell_edit.sprite_get_count():
-		load_cell_sprite(cell.sprite_info.index, cell.boxes)
-	
-	else:
-		texture = null
-		
-	offset = cell.sprite_info.position
-
-
-func on_onion_skin_disable() -> void:
-	texture = null
-
-
 func on_toggle_front(toggled_on: bool) -> void:
 	if toggled_on:
 		z_index = 1
@@ -50,7 +43,30 @@ func on_toggle_front(toggled_on: bool) -> void:
 		z_index = 0
 
 
+func check_update() -> void:
+	if cell_edit.cell_index == cell_index:
+		select_onion_skin(cell_index)
+
+
+func select_onion_skin(index: int) -> void:
+	cell_index = index
+	
+	if cell_index < 0:
+		unload_sprite()
+	else:
+		var cell: Cell = cell_edit.cell_get(cell_index)
+		load_cell_sprite(cell.sprite_info.index, cell.boxes)
+		position = cell.sprite_info.position
+
+
+func unload_sprite() -> void:
+	for child in get_children():
+		child.queue_free()
+
+
 func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
+	unload_sprite()
+	
 	var cutout_list: Array[Rect2i]
 	var offset_list: Array[Vector2i]
 	
@@ -63,43 +79,50 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 		offset_list.append(Vector2i(offset_x, offset_y))
 		cutout_list.append(box.rect)
 	
-	if cutout_list.size() == 0:
-		load_cell_sprite_whole(index)
-	
-	else:
-		load_cell_sprite_pieces(index, cutout_list, offset_list)
-
-
-func load_cell_sprite_whole(index: int) -> void:
-	texture = cell_edit.sprite_get(index).texture
+	load_cell_sprite_pieces(index, cutout_list, offset_list)
 
 
 func load_cell_sprite_pieces(
-	index: int,
-	rects: Array[Rect2i],
-	offsets: Array[Vector2i]
+	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
+	var sprite: BinSprite = cell_edit.sprite_get(index)
 	
-	var source_image := cell_edit.sprite_get(index).image
+	if not cell_edit.obj_data.has_palettes():
+		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
-	var empty_pixels: PackedByteArray = []
-	empty_pixels.resize(source_image.get_data_size() * 4)
+	var source_image := sprite.image
 	
-	var target_image := Image.create_from_data(
-		source_image.get_width() * 2,
-		source_image.get_height() * 2,
-		false, Image.FORMAT_L8, empty_pixels
-	)
+	if rects.is_empty():
+		rects.append(Rect2i(0, 0, 
+			source_image.get_width(),
+			source_image.get_height()))
+		
+		offsets.append(Vector2i.ZERO)
 	
+	# Likely slower, but more accurate (?) representation
 	for rect in rects.size():
+		if rects[rect].size.x < 1 or rects[rect].size.y < 1:
+			continue
+		
+		var new_tex: TextureRect = TextureRect.new()
+		new_tex.mouse_filter = MOUSE_FILTER_IGNORE
+		new_tex.position = (offsets[rect] + rects[rect].position) - Vector2i(128, 128)
+		
+		var empty_pixels: PackedByteArray = []
+		empty_pixels.resize(rects[rect].size.x * rects[rect].size.y)
+		
+		var target_image := Image.create_from_data(
+			rects[rect].size.x,
+			rects[rect].size.y,
+			false, Image.FORMAT_L8, empty_pixels
+		)
+		
 		target_image.blit_rect(
 			source_image,
-			# Cut from this location
 			rects[rect],
-			# To this location
-			offsets[rect] + rects[rect].position
+			Vector2i(0,0)
 		)
-	
-	var new_texture := ImageTexture.create_from_image(target_image)
-	
-	texture = new_texture
+		
+		new_tex.texture = ImageTexture.create_from_image(target_image)
+		new_tex.use_parent_material = true
+		add_child(new_tex)

@@ -561,11 +561,15 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="onion" type="Sprite2D" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("front_toggle")]
+[node name="onion" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("onion_index", "front_toggle")]
 material = SubResource("ShaderMaterial_k4855")
-position = Vector2(-128, -128)
-centered = false
+anchors_preset = 0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
 script = ExtResource("25_4rpsl")
+onion_index = NodePath("../../../../../../scroll/margin/data/onion/value")
 front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
 
 [node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
@@ -663,6 +667,4 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="disable_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_disable"]
-[connection signal="update_onion_skin" from="content/scroll/margin/data/onion/value" to="content/visualizer/borders/clipper/visualizer/origin/onion" method="on_onion_skin_update"]
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
