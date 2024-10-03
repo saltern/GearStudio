@@ -20,7 +20,7 @@ func update() -> void:
 	
 	match SpriteImport.placement_method:
 		SpriteImport.PlaceMode.APPEND:
-			text = "Will not replace sprites. New sprite count: %s" % \
+			text = "Will not replace sprites.\nTotal sprites after import: %s" % \
 			[sprite_count + import_count]
 			
 		SpriteImport.PlaceMode.REPLACE:
@@ -28,20 +28,20 @@ func update() -> void:
 				sprite_count - SpriteImport.insert_position, import_count)
 			
 			if replace_count == 0:
-				text = "Will not replace sprites. New sprite count: %s" % \
+				text = "Will not replace sprites.\nTotal sprites after import: %s" % \
 				[sprite_count + import_count]
 			
 			else:
-				text = "Will REPLACE %s sprite(s)! New sprite count: %s" % \
+				text = "Will REPLACE %s sprite(s)!\nTotal sprites after import: %s" % \
 				[replace_count, sprite_count + import_count - replace_count]
 			
 		SpriteImport.PlaceMode.INSERT:
 			var displace_count: int = sprite_count - SpriteImport.insert_position
 			
 			if displace_count == 0:
-				text = "Will not displace sprites. New sprite count: %s" % \
+				text = "Will not displace sprites.\nTotal sprites after import: %s" % \
 				[sprite_count + import_count]
 			
 			else:
-				text = "Will DISPLACE %s sprite(s)! New sprite count: %s" % \
+				text = "Will DISPLACE %s sprite(s)!\nTotal sprites after import: %s" % \
 				[displace_count, sprite_count + import_count]

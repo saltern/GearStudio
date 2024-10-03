@@ -360,7 +360,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 [node name="background_a" type="ColorRect" parent="content/visualizer/visualizer"]
 texture_filter = 1
 layout_mode = 2
-mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("13_htehq")
 
@@ -399,6 +398,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("8_vk3xv")
 display_toggle = NodePath("../../../../../../left_panel/scroll/margin/side_panel/data/display_bounds")
 
@@ -548,7 +548,7 @@ script = ExtResource("30_yw1xa")
 [node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Will not replace sprites. New sprite count: 0."
+text = "Waiting for files to be selected."
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("31_klf4c")
