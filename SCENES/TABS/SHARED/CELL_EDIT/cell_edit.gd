@@ -100,7 +100,7 @@ func _input(event: InputEvent) -> void:
 			Clipboard.sprite_info = sprite_info_copy
 			
 			Status.set_status("Copied Sprite Info for cell #%s." %
-				SessionData.cell_get_index())
+				cell_get_index())
 		
 		else:
 			if boxes_selected.size() == 0:
@@ -232,6 +232,24 @@ func sprite_set_index(new_index: int) -> void:
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_cell.sprite_info, "index", old_index)
+	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
+
+
+func sprite_set_position(new_position: Vector2i) -> void:
+	var action_text: String = "Cell # %s: Set sprite offset" % cell_index
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
+	
+	var old_pos: Vector2i = sprite_get_position()
+	
+	undo_redo.add_do_property(
+		this_cell.sprite_info, "position", new_position)
+	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	
+	undo_redo.add_undo_property(this_cell.sprite_info, "position", old_pos)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
