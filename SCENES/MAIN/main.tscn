@@ -117,7 +117,6 @@ color = Color(0.101961, 0.101961, 0.101961, 1)
 script = ExtResource("8_5nt50")
 
 [node name="about" type="Panel" parent="."]
-visible = false
 custom_minimum_size = Vector2(600, 320)
 layout_mode = 1
 anchors_preset = 8
@@ -182,7 +181,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 bbcode_enabled = true
 text = "[center]GEAR STUDIO
-BETA 1
+0.2.0 (Oct 3rd 2024)
 
 by ALT_OhDude ([url={https://github.com/saltern}]Github[/url])."
 fit_content = true
