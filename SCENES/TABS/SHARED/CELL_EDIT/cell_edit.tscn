@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_visibility.gd" id="18_u7qgc"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_x.gd" id="19_vpw2d"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_y.gd" id="20_i2dqh"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_parent.gd" id="21_or5ee"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview.gd" id="22_4xx0u"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/main_preview.gd" id="21_md3df"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/visualizer.gd" id="22_4xx0u"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="23_jn2pb"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="24_kifap"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
@@ -492,14 +492,14 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 
-[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("visualizer", "box_parent")]
+[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("box_parent", "visualizer")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("21_or5ee")
-visualizer = NodePath("visualizer")
+script = ExtResource("21_md3df")
 box_parent = NodePath("visualizer/origin/box_parent")
+visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="content/visualizer/borders/clipper"]
 position = Vector2(400, 400)
