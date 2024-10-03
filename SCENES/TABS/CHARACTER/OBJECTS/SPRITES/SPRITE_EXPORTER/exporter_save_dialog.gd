@@ -12,5 +12,4 @@ func _ready() -> void:
 
 func on_dir_selected(path: String) -> void:
 	SpriteExport.obj_data = sprite_edit.obj_data
-	SpriteExport.pal_data = sprite_edit.pal_data
 	SpriteExport.export(path)

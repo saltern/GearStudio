@@ -36,7 +36,6 @@ var sprite_reindex: bool = false
 var name_from_zero: bool = false
 
 var obj_data: ObjectData
-var pal_data: PaletteData
 
 var pal_gray: PackedByteArray
 
@@ -105,7 +104,7 @@ func export(output_path: String) -> void:
 	var palette: PackedByteArray = pal_gray
 	
 	if palette_include:
-		palette = pal_data.palettes[palette_index].palette
+		palette = obj_data.palette_get(palette_index).palette
 	
 	if export_bin:
 		var bin_palette_include: bool = palette_include
