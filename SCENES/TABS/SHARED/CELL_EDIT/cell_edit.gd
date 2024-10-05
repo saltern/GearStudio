@@ -45,7 +45,7 @@ var box_display_types: Dictionary = {
 	BoxTypes.SPAWN: true,
 }
 
-var palette: PackedByteArray
+#var palette: PackedByteArray
 var provider: PaletteProvider = PaletteProvider.new()
 
 
@@ -67,7 +67,7 @@ func _ready() -> void:
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	
-	palette = provider.palette_get_colors()
+	#palette = provider.palette_get_colors()
 	cell_load(0)
 
 
