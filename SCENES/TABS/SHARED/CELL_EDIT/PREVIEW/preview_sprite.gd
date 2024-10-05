@@ -117,4 +117,7 @@ func load_palette(index: int) -> void:
 
 
 func reload_palette() -> void:
-	load_palette(cell_edit.sprite_get_index())
+	if cell_edit.obj_data.has_palettes():
+		load_palette(palette_index)
+	else:
+		load_palette(cell_edit.sprite_get_index())
