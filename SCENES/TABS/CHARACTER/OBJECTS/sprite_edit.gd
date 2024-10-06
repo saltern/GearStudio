@@ -83,11 +83,11 @@ func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	
-	# Hardcoding yay
-	if obj_data.name == "player":
+	if obj_data.has_palettes():
 		pass
 	
 	else:
+		palette_index = sprite_index
 		provider.palette_load(sprite_index)
 	
 	sprite_updated.emit(this_sprite)
