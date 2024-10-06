@@ -1,4 +1,4 @@
-extends PanelContainer
+class_name ZoomablePreview extends PanelContainer
 
 @export var visualizer: Node2D
 

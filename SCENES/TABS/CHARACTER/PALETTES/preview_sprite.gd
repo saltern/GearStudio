@@ -14,7 +14,6 @@ func _ready() -> void:
 	provider.palette_updated.connect(on_palette_updated)
 	
 	on_sprite_changed(0)
-	#on_palette_updated(palette_edit.this_palette)
 
 
 func on_sprite_changed(new_index: int) -> void:

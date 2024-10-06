@@ -1,0 +1,230 @@
+[gd_scene load_steps=14 format=3 uid="uid://b4fya04yqkrn6"]
+
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/main_preview.gd" id="1_dlux1"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/visualizer.gd" id="2_boehu"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_1rscx"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="4_my5iu"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="5_00wbx"]
+[ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="6_3rqru"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="7_2mpaj"]
+[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="8_cug6b"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_eeh2t"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="10_shmj8"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_vc0uh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onbgg"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4d6u"]
+shader = ExtResource("6_3rqru")
+shader_parameter/alpha_double = false
+shader_parameter/reindex = true
+shader_parameter/hover_index = -1
+shader_parameter/highlight = null
+shader_parameter/palette = PackedInt32Array()
+
+[node name="script" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="visualizer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="title" type="Label" parent="HBoxContainer/visualizer"]
+layout_mode = 2
+text = "Preview"
+
+[node name="borders" type="PanelContainer" parent="HBoxContainer/visualizer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_onbgg")
+
+[node name="clipper" type="PanelContainer" parent="HBoxContainer/visualizer/borders" node_paths=PackedStringArray("box_parent", "visualizer")]
+texture_filter = 1
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_dlux1")
+box_parent = NodePath("visualizer/origin/box_parent")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="HBoxContainer/visualizer/borders/clipper"]
+position = Vector2(400, 400)
+script = ExtResource("2_boehu")
+
+[node name="background_a" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("3_1rscx")
+
+[node name="background_b" type="TextureRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_my5iu")
+stretch_mode = 1
+script = ExtResource("5_00wbx")
+
+[node name="origin" type="Control" parent="HBoxContainer/visualizer/borders/clipper/visualizer"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="guide" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 4000)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2000.0
+offset_right = 1.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+[node name="guide_horz" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 2)
+layout_mode = 0
+offset_left = -2000.0
+offset_top = 1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+mouse_filter = 2
+
+[node name="onion" type="Control" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("onion_index", "front_toggle")]
+material = SubResource("ShaderMaterial_p4d6u")
+anchors_preset = 0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
+script = ExtResource("7_2mpaj")
+onion_index = NodePath("")
+front_toggle = NodePath("")
+
+[node name="sprite" type="Control" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin"]
+material = ExtResource("8_cug6b")
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("9_eeh2t")
+
+[node name="box_parent" type="Control" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("10_shmj8")
+box_type = NodePath("")
+
+[node name="origin_cross" type="Control" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_vc0uh")
+
+[node name="vert_bg" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -21.0
+offset_right = 2.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="horz_bg" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -2.0
+offset_right = 21.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vert_fg" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -20.0
+offset_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="horz_fg" type="ColorRect" parent="HBoxContainer/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -1.0
+offset_right = 20.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

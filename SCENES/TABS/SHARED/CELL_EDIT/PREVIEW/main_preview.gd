@@ -1,4 +1,4 @@
-extends "res://SCENES/TABS/SHARED/zoomable_preview.gd"
+extends ZoomablePreview
 
 @export var box_parent: Control
 

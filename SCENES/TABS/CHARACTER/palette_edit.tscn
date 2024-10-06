@@ -6,14 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="4_612b6"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/window_summon_button.gd" id="5_ylny5"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="5_ylny5"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="7_nwdex"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="8_7jrqg"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_import_window.gd" id="9_iqtpw"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="9_iqtpw"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="9_tj8hv"]
-[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/OBJECTS/SPRITES/palette_export_window.gd" id="10_dqgeq"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_export_window.gd" id="10_dqgeq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
 draw_center = false
