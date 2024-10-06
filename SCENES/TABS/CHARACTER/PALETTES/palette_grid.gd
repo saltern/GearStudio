@@ -136,7 +136,7 @@ func _input(event: InputEvent) -> void:
 		KEY_TAB:
 			selection_box = !selection_box
 			if is_dragging:
-				provider.colors_selecting = get_selection()
+				selecting = get_selection()
 				shader_set_highlight()
 		
 		KEY_C:
@@ -158,8 +158,14 @@ func _gui_input(event: InputEvent) -> void:
 	if event.position.x > 16 * (CELL_SIZE + 1):
 		return
 	
-	if event.position.y > 16 * (CELL_SIZE + 1):
-		return
+	match provider.palette_get_color_count():
+		16:
+			if event.position.y > CELL_SIZE + 1:
+				return
+		
+		256:
+			if event.position.y > 16 * (CELL_SIZE + 1):
+				return
 	
 	if event is InputEventMouseMotion:
 		var at: Vector2i = event.position
@@ -197,7 +203,7 @@ func mouse_click(pressed: bool, at: Vector2i, subtractive: bool) -> void:
 		# Click and drag
 		if is_dragging:
 			selection_end = get_color_index_at(at)
-			provider.colors_selecting = get_selection()
+			selecting = get_selection()
 		
 		else:
 			color_hover(get_color_index_at(at))
