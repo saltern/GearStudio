@@ -4,11 +4,16 @@ extends SpinBox
 
 
 func _ready() -> void:
-	min_value = 0
-	max_value = sprite_edit.sprite_get_count() - 1
-
 	value_changed.connect(on_range_start_changed)
+	sprite_edit.sprites_deleted.connect(update_range)
+	SpriteImport.sprite_placement_finished.connect(update_range)
+	update_range()
 
 
 func on_range_start_changed(new_value: int) -> void:
 	SpriteExport.set_export_start_index(new_value)
+
+
+func update_range() -> void:
+	min_value = 0
+	max_value = sprite_edit.sprite_get_count() - 1
