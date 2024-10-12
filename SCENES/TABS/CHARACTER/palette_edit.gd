@@ -11,7 +11,6 @@ func _enter_tree() -> void:
 	
 	if not obj_data.has_palettes():
 		queue_free()
-		return
 	
 	provider.obj_data = obj_data
 
