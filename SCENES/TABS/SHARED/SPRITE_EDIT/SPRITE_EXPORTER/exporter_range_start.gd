@@ -5,7 +5,6 @@ extends SpinBox
 
 func _ready() -> void:
 	value_changed.connect(on_range_start_changed)
-	sprite_edit.sprites_deleted.connect(update_range)
 	SpriteImport.sprite_placement_finished.connect(update_range)
 	update_range()
 

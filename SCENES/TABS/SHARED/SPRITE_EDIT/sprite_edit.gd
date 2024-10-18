@@ -1,9 +1,6 @@
 class_name SpriteEdit extends MarginContainer
 
-signal sprites_deleted
-
 signal sprite_updated
-signal palette_updated
 
 var undo: UndoRedo = UndoRedo.new()
 
