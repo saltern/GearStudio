@@ -121,7 +121,7 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 					insert_position, sprites[sprites.size() - i - 1]
 				)
 	
-	call_deferred("emit_signal", "sprite_placement_finished")
+	sprite_placement_finished.emit.call_deferred()
 
 
 func get_preview_sprite_path() -> String:
