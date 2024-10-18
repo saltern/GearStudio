@@ -56,13 +56,13 @@ func handle_pan_drag(event: InputEventMouseMotion) -> bool:
 	return false
 
 
-func mouse_button(event: InputEventMouseButton) -> void:
+func mouse_button(_event: InputEventMouseButton) -> void:
 	pass
 
 
-func mouse_motion(event: InputEventMouseMotion) -> void:
+func mouse_motion(_event: InputEventMouseMotion) -> void:
 	pass
 
 
-func keyboard(event: InputEventKey) -> void:
+func keyboard(_event: InputEventKey) -> void:
 	pass
