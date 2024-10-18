@@ -67,7 +67,6 @@ func _ready() -> void:
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	
-	#palette = provider.palette_get_colors()
 	cell_load(0)
 
 
@@ -189,8 +188,7 @@ func cell_load(index: int) -> void:
 	cell_updated.emit(this_cell)
 	boxes_selected.resize(0)
 	
-	#Status.set_status("Loaded cell #%s." % index)
-	Status.set_status("Unknown = %s" % this_cell.sprite_info.unknown)
+	Status.set_status("Loaded cell #%s." % index)
 
 
 func cell_ensure_selected(cell: Cell) -> void:
