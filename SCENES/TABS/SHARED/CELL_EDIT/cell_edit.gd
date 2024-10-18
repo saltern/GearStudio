@@ -45,7 +45,6 @@ var box_display_types: Dictionary = {
 	BoxTypes.SPAWN: true,
 }
 
-#var palette: PackedByteArray
 var provider: PaletteProvider = PaletteProvider.new()
 
 
