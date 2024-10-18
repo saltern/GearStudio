@@ -5,8 +5,9 @@ signal palette_selected
 
 var name: String
 var sprites: Array[BinSprite] = []
-var palette_data: PaletteData = PaletteData.new()
 var cells: Array[Cell] = []
+var palette_data: PaletteData = PaletteData.new()
+var object_script: ObjectScript
 
 
 func serialize_and_save(path: String) -> void:
@@ -92,11 +93,6 @@ func load_sprites_from_path(path: String) -> bool:
 	sprites = SpriteLoadSave.load_sprites(path)
 
 	return true
-
-
-func load_palette_data_from_path(path: String) -> bool:
-	palette_data.load_palettes_from_path(path)
-	return palette_data.palettes.size() > 0
 	
 
 func load_cells_from_path(path: String) -> bool:
@@ -108,6 +104,16 @@ func load_cells_from_path(path: String) -> bool:
 		cells.append(Cell.from_file(file))
 	
 	return true
+
+
+func load_palette_data_from_path(path: String) -> bool:
+	palette_data.load_palettes_from_path(path)
+	return palette_data.palettes.size() > 0
+
+
+#func load_script_from_file(path: String) -> bool:
+	#object_script = ObjectScript.from_file(path)
+	#return object_script.actions.size() > 0
 
 
 # Surprisingly fast
@@ -124,6 +130,10 @@ func sprite_get(index: int) -> BinSprite:
 		return sprites[index]
 	else:
 		return BinSprite.new()
+
+
+func sprite_get_count() -> int:
+	return sprites.size()
 
 
 func has_palettes() -> bool:
