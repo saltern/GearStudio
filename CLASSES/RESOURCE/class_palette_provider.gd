@@ -12,8 +12,6 @@ var sprite_index: int = 0
 var sprite: BinSprite
 
 var bit_depth: int
-var color_count: int
-
 var color_index: int = 0
 
 
@@ -137,11 +135,9 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 	var new_palette: PackedByteArray
 	
 	if obj_data.has_palettes():
-		undo_redo.create_action("Sprite #%s set color(s)" % sprite_index)
 		old_palette = palette.palette.duplicate()
 		new_palette = palette.palette.duplicate()
 	else:
-		undo_redo.create_action("Palette #%s set color(s)" % palette_index)
 		old_palette = sprite.palette.duplicate()
 		new_palette = sprite.palette.duplicate()
 	
@@ -154,28 +150,35 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		new_palette[4 * index + 2] = color.b8
 		new_palette[4 * index + 3] = color.a8
 	
+	# palette_updated signal needs to happen before palette_load call
+	
 	if obj_data.has_palettes():
+		undo_redo.create_action("Palette #%s set color(s)" % palette_index)
+		
 		undo_redo.add_do_property(palette, "palette", new_palette)
+		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_do_method(palette_load.bind(palette_index))
 		
 		undo_redo.add_undo_property(palette, "palette", old_palette)
+		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	else:
+		undo_redo.create_action("Sprite #%s set color(s)" % sprite_index)
+		
 		undo_redo.add_do_property(sprite, "palette", new_palette)
+		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_do_method(palette_load.bind(sprite_index))
 	
 		undo_redo.add_undo_property(sprite, "palette", old_palette)
+		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
-	
-	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
-	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 	
 	undo_redo.commit_action()
 
 
 func palette_paste_color(at_index: int) -> void:
-	var color_count: int = palette_get_color_count()
+	var colors: int = palette_get_color_count()
 	
 	var old_palette: PackedByteArray
 	var new_palette: PackedByteArray
@@ -191,21 +194,21 @@ func palette_paste_color(at_index: int) -> void:
 	var start_index: int = 0
 	var current_color: int = 0
 	
-	for cell in color_count:
+	for cell in colors:
 		if Clipboard.pal_selection[cell]:
 			start_index = cell
 			break
 	
-	if at_index < 0 || at_index > color_count - 1:
+	if at_index < 0 || at_index > colors - 1:
 		return
 	
-	for cell in color_count:
+	for cell in colors:
 		var this_index: int = at_index - start_index + cell
 		
 		if !Clipboard.pal_selection[cell]:
 			continue
 		
-		if this_index < 0 || this_index > color_count - 1:
+		if this_index < 0 || this_index > colors - 1:
 			continue
 		
 		new_palette[4 * this_index + 0] = Clipboard.pal_data[current_color].r8
@@ -251,18 +254,22 @@ func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> v
 		undo_redo.create_action("Palette #%s paste color(s)" % palette_index)
 		
 		undo_redo.add_do_property(palette, "palette", new)
+		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_do_method(palette_load.bind(palette_index))
 		
 		undo_redo.add_undo_property(palette, "palette", old)
+		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	else:
 		undo_redo.create_action("Sprite #%s paste color(s)" % sprite_index)
 		
 		undo_redo.add_do_property(sprite, "palette", new)
+		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_do_method(palette_load.bind(sprite_index))
 		
 		undo_redo.add_undo_property(sprite, "palette", old)
+		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
 		
 	undo_redo.commit_action()
