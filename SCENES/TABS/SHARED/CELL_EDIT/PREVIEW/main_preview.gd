@@ -97,7 +97,6 @@ func _input(event: InputEvent) -> void:
 			visualizer.zoom_out()
 			
 
-
 func guide_cycle_mode() -> void:
 	guide_mode = wrapi(guide_mode + 1, 0, GuideMode.MAX) as GuideMode
 	cell_edit.box_set_draw_mode(false)
