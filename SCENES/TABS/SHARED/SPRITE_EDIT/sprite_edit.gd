@@ -15,7 +15,7 @@ var this_sprite: BinSprite
 var palette_index: int
 var this_palette: BinPalette
 
-@export var sprite_bounds: Control
+@export var sprite_index_spinbox: SpinBox
 
 @export var info_dimensions: Label
 @export var info_color_depth: Label
@@ -50,9 +50,17 @@ func _input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("undo"):
 		provider.undo()
+		if not obj_data.has_palettes():
+			sprite_set(provider.sprite_index)
+			sprite_index_spinbox.call_deferred(
+				"set_value_no_signal", sprite_index)
 	
 	if Input.is_action_just_pressed("redo"):
 		provider.redo()
+		if not obj_data.has_palettes():
+			sprite_set(provider.sprite_index)
+			sprite_index_spinbox.call_deferred(
+				"set_value_no_signal", sprite_index)
 
 
 func get_provider() -> PaletteProvider:

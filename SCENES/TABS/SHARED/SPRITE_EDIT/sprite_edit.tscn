@@ -86,7 +86,7 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.635294)
 shadow_offset = Vector2(0, 0)
 
-[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("info_dimensions", "info_color_depth", "info_embedded_pal")]
+[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,6 +94,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_ogryx")
+sprite_index_spinbox = NodePath("content/left_panel/scroll/margin/side_panel/data/sprite_index/value")
 info_dimensions = NodePath("content/left_panel/scroll/margin/side_panel/data/dimensions/value")
 info_color_depth = NodePath("content/left_panel/scroll/margin/side_panel/data/color_depth/value")
 info_embedded_pal = NodePath("content/left_panel/scroll/margin/side_panel/data/embedded_pal/value")
