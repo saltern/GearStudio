@@ -564,6 +564,29 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
+[node name="onion" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("onion_index", "front_toggle")]
+material = SubResource("ShaderMaterial_k4855")
+anchors_preset = 0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
+script = ExtResource("25_4rpsl")
+onion_index = NodePath("../../../../../../scroll/margin/data/onion/value")
+front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
+
+[node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
+material = ExtResource("26_gliws")
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("27_na53u")
+
+[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("28_h6aqa")
+box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
+
 [node name="user_guide_h" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
 visible = false
 custom_minimum_size = Vector2(6000, 1)
@@ -603,29 +626,6 @@ script = ExtResource("26_q1wae")
 [node name="user_guides" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 anchors_preset = 0
 script = ExtResource("27_vdvp0")
-
-[node name="onion" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("onion_index", "front_toggle")]
-material = SubResource("ShaderMaterial_k4855")
-anchors_preset = 0
-offset_left = -128.0
-offset_top = -128.0
-offset_right = -128.0
-offset_bottom = -128.0
-script = ExtResource("25_4rpsl")
-onion_index = NodePath("../../../../../../scroll/margin/data/onion/value")
-front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
-
-[node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
-material = ExtResource("26_gliws")
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("27_na53u")
-
-[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("28_h6aqa")
-box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
 
 [node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
 visible = false

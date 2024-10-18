@@ -104,24 +104,22 @@ func guide_cycle_mode() -> void:
 	
 	user_guide_h.hide()
 	user_guide_v.hide()
+	Status.set_status("Guide placement mode: disabled.")
 	
 	match guide_mode:
 		GuideMode.HORIZONTAL:
 			user_guide_h.show()
-			Status.set_status("Guide placement mode: horizontal line")
+			Status.set_status("Guide placement mode: horizontal line.")
 			
 		GuideMode.VERTICAL:
 			user_guide_v.show()
-			Status.set_status("Guide placement mode: vertical line")
+			Status.set_status("Guide placement mode: vertical line.")
 
 		GuideMode.BOTH:
 			user_guide_h.show()
 			user_guide_v.show()
-			Status.set_status("Guide placement mode: cross")
-		
-		_:
-			Status.set_status("Guide placement mode: disabled")
-	
+			Status.set_status("Guide placement mode: cross.")
+
 
 func guide_place() -> void:
 	if guide_mode % 2 == 1:
@@ -137,3 +135,4 @@ func guide_place() -> void:
 
 func guide_remove_all() -> void:
 	user_guides.clear_guides()
+	Status.set_status("All guides removed.")

@@ -72,7 +72,7 @@ var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
 
 var cell_draw_origin: bool = true
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
-var cell_guide: Color = Color.RED
+var cell_guide: Color = Color8(255, 0, 0, 0xA0)
 
 var box_thickness: int = 2
 var box_colors: Array[Color] = [
