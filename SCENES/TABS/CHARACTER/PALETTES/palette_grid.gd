@@ -26,6 +26,9 @@ var selecting: Array[bool] = []
 
 
 func _ready() -> void:
+	# Remove focus from other controls when clicking on this one
+	focus_mode = FocusMode.FOCUS_CLICK
+	
 	selected.resize(256)
 	selecting.resize(256)
 	
