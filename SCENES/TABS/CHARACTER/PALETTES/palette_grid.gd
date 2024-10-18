@@ -2,12 +2,14 @@ class_name PaletteGrid extends GridContainer
 
 signal color_selected
 
-@export var sprite_mode: bool
 @export var preview: TextureRect
 @export var color_picker: ColorPicker
 
 const CELL_SIZE: int = 16
 const GRID_SIZE: int = CELL_SIZE + 1
+
+var cell_texture: Texture2D = preload(
+	"res://GRAPHICS/CHECKERBOARD_PAL.PNG")
 
 var provider: PaletteProvider
 
@@ -28,8 +30,8 @@ func _ready() -> void:
 	selecting.resize(256)
 	
 	provider = get_owner().get_provider()
-	
-	if sprite_mode and provider.obj_data.has_palettes():
+
+	if owner is SpriteEdit and provider.obj_data.has_palettes():
 		get_parent().queue_free()
 		return
 	
@@ -58,7 +60,7 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	var color_count: int = provider.palette_get_color_count()
 	
-	for cell in color_count:
+	for cell in min(get_child_count(), color_count):
 		#region Selection in progress (prioritized)
 		if selecting[cell]:
 			# Inner black outline
@@ -96,7 +98,7 @@ func _draw() -> void:
 					GRID_SIZE - 3),
 				Color.RED, false, 2)
 		#endregion
-	
+		
 	if Input.is_key_pressed(KEY_CTRL):
 		draw_paste_region()
 		
@@ -308,13 +310,26 @@ func draw_paste_at_cursor() -> void:
 		if this_index < 0 || this_index > color_count - 1:
 			continue
 		
+		# Draw background cell
+		draw_texture_rect(cell_texture,
+			Rect2(
+				GRID_SIZE * (this_index % 16) - 1,
+				GRID_SIZE * (this_index / 16) - 1,
+				cell_texture.get_size().x,
+				cell_texture.get_size().y,
+			), false)
+		
+		# Double alpha of preview color
+		var preview_color: Color = Clipboard.pal_data[current_color]
+		preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
+		
 		# Actual color to paste
 		draw_rect(Rect2(
 				GRID_SIZE * (this_index % 16),
 				GRID_SIZE * (this_index / 16),
 				CELL_SIZE,
 				CELL_SIZE),
-			Clipboard.pal_data[current_color])
+			preview_color)
 		
 		current_color += 1
 		
@@ -339,13 +354,26 @@ func draw_paste_at_selection() -> void:
 	
 	for index in color_count:
 		if selected[index]:
+			# Draw background cell
+			draw_texture_rect(cell_texture,
+				Rect2(
+					GRID_SIZE * (index % 16) - 1,
+					GRID_SIZE * (index / 16) - 1,
+					cell_texture.get_size().x,
+					cell_texture.get_size().y,
+				), false)
+			
+			# Double alpha of preview color
+			var preview_color: Color = Clipboard.pal_data[current_color]
+			preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
+		
 			# Color preview
 			draw_rect(Rect2(
 					GRID_SIZE * (index % 16),
 					GRID_SIZE * (index / 16),
 					CELL_SIZE,
 					CELL_SIZE),
-				Clipboard.pal_data[current_color])
+				preview_color)
 			
 			current_color = wrapi(
 				current_color + 1, 0, Clipboard.pal_data.size())

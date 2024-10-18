@@ -271,7 +271,6 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("9_c4mug")
-sprite_mode = true
 preview = NodePath("../../../../../../../visualizer/borders/clipper/visualizer/sprite")
 color_picker = NodePath("../../../../../../../pal_edit/color_picker/picker")
 
