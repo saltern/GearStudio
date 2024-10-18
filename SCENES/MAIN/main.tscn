@@ -120,7 +120,8 @@ script = ExtResource("8_5nt50")
 
 [node name="about" type="Panel" parent="."]
 visible = false
-custom_minimum_size = Vector2(600, 320)
+z_index = 1
+custom_minimum_size = Vector2(650, 380)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -168,6 +169,7 @@ text = "[center]ACKNOWLEDGMENTS
 [b]lovenus[/b]
 [url={https://github.com/MoonSquaredd}]Github[/url]
 - Parsers for various other resource files
+- Additional info and research into +R
 
 [b]Chloe (@chloegoaty)[/b]
 - Testing, various improvement suggestions"
@@ -185,7 +187,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 bbcode_enabled = true
 text = "[center]GEAR STUDIO
-0.2.0 (Oct 3rd 2024)
+0.3.0 (Oct 18th 2024)
 
 by ALT_OhDude ([url={https://github.com/saltern}]Github[/url])."
 fit_content = true
