@@ -1,6 +1,6 @@
 extends Control
 
-@onready var cell_edit: CellEdit = get_owner()
+@onready var script_edit: ScriptEdit = get_owner()
 
 var palette_index: int = 0
 
@@ -11,24 +11,19 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
-	cell_edit.cell_updated.connect(on_cell_update)
-	cell_edit.box_updated.connect(on_box_update)
-	cell_edit.obj_data.palette_updated.connect(reload_palette)
-	cell_edit.obj_data.palette_selected.connect(load_palette)
+	script_edit.cell_loaded.connect(on_cell_loaded)
+	script_edit.obj_data.palette_updated.connect(reload_palette)
+	script_edit.obj_data.palette_selected.connect(load_palette)
 
 
-func on_cell_update(cell: Cell) -> void:
-	if cell.sprite_info.index < cell_edit.sprite_get_count():
+func on_cell_loaded(cell: Cell) -> void:
+	if cell.sprite_info.index < script_edit.obj_data.sprite_get_count():
 		load_cell_sprite(cell.sprite_info.index, cell.boxes)
 	
 	else:
 		unload_sprite()
 		
 	position = cell.sprite_info.position
-
-
-func on_box_update(_box: BoxInfo) -> void:
-	on_cell_update(cell_edit.this_cell)
 
 
 func unload_sprite() -> void:
@@ -61,9 +56,9 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
-	var sprite: BinSprite = cell_edit.sprite_get(index)
+	var sprite: BinSprite = script_edit.obj_data.sprite_get(index)
 	
-	if not cell_edit.obj_data.has_palettes():
+	if not script_edit.obj_data.has_palettes():
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	var source_image := sprite.image
@@ -103,11 +98,11 @@ func load_cell_sprite_pieces(
 
 func get_palette(index: int) -> PackedByteArray:
 	# Global palette
-	if cell_edit.obj_data.has_palettes():
-		return cell_edit.obj_data.palette_get(palette_index).palette
+	if script_edit.obj_data.has_palettes():
+		return script_edit.obj_data.palette_get(palette_index).palette
 	
 	# Embedded palette
-	var sprite: BinSprite = cell_edit.sprite_get(index)
+	var sprite: BinSprite = script_edit.obj_data.sprite_get(index)
 	return sprite.palette
 
 
@@ -117,7 +112,7 @@ func load_palette(index: int) -> void:
 
 
 func reload_palette() -> void:
-	if cell_edit.obj_data.has_palettes():
+	if script_edit.obj_data.has_palettes():
 		load_palette(palette_index)
 	else:
-		load_palette(cell_edit.sprite_get_index())
+		load_palette(script_edit.sprite_get_index())
