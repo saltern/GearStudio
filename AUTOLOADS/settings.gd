@@ -16,6 +16,8 @@ signal custom_color_status_changed
 signal draw_origin_changed
 @warning_ignore("unused_signal")
 signal onion_color_changed
+@warning_ignore("unused_signal")
+signal guide_color_changed
 
 # Sprites
 signal sprite_bounds_color_changed
@@ -28,8 +30,9 @@ const CFG_CUSTOM_BG_B: String = "color_bg_b"
 const CFG_CUSTOM_STATUS: String = "color_status"
 
 const CFG_SECTION_CELLS: String = "cells"
-const CFG_CELL_ONION: String = "onion_color"
 const CFG_CELL_ORIGIN: String = "draw_origin"
+const CFG_CELL_ONION: String = "onion_color"
+const CFG_CELL_GUIDE: String = "guide_color"
 
 const CFG_SECTION_BOXES: String = "boxes"
 const CFG_BOX_THICKNESS: String = "thickness"
@@ -69,6 +72,7 @@ var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
 
 var cell_draw_origin: bool = true
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
+var cell_guide: Color = Color.RED
 
 var box_thickness: int = 2
 var box_colors: Array[Color] = [
@@ -114,6 +118,8 @@ func load_config() -> bool:
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
 	cell_onion_skin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
+	cell_guide = config.get_value(
+		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
 	box_colors = [
@@ -150,6 +156,8 @@ func save_config() -> bool:
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin)
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
+	config.set_value(
+		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
 	
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_THICKNESS, box_thickness)

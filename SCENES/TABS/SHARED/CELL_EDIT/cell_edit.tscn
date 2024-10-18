@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=36 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
@@ -28,7 +28,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="25_4scjx"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/user_guide.gd" id="26_q1wae"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/user_guides_parent.gd" id="27_vdvp0"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
 
@@ -489,13 +491,17 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 
-[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("box_parent", "visualizer")]
+[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("box_parent", "origin_point", "user_guide_h", "user_guide_v", "user_guides", "visualizer")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("21_md3df")
 box_parent = NodePath("visualizer/origin/box_parent")
+origin_point = NodePath("visualizer/origin")
+user_guide_h = NodePath("visualizer/origin/user_guide_h")
+user_guide_v = NodePath("visualizer/origin/user_guide_v")
+user_guides = NodePath("visualizer/origin/user_guides")
 visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="content/visualizer/borders/clipper"]
@@ -558,6 +564,46 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
+[node name="user_guide_h" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+visible = false
+custom_minimum_size = Vector2(6000, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -1.0
+offset_right = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+script = ExtResource("26_q1wae")
+
+[node name="user_guide_v" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
+visible = false
+custom_minimum_size = Vector2(1, 6000)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+script = ExtResource("26_q1wae")
+
+[node name="user_guides" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
+anchors_preset = 0
+script = ExtResource("27_vdvp0")
+
 [node name="onion" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("onion_index", "front_toggle")]
 material = SubResource("ShaderMaterial_k4855")
 anchors_preset = 0
@@ -582,6 +628,7 @@ script = ExtResource("28_h6aqa")
 box_type = NodePath("../../../../../../scroll/margin/data/boxes/editable/type/value")
 
 [node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
