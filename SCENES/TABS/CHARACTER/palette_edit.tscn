@@ -73,6 +73,7 @@ text = "Palette number"
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
+alignment = 2
 script = ExtResource("3_nhpkb")
 
 [node name="h_sep" type="HSeparator" parent="scroll/margin/content/data"]
@@ -196,6 +197,7 @@ text = "Sprite #"
 [node name="value" type="SpinBox" parent="scroll/margin/content/data/editors/preview/sprite"]
 layout_mode = 2
 size_flags_horizontal = 10
+alignment = 2
 
 [node name="preview" type="PanelContainer" parent="scroll/margin/content/data/editors/preview"]
 clip_contents = true
