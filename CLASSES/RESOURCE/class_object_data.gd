@@ -1,6 +1,7 @@
 class_name ObjectData extends Resource
 
-signal palette_updated
+@warning_ignore("unused_signal")
+signal palette_updated		# Used by SpriteEdit
 signal palette_selected
 
 var name: String

@@ -1,7 +1,8 @@
 class_name PaletteProvider extends Resource
  
 signal palette_updated
-signal palette_imported
+@warning_ignore("unused_signal")
+signal palette_imported		# Used by SpriteEdit
 
 var undo_redo: UndoRedo = UndoRedo.new()
 
