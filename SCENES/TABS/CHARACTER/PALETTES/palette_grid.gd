@@ -172,6 +172,8 @@ func _gui_input(event: InputEvent) -> void:
 			if event.position.y > 16 * (CELL_SIZE + 1):
 				return
 	
+	grab_focus()
+	
 	if event is InputEventMouseMotion:
 		var at: Vector2i = event.position
 		color_hover(get_color_index_at(at))
