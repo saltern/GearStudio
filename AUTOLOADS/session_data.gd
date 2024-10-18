@@ -97,6 +97,9 @@ func tab_new(path: String) -> void:
 		if dir.dir_exists("%s/cells" % directory):
 			object_data.load_cells_from_path(path + "/%s/cells" % directory)
 		
+		#if dir.file_exists("%s/script.json" % directory):
+			#object_data.load_script_from_file(path + "/%s/script.json" % directory)
+		
 		if object_data.sprites.is_empty() and object_data.cells.is_empty():
 			continue
 		
