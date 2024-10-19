@@ -10,6 +10,28 @@ func _process(_delta: float) -> void:
 	queue_redraw()
 
 
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not event is InputEventKey:
+		return
+	
+	if not event.pressed:
+		return
+	
+	if event.echo:
+		return
+	
+	match event.keycode:
+		KEY_PAGEUP:
+			visualizer.zoom_in()
+		KEY_PAGEDOWN:
+			visualizer.zoom_out()
+		_:
+			keyboard(event)
+
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if not handle_zoom_pan(event):

@@ -73,28 +73,12 @@ func mouse_motion(event: InputEventMouseMotion) -> void:
 	box_parent.drag(event.position - visualizer.position)
 
 
-func _input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
-		return
-	
-	if not event is InputEventKey:
-		return
-	
-	if not event.pressed:
-		return
-	
-	if event.echo:
-		return
-	
+func keyboard(event: InputEventKey) -> void:
 	match event.keycode:
 		KEY_G:
 			guide_cycle_mode()
 		KEY_H:
 			guide_remove_all()
-		KEY_PAGEUP:
-			visualizer.zoom_in()
-		KEY_PAGEDOWN:
-			visualizer.zoom_out()
 			
 
 func guide_cycle_mode() -> void:
