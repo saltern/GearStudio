@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=19 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="5_ylny5"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="7_d35hw"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="7_nwdex"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/visualizer.gd" id="8_3mp4x"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="8_7jrqg"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="9_iqtpw"]
@@ -131,7 +133,7 @@ theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("5_ocm7y")
-preview = NodePath("../../../preview/preview/sprite_center/sprite")
+preview = NodePath("../../../preview/borders/clipper/visualizer/sprite")
 color_picker = NodePath("../../../color_edit/color_pick")
 
 [node name="import_export" type="HBoxContainer" parent="scroll/margin/content/data/editors/color_grid"]
@@ -199,21 +201,41 @@ layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
 
-[node name="preview" type="PanelContainer" parent="scroll/margin/content/data/editors/preview"]
+[node name="borders" type="PanelContainer" parent="scroll/margin/content/data/editors/preview"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_m215a")
 
-[node name="background_a" type="ColorRect" parent="scroll/margin/content/data/editors/preview/preview"]
-texture_filter = 1
+[node name="clipper" type="PanelContainer" parent="scroll/margin/content/data/editors/preview/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
 layout_mode = 2
+script = ExtResource("7_d35hw")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="scroll/margin/content/data/editors/preview/borders/clipper"]
+script = ExtResource("8_3mp4x")
+
+[node name="background_a" type="ColorRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("7_nwdex")
 
-[node name="background_b" type="TextureRect" parent="scroll/margin/content/data/editors/preview/preview/background_a"]
+[node name="background_b" type="TextureRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -226,14 +248,18 @@ texture = ExtResource("8_7jrqg")
 stretch_mode = 1
 script = ExtResource("9_tj8hv")
 
-[node name="sprite_center" type="CenterContainer" parent="scroll/margin/content/data/editors/preview/preview"]
-layout_mode = 2
-
-[node name="sprite" type="TextureRect" parent="scroll/margin/content/data/editors/preview/preview/sprite_center" node_paths=PackedStringArray("sprite_index")]
+[node name="sprite" type="TextureRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
+texture_filter = 1
 material = SubResource("ShaderMaterial_oa07j")
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("6_eajfu")
-sprite_index = NodePath("../../../sprite/value")
+sprite_index = NodePath("../../../../sprite/value")
 
 [node name="gradient_menu" type="PopupMenu" parent="."]
 size = Vector2i(77, 80)

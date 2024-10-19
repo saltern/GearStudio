@@ -765,14 +765,34 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 
-[node name="background_a" type="ColorRect" parent="sprite_import/background/content_margin/window_content/preview/borders"]
-texture_filter = 1
+[node name="clipper" type="PanelContainer" parent="sprite_import/background/content_margin/window_content/preview/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
 layout_mode = 2
+script = ExtResource("35_8a50l")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper"]
+script = ExtResource("35_m8wg2")
+
+[node name="background_a" type="ColorRect" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("13_htehq")
 
-[node name="background_b" type="TextureRect" parent="sprite_import/background/content_margin/window_content/preview/borders/background_a"]
+[node name="background_b" type="TextureRect" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -785,24 +805,32 @@ texture = ExtResource("14_pyfkm")
 stretch_mode = 1
 script = ExtResource("15_uhgr3")
 
-[node name="scroll" type="ScrollContainer" parent="sprite_import/background/content_margin/window_content/preview/borders"]
-layout_mode = 2
-
-[node name="center" type="CenterContainer" parent="sprite_import/background/content_margin/window_content/preview/borders/scroll"]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="sprite" type="TextureRect" parent="sprite_import/background/content_margin/window_content/preview/borders/scroll/center" node_paths=PackedStringArray("invalid_file")]
+[node name="sprite" type="TextureRect" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer" node_paths=PackedStringArray("invalid_file")]
+texture_filter = 1
 material = ExtResource("52_mpstw")
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("41_616vi")
 invalid_file = NodePath("../invalid")
 
-[node name="invalid" type="Label" parent="sprite_import/background/content_margin/window_content/preview/borders/scroll/center"]
+[node name="invalid" type="Label" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer"]
 visible = false
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -163.5
+offset_top = -11.5
+offset_right = 163.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "The file was not found or is not a valid sprite."
 label_settings = SubResource("LabelSettings_gwjl0")
 horizontal_alignment = 1
@@ -1182,21 +1210,41 @@ script = ExtResource("23_vt36f")
 sprite_range_start = NodePath("../../../config_contents/config_scroll/config_margin/config/range/start/value")
 sprite_range_end = NodePath("../../../config_contents/config_scroll/config_margin/config/range/end/value")
 
-[node name="preview_panel" type="PanelContainer" parent="sprite_export/background/content_margin/window_content/preview"]
-clip_contents = true
+[node name="borders" type="PanelContainer" parent="sprite_export/background/content_margin/window_content/preview"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 
-[node name="background_a" type="ColorRect" parent="sprite_export/background/content_margin/window_content/preview/preview_panel"]
-texture_filter = 1
+[node name="clipper" type="PanelContainer" parent="sprite_export/background/content_margin/window_content/preview/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
 layout_mode = 2
+script = ExtResource("35_8a50l")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="sprite_export/background/content_margin/window_content/preview/borders/clipper"]
+position = Vector2(301, 279)
+script = ExtResource("35_m8wg2")
+
+[node name="background_a" type="ColorRect" parent="sprite_export/background/content_margin/window_content/preview/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("13_htehq")
 
-[node name="background_b" type="TextureRect" parent="sprite_export/background/content_margin/window_content/preview/preview_panel/background_a"]
+[node name="background_b" type="TextureRect" parent="sprite_export/background/content_margin/window_content/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1209,14 +1257,18 @@ texture = ExtResource("14_pyfkm")
 stretch_mode = 1
 script = ExtResource("15_uhgr3")
 
-[node name="center" type="CenterContainer" parent="sprite_export/background/content_margin/window_content/preview/preview_panel"]
-layout_mode = 2
-
-[node name="sprite" type="TextureRect" parent="sprite_export/background/content_margin/window_content/preview/preview_panel/center" node_paths=PackedStringArray("sprite_index_spinbox")]
+[node name="sprite" type="TextureRect" parent="sprite_export/background/content_margin/window_content/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index_spinbox")]
+texture_filter = 1
 material = ExtResource("18_ebg8o")
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("24_s7ufg")
-sprite_index_spinbox = NodePath("../../../title/sprite_index")
+sprite_index_spinbox = NodePath("../../../../title/sprite_index")
 
 [node name="sprite_export_path" type="FileDialog" parent="." node_paths=PackedStringArray("export_button")]
 title = "Open a Directory"
@@ -1338,19 +1390,39 @@ script = ExtResource("54_kmxcs")
 delete_from = NodePath("../../../config/from/value")
 delete_to = NodePath("../../../config/to/value")
 
-[node name="preview_panel" type="PanelContainer" parent="sprite_delete/bg_panel/margin/content/preview"]
+[node name="borders" type="PanelContainer" parent="sprite_delete/bg_panel/margin/content/preview"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 
-[node name="background_a" type="ColorRect" parent="sprite_delete/bg_panel/margin/content/preview/preview_panel"]
-texture_filter = 1
+[node name="clipper" type="PanelContainer" parent="sprite_delete/bg_panel/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
 layout_mode = 2
+script = ExtResource("35_8a50l")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper"]
+script = ExtResource("35_m8wg2")
+
+[node name="background_a" type="ColorRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("13_htehq")
 
-[node name="background_b" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/preview_panel/background_a"]
+[node name="background_b" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1363,17 +1435,16 @@ texture = ExtResource("14_pyfkm")
 stretch_mode = 1
 script = ExtResource("15_uhgr3")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="sprite_delete/bg_panel/margin/content/preview/preview_panel"]
-layout_mode = 2
-
-[node name="content" type="CenterContainer" parent="sprite_delete/bg_panel/margin/content/preview/preview_panel/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="sprite" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/preview_panel/ScrollContainer/content" node_paths=PackedStringArray("sprite_index")]
+[node name="sprite" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
+texture_filter = 1
 material = ExtResource("61_n3lvp")
-layout_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("55_oqxu8")
 sprite_index = NodePath("../../../../sprite_index/value")
 
