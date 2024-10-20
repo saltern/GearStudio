@@ -1,5 +1,7 @@
 extends Node2D
 
+const MAX_ZOOM: int = 8
+
 
 func _ready() -> void:
 	center_view()
@@ -21,12 +23,14 @@ func center_view() -> void:
 
 
 func zoom_in() -> void:	
-	if scale == Vector2(4,4):
+	if scale == Vector2(MAX_ZOOM, MAX_ZOOM):
 		Status.set_status("Already at max zoom!")
 		return
 	
 	var parent_center: Vector2 = get_parent().size / 2
 	var offset_from_center: Vector2 = (position - parent_center) / scale
+	offset_from_center.x = ceil(offset_from_center.x)
+	offset_from_center.y = ceil(offset_from_center.y)
 	
 	scale += Vector2.ONE
 	clamp_zoom()
@@ -45,6 +49,8 @@ func zoom_out() -> void:
 	
 	var parent_center: Vector2 = get_parent().size / 2
 	var offset_from_center: Vector2 = (position - parent_center) / scale
+	offset_from_center.x = ceil(offset_from_center.x)
+	offset_from_center.y = ceil(offset_from_center.y)
 	
 	scale -= Vector2.ONE
 	clamp_zoom()
@@ -57,5 +63,5 @@ func zoom_out() -> void:
 
 func clamp_zoom() -> void:
 	scale = Vector2(
-		clampi(scale.x, 1, 4),
-		clampi(scale.y, 1, 4))
+		clampi(scale.x, 1, MAX_ZOOM),
+		clampi(scale.y, 1, MAX_ZOOM))
