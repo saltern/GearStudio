@@ -23,6 +23,7 @@ var obj_data: ObjectData
 
 var cell_index: int
 var this_cell: Cell
+var cell_clipboard: Cell
 
 var boxes_selected: Array[int] = []
 var box_drawing_mode: bool
@@ -196,6 +197,13 @@ func cell_ensure_selected(cell: Cell) -> void:
 		cell_updated.emit(cell)
 
 
+# Toolbar buttons
+# Delete Cell
+func cell_delete(_from: int, _to: int) -> void:
+	cell_count_changed.emit()
+
+
+# Add Cell
 func cell_new(after: bool = false) -> void:
 	var new_cell: Cell = Cell.new()
 	var new_sprite_info: SpriteInfo = SpriteInfo.new()
@@ -220,7 +228,7 @@ func cell_new(after: bool = false) -> void:
 
 
 func cell_add_commit(at: int, cell: Cell) -> void:
-	if at >= obj_data.cells.size() - 1:
+	if at >= obj_data.cells.size():
 		obj_data.cells.append(cell)
 	else:
 		obj_data.cells.insert(at, cell)
@@ -235,8 +243,90 @@ func cell_remove_try_reload() -> void:
 	cell_load(cell_index)
 
 
-func cell_delete(_from: int, _to: int) -> void:
-	cell_count_changed.emit()
+# Copy Cell
+func cell_copy() -> void:
+	# duplicate() doesn't work due to an engine bug:
+	# https://github.com/godotengine/godot/issues/74918
+	
+	var copied_cell: Cell = Cell.new()
+	
+	var new_sprite_info: SpriteInfo = SpriteInfo.new()
+	new_sprite_info.index = this_cell.sprite_info.index
+	new_sprite_info.position = this_cell.sprite_info.position
+	new_sprite_info.unknown = this_cell.sprite_info.unknown
+	copied_cell.sprite_info = new_sprite_info
+	
+	# duplicate(true) doesn't return unique boxes
+	for box in this_cell.boxes:
+		copied_cell.boxes.append(box.duplicate())
+	
+	cell_clipboard = copied_cell
+	
+	Status.set_status("Copied cell #%s to the clipboard." % cell_index)
+
+
+func cell_paste(at: int = 0) -> void:
+	if cell_clipboard == null:
+		Status.set_status("No cell on clipboard, nothing pasted.")
+	
+	var action_text: String = "Paste cell (#%s)"
+	action_text = action_text % (cell_index + clampi(at, 0, 1))
+	
+	# duplicate() doesn't work
+	var cell: Cell = Cell.new()
+		
+	cell.sprite_info = SpriteInfo.new()
+	cell.sprite_info.index = cell_clipboard.sprite_info.index
+	cell.sprite_info.position = cell_clipboard.sprite_info.position
+	cell.sprite_info.unknown = cell_clipboard.sprite_info.unknown
+	
+	for box in cell_clipboard.boxes:
+		cell.boxes.append(box.duplicate())
+	
+	undo_redo.create_action(action_text)
+	
+	match at:
+		-1, 1: # Insert
+			var new_at: int = cell_index + int(at == 1)
+			if new_at == 0:
+				print("Insert before!")
+				
+			undo_redo.add_do_method(cell_add_commit.bind(new_at, cell))
+			undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
+			undo_redo.add_do_method(cell_load.bind(new_at))
+			
+			undo_redo.add_undo_method(cell_remove_commit.bind(new_at))
+			undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
+			undo_redo.add_undo_method(cell_remove_try_reload)
+		
+		0: # Replace current
+			var old_cell: Cell = Cell.new()
+			var old_sprite_info: SpriteInfo = SpriteInfo.new()
+			
+			old_sprite_info.index = this_cell.sprite_info.index
+			old_sprite_info.position = this_cell.sprite_info.position
+			old_sprite_info.unknown = this_cell.sprite_info.unknown
+			
+			old_cell.sprite_info = old_sprite_info
+			
+			for box in this_cell.boxes:
+				old_cell.boxes.append(box.duplicate())
+			
+			undo_redo.add_do_method(cell_remove_commit.bind(cell_index))
+			undo_redo.add_do_method(cell_add_commit.bind(cell_index, cell))
+			undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
+			undo_redo.add_do_method(cell_load.bind(cell_index))
+			
+			undo_redo.add_undo_method(cell_remove_commit.bind(cell_index))
+			undo_redo.add_undo_method(cell_add_commit.bind(cell_index, old_cell))
+			undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
+			undo_redo.add_undo_method(cell_load.bind(cell_index))
+	
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
+	
 #endregion
 
 

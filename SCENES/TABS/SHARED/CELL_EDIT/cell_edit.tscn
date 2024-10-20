@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=47 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
@@ -14,9 +14,11 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_y.gd" id="6_ua8f0"]
 [ext_resource type="Texture2D" uid="uid://cl813q2s6jxee" path="res://ICONS/clipboard_before.png" id="7_15gi1"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_toggle.gd" id="7_fl2cb"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_copy.gd" id="7_q3sqb"]
 [ext_resource type="Texture2D" uid="uid://c3wugptgy7tsx" path="res://ICONS/clipboard_after.png" id="8_gmapn"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/box_display_types_menu.gd" id="9_4ybbf"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_allow_edits.gd" id="9_6yg7t"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_paste.gd" id="9_umb15"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_list.gd" id="10_c571m"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw_mode.gd" id="11_37q3d"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_delete.gd" id="12_j041y"]
@@ -116,24 +118,30 @@ add_after = true
 layout_mode = 2
 tooltip_text = "Copy the current cell to the clipboard."
 icon = ExtResource("5_rt4ti")
+script = ExtResource("7_q3sqb")
 
 [node name="paste_before" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a new cell before the current one.
 Displaces cells after it!"
 icon = ExtResource("7_15gi1")
+script = ExtResource("9_umb15")
+at = -1
 
 [node name="paste" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a replacement to the current one.
 Does not displace cells."
 icon = ExtResource("6_rssji")
+script = ExtResource("9_umb15")
 
 [node name="paste_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a new cell after the current one.
 Displaces cells after it!"
 icon = ExtResource("8_gmapn")
+script = ExtResource("9_umb15")
+at = 1
 
 [node name="sep" type="HSeparator" parent="content/scroll/margin/data"]
 layout_mode = 2
