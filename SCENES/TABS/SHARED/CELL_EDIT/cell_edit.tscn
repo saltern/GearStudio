@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=45 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bl4grcj6gpumf" path="res://ICONS/new_r.png" id="3_67sbk"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_cell.gd" id="3_rc8ef"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_index.gd" id="4_ckx06"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_new.gd" id="4_gjvwg"]
 [ext_resource type="Texture2D" uid="uid://coduxun75jbhp" path="res://ICONS/cross.png" id="4_qbdho"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_x.gd" id="5_r3hxp"]
 [ext_resource type="Texture2D" uid="uid://dfb00s46fsu58" path="res://ICONS/copy.png" id="5_rt4ti"]
@@ -101,12 +102,15 @@ layout_mode = 2
 tooltip_text = "Add a new cell before the current one.
 Displaces cells after it!"
 icon = ExtResource("2_sjpwr")
+script = ExtResource("4_gjvwg")
 
 [node name="new_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Add a new cell after the current one.
 Displaces cells after it!"
 icon = ExtResource("3_67sbk")
+script = ExtResource("4_gjvwg")
+add_after = true
 
 [node name="copy" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2

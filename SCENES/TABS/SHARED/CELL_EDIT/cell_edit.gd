@@ -14,6 +14,7 @@ signal box_drawing_mode_changed
 signal box_multi_dragged
 signal box_multi_drag_stopped
 
+signal cell_count_changed
 signal cell_updated
 
 var undo_redo: UndoRedo = UndoRedo.new()
@@ -193,6 +194,49 @@ func cell_load(index: int) -> void:
 func cell_ensure_selected(cell: Cell) -> void:
 	if this_cell != cell:
 		cell_updated.emit(cell)
+
+
+func cell_new(after: bool = false) -> void:
+	var new_cell: Cell = Cell.new()
+	var new_sprite_info: SpriteInfo = SpriteInfo.new()
+	new_cell.sprite_info = new_sprite_info
+	
+	var at: int = cell_index + (after as int)
+	
+	var action_text: String = "New cell (#%s)" % at
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(cell_add_commit.bind(at, new_cell))
+	undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
+	undo_redo.add_do_method(cell_load.bind(at))
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+		
+	undo_redo.add_undo_method(cell_remove_commit.bind(at))
+	undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
+	undo_redo.add_undo_method(cell_remove_try_reload)
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
+
+
+func cell_add_commit(at: int, cell: Cell) -> void:
+	if at >= obj_data.cells.size() - 1:
+		obj_data.cells.append(cell)
+	else:
+		obj_data.cells.insert(at, cell)
+
+
+func cell_remove_commit(at: int) -> void:
+	obj_data.cells.remove_at(at)
+
+
+func cell_remove_try_reload() -> void:
+	cell_index = clampi(cell_index, 0, obj_data.cells.size() - 1)
+	cell_load(cell_index)
+
+
+func cell_delete(_from: int, _to: int) -> void:
+	cell_count_changed.emit()
 #endregion
 
 
