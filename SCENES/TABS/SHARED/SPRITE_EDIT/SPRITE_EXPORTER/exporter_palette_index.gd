@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @export var include_toggle: CheckButton
 @export var override_toggle: CheckButton

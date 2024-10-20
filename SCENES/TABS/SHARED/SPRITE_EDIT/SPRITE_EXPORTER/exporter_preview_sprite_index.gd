@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @export var sprite_range_start: SpinBox
 @export var sprite_range_end: SpinBox

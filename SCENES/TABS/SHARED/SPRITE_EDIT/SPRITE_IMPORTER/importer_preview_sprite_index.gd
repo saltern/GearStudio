@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 
 func _ready() -> void:
@@ -9,4 +9,3 @@ func _ready() -> void:
 func on_files_selected() -> void:
 	max_value = SpriteImport.import_list.size() - 1
 	value = 0
-	

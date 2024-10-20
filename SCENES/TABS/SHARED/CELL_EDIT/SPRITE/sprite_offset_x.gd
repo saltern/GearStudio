@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @onready var cell_edit: CellEdit = get_owner()
 

@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @export var delete_from: SpinBox
 @export var delete_to: SpinBox
