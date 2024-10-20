@@ -17,9 +17,6 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_undo"):
-		SessionData.undo()
-	
 	if waiting_tasks.is_empty():
 		return
 	
@@ -57,6 +54,7 @@ func character_finished_loading(path: String, tabs: PackedStringArray) -> void:
 	new_character.load_tabs(tabs)
 	
 	new_character.base_name = path.split("\\")[-1]
+	new_character.base_name = path.split("/")[-1]
 	
 	var new_name: String = "File %s: %s" % [
 		get_child_count(), new_character.base_name]
