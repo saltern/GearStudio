@@ -245,22 +245,14 @@ func cell_remove_try_reload() -> void:
 
 # Copy Cell
 func cell_copy() -> void:
-	# duplicate() doesn't work due to an engine bug:
-	# https://github.com/godotengine/godot/issues/74918
+	cell_clipboard = this_cell.duplicate(true)
 	
-	var copied_cell: Cell = Cell.new()
+	# Arrays of custom resources return shallow copies
+	var new_box_array: Array[BoxInfo] = []
+	for box in cell_clipboard.boxes:
+		new_box_array.append(box.duplicate())
 	
-	var new_sprite_info: SpriteInfo = SpriteInfo.new()
-	new_sprite_info.index = this_cell.sprite_info.index
-	new_sprite_info.position = this_cell.sprite_info.position
-	new_sprite_info.unknown = this_cell.sprite_info.unknown
-	copied_cell.sprite_info = new_sprite_info
-	
-	# duplicate(true) doesn't return unique boxes
-	for box in this_cell.boxes:
-		copied_cell.boxes.append(box.duplicate())
-	
-	cell_clipboard = copied_cell
+	cell_clipboard.boxes = new_box_array
 	
 	Status.set_status("Copied cell #%s to the clipboard." % cell_index)
 
@@ -272,16 +264,14 @@ func cell_paste(at: int = 0) -> void:
 	var action_text: String = "Paste cell (#%s)"
 	action_text = action_text % (cell_index + clampi(at, 0, 1))
 	
-	# duplicate() doesn't work
-	var cell: Cell = Cell.new()
-		
-	cell.sprite_info = SpriteInfo.new()
-	cell.sprite_info.index = cell_clipboard.sprite_info.index
-	cell.sprite_info.position = cell_clipboard.sprite_info.position
-	cell.sprite_info.unknown = cell_clipboard.sprite_info.unknown
+	var cell: Cell = cell_clipboard.duplicate(true)
 	
-	for box in cell_clipboard.boxes:
-		cell.boxes.append(box.duplicate())
+	# Arrays of custom resources return shallow copies
+	var new_box_array: Array[BoxInfo] = []
+	for box in cell.boxes:
+		new_box_array.append(box.duplicate())
+	
+	cell.boxes = new_box_array
 	
 	undo_redo.create_action(action_text)
 	

@@ -1,7 +1,7 @@
 class_name Cell extends Resource
 
-var boxes: Array[BoxInfo]
-var sprite_info: SpriteInfo
+@export_storage var boxes: Array[BoxInfo]
+@export_storage var sprite_info: SpriteInfo
 
 
 static func from_file(file_path: String) -> Cell:
