@@ -1,8 +1,9 @@
-[gd_scene load_steps=47 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=53 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="3_5mq13"]
 [ext_resource type="Texture2D" uid="uid://bl4grcj6gpumf" path="res://ICONS/new_r.png" id="3_67sbk"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_cell.gd" id="3_rc8ef"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_index.gd" id="4_ckx06"]
@@ -44,6 +45,11 @@
 [ext_resource type="Texture2D" uid="uid://b8kpkmxgsoo7r" path="res://ICONS/camera.png" id="28_76gqd"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="45_y6307"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/box_display.gd" id="48_qqw76"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_display.gd" id="49_hlqrw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -94,10 +100,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="delete" type="Button" parent="content/scroll/margin/data/toolbar"]
+[node name="delete" type="Button" parent="content/scroll/margin/data/toolbar" node_paths=PackedStringArray("window")]
 layout_mode = 2
 tooltip_text = "Delete a single cell or a range of cells."
 icon = ExtResource("4_qbdho")
+script = ExtResource("3_5mq13")
+window = NodePath("../../../../../../delete_cells")
 
 [node name="new_before" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
@@ -793,5 +801,447 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="delete_cells" type="Window" parent="."]
+title = "Delete cells"
+initial_position = 2
+size = Vector2i(1000, 600)
+visible = false
+script = ExtResource("45_7gddw")
+
+[node name="margin" type="MarginContainer" parent="delete_cells"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="VBoxContainer" parent="delete_cells/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="from_to" type="HBoxContainer" parent="delete_cells/margin/content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="from_cell" type="VBoxContainer" parent="delete_cells/margin/content/from_to"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="top" type="HBoxContainer" parent="delete_cells/margin/content/from_to/from_cell"]
+layout_mode = 2
+
+[node name="control" type="HBoxContainer" parent="delete_cells/margin/content/from_to/from_cell/top"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="delete_cells/margin/content/from_to/from_cell/top/control"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From cell"
+
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/from_cell/top/control"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("47_eycev")
+
+[node name="padding" type="Control" parent="delete_cells/margin/content/from_to/from_cell/top"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="borders" type="PanelContainer" parent="delete_cells/margin/content/from_to/from_cell"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
+
+[node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/from_cell/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("45_y6307")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper"]
+position = Vector2(242, 400)
+script = ExtResource("22_4xx0u")
+
+[node name="background_a" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("23_jn2pb")
+
+[node name="background_b" type="TextureRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_kifap")
+stretch_mode = 1
+script = ExtResource("25_4scjx")
+
+[node name="origin" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="guide" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 4000)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2000.0
+offset_right = 1.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+[node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 2)
+layout_mode = 0
+offset_left = -2000.0
+offset_top = 1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+mouse_filter = 2
+
+[node name="sprite" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+material = ExtResource("26_gliws")
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("49_hlqrw")
+cell_index = NodePath("../../../../../top/control/value")
+
+[node name="boxes" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+custom_minimum_size = Vector2(2000, 2000)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("48_qqw76")
+cell_index = NodePath("../../../../../top/control/value")
+offset = Vector2i(1000, 1000)
+
+[node name="origin_cross" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("29_uhtn5")
+
+[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -21.0
+offset_right = 2.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -2.0
+offset_right = 21.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -20.0
+offset_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -1.0
+offset_right = 20.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="to_cell" type="VBoxContainer" parent="delete_cells/margin/content/from_to"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="top" type="HBoxContainer" parent="delete_cells/margin/content/from_to/to_cell"]
+layout_mode = 2
+
+[node name="control" type="HBoxContainer" parent="delete_cells/margin/content/from_to/to_cell/top"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="delete_cells/margin/content/from_to/to_cell/top/control"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To cell"
+
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/to_cell/top/control"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("47_eycev")
+
+[node name="padding" type="Control" parent="delete_cells/margin/content/from_to/to_cell/top"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="borders" type="PanelContainer" parent="delete_cells/margin/content/from_to/to_cell"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
+
+[node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/to_cell/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("45_y6307")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper"]
+position = Vector2(242, 400)
+script = ExtResource("22_4xx0u")
+
+[node name="background_a" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("23_jn2pb")
+
+[node name="background_b" type="TextureRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_kifap")
+stretch_mode = 1
+script = ExtResource("25_4scjx")
+
+[node name="origin" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="guide" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 4000)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2000.0
+offset_right = 1.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+[node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 2)
+layout_mode = 0
+offset_left = -2000.0
+offset_top = 1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+mouse_filter = 2
+
+[node name="sprite" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+material = ExtResource("26_gliws")
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("49_hlqrw")
+cell_index = NodePath("../../../../../top/control/value")
+
+[node name="boxes" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+custom_minimum_size = Vector2(2000, 2000)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("48_qqw76")
+cell_index = NodePath("../../../../../top/control/value")
+offset = Vector2i(1000, 1000)
+
+[node name="origin_cross" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("29_uhtn5")
+
+[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -21.0
+offset_right = 2.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -21.0
+offset_top = -2.0
+offset_right = 21.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -20.0
+offset_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -1.0
+offset_right = 20.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="info" type="Label" parent="delete_cells/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Will delete 1 cell(s)."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="delete" type="Button" parent="delete_cells/margin/content"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Delete"
 
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
