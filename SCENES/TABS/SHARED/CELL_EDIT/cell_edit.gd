@@ -199,8 +199,25 @@ func cell_ensure_selected(cell: Cell) -> void:
 
 # Toolbar buttons
 # Delete Cell
-func cell_delete(_from: int, _to: int) -> void:
-	cell_count_changed.emit()
+func cell_delete(from: int, to: int) -> void:
+	var action_text: String = "Delete %s cell(s)" % (1 + to - from)
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(cell_remove_multiple_commit.bind(from, to))
+	undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
+	undo_redo.add_do_method(cell_remove_try_reload)
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	
+	# Is this excessive...?
+	for cell in 1 + to - from:
+		undo_redo.add_undo_method(
+			cell_add_commit.bind(from, obj_data.cells[to - cell]))
+	
+	undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
+	undo_redo.add_undo_method(cell_remove_try_reload)
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
 
 
 # Add Cell
@@ -236,6 +253,11 @@ func cell_add_commit(at: int, cell: Cell) -> void:
 
 func cell_remove_commit(at: int) -> void:
 	obj_data.cells.remove_at(at)
+
+
+func cell_remove_multiple_commit(from: int, to: int) -> void:
+	for cell in 1 + to - from:
+		obj_data.cells.remove_at(from)
 
 
 func cell_remove_try_reload() -> void:

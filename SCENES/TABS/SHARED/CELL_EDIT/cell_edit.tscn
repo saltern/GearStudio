@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=55 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
@@ -50,6 +50,8 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/box_display.gd" id="48_qqw76"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_display.gd" id="49_hlqrw"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm_button.gd" id="52_32pvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -859,7 +861,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 [node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/from_cell/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
 layout_mode = 2
+focus_mode = 1
 script = ExtResource("45_y6307")
+disable_zoom = true
 visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper"]
@@ -1044,10 +1048,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "To cell"
 
-[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/to_cell/top/control"]
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/to_cell/top/control" node_paths=PackedStringArray("lower_limit")]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 script = ExtResource("47_eycev")
+lower_limit = NodePath("../../../../from_cell/top/control/value")
 
 [node name="padding" type="Control" parent="delete_cells/margin/content/from_to/to_cell/top"]
 layout_mode = 2
@@ -1061,7 +1067,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 [node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/to_cell/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
 layout_mode = 2
+focus_mode = 1
 script = ExtResource("45_y6307")
+disable_zoom = true
 visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper"]
@@ -1230,18 +1238,24 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="info" type="Label" parent="delete_cells/margin/content"]
+[node name="info" type="Label" parent="delete_cells/margin/content" node_paths=PackedStringArray("range_start", "range_end")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Will delete 1 cell(s)."
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("51_lf3kt")
+range_start = NodePath("../from_to/from_cell/top/control/value")
+range_end = NodePath("../from_to/to_cell/top/control/value")
 
-[node name="delete" type="Button" parent="delete_cells/margin/content"]
+[node name="delete" type="Button" parent="delete_cells/margin/content" node_paths=PackedStringArray("range_start", "range_end")]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Delete"
+script = ExtResource("52_32pvn")
+range_start = NodePath("../from_to/from_cell/top/control/value")
+range_end = NodePath("../from_to/to_cell/top/control/value")
 
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
