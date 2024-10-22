@@ -72,8 +72,8 @@ load_dialog = NodePath("load_dialog")
 
 [node name="load_dialog" type="FileDialog" parent="content/PanelContainer/MenuBar/File"]
 title = "Open a Directory"
-position = Vector2i(0, 36)
-size = Vector2i(327, 187)
+initial_position = 2
+size = Vector2i(600, 400)
 ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
