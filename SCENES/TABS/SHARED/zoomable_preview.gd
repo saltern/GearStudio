@@ -1,5 +1,6 @@
 class_name ZoomablePreview extends PanelContainer
 
+@export var disable_zoom: bool = false
 @export var visualizer: Node2D
 
 var panning: bool = false
@@ -23,13 +24,16 @@ func _input(event: InputEvent) -> void:
 	if event.echo:
 		return
 	
-	match event.keycode:
-		KEY_PAGEUP:
-			visualizer.zoom_in()
-		KEY_PAGEDOWN:
-			visualizer.zoom_out()
-		_:
-			keyboard(event)
+	if disable_zoom:
+		keyboard(event)
+	else:
+		match event.keycode:
+			KEY_PAGEUP:
+				visualizer.zoom_in()
+			KEY_PAGEDOWN:
+				visualizer.zoom_out()
+			_:
+				keyboard(event)
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -48,12 +52,18 @@ func _gui_input(event: InputEvent) -> void:
 func handle_zoom_pan(event: InputEventMouseButton) -> bool:
 	match event.button_index:
 		MOUSE_BUTTON_WHEEL_UP:
+			if disable_zoom:
+				return false
+			
 			if event.pressed && event.is_command_or_control_pressed():
 				visualizer.zoom_in()
 				get_viewport().set_input_as_handled()
 				return true
 	
 		MOUSE_BUTTON_WHEEL_DOWN:
+			if disable_zoom:
+				return false
+			
 			if event.pressed && event.is_command_or_control_pressed():
 				visualizer.zoom_out()
 				get_viewport().set_input_as_handled()
