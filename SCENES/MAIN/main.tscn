@@ -557,6 +557,7 @@ text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/max_undo"]
 layout_mode = 2
+max_value = 200.0
 script = ExtResource("19_w7ci1")
 
 [node name="reopen" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
