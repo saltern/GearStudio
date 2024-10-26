@@ -30,7 +30,8 @@ func _enter_tree() -> void:
 	provider.obj_data = obj_data
 	
 	provider.palette_imported.connect(sprite_set)
-	obj_data.palette_updated.connect(palette_reload)
+	obj_data.palette_selected.connect(palette_set_no_broadcast)
+	obj_data.palette_updated.connect(palette_load)
 
 
 func _ready() -> void:
@@ -64,15 +65,25 @@ func get_provider() -> PaletteProvider:
 	return provider
 
 
+func palette_set(index: int) -> void:
+	palette_set_no_broadcast(index)
+	obj_data.palette_broadcast(index)
+
+
+func palette_set_no_broadcast(index: int) -> void:
+	palette_index = index
+	palette_load()
+
+
+func palette_load() -> void:
+	provider.palette_load(palette_index)
+
+
 func palette_get(index: int) -> PackedByteArray:
 	if obj_data.has_palettes():
 		return obj_data.palette_get(index).palette
 	else:
 		return sprite_get(index).palette
-
-
-func palette_reload() -> void:
-	provider.palette_load(palette_index)
 
 
 #region Sprites
