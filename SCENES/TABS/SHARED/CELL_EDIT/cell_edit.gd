@@ -151,25 +151,6 @@ func redo() -> void:
 #endregion
 
 
-#region Serialization
-func serialize_and_save(path: String) -> void:	
-	var cell_json_array: Array[String] = obj_data.serialize_cells()
-	
-	for cell in cell_json_array.size():		
-		DirAccess.make_dir_recursive_absolute("%s/cells" % path)
-		
-		var new_json_file = FileAccess.open(
-			"%s/cells/cell_%s.json" % [path, cell], FileAccess.WRITE)
-		
-		if FileAccess.get_open_error() != OK:
-			SaveErrors.cell_save_error = true
-			continue
-		
-		new_json_file.store_string(cell_json_array[cell])
-		new_json_file.close()
-#endregion
-
-
 #region Cells
 func cell_get_count() -> int:
 	return obj_data.cells.size()
