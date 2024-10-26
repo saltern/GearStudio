@@ -6,10 +6,15 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect(on_import_confirm)
+	confirmation_dialog.confirmed.connect(ask_for_confirmation)
+	pressed.connect(confirmation_dialog.show)
+
+
+func ask_for_confirmation() -> void:
+	confirmation_dialog.dialog_text = \
+		"Import %s sprite(s)?" % SpriteImport.import_list.size()
+	confirmation_dialog.show()
 
 
 func on_import_confirm() -> void:
-	
-	
-	SpriteImport.import_files(sprite_edit.obj_data.name)
+	SpriteImport.import_files(sprite_edit.obj_data)
