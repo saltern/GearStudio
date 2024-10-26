@@ -13,30 +13,8 @@ var object_script: ObjectScript
 
 func serialize_and_save(path: String) -> void:
 	GlobalSignals.call_deferred("emit_signal", "save_object", name)
-	var cell_json_array: Array[String] = serialize_cells()
-
-	# Save cells
-	if has_cells():
-		DirAccess.make_dir_recursive_absolute("%s/cells" % path)
-		GlobalSignals.call_deferred("emit_signal", "save_sub_object", "cells")
-	
-		for cell in cell_json_array.size():
-			var new_json_file = FileAccess.open(
-				"%s/cells/cell_%s.json" % [path, cell], FileAccess.WRITE)
-
-			if FileAccess.get_open_error() != OK:
-				SaveErrors.cell_save_error = true
-				continue
-
-			new_json_file.store_string(cell_json_array[cell])
-			new_json_file.close()
-	
-	# Save sprites
-	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "sprites")
-	DirAccess.make_dir_recursive_absolute("%s/sprites" % path)
-	save_sprites_to_path("%s/sprites" % path)
-	
-	# Save palettes
+	save_cells_to_path(path)
+	save_sprites_to_path(path)
 	palette_data.serialize_and_save("%s/../palettes" % path)
 
 
@@ -78,12 +56,56 @@ func serialize_cells() -> Array[String]:
 	return array
 
 
-func save_sprites_to_path(path: String) -> void:
-	if DirAccess.open(path) == null:
+func save_cells_to_path(path: String) -> void:
+	if not has_cells():
 		return
 	
-	# Save sprites
-	SpriteLoadSave.save_sprites(sprites, path)
+	DirAccess.make_dir_recursive_absolute("%s/cells_0" % path)
+	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "cells")
+	
+	var cell_num: int = 0
+	
+	for cell in serialize_cells():
+		var new_json_file = FileAccess.open(
+			"%s/cells_0/cell_%s.json" % [path, cell_num], FileAccess.WRITE)
+	
+		cell_num += 1
+	
+		if FileAccess.get_open_error() != OK:
+			SaveErrors.cell_save_error = true
+			return
+		
+		new_json_file.store_string(cell)
+		new_json_file.close()
+	
+	DirAccess.rename_absolute("%s/cells_0" % path, "%s/cells_1" % path)
+	
+	# Delete old
+	for file in DirAccess.get_files_at("%s/cells" % path):
+		DirAccess.remove_absolute("%s/cells/%s" % [path, file])
+	
+	DirAccess.remove_absolute("%s/cells" % path)
+	DirAccess.rename_absolute("%s/cells_1" % path, "%s/cells" % path)
+
+
+func save_sprites_to_path(path: String) -> void:
+	GlobalSignals.call_deferred("emit_signal", "save_sub_object", "sprites")
+	DirAccess.make_dir_recursive_absolute("%s/sprites_0" % path)
+	
+	if DirAccess.open("%s/sprites_0" % path) == null:
+		SaveErrors.sprite_save_error = true
+		return
+	
+	SpriteLoadSave.save_sprites(sprites, "%s/sprites_0" % path)
+	
+	DirAccess.rename_absolute("%s/sprites_0" % path, "%s/sprites_1" % path)
+	
+	# Delete old
+	for file in DirAccess.get_files_at("%s/sprites" % path):
+		DirAccess.remove_absolute("%s/sprites/%s/" % [path, file])
+	
+	DirAccess.remove_absolute("%s/sprites" % path)
+	DirAccess.rename_absolute("%s/sprites_1" % path, "%s/sprites" % path)
 
 
 func load_sprites_from_path(path: String) -> bool:
