@@ -62,11 +62,11 @@
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="52_wfq3j"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_sprite_index.gd" id="54_kmxcs"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_preview.gd" id="55_oqxu8"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_delete_button.gd" id="56_leetc"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_confirm_window.gd" id="59_nsx52"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="59_vae45"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_export_window.gd" id="61_dcgxr"]
 [ext_resource type="Material" uid="uid://cc2c834tdtbf7" path="res://MATERIALS/mat_delete_preview.tres" id="61_n3lvp"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_count_info.gd" id="61_o1nyp"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="64_vgp6d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
@@ -704,12 +704,13 @@ layout_mode = 2
 [node name="import_container" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents"]
 layout_mode = 2
 
-[node name="confirm" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/import_container"]
+[node name="confirm" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/import_container" node_paths=PackedStringArray("confirmation_dialog")]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Click to begin importing sprites with the above settings."
 text = "Import"
 script = ExtResource("39_oitnq")
+confirmation_dialog = NodePath("../../../../../../import_confirm")
 
 [node name="Control" type="Control" parent="sprite_import/background/content_margin/window_content/config_contents/import_container"]
 layout_mode = 2
@@ -834,6 +835,11 @@ grow_vertical = 2
 text = "The file was not found or is not a valid sprite."
 label_settings = SubResource("LabelSettings_gwjl0")
 horizontal_alignment = 1
+
+[node name="import_confirm" type="ConfirmationDialog" parent="sprite_import"]
+initial_position = 2
+ok_button_text = "Import"
+dialog_text = "Import %s sprites?"
 
 [node name="import_progress" type="Window" parent="sprite_import" node_paths=PackedStringArray("progress_label")]
 title = "Importing sprites..."
@@ -1284,105 +1290,105 @@ export_button = NodePath("../sprite_export/background/content_margin/window_cont
 [node name="sprite_delete" type="Window" parent="."]
 title = "Delete sprites"
 initial_position = 2
-size = Vector2i(720, 500)
+size = Vector2i(900, 500)
 visible = false
 transient = true
 exclusive = true
 min_size = Vector2i(450, 160)
 script = ExtResource("52_ujkov")
 
-[node name="bg_panel" type="PanelContainer" parent="sprite_delete"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_neyyb")
-
-[node name="margin" type="MarginContainer" parent="sprite_delete/bg_panel"]
-layout_mode = 2
+[node name="margin" type="MarginContainer" parent="sprite_delete"]
+offset_right = 900.0
+offset_bottom = 500.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="HBoxContainer" parent="sprite_delete/bg_panel/margin"]
+[node name="content" type="HBoxContainer" parent="sprite_delete/margin"]
 layout_mode = 2
 
-[node name="config" type="VBoxContainer" parent="sprite_delete/bg_panel/margin/content"]
+[node name="config" type="VBoxContainer" parent="sprite_delete/margin/content"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="sprite_delete/bg_panel/margin/content/config"]
+[node name="title" type="HBoxContainer" parent="sprite_delete/margin/content/config"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="h_sep" type="HSeparator" parent="sprite_delete/bg_panel/margin/content/config/title"]
+[node name="h_sep" type="HSeparator" parent="sprite_delete/margin/content/config/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="sprite_delete/bg_panel/margin/content/config/title"]
+[node name="title" type="Label" parent="sprite_delete/margin/content/config/title"]
 layout_mode = 2
 text = "Range"
 
-[node name="h_sep2" type="HSeparator" parent="sprite_delete/bg_panel/margin/content/config/title"]
+[node name="h_sep2" type="HSeparator" parent="sprite_delete/margin/content/config/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="from" type="HBoxContainer" parent="sprite_delete/bg_panel/margin/content/config"]
+[node name="from" type="HBoxContainer" parent="sprite_delete/margin/content/config"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_delete/bg_panel/margin/content/config/from"]
+[node name="title" type="Label" parent="sprite_delete/margin/content/config/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "From sprite"
 
-[node name="value" type="SpinBox" parent="sprite_delete/bg_panel/margin/content/config/from"]
+[node name="value" type="SpinBox" parent="sprite_delete/margin/content/config/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("52_eg8u3")
 
-[node name="to" type="HBoxContainer" parent="sprite_delete/bg_panel/margin/content/config"]
+[node name="to" type="HBoxContainer" parent="sprite_delete/margin/content/config"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_delete/bg_panel/margin/content/config/to"]
+[node name="title" type="Label" parent="sprite_delete/margin/content/config/to"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "To sprite"
 
-[node name="value" type="SpinBox" parent="sprite_delete/bg_panel/margin/content/config/to" node_paths=PackedStringArray("delete_from")]
+[node name="value" type="SpinBox" parent="sprite_delete/margin/content/config/to" node_paths=PackedStringArray("delete_from")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("52_ft3y0")
 delete_from = NodePath("../../from/value")
 
-[node name="delete" type="Button" parent="sprite_delete/bg_panel/margin/content/config" node_paths=PackedStringArray("confirmation_window")]
+[node name="info" type="Label" parent="sprite_delete/margin/content/config" node_paths=PackedStringArray("range_start", "range_end")]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 10
-text = "Delete selected"
-script = ExtResource("56_leetc")
-confirmation_window = NodePath("../../../../../delete_confirm")
+text = "Cannot delete all sprites!"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("61_o1nyp")
+range_start = NodePath("../from/value")
+range_end = NodePath("../to/value")
 
-[node name="v_sep" type="VSeparator" parent="sprite_delete/bg_panel/margin/content"]
+[node name="delete" type="Button" parent="sprite_delete/margin/content/config"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Delete selected"
+
+[node name="v_sep" type="VSeparator" parent="sprite_delete/margin/content"]
 layout_mode = 2
 
-[node name="preview" type="VBoxContainer" parent="sprite_delete/bg_panel/margin/content"]
+[node name="preview" type="VBoxContainer" parent="sprite_delete/margin/content"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="sprite_index" type="HBoxContainer" parent="sprite_delete/bg_panel/margin/content/preview"]
+[node name="sprite_index" type="HBoxContainer" parent="sprite_delete/margin/content/preview"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_delete/bg_panel/margin/content/preview/sprite_index"]
+[node name="title" type="Label" parent="sprite_delete/margin/content/preview/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Preview sprite to delete"
 
-[node name="value" type="SpinBox" parent="sprite_delete/bg_panel/margin/content/preview/sprite_index" node_paths=PackedStringArray("delete_from", "delete_to")]
+[node name="value" type="SpinBox" parent="sprite_delete/margin/content/preview/sprite_index" node_paths=PackedStringArray("delete_from", "delete_to")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -1390,21 +1396,21 @@ script = ExtResource("54_kmxcs")
 delete_from = NodePath("../../../config/from/value")
 delete_to = NodePath("../../../config/to/value")
 
-[node name="borders" type="PanelContainer" parent="sprite_delete/bg_panel/margin/content/preview"]
+[node name="borders" type="PanelContainer" parent="sprite_delete/margin/content/preview"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_eeqgc")
 
-[node name="clipper" type="PanelContainer" parent="sprite_delete/bg_panel/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
+[node name="clipper" type="PanelContainer" parent="sprite_delete/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("35_8a50l")
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="sprite_delete/margin/content/preview/borders/clipper"]
 script = ExtResource("35_m8wg2")
 
-[node name="background_a" type="ColorRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="sprite_delete/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
@@ -1422,7 +1428,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("13_htehq")
 
-[node name="background_b" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="sprite_delete/margin/content/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1435,7 +1441,7 @@ texture = ExtResource("14_pyfkm")
 stretch_mode = 1
 script = ExtResource("15_uhgr3")
 
-[node name="sprite" type="TextureRect" parent="sprite_delete/bg_panel/margin/content/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
+[node name="sprite" type="TextureRect" parent="sprite_delete/margin/content/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
 texture_filter = 1
 material = ExtResource("61_n3lvp")
 anchors_preset = 8
@@ -1448,23 +1454,24 @@ grow_vertical = 2
 script = ExtResource("55_oqxu8")
 sprite_index = NodePath("../../../../sprite_index/value")
 
-[node name="delete_confirm" type="ConfirmationDialog" parent="sprite_delete" node_paths=PackedStringArray("delete_from", "delete_to", "cannot_delete")]
+[node name="delete_confirm" type="ConfirmationDialog" parent="sprite_delete" node_paths=PackedStringArray("delete_from", "delete_to", "summon_button", "cannot_delete")]
 title = "Confirm action"
 initial_position = 2
 unresizable = true
 ok_button_text = "Delete"
-dialog_text = "Really delete %s sprites?"
+dialog_text = "Really delete %s sprite(s)?"
 script = ExtResource("59_nsx52")
-delete_from = NodePath("../bg_panel/margin/content/config/from/value")
-delete_to = NodePath("../bg_panel/margin/content/config/to/value")
-cannot_delete = NodePath("../cant_delete_all")
+delete_from = NodePath("../margin/content/config/from/value")
+delete_to = NodePath("../margin/content/config/to/value")
+summon_button = NodePath("../margin/content/config/delete")
+cannot_delete = NodePath("../cannot_delete")
 
-[node name="cant_delete_all" type="AcceptDialog" parent="sprite_delete"]
-title = "Can't delete"
+[node name="cannot_delete" type="AcceptDialog" parent="sprite_delete"]
+title = "Cannot delete"
 initial_position = 2
-size = Vector2i(369, 99)
+size = Vector2i(373, 103)
 force_native = true
-dialog_text = "Can't delete all sprites! Object needs at least 1.
+dialog_text = "Cannot delete all sprites! Object needs at least 1.
 Consider importing new sprites to replace the old ones."
 script = ExtResource("64_vgp6d")
 
