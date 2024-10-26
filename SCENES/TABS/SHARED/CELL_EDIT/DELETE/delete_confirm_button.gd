@@ -7,18 +7,18 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect(delete_cells)
+	#pressed.connect(delete_cells)
 	
 	range_start.value_changed.connect(check_enable.unbind(1))
 	range_end.value_changed.connect(check_enable.unbind(1))
 
 
-func delete_cells() -> void:
-	if is_deleting_all_cells():
-		check_enable()
-		return
-		
-	cell_edit.cell_delete(range_start.value, range_end.value)
+#func delete_cells() -> void:
+	#if is_deleting_all_cells():
+		#check_enable()
+		#return
+		#
+	#cell_edit.cell_delete(range_start.value, range_end.value)
 
 
 func check_enable() -> void:

@@ -9,6 +9,7 @@ extends Label
 func _ready() -> void:
 	range_start.value_changed.connect(update.unbind(1))
 	range_end.value_changed.connect(update.unbind(1))
+	visibility_changed.connect(update)
 
 
 func update() -> void:

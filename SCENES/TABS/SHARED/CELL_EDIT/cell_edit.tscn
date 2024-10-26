@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=58 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
@@ -45,13 +45,16 @@
 [ext_resource type="Texture2D" uid="uid://b8kpkmxgsoo7r" path="res://ICONS/camera.png" id="28_76gqd"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="45_y6307"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/box_display.gd" id="48_qqw76"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_display.gd" id="49_hlqrw"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm_button.gd" id="52_32pvn"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="56_r07ix"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -366,7 +369,6 @@ popup/item_5/id = 5
 script = ExtResource("9_4ybbf")
 
 [node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes"]
-visible = false
 layout_mode = 2
 
 [node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/editable"]
@@ -526,8 +528,7 @@ vertical_alignment = 1
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -32768.0
-max_value = 32767.0
+max_value = 65535.0
 alignment = 2
 editable = false
 script = ExtResource("19_vpw2d")
@@ -549,8 +550,7 @@ vertical_alignment = 1
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-min_value = -32768.0
-max_value = 32767.0
+max_value = 65535.0
 alignment = 2
 editable = false
 script = ExtResource("20_i2dqh")
@@ -673,6 +673,14 @@ material = ExtResource("26_gliws")
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("27_na53u")
+
+[node name="transparent" type="CanvasGroup" parent="content/visualizer/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.784314)
+
+[node name="sprite_type_3" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer/origin/transparent"]
+visible = false
+material = ExtResource("26_gliws")
+script = ExtResource("42_e5pnn")
 
 [node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
 anchors_preset = 0
@@ -807,7 +815,7 @@ mouse_filter = 2
 [node name="delete_cells" type="Window" parent="."]
 title = "Delete cells"
 initial_position = 2
-size = Vector2i(1000, 600)
+size = Vector2i(900, 500)
 visible = false
 script = ExtResource("45_7gddw")
 
@@ -818,265 +826,120 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="content" type="VBoxContainer" parent="delete_cells/margin"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="from_to" type="HBoxContainer" parent="delete_cells/margin/content"]
+[node name="content" type="HBoxContainer" parent="delete_cells/margin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="from_cell" type="VBoxContainer" parent="delete_cells/margin/content/from_to"]
+[node name="range" type="VBoxContainer" parent="delete_cells/margin/content"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="delete_cells/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep" type="HSeparator" parent="delete_cells/margin/content/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="top" type="HBoxContainer" parent="delete_cells/margin/content/from_to/from_cell"]
+[node name="title" type="Label" parent="delete_cells/margin/content/range/title"]
 layout_mode = 2
+text = "Range"
 
-[node name="control" type="HBoxContainer" parent="delete_cells/margin/content/from_to/from_cell/top"]
+[node name="h_sep2" type="HSeparator" parent="delete_cells/margin/content/range/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="delete_cells/margin/content/from_to/from_cell/top/control"]
+[node name="from" type="HBoxContainer" parent="delete_cells/margin/content/range"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="delete_cells/margin/content/range/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "From cell"
 
-[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/from_cell/top/control"]
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/range/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
 
-[node name="padding" type="Control" parent="delete_cells/margin/content/from_to/from_cell/top"]
+[node name="to" type="HBoxContainer" parent="delete_cells/margin/content/range"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="borders" type="PanelContainer" parent="delete_cells/margin/content/from_to/from_cell"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
-
-[node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/from_cell/borders" node_paths=PackedStringArray("visualizer")]
-clip_contents = true
-layout_mode = 2
-focus_mode = 1
-script = ExtResource("45_y6307")
-disable_zoom = true
-visualizer = NodePath("visualizer")
-
-[node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper"]
-position = Vector2(242, 400)
-script = ExtResource("22_4xx0u")
-
-[node name="background_a" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer"]
-texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.376471, 0.376471, 0.376471, 1)
-script = ExtResource("23_jn2pb")
-
-[node name="background_b" type="TextureRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/background_a"]
-modulate = Color(0.25098, 0.25098, 0.25098, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("24_kifap")
-stretch_mode = 1
-script = ExtResource("25_4scjx")
-
-[node name="origin" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer"]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="guide" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin"]
-modulate = Color(1, 1, 1, 0.313726)
-show_behind_parent = true
-custom_minimum_size = Vector2(2, 4000)
-layout_mode = 0
-offset_left = -1.0
-offset_top = -2000.0
-offset_right = 1.0
-offset_bottom = 2000.0
-mouse_filter = 2
-
-[node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/guide"]
-show_behind_parent = true
-custom_minimum_size = Vector2(2000, 2)
-layout_mode = 0
-offset_left = -2000.0
-offset_top = 1999.0
-offset_right = 2000.0
-offset_bottom = 2001.0
-mouse_filter = 2
-
-[node name="sprite" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
-material = ExtResource("26_gliws")
-layout_mode = 3
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("49_hlqrw")
-cell_index = NodePath("../../../../../top/control/value")
-
-[node name="boxes" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
-custom_minimum_size = Vector2(2000, 2000)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1000.0
-offset_top = -1000.0
-offset_right = 1000.0
-offset_bottom = 1000.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("48_qqw76")
-cell_index = NodePath("../../../../../top/control/value")
-offset = Vector2i(1000, 1000)
-
-[node name="origin_cross" type="Control" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -21.0
-offset_right = 21.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("29_uhtn5")
-
-[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -21.0
-offset_right = 2.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -20.0
-offset_right = 1.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/from_cell/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -1.0
-offset_right = 20.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="to_cell" type="VBoxContainer" parent="delete_cells/margin/content/from_to"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="top" type="HBoxContainer" parent="delete_cells/margin/content/from_to/to_cell"]
-layout_mode = 2
-
-[node name="control" type="HBoxContainer" parent="delete_cells/margin/content/from_to/to_cell/top"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="title" type="Label" parent="delete_cells/margin/content/from_to/to_cell/top/control"]
+[node name="title" type="Label" parent="delete_cells/margin/content/range/to"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "To cell"
 
-[node name="value" type="SpinBox" parent="delete_cells/margin/content/from_to/to_cell/top/control" node_paths=PackedStringArray("lower_limit")]
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/range/to" node_paths=PackedStringArray("lower_limit")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
-lower_limit = NodePath("../../../../from_cell/top/control/value")
+lower_limit = NodePath("../../from/value")
 
-[node name="padding" type="Control" parent="delete_cells/margin/content/from_to/to_cell/top"]
+[node name="info" type="Label" parent="delete_cells/margin/content/range" node_paths=PackedStringArray("range_start", "range_end")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+text = "Will delete 1 cell(s)."
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("51_lf3kt")
+range_start = NodePath("../from/value")
+range_end = NodePath("../to/value")
+
+[node name="delete" type="Button" parent="delete_cells/margin/content/range"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delete selected"
+
+[node name="v_sep" type="VSeparator" parent="delete_cells/margin/content"]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="delete_cells/margin/content"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="borders" type="PanelContainer" parent="delete_cells/margin/content/from_to/to_cell"]
+[node name="cell_index" type="HBoxContainer" parent="delete_cells/margin/content/preview"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="delete_cells/margin/content/preview/cell_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview cell to delete"
+
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/preview/cell_index" node_paths=PackedStringArray("range_start", "range_end")]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+script = ExtResource("51_t2iij")
+range_start = NodePath("../../../range/from/value")
+range_end = NodePath("../../../range/to/value")
+
+[node name="borders" type="PanelContainer" parent="delete_cells/margin/content/preview"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
 
-[node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/from_to/to_cell/borders" node_paths=PackedStringArray("visualizer")]
+[node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
 layout_mode = 2
 focus_mode = 1
 script = ExtResource("45_y6307")
-disable_zoom = true
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="delete_cells/margin/content/preview/borders/clipper"]
 position = Vector2(242, 400)
 script = ExtResource("22_4xx0u")
 
-[node name="background_a" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
@@ -1090,7 +953,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("23_jn2pb")
 
-[node name="background_b" type="TextureRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1103,11 +966,11 @@ texture = ExtResource("24_kifap")
 stretch_mode = 1
 script = ExtResource("25_4scjx")
 
-[node name="origin" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer"]
+[node name="origin" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer"]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="guide" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin"]
+[node name="guide" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
 custom_minimum_size = Vector2(2, 4000)
@@ -1118,7 +981,7 @@ offset_right = 1.0
 offset_bottom = 2000.0
 mouse_filter = 2
 
-[node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/guide"]
+[node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
 custom_minimum_size = Vector2(2000, 2)
 layout_mode = 0
@@ -1128,15 +991,15 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="sprite" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+[node name="sprite" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
 material = ExtResource("26_gliws")
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("49_hlqrw")
-cell_index = NodePath("../../../../../top/control/value")
+cell_index = NodePath("../../../../../cell_index/value")
 
-[node name="boxes" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+[node name="boxes" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
 custom_minimum_size = Vector2(2000, 2000)
 layout_mode = 1
 anchors_preset = 8
@@ -1152,10 +1015,10 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("48_qqw76")
-cell_index = NodePath("../../../../../top/control/value")
+cell_index = NodePath("../../../../../cell_index/value")
 offset = Vector2i(1000, 1000)
 
-[node name="origin_cross" type="Control" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin"]
+[node name="origin_cross" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
@@ -1172,7 +1035,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
-[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1189,7 +1052,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1206,7 +1069,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1222,7 +1085,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/from_to/to_cell/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1238,24 +1101,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="info" type="Label" parent="delete_cells/margin/content" node_paths=PackedStringArray("range_start", "range_end")]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Will delete 1 cell(s)."
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("51_lf3kt")
-range_start = NodePath("../from_to/from_cell/top/control/value")
-range_end = NodePath("../from_to/to_cell/top/control/value")
+[node name="delete_confirm" type="ConfirmationDialog" parent="delete_cells" node_paths=PackedStringArray("delete_from", "delete_to", "summon_button", "cannot_delete")]
+auto_translate_mode = 1
+title = "Confirm action"
+initial_position = 2
+unresizable = true
+ok_button_text = "Delete"
+dialog_text = "Really delete %s cell(s)?"
+script = ExtResource("55_h82s7")
+delete_from = NodePath("../margin/content/range/from/value")
+delete_to = NodePath("../margin/content/range/to/value")
+summon_button = NodePath("../margin/content/range/delete")
+cannot_delete = NodePath("../cannot_delete")
 
-[node name="delete" type="Button" parent="delete_cells/margin/content" node_paths=PackedStringArray("range_start", "range_end")]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Delete"
-script = ExtResource("52_32pvn")
-range_start = NodePath("../from_to/from_cell/top/control/value")
-range_end = NodePath("../from_to/to_cell/top/control/value")
+[node name="cannot_delete" type="AcceptDialog" parent="delete_cells"]
+auto_translate_mode = 1
+title = "Cannot delete"
+initial_position = 2
+size = Vector2i(399, 103)
+force_native = true
+dialog_text = "Cannot delete all cells! Object needs at least 1.
+Consider creating new cells before deleting all the old ones."
+script = ExtResource("56_r07ix")
 
 [connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
