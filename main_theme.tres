@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=51 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=52 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
@@ -97,6 +97,10 @@ border_width_bottom = 1
 corner_detail = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_343fp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ekg8"]
+content_margin_left = 5.0
+content_margin_right = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s22pw"]
 
@@ -346,6 +350,7 @@ Button/styles/hover_pressed = SubResource("StyleBoxFlat_op3vy")
 Button/styles/normal = SubResource("StyleBoxFlat_xua55")
 Button/styles/pressed = SubResource("StyleBoxFlat_fgh8h")
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_343fp")
+CheckButton/styles/disabled = SubResource("StyleBoxEmpty_8ekg8")
 CheckButton/styles/focus = SubResource("StyleBoxEmpty_s22pw")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_s4t8r")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_oh5x3")
