@@ -73,9 +73,9 @@ func _physics_process(_delta: float) -> void:
 		generate_preview(preview_index)
 
 
-func import_files(object_name: String) -> void:
-	obj_data = SessionData.object_data_get(object_name)
-	sprite_import_started.emit(object_name)
+func import_files(object_data: ObjectData) -> void:
+	obj_data = object_data
+	sprite_import_started.emit(object_data.name)
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
 
 
@@ -118,8 +118,7 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 			# Can't insert array, have to do it item by item
 			for i in sprites.size():
 				data_sprites.insert(
-					insert_position, sprites[sprites.size() - i - 1]
-				)
+					insert_position, sprites[sprites.size() - i - 1])
 	
 	sprite_placement_finished.emit.call_deferred()
 
