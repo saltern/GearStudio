@@ -120,16 +120,43 @@ func sprite_reload() -> void:
 func sprite_delete(from: int, to: int) -> void:
 	var how_many: int = to - from + 1
 	
+	var action_text: String = "Delete %s sprite(s)" % how_many
+	undo_redo.create_action(action_text)
+	
+	# Shouldn't happen
 	if how_many >= obj_data.sprites.size():
 		Status.set_status("Can't delete all sprites!")
 		return
 	
 	for index in how_many:
-		obj_data.sprites.pop_at(from)
+		undo_redo.add_do_method(sprite_delete_commit.bind(from))
+		undo_redo.add_undo_method(sprite_insert_commit.bind(
+			from, obj_data.sprites[from + how_many - index - 1]))
 	
-	obj_data.clamp_sprite_indices()
+	var affected_cells: PackedInt64Array = \
+		obj_data.clamp_get_affected_cells(obj_data.sprites.size() - how_many)
 	
-	SpriteImport.sprite_placement_finished.emit()
+	undo_redo.add_do_method(obj_data.clamp_sprite_indices)
+	
+	for cell in affected_cells:
+		undo_redo.add_undo_property(
+			obj_data.cells[cell].sprite_info, "index",
+			obj_data.cells[cell].sprite_info.index)
+	
+	undo_redo.add_do_method(
+		SpriteImport.emit_signal.bind("sprite_placement_finished"))
+	undo_redo.add_undo_method(
+		SpriteImport.emit_signal.bind("sprite_placement_finished"))
+	
+	undo_redo.commit_action()
+
+
+func sprite_delete_commit(at: int) -> void:
+	obj_data.sprites.pop_at(at)
+
+
+func sprite_insert_commit(at: int, sprite: BinSprite) -> void:
+	obj_data.sprites.insert(at, sprite)
 
 
 func sprite_reindex() -> void:

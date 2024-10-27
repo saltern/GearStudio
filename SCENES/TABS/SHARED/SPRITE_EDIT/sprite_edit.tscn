@@ -67,6 +67,7 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="59_vae45"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_export_window.gd" id="61_dcgxr"]
 [ext_resource type="Material" uid="uid://cc2c834tdtbf7" path="res://MATERIALS/mat_delete_preview.tres" id="61_n3lvp"]
+[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_count_info.gd" id="62_jdt6m"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="64_vgp6d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
@@ -85,30 +86,6 @@ outline_size = 9
 outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.635294)
 shadow_offset = Vector2(0, 0)
-
-[sub_resource type="GDScript" id="GDScript_4g1fq"]
-script/source = "extends Label
-
-@export var range_start: SpinBox
-@export var range_end: SpinBox
-
-@onready var sprite_edit: SpriteEdit = owner
-
-
-func _ready() -> void:
-	range_start.value_changed.connect(update.unbind(1))
-	range_end.value_changed.connect(update.unbind(1))
-	update()
-
-
-func update() -> void:
-	var delete_count: int = 1 + range_end.value - range_start.value
-	
-	if delete_count >= sprite_edit.sprite_get_count():
-		text = \"Cannot delete all sprites!\"
-	else:
-		text = \"Will delete %s sprite(s).\" % delete_count
-"
 
 [node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
@@ -1393,7 +1370,7 @@ size_flags_vertical = 10
 text = "Cannot delete all sprites!"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = SubResource("GDScript_4g1fq")
+script = ExtResource("62_jdt6m")
 range_start = NodePath("../from/value")
 range_end = NodePath("../to/value")
 

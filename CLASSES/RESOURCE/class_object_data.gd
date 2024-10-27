@@ -139,6 +139,16 @@ func load_palette_data_from_path(path: String) -> bool:
 	#return object_script.actions.size() > 0
 
 
+func clamp_get_affected_cells(sprite_max: int) -> PackedInt64Array:
+	var return_array: PackedInt64Array
+	
+	for cell in cells.size():
+		if cells[cell].sprite_info.index > sprite_max:
+			return_array.append(cell)
+	
+	return return_array
+
+
 # Surprisingly fast
 func clamp_sprite_indices() -> void:
 	var sprite_max: int = max(sprites.size() - 1, 0)
