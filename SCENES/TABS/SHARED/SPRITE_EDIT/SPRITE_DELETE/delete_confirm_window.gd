@@ -2,12 +2,14 @@ extends ConfirmationDialog
 
 @export var delete_from: SpinBox
 @export var delete_to: SpinBox
+@export var summon_button: Button
 @export var cannot_delete: AcceptDialog
 
 @onready var sprite_edit: SpriteEdit = get_owner()
 
 
 func _ready() -> void:
+	summon_button.pressed.connect(display)
 	confirmed.connect(delete_sprites)
 
 
