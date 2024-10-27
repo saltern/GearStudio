@@ -574,6 +574,7 @@ size_flags_horizontal = 3
 text = "Preview"
 
 [node name="snapshot" type="Button" parent="content/visualizer/title"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Save snapshot"
@@ -811,6 +812,9 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="v_sep2" type="VSeparator" parent="content"]
+layout_mode = 2
 
 [node name="delete_cells" type="Window" parent="."]
 title = "Delete cells"
