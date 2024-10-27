@@ -3,8 +3,9 @@ class_name PaletteProvider extends Resource
 signal palette_updated
 @warning_ignore("unused_signal")
 signal palette_imported		# Used by SpriteEdit
+signal sprite_reindexed
 
-var undo_redo: UndoRedo = UndoRedo.new()
+var undo_redo: UndoRedo
 
 var obj_data: ObjectData
 var palette_index: int = 0
@@ -14,20 +15,6 @@ var sprite: BinSprite
 
 var bit_depth: int
 var color_index: int = 0
-
-
-func _init() -> void:
-	undo_redo.max_steps = Settings.misc_max_undo
-
-
-#region Undo/Redo
-func undo() -> void:
-	undo_redo.undo()
-
-
-func redo() -> void:
-	undo_redo.redo()
-#endregion
 
 
 #region Copy/Paste
@@ -153,8 +140,11 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 	
 	# palette_updated signal needs to happen before palette_load call
 	
+	var action_text: String
+	
 	if obj_data.has_palettes():
-		undo_redo.create_action("Palette #%s set color(s)" % palette_index)
+		action_text = "Palette #%s set color(s)" % palette_index
+		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(palette, "palette", new_palette)
 		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
@@ -165,7 +155,8 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	else:
-		undo_redo.create_action("Sprite #%s set color(s)" % sprite_index)
+		action_text = "Sprite #%s set color(s)" % sprite_index
+		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(sprite, "palette", new_palette)
 		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
@@ -174,6 +165,9 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		undo_redo.add_undo_property(sprite, "palette", old_palette)
 		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
+	
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
 	undo_redo.commit_action()
 
@@ -250,9 +244,14 @@ func palette_paste_color_into(selection: Array[bool]) -> void:
 	palette_paste_color_commit(old_palette, new_palette)
 	
 
-func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> void:
+func palette_paste_color_commit(
+	old: PackedByteArray, new: PackedByteArray
+) -> void:
+	var action_text: String
+	
 	if obj_data.has_palettes():
-		undo_redo.create_action("Palette #%s paste color(s)" % palette_index)
+		action_text = "Palette #%s paste color(s)" % palette_index
+		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(palette, "palette", new)
 		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
@@ -263,7 +262,8 @@ func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> v
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	else:
-		undo_redo.create_action("Sprite #%s paste color(s)" % sprite_index)
+		action_text = "Sprite #%s paste color(s)" % sprite_index
+		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(sprite, "palette", new)
 		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
@@ -272,7 +272,10 @@ func palette_paste_color_commit(old: PackedByteArray, new: PackedByteArray) -> v
 		undo_redo.add_undo_property(sprite, "palette", old)
 		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
-		
+	
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
 	undo_redo.commit_action()
 
 
@@ -291,7 +294,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		undo_redo.add_do_method(
 			emit_signal.bind("palette_imported", palette_index))
 		
-		undo_redo.add_do_method(Status.set_status.bind("%s." % action_text))
+		undo_redo.add_do_method(Status.set_status.bind("%s" % action_text))
 		
 		undo_redo.add_undo_method(
 			palette_import_commit.bind(palette, palette.palette))
@@ -300,7 +303,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 			emit_signal.bind("palette_imported", palette_index))
 		
 		undo_redo.add_undo_method(
-			Status.set_status.bind("Undo: %s." % action_text))
+			Status.set_status.bind("Undo: %s" % action_text))
 		
 		undo_redo.commit_action()
 	
@@ -324,7 +327,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		undo_redo.add_do_method(
 			emit_signal.bind("palette_imported", sprite_index))
 		
-		undo_redo.add_do_method(Status.set_status.bind("%s." % action_text))
+		undo_redo.add_do_method(Status.set_status.bind("%s" % action_text))
 		
 		undo_redo.add_undo_method(
 			palette_import_sprite_commit.bind(sprite, sprite.palette))
@@ -348,4 +351,47 @@ func palette_import_commit(
 	pal: BinPalette, pal_array: PackedByteArray
 ) -> void:
 	pal.palette = pal_array
+
+
+func palette_reindex() -> void:
+	var action_text: String
+	
+	if not obj_data.has_palettes():
+		return
+	
+	action_text = "Reindex palette #%s" % palette_index
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(palette.reindex)
+	undo_redo.add_do_method(palette_load.bind(palette_index))
+	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	
+	undo_redo.add_undo_method(palette.reindex)
+	undo_redo.add_undo_method(palette_load.bind(palette_index))
+	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
+
+
+func sprite_reindex(bin_sprite: BinSprite) -> void:
+	var action_text: String
+	
+	action_text = "Reindex sprite #%s" % sprite_index
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(bin_sprite.reindex)
+	undo_redo.add_do_method(palette_load.bind(sprite_index))
+	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_do_method(emit_signal.bind("sprite_reindexed"))
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	
+	undo_redo.add_undo_method(bin_sprite.reindex)
+	undo_redo.add_undo_method(palette_load.bind(sprite_index))
+	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(emit_signal.bind("sprite_reindexed"))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
+	undo_redo.commit_action()
 #endregion

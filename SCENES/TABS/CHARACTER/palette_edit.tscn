@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=20 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_index.gd" id="3_nhpkb"]
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="4_612b6"]
+[ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_reindex.gd" id="5_hju2g"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]
 [ext_resource type="Script" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="5_ylny5"]
@@ -136,13 +137,18 @@ script = ExtResource("5_ocm7y")
 preview = NodePath("../../../preview/borders/clipper/visualizer/sprite")
 color_picker = NodePath("../../../color_edit/color_pick")
 
+[node name="reindex" type="Button" parent="scroll/margin/content/data/editors/color_grid"]
+layout_mode = 2
+text = "Reindex"
+script = ExtResource("5_hju2g")
+
 [node name="import_export" type="HBoxContainer" parent="scroll/margin/content/data/editors/color_grid"]
 layout_mode = 2
 
 [node name="import" type="Button" parent="scroll/margin/content/data/editors/color_grid/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Import palette"
+text = "Import..."
 script = ExtResource("5_ylny5")
 window = NodePath("../../../../../../../../palette_import")
 
@@ -150,7 +156,7 @@ window = NodePath("../../../../../../../../palette_import")
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Export palette"
+text = "Export..."
 script = ExtResource("5_ylny5")
 window = NodePath("../../../../../../../../palette_export")
 

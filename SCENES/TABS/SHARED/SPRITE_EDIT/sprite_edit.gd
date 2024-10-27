@@ -2,7 +2,7 @@ class_name SpriteEdit extends MarginContainer
 
 signal sprite_updated
 
-var undo: UndoRedo = UndoRedo.new()
+var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: ObjectData
 
@@ -24,12 +24,16 @@ var provider: PaletteProvider
 
 
 func _enter_tree() -> void:
+	undo_redo.max_steps = Settings.misc_max_undo
+	
 	obj_data = SessionData.object_data_get(get_parent().name)
 	
 	provider = PaletteProvider.new()
+	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
 	
 	provider.palette_imported.connect(sprite_set)
+	provider.sprite_reindexed.connect(sprite_reload)
 	obj_data.palette_selected.connect(palette_set_no_broadcast)
 	obj_data.palette_updated.connect(palette_load)
 
@@ -47,14 +51,14 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("undo"):
-		provider.undo()
+		undo_redo.undo()
 		if not obj_data.has_palettes():
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
 				"set_value_no_signal", sprite_index)
 	
 	if Input.is_action_just_pressed("redo"):
-		provider.redo()
+		undo_redo.redo()
 		if not obj_data.has_palettes():
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
@@ -109,6 +113,10 @@ func sprite_set(index: int) -> void:
 	sprite_updated.emit(this_sprite)
 
 
+func sprite_reload() -> void:
+	sprite_set(sprite_index)
+
+
 func sprite_delete(from: int, to: int) -> void:
 	var how_many: int = to - from + 1
 	
@@ -122,4 +130,8 @@ func sprite_delete(from: int, to: int) -> void:
 	obj_data.clamp_sprite_indices()
 	
 	SpriteImport.sprite_placement_finished.emit()
+
+
+func sprite_reindex() -> void:
+	provider.sprite_reindex(this_sprite)
 #endregion
