@@ -32,7 +32,7 @@ func _input(event: InputEvent) -> void:
 func on_display() -> void:
 	if not visible:
 		return
-
+	
 	SpriteImport.obj_data = sprite_edit.obj_data
 	update(local_file_list)
 

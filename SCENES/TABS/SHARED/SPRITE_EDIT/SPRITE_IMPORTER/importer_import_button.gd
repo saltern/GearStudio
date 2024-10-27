@@ -6,8 +6,8 @@ extends Button
 
 
 func _ready() -> void:
-	confirmation_dialog.confirmed.connect(ask_for_confirmation)
-	pressed.connect(confirmation_dialog.show)
+	confirmation_dialog.confirmed.connect(on_import_confirm)
+	pressed.connect(ask_for_confirmation)
 
 
 func ask_for_confirmation() -> void:
@@ -17,4 +17,5 @@ func ask_for_confirmation() -> void:
 
 
 func on_import_confirm() -> void:
+	SpriteImport.undo_redo = sprite_edit.undo_redo
 	SpriteImport.import_files(sprite_edit.obj_data)
