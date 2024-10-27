@@ -158,6 +158,33 @@ func clamp_sprite_indices() -> void:
 			cell.sprite_info.index, 0, sprite_max)
 
 
+func redirect_get_affected_cells(from: int) -> PackedInt64Array:
+	var return_array: PackedInt64Array
+	
+	for cell in cells.size():
+		if cells[cell].sprite_info.index >= from:
+			return_array.append(cell)
+	
+	return return_array
+
+
+func redirect_sprite_indices(from: int, how_many: int) -> void:
+	var to: int = from + how_many - 1
+	var index: int
+	
+	for cell in cells:
+		index = cell.sprite_info.index
+		
+		if index < from:
+			continue
+		
+		elif index <= to:
+			cell.sprite_info.index = 0
+		
+		else:
+			cell.sprite_info.index -= how_many
+
+
 func sprite_get(index: int) -> BinSprite:
 	if sprites.size() > index:
 		return sprites[index]

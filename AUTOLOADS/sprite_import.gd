@@ -54,6 +54,9 @@ var as_rgb: bool = false
 var reindex: bool = false
 var bit_depth: BitDepth = BitDepth.AS_IS
 
+# Used by SpriteEdit
+var redirect_cells: bool = true
+
 # Multithreading
 var waiting_tasks: Array[int] = []
 

@@ -133,10 +133,19 @@ func sprite_delete(from: int, to: int) -> void:
 		undo_redo.add_undo_method(sprite_insert_commit.bind(
 			from, obj_data.sprites[from + how_many - index - 1]))
 	
-	var affected_cells: PackedInt64Array = \
-		obj_data.clamp_get_affected_cells(obj_data.sprites.size() - how_many)
+	var affected_cells: PackedInt64Array
 	
-	undo_redo.add_do_method(obj_data.clamp_sprite_indices)
+	if SpriteImport.redirect_cells:
+		affected_cells = obj_data.redirect_get_affected_cells(from)
+		
+		undo_redo.add_do_method(
+			obj_data.redirect_sprite_indices.bind(from, how_many))
+	
+	else:
+		affected_cells = obj_data.clamp_get_affected_cells(
+			obj_data.sprites.size() - how_many)
+	
+		undo_redo.add_do_method(obj_data.clamp_sprite_indices)
 	
 	for cell in affected_cells:
 		undo_redo.add_undo_property(
