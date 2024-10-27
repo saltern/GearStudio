@@ -39,6 +39,7 @@ var preview_palette: PackedByteArray
 var regenerate_preview: bool = false
 
 # Used by this singleton
+var undo_redo: UndoRedo
 var obj_data: ObjectData
 var import_list: PackedStringArray = []
 var placement_method: int
@@ -81,7 +82,8 @@ func import_files(object_data: ObjectData) -> void:
 
 func import_files_thread() -> void:
 	var sprites: Array[BinSprite] = sprite_importer.import_sprites(
-		import_list, embed_palette, halve_alpha, flip_h, flip_v, as_rgb, reindex, bit_depth)
+		import_list, embed_palette, halve_alpha,
+		flip_h, flip_v, as_rgb, reindex, bit_depth)
 	
 	call_deferred("emit_signal", "sprite_import_finished", sprites)
 
@@ -95,31 +97,94 @@ func import_place_sprites(sprites: Array[BinSprite]) -> void:
 func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	var data_sprites: Array[BinSprite] = obj_data.sprites
 	
+	var action_text: String = "Import sprites for %s" % obj_data.name
+	undo_redo.create_action(action_text)
+	
 	match placement_method:
 		PlaceMode.APPEND:
-			data_sprites.append_array(sprites)
+			var old_size: int = data_sprites.size()
+			
+			undo_redo.add_do_method(
+				import_append_sprites.bind(sprites))
+			undo_redo.add_undo_method(
+				import_resize_sprites.bind(obj_data, old_size))
 		
 		PlaceMode.REPLACE:
 			# "Replacing" at end
 			if insert_position == data_sprites.size():
-				data_sprites.append_array(sprites)
+				var old_size: int = data_sprites.size()
+				
+				undo_redo.add_do_method(
+					import_append_sprites.bind(sprites))
+				undo_redo.add_undo_method(
+					import_resize_sprites.bind(obj_data, old_size))
 			
 			# Imported sprite count replaces end and extends it
 			elif sprites.size() >= data_sprites.size() - insert_position:
-				data_sprites.resize(insert_position)
-				data_sprites.append_array(sprites)
+				var old_array: Array[BinSprite] = []
+				
+				for sprite in data_sprites.size() - insert_position:
+					old_array.append(data_sprites[insert_position + sprite])
+				
+				undo_redo.add_do_method(
+					import_resize_sprites.bind(obj_data, insert_position))
+				undo_redo.add_do_method(import_append_sprites.bind(sprites))
+				
+				undo_redo.add_undo_method(
+					import_resize_sprites.bind(obj_data, insert_position))
+				undo_redo.add_undo_method(import_append_sprites.bind(old_array))
 			
 			# Imported sprites replace section in the middle
 			else:
-				for i in sprites.size():
-					data_sprites[insert_position + i] = sprites[i]
+				var l_side: Array[BinSprite] = data_sprites.slice(
+					0, insert_position)
+				var r_side: Array[BinSprite] = data_sprites.slice(
+					insert_position + sprites.size(), data_sprites.size())
+				
+				var new_sprites: Array[BinSprite] = []
+				new_sprites.append_array(l_side)
+				new_sprites.append_array(sprites)
+				new_sprites.append_array(r_side)
+				
+				undo_redo.add_do_property(obj_data, "sprites", new_sprites)
+				undo_redo.add_undo_property(obj_data, "sprites", data_sprites)
 		
 		PlaceMode.INSERT:
-			# Can't insert array, have to do it item by item
-			for i in sprites.size():
-				data_sprites.insert(
-					insert_position, sprites[sprites.size() - i - 1])
+			var l_side: Array[BinSprite] = data_sprites.slice(
+				0, insert_position)
+			var r_side: Array[BinSprite] = data_sprites.slice(
+				insert_position, data_sprites.size())
+			
+			var new_sprites: Array[BinSprite] = []
+			new_sprites.append_array(l_side)
+			new_sprites.append_array(sprites)
+			new_sprites.append_array(r_side)
+			
+			undo_redo.add_do_property(obj_data, "sprites", new_sprites)
+			undo_redo.add_undo_property(obj_data, "sprites", data_sprites)
 	
+	# Directly emitting from here doesn't work for some reason
+	undo_redo.add_do_method(import_placement_done)
+	undo_redo.add_undo_method(import_placement_done)
+	
+	undo_redo.commit_action()
+
+
+func import_resize_sprites(data: ObjectData, new_size: int) -> void:
+	data.sprites.resize(new_size)
+
+
+func import_append_sprites(new_sprites: Array[BinSprite]) -> void:
+	obj_data.sprites.append_array(new_sprites)
+
+
+func import_replace_sprite(
+	array: Array[BinSprite], at: int, with: BinSprite
+) -> void:
+	array[at] = with
+
+
+func import_placement_done() -> void:
 	sprite_placement_finished.emit.call_deferred()
 
 
