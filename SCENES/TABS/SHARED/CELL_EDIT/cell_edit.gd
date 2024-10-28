@@ -281,8 +281,6 @@ func cell_paste(at: int = 0) -> void:
 	match at:
 		-1, 1: # Insert
 			var new_at: int = cell_index + int(at == 1)
-			if new_at == 0:
-				print("Insert before!")
 				
 			undo_redo.add_do_method(cell_add_commit.bind(new_at, cell))
 			undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
@@ -347,7 +345,7 @@ func sprite_get_position() -> Vector2i:
 
 
 func sprite_set_index(new_index: int) -> void:
-	var action_text: String = "Cell # %s: Set sprite index" % cell_index
+	var action_text: String = "Cell #%s: Set sprite index" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var old_index: int = sprite_get_index()
@@ -364,7 +362,7 @@ func sprite_set_index(new_index: int) -> void:
 
 
 func sprite_set_position(new_position: Vector2i) -> void:
-	var action_text: String = "Cell # %s: Set sprite offset" % cell_index
+	var action_text: String = "Cell #%s: Set sprite offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var old_pos: Vector2i = sprite_get_position()
@@ -382,7 +380,7 @@ func sprite_set_position(new_position: Vector2i) -> void:
 
 
 func sprite_set_position_x(new_x: int) -> void:
-	var action_text: String = "Cell # %s: Set sprite X offset" % cell_index
+	var action_text: String = "Cell #%s: Set sprite X offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var old_pos: Vector2i = sprite_get_position()
@@ -400,7 +398,7 @@ func sprite_set_position_x(new_x: int) -> void:
 
 
 func sprite_set_position_y(new_y: int) -> void:
-	var action_text: String = "Cell # %s: Set sprite Y offset" % cell_index
+	var action_text: String = "Cell #%s: Set sprite Y offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var old_pos: Vector2i = sprite_get_position()
@@ -422,7 +420,7 @@ func sprite_info_paste() -> void:
 		Status.set_status("No Sprite Info on clipboard, nothing pasted.")
 		return
 	
-	var action_text: String = "Cell #%s paste Sprite Info" % cell_index
+	var action_text: String = "Cell #%s: Paste Sprite Info" % cell_index
 	undo_redo.create_action(action_text)
 	
 	var new_sprite_info := SpriteInfo.new()
@@ -509,7 +507,7 @@ func box_set_type_visible(type: int, enabled: bool) -> void:
 
 
 func box_append(box: BoxInfo) -> void:
-	var action_text: String = "Cell # %s: Add box" % cell_index
+	var action_text: String = "Cell #%s: Add box" % cell_index
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
@@ -531,11 +529,11 @@ func box_delete() -> void:
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell # %s: Delete boxes" % cell_index
+		action_text = "Cell #%s: Delete boxes" % cell_index
 		undo_redo.create_action(action_text + " (%s)" %
 			Engine.get_physics_frames(), UndoRedo.MERGE_ALL)
 	else:
-		action_text = "Cell # %s: Delete box" % cell_index
+		action_text = "Cell #%s: Delete box" % cell_index
 		undo_redo.create_action(action_text)
 	
 	for box_index in boxes_selected:
@@ -567,7 +565,7 @@ func box_paste(overwrite: bool = false) -> void:
 	if Clipboard.box_data.size() == 0:
 		Status.set_status("No boxes on clipboard, nothing pasted.")
 	
-	var action_text: String = "Cell # %s: Paste box(es)" % cell_index
+	var action_text: String = "Cell #%s: Paste box(es)" % cell_index
 	
 	if overwrite:
 		action_text = action_text + " with overwrite"
@@ -599,14 +597,14 @@ func box_set_type(new_type: int) -> void:
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell # %s: Set type for multiple boxes" % cell_index
+		action_text = "Cell #%s: Set type for multiple boxes" % cell_index
 			
 		undo_redo.create_action(
 			action_text + " (%s)" % Engine.get_physics_frames(),
 			UndoRedo.MERGE_ALL)
 
 	else:
-		action_text = "Cell # %s: Set box type" % cell_index
+		action_text = "Cell #%s: Set box type" % cell_index
 		undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	for box in boxes_selected:
@@ -638,7 +636,7 @@ func box_set_offset_x(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell # %s: Set box X offset" % cell_index
+	var action_text: String = "Cell #%s: Set box X offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -663,7 +661,7 @@ func box_set_offset_y(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s set box Y offset" % cell_index
+	var action_text: String = "Cell #%s: Set box Y offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -688,7 +686,7 @@ func box_set_width(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s set box width" % cell_index
+	var action_text: String = "Cell #%s: Set box width" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -713,7 +711,7 @@ func box_set_height(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s set box height" % cell_index
+	var action_text: String = "Cell #%s: Set box height" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -738,12 +736,12 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell # %s: Modify multiple boxes" % cell_index
+		action_text = "Cell #%s: Modify multiple boxes" % cell_index
 		undo_redo.create_action(
 			action_text + " (%s)" % Engine.get_physics_frames(),
 			UndoRedo.MERGE_ALL)
 	else:
-		action_text = "Cell # %s: Modify box # %s" % [cell_index, index]
+		action_text = "Cell #%s: Modify box # %s" % [cell_index, index]
 		undo_redo.create_action(action_text)
 	
 	var box: BoxInfo = box_get(index)
@@ -766,7 +764,7 @@ func box_set_crop_offset_x(new_value: int) -> void:
 		return
 	
 	var action_text: String = \
-		"Cell # %s: Set sprite region X offset" % cell_index
+		"Cell #%s: Set sprite region X offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -789,7 +787,7 @@ func box_set_crop_offset_y(new_value: int) -> void:
 		return
 	
 	var action_text: String = \
-		"Cell # %s: Set sprite region Y offset" % cell_index
+		"Cell #%s: Set sprite region Y offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
