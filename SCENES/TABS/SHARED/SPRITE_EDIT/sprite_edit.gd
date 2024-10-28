@@ -157,6 +157,9 @@ func sprite_delete(from: int, to: int) -> void:
 	undo_redo.add_undo_method(
 		SpriteImport.emit_signal.bind("sprite_placement_finished"))
 	
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	
 	undo_redo.commit_action()
 
 
