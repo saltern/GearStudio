@@ -100,7 +100,8 @@ func import_place_sprites(sprites: Array[BinSprite]) -> void:
 func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	var data_sprites: Array[BinSprite] = obj_data.sprites
 	
-	var action_text: String = "Import sprites for %s" % obj_data.name
+	var action_text: String = "Import %s '%s' sprite(s)" % [
+		sprites.size(), obj_data.name]
 	undo_redo.create_action(action_text)
 	
 	match placement_method:
@@ -170,6 +171,9 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	undo_redo.add_do_method(import_placement_done)
 	undo_redo.add_undo_method(import_placement_done)
 	
+	undo_redo.add_do_method(import_set_status.bind(action_text))
+	undo_redo.add_undo_method(import_set_status.bind(action_text, true))
+	
 	undo_redo.commit_action()
 
 
@@ -189,6 +193,13 @@ func import_replace_sprite(
 
 func import_placement_done() -> void:
 	sprite_placement_finished.emit.call_deferred()
+
+
+func import_set_status(text: String, undo: bool = false) -> void:
+	if undo:
+		text = "Undo: %s" % text
+	
+	Status.set_status.bind(text).call_deferred()
 
 
 func get_preview_sprite_path() -> String:
