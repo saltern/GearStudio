@@ -10,7 +10,9 @@ var current_cell: Cell
 func _ready() -> void:
 	var cell_edit: CellEdit = owner
 	obj_data = cell_edit.obj_data
-	cell_load(cell_index.value)
+	
+	if obj_data.has_cells():
+		cell_load(cell_index.value)
 	
 	cell_index.value_changed.connect(cell_load)
 
