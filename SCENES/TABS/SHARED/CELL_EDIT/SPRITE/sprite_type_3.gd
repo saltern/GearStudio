@@ -10,6 +10,7 @@ func _ready() -> void:
 
 
 func cell_loaded(cell: Cell) -> void:
+	hide()
 	texture = cell_edit.obj_data.sprite_get(cell.sprite_info.index).texture
 
 
