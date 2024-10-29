@@ -40,10 +40,10 @@ static func from_file(file_path: String) -> Cell:
 			sprite["x_offset"],
 			sprite["y_offset"])
 	# Will crash when selecting as invalid cell
-	#else:
-		#new_sprite_info.index = 0
-		#new_sprite_info.unknown = 0 # Flip information?
-		#new_sprite_info.position = Vector2i(0,0)
+	else:
+		new_sprite_info.index = 0
+		new_sprite_info.unknown = 0
+		new_sprite_info.position = Vector2i(0,0)
 	
 	var new_cell: Cell = Cell.new()
 	new_cell.sprite_info = new_sprite_info
