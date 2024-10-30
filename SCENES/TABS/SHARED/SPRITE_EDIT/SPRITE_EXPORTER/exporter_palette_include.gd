@@ -1,17 +1,21 @@
 extends CheckButton
 
 @export var control_index: HBoxContainer
-@export var control_override: CheckButton
 @export var control_alpha: HBoxContainer
+
+@onready var sprite_edit: SpriteEdit = owner
 
 
 func _ready() -> void:
-	toggled.connect(on_palette_include_toggled)
-	on_palette_include_toggled(button_pressed)
+	visibility_changed.connect(update)
+	toggled.connect(update.unbind(1))
+	update()
 
 
-func on_palette_include_toggled(enabled: bool) -> void:
-	SpriteExport.palette_include = enabled
-	control_index.visible = enabled
-	control_override.visible = enabled
-	control_alpha.visible = enabled
+func update() -> void:
+	SpriteExport.set_palette_include(button_pressed)
+	
+	if sprite_edit.obj_data.has_palettes():
+		control_index.visible = button_pressed
+		
+	control_alpha.visible = button_pressed

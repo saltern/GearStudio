@@ -1,10 +1,11 @@
 extends Node
 
+@warning_ignore("unused_signal")
+signal hide_exporter_windows	# Used by exporter_window.gd
 signal export_start_index_set
 signal export_end_index_set
 signal palette_index_set
 signal palette_include_set
-signal palette_override_set
 signal palette_alpha_mode_set
 signal sprite_reindex_set
 
@@ -29,7 +30,6 @@ var export_end_index: int = 0
 
 var palette_index: int = 0
 var palette_include: bool = false
-var palette_override: bool = false
 var palette_alpha_mode: AlphaMode = AlphaMode.AS_IS
 
 var sprite_reindex: bool = false
@@ -72,11 +72,6 @@ func set_palette_include(enabled: bool) -> void:
 	palette_include_set.emit()
 
 
-func set_palette_override(enabled: bool) -> void:
-	palette_override = enabled
-	palette_override_set.emit()
-
-
 func set_palette_alpha_mode(mode: AlphaMode) -> void:
 	palette_alpha_mode = mode
 	palette_alpha_mode_set.emit()
@@ -97,30 +92,22 @@ func export(output_path: String) -> void:
 	for sprite_index in range(export_start_index, export_end_index + 1):
 		export_list.append(obj_data.sprites[sprite_index])
 	
-	var name_start_index: int = 0
-	if not name_from_zero:
-		name_start_index = export_start_index
-	
+	var name_start_index: int = 0 if name_from_zero else export_start_index
 	var palette: PackedByteArray = pal_gray
 	
 	if palette_include:
 		palette = obj_data.palette_get(palette_index).palette
 	
 	if export_bin:
-		var bin_palette_include: bool = palette_include
-		
-		if palette == pal_gray:
-			bin_palette_include = false
-		
 		SpriteExporter.export_sprites(
 			"bin",
 			output_path,
 			export_list,
 			name_start_index,
-			bin_palette_include,
+			palette_include,
 			palette,
 			palette_alpha_mode,
-			palette_override,
+			obj_data.has_palettes(),
 			sprite_reindex)
 	
 	if export_raw:
@@ -146,7 +133,7 @@ func export(output_path: String) -> void:
 			palette_include,
 			palette,
 			palette_alpha_mode,
-			palette_override,
+			obj_data.has_palettes(),
 			sprite_reindex)
 
 	if export_bmp:
@@ -158,5 +145,5 @@ func export(output_path: String) -> void:
 			palette_include,
 			palette,
 			palette_alpha_mode,
-			palette_override,
+			obj_data.has_palettes(),
 			sprite_reindex)

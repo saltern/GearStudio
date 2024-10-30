@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func on_reindex_toggled(enabled: bool) -> void:
-	SpriteExport.sprite_reindex = enabled
+	SpriteExport.set_sprite_reindex(enabled)

@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func on_palette_alpha_mode_changed(mode: int) -> void:
-	SpriteExport.palette_alpha_mode = mode as SpriteExport.AlphaMode
+	SpriteExport.set_palette_alpha_mode(mode as SpriteExport.AlphaMode)

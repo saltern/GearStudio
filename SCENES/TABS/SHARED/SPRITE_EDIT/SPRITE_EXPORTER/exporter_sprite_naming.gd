@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func on_zero_naming_toggled(enabled: bool) -> void:
-	SpriteExport.name_from_zero = enabled
+	SpriteExport.set_name_from_zero(enabled)

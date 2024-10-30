@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func on_palette_override_toggled(enabled: bool) -> void:
-	SpriteExport.palette_override = enabled
+	SpriteExport.set_palette_override(enabled)
