@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=73 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="2_dim6d"]
@@ -28,7 +28,6 @@
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_include.gd" id="16_2qa0c"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_index.gd" id="17_er65l"]
 [ext_resource type="Material" uid="uid://cmrekkhn07td8" path="res://MATERIALS/mat_exporter_preview.material" id="18_ebg8o"]
-[ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_override.gd" id="19_4er2c"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_alpha_mode.gd" id="20_014r4"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_reindex.gd" id="21_qqr6w"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_naming.gd" id="22_j4vvt"]
@@ -133,30 +132,24 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="import" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del" node_paths=PackedStringArray("window")]
+[node name="import" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Import one or more sprites..."
 text = "Import..."
-script = ExtResource("2_dim6d")
-window = NodePath("../../../../../../../../sprite_import")
 
-[node name="export" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del" node_paths=PackedStringArray("window")]
+[node name="export" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Export one or more sprites..."
 text = "Export..."
-script = ExtResource("2_dim6d")
-window = NodePath("../../../../../../../../sprite_export")
 
-[node name="delete" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del" node_paths=PackedStringArray("window")]
+[node name="delete" type="Button" parent="content/left_panel/scroll/margin/side_panel/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 tooltip_text = "Delete one or more sprites..."
 text = "Delete..."
-script = ExtResource("2_dim6d")
-window = NodePath("../../../../../../../../sprite_delete")
 
 [node name="reindex" type="Button" parent="content/left_panel/scroll/margin/side_panel/data"]
 layout_mode = 2
@@ -432,7 +425,7 @@ mouse_filter = 2
 script = ExtResource("8_vk3xv")
 display_toggle = NodePath("../../../../../../left_panel/scroll/margin/side_panel/data/display_bounds")
 
-[node name="sprite_import" type="Window" parent="." node_paths=PackedStringArray("import_file_dialog")]
+[node name="sprite_import" type="Window" parent="." node_paths=PackedStringArray("summon_button", "import_file_dialog")]
 title = "Import sprites"
 initial_position = 2
 size = Vector2i(1000, 614)
@@ -441,6 +434,7 @@ transient = true
 exclusive = true
 min_size = Vector2i(580, 180)
 script = ExtResource("26_647dd")
+summon_button = NodePath("../content/left_panel/scroll/margin/side_panel/data/imp_exp_del/import")
 import_file_dialog = NodePath("../sprite_import_files")
 
 [node name="background" type="PanelContainer" parent="sprite_import"]
@@ -892,7 +886,7 @@ use_native_dialog = true
 script = ExtResource("43_05050")
 browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/browse")
 
-[node name="sprite_export" type="Window" parent="." node_paths=PackedStringArray("export_path_dialog")]
+[node name="sprite_export" type="Window" parent="." node_paths=PackedStringArray("summon_button", "export_path_dialog")]
 title = "Export sprites"
 initial_position = 2
 size = Vector2i(1000, 614)
@@ -900,6 +894,7 @@ visible = false
 transient = true
 min_size = Vector2i(600, 160)
 script = ExtResource("9_oa8py")
+summon_button = NodePath("../content/left_panel/scroll/margin/side_panel/data/imp_exp_del/export")
 export_path_dialog = NodePath("../sprite_export_path")
 
 [node name="background" type="PanelContainer" parent="sprite_export"]
@@ -1082,17 +1077,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette" node_paths=PackedStringArray("control_index", "control_override", "control_alpha")]
+[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette" node_paths=PackedStringArray("control_index", "control_alpha")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "Whether to include a palette at all."
 text = "Include"
 script = ExtResource("16_2qa0c")
 control_index = NodePath("../index")
-control_override = NodePath("../override")
 control_alpha = NodePath("../alpha")
 
 [node name="index" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+visible = false
 layout_mode = 2
 
 [node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index"]
@@ -1102,28 +1097,15 @@ tooltip_text = "Which palette number to apply to exported sprites."
 mouse_filter = 0
 text = "Index"
 
-[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index" node_paths=PackedStringArray("include_toggle", "override_toggle", "alpha_mode_menu", "reindex_toggle", "sprite_index")]
+[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 21.0
 alignment = 2
 script = ExtResource("17_er65l")
-include_toggle = NodePath("../../include")
-override_toggle = NodePath("../../override")
-alpha_mode_menu = NodePath("../../alpha/mode")
-reindex_toggle = NodePath("../../../misc_options/reindex")
-palette_material = ExtResource("18_ebg8o")
-sprite_index = NodePath("../../../../../../../preview/title/sprite_index")
-
-[node name="override" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-tooltip_text = "By default, exports will prioritize embedded palettes.
-Enable this setting to force all sprites to use the selected global palette."
-text = "Override embedded"
-script = ExtResource("19_4er2c")
 
 [node name="alpha" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
@@ -1180,7 +1162,10 @@ mouse_filter = 2
 [node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_options"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-tooltip_text = "Reindex output sprites, changing their color order from 1-2-3-4 to 1-3-2-4 and vice-versa."
+tooltip_text = "Reindex output sprites, changing their color order
+from 1-2-3-4 to 1-3-2-4 and vice-versa.
+
+Only applies to 8 bpp sprites."
 text = "Reindex"
 script = ExtResource("21_qqr6w")
 
@@ -1294,7 +1279,7 @@ use_native_dialog = true
 script = ExtResource("25_ainjy")
 export_button = NodePath("../sprite_export/background/content_margin/window_content/config_contents/export")
 
-[node name="sprite_delete" type="Window" parent="."]
+[node name="sprite_delete" type="Window" parent="." node_paths=PackedStringArray("summon_button")]
 title = "Delete sprites"
 initial_position = 2
 size = Vector2i(900, 500)
@@ -1303,6 +1288,7 @@ transient = true
 exclusive = true
 min_size = Vector2i(450, 160)
 script = ExtResource("52_ujkov")
+summon_button = NodePath("../content/left_panel/scroll/margin/side_panel/data/imp_exp_del/delete")
 
 [node name="margin" type="MarginContainer" parent="sprite_delete"]
 offset_right = 900.0

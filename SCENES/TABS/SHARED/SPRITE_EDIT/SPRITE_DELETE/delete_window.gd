@@ -1,7 +1,10 @@
 extends Window
 
+@export var summon_button: Button
+
 
 func _ready() -> void:
+	summon_button.pressed.connect(show)
 	close_requested.connect(hide)
 
 

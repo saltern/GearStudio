@@ -1,5 +1,6 @@
 extends Window
 
+@export var summon_button: Button
 @export var import_file_dialog: FileDialog
 
 var local_file_list: PackedStringArray
@@ -9,9 +10,9 @@ var local_file_list: PackedStringArray
 
 func _ready() -> void:
 	title = "Import '%s' sprites..." % get_owner().get_parent().name
-
+	
+	summon_button.pressed.connect(display)
 	close_requested.connect(hide)
-	visibility_changed.connect(on_display)
 	import_file_dialog.files_selected.connect(on_files_selected)
 
 
@@ -29,12 +30,10 @@ func _input(event: InputEvent) -> void:
 		hide()
 
 
-func on_display() -> void:
-	if not visible:
-		return
-	
+func display() -> void:
 	SpriteImport.obj_data = sprite_edit.obj_data
 	update(local_file_list)
+	show()
 
 
 func on_files_selected(files: PackedStringArray) -> void:
