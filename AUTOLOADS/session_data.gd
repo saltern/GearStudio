@@ -65,7 +65,7 @@ func tab_new(path: String) -> void:
 	
 	if DirAccess.get_open_error() != OK:
 		Status.set_status(
-				"Could not load character! Reason: Could not open directory.")
+				"Could not load data! Reason: Could not open directory.")
 		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 		return
 	
@@ -114,6 +114,13 @@ func tab_new(path: String) -> void:
 	call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 
 
+func tab_new_binary(path: String) -> void:
+	var sub_tab_list: PackedStringArray = []
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	
+	
+
+
 func tab_load(index: int = 0) -> void:
 	if index < 0 || index >= tabs.size():
 		Status.set_ready()
@@ -123,12 +130,12 @@ func tab_load(index: int = 0) -> void:
 	this_tab = tabs[index]
 
 
-func tab_close(index: int = 0) -> void:
+func tab_close() -> void:
 	if tabs.size() < 1:
 		Status.set_status("Nothing currently open, can't close.")
 		return
 	
-	tab_closed.emit(index)
+	tab_closed.emit(tab_index)
 	tabs.remove_at(tab_index)
 	this_tab = {}
 	tab_load(min(tab_index, tabs.size() - 1))
