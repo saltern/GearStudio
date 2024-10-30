@@ -51,6 +51,8 @@ var provider: PaletteProvider = PaletteProvider.new()
 
 
 func _enter_tree() -> void:
+	undo_redo.max_steps = Settings.misc_max_undo
+	
 	obj_data = SessionData.object_data_get(get_parent().name)
 	
 	if not obj_data.has_cells():
