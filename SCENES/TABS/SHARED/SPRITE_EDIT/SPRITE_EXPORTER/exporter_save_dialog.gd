@@ -6,8 +6,13 @@ extends FileDialog
 
 
 func _ready() -> void:
-	export_button.pressed.connect(show)
+	export_button.pressed.connect(display)
 	dir_selected.connect(on_dir_selected)
+
+
+func display() -> void:
+	current_file = ""
+	show()
 
 
 func on_dir_selected(path: String) -> void:

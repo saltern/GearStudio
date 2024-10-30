@@ -40,6 +40,7 @@ func _ready() -> void:
 func menu_clicked(menu_id: int) -> void:
 	match menu_id:
 		ButtonID.LOAD:
+			load_dialog_dir.current_file = ""
 			load_dialog_dir.show()
 		
 		#ButtonID.LOAD_BIN:
