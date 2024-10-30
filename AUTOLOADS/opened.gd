@@ -12,8 +12,4 @@ func path_close(index: int) -> void:
 
 
 func path_is_open(path: String) -> bool:
-	if path in opened_paths:
-		return true
-	
-	else:
-		return false
+	return path in opened_paths
