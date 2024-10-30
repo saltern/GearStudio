@@ -263,6 +263,7 @@ func cell_copy() -> void:
 func cell_paste(at: int = 0) -> void:
 	if cell_clipboard == null:
 		Status.set_status("No cell on clipboard, nothing pasted.")
+		return
 	
 	var action_text: String = "Paste cell (#%s)"
 	action_text = action_text % (cell_index + clampi(at, 0, 1))
