@@ -1,6 +1,7 @@
 extends TabContainer
 
-@export var load_dialog: FileDialog
+@export var load_dialog_dir: FileDialog
+@export var load_dialog_bin: FileDialog
 @export var character_scene: PackedScene
 
 var waiting_tasks: Array[int] = []
@@ -12,7 +13,8 @@ func _ready() -> void:
 	SessionData.tab_closed.connect(on_tab_closed)
 	SessionData.tab_loading_complete.connect(character_finished_loading)
 	
-	load_dialog.dir_selected.connect(load_character)
+	load_dialog_dir.dir_selected.connect(load_directory)
+	load_dialog_bin.file_selected.connect(load_binary)
 	tab_changed.connect(on_tab_changed)
 
 
@@ -26,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 			waiting_tasks.pop_at(waiting_tasks.find(task))
 
 
-func load_character(path: String) -> void:
+func load_directory(path: String) -> void:
 	Status.set_status("Loading [%s]..." % path)
 	
 	if not Settings.misc_allow_reopen:
@@ -35,6 +37,19 @@ func load_character(path: String) -> void:
 			return
 	
 	var task_id := WorkerThreadPool.add_task(SessionData.tab_new.bind(path))
+	waiting_tasks.append(task_id)
+
+
+func load_binary(path: String) -> void:
+	Status.set_status("Loading [%s]..." % path)
+	
+	if not Settings.misc_allow_reopen:
+		if Opened.path_is_open(path):
+			Status.set_status("File already open!")
+			return
+	
+	var task_id := WorkerThreadPool.add_task(
+		SessionData.tab_new_binary.bind(path))
 	waiting_tasks.append(task_id)
 
 

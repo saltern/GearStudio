@@ -58,19 +58,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="content"]
+[node name="top_bar" type="PanelContainer" parent="content"]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="content/PanelContainer"]
+[node name="menu_bar" type="MenuBar" parent="content/top_bar"]
 layout_mode = 2
 prefer_global_menu = false
 
-[node name="File" type="PopupMenu" parent="content/PanelContainer/MenuBar" node_paths=PackedStringArray("load_dialog")]
+[node name="File" type="PopupMenu" parent="content/top_bar/menu_bar" node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin")]
 size = Vector2i(100, 122)
 script = ExtResource("1_2rc5h")
-load_dialog = NodePath("load_dialog")
+load_dialog_dir = NodePath("load_dialog_dir")
+load_dialog_bin = NodePath("load_dialog_bin")
 
-[node name="load_dialog" type="FileDialog" parent="content/PanelContainer/MenuBar/File"]
+[node name="load_dialog_dir" type="FileDialog" parent="content/top_bar/menu_bar/File"]
 title = "Open a Directory"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -79,11 +80,22 @@ file_mode = 2
 access = 2
 use_native_dialog = true
 
-[node name="Edit" type="PopupMenu" parent="content/PanelContainer/MenuBar"]
+[node name="load_dialog_bin" type="FileDialog" parent="content/top_bar/menu_bar/File"]
+auto_translate_mode = 1
+title = "Open a File"
+initial_position = 2
+size = Vector2i(600, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin;Binary files")
+use_native_dialog = true
+
+[node name="Edit" type="PopupMenu" parent="content/top_bar/menu_bar"]
 size = Vector2i(149, 109)
 script = ExtResource("3_lymwu")
 
-[node name="Help" type="PopupMenu" parent="content/PanelContainer/MenuBar" node_paths=PackedStringArray("about_dialog")]
+[node name="Help" type="PopupMenu" parent="content/top_bar/menu_bar" node_paths=PackedStringArray("about_dialog")]
 auto_translate_mode = 1
 size = Vector2i(115, 100)
 item_count = 1
@@ -92,11 +104,12 @@ item_0/id = 0
 script = ExtResource("2_pvowg")
 about_dialog = NodePath("../../../../about")
 
-[node name="loaded_chars" type="TabContainer" parent="content" node_paths=PackedStringArray("load_dialog")]
+[node name="loaded_chars" type="TabContainer" parent="content" node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_86rm5")
-load_dialog = NodePath("../PanelContainer/MenuBar/File/load_dialog")
+load_dialog_dir = NodePath("../top_bar/menu_bar/File/load_dialog_dir")
+load_dialog_bin = NodePath("../top_bar/menu_bar/File/load_dialog_bin")
 character_scene = ExtResource("3_kwuap")
 
 [node name="status" type="Label" parent="content"]
