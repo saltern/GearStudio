@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 6.3499999 6.35"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="copy.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Two sheets of paper</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="24.373737"
+     inkscape:cx="12.451927"
+     inkscape:cy="11.959594"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458332"
+       spacingy="0.26458332"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="1"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect1"
+       style="fill:#e0e0e0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583"
+       d="m 0.79375,1.5875 c 0,1.4993056 0,2.9986111 0,4.4979167 1.0583333,0 2.1166667,0 3.175,0 0,-0.3527778 0,-0.7055556 0,-1.0583334 -0.088194,0 -0.1763889,0 -0.2645833,0 0,0.2645833 0,0.5291667 0,0.79375 -0.8819445,0 -1.7638889,0 -2.6458334,0 0,-1.3229167 0,-2.6458333 0,-3.96875 0.3527778,0 0.7055556,0 1.0583334,0 0,-0.088194 0,-0.1763889 0,-0.2645833 -0.4409722,0 -0.8819445,0 -1.3229167,0 z" />
+    <path
+       id="rect1-2"
+       style="fill:#e0e0e0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.264583"
+       d="M 2.38125,0.26458333 V 4.7625 h 3.175 l -2e-7,-4.49791668 z M 2.6458333,0.52916667 H 5.2916667 V 4.4979167 H 2.6458333 Z"
+       sodipodi:nodetypes="cccccccccc" />
+  </g>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Two sheets of paper</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

@@ -1,28 +1,28 @@
 [gd_scene load_steps=58 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
-[ext_resource type="Texture2D" uid="uid://c60xip3wk014f" path="res://ICONS/new_l.png" id="2_sjpwr"]
+[ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_index.gd" id="2_whryn"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="3_5mq13"]
-[ext_resource type="Texture2D" uid="uid://bl4grcj6gpumf" path="res://ICONS/new_r.png" id="3_67sbk"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_cell.gd" id="3_rc8ef"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_index.gd" id="4_ckx06"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_new.gd" id="4_gjvwg"]
-[ext_resource type="Texture2D" uid="uid://coduxun75jbhp" path="res://ICONS/cross.png" id="4_qbdho"]
+[ext_resource type="Texture2D" uid="uid://7wmhqtwamyee" path="res://ICONS/new_left.svg" id="4_nmfxl"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_x.gd" id="5_r3hxp"]
-[ext_resource type="Texture2D" uid="uid://dfb00s46fsu58" path="res://ICONS/copy.png" id="5_rt4ti"]
-[ext_resource type="Texture2D" uid="uid://og3e7wtjarta" path="res://ICONS/clipboard.png" id="6_rssji"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_y.gd" id="6_ua8f0"]
-[ext_resource type="Texture2D" uid="uid://cl813q2s6jxee" path="res://ICONS/clipboard_before.png" id="7_15gi1"]
+[ext_resource type="Texture2D" uid="uid://mtgfsjtan4rb" path="res://ICONS/new_right.svg" id="6_vno5v"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_display_toggle.gd" id="7_fl2cb"]
+[ext_resource type="Texture2D" uid="uid://bnr5mkhl5ghgh" path="res://ICONS/copy.svg" id="7_h1oco"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_copy.gd" id="7_q3sqb"]
-[ext_resource type="Texture2D" uid="uid://c3wugptgy7tsx" path="res://ICONS/clipboard_after.png" id="8_gmapn"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/box_display_types_menu.gd" id="9_4ybbf"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_allow_edits.gd" id="9_6yg7t"]
+[ext_resource type="Texture2D" uid="uid://b0oprk8vqk1sc" path="res://ICONS/clipboard_left.svg" id="9_kdsfh"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/cell_paste.gd" id="9_umb15"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_list.gd" id="10_c571m"]
+[ext_resource type="Texture2D" uid="uid://b26ndog68sdw3" path="res://ICONS/clipboard.svg" id="11_4tv16"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw_mode.gd" id="11_37q3d"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_delete.gd" id="12_j041y"]
+[ext_resource type="Texture2D" uid="uid://fd18dydlbond" path="res://ICONS/clipboard_right.svg" id="12_pqsn1"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_type.gd" id="13_vxqe1"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_x.gd" id="14_1wdu3"]
 [ext_resource type="Script" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_y.gd" id="15_0f2v1"]
@@ -108,7 +108,7 @@ size_flags_horizontal = 4
 [node name="delete" type="Button" parent="content/scroll/margin/data/toolbar" node_paths=PackedStringArray("window")]
 layout_mode = 2
 tooltip_text = "Delete a single cell or a range of cells."
-icon = ExtResource("4_qbdho")
+icon = ExtResource("2_mn5jm")
 script = ExtResource("3_5mq13")
 window = NodePath("../../../../../../delete_cells")
 
@@ -116,28 +116,28 @@ window = NodePath("../../../../../../delete_cells")
 layout_mode = 2
 tooltip_text = "Add a new cell before the current one.
 Displaces cells after it!"
-icon = ExtResource("2_sjpwr")
+icon = ExtResource("4_nmfxl")
 script = ExtResource("4_gjvwg")
 
 [node name="new_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Add a new cell after the current one.
 Displaces cells after it!"
-icon = ExtResource("3_67sbk")
+icon = ExtResource("6_vno5v")
 script = ExtResource("4_gjvwg")
 add_after = true
 
 [node name="copy" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Copy the current cell to the clipboard."
-icon = ExtResource("5_rt4ti")
+icon = ExtResource("7_h1oco")
 script = ExtResource("7_q3sqb")
 
 [node name="paste_before" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a new cell before the current one.
 Displaces cells after it!"
-icon = ExtResource("7_15gi1")
+icon = ExtResource("9_kdsfh")
 script = ExtResource("9_umb15")
 at = -1
 
@@ -145,14 +145,14 @@ at = -1
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a replacement to the current one.
 Does not displace cells."
-icon = ExtResource("6_rssji")
+icon = ExtResource("11_4tv16")
 script = ExtResource("9_umb15")
 
 [node name="paste_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
 tooltip_text = "Paste the cell in the clipboard as a new cell after the current one.
 Displaces cells after it!"
-icon = ExtResource("8_gmapn")
+icon = ExtResource("12_pqsn1")
 script = ExtResource("9_umb15")
 at = 1
 
