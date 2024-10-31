@@ -2,8 +2,9 @@ extends OptionButton
 
 
 func _ready() -> void:
-	item_selected.connect(on_palette_alpha_mode_changed)
+	visibility_changed.connect(update)
+	item_selected.connect(update.unbind(1))
 
 
-func on_palette_alpha_mode_changed(mode: int) -> void:
-	SpriteExport.set_palette_alpha_mode(mode as SpriteExport.AlphaMode)
+func update() -> void:
+	SpriteExport.set_palette_alpha_mode(selected as SpriteExport.AlphaMode)
