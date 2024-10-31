@@ -40,10 +40,10 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("undo"):
-		provider.undo()
+		undo_redo.undo()
 	
 	elif Input.is_action_just_pressed("redo"):
-		provider.redo()
+		undo_redo.redo()
 
 
 func get_provider() -> PaletteProvider:
