@@ -80,7 +80,8 @@ func keyboard(event: InputEventKey) -> void:
 		KEY_H:
 			guide_remove_all()
 		KEY_ESCAPE:
-			guide_mode = GuideMode.NONE
+			guide_mode = GuideMode.BOTH
+			guide_cycle_mode()
 			
 
 func guide_cycle_mode() -> void:
