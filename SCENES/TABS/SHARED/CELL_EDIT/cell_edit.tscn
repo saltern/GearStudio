@@ -528,7 +528,7 @@ vertical_alignment = 1
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 65535.0
+max_value = 255.0
 alignment = 2
 editable = false
 script = ExtResource("19_vpw2d")
@@ -550,7 +550,7 @@ vertical_alignment = 1
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/crop_offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 65535.0
+max_value = 255.0
 alignment = 2
 editable = false
 script = ExtResource("20_i2dqh")
