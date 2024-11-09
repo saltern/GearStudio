@@ -65,6 +65,7 @@ var waiting_tasks: Array[int] = []
 
 func _ready() -> void:
 	sprite_import_finished.connect(import_place_sprites)
+	Handshake.status = true
 
 
 func _physics_process(_delta: float) -> void:
@@ -293,3 +294,7 @@ func set_bit_depth(mode: BitDepth) -> void:
 	bit_depth = mode
 	bit_depth_set.emit()
 	regenerate_preview = true
+
+
+func handshake() -> bool:
+	return sprite_importer != null
