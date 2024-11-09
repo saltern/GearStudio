@@ -2,7 +2,7 @@ extends PopupMenu
 
 enum ButtonID {
 	LOAD,
-	#LOAD_BIN,
+	LOAD_BIN,
 	SAVE,
 	#SAVE_AS,
 	SEPARATOR_0,
@@ -12,8 +12,8 @@ enum ButtonID {
 }
 
 const button_names: Dictionary = {
-	ButtonID.LOAD: "Load...",
-	#ButtonID.LOAD_BIN: "Load (binary)...",
+	ButtonID.LOAD: "Load (directory)...",
+	ButtonID.LOAD_BIN: "Load (binary)...",
 	ButtonID.SAVE: "Save",
 	#ButtonID.SAVE_AS: "Save as...",
 	ButtonID.SEPARATOR_0: "",
@@ -43,8 +43,8 @@ func menu_clicked(menu_id: int) -> void:
 			load_dialog_dir.current_file = ""
 			load_dialog_dir.show()
 		
-		#ButtonID.LOAD_BIN:
-			#load_dialog_bin.show()
+		ButtonID.LOAD_BIN:
+			load_dialog_bin.show()
 		
 		ButtonID.SAVE:
 			GlobalSignals.menu_save.emit()

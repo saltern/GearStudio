@@ -117,8 +117,65 @@ func tab_new(path: String) -> void:
 func tab_new_binary(path: String) -> void:
 	var sub_tab_list: PackedStringArray = []
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	var data: Dictionary = ResourceLoadSave.load_file(path)
 	
+	if data.has("error"):
+		Status.set_status.call_deferred.bind(data["error"])
+		return
 	
+	var new_session: Dictionary = {}
+	
+	if data.is_empty():
+		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+		return
+	
+	var obj_num: int = 0
+	var aud_num: int = 0
+	
+	var obj_list: PackedStringArray = []
+	
+	for object in data:
+		match data[object]["type"]:
+			"player":
+				data[object]["name"] = "player"
+				obj_list.append("player")
+			"object":
+				data[object]["name"] = "objno%s" % obj_num
+				obj_list.append("objno%s" % obj_num)
+				obj_num += 1
+			"audio_array":
+				data[object]["name"] = "audio"
+				obj_list.append("audioarray%s" % aud_num)
+				aud_num += 1
+	
+	new_session["current_object"] = obj_list[0]
+	
+	for object in data:
+		if data[object]["name"] == "audio":
+			continue
+		
+		var object_data := ObjectData.new()	
+		object_data.name = data[object]["name"]
+		
+		if object_data.name == "player" && data[object].has("palettes"):
+			object_data.palette_data = PaletteData.new()
+			object_data.palette_data.palettes = data[object]["palettes"]
+		
+		if data[object].has("sprites"):
+			object_data.sprites = data[object]["sprites"]
+		
+		#if data[object].has("cells"):
+			#object_data.cells = data[object]["cells"]
+		
+		new_session[object_data.name] = object_data
+		sub_tab_list.append(object_data.name)
+	
+	if !sub_tab_list.is_empty():
+		tabs.append(new_session)
+		this_tab = new_session
+		this_tab["path"] = path
+	
+	call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 
 
 func tab_load(index: int = 0) -> void:
