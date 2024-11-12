@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func on_cell_update(cell: Cell) -> void:
-	call_deferred("set_value_no_signal", cell.sprite_info.position.x)
+	call_deferred("set_value_no_signal", cell.sprite_x_offset)

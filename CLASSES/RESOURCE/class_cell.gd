@@ -1,10 +1,10 @@
-class_name Cell extends Resource
+class_name OldCell extends Resource
 
 @export_storage var boxes: Array[BoxInfo]
 @export_storage var sprite_info: SpriteInfo
 
 
-static func from_file(file_path: String) -> Cell:
+static func from_file(file_path: String) -> OldCell:
 	var file := FileAccess.open(file_path, FileAccess.READ)
 	var text: String = file.get_as_text()
 	var json: JSON = JSON.new()
@@ -12,7 +12,7 @@ static func from_file(file_path: String) -> Cell:
 	var error = json.parse(text)
 	
 	if error != OK:
-		return Cell.new()
+		return OldCell.new()
 	
 	var new_sprite_info: SpriteInfo = SpriteInfo.new()
 	var new_boxes: Array[BoxInfo] = []
@@ -45,7 +45,7 @@ static func from_file(file_path: String) -> Cell:
 		new_sprite_info.unknown = 0
 		new_sprite_info.position = Vector2i(0,0)
 	
-	var new_cell: Cell = Cell.new()
+	var new_cell: OldCell = OldCell.new()
 	new_cell.sprite_info = new_sprite_info
 	new_cell.boxes = new_boxes
 	

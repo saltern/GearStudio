@@ -11,7 +11,9 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = (box_info.type == 3 or box_info.type == 6) and get_parent().is_selected
+	visible = (box_info.box_type == 3 or box_info.box_type == 6) and \
+		get_parent().is_selected
+	
 	queue_redraw()
 
 
@@ -19,13 +21,15 @@ func _draw() -> void:
 	position = 8 * Vector2(
 		box_info.crop_x_offset, box_info.crop_y_offset)
 	
-	position += cell_edit.this_cell.sprite_info.position as Vector2
+	position += Vector2(
+		cell_edit.this_cell.sprite_x_offset,
+		cell_edit.this_cell.sprite_y_offset)
 	position -= Vector2(128, 128)
 	
 	var thickness: int = Settings.box_thickness
 	var color: Color
 	
-	if box_info.type == 3:
+	if box_info.box_type == 3:
 		color = Settings.box_colors[Settings.BoxType.REGION_B]
 	else:
 		color = Settings.box_colors[Settings.BoxType.REGION_F]

@@ -1,4 +1,4 @@
-class_name BoxInfo extends Resource
+class_name OldBoxInfo extends Resource
 
 @export_storage var rect: Rect2i = Rect2i(0, 0, 0, 0)
 @export_storage var type: int = 0

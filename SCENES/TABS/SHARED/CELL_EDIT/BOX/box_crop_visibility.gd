@@ -15,7 +15,7 @@ func on_cell_update(_cell: Cell) -> void:
 
 
 func on_box_update(box: BoxInfo) -> void:
-	if box.type != 3 and box.type != 6:
+	if box.box_type != 3 and box.box_type != 6:
 		$value.editable = false
 	else:
 		$value.editable = true

@@ -31,13 +31,13 @@ func _draw() -> void:
 
 func draw_box(box: BoxInfo) -> void:
 	var color := Settings.box_colors[
-		clampi(box.type, 0, Settings.box_colors.size() - 1)]
+		clampi(box.box_type, 0, Settings.box_colors.size() - 1)]
 		
 	# Using four separate draw_rect()s instead of just one
 	# as drawing unfilled boxes is off by a pixel or two
 	
-	var pos: Vector2i = box.rect.position
-	var siz: Vector2i = box.rect.size
+	var pos: Vector2i = Vector2i(box.x_offset, box.y_offset)
+	var siz: Vector2i = Vector2i(box.width, box.height)
 	
 	# Upper
 	draw_rect(Rect2(

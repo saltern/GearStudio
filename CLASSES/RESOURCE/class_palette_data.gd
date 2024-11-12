@@ -1,6 +1,6 @@
-class_name PaletteData extends Resource
+class_name OldPaletteData extends Resource
 
-static var default_header: PackedByteArray = [
+const default_header: PackedByteArray = [
 	0x03, 0x00, 0x20, 0x00,
 	0x08, 0x00, 0xC0, 0x00,
 	0x20, 0x01, 0x08, 0x00,

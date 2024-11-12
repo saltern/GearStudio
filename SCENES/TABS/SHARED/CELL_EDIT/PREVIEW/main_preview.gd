@@ -65,7 +65,9 @@ func mouse_motion(event: InputEventMouseMotion) -> void:
 		var accum_floor := Vector2(floor(accum.x), floor(accum.y))
 		
 		cell_edit.sprite_set_position(
-			cell_edit.this_cell.sprite_info.position +
+			Vector2i(
+				cell_edit.this_cell.sprite_x_offset,
+				cell_edit.this_cell.sprite_y_offset) +
 			(accum_floor as Vector2i))
 		
 		accum -= accum_floor

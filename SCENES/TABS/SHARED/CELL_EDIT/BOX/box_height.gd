@@ -26,7 +26,7 @@ func on_box_update(box: BoxInfo) -> void:
 		reset()
 		editable = false
 	else:
-		call_deferred("set_value_no_signal", box.rect.size.y)
+		call_deferred("set_value_no_signal", box.height)
 		editable = true
 
 

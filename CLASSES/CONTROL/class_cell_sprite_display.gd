@@ -11,14 +11,14 @@ func _enter_tree() -> void:
 
 
 func load_cell(cell: Cell) -> void:
-	if cell.sprite_info.index < obj_data.sprite_get_count():
-		sprite_index = cell.sprite_info.index
+	if cell.sprite_index < obj_data.sprite_get_count():
+		sprite_index = cell.sprite_index
 		load_cell_sprite(sprite_index, cell.boxes)
 	
 	else:
 		unload_sprite()
 		
-	position = cell.sprite_info.position
+	position = Vector2i(cell.sprite_x_offset, cell.sprite_y_offset)
 
 
 func unload_sprite() -> void:
@@ -36,13 +36,16 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	# (Thanks Athenya)
 	for type in [3, 6]:
 		for box in boxes:
-			if box.type != type: continue
+			if box.box_type != type: continue
 			
 			var offset_x: int = 8 * box.crop_x_offset
 			var offset_y: int = 8 * box.crop_y_offset
 			
 			offset_list.append(Vector2i(offset_x, offset_y))
-			cutout_list.append(box.rect)
+			cutout_list.append(
+				Rect2i(
+					box.x_offset, box.y_offset,
+					box.width, box.height))
 	
 	load_cell_sprite_pieces(index, cutout_list, offset_list)
 	material.set_shader_parameter("palette", get_palette(index))

@@ -55,8 +55,8 @@ func select_onion_skin(index: int) -> void:
 		unload_sprite()
 	else:
 		var cell: Cell = cell_edit.cell_get(cell_index)
-		load_cell_sprite(cell.sprite_info.index, cell.boxes)
-		position = cell.sprite_info.position
+		load_cell_sprite(cell.sprite_index, cell.boxes)
+		position = Vector2i(cell.sprite_x_offset, cell.sprite_y_offset)
 
 
 func unload_sprite() -> void:
@@ -71,13 +71,14 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	var offset_list: Array[Vector2i]
 	
 	for box in boxes:
-		if box.type & 0xFFFF != 3 && box.type & 0xFFFF != 6:
+		if box.box_type & 0xFFFF != 3 && box.box_type & 0xFFFF != 6:
 			continue
 		
 		var offset_x: int = 8 * box.crop_x_offset
 		var offset_y: int = 8 * box.crop_y_offset
 		offset_list.append(Vector2i(offset_x, offset_y))
-		cutout_list.append(box.rect)
+		cutout_list.append(Rect2i(
+			box.x_offset, box.y_offset, box.width, box.height))
 	
 	load_cell_sprite_pieces(index, cutout_list, offset_list)
 

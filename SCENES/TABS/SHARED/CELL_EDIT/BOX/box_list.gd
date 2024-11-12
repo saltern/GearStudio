@@ -47,7 +47,7 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 		var type: String = get_type_text(box)
 		
 		add_item("Box %02d, Type: %s (%s)" % [
-				item_count, box.type, type])
+				item_count, box.box_type, type])
 		
 		set_item_tooltip_enabled(item_count - 1, false)
 	
@@ -61,16 +61,16 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 func get_type_text(box_info: BoxInfo) -> String:
 	var type: String = STRING_BOX_TYPE_UNKNOWN
 	
-	if box_info.type == 3 || box_info.type == 6:
-		type = box_types[box_info.type]
+	if box_info.box_type == 3 || box_info.box_type == 6:
+		type = box_types[box_info.box_type]
 		
 		var offset_x: String = "%s" % (box_info.crop_x_offset)
 		var offset_y: String = "%s" % (box_info.crop_y_offset)
 		
 		type  += " [%s, %s]" % [offset_x, offset_y]
 	
-	elif box_info.type in box_types:
-		type = box_types[box_info.type]
+	elif box_info.box_type in box_types:
+		type = box_types[box_info.box_type]
 	
 	return type
 

@@ -91,13 +91,12 @@ func _input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("ui_copy"):
 		if Input.is_key_pressed(KEY_ALT):
-			var sprite_info := this_cell.sprite_info
-			
 			# duplicate() doesn't work here even with (true) for some reason
 			var sprite_info_copy := SpriteInfo.new()
-			sprite_info_copy.index = sprite_info.index
-			sprite_info_copy.position = sprite_info.position
-			sprite_info_copy.unknown = sprite_info.unknown
+			sprite_info_copy.sprite_index = this_cell.sprite_index
+			sprite_info_copy.sprite_x_offset = this_cell.sprite_x_offset
+			sprite_info_copy.sprite_y_offset = this_cell.sprite_y_offset
+			sprite_info_copy.unknown = this_cell.unknown1
 			
 			Clipboard.sprite_info = sprite_info_copy
 			
@@ -175,9 +174,9 @@ func cell_load(index: int) -> void:
 	Status.set_status("Loaded cell #%s." % index)
 
 
-func cell_ensure_selected(cell: Cell) -> void:
-	if this_cell != cell:
-		cell_updated.emit(cell)
+func cell_ensure_selected(cell: int) -> void:
+	if cell_index != cell:
+		cell_load(cell)
 
 
 # Toolbar buttons
@@ -206,8 +205,6 @@ func cell_delete(from: int, to: int) -> void:
 # Add Cell
 func cell_new(after: bool = false) -> void:
 	var new_cell: Cell = Cell.new()
-	var new_sprite_info: SpriteInfo = SpriteInfo.new()
-	new_cell.sprite_info = new_sprite_info
 	
 	var at: int = cell_index + (after as int)
 	
@@ -294,17 +291,7 @@ func cell_paste(at: int = 0) -> void:
 			undo_redo.add_undo_method(cell_remove_try_reload)
 		
 		0: # Replace current
-			var old_cell: Cell = Cell.new()
-			var old_sprite_info: SpriteInfo = SpriteInfo.new()
-			
-			old_sprite_info.index = this_cell.sprite_info.index
-			old_sprite_info.position = this_cell.sprite_info.position
-			old_sprite_info.unknown = this_cell.sprite_info.unknown
-			
-			old_cell.sprite_info = old_sprite_info
-			
-			for box in this_cell.boxes:
-				old_cell.boxes.append(box.duplicate())
+			var old_cell: Cell = this_cell
 			
 			undo_redo.add_do_method(cell_remove_commit.bind(cell_index))
 			undo_redo.add_do_method(cell_add_commit.bind(cell_index, cell))
@@ -340,11 +327,11 @@ func on_sprites_imported() -> void:
 
 #region Sprite Info
 func sprite_get_index() -> int:
-	return this_cell.sprite_info.index
+	return this_cell.sprite_index
 	
 	
 func sprite_get_position() -> Vector2i:
-	return this_cell.sprite_info.position
+	return Vector2i(this_cell.sprite_x_offset, this_cell.sprite_y_offset)
 
 
 func sprite_set_index(new_index: int) -> void:
@@ -353,11 +340,11 @@ func sprite_set_index(new_index: int) -> void:
 	
 	var old_index: int = sprite_get_index()
 	
-	undo_redo.add_do_property(this_cell.sprite_info, "index", new_index)
+	undo_redo.add_do_property(this_cell, "sprite_index", new_index)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_cell.sprite_info, "index", old_index)
+	undo_redo.add_undo_property(this_cell, "sprite_index", old_index)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -370,12 +357,17 @@ func sprite_set_position(new_position: Vector2i) -> void:
 	
 	var old_pos: Vector2i = sprite_get_position()
 	
-	undo_redo.add_do_property(
-		this_cell.sprite_info, "position", new_position)
+	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_position.x)
+	undo_redo.add_do_property(this_cell, "sprite_y_offset", new_position.y)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_cell.sprite_info, "position", old_pos)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_x_offset", this_cell.sprite_x_offset
+	)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_y_offset", this_cell.sprite_y_offset
+	)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -386,14 +378,12 @@ func sprite_set_position_x(new_x: int) -> void:
 	var action_text: String = "Cell #%s: Set sprite X offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
-	var old_pos: Vector2i = sprite_get_position()
-	
-	undo_redo.add_do_property(
-		this_cell.sprite_info, "position", Vector2i(new_x, old_pos.y))
+	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_x)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_cell.sprite_info, "position", old_pos)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_x_offset", this_cell.sprite_x_offset)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -404,14 +394,12 @@ func sprite_set_position_y(new_y: int) -> void:
 	var action_text: String = "Cell #%s: Set sprite Y offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
-	var old_pos: Vector2i = sprite_get_position()
-	
-	undo_redo.add_do_property(
-		this_cell.sprite_info, "position", Vector2i(old_pos.x, new_y))
+	undo_redo.add_do_property(this_cell, "sprite_y_offset", new_y)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_cell.sprite_info, "position", old_pos)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_y_offset", this_cell.sprite_y_offset)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -428,15 +416,25 @@ func sprite_info_paste() -> void:
 	
 	var new_sprite_info := SpriteInfo.new()
 	
-	new_sprite_info.index = Clipboard.sprite_info.index
-	new_sprite_info.position = Clipboard.sprite_info.position
-	new_sprite_info.unknown = Clipboard.sprite_info.unknown
-	
-	undo_redo.add_do_property(this_cell, "sprite_info", new_sprite_info)
+	undo_redo.add_do_property(this_cell, "sprite_index", Clipboard.sprite_index)
+	undo_redo.add_do_property(
+		this_cell, "sprite_x_offset",Clipboard.sprite_x_offset
+	)
+	undo_redo.add_do_property(
+		this_cell, "sprite_y_offset", Clipboard.sprite_y_offset
+	)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_cell, "sprite_info", this_cell.sprite_info)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_index", this_cell.sprite_index
+	)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_x_offset", this_cell.sprite_x_offset
+	)
+	undo_redo.add_undo_property(
+		this_cell, "sprite_y_offset", this_cell.sprite_y_offset
+	)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -613,13 +611,15 @@ func box_set_type(new_type: int) -> void:
 	for box in boxes_selected:
 		var current_box: BoxInfo = this_cell.boxes[box]
 		
-		undo_redo.add_do_property(current_box, "type", new_type)
-		undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+		undo_redo.add_do_property(current_box, "box_type", new_type)
+		undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 		undo_redo.add_do_method(emit_signal.bind("box_updated", current_box))
 		undo_redo.add_do_method(Status.set_status.bind(action_text))
 			
-		undo_redo.add_undo_property(current_box, "type", current_box.type)
-		undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+		undo_redo.add_undo_property(
+			current_box, "box_type", current_box.box_type
+		)
+		undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 		undo_redo.add_undo_method(emit_signal.bind("box_updated", current_box))
 		undo_redo.add_undo_method(
 			Status.set_status.bind("Undo: %s" % action_text))
@@ -644,16 +644,13 @@ func box_set_offset_x(new_value: int) -> void:
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
-	var new_rect: Rect2i = this_box.rect
-	new_rect.position.x = new_value
-	
-	undo_redo.add_do_property(this_box, "rect", new_rect)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_property(this_box, "x_offset", new_value)
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_box, "rect", this_box.rect)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_property(this_box, "x_offset", this_box.x_offset)
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -669,16 +666,13 @@ func box_set_offset_y(new_value: int) -> void:
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
-	var new_rect: Rect2i = this_box.rect
-	new_rect.position.y = new_value
-	
-	undo_redo.add_do_property(this_box, "rect", new_rect)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_property(this_box, "y_offset", new_value)
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_box, "rect", this_box.rect)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_property(this_box, "y_offset", this_box.y_offset)
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -694,16 +688,13 @@ func box_set_width(new_value: int) -> void:
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
-	var new_rect: Rect2i = this_box.rect
-	new_rect.size.x = new_value
-	
-	undo_redo.add_do_property(this_box, "rect", new_rect)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_property(this_box, "width", new_value)
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_box, "rect", this_box.rect)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_property(this_box, "width", this_box.width)
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -719,16 +710,13 @@ func box_set_height(new_value: int) -> void:
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
-	var new_rect: Rect2i = this_box.rect
-	new_rect.size.y = new_value
-	
-	undo_redo.add_do_property(this_box, "rect", new_rect)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_property(this_box, "height", new_value)
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(this_box, "rect", this_box.rect)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_property(this_box, "height", this_box.height)
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -749,13 +737,19 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	
 	var box: BoxInfo = box_get(index)
 	
-	undo_redo.add_do_property(box, "rect", rect)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_property(box, "x_offset", rect.position.x)
+	undo_redo.add_do_property(box, "y_offset", rect.position.y)
+	undo_redo.add_do_property(box, "width", rect.size.x)
+	undo_redo.add_do_property(box, "height", rect.size.y)
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_property(box, "rect", box.rect)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_property(box, "x_offset", box.x_offset)
+	undo_redo.add_undo_property(box, "y_offset", box.y_offset)
+	undo_redo.add_undo_property(box, "width", box.width)
+	undo_redo.add_undo_property(box, "height", box.height)
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -773,12 +767,12 @@ func box_set_crop_offset_x(new_value: int) -> void:
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "crop_x_offset", new_value)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "crop_x_offset", this_box.crop_x_offset)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -796,12 +790,12 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	var this_box: BoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "crop_y_offset", new_value)
-	undo_redo.add_do_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "crop_y_offset", this_box.crop_y_offset)
-	undo_redo.add_undo_method(cell_ensure_selected.bind(this_cell))
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	

@@ -149,8 +149,8 @@ func sprite_delete(from: int, to: int) -> void:
 	
 	for cell in affected_cells:
 		undo_redo.add_undo_property(
-			obj_data.cells[cell].sprite_info, "index",
-			obj_data.cells[cell].sprite_info.index)
+			obj_data.cells[cell], "sprite_index",
+			obj_data.cells[cell].sprite_index)
 	
 	undo_redo.add_do_method(
 		SpriteImport.emit_signal.bind("sprite_placement_finished"))

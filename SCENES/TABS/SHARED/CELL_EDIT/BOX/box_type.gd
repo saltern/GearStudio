@@ -26,7 +26,7 @@ func on_box_update(box: BoxInfo) -> void:
 	if cell_edit.boxes_selected.size() > 1:
 		return
 	else:
-		call_deferred("set_value_no_signal", box.type)
+		call_deferred("set_value_no_signal", box.box_type)
 
 
 func on_editing_toggled(enabled: bool) -> void:

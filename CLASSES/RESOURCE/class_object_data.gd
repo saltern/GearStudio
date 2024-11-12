@@ -1,4 +1,4 @@
-class_name ObjectData extends Resource
+class_name OldObjectData extends Resource
 
 @warning_ignore("unused_signal")
 signal palette_updated		# Used by SpriteEdit
@@ -6,7 +6,7 @@ signal palette_selected
 
 var name: String
 var sprites: Array[BinSprite] = []
-var cells: Array[Cell] = []
+var cells: Array[OldCell] = []
 var palette_data: PaletteData = PaletteData.new()
 var object_script: ObjectScript
 
@@ -124,7 +124,7 @@ func load_cells_from_path(path: String) -> bool:
 	
 	# Load cells
 	for file in FileSort.get_sorted_files(path, "json"):
-		cells.append(Cell.from_file(file))
+		cells.append(OldCell.from_file(file))
 	
 	return true
 

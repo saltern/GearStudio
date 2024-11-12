@@ -39,11 +39,11 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = cell_edit.box_is_type_visible(box_info.type)
+	visible = cell_edit.box_is_type_visible(box_info.box_type)
 	
 	if not being_dragged and not being_resized:
-		position = box_info.rect.position
-		size = box_info.rect.size
+		position = Vector2i(box_info.x_offset, box_info.y_offset)
+		size = Vector2i(box_info.width, box_info.height)
 	
 	region_preview.size = size
 	
@@ -54,7 +54,7 @@ func _draw() -> void:
 	if !is_visible_in_tree():
 		return
 
-	var type_color: int = box_info.type
+	var type_color: int = box_info.box_type
 	
 	var color := Settings.box_colors[
 		clampi(type_color, 0, Settings.box_colors.size() - 1)]
