@@ -345,7 +345,6 @@ item_count = 6
 popup/item_0/text = "Unknown types"
 popup/item_0/checkable = 1
 popup/item_0/checked = true
-popup/item_0/id = 0
 popup/item_1/text = "Hitboxes"
 popup/item_1/checkable = 1
 popup/item_1/checked = true
