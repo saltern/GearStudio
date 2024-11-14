@@ -125,8 +125,13 @@ func stop_drawing(at: Vector2, finished: bool) -> void:
 	var new_box_rect = get_box_rect()
 	var new_box := BoxInfo.new()
 	
-	new_box.type = box_type.value
-	new_box.rect = new_box_rect
+	new_box.box_type = box_type.value as int
+	new_box.x_offset = new_box_rect.position.x
+	new_box.y_offset = new_box_rect.position.y
+	new_box.width = new_box_rect.size.x
+	new_box.height = new_box_rect.size.y
+	new_box.crop_x_offset = 0
+	new_box.crop_y_offset = 0
 	
 	cell_edit.box_append(new_box)
 
