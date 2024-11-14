@@ -7,17 +7,16 @@ signal tab_loading_complete
 signal save_complete
 signal tab_closed
 
+const serialize_ignore: Array[String] = ["path", "current_object"]
+
 var tab_index: int = 0
 var object_name: String
 var tabs: Array = []
 var this_tab: Dictionary = {}
 
-var serialize_ignore: Array[String] = ["path", "current_object", "palettes"]
-
 # tabs = [
 #	{
 #		"current_object": "player",
-#		"palettes": PaletteEditState,
 #		"player": ObjectData,
 #		"objno0": ObjectData,
 #		"objno1": ObjectData,
@@ -45,13 +44,8 @@ func save() -> void:
 	var save_path: String = this_tab["path"]
 	
 	for object in this_tab:
-		if object in serialize_ignore:
-			continue
-		
-		this_tab[object].serialize_and_save(save_path + "/%s" % object)
-	
-	if this_tab.has("palettes"):
-		this_tab["palettes"].serialize_and_save(save_path + "/palettes")
+		if not object in serialize_ignore:
+			this_tab[object].save_as_directory(save_path + "/%s" % object)
 
 	SaveErrors.call_deferred("set_status")
 	GlobalSignals.call_deferred("emit_signal", "save_complete")
@@ -86,21 +80,9 @@ func tab_new(path: String) -> void:
 		var object_data := ObjectData.new()
 		
 		object_data.name = directory
+		object_data.load_data_from_path(path + "/%s" % directory)
 		
-		# Load palettes as subresource of ObjectData...
-		if dir.dir_exists("palettes") and directory == "player":
-			object_data.load_palette_data_from_path(path + "/palettes")
-		
-		if dir.dir_exists("%s/sprites" % directory):
-			object_data.load_sprites_from_path(path + "/%s/sprites" % directory)
-		
-		if dir.dir_exists("%s/cells" % directory):
-			object_data.load_cells_from_path(path + "/%s/cells" % directory)
-		
-		#if dir.file_exists("%s/script.json" % directory):
-			#object_data.load_script_from_file(path + "/%s/script.json" % directory)
-		
-		if object_data.sprites.is_empty() and object_data.cells.is_empty():
+		if object_data.sprites.is_empty():
 			continue
 		
 		new_session[directory] = object_data
@@ -164,8 +146,11 @@ func tab_new_binary(path: String) -> void:
 		if data[object].has("sprites"):
 			object_data.sprites = data[object]["sprites"]
 		
-		#if data[object].has("cells"):
-			#object_data.cells = data[object]["cells"]
+		if data[object].has("cells"):
+			object_data.cells = data[object]["cells"]
+		
+		if data[object].has("script"):
+			object_data.script = data[object]["script"]
 		
 		new_session[object_data.name] = object_data
 		sub_tab_list.append(object_data.name)
