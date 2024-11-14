@@ -68,8 +68,10 @@ func character_finished_loading(path: String, tabs: PackedStringArray) -> void:
 	var new_character: Control = character_scene.instantiate()
 	new_character.load_tabs(tabs)
 	
-	new_character.base_name = path.split("\\")[-1]
-	new_character.base_name = path.split("/")[-1]
+	var name_split: String = path.split("\\")[-1]
+	name_split = name_split.split("/")[-1]
+	
+	new_character.base_name = name_split
 	
 	var new_name: String = "File %s: %s" % [
 		get_child_count(), new_character.base_name]
