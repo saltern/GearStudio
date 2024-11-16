@@ -39,11 +39,11 @@ func _input(event: InputEvent) -> void:
 		gradient_menu.display()
 		return
 	
-	if Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
-	
-	elif Input.is_action_just_pressed("redo"):
+	if Input.is_action_just_pressed("redo"):
 		undo_redo.redo()
+	
+	elif Input.is_action_just_pressed("undo"):
+		undo_redo.undo()
 
 
 func get_provider() -> PaletteProvider:
@@ -52,19 +52,16 @@ func get_provider() -> PaletteProvider:
 
 #region Sprites/Preview
 func sprite_get_count() -> int:
-	return obj_data.sprites.size()
+	return obj_data.sprite_get_count()
 
 
 func sprite_get(index: int) -> BinSprite:
-	return obj_data.sprites[index]
+	return obj_data.sprite_get(index)
 #endregion
 
 
 func palette_get_count() -> int:
-	if obj_data.has_palettes():
-		return obj_data.palette_data.palettes.size()
-	else:
-		return 0
+	return obj_data.palette_get_count()
 
 
 func palette_reindex() -> void:

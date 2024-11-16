@@ -50,15 +50,17 @@ func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
 	
-	if Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
+	if Input.is_action_just_pressed("redo"):
+		undo_redo.redo()
+		
 		if not obj_data.has_palettes():
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
 				"set_value_no_signal", sprite_index)
 	
-	if Input.is_action_just_pressed("redo"):
-		undo_redo.redo()
+	elif Input.is_action_just_pressed("undo"):
+		undo_redo.undo()
+		
 		if not obj_data.has_palettes():
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
@@ -96,7 +98,7 @@ func sprite_get(index: int) -> BinSprite:
 
 
 func sprite_get_count() -> int:
-	return obj_data.sprites.size()
+	return obj_data.sprite_get_count()
 
 
 func sprite_set(index: int) -> void:
@@ -111,6 +113,10 @@ func sprite_set(index: int) -> void:
 		provider.palette_load(sprite_index)
 	
 	sprite_updated.emit(this_sprite)
+
+
+func sprite_get_texture(index: int) -> ImageTexture:
+	return obj_data.sprite_get(index).texture
 
 
 func sprite_reload() -> void:

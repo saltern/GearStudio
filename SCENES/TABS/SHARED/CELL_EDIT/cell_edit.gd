@@ -317,7 +317,7 @@ func sprite_get(index: int = 0) -> BinSprite:
 	
 	
 func sprite_get_count() -> int:
-	return obj_data.sprites.size()
+	return obj_data.sprite_get_count()
 
 
 func on_sprites_imported() -> void:

@@ -8,4 +8,8 @@ func _ready() -> void:
 
 
 func on_file_selected(path: String) -> void:
-	PaletteData.save_palette(provider.palette_get_colors(), path)
+	match path.get_extension():
+		"bin":
+			provider.palette.to_bin_file(path)
+		"act":
+			provider.palette.to_act_file(path)

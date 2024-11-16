@@ -19,8 +19,8 @@ func _ready() -> void:
 
 
 func update_texture(sprite_index: int) -> void:
-	var sprite: BinSprite = sprite_edit.sprite_get(sprite_index)
-	texture = sprite.texture
+	#var sprite: BinSprite = sprite_edit.sprite_get(sprite_index)
+	texture = sprite_edit.sprite_get_texture(sprite_index)
 	
 	if sprite_edit.obj_data.has_palettes():
 		return

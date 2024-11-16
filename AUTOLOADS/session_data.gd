@@ -82,7 +82,7 @@ func tab_new(path: String) -> void:
 		object_data.name = directory
 		object_data.load_data_from_path(path + "/%s" % directory)
 		
-		if object_data.sprites.is_empty():
+		if object_data.sprite_get_count() == 0:
 			continue
 		
 		new_session[directory] = object_data
@@ -125,7 +125,7 @@ func tab_new_binary(path: String) -> void:
 				data[object]["name"] = "objno%s" % obj_num
 				obj_list.append("objno%s" % obj_num)
 				obj_num += 1
-			"audio_array":
+			"audio_vagp", "audio_wbnd":
 				data[object]["name"] = "audio"
 				obj_list.append("audioarray%s" % aud_num)
 				aud_num += 1
@@ -140,8 +140,7 @@ func tab_new_binary(path: String) -> void:
 		object_data.name = data[object]["name"]
 		
 		if object_data.name == "player" && data[object].has("palettes"):
-			object_data.palette_data = PaletteData.new()
-			object_data.palette_data.palettes = data[object]["palettes"]
+			object_data.palettes = data[object]["palettes"]
 		
 		if data[object].has("sprites"):
 			object_data.sprites = data[object]["sprites"]
@@ -150,7 +149,7 @@ func tab_new_binary(path: String) -> void:
 			object_data.cells = data[object]["cells"]
 		
 		if data[object].has("script"):
-			object_data.script = data[object]["script"]
+			object_data.script = data[object]["script"] as PackedByteArray
 		
 		new_session[object_data.name] = object_data
 		sub_tab_list.append(object_data.name)
@@ -187,10 +186,3 @@ func tab_close() -> void:
 
 func object_data_get(object: String) -> ObjectData:
 	return this_tab[object]
-
-
-func palette_data_get(from_tab: int) -> PaletteData:
-	if tabs[from_tab].has("palettes"):
-		return tabs[from_tab]["palettes"]
-	else:
-		return PaletteData.new()

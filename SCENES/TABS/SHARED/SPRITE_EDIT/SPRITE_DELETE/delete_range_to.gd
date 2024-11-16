@@ -16,4 +16,4 @@ func update_min_value(new_min_value: int) -> void:
 
 
 func update_max_value() -> void:
-	max_value = sprite_edit.obj_data.sprites.size() - 1
+	max_value = sprite_edit.obj_data.sprite_get_count() - 1
