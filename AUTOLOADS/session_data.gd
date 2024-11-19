@@ -99,15 +99,15 @@ func tab_new(path: String) -> void:
 func tab_new_binary(path: String) -> void:
 	var sub_tab_list: PackedStringArray = []
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
-	var data: Dictionary = ResourceLoadSave.load_file(path)
+	var bin_resource: BinResource = BinResource.from_file(path)
 	
-	if data.has("error"):
-		Status.set_status.call_deferred.bind(data["error"])
+	if bin_resource.data.has("error"):
+		Status.set_status.call_deferred.bind(bin_resource.data["error"])
 		return
 	
 	var new_session: Dictionary = {}
 	
-	if data.is_empty():
+	if bin_resource.data.is_empty():
 		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
 		return
 	
@@ -116,43 +116,25 @@ func tab_new_binary(path: String) -> void:
 	
 	var obj_list: PackedStringArray = []
 	
-	for object in data:
-		match data[object]["type"]:
-			"player":
-				data[object]["name"] = "player"
-				obj_list.append("player")
+	for object in bin_resource.data:
+		match bin_resource.data[object]["type"]:
 			"object":
-				data[object]["name"] = "objno%s" % obj_num
-				obj_list.append("objno%s" % obj_num)
-				obj_num += 1
-			"audio_vagp", "audio_wbnd":
-				data[object]["name"] = "audio"
-				obj_list.append("audioarray%s" % aud_num)
-				aud_num += 1
+				obj_list.append(bin_resource.data[object].data.name)
+			_: # "unsupported"
+				obj_list.append("unsupported_%s" % obj_num)
+		
+		obj_num += 1
 	
 	new_session["current_object"] = obj_list[0]
 	
-	for object in data:
-		if data[object]["name"] == "audio":
+	for object in bin_resource.data:
+		if bin_resource.data[object]["type"] == "unsupported":
 			continue
 		
-		var object_data := ObjectData.new()	
-		object_data.name = data[object]["name"]
+		var obj: Dictionary = bin_resource.data[object]
 		
-		if object_data.name == "player" && data[object].has("palettes"):
-			object_data.palettes = data[object]["palettes"]
-		
-		if data[object].has("sprites"):
-			object_data.sprites = data[object]["sprites"]
-		
-		if data[object].has("cells"):
-			object_data.cells = data[object]["cells"]
-		
-		if data[object].has("script"):
-			object_data.script = data[object]["script"] as PackedByteArray
-		
-		new_session[object_data.name] = object_data
-		sub_tab_list.append(object_data.name)
+		new_session[obj.data.name] = obj.data
+		sub_tab_list.append(obj.data.name)
 	
 	if !sub_tab_list.is_empty():
 		tabs.append(new_session)
