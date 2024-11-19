@@ -13,15 +13,15 @@ grow_vertical = 2
 current_tab = 0
 metadata/_tab_index = 0
 
-[node name="sprites" parent="." instance=ExtResource("1_ottdf")]
+[node name="Sprites" parent="." instance=ExtResource("1_ottdf")]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="cells" parent="." instance=ExtResource("2_qr8oj")]
+[node name="Cells" parent="." instance=ExtResource("2_qr8oj")]
 visible = false
 layout_mode = 2
 
-[node name="palettes" parent="." instance=ExtResource("3_laiel")]
+[node name="Palettes" parent="." instance=ExtResource("3_laiel")]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
