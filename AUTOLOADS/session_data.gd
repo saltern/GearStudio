@@ -1,8 +1,7 @@
 # SessionData autoload
 extends Node
 
-@warning_ignore("unused_signal")
-signal tab_loading_complete
+signal load_complete
 @warning_ignore("unused_signal")
 signal save_complete
 signal tab_closed
@@ -23,6 +22,23 @@ var this_tab: Dictionary = {}
 #	},
 #
 #	...
+
+# New, maybe:
+# tabs = [
+#	{
+#		"current_object": "Player",
+#		"objects": {
+#			0: {
+#				"type": "object",
+#				"data": ObjectData,
+#			},
+#
+#			1: {
+#				"type": "unsupported",
+#				"data": PackedByteArray,
+#			},
+#		},
+#	},
 
 func save() -> void:
 	SaveErrors.reset()
@@ -51,26 +67,51 @@ func save() -> void:
 	GlobalSignals.call_deferred("emit_signal", "save_complete")
 
 
+func save_bin() -> void:
+	BinResource.save_resource_file(
+		this_tab["data"], "C:\\users\\alt_o\\Desktop")
+	
+	#var bin_data: PackedByteArray = []
+	#
+	#for object in this_tab:
+		#if this_tab[object] is ObjectData:
+			#bin_data.append_array(this_tab[object].get_as_binary())
+		#
+		#elif this_tab[object] is PackedByteArray:
+			#bin_data.append_array(this_tab[object])
+	#
+	#var new_file: FileAccess = FileAccess.open(
+		#"C:\\Users\\alt_o\\Desktop\\test.bin", FileAccess.WRITE)
+	#
+	#new_file.store_buffer(bin_data)
+	#new_file.close()
+
+
 #region Tabs
 func tab_new(path: String) -> void:
-	var sub_tab_list: PackedStringArray = []
-	
 	var dir: DirAccess = DirAccess.open(path)
 	
 	if DirAccess.get_open_error() != OK:
 		Status.set_status(
 				"Could not load data! Reason: Could not open directory.")
-		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+			
+		load_complete.emit.bind(path, {}).call_deferred()
 		return
 	
-	var new_session: Dictionary = {}
+	# Build dictionary in same format as .bin loading
+	
 	var dir_list: PackedStringArray = dir.get_directories()
 	
 	if dir_list.size() < 1:
-		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+		load_complete.emit.bind(path, {}).call_deferred()
 		return
 	
-	new_session["current_object"] = dir_list[0]
+	var new_session: Dictionary = {
+		"data": {},
+		"current_object": 0,
+	}
+	
+	var dir_number: int = 0
 	
 	# Load objects
 	for directory in dir_list:
@@ -85,15 +126,17 @@ func tab_new(path: String) -> void:
 		if object_data.sprite_get_count() == 0:
 			continue
 		
-		new_session[directory] = object_data
-		sub_tab_list.append(directory)
+		new_session["data"][directory] = {
+			"type": "object",
+			"data": object_data,
+		}
 	
-	if !sub_tab_list.is_empty():
+	if not new_session["data"].is_empty():
 		tabs.append(new_session)
 		this_tab = new_session
 		this_tab["path"] = path
 	
-	call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+	load_complete.emit.bind(path, new_session["data"]).call_deferred()
 
 
 func tab_new_binary(path: String) -> void:
@@ -101,47 +144,29 @@ func tab_new_binary(path: String) -> void:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var bin_resource: BinResource = BinResource.from_file(path)
 	
-	if bin_resource.data.has("error"):
-		Status.set_status.call_deferred.bind(bin_resource.data["error"])
+	if bin_resource.objects.is_empty():
+		load_complete.emit.bind(path, {}).call_deferred()
 		return
 	
-	var new_session: Dictionary = {}
+	var new_session: Dictionary = {
+		"data": {},
+		"current_object": 0,
+	}
 	
-	if bin_resource.data.is_empty():
-		call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
-		return
-	
-	var obj_num: int = 0
-	var aud_num: int = 0
-	
-	var obj_list: PackedStringArray = []
-	
-	for object in bin_resource.data:
-		match bin_resource.data[object]["type"]:
+	for object in bin_resource.objects:
+		var this_object: Dictionary = bin_resource.objects[object]
+		
+		match this_object["type"]:
 			"object":
-				obj_list.append(bin_resource.data[object].data.name)
-			_: # "unsupported"
-				obj_list.append("unsupported_%s" % obj_num)
-		
-		obj_num += 1
+				new_session["data"][this_object["data"].name] = this_object
+			_:
+				new_session["data"][object] = this_object
 	
-	new_session["current_object"] = obj_list[0]
+	tabs.append(new_session)
+	this_tab = new_session
+	this_tab["path"] = path
 	
-	for object in bin_resource.data:
-		if bin_resource.data[object]["type"] == "unsupported":
-			continue
-		
-		var obj: Dictionary = bin_resource.data[object]
-		
-		new_session[obj.data.name] = obj.data
-		sub_tab_list.append(obj.data.name)
-	
-	if !sub_tab_list.is_empty():
-		tabs.append(new_session)
-		this_tab = new_session
-		this_tab["path"] = path
-	
-	call_deferred("emit_signal", "tab_loading_complete", path, sub_tab_list)
+	load_complete.emit.bind(path, new_session["data"]).call_deferred()
 
 
 func tab_load(index: int = 0) -> void:
@@ -167,4 +192,4 @@ func tab_close() -> void:
 
 
 func object_data_get(object: String) -> ObjectData:
-	return this_tab[object]
+	return this_tab["data"][object]["data"]

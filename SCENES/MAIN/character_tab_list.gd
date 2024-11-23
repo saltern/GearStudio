@@ -11,7 +11,7 @@ func _ready() -> void:
 	GlobalSignals.menu_save.connect(save_character)
 	
 	SessionData.tab_closed.connect(on_tab_closed)
-	SessionData.tab_loading_complete.connect(character_finished_loading)
+	SessionData.load_complete.connect(finished_loading)
 	
 	load_dialog_dir.dir_selected.connect(load_directory)
 	load_dialog_bin.file_selected.connect(load_binary)
@@ -58,28 +58,33 @@ func save_character():
 	waiting_tasks.append(task_id)
 
 
-func character_finished_loading(path: String, tabs: PackedStringArray) -> void:
-	if tabs.is_empty():
-		Status.set_status("No compatible data found at [%s]." % path)
+func finished_loading(path: String, data: Dictionary) -> void:
+	if data.is_empty():
+		Status.set_status("Unable to load, file invalid or unsupported.")
 		return
 	
 	Opened.path_open(path)
 	
-	var new_character: Control = character_scene.instantiate()
-	new_character.load_tabs(tabs)
+	var new_tab: Control = character_scene.instantiate()
+	new_tab.load_tabs(data)
 	
-	var name_split: String = path.split("\\")[-1]
-	name_split = name_split.split("/")[-1]
+	var names: PackedStringArray = get_new_tab_name(path)
+	new_tab.base_name = names[0]
 	
-	new_character.base_name = name_split
-	
-	var new_name: String = "File %s: %s" % [
-		get_child_count(), new_character.base_name]
-	
-	add_child(new_character)
-	set_tab_title(get_tab_count() - 1, new_name)
+	add_child(new_tab)
+	set_tab_title(get_tab_count() - 1, names[1])
 	
 	Status.set_status("Loaded data from [%s]." % path)
+
+
+func get_new_tab_name(path: String) -> PackedStringArray:
+	var base_name: String = path.split("\\")[-1]
+	base_name = base_name.split("/")[-1]
+	
+	var pretty_name: String = "File %s: %s" % [
+		get_child_count(), base_name]
+	
+	return [base_name, pretty_name]
 
 
 func on_tab_changed(new_tab: int) -> void:

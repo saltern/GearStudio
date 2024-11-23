@@ -5,6 +5,7 @@ enum ButtonID {
 	LOAD_BIN,
 	SAVE,
 	#SAVE_AS,
+	SAVE_BIN,
 	SEPARATOR_0,
 	CLOSE,
 	SEPARATOR_1,
@@ -14,8 +15,9 @@ enum ButtonID {
 const button_names: Dictionary = {
 	ButtonID.LOAD: "Load (directory)...",
 	ButtonID.LOAD_BIN: "Load (binary)...",
-	ButtonID.SAVE: "Save",
+	ButtonID.SAVE: "Save (directory)",
 	#ButtonID.SAVE_AS: "Save as...",
+	ButtonID.SAVE_BIN: "Save (binary)...",
 	ButtonID.SEPARATOR_0: "",
 	ButtonID.CLOSE: "Close",
 	ButtonID.SEPARATOR_1: "",
@@ -51,6 +53,9 @@ func menu_clicked(menu_id: int) -> void:
 
 		#ButtonID.SAVE_AS:
 			#Status.set_status("Save as is not currently available.")
+		
+		ButtonID.SAVE_BIN:
+			SessionData.save_bin()
 
 		ButtonID.CLOSE:
 			SessionData.tab_close()
