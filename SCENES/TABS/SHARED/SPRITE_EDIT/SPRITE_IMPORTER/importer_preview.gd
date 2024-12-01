@@ -36,11 +36,11 @@ func update_preview() -> void:
 		material.set_shader_parameter("reindex",
 			sprite.bit_depth == 8 or SpriteImport.obj_data.name == "player")
 		
-		if sprite_edit.obj_data.has_palettes():
+		if sprite_edit.obj_data.has("palettes"):
 			var pal_index: int = SpriteImport.preview_palette_index
 			
 			material.set_shader_parameter(
-				"palette", sprite_edit.obj_data.palette_get(pal_index).palette)
+				"palette", sprite_edit.obj_data["palettes"][pal_index].palette)
 				
 		else:
 			material.set_shader_parameter("palette", sprite.palette)

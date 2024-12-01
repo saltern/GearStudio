@@ -1,9 +1,11 @@
 extends CheckButton
 
+@onready var sprite_edit: SpriteEdit = owner
+
 
 func _ready() -> void:
 	toggled.connect(update)
 
 
 func update(enabled: bool) -> void:
-	SpriteImport.redirect_cells = enabled
+	sprite_edit.redirect_cells = enabled

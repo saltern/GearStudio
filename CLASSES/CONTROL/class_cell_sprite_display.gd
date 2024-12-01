@@ -1,6 +1,6 @@
 class_name CellSpriteDisplay extends Control
 
-var obj_data: ObjectData
+var obj_data: Dictionary
 
 var sprite_index: int = 0
 var palette_index: int = 0
@@ -11,7 +11,7 @@ func _enter_tree() -> void:
 
 
 func load_cell(cell: Cell) -> void:
-	if cell.sprite_index < obj_data.sprite_get_count():
+	if cell.sprite_index < obj_data["sprites"].size():
 		sprite_index = cell.sprite_index
 		load_cell_sprite(sprite_index, cell.boxes)
 	
@@ -54,9 +54,9 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
-	var sprite: BinSprite = obj_data.sprite_get(index)
+	var sprite: BinSprite = obj_data["sprites"][index]
 	
-	if not obj_data.has_palettes():
+	if not obj_data.has("palettes"):
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	var source_image := sprite.image
@@ -96,11 +96,11 @@ func load_cell_sprite_pieces(
 
 func get_palette(index: int) -> PackedByteArray:
 	# Global palette
-	if obj_data.has_palettes():
-		return obj_data.palette_get(palette_index).palette
+	if obj_data.has("palettes"):
+		return obj_data["palettes"][palette_index].palette
 	
 	# Embedded palette
-	var sprite: BinSprite = obj_data.sprite_get(index)
+	var sprite: BinSprite = obj_data["sprites"][index]
 	return sprite.palette
 
 
@@ -110,7 +110,7 @@ func load_palette(index: int) -> void:
 
 
 func reload_palette() -> void:
-	if obj_data.has_palettes():
+	if obj_data.has("palettes"):
 		load_palette(palette_index)
 	else:
 		load_palette(sprite_index)

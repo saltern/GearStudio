@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 	cell_index.value_changed.connect(cell_selected)
 	cell_edit.cell_count_changed.connect(on_cell_count_changed)
-	if obj_data.has_cells():
+	if obj_data.has("cells"):
 		cell_selected(cell_index.value)
 
 

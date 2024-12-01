@@ -22,7 +22,7 @@ func update_texture(sprite_index: int) -> void:
 	#var sprite: BinSprite = sprite_edit.sprite_get(sprite_index)
 	texture = sprite_edit.sprite_get_texture(sprite_index)
 	
-	if sprite_edit.obj_data.has_palettes():
+	if sprite_edit.obj_data.has("palettes"):
 		return
 	
 	update_palette()
@@ -35,7 +35,7 @@ func update_palette() -> void:
 	current_palette = SpriteExport.pal_gray
 	
 	if SpriteExport.palette_include:
-		if sprite_edit.obj_data.has_palettes():
+		if sprite_edit.obj_data.has("palettes"):
 			current_palette = sprite_edit.palette_get(SpriteExport.palette_index)
 			current_palette = process_alpha(current_palette)
 		

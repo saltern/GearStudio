@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://tx382xky4kty" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_palette_editor.gd" id="8_xwrgv"]
 [ext_resource type="Script" uid="uid://c6ffe06hjdyn3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="9_c4mug"]
 [ext_resource type="Script" uid="uid://dgxpoke04wsuj" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_window.gd" id="9_oa8py"]
-[ext_resource type="Script" uid="uid://bnpv4j4m8b1xx" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_import_export_buttons.gd" id="10_jsn4m"]
+[ext_resource type="Script" uid="uid://bnpv4j4m8b1xx" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_palette_import_export_buttons.gd" id="10_jsn4m"]
 [ext_resource type="Script" uid="uid://44utueqvrc1t" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_start.gd" id="10_tbtm3"]
 [ext_resource type="Script" uid="uid://d6xs4guymfaq" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_end.gd" id="11_o6jgh"]
 [ext_resource type="Script" uid="uid://u1t7jxjip0h6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format_bin.gd" id="12_gpmfg"]
@@ -87,7 +87,7 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.635294)
 shadow_offset = Vector2(0, 0)
 
-[node name="sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
+[node name="Sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

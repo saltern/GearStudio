@@ -4,7 +4,7 @@ signal sprite_updated
 
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: ObjectData
+var obj_data: Dictionary
 
 var sprite_index: int
 var this_sprite: BinSprite
@@ -19,6 +19,7 @@ var this_palette: BinPalette
 @export var info_embedded_pal: Label
 
 var embedded_pal: bool = false
+var redirect_cells: bool = true
 
 var provider: PaletteProvider
 
@@ -26,16 +27,14 @@ var provider: PaletteProvider
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	
-	obj_data = SessionData.object_data_get(get_parent().name)
-	
 	provider = PaletteProvider.new()
 	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
 	
 	provider.palette_imported.connect(sprite_set)
 	provider.sprite_reindexed.connect(sprite_reload)
-	obj_data.palette_selected.connect(palette_set_no_broadcast)
-	obj_data.palette_updated.connect(palette_load)
+	#obj_data.palette_selected.connect(palette_set_no_broadcast)
+	#obj_data.palette_updated.connect(palette_load)
 
 
 func _ready() -> void:
@@ -53,7 +52,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("redo"):
 		undo_redo.redo()
 		
-		if not obj_data.has_palettes():
+		if not obj_data.has("palettes"):
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
 				"set_value_no_signal", sprite_index)
@@ -61,7 +60,7 @@ func _input(event: InputEvent) -> void:
 	elif Input.is_action_just_pressed("undo"):
 		undo_redo.undo()
 		
-		if not obj_data.has_palettes():
+		if not obj_data.has("palettes"):
 			sprite_set(provider.sprite_index)
 			sprite_index_spinbox.call_deferred(
 				"set_value_no_signal", sprite_index)
@@ -73,7 +72,7 @@ func get_provider() -> PaletteProvider:
 
 func palette_set(index: int) -> void:
 	palette_set_no_broadcast(index)
-	obj_data.palette_broadcast(index)
+	#obj_data.palette_broadcast(index)
 
 
 func palette_set_no_broadcast(index: int) -> void:
@@ -86,26 +85,26 @@ func palette_load() -> void:
 
 
 func palette_get(index: int) -> PackedByteArray:
-	if obj_data.has_palettes():
-		return obj_data.palette_get(index).palette
+	if obj_data.has("palettes"):
+		return obj_data["palettes"][index].palette
 	else:
 		return sprite_get(index).palette
 
 
 #region Sprites
 func sprite_get(index: int) -> BinSprite:
-	return obj_data.sprite_get(index)
+	return obj_data["sprites"][index]
 
 
 func sprite_get_count() -> int:
-	return obj_data.sprite_get_count()
+	return obj_data["sprites"].size()
 
 
 func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	
-	if obj_data.has_palettes():
+	if obj_data.has("palettes"):
 		pass
 	
 	else:
@@ -116,7 +115,7 @@ func sprite_set(index: int) -> void:
 
 
 func sprite_get_texture(index: int) -> ImageTexture:
-	return obj_data.sprite_get(index).texture
+	return obj_data["sprites"][index].texture
 
 
 func sprite_reload() -> void:
@@ -141,17 +140,13 @@ func sprite_delete(from: int, to: int) -> void:
 	
 	var affected_cells: PackedInt64Array
 	
-	if SpriteImport.redirect_cells:
-		affected_cells = obj_data.redirect_get_affected_cells(from)
-		
-		undo_redo.add_do_method(
-			obj_data.redirect_sprite_indices.bind(from, how_many))
+	if redirect_cells:
+		affected_cells = redirect_get_affected(from)
+		undo_redo.add_do_method(redirect_sprite_indices.bind(from, how_many))
 	
 	else:
-		affected_cells = obj_data.clamp_get_affected_cells(
-			obj_data.sprites.size() - how_many)
-	
-		undo_redo.add_do_method(obj_data.clamp_sprite_indices)
+		affected_cells = clamp_get_affected(obj_data.sprites.size() - how_many)
+		undo_redo.add_do_method(clamp_sprite_indices)
 	
 	for cell in affected_cells:
 		undo_redo.add_undo_property(
@@ -180,3 +175,50 @@ func sprite_insert_commit(at: int, sprite: BinSprite) -> void:
 func sprite_reindex() -> void:
 	provider.sprite_reindex(this_sprite)
 #endregion
+
+
+#region Redirection/Clamping
+
+
+
+# Clamp sprite index
+func clamp_get_affected(sprite_max: int) -> PackedInt64Array:
+	var return_array: PackedInt64Array = []
+	
+	for cell_number in obj_data.cells.size():
+		if obj_data.cells[cell_number].sprite_index > sprite_max:
+			return_array.append(cell_number)
+	
+	return return_array
+
+
+func clamp_sprite_indices() -> void:
+	var sprite_max: int = max(obj_data.sprites.size() - 1, 0)
+	
+	for cell in obj_data.cells:
+		cell.clamp_sprite_index(sprite_max)
+
+
+# Redirect sprite indices
+func redirect_get_affected(from: int) -> PackedInt64Array:
+	var return_array: PackedInt64Array = []
+	
+	for cell_number in obj_data.cells.size():
+		if obj_data.cells[cell_number].sprite_index > from:
+			return_array.append(cell_number)
+	
+	return return_array
+
+
+func redirect_sprite_indices(from: int, how_many: int) -> void:
+	var to: int = from + how_many - 1
+	
+	for cell in obj_data.cells:
+		if cell.sprite_index < from:
+			continue
+		
+		elif cell.sprite_index <= to:
+			cell.sprite_index = 0
+		
+		else:
+			cell.sprite_index -= how_many

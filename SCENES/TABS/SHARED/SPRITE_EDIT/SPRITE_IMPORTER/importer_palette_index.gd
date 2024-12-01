@@ -4,5 +4,7 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
-	max_value = sprite_edit.obj_data.palette_get_count() - 1
+	if sprite_edit.obj_data.has("palettes"):
+		max_value = sprite_edit.obj_data["palettes"].size() - 1
+	
 	value_changed.connect(SpriteImport.set_preview_palette_index)

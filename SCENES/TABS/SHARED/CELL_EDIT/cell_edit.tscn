@@ -72,7 +72,7 @@ shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = PackedInt32Array()
 
-[node name="cells" type="MarginContainer"]
+[node name="Cells" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

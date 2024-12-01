@@ -4,5 +4,8 @@ extends Control
 
 
 func _ready() -> void:
+	if not sprite_edit.obj_data.has("name"):
+		return
+
 	if sprite_edit.obj_data.name == "player":
 		queue_free()

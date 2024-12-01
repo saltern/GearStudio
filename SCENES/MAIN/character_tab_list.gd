@@ -9,6 +9,7 @@ var waiting_tasks: Array[int] = []
 
 func _ready() -> void:
 	GlobalSignals.menu_save.connect(save_character)
+	GlobalSignals.menu_save_bin.connect(save_binary)
 	
 	SessionData.tab_closed.connect(on_tab_closed)
 	SessionData.load_complete.connect(finished_loading)
@@ -36,7 +37,9 @@ func load_directory(path: String) -> void:
 			Status.set_status("Directory already open!")
 			return
 	
-	var task_id := WorkerThreadPool.add_task(SessionData.tab_new.bind(path))
+	var task_id := WorkerThreadPool.add_task(
+		SessionData.new_directory_session.bind(path)
+	)
 	waiting_tasks.append(task_id)
 
 
@@ -49,12 +52,17 @@ func load_binary(path: String) -> void:
 			return
 	
 	var task_id := WorkerThreadPool.add_task(
-		SessionData.tab_new_binary.bind(path))
+		SessionData.new_binary_session.bind(path))
 	waiting_tasks.append(task_id)
 
 
 func save_character():
 	var task_id := WorkerThreadPool.add_task(SessionData.save)
+	waiting_tasks.append(task_id)
+
+
+func save_binary():
+	var task_id := WorkerThreadPool.add_task(SessionData.save_binary)
 	waiting_tasks.append(task_id)
 
 

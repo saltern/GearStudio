@@ -8,10 +8,10 @@ signal tab_closed
 
 const serialize_ignore: Array[String] = ["path", "current_object"]
 
-var tab_index: int = 0
 var object_name: String
-var tabs: Array = []
-var this_tab: Dictionary = {}
+var sessions: Array = []
+var session_index: int = 0
+var this_session: Dictionary = {}
 
 # tabs = [
 #	{
@@ -43,12 +43,12 @@ var this_tab: Dictionary = {}
 func save() -> void:
 	SaveErrors.reset()
 	
-	if this_tab.is_empty():
+	if this_session.is_empty():
 		Status.call_deferred("set_status", "Nothing to save.")
 		GlobalSignals.call_deferred("emit_signal", "save_complete")
 		return
 	
-	if not this_tab.has("path"):
+	if not this_session.has("path"):
 		Status.call_deferred(\
 			"set_status", "Could not save! Cause: malformed dictionary")
 		GlobalSignals.call_deferred("emit_signal", "save_complete")
@@ -57,38 +57,24 @@ func save() -> void:
 	GlobalSignals.call_deferred("emit_signal", "save_start")
 	Status.call_deferred("set_status", "Saving...")
 	
-	var save_path: String = this_tab["path"]
+	var save_path: String = this_session["path"]
 	
-	for object in this_tab:
+	for object in this_session:
 		if not object in serialize_ignore:
-			this_tab[object].save_as_directory(save_path + "/%s" % object)
+			this_session[object].save_as_directory(save_path + "/%s" % object)
 
 	SaveErrors.call_deferred("set_status")
 	GlobalSignals.call_deferred("emit_signal", "save_complete")
 
 
-func save_bin() -> void:
-	BinResource.save_resource_file(
-		this_tab["data"], "C:\\users\\alt_o\\Desktop")
-	
-	#var bin_data: PackedByteArray = []
-	#
-	#for object in this_tab:
-		#if this_tab[object] is ObjectData:
-			#bin_data.append_array(this_tab[object].get_as_binary())
-		#
-		#elif this_tab[object] is PackedByteArray:
-			#bin_data.append_array(this_tab[object])
-	#
-	#var new_file: FileAccess = FileAccess.open(
-		#"C:\\Users\\alt_o\\Desktop\\test.bin", FileAccess.WRITE)
-	#
-	#new_file.store_buffer(bin_data)
-	#new_file.close()
+func save_binary() -> void:
+	Status.call_deferred("set_status", "Saving binary file...")
+	BinResource.save_resource_file(this_session, "C:\\users\\alt_o\\Desktop")
+	Status.call_deferred("set_status", "Save complete.")
 
 
-#region Tabs
-func tab_new(path: String) -> void:
+#region Sessions
+func new_directory_session(path: String) -> void:
 	var dir: DirAccess = DirAccess.open(path)
 	
 	if DirAccess.get_open_error() != OK:
@@ -126,70 +112,65 @@ func tab_new(path: String) -> void:
 		if object_data.sprite_get_count() == 0:
 			continue
 		
-		new_session["data"][directory] = {
+		new_session["objects"][directory] = {
 			"type": "object",
 			"data": object_data,
 		}
 	
-	if not new_session["data"].is_empty():
-		tabs.append(new_session)
-		this_tab = new_session
-		this_tab["path"] = path
+	if not new_session["objects"].is_empty():
+		sessions.append(new_session)
+		this_session = new_session
+		this_session["path"] = path
 	
-	load_complete.emit.bind(path, new_session["data"]).call_deferred()
+	load_complete.emit.bind(path, new_session["objects"]).call_deferred()
 
 
-func tab_new_binary(path: String) -> void:
+func new_binary_session(path: String) -> void:
 	var sub_tab_list: PackedStringArray = []
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
-	var bin_resource: BinResource = BinResource.from_file(path)
+	var bin_resource: Dictionary = BinResource.from_file(path)
 	
-	if bin_resource.objects.is_empty():
-		load_complete.emit.bind(path, {}).call_deferred()
+	if bin_resource.has("error"):
+		Status.set_status.bind(
+			"Load failed with error: %s" % bin_resource["error"]
+		).call_deferred()
 		return
 	
+	#print(bin_resource)
+	
 	var new_session: Dictionary = {
-		"data": {},
+		"data": bin_resource,
 		"current_object": 0,
 	}
 	
-	for object in bin_resource.objects:
-		var this_object: Dictionary = bin_resource.objects[object]
-		
-		match this_object["type"]:
-			"object":
-				new_session["data"][this_object["data"].name] = this_object
-			_:
-				new_session["data"][object] = this_object
+	sessions.append(new_session)
+	this_session = new_session
+	this_session["path"] = path
 	
-	tabs.append(new_session)
-	this_tab = new_session
-	this_tab["path"] = path
-	
-	load_complete.emit.bind(path, new_session["data"]).call_deferred()
+	load_complete.emit.bind(path, new_session).call_deferred()
 
 
 func tab_load(index: int = 0) -> void:
-	if index < 0 || index >= tabs.size():
+	if index < 0 || index >= sessions.size():
 		Status.set_ready()
 		return
 	
-	tab_index = index
-	this_tab = tabs[index]
+	session_index = index
+	this_session = sessions[index]
 
 
 func tab_close() -> void:
-	if tabs.size() < 1:
+	if sessions.size() < 1:
 		Status.set_status("Nothing currently open, can't close.")
 		return
 	
-	tab_closed.emit(tab_index)
-	tabs.remove_at(tab_index)
-	this_tab = {}
-	tab_load(min(tab_index, tabs.size() - 1))
+	tab_closed.emit(session_index)
+	sessions.remove_at(session_index)
+	this_session = {}
+	tab_load(min(session_index, sessions.size() - 1))
 	Status.set_status("Closed tab.")
 #endregion
 
 
-func object_data_get(object: String) -> ObjectData:
-	return this_tab["data"][object]["data"]
+func object_data_get(object: int) -> Dictionary:
+	return this_session["data"][object]

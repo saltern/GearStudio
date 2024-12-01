@@ -15,7 +15,7 @@ func _ready() -> void:
 func update() -> void:
 	SpriteExport.set_palette_include(button_pressed)
 	
-	if sprite_edit.obj_data.has_palettes():
+	if sprite_edit.obj_data.has("palettes"):
 		control_index.visible = button_pressed
 		
 	control_alpha.visible = button_pressed

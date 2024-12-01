@@ -12,7 +12,8 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	if sprite_edit.obj_data.name != "player":
+	if not sprite_edit.obj_data.has("name") or \
+	sprite_edit.obj_data.name != "player":
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	texture = sprite.texture

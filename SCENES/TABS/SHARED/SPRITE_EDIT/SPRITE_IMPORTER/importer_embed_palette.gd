@@ -5,7 +5,7 @@ func _ready() -> void:
 	toggled.connect(update)
 	visibility_changed.connect(on_display)
 	
-	if not get_owner().obj_data.has_palettes():
+	if not get_owner().obj_data.has("palettes"):
 		button_pressed = true
 
 

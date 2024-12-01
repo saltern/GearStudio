@@ -4,6 +4,10 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
+	if sprite_edit.obj_data["type"] == "sprite":
+		get_parent().hide()
+		return
+	
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	value_changed.connect(sprite_edit.sprite_set)
 	sprite_edit.provider.palette_imported.connect(external_set_sprite)

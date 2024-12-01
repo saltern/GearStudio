@@ -55,7 +55,7 @@ func menu_clicked(menu_id: int) -> void:
 			#Status.set_status("Save as is not currently available.")
 		
 		ButtonID.SAVE_BIN:
-			SessionData.save_bin()
+			GlobalSignals.menu_save_bin.emit()
 
 		ButtonID.CLOSE:
 			SessionData.tab_close()

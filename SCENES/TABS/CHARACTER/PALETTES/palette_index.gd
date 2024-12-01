@@ -7,7 +7,7 @@ extends SpinBox
 func _ready() -> void:
 	max_value = palette_edit.palette_get_count() - 1
 	
-	palette_edit.obj_data.palette_selected.connect(external_change_palette)
+	#palette_edit.obj_data.palette_selected.connect(external_change_palette)
 	provider.palette_imported.connect(external_update_value)
 	
 	value_changed.connect(change_palette)
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func change_palette(index: int) -> void:
 	provider.palette_load(index)
-	provider.obj_data.palette_broadcast(index)
+	#provider.obj_data.palette_broadcast(index)
 
 
 func external_update_value(index: int) -> void:

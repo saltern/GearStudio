@@ -19,7 +19,7 @@ signal cell_updated
 
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: ObjectData
+var obj_data: Dictionary
 
 var cell_index: int
 var this_cell: Cell
@@ -53,9 +53,9 @@ var provider: PaletteProvider = PaletteProvider.new()
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	
-	obj_data = SessionData.object_data_get(get_parent().name)
+	#obj_data = SessionData.object_data_get(get_parent().get_index())
 	
-	if not obj_data.has_cells():
+	if not obj_data.has("cells"):
 		queue_free()
 		return
 	
@@ -307,17 +307,16 @@ func cell_paste(at: int = 0) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
 	undo_redo.commit_action()
-	
 #endregion
 
 
 #region Sprites
 func sprite_get(index: int = 0) -> BinSprite:
-	return obj_data.sprite_get(index)
+	return obj_data["sprites"][index]
 	
 	
 func sprite_get_count() -> int:
-	return obj_data.sprite_get_count()
+	return obj_data["sprites"].size()
 
 
 func on_sprites_imported() -> void:
@@ -440,7 +439,6 @@ func sprite_info_paste() -> void:
 	
 	undo_redo.commit_action()
 #endregion
-	
 
 
 #region Boxes

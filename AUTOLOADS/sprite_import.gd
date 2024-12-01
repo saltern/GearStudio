@@ -40,7 +40,7 @@ var regenerate_preview: bool = false
 
 # Used by this singleton
 var undo_redo: UndoRedo
-var obj_data: ObjectData
+var obj_data: Dictionary
 var import_list: PackedStringArray = []
 var placement_method: int
 var insert_position: int
@@ -53,9 +53,6 @@ var flip_v: bool = false
 var as_rgb: bool = false
 var reindex: bool = false
 var bit_depth: BitDepth = BitDepth.AS_IS
-
-# Used by SpriteEdit
-var redirect_cells: bool = true
 
 # Multithreading
 var waiting_tasks: Array[int] = []
@@ -78,7 +75,7 @@ func _physics_process(_delta: float) -> void:
 		generate_preview(preview_index)
 
 
-func import_files(object_data: ObjectData) -> void:
+func import_files(object_data: Dictionary) -> void:
 	obj_data = object_data
 	sprite_import_started.emit(object_data.name)
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
@@ -151,8 +148,8 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 				new_sprites.append_array(sprites)
 				new_sprites.append_array(r_side)
 				
-				undo_redo.add_do_property(obj_data, "sprites", new_sprites)
-				undo_redo.add_undo_property(obj_data, "sprites", data_sprites)
+				undo_redo.add_do_method(import_set_sprites.bind(new_sprites))
+				undo_redo.add_undo_method(import_set_sprites.bind(data_sprites))
 		
 		PlaceMode.INSERT:
 			var l_side: Array[BinSprite] = data_sprites.slice(
@@ -165,8 +162,8 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 			new_sprites.append_array(sprites)
 			new_sprites.append_array(r_side)
 			
-			undo_redo.add_do_property(obj_data, "sprites", new_sprites)
-			undo_redo.add_undo_property(obj_data, "sprites", data_sprites)
+			undo_redo.add_do_method(import_set_sprites.bind(new_sprites))
+			undo_redo.add_undo_method(import_set_sprites.bind(data_sprites))
 	
 	# Directly emitting from here doesn't work for some reason
 	undo_redo.add_do_method(import_placement_done)
@@ -176,6 +173,10 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	undo_redo.add_undo_method(import_set_status.bind(action_text, true))
 	
 	undo_redo.commit_action()
+
+
+func import_set_sprites(sprites: Array[BinSprite]) -> void:
+	obj_data["sprites"] = sprites
 
 
 func import_resize_sprites(data: ObjectData, new_size: int) -> void:
@@ -227,13 +228,13 @@ func generate_preview(sprite_index: int) -> void:
 		import_list[sprite_index], embed_palette, halve_alpha,
 		flip_h, flip_v, as_rgb, reindex, bit_depth)
 	
-	preview_palette = obj_data.palette_get(preview_palette_index).palette
+	preview_palette = obj_data["palettes"][preview_palette_index].palette
 	preview_generated.emit()
 
 
 func set_preview_palette_index(index: int) -> void:
 	preview_palette_index = index
-	preview_palette = obj_data.palette_get(index).palette
+	preview_palette = obj_data["palettes"][index].palette
 	preview_palette_set.emit()
 
 

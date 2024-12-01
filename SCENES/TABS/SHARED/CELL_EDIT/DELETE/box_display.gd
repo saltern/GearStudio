@@ -3,7 +3,7 @@ extends Control
 @export var cell_index: SpinBox
 @export var offset: Vector2i
 
-var obj_data: ObjectData
+var obj_data: Dictionary
 var current_cell: Cell
 
 
@@ -11,7 +11,7 @@ func _ready() -> void:
 	var cell_edit: CellEdit = owner
 	obj_data = cell_edit.obj_data
 	
-	if obj_data.has_cells():
+	if obj_data.has("cells"):
 		cell_load(cell_index.value)
 	
 	cell_index.value_changed.connect(cell_load)

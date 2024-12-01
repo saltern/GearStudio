@@ -35,7 +35,7 @@ shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = null
 
-[node name="palettes" type="MarginContainer" node_paths=PackedStringArray("gradient_menu")]
+[node name="Palettes" type="MarginContainer" node_paths=PackedStringArray("gradient_menu")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

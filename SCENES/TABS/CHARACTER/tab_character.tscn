@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqh1wnv1ogdi4"]
+[gd_scene load_steps=6 format=3 uid="uid://bqh1wnv1ogdi4"]
 
 [ext_resource type="Script" uid="uid://x60l5bb1kyfs" path="res://SCENES/TABS/CHARACTER/tab_character.gd" id="1_yt0gk"]
 [ext_resource type="PackedScene" uid="uid://cndn6lw5p0fsa" path="res://SCENES/TABS/SHARED/tab_object.tscn" id="2_si2yr"]
+[ext_resource type="PackedScene" uid="uid://b0utvdt6m12v6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.tscn" id="3_x8ju5"]
+[ext_resource type="PackedScene" uid="uid://bb5abxm4foa3j" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.tscn" id="4_ekoeo"]
+[ext_resource type="PackedScene" uid="uid://d0on1hyt2xq0e" path="res://SCENES/TABS/CHARACTER/palette_edit.tscn" id="5_a0q2o"]
 
 [node name="char" type="TabContainer"]
 anchors_preset = 15
@@ -11,4 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yt0gk")
 TabObject = ExtResource("2_si2yr")
+TabSpriteEdit = ExtResource("3_x8ju5")
+TabCellEdit = ExtResource("4_ekoeo")
+TabPaletteEdit = ExtResource("5_a0q2o")
 metadata/_tab_index = 0

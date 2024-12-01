@@ -34,7 +34,7 @@ func _ready() -> void:
 	
 	provider = get_owner().get_provider()
 
-	if owner is SpriteEdit and provider.obj_data.has_palettes():
+	if owner is SpriteEdit and provider.obj_data.has("palettes"):
 		get_parent().queue_free()
 		return
 	

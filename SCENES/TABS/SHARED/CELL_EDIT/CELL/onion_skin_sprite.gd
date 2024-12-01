@@ -88,7 +88,7 @@ func load_cell_sprite_pieces(
 ) -> void:
 	var sprite: BinSprite = cell_edit.sprite_get(index)
 	
-	if not cell_edit.obj_data.has_palettes():
+	if not cell_edit.obj_data.has("palettes"):
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	var source_image := sprite.image

@@ -35,7 +35,7 @@ var palette_alpha_mode: AlphaMode = AlphaMode.AS_IS
 var sprite_reindex: bool = false
 var name_from_zero: bool = false
 
-var obj_data: ObjectData
+var obj_data: Dictionary
 
 var pal_gray: PackedByteArray
 
@@ -96,7 +96,7 @@ func export(output_path: String) -> void:
 	var palette: PackedByteArray = pal_gray
 	
 	if palette_include:
-		palette = obj_data.palette_get(palette_index).palette
+		palette = obj_data["palettes"][palette_index].palette
 	
 	if export_bin:
 		SpriteExporter.export_sprites(
@@ -107,7 +107,7 @@ func export(output_path: String) -> void:
 			palette_include,
 			palette,
 			palette_alpha_mode,
-			obj_data.has_palettes(),
+			obj_data.has("palettes"),
 			sprite_reindex)
 	
 	if export_raw:
@@ -133,7 +133,7 @@ func export(output_path: String) -> void:
 			palette_include,
 			palette,
 			palette_alpha_mode,
-			obj_data.has_palettes(),
+			obj_data.has("palettes"),
 			sprite_reindex)
 
 	if export_bmp:
@@ -145,5 +145,5 @@ func export(output_path: String) -> void:
 			palette_include,
 			palette,
 			palette_alpha_mode,
-			obj_data.has_palettes(),
+			obj_data.has("palettes"),
 			sprite_reindex)
