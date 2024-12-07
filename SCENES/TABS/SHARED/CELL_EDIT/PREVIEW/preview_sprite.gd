@@ -8,9 +8,27 @@ func _ready() -> void:
 	
 	cell_edit.cell_updated.connect(load_cell)
 	cell_edit.box_updated.connect(on_box_update)
-	#cell_edit.obj_data.palette_updated.connect(reload_palette)
-	#cell_edit.obj_data.palette_selected.connect(load_palette)
+	
+	if obj_data.has("palettes"):
+		SessionData.palette_changed.connect(palette_set_session)
+	
+	else:
+		SessionData.palette_changed.connect(palette_set_session_sprite)
 
 
 func on_box_update(_box: BoxInfo) -> void:
 	load_cell(cell_edit.this_cell)
+
+
+func palette_set_session(for_session: int, index: int) -> void:
+	if for_session != cell_edit.session_id:
+		return
+	
+	load_palette(index)
+
+
+func palette_set_session_sprite(for_session: int, _index: int) -> void:
+	if for_session != cell_edit.session_id:
+		return
+	
+	reload_palette()

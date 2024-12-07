@@ -64,5 +64,5 @@ func draw_box(box: BoxInfo) -> void:
 		color)
 
 
-func cell_load(cell_index: int) -> void:
-	current_cell = obj_data.cells[cell_index]
+func cell_load(index: int) -> void:
+	current_cell = obj_data.cells[index]

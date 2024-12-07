@@ -29,7 +29,6 @@ func update_texture(sprite_index: int) -> void:
 
 
 func update_palette() -> void:
-	var use_pal_state_pal: bool = false
 	var this_sprite := sprite_edit.sprite_get(sprite_index_spinbox.value)
 	
 	current_palette = SpriteExport.pal_gray

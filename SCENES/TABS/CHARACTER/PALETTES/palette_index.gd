@@ -7,21 +7,13 @@ extends SpinBox
 func _ready() -> void:
 	max_value = palette_edit.palette_get_count() - 1
 	
-	#palette_edit.obj_data.palette_selected.connect(external_change_palette)
-	provider.palette_imported.connect(external_update_value)
+	value_changed.connect(SessionData.set_palette)
+	SessionData.palette_changed.connect(palette_set_session)
+
+
+func palette_set_session(for_session: int, index: int) -> void:
+	if for_session != palette_edit.session_id:
+		return
 	
-	value_changed.connect(change_palette)
-
-
-func change_palette(index: int) -> void:
-	provider.palette_load(index)
-	#provider.obj_data.palette_broadcast(index)
-
-
-func external_update_value(index: int) -> void:
-	call_deferred("set_value_no_signal", index)
-
-
-func external_change_palette(index: int) -> void:
-	external_update_value(index)
+	set_value_no_signal.call_deferred(index)
 	provider.palette_load(index)

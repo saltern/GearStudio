@@ -5,6 +5,12 @@ signal load_complete
 @warning_ignore("unused_signal")
 signal save_complete
 signal tab_closed
+signal palette_changed
+
+enum SessionType {
+	DIRECTORY,
+	BINARY,
+}
 
 const serialize_ignore: Array[String] = ["path", "current_object"]
 
@@ -13,24 +19,19 @@ var sessions: Array = []
 var session_index: int = 0
 var this_session: Dictionary = {}
 
-# tabs = [
+# sessions = [
 #	{
-#		"current_object": "player",
-#		"player": ObjectData,
-#		"objno0": ObjectData,
-#		"objno1": ObjectData,
-#	},
-#
-#	...
-
-# New, maybe:
-# tabs = [
-#	{
-#		"current_object": "Player",
-#		"objects": {
+#		"current_object": 0,
+#		"session_type": "directory",
+#		"data": {
 #			0: {
-#				"type": "object",
-#				"data": ObjectData,
+#				"type": "scriptable",
+#				"data": {
+#					"cells": Array[Cell],
+#					"sprites": Array[BinSprite],
+#					"scripts": PackedByteArray,
+#					"palettes": Array[BinPalette],
+#				},
 #			},
 #
 #			1: {
@@ -39,95 +40,73 @@ var this_session: Dictionary = {}
 #			},
 #		},
 #	},
+#	...
 
-func save() -> void:
+
+func get_session_type() -> SessionType:
+	return this_session["session_type"]
+
+
+func save_directory(path: String) -> void:
 	SaveErrors.reset()
 	
-	if this_session.is_empty():
-		Status.call_deferred("set_status", "Nothing to save.")
-		GlobalSignals.call_deferred("emit_signal", "save_complete")
-		return
+	if path.is_empty() and this_session.has("path"):
+		path = this_session["path"]
 	
-	if not this_session.has("path"):
+	if path.is_empty():
 		Status.call_deferred(\
-			"set_status", "Could not save! Cause: malformed dictionary")
-		GlobalSignals.call_deferred("emit_signal", "save_complete")
+			"set_status", "Could not save! Cause: no path. Try \"Save as...\""
+		)
+		
+		GlobalSignals.save_complete.emit.call_deferred()
 		return
 	
-	GlobalSignals.call_deferred("emit_signal", "save_start")
-	Status.call_deferred("set_status", "Saving...")
+	GlobalSignals.save_start.emit.call_deferred()
+	Status.set_status.call_deferred("Saving directory...")
 	
-	var save_path: String = this_session["path"]
-	
-	for object in this_session:
-		if not object in serialize_ignore:
-			this_session[object].save_as_directory(save_path + "/%s" % object)
+	BinResource.save_resource_directory(this_session, path)
 
 	SaveErrors.call_deferred("set_status")
-	GlobalSignals.call_deferred("emit_signal", "save_complete")
+	GlobalSignals.save_complete.emit.call_deferred()
 
 
-func save_binary() -> void:
-	Status.call_deferred("set_status", "Saving binary file...")
-	BinResource.save_resource_file(this_session, "C:\\users\\alt_o\\Desktop")
-	Status.call_deferred("set_status", "Save complete.")
+func save_binary(path: String) -> void:
+	if path.is_empty() and this_session.has("path"):
+		path = this_session["path"]
+	
+	if path.is_empty():
+		Status.call_deferred(\
+			"set_status", "Could not save! Cause: no path. Try \"Save as...\""
+		)
+		
+		GlobalSignals.save_complete.emit.call_deferred()
+	
+	GlobalSignals.save_start.emit.call_deferred()
+	Status.set_status.call_deferred("Saving binary file...")
+	
+	BinResource.save_resource_file(this_session["data"], path)
+	
+	Status.set_status.call_deferred("Save complete.")
+	GlobalSignals.save_complete.emit.call_deferred()
 
 
 #region Sessions
 func new_directory_session(path: String) -> void:
-	var dir: DirAccess = DirAccess.open(path)
-	
-	if DirAccess.get_open_error() != OK:
-		Status.set_status(
-				"Could not load data! Reason: Could not open directory.")
-			
-		load_complete.emit.bind(path, {}).call_deferred()
-		return
-	
-	# Build dictionary in same format as .bin loading
-	
-	var dir_list: PackedStringArray = dir.get_directories()
-	
-	if dir_list.size() < 1:
-		load_complete.emit.bind(path, {}).call_deferred()
-		return
-	
 	var new_session: Dictionary = {
-		"data": {},
+		"session_type": SessionType.DIRECTORY,
 		"current_object": 0,
+		"data": BinResource.from_path(path),
 	}
 	
-	var dir_number: int = 0
-	
-	# Load objects
-	for directory in dir_list:
-		if directory == "palettes":
-			continue
-		
-		var object_data := ObjectData.new()
-		
-		object_data.name = directory
-		object_data.load_data_from_path(path + "/%s" % directory)
-		
-		if object_data.sprite_get_count() == 0:
-			continue
-		
-		new_session["objects"][directory] = {
-			"type": "object",
-			"data": object_data,
-		}
-	
-	if not new_session["objects"].is_empty():
+	if not new_session["data"].is_empty():
 		sessions.append(new_session)
 		this_session = new_session
 		this_session["path"] = path
 	
-	load_complete.emit.bind(path, new_session["objects"]).call_deferred()
+	load_complete.emit.bind(path, new_session).call_deferred()
 
 
 func new_binary_session(path: String) -> void:
-	var sub_tab_list: PackedStringArray = []
-	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var bin_resource: Dictionary = BinResource.from_file(path)
 	
 	if bin_resource.has("error"):
@@ -136,11 +115,10 @@ func new_binary_session(path: String) -> void:
 		).call_deferred()
 		return
 	
-	#print(bin_resource)
-	
 	var new_session: Dictionary = {
-		"data": bin_resource,
+		"session_type": SessionType.BINARY,
 		"current_object": 0,
+		"data": bin_resource,
 	}
 	
 	sessions.append(new_session)
@@ -174,3 +152,7 @@ func tab_close() -> void:
 
 func object_data_get(object: int) -> Dictionary:
 	return this_session["data"][object]
+
+
+func set_palette(palette_index: int) -> void:
+	palette_changed.emit(session_index, palette_index)

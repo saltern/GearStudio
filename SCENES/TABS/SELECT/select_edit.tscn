@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b08yjbg1fixq8"]
+
+[node name="Select" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="left_panel" type="VBoxContainer" parent="content"]
+layout_mode = 2
+
+[node name="scroll" type="ScrollContainer" parent="content/left_panel"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="margin" type="MarginContainer" parent="content/left_panel/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="import_export" type="HBoxContainer" parent="content/left_panel/scroll/margin"]
+layout_mode = 2

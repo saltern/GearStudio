@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b0utvdt6m12v6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.tscn" id="1_ottdf"]
 [ext_resource type="PackedScene" uid="uid://bb5abxm4foa3j" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.tscn" id="2_qr8oj"]
-[ext_resource type="PackedScene" uid="uid://d0on1hyt2xq0e" path="res://SCENES/TABS/CHARACTER/palette_edit.tscn" id="3_laiel"]
+[ext_resource type="PackedScene" uid="uid://d0on1hyt2xq0e" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_edit.tscn" id="3_laiel"]
 
 [node name="object" type="TabContainer"]
 anchors_preset = 15

@@ -1,7 +1,5 @@
 extends Control
 
-@export var handshake_warning: Window
-
 
 func _ready() -> void:
 	@warning_ignore("narrowing_conversion")

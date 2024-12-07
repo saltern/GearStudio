@@ -7,5 +7,5 @@ func _ready() -> void:
 	if not sprite_edit.obj_data.has("name"):
 		return
 
-	if sprite_edit.obj_data.name == "player":
+	if sprite_edit.obj_data.has("palettes"):
 		queue_free()

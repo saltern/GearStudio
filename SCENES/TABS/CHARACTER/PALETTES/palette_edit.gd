@@ -2,6 +2,7 @@ class_name PaletteEdit extends MarginContainer
 
 @export var gradient_menu: PopupMenu
 
+var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: Dictionary
@@ -61,7 +62,10 @@ func sprite_get(index: int) -> BinSprite:
 
 
 func palette_get_count() -> int:
-	return obj_data["palettes"].size()
+	if obj_data.has("palettes"):
+		return obj_data["palettes"].size()
+	else:
+		return 0
 
 
 func palette_reindex() -> void:

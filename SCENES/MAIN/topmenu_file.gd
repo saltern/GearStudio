@@ -4,8 +4,7 @@ enum ButtonID {
 	LOAD,
 	LOAD_BIN,
 	SAVE,
-	#SAVE_AS,
-	SAVE_BIN,
+	SAVE_AS,
 	SEPARATOR_0,
 	CLOSE,
 	SEPARATOR_1,
@@ -15,9 +14,8 @@ enum ButtonID {
 const button_names: Dictionary = {
 	ButtonID.LOAD: "Load (directory)...",
 	ButtonID.LOAD_BIN: "Load (binary)...",
-	ButtonID.SAVE: "Save (directory)",
-	#ButtonID.SAVE_AS: "Save as...",
-	ButtonID.SAVE_BIN: "Save (binary)...",
+	ButtonID.SAVE: "Save",
+	ButtonID.SAVE_AS: "Save as...",
 	ButtonID.SEPARATOR_0: "",
 	ButtonID.CLOSE: "Close",
 	ButtonID.SEPARATOR_1: "",
@@ -26,6 +24,7 @@ const button_names: Dictionary = {
 
 @export var load_dialog_dir: FileDialog
 @export var load_dialog_bin: FileDialog
+@export var save_as_dialog: FileDialog
 
 
 func _ready() -> void:
@@ -51,11 +50,8 @@ func menu_clicked(menu_id: int) -> void:
 		ButtonID.SAVE:
 			GlobalSignals.menu_save.emit()
 
-		#ButtonID.SAVE_AS:
-			#Status.set_status("Save as is not currently available.")
-		
-		ButtonID.SAVE_BIN:
-			GlobalSignals.menu_save_bin.emit()
+		ButtonID.SAVE_AS:
+			save_as_dialog.show()
 
 		ButtonID.CLOSE:
 			SessionData.tab_close()

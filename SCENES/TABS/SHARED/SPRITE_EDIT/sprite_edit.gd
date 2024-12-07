@@ -2,6 +2,7 @@ class_name SpriteEdit extends MarginContainer
 
 signal sprite_updated
 
+var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: Dictionary
@@ -33,8 +34,9 @@ func _enter_tree() -> void:
 	
 	provider.palette_imported.connect(sprite_set)
 	provider.sprite_reindexed.connect(sprite_reload)
-	#obj_data.palette_selected.connect(palette_set_no_broadcast)
-	#obj_data.palette_updated.connect(palette_load)
+	
+	if obj_data.has("palettes"):
+		SessionData.palette_changed.connect(palette_set_session)
 
 
 func _ready() -> void:
@@ -66,18 +68,16 @@ func _input(event: InputEvent) -> void:
 				"set_value_no_signal", sprite_index)
 
 
-func get_provider() -> PaletteProvider:
-	return provider
-
-
-func palette_set(index: int) -> void:
-	palette_set_no_broadcast(index)
-	#obj_data.palette_broadcast(index)
-
-
-func palette_set_no_broadcast(index: int) -> void:
+func palette_set_session(for_session: int, index: int) -> void:
+	if for_session != session_id:
+		return
+	
 	palette_index = index
 	palette_load()
+
+
+func get_provider() -> PaletteProvider:
+	return provider
 
 
 func palette_load() -> void:

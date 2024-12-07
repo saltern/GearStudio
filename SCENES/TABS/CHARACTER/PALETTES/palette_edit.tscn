@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://d0on1hyt2xq0e"]
 
-[ext_resource type="Script" uid="uid://ctgq48v8mcfo3" path="res://SCENES/TABS/CHARACTER/palette_edit.gd" id="1_fj0lo"]
+[ext_resource type="Script" uid="uid://ctgq48v8mcfo3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
 [ext_resource type="Script" uid="uid://cy11iu7302bx" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_index.gd" id="3_nhpkb"]
 [ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="4_612b6"]
@@ -70,7 +70,7 @@ size_flags_vertical = 4
 [node name="title" type="Label" parent="scroll/margin/content/data/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Palette number"
+text = "Palette #"
 
 [node name="value" type="SpinBox" parent="scroll/margin/content/data/palette"]
 layout_mode = 2

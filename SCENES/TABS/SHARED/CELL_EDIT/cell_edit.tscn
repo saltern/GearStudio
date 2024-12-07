@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=59 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://b8kpkmxgsoo7r" path="res://ICONS/camera.png" id="28_76gqd"]
 [ext_resource type="Script" uid="uid://4ftotvxeg250" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
+[ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/palette_index.gd" id="32_dcsig"]
 [ext_resource type="Script" uid="uid://cujo5m4bsquxe" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
 [ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="45_y6307"]
@@ -92,11 +93,13 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="content/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 20
 
 [node name="data" type="VBoxContainer" parent="content/scroll/margin"]
 layout_mode = 2
@@ -160,7 +163,7 @@ at = 1
 layout_mode = 2
 
 [node name="padding" type="Control" parent="content/scroll/margin/data"]
-custom_minimum_size = Vector2(0, 15)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="cell" type="HBoxContainer" parent="content/scroll/margin/data"]
@@ -566,12 +569,26 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="title" type="HBoxContainer" parent="content/visualizer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="content/visualizer/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Preview"
+
+[node name="palette" type="HBoxContainer" parent="content/visualizer/title"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/title/palette"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+text = "Palette #"
+
+[node name="value" type="SpinBox" parent="content/visualizer/title/palette"]
+custom_minimum_size = Vector2(134, 0)
+layout_mode = 2
+script = ExtResource("32_dcsig")
 
 [node name="snapshot" type="Button" parent="content/visualizer/title"]
 visible = false

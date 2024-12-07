@@ -179,7 +179,7 @@ func import_set_sprites(sprites: Array[BinSprite]) -> void:
 	obj_data["sprites"] = sprites
 
 
-func import_resize_sprites(data: ObjectData, new_size: int) -> void:
+func import_resize_sprites(data: Dictionary, new_size: int) -> void:
 	data.sprites.resize(new_size)
 
 

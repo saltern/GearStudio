@@ -3,6 +3,7 @@ class_name PaletteProvider extends Resource
 signal palette_updated
 @warning_ignore("unused_signal")
 signal palette_imported		# Used by SpriteEdit
+@warning_ignore("unused_signal")
 signal sprite_reindexed
 
 var undo_redo: UndoRedo
@@ -140,11 +141,11 @@ func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
-	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_do_method(SessionData.set_palette.bind(palette_index))
 	undo_redo.add_do_method(palette_load.bind(palette_index))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
-	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
 	undo_redo.add_undo_method(palette_load.bind(palette_index))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
@@ -166,11 +167,11 @@ func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
-	#undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_do_method(palette_load.bind(sprite_index))
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 
-	#undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_undo_method(palette_load.bind(sprite_index))
 	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	

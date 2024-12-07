@@ -14,9 +14,11 @@ signal box_drawing_mode_changed
 signal box_multi_dragged
 signal box_multi_drag_stopped
 
+@warning_ignore("unused_signal")
 signal cell_count_changed
 signal cell_updated
 
+var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: Dictionary
@@ -53,8 +55,6 @@ var provider: PaletteProvider = PaletteProvider.new()
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	
-	#obj_data = SessionData.object_data_get(get_parent().get_index())
-	
 	if not obj_data.has("cells"):
 		queue_free()
 		return
@@ -69,6 +69,9 @@ func _ready() -> void:
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
+	
+	if obj_data.has("palettes"):
+		SessionData.palette_changed.connect(palette_set_session)
 	
 	cell_load(0)
 
@@ -150,6 +153,13 @@ func redo() -> void:
 	
 	undo_redo.redo()
 #endregion
+
+
+func palette_set_session(for_session: int, index: int) -> void:
+	if for_session != session_id:
+		return
+	
+	provider.palette_load(index)
 
 
 #region Cells
@@ -354,8 +364,6 @@ func sprite_set_position(new_position: Vector2i) -> void:
 	var action_text: String = "Cell #%s: Set sprite offset" % cell_index
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
-	var old_pos: Vector2i = sprite_get_position()
-	
 	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_position.x)
 	undo_redo.add_do_property(this_cell, "sprite_y_offset", new_position.y)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
@@ -412,8 +420,6 @@ func sprite_info_paste() -> void:
 	
 	var action_text: String = "Cell #%s: Paste Sprite Info" % cell_index
 	undo_redo.create_action(action_text)
-	
-	var new_sprite_info := SpriteInfo.new()
 	
 	undo_redo.add_do_property(this_cell, "sprite_index", Clipboard.sprite_index)
 	undo_redo.add_do_property(

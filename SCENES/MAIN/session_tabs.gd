@@ -2,31 +2,54 @@ extends TabContainer
 
 @export var load_dialog_dir: FileDialog
 @export var load_dialog_bin: FileDialog
+@export var save_as_dialog: FileDialog
 @export var character_scene: PackedScene
 
-var waiting_tasks: Array[int] = []
+var waiting_tasks: Dictionary = {}
 
 
 func _ready() -> void:
-	GlobalSignals.menu_save.connect(save_character)
-	GlobalSignals.menu_save_bin.connect(save_binary)
+	GlobalSignals.menu_save.connect(save_resource)
 	
 	SessionData.tab_closed.connect(on_tab_closed)
 	SessionData.load_complete.connect(finished_loading)
 	
 	load_dialog_dir.dir_selected.connect(load_directory)
 	load_dialog_bin.file_selected.connect(load_binary)
+	save_as_dialog.file_selected.connect(save_resource)
 	tab_changed.connect(on_tab_changed)
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_pressed() and not event.is_echo():
+		match event.keycode:
+			KEY_F:
+				var data: Dictionary = {
+					0: {
+						"type": "sprite",
+						"sprites": [BinSprite.new()],
+					},
+				}
+				
+				var new_tab: Control = character_scene.instantiate()
+				new_tab.load_tabs(data)
+				
+				add_child(new_tab)
 
 
 func _physics_process(_delta: float) -> void:
 	if waiting_tasks.is_empty():
-		return
+		set_physics_process(false)
 	
 	for task in waiting_tasks:
 		if WorkerThreadPool.is_task_completed(task):
 			WorkerThreadPool.wait_for_task_completion(task)
-			waiting_tasks.pop_at(waiting_tasks.find(task))
+			waiting_tasks.erase(task)
+
+
+func add_task(task_id: int) -> void:
+	waiting_tasks[task_id] = 0
+	set_physics_process(true)
 
 
 func load_directory(path: String) -> void:
@@ -37,10 +60,9 @@ func load_directory(path: String) -> void:
 			Status.set_status("Directory already open!")
 			return
 	
-	var task_id := WorkerThreadPool.add_task(
-		SessionData.new_directory_session.bind(path)
+	add_task(WorkerThreadPool.add_task(
+		SessionData.new_directory_session.bind(path))
 	)
-	waiting_tasks.append(task_id)
 
 
 func load_binary(path: String) -> void:
@@ -51,19 +73,29 @@ func load_binary(path: String) -> void:
 			Status.set_status("File already open!")
 			return
 	
-	var task_id := WorkerThreadPool.add_task(
+	add_task(WorkerThreadPool.add_task(
 		SessionData.new_binary_session.bind(path))
-	waiting_tasks.append(task_id)
+	)
 
 
-func save_character():
-	var task_id := WorkerThreadPool.add_task(SessionData.save)
-	waiting_tasks.append(task_id)
+func save_resource(path: String = ""):
+	if SessionData.this_session.is_empty():
+		Status.set_status("Nothing to save.")
+		return
+	
+	match SessionData.get_session_type():
+		SessionData.SessionType.DIRECTORY:
+			save_directory(path)
+		SessionData.SessionType.BINARY:
+			save_binary(path)
 
 
-func save_binary():
-	var task_id := WorkerThreadPool.add_task(SessionData.save_binary)
-	waiting_tasks.append(task_id)
+func save_directory(path: String = ""):
+	add_task(WorkerThreadPool.add_task(SessionData.save_directory.bind(path)))
+
+
+func save_binary(path: String = ""):
+	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
 
 
 func finished_loading(path: String, data: Dictionary) -> void:
@@ -74,6 +106,7 @@ func finished_loading(path: String, data: Dictionary) -> void:
 	Opened.path_open(path)
 	
 	var new_tab: Control = character_scene.instantiate()
+	new_tab.session_id = get_child_count()
 	new_tab.load_tabs(data)
 	
 	var names: PackedStringArray = get_new_tab_name(path)

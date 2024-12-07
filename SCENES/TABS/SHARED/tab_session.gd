@@ -1,5 +1,7 @@
 extends TabContainer
 
+var session_id: int
+
 @export var TabSpriteEdit: PackedScene
 @export var TabCellEdit: PackedScene
 @export var TabPaletteEdit: PackedScene
@@ -50,18 +52,21 @@ func get_base_tab() -> TabContainer:
 
 func get_sprite_editor(object: Dictionary) -> SpriteEdit:
 	var sprite_edit: SpriteEdit = TabSpriteEdit.instantiate()
+	sprite_edit.session_id = session_id
 	sprite_edit.obj_data = object
 	return sprite_edit
 
 
 func get_cell_editor(object: Dictionary) -> CellEdit:
 	var cell_edit: CellEdit = TabCellEdit.instantiate()
+	cell_edit.session_id = session_id
 	cell_edit.obj_data = object
 	return cell_edit
 
 
 func get_palette_editor(object: Dictionary) -> PaletteEdit:
 	var palette_edit: PaletteEdit = TabPaletteEdit.instantiate()
+	palette_edit.session_id = session_id
 	palette_edit.obj_data = object
 	return palette_edit
 
