@@ -87,7 +87,7 @@ outline_color = Color(0, 0, 0, 1)
 shadow_color = Color(0, 0, 0, 0.635294)
 shadow_offset = Vector2(0, 0)
 
-[node name="Sprites" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
+[node name="SPRITE_EDIT_TITLE" type="MarginContainer" node_paths=PackedStringArray("sprite_index_spinbox", "info_dimensions", "info_color_depth", "info_embedded_pal")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -134,25 +134,29 @@ size_flags_vertical = 8
 [node name="import" type="Button" parent="content/left_panel/scroll/margin/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Import one or more sprites..."
-text = "Import..."
+tooltip_text = "SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_IMPORT"
+text_overrun_behavior = 3
 
 [node name="export" type="Button" parent="content/left_panel/scroll/margin/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Export one or more sprites..."
-text = "Export..."
+tooltip_text = "SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_EXPORT"
+text_overrun_behavior = 3
 
 [node name="delete" type="Button" parent="content/left_panel/scroll/margin/data/imp_exp_del"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
-tooltip_text = "Delete one or more sprites..."
-text = "Delete..."
+tooltip_text = "SPRITE_EDIT_SPRITE_DELETE_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_DELETE"
+text_overrun_behavior = 3
 
 [node name="reindex" type="Button" parent="content/left_panel/scroll/margin/data"]
 layout_mode = 2
-text = "Reindex"
+tooltip_text = "SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_REINDEX"
 script = ExtResource("3_1wybh")
 
 [node name="h_sep" type="HSeparator" parent="content/left_panel/scroll/margin/data"]
@@ -162,8 +166,9 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "SPRITE_EDIT_BOUNDS_TOOLTIP"
 button_pressed = true
-text = "Display bounds"
+text = "SPRITE_EDIT_BOUNDS"
 
 [node name="sprite_index" type="HBoxContainer" parent="content/left_panel/scroll/margin/data"]
 layout_mode = 2
@@ -171,7 +176,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/sprite_index"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Sprite #"
+text = "SPRITE_EDIT_SPRITE_INDEX"
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="content/left_panel/scroll/margin/data/sprite_index"]
 layout_mode = 2
@@ -186,7 +192,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/palette_index"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Palette #"
+text = "SPRITE_EDIT_PALETTE_INDEX"
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="content/left_panel/scroll/margin/data/palette_index"]
 layout_mode = 2
@@ -204,7 +211,9 @@ layout_mode = 2
 
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
 layout_mode = 2
-text = "Dimensions"
+size_flags_horizontal = 3
+text = "SPRITE_EDIT_INFO_DIMENSIONS"
+text_overrun_behavior = 3
 
 [node name="value" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
 layout_mode = 2
@@ -218,7 +227,9 @@ layout_mode = 2
 
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/color_depth"]
 layout_mode = 2
-text = "Color depth"
+size_flags_horizontal = 3
+text = "SPRITE_EDIT_INFO_BIT_DEPTH"
+text_overrun_behavior = 3
 
 [node name="value" type="Label" parent="content/left_panel/scroll/margin/data/color_depth"]
 layout_mode = 2
@@ -232,7 +243,9 @@ layout_mode = 2
 
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/embedded_pal"]
 layout_mode = 2
-text = "Embedded palette"
+size_flags_horizontal = 3
+text = "SPRITE_EDIT_INFO_EMBEDDED_PALETTE"
+text_overrun_behavior = 3
 
 [node name="value" type="Label" parent="content/left_panel/scroll/margin/data/embedded_pal"]
 layout_mode = 2
@@ -292,21 +305,26 @@ size_flags_horizontal = 3
 [node name="import" type="Button" parent="content/left_panel/margin/palette_buttons/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Import palette"
+tooltip_text = "SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP"
+text = "SPRITE_EDIT_PALETTE_IMPORT"
+text_overrun_behavior = 3
 script = ExtResource("2_dim6d")
 window = NodePath("../../../../../../palette_import")
 
 [node name="export" type="Button" parent="content/left_panel/margin/palette_buttons/import_export" node_paths=PackedStringArray("window")]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Export palette"
+tooltip_text = "SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP"
+text = "SPRITE_EDIT_PALETTE_EXPORT"
+text_overrun_behavior = 3
 script = ExtResource("2_dim6d")
 window = NodePath("../../../../../../palette_export")
 
 [node name="palette_editor" type="Button" parent="content/left_panel/margin/palette_buttons" node_paths=PackedStringArray("palette_grid", "editor_panel")]
 layout_mode = 2
+tooltip_text = "SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP"
 toggle_mode = true
-text = "Open palette editor"
+text = "SPRITE_EDIT_PALETTE_EDITOR"
 script = ExtResource("8_xwrgv")
 palette_grid = NodePath("../../../scroll/margin/data/palette_grid/palette")
 editor_panel = NodePath("../../../../pal_edit")
@@ -327,7 +345,7 @@ size_flags_vertical = 3
 [node name="title" type="Label" parent="content/pal_edit/color_picker"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Color editor"
+text = "SPRITE_EDIT_PALETTE_EDITOR_TITLE"
 
 [node name="picker" type="ColorPicker" parent="content/pal_edit/color_picker"]
 layout_mode = 2
@@ -350,7 +368,7 @@ size_flags_vertical = 3
 
 [node name="title" type="Label" parent="content/visualizer"]
 layout_mode = 2
-text = "Preview"
+text = "SPRITE_EDIT_PREVIEW"
 
 [node name="borders" type="PanelContainer" parent="content/visualizer"]
 layout_mode = 2
@@ -425,7 +443,7 @@ script = ExtResource("8_vk3xv")
 display_toggle = NodePath("../../../../../../left_panel/scroll/margin/data/display_bounds")
 
 [node name="sprite_import" type="Window" parent="." node_paths=PackedStringArray("summon_button", "import_file_dialog")]
-title = "Import sprites"
+title = "SPRITE_EDIT_IMPORT_TITLE"
 initial_position = 2
 size = Vector2i(1000, 614)
 visible = false

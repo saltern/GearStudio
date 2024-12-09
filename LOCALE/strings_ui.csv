@@ -1,0 +1,114 @@
+keys,en,es
+TOP_MENU_FILE,File,Archivo
+TOP_MENU_EDIT,Edit,Editar
+TOP_MENU_HELP,Help,Ayuda
+FILE_OPEN_DIR,Open directory...,Abrir carpeta...
+FILE_OPEN_BIN,Open binary...,Abrir binario...
+FILE_SAVE,Save,Guardar
+FILE_SAVE_AS,Save as...,Guardar como...
+FILE_CLOSE,Close,Cerrar
+FILE_EXIT,Exit,Salir
+EDIT_UNDO,Undo,Deshacer
+EDIT_REDO,Redo,Rehacer
+EDIT_ACTION_HISTORY,Action History...,Historial de Acciones...
+EDIT_ACTION_HISTORY_NO,The Action History is not currently available.,El Historial de Acciones no se encuentra disponible actualmente.
+EDIT_PREFERENCES,Preferences...,Preferencias...
+HELP_ABOUT,About...,Acerca de...
+PREFERENCES_TITLE,Preferences,Preferencias
+PREFERENCES_GENERAL_TITLE,General,General
+PREFERENCES_GENERAL_LANGUAGE,Language,Idioma
+PREFERENCES_CUSTOMIZATION_TITLE,Customization,Personalización
+PREFERENCES_CUSTOMIZATION_BG_GRID_1,Background grid color 1,Color 2 grilla de fondo
+PREFERENCES_CUSTOMIZATION_BG_GRID_2,Background grid color 2,Color 1 grilla de fondo
+PREFERENCES_CUSTOMIZATION_STATUS,Status bar color,Color barra de estado
+PREFERENCES_CELLS_TITLE,Cells,Celdas
+PREFERENCES_CELLS_CROSS,Draw origin cross,Mostrar cruz en punto de origen
+PREFERENCES_CELLS_ONION,Onion skin color,Color de la referencia
+PREFERENCES_CELLS_GUIDE,Guide line color,Color de las líneas de guía
+PREFERENCES_BOXES_TITLE,Boxes,Cajas
+PREFERENCES_BOXES_THICKNESS,Edge thickness,Grosor del borde
+PREFERENCES_BOXES_UNKNOWN,Color (unknown),Color (desconocido)
+PREFERENCES_BOXES_HURTBOX,Color (hurtbox),Color (hurtbox)
+PREFERENCES_BOXES_HITBOX,Color (hitbox),Color (hitbox)
+PREFERENCES_BOXES_REGION_BACK,"Color (region, back)","Color (región, fondo)"
+PREFERENCES_BOXES_REGION_FRONT,"Color (region, front)","Color (región, frente)"
+PREFERENCES_BOXES_COLLISION_EXTENSION,Color (collision extension),Color (extensión de colisión)
+PREFERENCES_BOXES_SPAWN,Color (effect spawn point),Color (punto de creación de efectos)
+PREFERENCES_SPRITES_TITLE,Sprites,Sprites
+PREFERENCES_SPRITES_BOUNDS,Color (bounds),Color (límites)
+PREFERENCES_MISCELLANEOUS_TITLE,Miscellaneous,Misceláneo
+PREFERENCES_MISCELLANEOUS_UNDO,Max undo steps,Deshacer: pasos máximos
+PREFERENCES_MISCELLANEOUS_REOPEN,Allow reopening same file or folder,Permitir reabrir el mismo archivo o carpeta
+PREFERENCES_SAVE,Save preferences,Guardar preferencias
+ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS,RECONOCIMIENTOS
+ABOUT_ACKNOWLEDGMENTS_RYN_0,- Character BIN parser,- Conversor de BIN para personajes
+ABOUT_ACKNOWLEDGMENTS_RYN_1,- +R sprite decoder,- Decodificador de sprites de +R
+ABOUT_ACKNOWLEDGMENTS_LOVENUS_0,- Parsers for various other resource files,- Conversor de múltiples otros tipos de recursos
+ABOUT_ACKNOWLEDGMENTS_LOVENUS_1,- Additional info and research into +R,- Información e investigación adicional sobre +R
+ABOUT_ACKNOWLEDGMENTS_CHLOE_0,"- Testing, various improvement suggestions","- Testeo, sugerencias de mejoras varias"
+ABOUT_BY,by,por
+ABOUT_CLOSE,Close,Cerrar
+TAB_BASE_NAME,File {id}: {name},Archivo {id}: {name}
+SPRITE_EDIT_TITLE,Sprites,Sprites
+SPRITE_EDIT_PREVIEW,Preview,Vista previa
+SPRITE_EDIT_SPRITE_IMPORT,Import...,Importar...
+SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,Import one or more sprites...,Importar uno o más sprites...
+SPRITE_EDIT_SPRITE_EXPORT,Export...,Exportar...
+SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP,Export one or more sprites...,Exportar uno o más sprites...
+SPRITE_EDIT_SPRITE_DELETE,Delete...,Eliminar...
+SPRITE_EDIT_SPRITE_DELETE_TOOLTIP,Delete one or more sprites...,Eliminar uno o más sprites...
+SPRITE_EDIT_SPRITE_REINDEX,Reindex,Reindizar
+SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,Reorder color indexes using +R's pattern.,Reordenar los índices de color usando el patrón de +R.
+SPRITE_EDIT_BOUNDS,Display bounds,Mostrar límites
+SPRITE_EDIT_BOUNDS_TOOLTIP,"Show a solid color behind the sprite, extending to its dimensions","Mostrar un color sólido detrás del sprite, extendiéndose a sus dimensiones"
+SPRITE_EDIT_SPRITE_INDEX,Sprite #,Sprite #
+SPRITE_EDIT_PALETTE_INDEX,Palette #,Paleta #
+SPRITE_EDIT_INFO_DIMENSIONS,Dimensions,Dimensiones
+SPRITE_EDIT_INFO_BIT_DEPTH,Color depth,Profundidad de color
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE,Embedded palette,Contiene paleta
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,Yes,Sí
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,No,No
+SPRITE_EDIT_PALETTE_IMPORT,Import palette...,Importar paleta...
+SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,Replace the embedded palette with an import...,Reemplazar la paleta contenida con una importada...
+SPRITE_EDIT_PALETTE_EXPORT,Export palette...,Exportar paleta...
+SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,Export the embedded palette to a file...,Exportar la paleta contenida a un archivo...
+SPRITE_EDIT_PALETTE_EDITOR,Open palette editor,Abrir editor de paletas
+SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,Open the embedded palette editor and enable changes,Abrir el editor de paletas contenidas y permitir cambios
+SPRITE_EDIT_PALETTE_EDITOR_TITLE,Color editor,Editor de colores
+SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...,Importar sprites para '{name}'...
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+CELL_EDIT_TITLE,Cells,Celdas
+CELL_EDIT_DELETE_TOOLTIP,Delete a single cell or a range of cells.,Eliminar una celda o un rango de celdas.
+CELL_EDIT,,

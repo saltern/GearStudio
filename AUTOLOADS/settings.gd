@@ -22,7 +22,19 @@ signal guide_color_changed
 # Sprites
 signal sprite_bounds_color_changed
 
+enum Language {
+	ENGLISH,
+	SPANISH,
+}
+
 const FILENAME: String = "/gearstudio.ini"
+const LANGUAGE_KEYS: Dictionary = {
+	0: "en",
+	1: "es",
+}
+
+const CFG_SECTION_GENERAL: String = "general"
+const CFG_GENERAL_LANGUAGE: String = "language"
 
 const CFG_SECTION_CUSTOM: String = "customization"
 const CFG_CUSTOM_BG_A: String = "color_bg_a"
@@ -66,6 +78,8 @@ enum BoxType {
 	UNKNOWN,			# 7+
 }
 
+var general_language: Language = Language.ENGLISH
+
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
 var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
 var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
@@ -101,11 +115,19 @@ var config: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
 	load_config()
+	update_locale()
+
+
+func update_locale() -> void:
+	TranslationServer.set_locale(LANGUAGE_KEYS[general_language])
 
 
 func load_config() -> bool:
 	if config.load(path + FILENAME) != OK:
 		return false
+	
+	general_language = config.get_value(
+		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language)
 	
 	custom_color_status = config.get_value(
 		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
@@ -145,6 +167,9 @@ func load_config() -> bool:
 
 
 func save_config() -> bool:
+	config.set_value(
+		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language)
+		
 	config.set_value(
 		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
 	config.set_value(

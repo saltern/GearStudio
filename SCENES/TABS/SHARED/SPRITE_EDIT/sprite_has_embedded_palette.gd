@@ -8,4 +8,7 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	text = "No" if sprite.palette.is_empty() else "Yes"
+	if sprite.palette.is_empty():
+		text = "SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO"
+	else:
+		text = "SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES"

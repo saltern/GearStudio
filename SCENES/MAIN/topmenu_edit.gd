@@ -9,11 +9,11 @@ enum ButtonID {
 }
 
 const button_names: Dictionary = {
-	ButtonID.UNDO: "Undo",
-	ButtonID.REDO: "Redo",
-	ButtonID.ACTION_HISTORY: "Action History...",
+	ButtonID.UNDO: "EDIT_UNDO",
+	ButtonID.REDO: "EDIT_REDO",
+	ButtonID.ACTION_HISTORY: "EDIT_ACTION_HISTORY",
 	ButtonID.SEPARATOR_0: "",
-	ButtonID.PREFERENCES: "Preferences...",
+	ButtonID.PREFERENCES: "EDIT_PREFERENCES",
 }
 
 
@@ -37,7 +37,7 @@ func menu_clicked(menu_id: int) -> void:
 			GlobalSignals.menu_redo.emit()
 
 		ButtonID.ACTION_HISTORY:
-			Status.set_status("The Action History is not currently available.")
+			Status.set_status("EDIT_ACTION_HISTORY_NO")
 		
 		ButtonID.PREFERENCES:
 			Settings.display_window.emit()

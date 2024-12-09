@@ -3,10 +3,10 @@ extends TabContainer
 @export var load_dialog_dir: FileDialog
 @export var load_dialog_bin: FileDialog
 @export var save_as_dialog: FileDialog
-@export var character_scene: PackedScene
+@export var session_scene: PackedScene
 
 var waiting_tasks: Dictionary = {}
-
+	
 
 func _ready() -> void:
 	GlobalSignals.menu_save.connect(save_resource)
@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 					},
 				}
 				
-				var new_tab: Control = character_scene.instantiate()
+				var new_tab: Control = session_scene.instantiate()
 				new_tab.load_tabs(data)
 				
 				add_child(new_tab)
@@ -53,11 +53,11 @@ func add_task(task_id: int) -> void:
 
 
 func load_directory(path: String) -> void:
-	Status.set_status("Loading [%s]..." % path)
+	Status.set_status(tr("STATUS_LOADING").format({path=path}))
 	
 	if not Settings.misc_allow_reopen:
 		if Opened.path_is_open(path):
-			Status.set_status("Directory already open!")
+			Status.set_status("STATUS_OPEN_ALREADY_OPEN_DIR")
 			return
 	
 	add_task(WorkerThreadPool.add_task(
@@ -66,11 +66,11 @@ func load_directory(path: String) -> void:
 
 
 func load_binary(path: String) -> void:
-	Status.set_status("Loading [%s]..." % path)
+	Status.set_status(tr("STATUS_LOADING").format({path=path}))
 	
 	if not Settings.misc_allow_reopen:
 		if Opened.path_is_open(path):
-			Status.set_status("File already open!")
+			Status.set_status("STATUS_OPEN_ALREADY_OPEN_BIN")
 			return
 	
 	add_task(WorkerThreadPool.add_task(
@@ -80,13 +80,16 @@ func load_binary(path: String) -> void:
 
 func save_resource(path: String = ""):
 	if SessionData.this_session.is_empty():
-		Status.set_status("Nothing to save.")
+		Status.set_status("STATUS_SAVE_NOTHING")
 		return
 	
 	match SessionData.get_session_type():
 		SessionData.SessionType.DIRECTORY:
-			save_directory(path)
+			save_directory("")
+			
 		SessionData.SessionType.BINARY:
+			if path.get_extension() != "bin":
+				path += ".bin"
 			save_binary(path)
 
 
@@ -100,12 +103,12 @@ func save_binary(path: String = ""):
 
 func finished_loading(path: String, data: Dictionary) -> void:
 	if data.is_empty():
-		Status.set_status("Unable to load, file invalid or unsupported.")
+		Status.set_status("STATUS_LOAD_INVALID")
 		return
 	
 	Opened.path_open(path)
 	
-	var new_tab: Control = character_scene.instantiate()
+	var new_tab: Control = session_scene.instantiate()
 	new_tab.session_id = get_child_count()
 	new_tab.load_tabs(data)
 	
@@ -115,15 +118,16 @@ func finished_loading(path: String, data: Dictionary) -> void:
 	add_child(new_tab)
 	set_tab_title(get_tab_count() - 1, names[1])
 	
-	Status.set_status("Loaded data from [%s]." % path)
+	Status.set_status(tr("STATUS_LOAD_COMPLETE").format({path=path}))
 
 
 func get_new_tab_name(path: String) -> PackedStringArray:
 	var base_name: String = path.split("\\")[-1]
 	base_name = base_name.split("/")[-1]
 	
-	var pretty_name: String = "File %s: %s" % [
-		get_child_count(), base_name]
+	var pretty_name: String = tr("TAB_BASE_NAME").format(
+		{id=get_child_count(), name=base_name}
+	)
 	
 	return [base_name, pretty_name]
 
@@ -145,7 +149,10 @@ func rename_all_tabs(skip_index: int) -> void:
 		if tab == skip_index:
 			continue
 		
-		set_tab_title(tab, "File %s: %s" % [
-			number, get_child(tab).base_name])
+		var pretty_name: String = tr("TAB_BASE_NAME").format(
+			{id=number, name=get_child(tab).base_name}
+		)
+		
+		set_tab_title(tab, pretty_name)
 		
 		number += 1

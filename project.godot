@@ -84,6 +84,10 @@ redo={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://LOCALE/strings_status.en.translation", "res://LOCALE/strings_status.es.translation", "res://LOCALE/strings_ui.en.translation", "res://LOCALE/strings_ui.es.translation")
+
 [rendering]
 
 environment/defaults/default_clear_color=Color(0.180392, 0.180392, 0.180392, 1)
