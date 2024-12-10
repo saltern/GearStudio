@@ -10,3 +10,6 @@ func on_files_selected() -> void:
 		return
 	
 	text = "Will import %s sprites." % SpriteImport.import_list.size()
+	text = tr("SPRITE_EDIT_IMPORT_FILES_COUNT").format({
+		"count": SpriteImport.import_list.size()
+	})

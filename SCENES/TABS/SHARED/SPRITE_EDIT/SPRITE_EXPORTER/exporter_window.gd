@@ -7,7 +7,9 @@ extends Window
 
 
 func _ready() -> void:
-	title = "Export '%s' sprites..." % get_owner().get_parent().name
+	title = tr("SPRITE_EDIT_EXPORT_TITLE").format({
+		"name": sprite_edit.get_parent().name.right(-5)
+	})
 	summon_button.pressed.connect(display)
 	close_requested.connect(hide)
 	

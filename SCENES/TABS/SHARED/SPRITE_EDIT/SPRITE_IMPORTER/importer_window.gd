@@ -10,7 +10,9 @@ var local_file_list: PackedStringArray
 
 func _ready() -> void:
 	var object_name = sprite_edit.get_parent().name.right(-5)
-	title = tr("SPRITE_EDIT_IMPORT_TITLE").format({"name": object_name})
+	title = tr("SPRITE_EDIT_IMPORT_TITLE").format({
+		"name": object_name
+	})
 	
 	summon_button.pressed.connect(display)
 	close_requested.connect(hide)

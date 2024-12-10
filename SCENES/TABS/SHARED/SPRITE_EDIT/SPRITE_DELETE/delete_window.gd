@@ -2,6 +2,8 @@ extends Window
 
 @export var summon_button: Button
 
+@onready var sprite_edit: SpriteEdit = get_owner()
+
 
 func _ready() -> void:
 	summon_button.pressed.connect(show)
@@ -20,3 +22,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.keycode == KEY_ESCAPE:
 		hide()
+
+
+func display() -> void:
+	title = tr("SPRITE_EDIT_DELETE_TITLE").format({
+		"name": sprite_edit.get_parent().name.right(-5)
+	})

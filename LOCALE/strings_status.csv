@@ -9,30 +9,31 @@ STATUS_SAVE_NOTHING,Nothing to save.,Nada que guardar.
 STATUS_DIRECTORY_CANT_SAVE_AS,"Directory session, can't 'save as'.","Sesión de carpeta, no se puede 'guardar como'."
 STATUS_PREFERENCES_SAVED,Saved preferences.,Se guardaron las preferencias.
 STATUS_PREFERENCES_SAVE_ERROR,Could not save preferences!,¡No se pudieron guardar las preferencias!
-STATUS_ACT_UNDO,Undo: %s,Deshacer: %s
-STATUS_ACT_CELLED_CELL_NEW,New cell (#%s),Nueva celda (#%s)
-STATUS_ACT_CELLED_CELL_PASTE,Paste cell (#%s),Pegar celda (#%s)
-STATUS_ACT_CELLED_CELL_DELETE,Delete %s cell(s),Borrar %s celda(s)
-STATUS_ACT_CELLED_SPRITE_INDEX,Cell #%s: Set sprite index,Celda #%s: Establecer índice de sprite
-STATUS_ACT_CELLED_SPRITE_OFFSET,Cell #%s: Set sprite offset,Celda #%s: Establecer posición del sprite
-STATUS_ACT_CELLED_SPRITE_OFFSET_X,Cell #%s: Set sprite x offset,Celda #%s: Establecer posición x del sprite
-STATUS_ACT_CELLED_SPRITE_OFFSET_Y,Cell #%s: Set sprite y offset,Celda #%s: Establecer posición y del sprite
-STATUS_ACT_CELLED_SPRITE_INFO_PASTE,Cell #%s: Paste sprite info,Celda #%s: Pegar configuración de sprite
-STATUS_ACT_CELLED_BOX_NEW,Cell #%s: Add box,Celda #%s: Agregar caja
-STATUS_ACT_CELLED_BOX_PASTE,Cell #%s: Paste box(es),Celda #%s: Pegar caja(s)
-STATUS_ACT_CELLED_BOX_PASTE_OVERWRITE, with overwrite, y sobrescribir
-STATUS_ACT_CELLED_BOX_DELETE,Cell #%s: Delete box,Celda #%s: Borrar caja
-STATUS_ACT_CELLED_BOX_DELETE_MULTI,Cell #%s: Delete boxes,Celda #%s: Borrar cajas
-STATUS_ACT_CELLED_BOX_TYPE,Cell #%s: Set box type,Celda #%s: Establecer tipo de la caja
-STATUS_ACT_CELLED_BOX_TYPE_MULTI,Cell #%s: Set type for multiple boxes,Celda #%s: Establecer tipo de múltiples cajas
-STATUS_ACT_CELLED_BOX_OFFSET_X,Cell #%s: Set box x offset,Celda #%s: Establecer posición x de la caja
-STATUS_ACT_CELLED_BOX_OFFSET_Y,Cell #%s: Set box y offset,Celda #%s: Establecer posición y de la caja
-STATUS_ACT_CELLED_BOX_WIDTH,Cell #%s: Set box width,Celda #%s: Establecer ancho de la caja
-STATUS_ACT_CELLED_BOX_HEIGHT,Cell #%s: Set box height,Celda #%s: Establecer alto de la caja
-STATUS_ACT_CELLED_BOX_MODIFY,Cell #%s: Modify box # %s,Celda #%s: Modificar caja # %s
-STATUS_ACT_CELLED_BOX_MODIFY_MULTI,Cell #%s: Modify multiple boxes,Celda #%s: Modificar múltiples cajas
-STATUS_ACT_CELLED_BOX_REGION_OFFSET_X,Cell #%s: Set sprite region x offset,Celda #%s: Establecer posición x de la región del sprite
-STATUS_ACT_CELLED_BOX_REGION_OFFSET_Y,Cell #%s: Set sprite region y offset,Celda #%s: Establecer posición y de la región del sprite
+STATUS_ACTION_HISTORY_NO,The Action History is not currently available.,El Historial de Acciones no se encuentra disponible actualmente.
+STATUS_ACTION_UNDO,Undo: %s,Deshacer: %s
+STATUS_ACTION_CELLED_CELL_NEW,New cell (#%s),Nueva celda (#%s)
+STATUS_ACTION_CELLED_CELL_PASTE,Paste cell (#%s),Pegar celda (#%s)
+STATUS_ACTION_CELLED_CELL_DELETE,Delete %s cell(s),Borrar %s celda(s)
+STATUS_ACTION_CELLED_SPRITE_INDEX,Cell #%s: Set sprite index,Celda #%s: Establecer índice de sprite
+STATUS_ACTION_CELLED_SPRITE_OFFSET,Cell #%s: Set sprite offset,Celda #%s: Establecer posición del sprite
+STATUS_ACTION_CELLED_SPRITE_OFFSET_X,Cell #%s: Set sprite x offset,Celda #%s: Establecer posición x del sprite
+STATUS_ACTION_CELLED_SPRITE_OFFSET_Y,Cell #%s: Set sprite y offset,Celda #%s: Establecer posición y del sprite
+STATUS_ACTION_CELLED_SPRITE_INFO_PASTE,Cell #%s: Paste sprite info,Celda #%s: Pegar configuración de sprite
+STATUS_ACTION_CELLED_BOX_NEW,Cell #%s: Add box,Celda #%s: Agregar caja
+STATUS_ACTION_CELLED_BOX_PASTE,Cell #%s: Paste box(es),Celda #%s: Pegar caja(s)
+STATUS_ACTION_CELLED_BOX_PASTE_OVERWRITE, with overwrite, y sobrescribir
+STATUS_ACTION_CELLED_BOX_DELETE,Cell #%s: Delete box,Celda #%s: Borrar caja
+STATUS_ACTION_CELLED_BOX_DELETE_MULTI,Cell #%s: Delete boxes,Celda #%s: Borrar cajas
+STATUS_ACTION_CELLED_BOX_TYPE,Cell #%s: Set box type,Celda #%s: Establecer tipo de la caja
+STATUS_ACTION_CELLED_BOX_TYPE_MULTI,Cell #%s: Set type for multiple boxes,Celda #%s: Establecer tipo de múltiples cajas
+STATUS_ACTION_CELLED_BOX_OFFSET_X,Cell #%s: Set box x offset,Celda #%s: Establecer posición x de la caja
+STATUS_ACTION_CELLED_BOX_OFFSET_Y,Cell #%s: Set box y offset,Celda #%s: Establecer posición y de la caja
+STATUS_ACTION_CELLED_BOX_WIDTH,Cell #%s: Set box width,Celda #%s: Establecer ancho de la caja
+STATUS_ACTION_CELLED_BOX_HEIGHT,Cell #%s: Set box height,Celda #%s: Establecer alto de la caja
+STATUS_ACTION_CELLED_BOX_MODIFY,Cell #%s: Modify box # %s,Celda #%s: Modificar caja # %s
+STATUS_ACTION_CELLED_BOX_MODIFY_MULTI,Cell #%s: Modify multiple boxes,Celda #%s: Modificar múltiples cajas
+STATUS_ACTION_CELLED_BOX_REGION_OFFSET_X,Cell #%s: Set sprite region x offset,Celda #%s: Establecer posición x de la región del sprite
+STATUS_ACTION_CELLED_BOX_REGION_OFFSET_Y,Cell #%s: Set sprite region y offset,Celda #%s: Establecer posición y de la región del sprite
 STATUS_CELLED_CELL_LOAD,Loaded cell #%s.,Se cargó la celda #%s.
 STATUS_CELLED_CELL_COPY,Copied cell #%s to the clipboard.,Se copió la celda #%s al portapapeles.
 STATUS_CELLED_CELL_PASTE_NOTHING,"No cell on clipboard, nothing pasted.","No hay una celda en el portapapeles, no se pegó nada."

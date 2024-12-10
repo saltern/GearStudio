@@ -691,6 +691,7 @@ vertical_alignment = 1
 title = "PREFERENCES_TITLE"
 initial_position = 2
 size = Vector2i(600, 400)
+visible = false
 script = ExtResource("9_amh60")
 save_button = NodePath("background/margin/contents/save")
 
@@ -711,11 +712,10 @@ theme_override_constants/separation = 0
 [node name="categories" type="TabContainer" parent="preferences_2/background/margin/contents"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 use_hidden_tabs_for_min_size = true
 
 [node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -743,6 +743,7 @@ popup/item_1/id = 1
 script = ExtResource("13_hgppk")
 
 [node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
