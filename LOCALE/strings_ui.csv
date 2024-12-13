@@ -1,190 +1,335 @@
-keys,en,es
-TOP_MENU_FILE,File,Archivo
-TOP_MENU_EDIT,Edit,Editar
-TOP_MENU_HELP,Help,Ayuda
-FILE_OPEN_DIR,Open directory...,Abrir carpeta...
-FILE_OPEN_BIN,Open binary...,Abrir binario...
-FILE_SAVE,Save,Guardar
-FILE_SAVE_AS,Save as...,Guardar como...
-FILE_CLOSE,Close,Cerrar
-FILE_EXIT,Exit,Salir
-EDIT_UNDO,Undo,Deshacer
-EDIT_REDO,Redo,Rehacer
-EDIT_ACTION_HISTORY,Action History...,Historial de Acciones...
-EDIT_PREFERENCES,Preferences...,Preferencias...
-HELP_ABOUT,About...,Acerca de...
-,,
-PREFERENCES_TITLE,Preferences,Preferencias
-PREFERENCES_GENERAL_TITLE,General,General
-PREFERENCES_GENERAL_LANGUAGE,Language,Idioma
-PREFERENCES_CUSTOMIZATION_TITLE,Customization,Personalización
-PREFERENCES_CUSTOMIZATION_BG_GRID_1,Background grid color 1,Color 2 grilla de fondo
-PREFERENCES_CUSTOMIZATION_BG_GRID_2,Background grid color 2,Color 1 grilla de fondo
-PREFERENCES_CUSTOMIZATION_STATUS,Status bar color,Color barra de estado
-PREFERENCES_CELLS_TITLE,Cells,Celdas
-PREFERENCES_CELLS_CROSS,Draw origin cross,Mostrar cruz en punto de origen
-PREFERENCES_CELLS_ONION,Onion skin color,Color de la referencia
-PREFERENCES_CELLS_GUIDE,Guide line color,Color de las líneas de guía
-PREFERENCES_BOXES_TITLE,Boxes,Cajas
-PREFERENCES_BOXES_THICKNESS,Edge thickness,Grosor del borde
-PREFERENCES_BOXES_UNKNOWN,Color (unknown),Color (desconocido)
-PREFERENCES_BOXES_HURTBOX,Color (hurtbox),Color (hurtbox)
-PREFERENCES_BOXES_HITBOX,Color (hitbox),Color (hitbox)
-PREFERENCES_BOXES_REGION_BACK,"Color (region, back)","Color (región, fondo)"
-PREFERENCES_BOXES_REGION_FRONT,"Color (region, front)","Color (región, frente)"
-PREFERENCES_BOXES_COLLISION_EXTENSION,Color (collision extension),Color (extensión de colisión)
-PREFERENCES_BOXES_SPAWN,Color (effect spawn point),Color (punto de creación de efectos)
-PREFERENCES_SPRITES_TITLE,Sprites,Sprites
-PREFERENCES_SPRITES_BOUNDS,Color (bounds),Color (límites)
-PREFERENCES_MISCELLANEOUS_TITLE,Miscellaneous,Misceláneo
-PREFERENCES_MISCELLANEOUS_UNDO,Max undo steps,Deshacer: pasos máximos
-PREFERENCES_MISCELLANEOUS_REOPEN,Allow reopening same file or folder,Permitir reabrir el mismo archivo o carpeta
-PREFERENCES_SAVE,Save preferences,Guardar preferencias
-,,
-ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS,RECONOCIMIENTOS
-ABOUT_ACKNOWLEDGMENTS_RYN_0,- Character BIN parser,- Conversor de BIN para personajes
-ABOUT_ACKNOWLEDGMENTS_RYN_1,- +R sprite decoder,- Decodificador de sprites de +R
-ABOUT_ACKNOWLEDGMENTS_LOVENUS_0,- Parsers for various other resource files,- Conversor de múltiples otros tipos de recursos
-ABOUT_ACKNOWLEDGMENTS_LOVENUS_1,- Additional info and research into +R,- Información e investigación adicional sobre +R
-ABOUT_ACKNOWLEDGMENTS_CHLOE_0,"- Testing, various improvement suggestions","- Testeo, sugerencias de mejoras varias"
-ABOUT_BY,by,por
-ABOUT_CLOSE,Close,Cerrar
-,,
-TAB_BASE_NAME,File {id}: {name},Archivo {id}: {name}
-,,
-SPRITE_EDIT_TITLE,Sprites,Sprites
-SPRITE_EDIT_PREVIEW,Preview,Vista previa
-SPRITE_EDIT_SPRITE_IMPORT,Import...,Importar...
-SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,Import one or more sprites...,Importar uno o más sprites...
-SPRITE_EDIT_SPRITE_EXPORT,Export...,Exportar...
-SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP,Export one or more sprites...,Exportar uno o más sprites...
-SPRITE_EDIT_SPRITE_DELETE,Delete...,Eliminar...
-SPRITE_EDIT_SPRITE_DELETE_TOOLTIP,Delete one or more sprites...,Eliminar uno o más sprites...
-SPRITE_EDIT_SPRITE_REINDEX,Reindex,Reindizar
-SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,Reorder color indexes using +R's pattern.,Reordenar los índices de color usando el patrón de +R.
-SPRITE_EDIT_BOUNDS,Display bounds,Mostrar límites
-SPRITE_EDIT_BOUNDS_TOOLTIP,"Show a solid color behind the sprite, extending to its dimensions","Mostrar un color sólido detrás del sprite, extendiéndose a sus dimensiones"
-SPRITE_EDIT_SPRITE_INDEX,Sprite #,Sprite #
-SPRITE_EDIT_PALETTE_INDEX,Palette #,Paleta #
-SPRITE_EDIT_INFO_DIMENSIONS,Dimensions,Dimensiones
-SPRITE_EDIT_INFO_BIT_DEPTH,Color depth,Profun. de color
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE,Embedded palette,Contiene paleta
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,Yes,Sí
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,No,No
-SPRITE_EDIT_PALETTE_IMPORT,Import palette...,Importar paleta...
-SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,Replace the embedded palette with an import...,Reemplazar la paleta contenida con una importada...
-SPRITE_EDIT_PALETTE_EXPORT,Export palette...,Exportar paleta...
-SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,Export the embedded palette to a file...,Exportar la paleta contenida a un archivo...
-SPRITE_EDIT_PALETTE_EDITOR,Open palette editor,Abrir editor de paletas
-SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,Open the embedded palette editor and enable changes,Abrir el editor de paletas contenidas y permitir cambios
-SPRITE_EDIT_PALETTE_EDITOR_TITLE,Color editor,Editor de colores
-,,
-SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...,Importar sprites para '{name}'...
-SPRITE_EDIT_IMPORT_FILES_TITLE,Input files,Archivos a importar
-SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,Select files to import here.,Selecciona aquí los archivos a importar.
-SPRITE_EDIT_IMPORT_FILES_BROWSE,Browse...,Explorar...
-SPRITE_EDIT_IMPORT_FILES_COUNT,Will import {count} sprite(s).,Se importará(n) {count} sprite(s).
-SPRITE_EDIT_IMPORT_PLACEMENT_TITLE,Placement,Colocación
-SPRITE_EDIT_IMPORT_PLACEMENT_TITLE_TOOLTIP,The way in which sprites will be placed once imported.,La forma en la que se colocarán los sprites una vez importados.
-SPRITE_EDIT_IMPORT_PLACEMENT_METHOD,Method,Método
-SPRITE_EDIT_IMPORT_PLACEMENT_METHOD_TOOLTIP,"The method used for placing sprites.\nAppend: add sprites at the end. Existing sprites are not affected.\nReplace: replaces as many sprites as are being imported, starting at the set position. Excess sprites are appended.\nInsert: inserts sprites at the set position. Sprites that come after will be moved, affecting existing cells.","El método utilizado para colocar sprites.\nAñadir: agrega sprites al final. No afecta a los sprites existentes.\nReemplazar: reemplaza tantos sprites como se estén importando, empezando en la posición dada. Los sprites sobrantes se agregan al final.\nInsertar: inserta los sprites en la posición dada. Aquellos que vengan después serán desplazados, afectando a las celdas existentes."
-SPRITE_EDIT_IMPORT_PLACEMENT_APPEND,Append,Añadir
-SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE,Replace,Reemplazar
-SPRITE_EDIT_IMPORT_PLACEMENT_INSERT,Insert,Insertar
-SPRITE_EDIT_IMPORT_PLACEMENT_POSITION,At position,En la posición
-SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP,What position to replace/insert sprites at.,La posición en la que insertar/reemplazar sprites.
-SPRITE_EDIT_IMPORT_PLACEMENT_WAITING,Waiting for files to be selected.,Esperando a que se seleccionen archivos.
-SPRITE_EDIT_IMPORT_PLACEMENT_NO_REPLACE,Will not replace sprites.\nTotal sprites after import: {total},No se reemplazarán sprites.\nSprites totales tras importar: {total}
-SPRITE_EDIT_IMPORT_PLACEMENT_WILL_REPLACE,Will REPLACE {replace} sprite(s)!\nTotal sprites after import: {total},¡Se REEMPLAZARÁ(N) {replace} sprite(s)!\nSprites totales tras importar: {total}
-SPRITE_EDIT_IMPORT_PLACEMENT_NO_DISPLACE,Will not displace sprites.\nTotal sprites after import: {total},No se desplazarán sprites.\nSprites totales tras importar: {total}
-SPRITE_EDIT_IMPORT_PLACEMENT_WILL_DISPLACE,Will DISPLACE {displace} sprite(s)!\nTotal sprites after import: {total},¡Se DESPLAZARÁ(N) {displace} sprite(s)!\nSprites totales tras importar: {total}
-SPRITE_EDIT_IMPORT_PALETTE_TITLE,Palette,Paleta
-SPRITE_EDIT_IMPORT_PALETTE_TITLE_TOOLTIP,Set how to handle the palettes of imported sprites here.,Configura cómo manejar la paleta de sprites importados aquí.
-SPRITE_EDIT_IMPORT_PALETTE_EMBED,Embed palette,Incluir paleta
-SPRITE_EDIT_IMPORT_PALETTE_EMBED_TOOLTIP,"Whether to include the palette of imported sprites.\nEmbedded palettes are ignored by 'Player' sprites, but required by everything else.","Si incluir o no las paletas de los sprites importados.\nLas paletas contenidas son ignoradas por los sprites del objeto 'Player', pero son requeridas por todos los demás."
-SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA,Halve alpha,Mediar alfa
-SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA_TOOLTIP,"If the input sprite has a palette, this setting will halve its alpha channel (transparency) values.","Si el sprite importado contiene una paleta, esta opción reducirá los valores del canal alfa (transparencia) a la mitad."
-SPRITE_EDIT_IMPORT_SPRITE_TITLE,Sprite,Sprite
-SPRITE_EDIT_IMPORT_SPRITE_TITLE_TOOLTIP,Configure additional processing to apply to imported sprites here.,Configura cualquier procesamiento adicional que aplicar a sprites importados aquí.
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_H,Flip horizontally,Voltear horizontalmente
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_H_TOOLTIP,Mirror imported sprites horizontally.,Voltea los sprites importados horizontalmente.
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_V,Flip vertically,Voltear verticalmente
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_V_TOOLTIP,Mirror imported sprites vertically.,Voltea los sprites importados verticalmente.
-SPRITE_EDIT_IMPORT_INDEX_WITH_RED,Index with red channel,Indizar con canal rojo
-SPRITE_EDIT_IMPORT_INDEX_WITH_RED_TOOLTIP,"If checked, sprites will be treated as RGB images, and the color index of each pixel will be obtained from its red channel, rather than the input pixel's actual color index.","Si se activa, se tratará a los sprites como imágenes RGB, y el índice de color de cada pixel se obtendrá de su canal rojo, en vez del verdadero índice de color del pixel de entrada."
-SPRITE_EDIT_IMPORT_REINDEX,Reindex,Reindizar
-SPRITE_EDIT_IMPORT_REINDEX_TOOLTIP,"Whether to reindex input sprites, changing the order of their color groups from 1-2-3-4 to 1-3-2-4 or vice-versa.","Reindizar los sprites de entrada, cambiando el órden de sus grupos de color de 1-2-3-4 a 1-3-2-4 o viceversa."
-SPRITE_EDIT_IMPORT_BIT_DEPTH,Bit depth,Profundidad de bits
-SPRITE_EDIT_IMPORT_BIT_DEPTH_TOOLTIP,Whether to modify the bit depth of imported sprites (note that resulting depth will always be at least 4 bpp).\nNo change: bit depth will be left as-is.\nForce 4-bit: bit depth will be brought down to 4 bpp (16 colors) if higher.\nForce 8-bit: bit depth will be brought up to 8 bpp (256 colors) if lower.,Modificar la profundidad de bits de los sprites importados (siempre será de 4 bpp como mínimo).\nSin cambios: no se alterará la profundidad de bits.\nForzar a 4 bits: siempre se reducirá la profundidad de bits a 4 bpp (16 colores) si es mayor.\nForzar a 8 bits: siempre se incrementará la profundidad de bits a 8 bpp (256 colores) si es menor.
-SPRITE_EDIT_IMPORT_BIT_DEPTH_NO_CHANGE,No change,Sin cambios
-SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_4,Force 4-bit,Forzar a 4 bits
-SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_8,Force 8-bit,Forzar a 8 bits
-SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,Preview sprite,Sprite de la vista previa
-SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,Set the imported sprite to preview.,Establece el sprite a importar sobre el cual crear la vista previa.
-SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,Preview palette,Paleta de la vista previa
-SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,Set the palette to preview sprites with.,Establece la paleta a usar para la vista previa.
-SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import,Importar
-SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,Click to begin importing sprites with the above settings.,Clic para iniciar la importación de sprites con los ajustes de arriba.
-,,
-SPRITE_EDIT_EXPORT_TITLE,Export '{name}' sprites...,Exportar sprites de '{name}'...
-SPRITE_EDIT_EXPORT_RANGE_TITLE,Sprite range,Intervalo de sprites
-SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP,"Select the range of sprites to export here.\nTo export only one sprite, set both boxes to the same value.","Selecciona el intervalo de sprites que exportar aquí.\nPara exportar un sólo sprite, introduce el mismo valor en ambos campos."
-SPRITE_EDIT_EXPORT_RANGE_START,Start sprite,Sprite inicial
-SPRITE_EDIT_EXPORT_RANGE_START_TOOLTIP,Sets the starting sprite of the export range.,Establece el sprite inicial del intervalo a exportar.
-SPRITE_EDIT_EXPORT_RANGE_END,End sprite,Sprite final
-SPRITE_EDIT_EXPORT_RANGE_END_TOOLTIP,Sets the ending sprite of the export range.,Establece el sprite final del intervalo a exportar.
-SPRITE_EDIT_EXPORT_FORMAT_TITLE,Output formats,Formatos de salida
-SPRITE_EDIT_EXPORT_FORMAT_TITLE_TOOLTIP,Select formats to export to here.\nNothing will be exported unless you select at least one.,Selecciona formatos a los que exportar aquí.\nNo se exportará nada a menos que selecciones al menos uno.
-SPRITE_EDIT_EXPORT_FORMAT_BIN_TOOLTIP,Exports a binary sprite in the same format it is found in in the game's files.\nSupports palettes with transparency.\nAnalogous to extracting sprites with a hex editor.,Exporta un sprite binario en el mismo formato en el que se encuentra en los archivos del juego.\nCon soporte para paletas con transparencia.\nAnálogo a extraer sprites con un editor hexadecimal.
-SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED,BIN (uncompressed),BIN (sin comprimir)
-SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED_TOOLTIP,"Export an uncompressed binary sprite.\nSupports palettes with transparency.\nThese work in game, but are not recommended.","Exporta un sprite binario sin comprimir.\nCon soporte para paletas con transparencia.\nFuncionan en el juego, pero no se recomiendan."
-SPRITE_EDIT_EXPORT_FORMAT_RAW_TOOLTIP,Export a RAW file that can be used as a PalMod preview.,Exporta un archivo RAW que puede usarse como vista previa en PalMod.
-SPRITE_EDIT_EXPORT_FORMAT_PNG_TOOLTIP,Export an indexed PNG.\nSupports palettes with transparency.,Exporta un PNG indexado.\nCon soporte para paletas con transparencia.
-SPRITE_EDIT_EXPORT_FORMAT_BMP_TOOLTIP,"Export an indexed BMP.\nSupports palettes, but not transparency.","Exporta un BMP indexado.\nCon soporte para paletas, pero no transparencia."
-SPRITE_EDIT_EXPORT_PALETTE_TITLE,Palette,Paleta
-SPRITE_EDIT_EXPORT_PALETTE_TITLE_TOOLTIP,Choose how to handle palettes for exported sprites here.,Elige aquí cómo administrar las paletas de los sprites exportados.
-SPRITE_EDIT_EXPORT_PALETTE_INCLUDE,Include,Incluir
-SPRITE_EDIT_EXPORT_PALETTE_INCLUDE_TOOLTIP,Whether to include a palette at all.,Si se debe incluir o no una paleta.
-SPRITE_EDIT_EXPORT_PALETTE_INDEX,Index,Índice
-SPRITE_EDIT_EXPORT_PALETTE_INDEX_TOOLTIP,Which palette number to apply to exported sprites.,Qué número de paleta aplicar a los sprites exportados.
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA,Alpha mode,Modo del alfa
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_TOOLTIP,Ways in which to alter the alpha of exported sprites.\nDo nothing: alpha will be left as-is.\nDouble: double alpha of all colors.\nHalve: halve alpha of all colors.\nMake opaque: turn all colors completely solid.,Formas en las que alterar el alfa de los sprites exportados.\nNo hacer nada: se dejará el alfa sin modificar.\nDuplicar: duplicar el alfa de todos los colores.\nMediar: dividir a la mitad el alfa de todos los colores.\nHacer opaco: todos los colores se vuelven completamente opacos.
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DO_NOTHING,Do nothing,No hacer nada
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DOUBLE,Double,Duplicar
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_HALVE,Halve,Mediar
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE,Make opaque,Hacer opaco
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE,Miscellaneous,Misceláneo
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE_TOOLTIP,Set miscellaneous export options here.,Configura opciones misceláneas de exportación aquí.
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX,Reindex,Reindizar
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP,"Reindex output sprites, changing the order of their\ncolor groups from 1-2-3-4 to 1-3-2-4 and vice-versa.\n\nOnly applies to 8 bpp sprites.","Reindizar sprites de salida, cambiando el orden de\nsus grupos de color de 1-2-3-4 a 1-3-2-4 y viceversa.\n\nSólo aplica a sprites de 8 bpp."
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING,Name outputs starting at 0,Nombrar archivos desde el 0
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP,"By default, exported sprites will be named according to their original indices.\nEnabling this setting will cause exported sprites to always be named 'sprite_0', 'sprite_1', 'sprite_2', etc.","Por defecto, el nombre de los sprites exportados se corresponde con su ubicación original.\nActivar esta opción provocará que los sprites exportados siempre tengan los nombres 'sprite_0', 'sprite_1', 'sprite_2', etc."
-SPRITE_EDIT_EXPORT_PREVIEW_SPRITE,Preview sprite,Sprite de la vista previa
-SPRITE_EDIT_EXPORT_PREVIEW_SPRITE_TOOLTIP,Set the exported sprite to preview.,Establece el sprite a exportar sobre el cual crear la vista previa.
-SPRITE_EDIT_EXPORT_EXPORT_BUTTON,Export...,Exportar...
-SPRITE_EDIT_EXPORT_EXPORT_BUTTON_TOOLTIP,Click to begin exporting sprites with the above settings.,Clic para iniciar la exportación de sprites con los ajustes de arriba.
-,,
-SPRITE_EDIT_DELETE_TITLE,Delete '{name}' sprites...,Eliminar sprites de '{name}'...
-SPRITE_EDIT_DELETE_RANGE_TITLE,Range,Intervalo
-SPRITE_EDIT_DELETE_RANGE_TITLE_TOOLTIP,"Select the range of sprites to delete here.\nTo delete only one sprite, set both boxes to the same value.","Selecciona el intervalo de sprites que eliminar aquí.\nPara eliminar un sólo sprite, introduce el mismo valor en ambos campos."
-SPRITE_EDIT_DELETE_RANGE_START,From sprite,Desde el sprite
-SPRITE_EDIT_DELETE_RANGE_START_TOOLTIP,Sets the starting sprite of the range to delete.,Establece el sprite inicial del intervalo a eliminar.
-SPRITE_EDIT_DELETE_RANGE_END,To sprite,Hasta el sprite
-SPRITE_EDIT_DELETE_RANGE_END_TOOLTIP,Sets the ending sprite of the range to delete.,Establece el sprite final del intervalo a eliminar.
-SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE,Miscellaneous,Misceláneos
-SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE_TOOLTIP,Set miscellaneous delete options here.,Configura opciones misceláneas de eliminación aquí.
-SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT,Redirect cells,Redirigir celdas
-SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT_TOOLTIP,"ON: After deleting, automatically adjust the sprite index\nfor cells whose sprites were displaced, so that they don't\nvisually change.\n\nCells pointing to now-deleted sprites will have their\nsprite index set back to 0.\n\nOFF: Do not adjust cells after deleting sprites. If a cell's\nsprite index is still within the bounds of the sprite array,\ndon't change it. If it's out of bounds, clamp it.","ENCENDIDO: Tras eliminar, automáticamente ajustar el índice\nde sprite para celdas cuyos sprites fueron desplazados, para\nque no sufran cambios visuales.\n\nLas celdas que apunten a sprites eliminados tendrán su\níndice de sprite restablecido a 0.\n\nAPAGADO: No ajustar celdas tras eliminar sprites. No se\naplicarán cambios a celdas cuyo índice de sprite no exceda\nel nuevo total de sprites. De lo contrario, se ajustará al\nnuevo límite."
-SPRITE_EDIT_DELETE_CANT_DELETE_ALL,Cannot delete all sprites!,¡No se pueden eliminar todos los sprites!
-SPRITE_EDIT_DELETE_COUNT,Will delete {count} sprite(s).,Se eliminará(n) {count} sprite(s).
-SPRITE_EDIT_DELETE_DELETE_BUTTON,Delete selected,Eliminar seleccionados
-SPRITE_EDIT_DELETE_DELETE_BUTTON_TOOLTIP,Click to delete sprites with the above settings.,Clic para eliminar sprites según los ajustes de arriba.
-SPRITE_EDIT_DELETE_PREVIEW,Preview sprite,Sprite de la vista previa
-SPRITE_EDIT_DELETE_PREVIEW_TOOLTIP,Use this preview to check what sprites will be deleted.,Utiliza esta vista previa para verificar qué sprites van a eliminarse.
-SPRITE_EDIT_DELETE_CONFIRM_TITLE,Confirm action,Confirmar acción
-SPRITE_EDIT_DELETE_CONFIRM_TEXT,Really delete {count} sprites?,¿De verdad eliminar {count} sprites?
-SPRITE_EDIT_DELETE_CONFIRM_DELETE_BUTTON,Delete,Eliminar
-SPRITE_EDIT_DELETE_CONFIRM_CANCEL_BUTTON,Cancel,Cancelar
-SPRITE_EDIT_DELETE_CANNOT_DELETE_TITLE,Cannot delete,No se puede eliminar
-SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT,Cannot delete all sprites! Object needs at least 1.\nConsider importing new sprites to replace the old ones.,¡No se pueden eliminar todos los sprites! El objeto necesita al menos 1.\nConsidera importar nuevos sprites en reemplazo de los antiguos.
-SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,OK,Aceptar
+keys,_string_info,en,es
+,TOP MENU BAR,,
+TOP_MENU_FILE,Top menu bar options,File,Archivo
+TOP_MENU_EDIT,,Edit,Editar
+TOP_MENU_HELP,,Help,Ayuda
+FILE_OPEN_DIR,File menu,Open directory...,Abrir carpeta...
+FILE_OPEN_BIN,,Open binary...,Abrir binario...
+FILE_SAVE,,Save,Guardar
+FILE_SAVE_AS,,Save as...,Guardar como...
+FILE_CLOSE,,Close,Cerrar
+FILE_EXIT,,Exit,Salir
+EDIT_UNDO,Edit menu,Undo,Deshacer
+EDIT_REDO,,Redo,Rehacer
+EDIT_ACTION_HISTORY,,Action History...,Historial de Acciones...
+EDIT_PREFERENCES,,Preferences...,Preferencias...
+HELP_ABOUT,Help menu,About...,Acerca de...
+,PREFERENCES MENU,,
+PREFERENCES_TITLE,Title bar of the preferences menu window,Preferences,Preferencias
+PREFERENCES_GENERAL_TITLE,"""General"" section of the preferences menu",General,General
+PREFERENCES_GENERAL_LANGUAGE,,Language,Idioma
+PREFERENCES_CUSTOMIZATION_TITLE,"""Customization"" section of the preferences menu",Customization,Personalización
+PREFERENCES_CUSTOMIZATION_BG_GRID_1,,Background grid color 1,Color 2 grilla de fondo
+PREFERENCES_CUSTOMIZATION_BG_GRID_2,,Background grid color 2,Color 1 grilla de fondo
+PREFERENCES_CUSTOMIZATION_STATUS,,Status bar color,Color barra de estado
+PREFERENCES_CELLS_TITLE,"""Cells"" section of the preferences menu",Cells,Celdas
+PREFERENCES_CELLS_CROSS,,Draw origin cross,Mostrar cruz en punto de origen
+PREFERENCES_CELLS_ONION,,Onion skin color,Color de la referencia
+PREFERENCES_CELLS_GUIDE,,Guide line color,Color de las líneas de guía
+PREFERENCES_BOXES_TITLE,"""Boxes"" section of the preferences menu",Boxes,Cajas
+PREFERENCES_BOXES_THICKNESS,,Edge thickness,Grosor del borde
+PREFERENCES_BOXES_UNKNOWN,,Color (unknown),Color (desconocido)
+PREFERENCES_BOXES_HURTBOX,,Color (hurtbox),Color (hurtbox)
+PREFERENCES_BOXES_HITBOX,,Color (hitbox),Color (hitbox)
+PREFERENCES_BOXES_REGION_BACK,,"Color (region, back)","Color (región, fondo)"
+PREFERENCES_BOXES_REGION_FRONT,,"Color (region, front)","Color (región, frente)"
+PREFERENCES_BOXES_COLLISION_EXTENSION,,Color (collision extension),Color (extensión de colisión)
+PREFERENCES_BOXES_SPAWN,,Color (effect spawn point),Color (punto de creación de efectos)
+PREFERENCES_SPRITES_TITLE,"""Sprites"" section of the preferences menu",Sprites,Sprites
+PREFERENCES_SPRITES_BOUNDS,,Color (bounds),Color (límites)
+PREFERENCES_MISCELLANEOUS_TITLE,"""Miscellaneous"" section of the preferences menu",Miscellaneous,Misceláneo
+PREFERENCES_MISCELLANEOUS_UNDO,,Max undo steps,Deshacer: pasos máximos
+PREFERENCES_MISCELLANEOUS_REOPEN,,Allow reopening same file or folder,Permitir reabrir el mismo archivo o carpeta
+PREFERENCES_SAVE,The save button,Save preferences,Guardar preferencias
+,ACKNOWLEDGMENTS PANEL,,
+ABOUT_ACKNOWLEDGMENTS_TITLE,"Header on the ""acknowledgments""
+side of the about panel",ACKNOWLEDGMENTS,RECONOCIMIENTOS
+ABOUT_ACKNOWLEDGMENTS_RYN,Ryn's contribution credits,"- Character BIN parser
+- +R sprite decoder","- Conversor de BIN para personajes
+- Decodificador de sprites de +R"
+ABOUT_ACKNOWLEDGMENTS_LOVENUS,Lovenus' contribution credits,"- Parsers for various other resource files
+- Additional info and research into +R","- Conversor de múltiples otros tipos de recursos
+- Información e investigación adicional sobre +R"
+ABOUT_ACKNOWLEDGMENTS_CHLOE,Chloe's contribution credits,"- Testing, various improvement suggestions","- Testeo, sugerencias de mejoras varias"
+ABOUT_BY,"""by ALT_OhDude (Github).""",by,por
+ABOUT_CLOSE,Close button on the about panel,Close,Cerrar
+,GENERIC,,
+TAB_BASE_NAME,Name structure for an opened file's tab,File {id}: {name},Archivo {id}: {name}
+TAB_SCRIPTABLE_NAME_OBJECT,Name for a scriptable object without palettes,Object,Objeto
+TAB_SCRIPTABLE_NAME_PLAYER,Name for a scriptable object with palettes,Player,Jugador
+,SPRITE EDITOR,,
+SPRITE_EDIT_TITLE,Tab title,Sprites,Sprites
+SPRITE_EDIT_PREVIEW,Preview panel title,Preview,Vista previa
+SPRITE_EDIT_SPRITE_IMPORT,Button that opens the sprite import dialog,Import...,Importar...
+SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,,Import one or more sprites...,Importar uno o más sprites...
+SPRITE_EDIT_SPRITE_EXPORT,Button that opens the sprite export dialog,Export...,Exportar...
+SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP,,Export one or more sprites...,Exportar uno o más sprites...
+SPRITE_EDIT_SPRITE_DELETE,Button that opens the sprite delete dialog,Delete...,Eliminar...
+SPRITE_EDIT_SPRITE_DELETE_TOOLTIP,,Delete one or more sprites...,Eliminar uno o más sprites...
+SPRITE_EDIT_SPRITE_REINDEX,Button that reindexes the current sprite,Reindex,Reindizar
+SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,,Reorder color indexes using +R's pattern.,Reordenar los índices de color usando el patrón de +R.
+SPRITE_EDIT_BOUNDS,CheckButton that toggles the colored background,Display bounds,Mostrar límites
+SPRITE_EDIT_BOUNDS_TOOLTIP,,"Show a colored rectangle behind the sprite, extending to its dimensions","Mostrar un rectángulo de color detrás del sprite, extendiéndose a sus dimensiones"
+SPRITE_EDIT_SPRITE_INDEX,"Preview sprite index spinbox, title",Sprite #,Sprite #
+SPRITE_EDIT_PALETTE_INDEX,"Preview palette index spinbox, title",Palette #,Paleta #
+SPRITE_EDIT_INFO_DIMENSIONS,"Sprite dimensions field, title",Dimensions,Dimensiones
+SPRITE_EDIT_INFO_BIT_DEPTH,"Color depth field, title",Color depth,Profun. de color
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE,"Embedded palette yes/no field, title",Embedded palette,Contiene paleta
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,"""Yes"", sprite has an embedded palette",Yes,Sí
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,"""No"", the sprite has no palette of its own",No,No
+SPRITE_EDIT_PALETTE_IMPORT,Button that brings up file select dialog to import a palette,Import palette...,Importar paleta...
+SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,,Replace the embedded palette with an import...,Reemplazar la paleta contenida con una importada...
+SPRITE_EDIT_PALETTE_EXPORT,Button that brings up file select dialog to export a palette,Export palette...,Exportar paleta...
+SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,,Export the embedded palette to a file...,Exportar la paleta contenida a un archivo...
+SPRITE_EDIT_PALETTE_EDITOR,Button that brings up the color editor panel,Open palette editor,Abrir editor de paletas
+SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,,Open the embedded palette editor and enable changes,Abrir el editor de paletas contenidas y permitir cambios
+SPRITE_EDIT_PALETTE_EDITOR_TITLE,Title of the color editor panel,Color editor,Editor de colores
+,SPRITE IMPORT DIALOG,,
+SPRITE_EDIT_IMPORT_TITLE,Title bar of the sprite importer dialog,Import '{name}' sprites...,Importar sprites para '{name}'...
+SPRITE_EDIT_IMPORT_FILES_TITLE,"Title of the ""Input files"" section of the dialog",Input files,Archivos a importar
+SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,,Select files to import here.,Selecciona aquí los archivos a importar.
+SPRITE_EDIT_IMPORT_FILES_BROWSE,Button that brings up the file select dialog for input sprites,Browse...,Explorar...
+SPRITE_EDIT_IMPORT_FILES_COUNT,Info label showing how many sprites will be imported,Will import {count} sprite(s).,Se importará(n) {count} sprite(s).
+SPRITE_EDIT_IMPORT_PLACEMENT_TITLE,"Title of the ""Placement"" section of the dialog",Placement,Colocación
+SPRITE_EDIT_IMPORT_PLACEMENT_TITLE_TOOLTIP,,The way in which sprites will be placed once imported.,La forma en la que se colocarán los sprites una vez importados.
+SPRITE_EDIT_IMPORT_PLACEMENT_METHOD,"Placement method dropdown, title",Method,Método
+SPRITE_EDIT_IMPORT_PLACEMENT_METHOD_TOOLTIP,,"The method used for placing sprites.
+Append: add sprites at the end. Existing sprites are not affected.
+Replace: replaces as many sprites as are being imported, starting at the set position. Excess sprites are appended.
+Insert: inserts sprites at the set position. Sprites that come after will be moved, affecting existing cells.","El método utilizado para colocar sprites.
+Añadir: agrega sprites al final. No afecta a los sprites existentes.
+Reemplazar: reemplaza tantos sprites como se estén importando, empezando en la posición dada. Los sprites sobrantes se agregan al final.
+Insertar: inserta los sprites en la posición dada. Aquellos que vengan después serán desplazados, afectando a las celdas existentes."
+SPRITE_EDIT_IMPORT_PLACEMENT_APPEND,"Placement method dropdown, option names",Append,Añadir
+SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE,,Replace,Reemplazar
+SPRITE_EDIT_IMPORT_PLACEMENT_INSERT,,Insert,Insertar
+SPRITE_EDIT_IMPORT_PLACEMENT_POSITION,"Placement position spinbox, title",At position,En la posición
+SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP,,What position to replace/insert sprites at.,La posición en la que insertar/reemplazar sprites.
+SPRITE_EDIT_IMPORT_PLACEMENT_WAITING,Placement info label at the bottom of the section,Waiting for files to be selected.,Esperando a que se seleccionen archivos.
+SPRITE_EDIT_IMPORT_PLACEMENT_NO_REPLACE,,"Will not replace sprites.
+Total sprites after import: {total}","No se reemplazarán sprites.
+Sprites totales tras importar: {total}"
+SPRITE_EDIT_IMPORT_PLACEMENT_WILL_REPLACE,,"Will REPLACE {replace} sprite(s)!
+Total sprites after import: {total}","¡Se REEMPLAZARÁ(N) {replace} sprite(s)!
+Sprites totales tras importar: {total}"
+SPRITE_EDIT_IMPORT_PLACEMENT_NO_DISPLACE,,"Will not displace sprites.
+Total sprites after import: {total}","No se desplazarán sprites.
+Sprites totales tras importar: {total}"
+SPRITE_EDIT_IMPORT_PLACEMENT_WILL_DISPLACE,,"Will DISPLACE {displace} sprite(s)!
+Total sprites after import: {total}","¡Se DESPLAZARÁ(N) {displace} sprite(s)!
+Sprites totales tras importar: {total}"
+SPRITE_EDIT_IMPORT_PALETTE_TITLE,"Title of the ""Palette"" section of the dialog",Palette,Paleta
+SPRITE_EDIT_IMPORT_PALETTE_TITLE_TOOLTIP,,Set how to handle the palettes of imported sprites here.,Configura cómo manejar la paleta de sprites importados aquí.
+SPRITE_EDIT_IMPORT_PALETTE_EMBED,CheckButton that toggles palette embedding,Embed palette,Incluir paleta
+SPRITE_EDIT_IMPORT_PALETTE_EMBED_TOOLTIP,,"Whether to include the palette of imported sprites.
+Embedded palettes are ignored by 'Player' sprites, but required by everything else.","Si incluir o no las paletas de los sprites importados.
+Las paletas contenidas son ignoradas por los sprites del objeto 'Jugador', pero son requeridas por todos los demás."
+SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA,CheckButton that toggles alpha halving,Halve alpha,Mediar alfa
+SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA_TOOLTIP,,"If the input sprite has a palette, this setting will halve its alpha channel (transparency) values.","Si el sprite importado contiene una paleta, esta opción reducirá los valores del canal alfa (transparencia) a la mitad."
+SPRITE_EDIT_IMPORT_SPRITE_TITLE,"Title of the ""Sprite"" section of the dialog",Sprite,Sprite
+SPRITE_EDIT_IMPORT_SPRITE_TITLE_TOOLTIP,,Configure additional processing to apply to imported sprites here.,Configura cualquier procesamiento adicional que aplicar a sprites importados aquí.
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_H,CheckButton that toggles horizontal mirroring,Flip horizontally,Voltear horizontalmente
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_H_TOOLTIP,,Mirror imported sprites horizontally.,Voltea los sprites importados horizontalmente.
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_V,CheckButton that toggles vertical mirroring,Flip vertically,Voltear verticalmente
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_V_TOOLTIP,,Mirror imported sprites vertically.,Voltea los sprites importados verticalmente.
+SPRITE_EDIT_IMPORT_INDEX_WITH_RED,"CheckButton that toggles red channel as color index
+(-as-rgb parameter in Ghoul)",Index with red channel,Indizar con canal rojo
+SPRITE_EDIT_IMPORT_INDEX_WITH_RED_TOOLTIP,,"If checked, sprites will be treated as RGB images,
+and the color index of each pixel will be obtained
+from its red channel, rather than the input pixel's
+actual color index.","Si se activa, se tratará a los sprites como imágenes RGB,
+y el índice de color de cada pixel se obtendrá de su canal rojo,
+en vez del verdadero índice de color del pixel de entrada."
+SPRITE_EDIT_IMPORT_REINDEX,CheckButton that toggles sprite reindexing,Reindex,Reindizar
+SPRITE_EDIT_IMPORT_REINDEX_TOOLTIP,,"Whether to reindex input sprites, changing the order of their color groups from 1-2-3-4 to 1-3-2-4 or vice-versa.","Reindizar los sprites de entrada, cambiando el órden de sus grupos de color de 1-2-3-4 a 1-3-2-4 o viceversa."
+SPRITE_EDIT_IMPORT_BIT_DEPTH,Bit depth mode dropdown title,Bit depth,Profundidad de bits
+SPRITE_EDIT_IMPORT_BIT_DEPTH_TOOLTIP,,"Whether to modify the bit depth of imported sprites (note that resulting depth will always be at least 4 bpp).
+No change: bit depth will be left as-is.
+Force 4-bit: bit depth will be brought down to 4 bpp (16 colors) if higher.
+Force 8-bit: bit depth will be brought up to 8 bpp (256 colors) if lower.","Modificar la profundidad de bits de los sprites importados (siempre será de 4 bpp como mínimo).
+Sin cambios: no se alterará la profundidad de bits.
+Forzar a 4 bits: siempre se reducirá la profundidad de bits a 4 bpp (16 colores) si es mayor.
+Forzar a 8 bits: siempre se incrementará la profundidad de bits a 8 bpp (256 colores) si es menor."
+SPRITE_EDIT_IMPORT_BIT_DEPTH_NO_CHANGE,Bit depth mode dropdown options,No change,Sin cambios
+SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_4,,Force 4-bit,Forzar a 4 bits
+SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_8,,Force 8-bit,Forzar a 8 bits
+SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview sprite,Sprite de la vista previa
+SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,,Set the imported sprite to preview.,Establece el sprite a importar sobre el cual crear la vista previa.
+SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,"Preview palette index, spinbox title",Preview palette,Paleta de la vista previa
+SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,,Set the palette to preview sprites with.,Establece la paleta a usar para la vista previa.
+SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import button at the bottom of the dialog,Import,Importar
+SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,,Click to begin importing sprites with the above settings.,Clic para iniciar la importación de sprites con los ajustes de arriba.
+,SPRITE EXPORT DIALOG,,
+SPRITE_EDIT_EXPORT_TITLE,Title bar of the sprite exporter dialog,Export '{name}' sprites...,Exportar sprites de '{name}'...
+SPRITE_EDIT_EXPORT_RANGE_TITLE,"Title of the ""Sprite range"" section of the dialog",Sprite range,Intervalo de sprites
+SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP,,"Select the range of sprites to export here.
+To export only one sprite, set both boxes to the same value.","Selecciona el intervalo de sprites que exportar aquí.
+Para exportar un sólo sprite, introduce el mismo valor en ambos campos."
+SPRITE_EDIT_EXPORT_RANGE_START,"Starting sprite in export range, spinbox title",Start sprite,Sprite inicial
+SPRITE_EDIT_EXPORT_RANGE_START_TOOLTIP,,Sets the starting sprite of the export range.,Establece el sprite inicial del intervalo a exportar.
+SPRITE_EDIT_EXPORT_RANGE_END,"Ending sprite in export range, spinbox title",End sprite,Sprite final
+SPRITE_EDIT_EXPORT_RANGE_END_TOOLTIP,,Sets the ending sprite of the export range.,Establece el sprite final del intervalo a exportar.
+SPRITE_EDIT_EXPORT_FORMAT_TITLE,Export formats section title,Output formats,Formatos de salida
+SPRITE_EDIT_EXPORT_FORMAT_TITLE_TOOLTIP,,"Select formats to export to here.
+Nothing will be exported unless you select at least one.","Selecciona formatos a los que exportar aquí.
+No se exportará nada a menos que selecciones al menos uno."
+SPRITE_EDIT_EXPORT_FORMAT_BIN_TOOLTIP,Tooltip for compressed .bin export,"Exports a binary sprite in the same format it is found in in the game's files.
+Supports palettes with transparency.
+Analogous to extracting sprites with a hex editor.","Exporta un sprite binario en el mismo formato en el que se encuentra en los archivos del juego.
+Con soporte para paletas con transparencia.
+Análogo a extraer sprites con un editor hexadecimal."
+SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED,"Title for uncompressed bin export (keep ""BIN"" as-is)",BIN (uncompressed),BIN (sin comprimir)
+SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED_TOOLTIP,Tooltip for uncompressed .bin export,"Export an uncompressed binary sprite.
+Supports palettes with transparency.
+These work in game, but are not recommended.","Exporta un sprite binario sin comprimir.
+Con soporte para paletas con transparencia.
+Funcionan en el juego, pero no se recomiendan."
+SPRITE_EDIT_EXPORT_FORMAT_RAW_TOOLTIP,Tooltip for .raw export,Export a RAW file that can be used as a PalMod preview.,Exporta un archivo RAW que puede usarse como vista previa en PalMod.
+SPRITE_EDIT_EXPORT_FORMAT_PNG_TOOLTIP,Tooltip for .png export,"Export an indexed PNG.
+Supports palettes with transparency.","Exporta un PNG indexado.
+Con soporte para paletas con transparencia."
+SPRITE_EDIT_EXPORT_FORMAT_BMP_TOOLTIP,Tooltip for .bmp export,"Export an indexed BMP.
+Supports palettes, but not transparency.","Exporta un BMP indexado.
+Con soporte para paletas, pero no transparencia."
+SPRITE_EDIT_EXPORT_PALETTE_TITLE,"Title of the ""Palette"" section of the dialog",Palette,Paleta
+SPRITE_EDIT_EXPORT_PALETTE_TITLE_TOOLTIP,,Choose how to handle palettes for exported sprites here.,Elige aquí cómo administrar las paletas de los sprites exportados.
+SPRITE_EDIT_EXPORT_PALETTE_INCLUDE,CheckButton that toggles including palette on export,Include,Incluir
+SPRITE_EDIT_EXPORT_PALETTE_INCLUDE_TOOLTIP,,Whether to include a palette at all.,Si se debe incluir o no una paleta.
+SPRITE_EDIT_EXPORT_PALETTE_INDEX,spinbox that selects which palette is used on export,Index,Índice
+SPRITE_EDIT_EXPORT_PALETTE_INDEX_TOOLTIP,,Which palette number to apply to exported sprites.,Qué número de paleta aplicar a los sprites exportados.
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA,"Palette alpha mode, dropdown title",Alpha mode,Modo del alfa
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_TOOLTIP,,"Ways in which to alter the alpha of exported sprites.
+Do nothing: alpha will be left as-is.
+Double: double alpha of all colors.
+Halve: halve alpha of all colors.
+Make opaque: turn all colors completely solid.","Formas en las que alterar el alfa de los sprites exportados.
+No hacer nada: se dejará el alfa sin modificar.
+Duplicar: duplicar el alfa de todos los colores.
+Mediar: dividir a la mitad el alfa de todos los colores.
+Hacer opaco: todos los colores se vuelven completamente opacos."
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DO_NOTHING,Dropdown options,Do nothing,No hacer nada
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DOUBLE,,Double,Duplicar
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_HALVE,,Halve,Mediar
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE,,Make opaque,Hacer opaco
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE,"Title of the ""Miscellaneous"" section of the dialog",Miscellaneous,Misceláneo
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE_TOOLTIP,,Set miscellaneous export options here.,Configura opciones misceláneas de exportación aquí.
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX,CheckButton that toggles reindexing on export,Reindex,Reindizar
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP,,"Reindex output sprites, changing the order of their
+color groups from 1-2-3-4 to 1-3-2-4 and vice-versa.
+
+Only applies to 8 bpp sprites.","Reindizar sprites de salida, cambiando el orden de
+sus grupos de color de 1-2-3-4 a 1-3-2-4 y viceversa.
+
+Sólo aplica a sprites de 8 bpp."
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING,CheckButton that toggles naming files from 0,Name outputs starting at 0,Nombrar archivos desde el 0
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP,,"By default, exported sprites will be named according to their original indices.
+Enabling this setting will cause exported sprites to always be named 'sprite_0', 'sprite_1', 'sprite_2', etc.","Por defecto, el nombre de los sprites exportados se corresponde con su ubicación original.
+Activar esta opción provocará que los sprites exportados siempre tengan los nombres 'sprite_0', 'sprite_1', 'sprite_2', etc."
+SPRITE_EDIT_EXPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview sprite,Sprite de la vista previa
+SPRITE_EDIT_EXPORT_PREVIEW_SPRITE_TOOLTIP,,Set the exported sprite to preview.,Establece el sprite a exportar sobre el cual crear la vista previa.
+SPRITE_EDIT_EXPORT_EXPORT_BUTTON,Export button at the bottom of the dialog,Export...,Exportar...
+SPRITE_EDIT_EXPORT_EXPORT_BUTTON_TOOLTIP,,Click to begin exporting sprites with the above settings.,Clic para iniciar la exportación de sprites con los ajustes de arriba.
+,SPRITE DELETE DIALOG,,
+SPRITE_EDIT_DELETE_TITLE,Title bar of the sprite delete dialog,Delete '{name}' sprites...,Eliminar sprites de '{name}'...
+SPRITE_EDIT_DELETE_RANGE_TITLE,"Title of the ""Range"" section of the dialog",Range,Intervalo
+SPRITE_EDIT_DELETE_RANGE_TITLE_TOOLTIP,,"Select the range of sprites to delete here.
+To delete only one sprite, set both boxes to the same value.","Selecciona el intervalo de sprites que eliminar aquí.
+Para eliminar un sólo sprite, introduce el mismo valor en ambos campos."
+SPRITE_EDIT_DELETE_RANGE_START,"Starting sprite in delete range, title",From sprite,Desde el sprite
+SPRITE_EDIT_DELETE_RANGE_START_TOOLTIP,,Sets the starting sprite of the range to delete.,Establece el sprite inicial del intervalo a eliminar.
+SPRITE_EDIT_DELETE_RANGE_END,"Ending sprite in delete range, title",To sprite,Hasta el sprite
+SPRITE_EDIT_DELETE_RANGE_END_TOOLTIP,,Sets the ending sprite of the range to delete.,Establece el sprite final del intervalo a eliminar.
+SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE,"Title of the ""Miscellaneous"" section of the dialog",Miscellaneous,Misceláneos
+SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE_TOOLTIP,,Set miscellaneous delete options here.,Configura opciones misceláneas de eliminación aquí.
+SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT,CheckButton that toggles cell sprite index redirection,Redirect cells,Redirigir celdas
+SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT_TOOLTIP,,"ON: After deleting, automatically adjust the sprite index
+for cells whose sprites were displaced, so that they don't
+visually change.
+
+Cells pointing to now-deleted sprites will have their
+sprite index set back to 0.
+
+OFF: Do not adjust cells after deleting sprites. If a cell's
+sprite index is still within the bounds of the sprite array,
+don't change it. If it's out of bounds, clamp it.","ENCENDIDO: Tras eliminar, automáticamente ajustar el índice
+de sprite para celdas cuyos sprites fueron desplazados, para
+que no sufran cambios visuales.
+
+Las celdas que apunten a sprites eliminados tendrán su
+índice de sprite restablecido a 0.
+
+APAGADO: No ajustar celdas tras eliminar sprites. No se
+aplicarán cambios a celdas cuyo índice de sprite no exceda
+el nuevo total de sprites. De lo contrario, se ajustará al
+nuevo límite."
+SPRITE_EDIT_DELETE_COUNT,"Info text at the bottom, above the delete button",Will delete {count} sprite(s).,Se eliminará(n) {count} sprite(s).
+SPRITE_EDIT_DELETE_CANT_DELETE_ALL,,Cannot delete all sprites!,¡No se pueden eliminar todos los sprites!
+SPRITE_EDIT_DELETE_DELETE_BUTTON,Delete button at the bottom of the dialog,Delete selected,Eliminar seleccionados
+SPRITE_EDIT_DELETE_DELETE_BUTTON_TOOLTIP,,Click to delete sprites with the above settings.,Clic para eliminar sprites según los ajustes de arriba.
+SPRITE_EDIT_DELETE_PREVIEW,"spinbox that selects a preview sprite, title",Preview sprite,Sprite de la vista previa
+SPRITE_EDIT_DELETE_PREVIEW_TOOLTIP,,Use this preview to check what sprites will be deleted.,Utiliza esta vista previa para verificar qué sprites van a eliminarse.
+SPRITE_EDIT_DELETE_CONFIRM_TITLE,Title bar of the confirmation dialog,Confirm action,Confirmar acción
+SPRITE_EDIT_DELETE_CONFIRM_TEXT,Text of the confirmation dialog,Really delete {count} sprites?,¿De verdad eliminar {count} sprite(s)?
+SPRITE_EDIT_DELETE_CONFIRM_DELETE_BUTTON,Confirm button,Delete,Eliminar
+SPRITE_EDIT_DELETE_CONFIRM_CANCEL_BUTTON,Cancel button,Cancel,Cancelar
+SPRITE_EDIT_DELETE_CANNOT_DELETE_TITLE,Title bar of the dialog saying you can't delete all sprites,Cannot delete,No se puede eliminar
+SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT,Main text for the above dialog,"Cannot delete all sprites! Object needs at least 1.
+Consider importing new sprites to replace the old ones.","¡No se pueden eliminar todos los sprites! El objeto necesita al menos 1.
+Considera importar nuevos sprites en reemplazo de los antiguos."
+SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,Accept button for the above dialog,OK,Aceptar
+,CELL EDITOR,,
+CELL_EDIT_TITLE,Tab title,Cells,Celdas
+CELL_EDIT_DELETE_TOOLTIP,Tooltips for the cell tollbar's buttons,Delete a single cell or a range of cells.,Eliminar una celda o un intervalo de celdas.
+CELL_EDIT_NEW_BEFORE_TOOLTIP,,"Add a new cell before the current one.
+Displaces cells after it!","Agregar una celda nueva antes de la actual.
+¡Desplaza las celdas posteriores!"
+CELL_EDIT_NEW_AFTER_TOOLTIP,,"Add a new cell after the current one.
+Displaces cells after it!","Agregar una celda nueva luego de la actual.
+¡Desplaza las celdas posteriores!"
+CELL_EDIT_COPY_TOOLTIP,,Copy the current cell to the clipboard.,Copiar la celda actual al portapapeles.
+CELL_EDIT_PASTE_BEFORE_TOOLTIP,,"Paste the cell in the clipboard as a new cell before the current one.
+Displaces cells after it!","Pegar la celda en el portapapeles como celda nueva antes de la actual.
+¡Desplaza las celdas posteriores!"
+CELL_EDIT_PASTE_TOOLTIP,,"Paste the cell in the clipboard as a replacement to the current one.
+Does not displace cells.","Pegar la celda en el portapapeles como reemplazo de la actual.
+No desplaza celdas."
+CELL_EDIT_PASTE_AFTER_TOOLTIP,,"Paste the cell in the clipboard as a new cell after the current one.
+Displaces cells after it!","Pegar la celda en el portapapeles como celda nueva luego de la actual.
+¡Desplaza las celdas posteriores!"
+CELL_EDIT_CELL_INDEX,"Cell index spinbox, title",Cell #,Celda #
+CELL_EDIT_CELL_INDEX_TOOLTIP,,Selects a cell to view or modify.,Selecciona una celda para ver o modificar.
+CELL_EDIT_ONION_INDEX,"Onion skin cell index spinbox, title",Onion skin #,Referencia #
+CELL_EDIT_ONION_INDEX_TOOLTIP,,"Selects which cell to display an onion skin in the preview for.
+Set this to '-1' to disable the onion skin.","Selecciona qué celda mostrar como referencia en la vista previa.
+Establecer esto en '-1' desactiva la referencia."
+CELL_EDIT_ONION_IN_FRONT,Checkbutton that toggles onion skins in front,Onion skin in front,Referencia delante
+CELL_EDIT_ONION_IN_FRONT_TOOLTIP,,Toggles whether the onion skin should appear behind or in front of the current cell's sprite.,Alterna entre mostrar la referencia delante o detrás del sprite de la celda actual.
+CELL_EDIT_SPRITE_INFO_TITLE,"Title of the ""Sprite Info"" section of the editor.",Sprite Info,Datos de Sprite
+CELL_EDIT_SPRITE_INFO_TITLE_TOOLTIP,,These values control how cells display sprites.,Estos valores controlan la forma en que las celdas muestran sprites.
+CELL_EDIT_SPRITE_INFO_INDEX,"Sprite Info -> Index, title",Index,Índice
+CELL_EDIT_SPRITE_INFO_INDEX_TOOLTIP,,Controls which sprite number this cell will display in game.,Controla qué número de sprite la celda mostrará en el juego.
+CELL_EDIT_SPRITE_INFO_OFFSET_X,"Sprite Info -> Offset X, title",Offset X,Desplaz. X
+CELL_EDIT_SPRITE_INFO_OFFSET_X_TOOLTIP,,Controls the sprite's horizontal offset for this cell.,Controla el desplazamiento horizontal del sprite de esta celda.
+CELL_EDIT_SPRITE_INFO_OFFSET_Y,"Sprite Info -> Offset Y, title",Offset Y,Desplaz. Y
+CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP,,Controls the sprite's vertical offset for this cell.,Controla el desplazamiento vertical del sprite de esta celda.
+CELL_EDIT_BOXES_TITLE,"Title of the ""Boxes"" section of the editor",Boxes,Cajas
+CELL_EDIT_BOXES_TITLE_TOOLTIP,,"This section controls the boxes for this cell.
+Modifying them will cause desyncs in online matches and old replays!","Esta sección controla las cajas de esta celda.
+¡Modificarlas provocará pérdidas de sincronización en partidas en línea y repeticiones antiguas!"
+CELL_EDIT_BOXES_DISPLAY,Checkbutton that toggles box display,Display,Mostrar
+CELL_EDIT_BOXES_DISPLAY_TOOLTIP,,"Toggles whether to display boxes at all.
+They can't be edited while hidden.","Alterna entre mostrar las cajas o no.
+No pueden editarse mientras estén ocultas."
+CELL_EDIT_BOXES_EDIT_MODE,Checkbutton that toggles box editing,Edit Mode,Modo Editar
+CELL_EDIT_BOXES_EDIT_MODE_TOOLTIP,,"Toggles box editing on/off.
+Editing boxes will cause desyncs in online matches and old replays!","Habilita y deshabilita editar cajas.
+¡Editar cajas provocará pérdidas de sincronización en partidas en línea y repeticiones antiguas!"
+CELL_EDIT_BOXES_TYPES_DROPDOWN,Menubutton that toggles box types for display,Types to display...,Tipos a mostrar...
+CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP,,Controls which types of boxes will be displayed in the preview.,Controla los tipos de cajas a mostrar en la vista previa.
+CELL_EDIT_BOXES_LIST_TOOLTIP,Tooltip for the itemlist containing the cell's hitboxes,The list of boxes contained in this cell.,La lista de cajas contenida en esta celda.
+CELL_EDIT_BOXES_DRAW_MODE,Button that toggles box drawing,Draw Mode,Modo Dibujar
+CELL_EDIT_BOXES_DRAW_MODE_TOOLTIP,,Toggles drawing new boxes on/off.,Habilita o deshabilita dibujar cajas nuevas.
+CELL_EDIT_BOXES_DELETE,Button that deletes selected boxes,Delete,Eliminar
+CELL_EDIT_BOXES_DELETE_TOOLTIP,,Deletes the selected boxes.,Elimina las cajas seleccionadas.
+CELL_EDIT_BOXES_TYPE,"Box type spinbox, title",Type,Tipo
+CELL_EDIT_BOXES_TYPE_TOOLTIP,,Sets the type of selected boxes.,Establece el tipo de las cajas seleccionadas.

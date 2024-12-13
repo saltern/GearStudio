@@ -11,6 +11,8 @@ extends ConfirmationDialog
 func _ready() -> void:
 	summon_button.pressed.connect(display)
 	confirmed.connect(delete_sprites)
+	size = Vector2(0, 0)
+	initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
 
 
 func display() -> void:

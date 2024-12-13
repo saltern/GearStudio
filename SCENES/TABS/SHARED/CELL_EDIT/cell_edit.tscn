@@ -73,7 +73,7 @@ shader_parameter/hover_index = -1
 shader_parameter/highlight = null
 shader_parameter/palette = PackedInt32Array()
 
-[node name="Cells" type="MarginContainer"]
+[node name="CELL_EDIT_TITLE" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -92,6 +92,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
@@ -110,51 +111,46 @@ size_flags_horizontal = 4
 
 [node name="delete" type="Button" parent="content/scroll/margin/data/toolbar" node_paths=PackedStringArray("window")]
 layout_mode = 2
-tooltip_text = "Delete a single cell or a range of cells."
+tooltip_text = "CELL_EDIT_DELETE_TOOLTIP"
 icon = ExtResource("2_mn5jm")
 script = ExtResource("3_5mq13")
 window = NodePath("../../../../../../delete_cells")
 
 [node name="new_before" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Add a new cell before the current one.
-Displaces cells after it!"
+tooltip_text = "CELL_EDIT_NEW_BEFORE_TOOLTIP"
 icon = ExtResource("4_nmfxl")
 script = ExtResource("4_gjvwg")
 
 [node name="new_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Add a new cell after the current one.
-Displaces cells after it!"
+tooltip_text = "CELL_EDIT_NEW_AFTER_TOOLTIP"
 icon = ExtResource("6_vno5v")
 script = ExtResource("4_gjvwg")
 add_after = true
 
 [node name="copy" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Copy the current cell to the clipboard."
+tooltip_text = "CELL_EDIT_COPY_TOOLTIP"
 icon = ExtResource("7_h1oco")
 script = ExtResource("7_q3sqb")
 
 [node name="paste_before" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Paste the cell in the clipboard as a new cell before the current one.
-Displaces cells after it!"
+tooltip_text = "CELL_EDIT_PASTE_BEFORE_TOOLTIP"
 icon = ExtResource("9_kdsfh")
 script = ExtResource("9_umb15")
 at = -1
 
 [node name="paste" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Paste the cell in the clipboard as a replacement to the current one.
-Does not displace cells."
+tooltip_text = "CELL_EDIT_PASTE_TOOLTIP"
 icon = ExtResource("11_4tv16")
 script = ExtResource("9_umb15")
 
 [node name="paste_after" type="Button" parent="content/scroll/margin/data/toolbar"]
 layout_mode = 2
-tooltip_text = "Paste the cell in the clipboard as a new cell after the current one.
-Displaces cells after it!"
+tooltip_text = "CELL_EDIT_PASTE_AFTER_TOOLTIP"
 icon = ExtResource("12_pqsn1")
 script = ExtResource("9_umb15")
 at = 1
@@ -173,9 +169,10 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/cell"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Selects a cell to view or modify."
+tooltip_text = "CELL_EDIT_CELL_INDEX_TOOLTIP"
 mouse_filter = 0
-text = "Cell #"
+text = "CELL_EDIT_CELL_INDEX"
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/cell"]
 layout_mode = 2
@@ -190,10 +187,10 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Selects which cell to display an onion skin in the preview for.
-Set this to '-1' to disable the onion skin."
+tooltip_text = "CELL_EDIT_ONION_INDEX_TOOLTIP"
 mouse_filter = 0
-text = "Onion skin #"
+text = "CELL_EDIT_ONION_INDEX"
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/onion"]
 layout_mode = 2
@@ -204,8 +201,8 @@ script = ExtResource("3_rc8ef")
 [node name="onion_in_front" type="CheckButton" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-tooltip_text = "Toggles whether the onion skin should appear behind or in front of the current cell's sprite."
-text = "Onion skin in front"
+tooltip_text = "CELL_EDIT_ONION_IN_FRONT_TOOLTIP"
+text = "CELL_EDIT_ONION_IN_FRONT"
 
 [node name="sprite_info" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
@@ -213,7 +210,7 @@ layout_mode = 2
 [node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-tooltip_text = "These values control how cells display sprites."
+tooltip_text = "CELL_EDIT_SPRITE_INFO_TITLE_TOOLTIP"
 mouse_filter = 0
 
 [node name="left" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
@@ -224,7 +221,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Sprite Info"
+text = "CELL_EDIT_SPRITE_INFO_TITLE"
 
 [node name="right" type="HSeparator" parent="content/scroll/margin/data/sprite_info/title_bar"]
 layout_mode = 2
@@ -238,9 +235,10 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/index"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Controls which sprite number this cell will display in game."
+tooltip_text = "CELL_EDIT_SPRITE_INFO_INDEX_TOOLTIP"
 mouse_filter = 0
-text = "Index"
+text = "CELL_EDIT_SPRITE_INFO_INDEX"
+text_overrun_behavior = 3
 
 [node name="value_index" type="SpinBox" parent="content/scroll/margin/data/sprite_info/index"]
 layout_mode = 2
@@ -255,9 +253,10 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_x"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Controls the sprite's horizontal offset for this cell."
+tooltip_text = "CELL_EDIT_SPRITE_INFO_OFFSET_X_TOOLTIP"
 mouse_filter = 0
-text = "Offset X"
+text = "CELL_EDIT_SPRITE_INFO_OFFSET_X"
+text_overrun_behavior = 3
 
 [node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_x"]
 layout_mode = 2
@@ -275,9 +274,10 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/offset_y"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Controls the sprite's vertical offset for this cell."
+tooltip_text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP"
 mouse_filter = 0
-text = "Offset Y"
+text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y"
+text_overrun_behavior = 3
 
 [node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/offset_y"]
 layout_mode = 2
@@ -294,8 +294,7 @@ layout_mode = 2
 [node name="title_bar" type="HBoxContainer" parent="content/scroll/margin/data/boxes"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-tooltip_text = "This section controls the boxes for this cell.
-Modifying them will cause desyncs!"
+tooltip_text = "CELL_EDIT_BOXES_TITLE_TOOLTIP"
 mouse_filter = 0
 
 [node name="left" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
@@ -306,7 +305,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="content/scroll/margin/data/boxes/title_bar"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Boxes"
+text = "CELL_EDIT_BOXES_TITLE"
 
 [node name="right" type="HSeparator" parent="content/scroll/margin/data/boxes/title_bar"]
 layout_mode = 2
@@ -321,9 +320,10 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Toggles whether to display boxes at all."
+tooltip_text = "CELL_EDIT_BOXES_DISPLAY_TOOLTIP"
 button_pressed = true
-text = "Display"
+text = "CELL_EDIT_BOXES_DISPLAY"
+text_overrun_behavior = 3
 script = ExtResource("7_fl2cb")
 box_draw_node = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
 editable_parent = NodePath("../../editable")
@@ -334,15 +334,16 @@ type_menu_button = NodePath("../../type_menu_button")
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Toggles box editing on/off.
-Editing boxes will cause desyncs!"
-text = "Edit Mode"
+tooltip_text = "CELL_EDIT_BOXES_EDIT_MODE_TOOLTIP"
+text = "CELL_EDIT_BOXES_EDIT_MODE"
+text_overrun_behavior = 3
 script = ExtResource("9_6yg7t")
 editable_parent = NodePath("../../editable")
 
 [node name="type_menu_button" type="MenuButton" parent="content/scroll/margin/data/boxes"]
 layout_mode = 2
-text = "Types to display..."
+tooltip_text = "CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP"
+text = "CELL_EDIT_BOXES_TYPES_DROPDOWN"
 flat = false
 item_count = 6
 popup/item_0/text = "Unknown types"
@@ -383,7 +384,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-tooltip_text = "The list of boxes contained in this cell."
+tooltip_text = "CELL_EDIT_BOXES_LIST_TOOLTIP"
 select_mode = 1
 allow_reselect = true
 allow_search = false
@@ -396,16 +397,18 @@ layout_mode = 2
 [node name="draw" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Toggles drawing new boxes on/off."
+tooltip_text = "CELL_EDIT_BOXES_DRAW_MODE_TOOLTIP"
 toggle_mode = true
-text = "Draw Mode"
+text = "CELL_EDIT_BOXES_DRAW_MODE"
+text_overrun_behavior = 3
 script = ExtResource("11_37q3d")
 
 [node name="delete" type="Button" parent="content/scroll/margin/data/boxes/editable/draw_delete"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Deletes the selected boxes."
-text = "Delete"
+tooltip_text = "CELL_EDIT_BOXES_DELETE_TOOLTIP"
+text = "CELL_EDIT_BOXES_DELETE"
+text_overrun_behavior = 3
 script = ExtResource("12_j041y")
 
 [node name="type" type="HBoxContainer" parent="content/scroll/margin/data/boxes/editable"]
@@ -416,10 +419,11 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-tooltip_text = "Sets the type of selected boxes."
+tooltip_text = "CELL_EDIT_BOXES_TYPE_TOOLTIP"
 mouse_filter = 0
-text = "Type"
+text = "CELL_EDIT_BOXES_TYPE"
 vertical_alignment = 1
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/editable/type" groups=["box_editors"]]
 layout_mode = 2

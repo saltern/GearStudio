@@ -15,31 +15,31 @@ func load_tabs(data: Dictionary) -> void:
 		
 		match this_object["type"]:
 			"sprite":
-				print("Loading sprite")
+				#print("Loading sprite")
 				add_child(load_sprite(this_object))
 			
 			"sprite_list_select":
-				print("Loading sprite_list_select")
+				#print("Loading sprite_list_select")
 				add_child(load_sprite_list_select(this_object))
 			
 			"sprite_list", "sprite_list_file":
-				print("Loading sprite_list")
+				#print("Loading sprite_list")
 				add_child(load_sprite_list(this_object))
 			
 			"jpf_plain_text":
-				print("Loading jpf_plain_text")
+				#print("Loading jpf_plain_text")
 				add_child(load_jpf_plain_text(this_object))
 			
 			"scriptable":
-				print("Loading scriptable")
+				#print("Loading scriptable")
 				add_child(load_scriptable(this_object))
 			
 			"multi_scriptable":
-				print("Loading multi_scriptable")
+				#print("Loading multi_scriptable")
 				add_child(load_multi_scriptable(this_object))
 			
-			"unsupported":
-				print("Loading unsupported")
+			#"unsupported":
+				#print("Loading unsupported")
 
 
 func get_base_tab() -> TabContainer:
@@ -114,13 +114,14 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	if number > -1:
 		object_number = number
 	
-	new_tab.name = "#%s | %s" % [object_number, object["name"]]
-	
 	new_tab.add_child(get_sprite_editor(object))
 	new_tab.add_child(get_cell_editor(object))
 	
 	if object.has("palettes"):
+		new_tab.name = "#%s | %s" % [object_number, tr("TAB_SCRIPTABLE_NAME_PLAYER")]
 		new_tab.add_child(get_palette_editor(object))
+	else:
+		new_tab.name = "#%s | %s" % [object_number, tr("TAB_SCRIPTABLE_NAME_OBJECT")]
 	
 	return new_tab
 
