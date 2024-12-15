@@ -1,11 +1,33 @@
-[gd_scene format=3 uid="uid://b08yjbg1fixq8"]
+[gd_scene load_steps=13 format=3 uid="uid://b08yjbg1fixq8"]
 
-[node name="Select" type="MarginContainer"]
+[ext_resource type="Script" uid="uid://b7rn5ey4vtv0c" path="res://SCENES/TABS/SELECT/select_edit.gd" id="1_7td4e"]
+[ext_resource type="Script" uid="uid://bkbjiceh24p7f" path="res://SCENES/TABS/SELECT/export.gd" id="2_15vtb"]
+[ext_resource type="Script" uid="uid://ct0rwjnngmdqx" path="res://SCENES/TABS/SELECT/info_dimensions.gd" id="2_gnmd2"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="2_ufvnx"]
+[ext_resource type="Script" uid="uid://c3aijnk22cn7c" path="res://SCENES/TABS/SELECT/character_list.gd" id="3_a1uy8"]
+[ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="3_gnmd2"]
+[ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="4_a1uy8"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="5_15vtb"]
+[ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="6_vgrc6"]
+[ext_resource type="Script" uid="uid://ct21yri11bdu0" path="res://SCENES/TABS/SELECT/preview_texture.gd" id="10_2dv0c"]
+[ext_resource type="Script" uid="uid://cfwrnfiv8uncy" path="res://SCENES/TABS/SELECT/import_file_dialog.gd" id="10_vgrc6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dv0c"]
+bg_color = Color(0.25098, 0.313726, 0.156863, 1)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="SELECT_EDIT_TITLE" type="MarginContainer" node_paths=PackedStringArray("texture_node")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_7td4e")
+texture_node = NodePath("content/visualizer/borders/clipper/visualizer/texture")
 
 [node name="content" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -19,11 +41,149 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="content/left_panel/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 20
 
-[node name="import_export" type="HBoxContainer" parent="content/left_panel/scroll/margin"]
+[node name="data" type="VBoxContainer" parent="content/left_panel/scroll/margin"]
 layout_mode = 2
+
+[node name="import_export" type="HBoxContainer" parent="content/left_panel/scroll/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="import" type="Button" parent="content/left_panel/scroll/margin/data/import_export"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SELECT_EDIT_IMPORT_TOOLTIP"
+text = "SELECT_EDIT_IMPORT"
+text_overrun_behavior = 3
+
+[node name="export" type="Button" parent="content/left_panel/scroll/margin/data/import_export"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SELECT_EDIT_EXPORT_TOOLTIP"
+text = "SELECT_EDIT_EXPORT"
+text_overrun_behavior = 3
+script = ExtResource("2_15vtb")
+
+[node name="h_sep" type="HSeparator" parent="content/left_panel/scroll/margin/data"]
+layout_mode = 2
+
+[node name="dimensions" type="HBoxContainer" parent="content/left_panel/scroll/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SELECT_EDIT_INFO_DIMENSIONS_TOOLTIP"
+mouse_filter = 0
+text = "SELECT_EDIT_INFO_DIMENSIONS"
+text_overrun_behavior = 3
+
+[node name="value" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SELECT_EDIT_INFO_DIMENSIONS_TOOLTIP"
+mouse_filter = 0
+text = "0 x 0"
+horizontal_alignment = 2
+script = ExtResource("2_gnmd2")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="content/left_panel/scroll/margin/data"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemList" type="ItemList" parent="content/left_panel/scroll/margin/data/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("3_a1uy8")
+
+[node name="v_sep" type="VSeparator" parent="content"]
+layout_mode = 2
+
+[node name="visualizer" type="VBoxContainer" parent="content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="content/visualizer"]
+layout_mode = 2
+text = "SELECT_EDIT_PREVIEW"
+
+[node name="borders" type="PanelContainer" parent="content/visualizer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_2dv0c")
+
+[node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("2_ufvnx")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="content/visualizer/borders/clipper"]
+texture_filter = 1
+position = Vector2(471, 337)
+script = ExtResource("3_gnmd2")
+
+[node name="background_a" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("4_a1uy8")
+metadata/_edit_lock_ = true
+
+[node name="background_b" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_15vtb")
+stretch_mode = 1
+script = ExtResource("6_vgrc6")
+metadata/_edit_lock_ = true
+
+[node name="texture" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_2dv0c")
+
+[node name="select_import" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
+title = "Select replacement image..."
+initial_position = 2
+size = Vector2i(640, 480)
+force_native = true
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+use_native_dialog = true
+script = ExtResource("10_vgrc6")
+summon_button = NodePath("../content/left_panel/scroll/margin/data/import_export/import")

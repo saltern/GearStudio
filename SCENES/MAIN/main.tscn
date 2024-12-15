@@ -795,10 +795,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("13_pomsy")
 
-[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE"]
+layout_mode = 2
+
+[node name="color_bounds" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PREFERENCES_SPRITES_BOUNDS"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("16_n6nme")
+
+[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE"]
 layout_mode = 2
@@ -844,7 +867,7 @@ script = ExtResource("17_nxxtx")
 [node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
-metadata/_tab_index = 3
+metadata/_tab_index = 4
 
 [node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE"]
 layout_mode = 2
@@ -972,29 +995,6 @@ text_overrun_behavior = 3
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("15_4p7l4")
-
-[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 4
-
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE"]
-layout_mode = 2
-
-[node name="color_bounds" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_SPRITES_BOUNDS"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("16_n6nme")
 
 [node name="PREFERENCES_MISCELLANEOUS_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
 visible = false

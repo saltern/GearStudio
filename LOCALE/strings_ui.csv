@@ -70,7 +70,7 @@ SPRITE_EDIT_SPRITE_REINDEX,Button that reindexes the current sprite,Reindex,Rein
 SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,,Reorder color indexes using +R's pattern.,Reordenar los índices de color usando el patrón de +R.
 SPRITE_EDIT_BOUNDS,CheckButton that toggles the colored background,Display bounds,Mostrar límites
 SPRITE_EDIT_BOUNDS_TOOLTIP,,"Show a colored rectangle behind the sprite, extending to its dimensions","Mostrar un rectángulo de color detrás del sprite, extendiéndose a sus dimensiones"
-SPRITE_EDIT_SPRITE_INDEX,"Preview sprite index spinbox, title",Sprite #,Sprite #
+SPRITE_EDIT_SPRITE_INDEX,"Preview sprite index spinbox, title",Sprite #,
 SPRITE_EDIT_PALETTE_INDEX,"Preview palette index spinbox, title",Palette #,Paleta #
 SPRITE_EDIT_INFO_DIMENSIONS,"Sprite dimensions field, title",Dimensions,Dimensiones
 SPRITE_EDIT_INFO_BIT_DEPTH,"Color depth field, title",Color depth,Profun. de color
@@ -78,7 +78,7 @@ SPRITE_EDIT_INFO_EMBEDDED_PALETTE,"Embedded palette yes/no field, title",Embedde
 SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,"""Yes"", sprite has an embedded palette",Yes,Sí
 SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,"""No"", the sprite has no palette of its own",No,No
 SPRITE_EDIT_PALETTE_IMPORT,Button that brings up file select dialog to import a palette,Import palette...,Importar paleta...
-SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,,Replace the embedded palette with an import...,Reemplazar la paleta contenida con una importada...
+SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,,Replace the embedded palette with an import.,Reemplazar la paleta contenida con una importada.
 SPRITE_EDIT_PALETTE_EXPORT,Button that brings up file select dialog to export a palette,Export palette...,Exportar paleta...
 SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,,Export the embedded palette to a file...,Exportar la paleta contenida a un archivo...
 SPRITE_EDIT_PALETTE_EDITOR,Button that brings up the color editor panel,Open palette editor,Abrir editor de paletas
@@ -154,9 +154,9 @@ SPRITE_EDIT_IMPORT_BIT_DEPTH_NO_CHANGE,Bit depth mode dropdown options,No change
 SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_4,,Force 4-bit,Forzar a 4 bits
 SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_8,,Force 8-bit,Forzar a 8 bits
 SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview sprite,Sprite de la vista previa
-SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,,Set the imported sprite to preview.,Establece el sprite a importar sobre el cual crear la vista previa.
+SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,,Sets the imported sprite to preview.,Establece el sprite a importar sobre el cual crear la vista previa.
 SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,"Preview palette index, spinbox title",Preview palette,Paleta de la vista previa
-SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,,Set the palette to preview sprites with.,Establece la paleta a usar para la vista previa.
+SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,,Sets the palette to preview sprites with.,Establece la paleta a usar para la vista previa.
 SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import button at the bottom of the dialog,Import,Importar
 SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,,Click to begin importing sprites with the above settings.,Clic para iniciar la importación de sprites con los ajustes de arriba.
 ,SPRITE EXPORT DIALOG,,
@@ -333,3 +333,84 @@ CELL_EDIT_BOXES_DELETE,Button that deletes selected boxes,Delete,Eliminar
 CELL_EDIT_BOXES_DELETE_TOOLTIP,,Deletes the selected boxes.,Elimina las cajas seleccionadas.
 CELL_EDIT_BOXES_TYPE,"Box type spinbox, title",Type,Tipo
 CELL_EDIT_BOXES_TYPE_TOOLTIP,,Sets the type of selected boxes.,Establece el tipo de las cajas seleccionadas.
+CELL_EDIT_BOXES_OFFSET_X,"Boxes -> Offset X, title",Offset X,Desplaz. X
+CELL_EDIT_BOXES_OFFSET_X_TOOLTIP,,Sets the selected box's horizontal offset.,Establece el desplazamiento horizontal de la caja seleccionada.
+CELL_EDIT_BOXES_OFFSET_Y,"Boxes -> Offset Y, title",Offset Y,Desplaz. Y
+CELL_EDIT_BOXES_OFFSET_Y_TOOLTIP,,Sets the selected box's vertical offset.,Establece el desplazamiento vertical de la caja seleccionada.
+CELL_EDIT_BOXES_WIDTH,"Boxes -> Width, title",Width,Ancho
+CELL_EDIT_BOXES_WIDTH_TOOLTIP,,Sets the selected box's width.,Establece el ancho de la caja seleccionada.
+CELL_EDIT_BOXES_HEIGHT,"Boxes -> Height, title",Height,Alto
+CELL_EDIT_BOXES_HEIGHT_TOOLTIP,,Sets the selected box's height.,Establece el alto de la caja seleccionada.
+CELL_EDIT_BOXES_REGION_X,"Boxes -> Region Offset X, title",Region Offset X,Desplaz. Región X
+CELL_EDIT_BOXES_REGION_X_TOOLTIP,,"Moves the cropped sprite region to the right, 8 pixels at a time.","Mueve la región recortada del sprite hacia la derecha, de a 8 pixeles a la vez."
+CELL_EDIT_BOXES_REGION_Y,"Boxes -> Region Offset Y, title",Region Offset Y,Desplaz. Región Y
+CELL_EDIT_BOXES_REGION_Y_TOOLTIP,,"Moves the cropped sprite region down, 8 pixels at a time.","Mueve la región recortada del sprite hacia abajo, de a 8 pixeles a la vez."
+CELL_EDIT_PREVIEW,"Preview, title",Preview,Vista previa
+CELL_EDIT_PREVIEW_PALETTE_INDEX,"Preview ""Palette #"", title",Palette #,Paleta #
+CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,,Set the palette to preview sprites with.,Establece la paleta con la que previsualizar sprites.
+,PALETTE EDITOR,,
+PALETTE_EDIT_TITLE,Tab title,Palettes,Paletas
+PALETTE_EDIT_PALETTE_INDEX,"""Palette #"", title",Palette #,Paleta #
+PALETTE_EDIT_PALETTE_INDEX_TOOLTIP,,Set the palette to edit.,Establece la paleta a editar.
+PALETTE_EDIT_PALETTE_VIEW,"""Palette view"", title",Palette view,Vista de paleta
+PALETTE_EDIT_PALETTE_VIEW_TOOLTIP,,"Click: Select colors
+Shift + click: Add to selection
+Shift + right click: Remove from selection
+CTRL + C: Copy
+CTRL + V: Paste
+CTRL: Preview paste
+Tab: Swap selection mode (box/range)
+Escape: Clear selection","Clic: Seleccionar colores
+Shift + clic: Agregar a la selección
+Shift + clic derecho: Quitar de la selección
+CTRL + C: Copiar
+CTRL + V: Pegar
+CTRL: Previsualizar pegado
+Tab: Alternar modo de selección (caja/intervalo)
+Escape: Limpiar selección"
+PALETTE_EDIT_REINDEX,Button that reindexes the current palette,Reindex,Reindizar
+PALETTE_EDIT_REINDEX_TOOLTIP,,Reorder color indexes using +R's pattern.,Reordenar los índices de color usando el patrón de +R.
+PALETTE_EDIT_IMPORT,Import palette button,Import...,Importar...
+PALETTE_EDIT_IMPORT_TOOLTIP,,Replace the current palette with an import.,Reemplazar la paleta actual con una importada.
+PALETTE_EDIT_EXPORT,Export palette button,Export...,Exportar...
+PALETTE_EDIT_EXPORT_TOOLTIP,,Export the current palette as an .act or .bin file.,Exportar la paleta actual como archivo .act o .bin.
+PALETTE_EDIT_COLOR_EDITOR,"""Color editor"", title",Color editor,Editor de colores
+PALETTE_EDIT_COLOR_EDITOR_TOOLTIP,,Choose here the color to apply to the selected indexes.,Elige aquí los colores que aplicar a los índices seleccionados.
+PALETTE_EDIT_PREVIEW,"""Preview"", title",Preview,Vista previa
+PALETTE_EDIT_SPRITE_INDEX,"""Sprite #"", title",Sprite #,
+PALETTE_EDIT_SPRITE_INDEX_TOOLTIP,,Sets the sprite to preview the current palette with.,Establece el sprite con el cual previsualizar la paleta actual.
+,SELECT EDIT,,
+SELECT_EDIT_TITLE,Tab title,Cursor Mask,Máscara del Cursor
+SELECT_EDIT_IMPORT,Import cursor mask button,Import...,Importar...
+SELECT_EDIT_IMPORT_TOOLTIP,,Select an image to replace the cursor mask with.,Selecciona una imagen con la cual reemplazar la máscara del cursor.
+SELECT_EDIT_EXPORT,Export cursor mask button,Export...,Exportar...
+SELECT_EDIT_EXPORT_TOOLTIP,,Save the current cursor mask as an indexed PNG image.,Guardar la máscara del cursor actual como una imagen PNG indexada.
+SELECT_EDIT_INFO_DIMENSIONS,"""Dimensions"", title",Dimensions,Dimensiones
+SELECT_EDIT_PREVIEW,"""Preview"", title",Preview,Vista previa
+SELECT_CHAR_00,"Characters on list, on the left panel",None,Ninguno
+SELECT_CHAR_01,,Sol-Badguy,
+SELECT_CHAR_02,,Ky Kiske,
+SELECT_CHAR_03,,May,
+SELECT_CHAR_04,,Millia Rage,
+SELECT_CHAR_05,,Axl Low,
+SELECT_CHAR_06,,Potemkin,
+SELECT_CHAR_07,,Chipp Zanuff,
+SELECT_CHAR_08,,Eddie,
+SELECT_CHAR_09,,Baiken,
+SELECT_CHAR_10,,Faust,
+SELECT_CHAR_11,,Testament,
+SELECT_CHAR_12,,Jam Kuradoberi,
+SELECT_CHAR_13,,Anji Mito,
+SELECT_CHAR_14,,Johnny,
+SELECT_CHAR_15,,Venom,
+SELECT_CHAR_16,,Dizzy,
+SELECT_CHAR_17,,Slayer,
+SELECT_CHAR_18,,I-No,
+SELECT_CHAR_19,,Zappa,
+SELECT_CHAR_20,,Bridget,
+SELECT_CHAR_21,,Robo-Ky,
+SELECT_CHAR_22,,A.B.A.,
+SELECT_CHAR_23,,Order-Sol,
+SELECT_CHAR_24,,Kliff Undersn,
+SELECT_CHAR_25,,Justice,
+SELECT_CHAR_255,,Random select,Selección al azar

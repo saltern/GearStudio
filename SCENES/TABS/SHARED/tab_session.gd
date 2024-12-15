@@ -5,6 +5,7 @@ var session_id: int
 @export var TabSpriteEdit: PackedScene
 @export var TabCellEdit: PackedScene
 @export var TabPaletteEdit: PackedScene
+@export var TabSelectEdit: PackedScene
 
 var base_name: String = ""
 
@@ -71,6 +72,13 @@ func get_palette_editor(object: Dictionary) -> PaletteEdit:
 	return palette_edit
 
 
+func get_select_editor(object: Dictionary) -> SelectEdit:
+	var select_edit: SelectEdit = TabSelectEdit.instantiate()
+	select_edit.session_id = session_id
+	select_edit.obj_data = object
+	return select_edit
+
+
 func load_sprite(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | Sprite" % get_child_count()
@@ -85,6 +93,7 @@ func load_sprite_list_select(object: Dictionary) -> TabContainer:
 	new_tab.name = "#%s | Sprites + Cursor Mask" % get_child_count()
 	
 	new_tab.add_child(get_sprite_editor(object))
+	new_tab.add_child(get_select_editor(object))
 	
 	return new_tab
 

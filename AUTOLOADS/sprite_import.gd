@@ -75,6 +75,11 @@ func _physics_process(_delta: float) -> void:
 		generate_preview(preview_index)
 
 
+func import_file_direct(path: String) -> BinSprite:
+	return sprite_importer.import_sprite(
+		path, false, false, false, false, false, false, 8)
+
+
 func import_files(object_data: Dictionary) -> void:
 	obj_data = object_data
 	sprite_import_started.emit(object_data.name)
@@ -295,7 +300,3 @@ func set_bit_depth(mode: BitDepth) -> void:
 	bit_depth = mode
 	bit_depth_set.emit()
 	regenerate_preview = true
-
-
-func handshake() -> bool:
-	return sprite_importer != null

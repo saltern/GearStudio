@@ -84,6 +84,7 @@ func keyboard(event: InputEventKey) -> void:
 		KEY_ESCAPE:
 			guide_mode = GuideMode.BOTH
 			guide_cycle_mode()
+			cell_edit.box_deselect_all()
 			
 
 func guide_cycle_mode() -> void:

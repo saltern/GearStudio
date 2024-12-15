@@ -8,3 +8,4 @@ func _ready() -> void:
 
 func update_color() -> void:
 	color = Settings.custom_color_bg_a
+		
