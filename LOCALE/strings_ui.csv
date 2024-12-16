@@ -414,3 +414,4 @@ SELECT_CHAR_23,,Order-Sol,
 SELECT_CHAR_24,,Kliff Undersn,
 SELECT_CHAR_25,,Justice,
 SELECT_CHAR_255,,Random select,Selección al azar
+SELECT_CHAR_INVALID,Tooltip when mouse goes over an invalid pixel,Invalid pixel!,¡Pixel inválido!

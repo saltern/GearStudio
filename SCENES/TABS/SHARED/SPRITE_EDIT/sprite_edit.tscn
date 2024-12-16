@@ -1,7 +1,6 @@
-[gd_scene load_steps=73 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=72 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
-[ext_resource type="Script" uid="uid://ce07edvcwysg4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="2_dim6d"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
 [ext_resource type="Script" uid="uid://b3445nvpply4l" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_index.gd" id="3_vy2oh"]
 [ext_resource type="Script" uid="uid://djwvtg5ol4lw7" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_index.gd" id="4_260ug"]
@@ -302,23 +301,19 @@ script = ExtResource("10_jsn4m")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="import" type="Button" parent="content/left_panel/margin/palette_buttons/import_export" node_paths=PackedStringArray("window")]
+[node name="import" type="Button" parent="content/left_panel/margin/palette_buttons/import_export"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP"
 text = "SPRITE_EDIT_PALETTE_IMPORT"
 text_overrun_behavior = 3
-script = ExtResource("2_dim6d")
-window = NodePath("../../../../../../palette_import")
 
-[node name="export" type="Button" parent="content/left_panel/margin/palette_buttons/import_export" node_paths=PackedStringArray("window")]
+[node name="export" type="Button" parent="content/left_panel/margin/palette_buttons/import_export"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP"
 text = "SPRITE_EDIT_PALETTE_EXPORT"
 text_overrun_behavior = 3
-script = ExtResource("2_dim6d")
-window = NodePath("../../../../../../palette_export")
 
 [node name="palette_editor" type="Button" parent="content/left_panel/margin/palette_buttons" node_paths=PackedStringArray("palette_grid", "editor_panel")]
 layout_mode = 2
@@ -1527,7 +1522,7 @@ ok_button_text = "SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON"
 dialog_text = "SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT"
 script = ExtResource("64_vgp6d")
 
-[node name="palette_import" type="FileDialog" parent="."]
+[node name="palette_import" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
 title = "Open a File"
 initial_position = 2
 size = Vector2i(640, 480)
@@ -1537,8 +1532,9 @@ access = 2
 filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
 use_native_dialog = true
 script = ExtResource("59_vae45")
+summon_button = NodePath("../content/left_panel/margin/palette_buttons/import_export/import")
 
-[node name="palette_export" type="FileDialog" parent="."]
+[node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
 initial_position = 2
 size = Vector2i(640, 480)
 dialog_hide_on_ok = true
@@ -1546,3 +1542,4 @@ access = 2
 filters = PackedStringArray("*.bin; Binary file", "*.act; Adobe Color Table")
 use_native_dialog = true
 script = ExtResource("61_dcgxr")
+summon_button = NodePath("../content/left_panel/margin/palette_buttons/import_export/export")

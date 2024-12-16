@@ -16,27 +16,21 @@ func load_tabs(data: Dictionary) -> void:
 		
 		match this_object["type"]:
 			"sprite":
-				#print("Loading sprite")
 				add_child(load_sprite(this_object))
 			
 			"sprite_list_select":
-				#print("Loading sprite_list_select")
 				add_child(load_sprite_list_select(this_object))
 			
 			"sprite_list", "sprite_list_file":
-				#print("Loading sprite_list")
 				add_child(load_sprite_list(this_object))
 			
 			"jpf_plain_text":
-				#print("Loading jpf_plain_text")
 				add_child(load_jpf_plain_text(this_object))
 			
 			"scriptable":
-				#print("Loading scriptable")
 				add_child(load_scriptable(this_object))
 			
 			"multi_scriptable":
-				#print("Loading multi_scriptable")
 				add_child(load_multi_scriptable(this_object))
 			
 			#"unsupported":
@@ -81,7 +75,7 @@ func get_select_editor(object: Dictionary) -> SelectEdit:
 
 func load_sprite(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | Sprite" % get_child_count()
+	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE")]
 	
 	new_tab.add_child(get_sprite_editor(object))
 	
@@ -90,7 +84,7 @@ func load_sprite(object: Dictionary) -> TabContainer:
 
 func load_sprite_list_select(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | Sprites + Cursor Mask" % get_child_count()
+	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE_LIST_SELECT")]
 	
 	new_tab.add_child(get_sprite_editor(object))
 	new_tab.add_child(get_select_editor(object))
@@ -100,7 +94,7 @@ func load_sprite_list_select(object: Dictionary) -> TabContainer:
 
 func load_sprite_list(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | Sprites" % get_child_count()
+	new_tab.name = "#%s | %s" % [get_child_count(), "TAB_TITLE_SPRITE_LIST"]
 	
 	new_tab.add_child(get_sprite_editor(object))
 	
@@ -109,7 +103,7 @@ func load_sprite_list(object: Dictionary) -> TabContainer:
 
 func load_jpf_plain_text(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | Plain Text" % get_child_count()
+	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_PLAIN_TEXT")]
 	
 	new_tab.add_child(get_sprite_editor(object))
 	
@@ -127,17 +121,17 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	new_tab.add_child(get_cell_editor(object))
 	
 	if object.has("palettes"):
-		new_tab.name = "#%s | %s" % [object_number, tr("TAB_SCRIPTABLE_NAME_PLAYER")]
+		new_tab.name = "#%s | %s" % [object_number, tr("TAB_TITLE_PLAYER")]
 		new_tab.add_child(get_palette_editor(object))
 	else:
-		new_tab.name = "#%s | %s" % [object_number, tr("TAB_SCRIPTABLE_NAME_OBJECT")]
+		new_tab.name = "#%s | %s" % [object_number, tr("TAB_TITLE_OBJECT")]
 	
 	return new_tab
 
 
 func load_multi_scriptable(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | Effects" % get_child_count()
+	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_MULTI_SCRIPTABLE")]
 	
 	for sub_object in object["data"]:
 		new_tab.add_child(

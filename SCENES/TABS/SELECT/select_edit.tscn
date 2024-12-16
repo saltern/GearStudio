@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://b08yjbg1fixq8"]
+[gd_scene load_steps=17 format=3 uid="uid://b08yjbg1fixq8"]
 
 [ext_resource type="Script" uid="uid://b7rn5ey4vtv0c" path="res://SCENES/TABS/SELECT/select_edit.gd" id="1_7td4e"]
-[ext_resource type="Script" uid="uid://bkbjiceh24p7f" path="res://SCENES/TABS/SELECT/export.gd" id="2_15vtb"]
 [ext_resource type="Script" uid="uid://ct0rwjnngmdqx" path="res://SCENES/TABS/SELECT/info_dimensions.gd" id="2_gnmd2"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="2_ufvnx"]
 [ext_resource type="Script" uid="uid://c3aijnk22cn7c" path="res://SCENES/TABS/SELECT/character_list.gd" id="3_a1uy8"]
@@ -11,10 +10,32 @@
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="6_vgrc6"]
 [ext_resource type="Script" uid="uid://ct21yri11bdu0" path="res://SCENES/TABS/SELECT/preview_texture.gd" id="10_2dv0c"]
 [ext_resource type="Script" uid="uid://cfwrnfiv8uncy" path="res://SCENES/TABS/SELECT/import_file_dialog.gd" id="10_vgrc6"]
+[ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="10_yhcx6"]
+[ext_resource type="Script" uid="uid://cgjri3qcei7eb" path="res://SCENES/TABS/SELECT/export_file_dialog.gd" id="12_yhcx6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2dv0c"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
 draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wo7s5"]
+resource_local_to_scene = true
+shader = ExtResource("10_yhcx6")
+shader_parameter/alpha_double = false
+shader_parameter/reindex = false
+shader_parameter/hover_index = -1
+shader_parameter/highlight = null
+shader_parameter/palette = null
+
+[sub_resource type="LabelSettings" id="LabelSettings_yhcx6"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhcx6"]
+bg_color = Color(0, 0, 0, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -69,7 +90,6 @@ size_flags_horizontal = 3
 tooltip_text = "SELECT_EDIT_EXPORT_TOOLTIP"
 text = "SELECT_EDIT_EXPORT"
 text_overrun_behavior = 3
-script = ExtResource("2_15vtb")
 
 [node name="h_sep" type="HSeparator" parent="content/left_panel/scroll/margin/data"]
 layout_mode = 2
@@ -81,8 +101,6 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "SELECT_EDIT_INFO_DIMENSIONS_TOOLTIP"
-mouse_filter = 0
 text = "SELECT_EDIT_INFO_DIMENSIONS"
 text_overrun_behavior = 3
 
@@ -95,15 +113,17 @@ text = "0 x 0"
 horizontal_alignment = 2
 script = ExtResource("2_gnmd2")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="content/left_panel/scroll/margin/data"]
+[node name="list" type="ScrollContainer" parent="content/left_panel/scroll/margin/data"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="content/left_panel/scroll/margin/data/ScrollContainer"]
+[node name="items" type="ItemList" parent="content/left_panel/scroll/margin/data/list" node_paths=PackedStringArray("preview")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_reselect = true
 script = ExtResource("3_a1uy8")
+preview = NodePath("../../../../../../visualizer/borders/clipper/visualizer/texture")
 
 [node name="v_sep" type="VSeparator" parent="content"]
 layout_mode = 2
@@ -167,6 +187,7 @@ script = ExtResource("6_vgrc6")
 metadata/_edit_lock_ = true
 
 [node name="texture" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer"]
+material = SubResource("ShaderMaterial_wo7s5")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -176,14 +197,59 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_2dv0c")
 
+[node name="tooltip" type="Label" parent="content/visualizer/borders/clipper/visualizer/texture"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.0
+offset_top = -30.0
+offset_right = 58.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Random Select"
+label_settings = SubResource("LabelSettings_yhcx6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="background" type="Panel" parent="content/visualizer/borders/clipper/visualizer/texture/tooltip"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yhcx6")
+
 [node name="select_import" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
-title = "Select replacement image..."
+title = "Open a File"
 initial_position = 2
 size = Vector2i(640, 480)
 force_native = true
 ok_button_text = "Open"
 file_mode = 0
 access = 2
+filters = PackedStringArray("*.png; PNG images")
 use_native_dialog = true
 script = ExtResource("10_vgrc6")
 summon_button = NodePath("../content/left_panel/scroll/margin/data/import_export/import")
+
+[node name="select_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
+auto_translate_mode = 1
+title = "Select save path"
+initial_position = 2
+size = Vector2i(640, 480)
+force_native = true
+ok_button_text = "Save"
+access = 2
+filters = PackedStringArray("*.png; PNG images")
+use_native_dialog = true
+script = ExtResource("12_yhcx6")
+summon_button = NodePath("../content/left_panel/scroll/margin/data/import_export/export")

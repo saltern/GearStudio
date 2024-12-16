@@ -15,12 +15,12 @@ func display() -> void:
 	if visible:
 		return
 	
-	current_path = FileMemory.sprite_palette_import
+	current_path = FileMemory.palette_import
 	show()
 
 
 func on_file_selected(file: String) -> void:
-	FileMemory.sprite_palette_import = current_path
+	FileMemory.palette_palette_import = current_path
 	
 	var palette: BinPalette
 	
@@ -38,7 +38,8 @@ func on_file_selected(file: String) -> void:
 			palette = BinPalette.from_bmp_file(file)
 	
 	if palette == null:
-		Status.set_status("STATUS_PALETTE_IMPORT_NULL")
+		Status.set_status(
+			"Could not load palette, file is invalid or does not exist.")
 		return
 	
 	var pal_array: PackedByteArray = palette.palette.duplicate()

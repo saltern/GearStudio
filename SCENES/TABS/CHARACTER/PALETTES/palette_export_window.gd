@@ -15,12 +15,11 @@ func display() -> void:
 	if visible:
 		return
 	
-	current_path = FileMemory.sprite_palette_export
-	show()
+	current_path = FileMemory.palette_palette_export
 
 
 func on_file_selected(path: String) -> void:
-	FileMemory.sprite_palette_export = current_path
+	FileMemory.palette_export = current_path
 	
 	match path.get_extension():
 		"bin":

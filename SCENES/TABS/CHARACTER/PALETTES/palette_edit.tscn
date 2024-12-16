@@ -14,9 +14,9 @@
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="8_3mp4x"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="8_7jrqg"]
 [ext_resource type="Script" uid="uid://440keewssy5f" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
-[ext_resource type="Script" uid="uid://di733j1c776tt" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="9_iqtpw"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="9_tj8hv"]
-[ext_resource type="Script" uid="uid://bxja8douxiocu" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_export_window.gd" id="10_dqgeq"]
+[ext_resource type="Script" uid="uid://1g2lar48gvjx" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_import_window.gd" id="16_llwwi"]
+[ext_resource type="Script" uid="uid://uoydhlvow0pq" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_export_window.gd" id="17_ana8q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
 draw_center = false
@@ -284,7 +284,7 @@ item_2/text = "LAB"
 item_2/id = 2
 script = ExtResource("8_8p6ps")
 
-[node name="palette_import" type="FileDialog" parent="."]
+[node name="palette_import" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
 auto_translate_mode = 1
 title = "Open a File"
 initial_position = 2
@@ -294,9 +294,10 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
 use_native_dialog = true
-script = ExtResource("9_iqtpw")
+script = ExtResource("16_llwwi")
+summon_button = NodePath("../scroll/margin/content/data/editors/color_grid/import_export/import")
 
-[node name="palette_export" type="FileDialog" parent="."]
+[node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
 auto_translate_mode = 1
 initial_position = 2
 size = Vector2i(640, 480)
@@ -304,4 +305,5 @@ dialog_hide_on_ok = true
 access = 2
 filters = PackedStringArray("*.bin; Binary file", "*.act; Adobe Color Table")
 use_native_dialog = true
-script = ExtResource("10_dqgeq")
+script = ExtResource("17_ana8q")
+summon_button = NodePath("../scroll/margin/content/data/editors/color_grid/import_export/export")

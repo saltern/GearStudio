@@ -18,6 +18,14 @@ var bit_depth: int
 var color_index: int = 0
 
 
+# Undo/Redo status shorthand
+func status_register_action(action_text: String) -> void:
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
+		"action": action_text
+	})))
+
+
 #region Copy/Paste
 func set_copy_data(selection: Array[bool]) -> void:
 	var copy_data: Array[Color] = []
@@ -117,7 +125,7 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		selected_count += selected as int
 	
 	if selected_count < 1:
-		Status.set_status("Nothing selected. Palette has not been modified.")
+		Status.set_status("PROVIDER_NOTHING_SELECTED_MODIFY")
 		return
 	
 	if obj_data.has("palettes"):
@@ -127,7 +135,9 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 
 
 func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
-	var action_text: String = "Palette #%s set color(s)" % palette_index
+	var action_text: String = tr("ACTION_PROVIDER_PALETTE_SET_COLOR").format({
+		"index": palette_index
+	})
 	
 	undo_redo.create_action(action_text)
 	
@@ -143,17 +153,18 @@ func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
 	# palette_updated signal needs to happen before palette_load call
 	undo_redo.add_do_method(SessionData.set_palette.bind(palette_index))
 	undo_redo.add_do_method(palette_load.bind(palette_index))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
 	undo_redo.add_undo_method(palette_load.bind(palette_index))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
-	var action_text: String = "Sprite #%s set color(s)" % sprite_index
+	var action_text: String = tr("ACTION_PROVIDER_SPRITE_SET_COLOR").format({
+		"index": sprite_index
+	})
 	
 	undo_redo.create_action(action_text)
 		
@@ -169,12 +180,11 @@ func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
 	# palette_updated signal needs to happen before palette_load call
 	undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_do_method(palette_load.bind(sprite_index))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 
 	undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_undo_method(palette_load.bind(sprite_index))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -270,7 +280,9 @@ func palette_paste_color_commit(
 	var action_text: String
 	
 	if obj_data.has("palettes"):
-		action_text = "Palette #%s paste color(s)" % palette_index
+		action_text = tr("ACTION_PROVIDER_PALETTE_PASTE_COLOR").format({
+			"index": palette_index
+		})
 		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(palette, "palette", new)
@@ -282,7 +294,9 @@ func palette_paste_color_commit(
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
 	
 	else:
-		action_text = "Sprite #%s paste color(s)" % sprite_index
+		action_text = tr("ACTION_PROVIDER_SPRITE_PASTE_COLOR").format({
+			"index": sprite_index
+		})
 		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(sprite, "palette", new)
@@ -293,9 +307,7 @@ func palette_paste_color_commit(
 		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
 	
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
-	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -306,55 +318,49 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		# Ensure size of at least 256 colors.
 		pal_array.resize(1024)
 		
-		action_text = "Set palette for index %s" % palette_index
+		action_text = tr("ACTION_PROVIDER_PALETTE_IMPORT").format({
+			"index": palette_index
+		})
 		
 		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_method(
 			palette_import_commit.bind(palette, pal_array))
 		undo_redo.add_do_method(palette_load.bind(palette_index))
-		#undo_redo.add_do_method(
-			#emit_signal.bind("palette_imported", palette_index))
+		undo_redo.add_do_method(SessionData.set_palette.bind(palette_index))
 		
 		undo_redo.add_undo_method(
 			palette_import_commit.bind(palette, palette.palette))
 		undo_redo.add_undo_method(palette_load.bind(palette_index))
-		#undo_redo.add_undo_method(
-			#emit_signal.bind("palette_imported", palette_index))
-		
-		#undo_redo.commit_action()
+		undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
 	
 	else:
 		# Should normally not appear
 		if sprite == null:
-			Status.set_status("Could not apply palette, no sprite selected.")
+			Status.set_status("PROVIDER_CANNOT_IMPORT_NO_SPRITE")
 			return
 		
 		# Adapt palette size to sprite bit depth
 		pal_array.append_array(sprite.palette)
 		pal_array.resize(4 * pow(2, sprite.bit_depth))
 		
-		action_text = "Set palette for sprite %s" % sprite_index
+		action_text = tr("ACTION_PROVIDER_SPRITE_IMPORT").format({
+			"index": sprite_index
+		})
 		
 		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_method(
 			palette_import_sprite_commit.bind(sprite, pal_array))
 		undo_redo.add_do_method(palette_load.bind(sprite_index))
-		#undo_redo.add_do_method(
-			#emit_signal.bind("palette_imported", sprite_index))
+		undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 		
 		undo_redo.add_undo_method(
 			palette_import_sprite_commit.bind(sprite, sprite.palette))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
-		#undo_redo.add_undo_method(
-			#emit_signal.bind("palette_imported", sprite_index))
+		undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	
-	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
-	undo_redo.add_do_method(Status.set_status.bind("%s" % action_text))
-	
-	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -371,44 +377,44 @@ func palette_import_commit(
 
 
 func palette_reindex() -> void:
-	var action_text: String
-	
 	if not obj_data.has("palettes"):
 		return
 	
-	action_text = "Reindex palette #%s" % palette_index
+	var action_text: String = tr("ACTION_PROVIDER_PALETTE_REINDEX").format({
+		"index": palette_index
+	})
+	
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(palette.reindex)
 	undo_redo.add_do_method(palette_load.bind(palette_index))
-	undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_do_method(SessionData.set_palette.bind(palette_index))
 	
 	undo_redo.add_undo_method(palette.reindex)
 	undo_redo.add_undo_method(palette_load.bind(palette_index))
-	undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
+	undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func sprite_reindex(bin_sprite: BinSprite) -> void:
-	var action_text: String
+	var action_text: String = tr("ACTION_PROVIDER_SPRITE_REINDEX").format({
+		"index": sprite_index
+	})
 	
-	action_text = "Reindex sprite #%s" % sprite_index
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(bin_sprite.reindex)
 	undo_redo.add_do_method(palette_load.bind(sprite_index))
-	#undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_do_method(emit_signal.bind("sprite_reindexed"))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_method(bin_sprite.reindex)
 	undo_redo.add_undo_method(palette_load.bind(sprite_index))
-	#undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
+	undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_undo_method(emit_signal.bind("sprite_reindexed"))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 #endregion

@@ -11,10 +11,16 @@ func _ready() -> void:
 
 
 func display() -> void:
+	if visible:
+		return
+	
+	current_dir = FileMemory.sprite_sprite_export
 	current_file = ""
 	show()
 
 
 func on_dir_selected(path: String) -> void:
+	current_path.get_base_dir()
 	SpriteExport.obj_data = sprite_edit.obj_data
 	SpriteExport.export(path)
+	FileMemory.sprite_sprite_export = current_path

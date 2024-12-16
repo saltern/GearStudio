@@ -103,12 +103,13 @@ func _input(event: InputEvent) -> void:
 			
 			Clipboard.sprite_info = sprite_info_copy
 			
-			Status.set_status("Copied Sprite Info for cell #%s." %
-				cell_get_index())
+			Status.set_status(tr("CELL_EDIT_SPRITE_INFO_COPY").format({
+				"index": cell_get_index()
+			}))
 		
 		else:
 			if boxes_selected.size() == 0:
-				Status.set_status("No boxes selected, nothing copied.")
+				Status.set_status("CELL_EDIT_BOX_COPY_NOTHING")
 			else:
 				Clipboard.box_data.clear()
 				
@@ -123,7 +124,7 @@ func _input(event: InputEvent) -> void:
 					
 					Clipboard.box_data.append(new_box)
 				
-				Status.set_status("Copied box(es).")
+				Status.set_status("CELL_EDIT_BOX_COPY")
 
 	elif Input.is_action_just_pressed("ui_paste"):
 		if Input.is_key_pressed(KEY_ALT):
@@ -137,6 +138,13 @@ func _input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		box_delete()
+
+
+func status_register_action(action_text: String) -> void:
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
+		"action": action_text
+	})))
 
 
 #region Undo/Redo
@@ -181,7 +189,9 @@ func cell_load(index: int) -> void:
 	cell_updated.emit(this_cell)
 	boxes_selected.resize(0)
 	
-	Status.set_status("Loaded cell #%s." % index)
+	Status.set_status(tr("CELL_EDIT_CELL_LOAD").format({
+		"index": index
+	}))
 
 
 func cell_ensure_selected(cell: int) -> void:
@@ -192,13 +202,14 @@ func cell_ensure_selected(cell: int) -> void:
 # Toolbar buttons
 # Delete Cell
 func cell_delete(from: int, to: int) -> void:
-	var action_text: String = "Delete %s cell(s)" % (1 + to - from)
+	var action_text: String = tr("ACTION_CELL_EDIT_CELL_DELETE").format({
+		"count": 1 + to - from
+	})
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(cell_remove_multiple_commit.bind(from, to))
 	undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
 	undo_redo.add_do_method(cell_remove_try_reload)
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	# Is this excessive...?
 	for cell in 1 + to - from:
@@ -207,8 +218,8 @@ func cell_delete(from: int, to: int) -> void:
 	
 	undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
 	undo_redo.add_undo_method(cell_remove_try_reload)
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -218,19 +229,20 @@ func cell_new(after: bool = false) -> void:
 	
 	var at: int = cell_index + (after as int)
 	
-	var action_text: String = "New cell (#%s)" % at
+	var action_text: String = tr("ACTION_CELL_EDIT_CELL_NEW").format({
+		"index": at
+	})
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(cell_add_commit.bind(at, new_cell))
 	undo_redo.add_do_method(emit_signal.bind("cell_count_changed"))
 	undo_redo.add_do_method(cell_load.bind(at))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 		
 	undo_redo.add_undo_method(cell_remove_commit.bind(at))
 	undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
 	undo_redo.add_undo_method(cell_remove_try_reload)
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -266,16 +278,19 @@ func cell_copy() -> void:
 	
 	cell_clipboard.boxes = new_box_array
 	
-	Status.set_status("Copied cell #%s to the clipboard." % cell_index)
+	Status.set_status(tr("CELL_EDIT_CELL_COPY").format({
+		"index": cell_index
+	}))
 
 
 func cell_paste(at: int = 0) -> void:
 	if cell_clipboard == null:
-		Status.set_status("No cell on clipboard, nothing pasted.")
+		Status.set_status("CELL_EDIT_CELL_PASTE_NOTHING")
 		return
 	
-	var action_text: String = "Paste cell (#%s)"
-	action_text = action_text % (cell_index + clampi(at, 0, 1))
+	var action_text: String = tr("ACTION_CELL_EDIT_CELL_PASTE").format({
+		"index": cell_index + clampi(at, 0, 1)
+	})
 	
 	var cell: Cell = cell_clipboard.duplicate(true)
 	
@@ -313,9 +328,7 @@ func cell_paste(at: int = 0) -> void:
 			undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
 			undo_redo.add_undo_method(cell_load.bind(cell_index))
 	
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
-	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 #endregion
 
@@ -344,30 +357,34 @@ func sprite_get_position() -> Vector2i:
 
 
 func sprite_set_index(new_index: int) -> void:
-	var action_text: String = "Cell #%s: Set sprite index" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_INDEX").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var old_index: int = sprite_get_index()
 	
 	undo_redo.add_do_property(this_cell, "sprite_index", new_index)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_cell, "sprite_index", old_index)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func sprite_set_position(new_position: Vector2i) -> void:
-	var action_text: String = "Cell #%s: Set sprite offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_OFFSET").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_position.x)
 	undo_redo.add_do_property(this_cell, "sprite_y_offset", new_position.y)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(
 		this_cell, "sprite_x_offset", this_cell.sprite_x_offset
@@ -376,49 +393,55 @@ func sprite_set_position(new_position: Vector2i) -> void:
 		this_cell, "sprite_y_offset", this_cell.sprite_y_offset
 	)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func sprite_set_position_x(new_x: int) -> void:
-	var action_text: String = "Cell #%s: Set sprite X offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_OFFSET_X").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_x)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(
 		this_cell, "sprite_x_offset", this_cell.sprite_x_offset)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func sprite_set_position_y(new_y: int) -> void:
-	var action_text: String = "Cell #%s: Set sprite Y offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_OFFSET_Y").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_property(this_cell, "sprite_y_offset", new_y)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(
 		this_cell, "sprite_y_offset", this_cell.sprite_y_offset)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func sprite_info_paste() -> void:
 	if Clipboard.sprite_info == null:
-		Status.set_status("No Sprite Info on clipboard, nothing pasted.")
+		Status.set_status("CELL_EDIT_SPRITE_INFO_PASTE_NOTHING")
 		return
 	
-	var action_text: String = "Cell #%s: Paste Sprite Info" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_INFO_PASTE").format({
+		"index": cell_index
+	})
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_property(this_cell, "sprite_index", Clipboard.sprite_index)
@@ -429,7 +452,6 @@ func sprite_info_paste() -> void:
 		this_cell, "sprite_y_offset", Clipboard.sprite_y_offset
 	)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(
 		this_cell, "sprite_index", this_cell.sprite_index
@@ -441,8 +463,8 @@ func sprite_info_paste() -> void:
 		this_cell, "sprite_y_offset", this_cell.sprite_y_offset
 	)
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 #endregion
 
@@ -512,33 +534,39 @@ func box_set_type_visible(type: int, enabled: bool) -> void:
 
 
 func box_append(box: BoxInfo) -> void:
-	var action_text: String = "Cell #%s: Add box" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_NEW").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_method(box_delete_commit.bind(this_cell, box))
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
 func box_delete() -> void:
 	if boxes_selected.size() == 0:
-		Status.set_status("No boxes selected, can't delete.")
+		Status.set_status("CELL_EDIT_BOX_DELETE_NOTHING")
 		return
 	
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell #%s: Delete boxes" % cell_index
+		action_text = tr("ACTION_CELL_EDIT_BOX_DELETE_MULTI").format({
+			"index": cell_index
+		})
 		undo_redo.create_action(action_text + " (%s)" %
 			Engine.get_physics_frames(), UndoRedo.MERGE_ALL)
 	else:
-		action_text = "Cell #%s: Delete box" % cell_index
+		action_text = tr("ACTION_CELL_EDIT_BOX_DELETE").format({
+			"index": cell_index
+		})
 		undo_redo.create_action(action_text)
 	
 	for box_index in boxes_selected:
@@ -546,12 +574,11 @@ func box_delete() -> void:
 		
 		undo_redo.add_do_method(box_delete_commit.bind(this_cell, deleted_box))
 		undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-		undo_redo.add_do_method(Status.set_status.bind(action_text))
 		
 		undo_redo.add_undo_method(box_append_commit.bind(this_cell, deleted_box, box_index))
 		undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-		undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 		
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -568,12 +595,14 @@ func box_delete_commit(cell: Cell, box: BoxInfo) -> void:
 
 func box_paste(overwrite: bool = false) -> void:
 	if Clipboard.box_data.size() == 0:
-		Status.set_status("No boxes on clipboard, nothing pasted.")
+		Status.set_status("CELL_EDIT_BOX_PASTE_NOTHING")
 	
-	var action_text: String = "Cell #%s: Paste box(es)" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_PASTE").format({
+		"index": cell_index
+	})
 	
 	if overwrite:
-		action_text = action_text + " with overwrite"
+		action_text = action_text + " " + "ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE"
 	
 	undo_redo.create_action(action_text)
 	
@@ -587,11 +616,9 @@ func box_paste(overwrite: bool = false) -> void:
 		undo_redo.add_undo_method(box_delete_commit.bind(this_cell, box))
 		
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
-	
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -602,14 +629,18 @@ func box_set_type(new_type: int) -> void:
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell #%s: Set type for multiple boxes" % cell_index
+		action_text = tr("ACTION_CELL_EDIT_BOX_TYPE_MULTI").format({
+			"index": cell_index
+		})
 			
 		undo_redo.create_action(
 			action_text + " (%s)" % Engine.get_physics_frames(),
 			UndoRedo.MERGE_ALL)
 
 	else:
-		action_text = "Cell #%s: Set box type" % cell_index
+		action_text = tr("ACTION_CELL_EDIT_BOX_TYPE").format({
+			"index": cell_index
+		})
 		undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	for box in boxes_selected:
@@ -618,16 +649,14 @@ func box_set_type(new_type: int) -> void:
 		undo_redo.add_do_property(current_box, "box_type", new_type)
 		undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 		undo_redo.add_do_method(emit_signal.bind("box_updated", current_box))
-		undo_redo.add_do_method(Status.set_status.bind(action_text))
 			
 		undo_redo.add_undo_property(
 			current_box, "box_type", current_box.box_type
 		)
 		undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 		undo_redo.add_undo_method(emit_signal.bind("box_updated", current_box))
-		undo_redo.add_undo_method(
-			Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -643,7 +672,10 @@ func box_set_offset_x(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s: Set box X offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_OFFSET_X").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -651,13 +683,12 @@ func box_set_offset_x(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "x_offset", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "x_offset", this_box.x_offset)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -665,7 +696,10 @@ func box_set_offset_y(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s: Set box Y offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_OFFSET_Y").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -673,13 +707,12 @@ func box_set_offset_y(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "y_offset", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "y_offset", this_box.y_offset)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -687,7 +720,10 @@ func box_set_width(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s: Set box width" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_WIDTH").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -695,13 +731,12 @@ func box_set_width(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "width", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "width", this_box.width)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -709,7 +744,10 @@ func box_set_height(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = "Cell #%s: Set box height" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_BOX_HEIGHT").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -717,13 +755,12 @@ func box_set_height(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "height", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "height", this_box.height)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -731,12 +768,17 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	var action_text: String
 	
 	if boxes_selected.size() > 1:
-		action_text = "Cell #%s: Modify multiple boxes" % cell_index
+		action_text = tr("ACTION_CELL_EDIT_BOX_MODIFY_MULTI").format({
+			"index": cell_index
+		})
 		undo_redo.create_action(
 			action_text + " (%s)" % Engine.get_physics_frames(),
 			UndoRedo.MERGE_ALL)
 	else:
-		action_text = "Cell #%s: Modify box # %s" % [cell_index, index]
+		action_text = tr("ACTION_CELL_EDIT_BOX_MODIFY").format({
+			"index": cell_index,
+			"box": index
+		})
 		undo_redo.create_action(action_text)
 	
 	var box: BoxInfo = box_get(index)
@@ -747,7 +789,6 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	undo_redo.add_do_property(box, "height", rect.size.y)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(box, "x_offset", box.x_offset)
 	undo_redo.add_undo_property(box, "y_offset", box.y_offset)
@@ -755,8 +796,8 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	undo_redo.add_undo_property(box, "height", box.height)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -764,8 +805,10 @@ func box_set_crop_offset_x(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = \
-		"Cell #%s: Set sprite region X offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_REGION_OFFSET_X").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -773,13 +816,12 @@ func box_set_crop_offset_x(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "crop_x_offset", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "crop_x_offset", this_box.crop_x_offset)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -787,8 +829,10 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	if boxes_selected.size() < 1:
 		return
 	
-	var action_text: String = \
-		"Cell #%s: Set sprite region Y offset" % cell_index
+	var action_text: String = tr("ACTION_CELL_EDIT_REGION_OFFSET_Y").format({
+		"index": cell_index
+	})
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var this_box: BoxInfo = box_get(boxes_selected[0])
@@ -796,12 +840,11 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	undo_redo.add_do_property(this_box, "crop_y_offset", new_value)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	
 	undo_redo.add_undo_property(this_box, "crop_y_offset", this_box.crop_y_offset)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
 	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 #endregion

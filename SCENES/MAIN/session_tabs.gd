@@ -88,8 +88,17 @@ func save_resource(path: String = ""):
 			save_directory("")
 			
 		SessionData.SessionType.BINARY:
-			if path.get_extension() != "bin":
-				path += ".bin"
+			if !path.is_empty():
+				if path.get_extension() != "bin":
+					path += ".bin"
+				
+				# For subsequent saves
+				SessionData.this_session["path"] = path
+				
+				var file_name: String = path.get_file()
+				get_child(current_tab).base_name = file_name
+				rename_tab(current_tab, current_tab)
+			
 			save_binary(path)
 
 
@@ -149,10 +158,14 @@ func rename_all_tabs(skip_index: int) -> void:
 		if tab == skip_index:
 			continue
 		
-		var pretty_name: String = tr("TAB_BASE_NAME").format(
-			{id=number, name=get_child(tab).base_name}
-		)
-		
-		set_tab_title(tab, pretty_name)
+		rename_tab(tab, number)
 		
 		number += 1
+
+
+func rename_tab(tab_index: int, number: int) -> void:
+	var pretty_name: String = tr("TAB_BASE_NAME").format(
+		{id=number, name=get_child(tab_index).base_name}
+	)
+	
+	set_tab_title(tab_index, pretty_name)

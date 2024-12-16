@@ -24,7 +24,7 @@ func center_view() -> void:
 
 func zoom_in() -> void:	
 	if scale == Vector2(MAX_ZOOM, MAX_ZOOM):
-		Status.set_status("Already at max zoom!")
+		Status.set_status("STATUS_ZOOM_ALREADY_MAX")
 		return
 	
 	var parent_center: Vector2 = get_parent().size / 2
@@ -38,12 +38,12 @@ func zoom_in() -> void:
 	center_view()
 	position += offset_from_center * scale
 	
-	Status.set_status("Zoomed in (%sx)" % scale.x)
+	Status.set_status(tr("STATUS_ZOOM_IN").format({"factor": scale.x}))
 
 
 func zoom_out() -> void:
 	if scale == Vector2.ONE:
-		Status.set_status("Already at min zoom, centered view.")
+		Status.set_status("STATUS_ZOOM_ALREADY_MIN")
 		center_view()
 		return
 	
@@ -58,7 +58,7 @@ func zoom_out() -> void:
 	center_view()
 	position += offset_from_center * scale
 	
-	Status.set_status("Zoomed out (%sx)" % scale.x)
+	Status.set_status(tr("STATUS_ZOOM_OUT").format({"factor": scale.x}))
 
 
 func clamp_zoom() -> void:

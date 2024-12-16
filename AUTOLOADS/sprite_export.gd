@@ -147,15 +147,3 @@ func export(output_path: String) -> void:
 			palette_alpha_mode,
 			obj_data.has("palettes"),
 			sprite_reindex)
-
-
-func export_select(sprite: BinSprite, path: String) -> void:
-	SpriteExporter.export_sprites(
-		"png", path, [sprite],
-		0,
-		false,
-		pal_gray,
-		AlphaMode.OPAQUE,
-		false,
-		false
-	)

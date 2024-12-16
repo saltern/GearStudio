@@ -8,7 +8,7 @@ extends FileDialog
 
 func _ready() -> void:
 	summon_button.pressed.connect(display)
-	file_selected.connect(select_edit.import)
+	file_selected.connect(select_edit.export)
 	file_selected.connect(register_path)
 
 
@@ -16,9 +16,10 @@ func display() -> void:
 	if visible:
 		return
 	
-	current_path = FileMemory.select_import
+	current_dir = FileMemory.select_export.get_base_dir()
+	current_file = ""
 	show()
 
 
 func register_path(path: String) -> void:
-	FileMemory.select_import = current_path
+	FileMemory.select_export = current_path

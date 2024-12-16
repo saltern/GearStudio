@@ -68,6 +68,14 @@ func _input(event: InputEvent) -> void:
 				"set_value_no_signal", sprite_index)
 
 
+# Undo/Redo status shorthand
+func status_register_action(action_text: String) -> void:
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
+		"action": action_text
+	})))
+
+
 func palette_set_session(for_session: int, index: int) -> void:
 	if for_session != session_id:
 		return
@@ -125,12 +133,14 @@ func sprite_reload() -> void:
 func sprite_delete(from: int, to: int) -> void:
 	var how_many: int = to - from + 1
 	
-	var action_text: String = "Delete %s sprite(s)" % how_many
+	var action_text: String = tr("ACTION_SPRITE_EDIT_DELETE").format({
+		"count": how_many
+	})
 	undo_redo.create_action(action_text)
 	
 	# Shouldn't happen
 	if how_many >= obj_data.sprites.size():
-		Status.set_status("Can't delete all sprites!")
+		Status.set_status("ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL")
 		return
 	
 	for index in how_many:
@@ -158,9 +168,7 @@ func sprite_delete(from: int, to: int) -> void:
 	undo_redo.add_undo_method(
 		SpriteImport.emit_signal.bind("sprite_placement_finished"))
 	
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
-	undo_redo.add_undo_method(Status.set_status.bind("Undo: %s" % action_text))
-	
+	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
@@ -178,9 +186,6 @@ func sprite_reindex() -> void:
 
 
 #region Redirection/Clamping
-
-
-
 # Clamp sprite index
 func clamp_get_affected(sprite_max: int) -> PackedInt64Array:
 	var return_array: PackedInt64Array = []

@@ -1,45 +1,75 @@
-keys,en,es
-STATUS_READY,Ready.,Listo.
-STATUS_OPEN_ALREADY_OPEN_DIR,Directory already open!,¡La carpeta ya está abierta!
-STATUS_OPEN_ALREADY_OPEN_BIN,File already open!,¡El archivo ya está abierto!
-STATUS_LOADING,Loading [{path}]...,Cargando [{path}]...
-STATUS_LOAD_COMPLETE,Loaded data from [{path}].,Se cargaron los datos de [{path}].
-STATUS_LOAD_INVALID,"Unable to load, file invalid or unsupported.","No se puede cargar, el archivo es inválido o no soportado."
-STATUS_SAVE_NOTHING,Nothing to save.,Nada que guardar.
-STATUS_DIRECTORY_CANT_SAVE_AS,"Directory session, can't 'save as'.","Sesión de carpeta, no se puede 'guardar como'."
-STATUS_PREFERENCES_SAVED,Saved preferences.,Se guardaron las preferencias.
-STATUS_PREFERENCES_SAVE_ERROR,Could not save preferences!,¡No se pudieron guardar las preferencias!
-STATUS_ACTION_HISTORY_NO,The Action History is not currently available.,El Historial de Acciones no se encuentra disponible actualmente.
-STATUS_ACTION_UNDO,Undo: %s,Deshacer: %s
-STATUS_ACTION_CELLED_CELL_NEW,New cell (#%s),Nueva celda (#%s)
-STATUS_ACTION_CELLED_CELL_PASTE,Paste cell (#%s),Pegar celda (#%s)
-STATUS_ACTION_CELLED_CELL_DELETE,Delete %s cell(s),Borrar %s celda(s)
-STATUS_ACTION_CELLED_SPRITE_INDEX,Cell #%s: Set sprite index,Celda #%s: Establecer índice de sprite
-STATUS_ACTION_CELLED_SPRITE_OFFSET,Cell #%s: Set sprite offset,Celda #%s: Establecer posición del sprite
-STATUS_ACTION_CELLED_SPRITE_OFFSET_X,Cell #%s: Set sprite x offset,Celda #%s: Establecer posición x del sprite
-STATUS_ACTION_CELLED_SPRITE_OFFSET_Y,Cell #%s: Set sprite y offset,Celda #%s: Establecer posición y del sprite
-STATUS_ACTION_CELLED_SPRITE_INFO_PASTE,Cell #%s: Paste sprite info,Celda #%s: Pegar configuración de sprite
-STATUS_ACTION_CELLED_BOX_NEW,Cell #%s: Add box,Celda #%s: Agregar caja
-STATUS_ACTION_CELLED_BOX_PASTE,Cell #%s: Paste box(es),Celda #%s: Pegar caja(s)
-STATUS_ACTION_CELLED_BOX_PASTE_OVERWRITE, with overwrite, y sobrescribir
-STATUS_ACTION_CELLED_BOX_DELETE,Cell #%s: Delete box,Celda #%s: Borrar caja
-STATUS_ACTION_CELLED_BOX_DELETE_MULTI,Cell #%s: Delete boxes,Celda #%s: Borrar cajas
-STATUS_ACTION_CELLED_BOX_TYPE,Cell #%s: Set box type,Celda #%s: Establecer tipo de la caja
-STATUS_ACTION_CELLED_BOX_TYPE_MULTI,Cell #%s: Set type for multiple boxes,Celda #%s: Establecer tipo de múltiples cajas
-STATUS_ACTION_CELLED_BOX_OFFSET_X,Cell #%s: Set box x offset,Celda #%s: Establecer posición x de la caja
-STATUS_ACTION_CELLED_BOX_OFFSET_Y,Cell #%s: Set box y offset,Celda #%s: Establecer posición y de la caja
-STATUS_ACTION_CELLED_BOX_WIDTH,Cell #%s: Set box width,Celda #%s: Establecer ancho de la caja
-STATUS_ACTION_CELLED_BOX_HEIGHT,Cell #%s: Set box height,Celda #%s: Establecer alto de la caja
-STATUS_ACTION_CELLED_BOX_MODIFY,Cell #%s: Modify box # %s,Celda #%s: Modificar caja # %s
-STATUS_ACTION_CELLED_BOX_MODIFY_MULTI,Cell #%s: Modify multiple boxes,Celda #%s: Modificar múltiples cajas
-STATUS_ACTION_CELLED_BOX_REGION_OFFSET_X,Cell #%s: Set sprite region x offset,Celda #%s: Establecer posición x de la región del sprite
-STATUS_ACTION_CELLED_BOX_REGION_OFFSET_Y,Cell #%s: Set sprite region y offset,Celda #%s: Establecer posición y de la región del sprite
-STATUS_CELLED_CELL_LOAD,Loaded cell #%s.,Se cargó la celda #%s.
-STATUS_CELLED_CELL_COPY,Copied cell #%s to the clipboard.,Se copió la celda #%s al portapapeles.
-STATUS_CELLED_CELL_PASTE_NOTHING,"No cell on clipboard, nothing pasted.","No hay una celda en el portapapeles, no se pegó nada."
-STATUS_CELLED_SPRITE_INFO_COPY,Copied sprite info for cell #%s.,Se copió la configuración de sprite de la celda #%s.
-STATUS_CELLED_SPRITE_INFO_PASTE_NOTHING,"No sprite info on clipboard, nothing pasted.","No hay configuración de sprite en la papelera, no se pegó nada."
-STATUS_CELLED_BOX_COPY_NOTHING,"No boxes selected, nothing copied.","No hay cajas seleccionadas, no se copió nada."
-STATUS_CELLED_BOX_COPY,Copied box(es).,Caja(s) copiada(s).
-STATUS_CELLED_BOX_PASTE_NOTHING,"No boxes on clipboard, nothing pasted.","No hay cajas en el portapapeles, no se pegó nada."
-STATUS_CELLED_BOX_DELETE_NOTHING,"No boxes selected, can't delete.","No hay cajas seleccionadas, no se puede borrar."
+keys,_string_info,en,es
+,GENERIC/GLOBAL,,
+STATUS_READY,,Ready.,Listo.
+STATUS_OPEN_ALREADY_OPEN_DIR,,Directory already open!,¡La carpeta ya está abierta!
+STATUS_OPEN_ALREADY_OPEN_BIN,,File already open!,¡El archivo ya está abierto!
+STATUS_LOADING,,Loading [{path}]...,Cargando [{path}]...
+STATUS_LOAD_COMPLETE,,Loaded data from [{path}].,Se cargaron los datos de [{path}].
+STATUS_LOAD_INVALID,,"Unable to load, file invalid or unsupported.","No se puede cargar, el archivo es inválido o no soportado."
+STATUS_SAVE_NOTHING,,Nothing to save.,Nada que guardar.
+STATUS_DIRECTORY_CANT_SAVE_AS,,"Directory session, can't 'save as'.","Sesión de carpeta, no se puede 'guardar como'."
+STATUS_PREFERENCES_SAVED,,Saved preferences.,Se guardaron las preferencias.
+STATUS_PREFERENCES_SAVE_ERROR,,Could not save preferences!,¡No se pudieron guardar las preferencias!
+STATUS_ACTION_HISTORY_NO,,The Action History is not currently available.,El Historial de Acciones no se encuentra disponible actualmente.
+STATUS_ZOOM_IN,,Zoomed in ({factor}x),Se acercó la vista ({factor}x)
+STATUS_ZOOM_OUT,,Zoomed out ({factor}x),Se alejó la vista ({factor}x)
+STATUS_ZOOM_ALREADY_MAX,,Already at max zoom!,¡No se puede acercar más!
+STATUS_ZOOM_ALREADY_MIN,,"Already at min zoom, centered view.","No se puede alejar más, se centró la vista."
+STATUS_PALETTE_IMPORT_NULL,,"Could not load palette, file is invalid or does not exist.","No se pudo cargar la paleta, el archivo es inválido o no existe."
+,SPRITE EDITOR,,
+,,,
+,CELL EDITOR,,
+STATUS_CELL_EDIT_CELL_LOAD,,Loaded cell #{index}.,Se cargó la celda #{index}.
+STATUS_CELL_EDIT_CELL_COPY,,Copied cell #{index} to the clipboard.,Se copió la celda #{index} al portapapeles.
+STATUS_CELL_EDIT_CELL_PASTE_NOTHING,,"No cell on clipboard, nothing pasted.","No hay una celda en el portapapeles, no se pegó nada."
+STATUS_CELL_EDIT_SPRITE_INFO_COPY,,Copied sprite info for cell #{index}.,Se copió la configuración de sprite de la celda #{index}.
+STATUS_CELL_EDIT_SPRITE_INFO_PASTE_NOTHING,,"No sprite info on clipboard, nothing pasted.","No hay configuración de sprite en la papelera, no se pegó nada."
+STATUS_CELL_EDIT_BOX_COPY_NOTHING,,"No boxes selected, nothing copied.","No hay cajas seleccionadas, no se copió nada."
+STATUS_CELL_EDIT_BOX_COPY,,Copied box(es).,Caja(s) copiada(s).
+STATUS_CELL_EDIT_BOX_PASTE_NOTHING,,"No boxes on clipboard, nothing pasted.","No hay cajas en el portapapeles, no se pegó nada."
+STATUS_CELL_EDIT_BOX_DELETE_NOTHING,,"No boxes selected, can't delete.","No hay cajas seleccionadas, no se puede borrar."
+,PALETTE PROVIDER,,
+STATUS_PROVIDER_NOTHING_SELECTED,,Nothing selected. Palette has not been modified.,No hay nada seleccionado. No se modificó la paleta.
+STATUS_PROVIDER_CANNOT_IMPORT,This shouldn't show up,"Could not apply palette, no sprite selected.","No se pudo aplicar la paleta, no se seleccionó ningún sprite."
+,ACTIONS: GENERIC,,
+ACTION_UNDO,,Undo: {action},Deshacer: {action}
+,ACTIONS: SPRITE EDITOR,,
+ACTION_SPRITE_EDIT_DELETE,,Delete {count} sprite(s),Borrar {count} sprite(s)
+ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,,Cannot delete all sprites!,¡No se pueden borrar todos los sprites!
+,ACTIONS: SPRITE IMPORTER,,
+ACTION_SPRITE_IMPORTER_IMPORT,,Import {count} '{object}' sprites,Importar {count} sprites para '{object}'
+,ACTIONS: CELL EDITOR,,
+ACTION_CELL_EDIT_CELL_NEW,,New cell (#{index}),Nueva celda (#{index})
+ACTION_CELL_EDIT_CELL_PASTE,,Paste cell (#{index}),Pegar celda (#{index})
+ACTION_CELL_EDIT_CELL_DELETE,,Delete {count} cell(s),Borrar {count} celda(s)
+ACTION_CELL_EDIT_SPRITE_INDEX,,Cell #{index}: Set sprite index,Celda #{index}: Establecer índice de sprite
+ACTION_CELL_EDIT_SPRITE_OFFSET,,Cell #{index}: Set sprite offset,Celda #{index}: Establecer posición del sprite
+ACTION_CELL_EDIT_SPRITE_OFFSET_X,,Cell #{index}: Set sprite x offset,Celda #{index}: Establecer posición x del sprite
+ACTION_CELL_EDIT_SPRITE_OFFSET_Y,,Cell #{index}: Set sprite y offset,Celda #{index}: Establecer posición y del sprite
+ACTION_CELL_EDIT_SPRITE_INFO_PASTE,,Cell #{index}: Paste sprite info,Celda #{index}: Pegar configuración de sprite
+ACTION_CELL_EDIT_BOX_NEW,,Cell #{index}: Add box,Celda #{index}: Agregar caja
+ACTION_CELL_EDIT_BOX_PASTE,,Cell #{index}: Paste box(es),Celda #{index}: Pegar caja(s)
+ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE,,with overwrite,y sobrescribir
+ACTION_CELL_EDIT_BOX_DELETE,,Cell #%s: Delete box,Celda #%s: Borrar caja
+ACTION_CELL_EDIT_BOX_DELETE_MULTI,,Cell #%s: Delete boxes,Celda #%s: Borrar cajas
+ACTION_CELL_EDIT_BOX_TYPE,,Cell #%s: Set box type,Celda #%s: Establecer tipo de la caja
+ACTION_CELL_EDIT_BOX_TYPE_MULTI,,Cell #{index}: Set type for multiple boxes,Celda #{index}: Establecer tipo de múltiples cajas
+ACTION_CELL_EDIT_BOX_OFFSET_X,,Cell #{index}: Set box x offset,Celda #{index}: Establecer posición x de la caja
+ACTION_CELL_EDIT_BOX_OFFSET_Y,,Cell #%s: Set box y offset,Celda #%s: Establecer posición y de la caja
+ACTION_CELL_EDIT_BOX_WIDTH,,Cell #{index}: Set box width,Celda #{index}: Establecer ancho de la caja
+ACTION_CELL_EDIT_BOX_HEIGHT,,Cell #{index}: Set box height,Celda #{index}: Establecer alto de la caja
+ACTION_CELL_EDIT_BOX_MODIFY,,Cell #{index}: Modify box #{box},Celda #{index}: Modificar caja #{box}
+ACTION_CELL_EDIT_BOX_MODIFY_MULTI,,Cell #{index}: Modify multiple boxes,Celda #{index}: Modificar múltiples cajas
+ACTION_CELL_EDIT_REGION_OFFSET_X,,Cell #{index}: Set sprite region x offset,Celda #{index}: Establecer posición x de la región del sprite
+ACTION_CELL_EDIT_REGION_OFFSET_Y,,Cell #{index}: Set sprite region y offset,Celda #{index}: Establecer posición y de la región del sprite
+,ACTIONS: PALETTE PROVIDER,,
+ACTION_PROVIDER_PALETTE_SET_COLOR,,Palette #{index}: set color(s),Paleta #{index}: cambiar color(es)
+ACTION_PROVIDER_PALETTE_PASTE_COLOR,,Palette #{index}: paste color(s),Paleta #{index}: pegar color(es)
+ACTION_PROVIDER_PALETTE_IMPORT,,Palette #{index}: import replacement,Paleta #{index}: importar reemplazo
+ACTION_PROVIDER_PALETTE_REINDEX,,Palette #{index}: reindex,Paleta #{index}: reindizar
+ACTION_PROVIDER_SPRITE_SET_COLOR,,Sprite #{index}: set color(s),Sprite #{index}: cambiar color(es)
+ACTION_PROVIDER_SPRITE_PASTE_COLOR,,Sprite #{index}: paste color(s),Sprite #{index}: pegar color(es)
+ACTION_PROVIDER_SPRITE_IMPORT,,Sprite #{index}: import palette,Sprite #{index}: importar paleta
+ACTION_PROVIDER_SPRITE_REINDEX,,Sprite #{index}: reindex,Sprite #{index}: reindizar
+,ACTIONS: SELECT EDITOR,,
+ACTION_SELECT_IMPORT,,Import cursor mask,Importar máscara del cursor

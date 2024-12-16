@@ -75,6 +75,16 @@ func _physics_process(_delta: float) -> void:
 		generate_preview(preview_index)
 
 
+# Undo/Redo status shorthand
+func status_register_action(action_text: String) -> void:
+	undo_redo.add_do_method(Status.set_status.call_deferred.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.call_deferred.bind(
+		tr("ACTION_UNDO").format({
+			"action": action_text
+		}
+	)))
+
+
 func import_file_direct(path: String) -> BinSprite:
 	return sprite_importer.import_sprite(
 		path, false, false, false, false, false, false, 8)
@@ -103,8 +113,13 @@ func import_place_sprites(sprites: Array[BinSprite]) -> void:
 func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	var data_sprites: Array[BinSprite] = obj_data.sprites
 	
-	var action_text: String = "Import %s '%s' sprite(s)" % [
-		sprites.size(), obj_data.name]
+	var action_text: String = TranslationServer.translate(
+		"ACTION_SPRITE_IMPORTER_IMPORT").format({
+			"count": sprites.size(),
+			"object": obj_data.name
+		}
+	)
+	
 	undo_redo.create_action(action_text)
 	
 	match placement_method:
@@ -176,7 +191,6 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	
 	undo_redo.add_do_method(import_set_status.bind(action_text))
 	undo_redo.add_undo_method(import_set_status.bind(action_text, true))
-	
 	undo_redo.commit_action()
 
 
@@ -204,7 +218,9 @@ func import_placement_done() -> void:
 
 func import_set_status(text: String, undo: bool = false) -> void:
 	if undo:
-		text = "Undo: %s" % text
+		text = TranslationServer.translate("ACTION_UNDO").format({
+			"action": text
+		})
 	
 	Status.set_status.bind(text).call_deferred()
 

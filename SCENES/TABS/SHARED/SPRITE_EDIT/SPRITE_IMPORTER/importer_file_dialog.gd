@@ -14,9 +14,11 @@ func on_browse_clicked() -> void:
 	if visible:
 		return
 	
+	current_path = FileMemory.sprite_sprite_import
 	show()
 
 
 func on_files_selected(files: PackedStringArray) -> void:
 	SpriteImport.obj_data = sprite_edit.obj_data
 	SpriteImport.select_files(files)
+	FileMemory.sprite_sprite_import = current_path
