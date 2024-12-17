@@ -1,0 +1,856 @@
+[gd_scene format=3 uid="uid://c78plwgmf24mh"]
+
+[node name="play_data" type="MarginContainer"]
+visible = false
+metadata/_tab_index = 0
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="data" type="HBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="basic" type="VBoxContainer" parent="margin/data"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/basic"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/basic/title"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/basic/title"]
+layout_mode = 2
+text = "Basic properties"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/basic/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="scroll" type="ScrollContainer" parent="margin/data/basic"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="margin" type="MarginContainer" parent="margin/data/basic/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="character" type="VBoxContainer" parent="margin/data/basic/scroll/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="properties" type="VBoxContainer" parent="margin/data/basic/scroll/margin/character"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/basic/scroll/margin/character/properties/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/title"]
+layout_mode = 2
+text = "Character properties"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/basic/scroll/margin/character/properties/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="stun_res" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/stun_res"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Stun resistance"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/stun_res"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="defense" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/defense"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Defense"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/defense"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="guts" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/guts"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Guts"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/guts"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="critical" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/critical"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Critical"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/critical"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="weight" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/weight"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Weight"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/weight"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="airdash_count" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/airdash_count"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Airdash count"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/airdash_count"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="airjump_count" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/airjump_count"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Air jump count"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/airjump_count"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="guardbalance_defense" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/properties"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/properties/guardbalance_defense"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Guard balance defense"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/properties/guardbalance_defense"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="tension_gain" type="VBoxContainer" parent="margin/data/basic/scroll/margin/character"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/basic/scroll/margin/character/tension_gain/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/title"]
+layout_mode = 2
+text = "Tension gain"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/basic/scroll/margin/character/tension_gain/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="fwalk_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/fwalk_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward walk tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/fwalk_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fjump_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/fjump_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward jump tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/fjump_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fdash_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/fdash_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward dash tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/fdash_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fairdash_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/fairdash_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward airdash tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/fairdash_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="guardbalance_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/guardbalance_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Guard balance tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/guardbalance_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="instantblock_tension" type="HBoxContainer" parent="margin/data/basic/scroll/margin/character/tension_gain"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/basic/scroll/margin/character/tension_gain/instantblock_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Instant block tension"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/basic/scroll/margin/character/tension_gain/instantblock_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="movement" type="VBoxContainer" parent="margin/data"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/title"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/title"]
+layout_mode = 2
+text = "Movement properties"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="scroll" type="ScrollContainer" parent="margin/data/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical_scroll_mode = 2
+
+[node name="margin" type="MarginContainer" parent="margin/data/movement/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="movement" type="VBoxContainer" parent="margin/data/movement/scroll/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="walking" type="VBoxContainer" parent="margin/data/movement/scroll/margin/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/walking"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/walking/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/walking/title"]
+layout_mode = 2
+text = "Walking"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/walking/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="fwalk_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/walking"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/walking/fwalk_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/walking/fwalk_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bwalk_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/walking"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/walking/bwalk_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backward velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/walking/bwalk_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="dashing" type="VBoxContainer" parent="margin/data/movement/scroll/margin/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/dashing/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/title"]
+layout_mode = 2
+text = "Dashing"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/dashing/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="fdash_init_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_init_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward dash initial velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_init_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fdash_accel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_accel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward dash acceleration"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_accel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fdash_reduce" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_reduce"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward dash reduce"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/fdash_reduce"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bdash_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backdash X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bdash_y_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backdash Y velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bdash_gravity" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/dashing"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backdash gravity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/dashing/bdash_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="jumping" type="VBoxContainer" parent="margin/data/movement/scroll/margin/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/jumping/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/title"]
+layout_mode = 2
+text = "Jumping"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/jumping/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="fjump_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/fjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward jump X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/fjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bjump_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/bjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backward jump X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/bjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="jump_y_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/jump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Jump Y velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/jump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="jump_gravity" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/jump_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Jump gravity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/jump_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fsuperjump_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/fsuperjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward superjump X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/fsuperjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bsuperjump_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/bsuperjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backward superjump X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/bsuperjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="superjump_y_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/superjump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Superjump Y velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/superjump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="superjump_gravity" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/jumping"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/jumping/superjump_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Superjump gravity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/jumping/superjump_gravity"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="homing_jump" type="VBoxContainer" parent="margin/data/movement/scroll/margin/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/homing_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/homing_jump/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/homing_jump/title"]
+layout_mode = 2
+text = "Homing jump"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/homing_jump/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="init_homingjump_x_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/homing_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Homing jump X velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_x_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="init_homingjump_y_vel" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/homing_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Homing jump Y velocity"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_y_vel"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="init_homingjump_x_reduce" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/homing_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_x_reduce"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Homing jump X reduce"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_x_reduce"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="init_homingjump_y_offset" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/homing_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_y_offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Homing jump Y offset"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/homing_jump/init_homingjump_y_offset"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="airdash" type="VBoxContainer" parent="margin/data/movement/scroll/margin/movement"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep_0" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/airdash/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/title"]
+layout_mode = 2
+text = "Airdash"
+horizontal_alignment = 1
+
+[node name="h_sep_1" type="HSeparator" parent="margin/data/movement/scroll/margin/movement/airdash/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="airdash_minimum_height" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/airdash_minimum_height"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Airdash minimum height"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/airdash/airdash_minimum_height"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fairdash_time" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/fairdash_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward airdash time"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/airdash/fairdash_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bairdash_time" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/bairdash_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backward airdash time"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/airdash/bairdash_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="fairdash_no_attack_time" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/fairdash_no_attack_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Forward airdash no attack time"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/airdash/fairdash_no_attack_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="bairdash_no_attack_time" type="HBoxContainer" parent="margin/data/movement/scroll/margin/movement/airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="margin/data/movement/scroll/margin/movement/airdash/bairdash_no_attack_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Backward airdash no attack time"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="margin/data/movement/scroll/margin/movement/airdash/bairdash_no_attack_time"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2

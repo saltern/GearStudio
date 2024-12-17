@@ -42,6 +42,7 @@ gdscript/warnings/narrowing_conversion=0
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/sharp_corners=true
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 

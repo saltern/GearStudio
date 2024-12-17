@@ -1,8 +1,11 @@
 extends Control
 
-@onready var script_edit: ScriptEdit = get_owner()
+var session_id: int
+var obj_data: Dictionary
 
 var palette_index: int = 0
+
+@onready var script_edit: ScriptEdit = owner
 
 
 func _enter_tree() -> void:
@@ -12,12 +15,11 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	script_edit.cell_loaded.connect(on_cell_loaded)
-	script_edit.obj_data.palette_updated.connect(reload_palette)
-	script_edit.obj_data.palette_selected.connect(load_palette)
+	SessionData.palette_changed.connect(load_palette)
 
 
 func on_cell_loaded(cell: Cell) -> void:
-	if cell.sprite_info.index < script_edit.obj_data.sprite_get_count():
+	if cell.sprite_info.index < script_edit.sprite_get_count():
 		load_cell_sprite(cell.sprite_info.index, cell.boxes)
 	
 	else:
@@ -56,9 +58,9 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
 ) -> void:
-	var sprite: BinSprite = script_edit.obj_data.sprite_get(index)
+	var sprite: BinSprite = script_edit.sprite_get(index)
 	
-	if not script_edit.obj_data.has_palettes():
+	if not script_edit.obj_data.has("palettes"):
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
 	var source_image := sprite.image
@@ -98,21 +100,24 @@ func load_cell_sprite_pieces(
 
 func get_palette(index: int) -> PackedByteArray:
 	# Global palette
-	if script_edit.obj_data.has_palettes():
-		return script_edit.obj_data.palette_get(palette_index).palette
+	if script_edit.obj_data.has("palettes"):
+		return script_edit.palette_get(palette_index).palette
 	
 	# Embedded palette
-	var sprite: BinSprite = script_edit.obj_data.sprite_get(index)
+	var sprite: BinSprite = script_edit.sprite_get(index)
 	return sprite.palette
 
 
-func load_palette(index: int) -> void:
-	palette_index = index
+func load_palette(for_session: int, palette_index: int) -> void:
+	if for_session != session_id:
+		return
+	
+	palette_index = palette_index
 	material.set_shader_parameter("palette", get_palette(palette_index))
 
 
-func reload_palette() -> void:
-	if script_edit.obj_data.has_palettes():
-		load_palette(palette_index)
-	else:
-		load_palette(script_edit.sprite_get_index())
+#func reload_palette() -> void:
+	#if script_edit.obj_data.has("palettes"):
+		#load_palette(session_id, palette_index)
+	#else:
+		#load_palette(session_id, script_edit.sprite_get_index())

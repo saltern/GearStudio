@@ -51,6 +51,10 @@ func menu_clicked(menu_id: int) -> void:
 			load_dialog_bin.show()
 		
 		ButtonID.SAVE:
+			if SessionData.this_session.is_empty():
+				Status.set_status("STATUS_SAVE_NOTHING")
+				return
+			
 			overwrite_dialog.show()
 
 		ButtonID.SAVE_AS:

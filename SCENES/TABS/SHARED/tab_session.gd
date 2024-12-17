@@ -94,7 +94,7 @@ func load_sprite_list_select(object: Dictionary) -> TabContainer:
 
 func load_sprite_list(object: Dictionary) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
-	new_tab.name = "#%s | %s" % [get_child_count(), "TAB_TITLE_SPRITE_LIST"]
+	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE_LIST")]
 	
 	new_tab.add_child(get_sprite_editor(object))
 	

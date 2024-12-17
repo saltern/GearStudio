@@ -151,9 +151,8 @@ color = Color(0.101961, 0.101961, 0.101961, 1)
 script = ExtResource("8_5nt50")
 
 [node name="about" type="Panel" parent="."]
-visible = false
 z_index = 1
-custom_minimum_size = Vector2(650, 380)
+custom_minimum_size = Vector2(650, 420)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -185,36 +184,95 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="acknowledgments" type="RichTextLabel" parent="about/content/details"]
+[node name="acknowledgments" type="VBoxContainer" parent="about/content/details"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="title" type="Label" parent="about/content/details/acknowledgments"]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_TITLE"
+horizontal_alignment = 1
+
+[node name="ryn_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_fonts/bold_font = ExtResource("10_1bryt")
 bbcode_enabled = true
-text = "[center]ACKNOWLEDGMENTS
-
-[b]Ryn[/b]
-[url={https://github.com/wistfulhopes}]Github[/url] / [url={https://twitter.com/wistfulhopes}]Twitter[/url]
-- Character BIN parser
-- +R sprite decoder
-
-[b]lovenus[/b]
-[url={https://github.com/MoonSquaredd}]Github[/url]
-- Parsers for various other resource files
-- Additional info and research into +R
-
-[b]Chloe (@chloegoaty)[/b]
-- Testing, various improvement suggestions"
+text = "
+[center][b]Ryn[/b]
+[url=https://github.com/wistfulhopes]Github[/url] / [url=https://wistfulhopes.bsky.social]Bluesky[/url]"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
+[node name="ryn_contributions" type="Label" parent="about/content/details/acknowledgments"]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_RYN"
+horizontal_alignment = 1
+
+[node name="pad_0" type="Control" parent="about/content/details/acknowledgments"]
+visible = false
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="lovenus_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("10_1bryt")
+bbcode_enabled = true
+text = "
+[center][b]lovenus[/b]
+[url={https://github.com/MoonSquaredd}]Github[/url]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("5_jbgtt")
+
+[node name="lovenus_contributions" type="Label" parent="about/content/details/acknowledgments"]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_LOVENUS"
+horizontal_alignment = 1
+
+[node name="pad_1" type="Control" parent="about/content/details/acknowledgments"]
+visible = false
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="chloe_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("10_1bryt")
+bbcode_enabled = true
+text = "
+[center][b]Chloe (@chloegoaty)[/b]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("5_jbgtt")
+
+[node name="chloe_contributions" type="Label" parent="about/content/details/acknowledgments"]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_CHLOE"
+horizontal_alignment = 1
+
 [node name="v_sep" type="VSeparator" parent="about/content/details"]
 layout_mode = 2
 
-[node name="info" type="RichTextLabel" parent="about/content/details"]
+[node name="info" type="VBoxContainer" parent="about/content/details"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="gear_studio" type="RichTextLabel" parent="about/content/details/info"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -223,9 +281,34 @@ bbcode_enabled = true
 text = "[center][b]GEAR STUDIO[/b]
 0.4.0 (Oct 30th 2024)
 
-by [b]ALT_OhDude[/b] ([url={https://github.com/saltern}]Github[/url])."
+"
 fit_content = true
 scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("5_jbgtt")
+
+[node name="author" type="HBoxContainer" parent="about/content/details/info"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = -2
+
+[node name="by" type="RichTextLabel" parent="about/content/details/info/author"]
+layout_mode = 2
+text = "ABOUT_BY"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="name" type="RichTextLabel" parent="about/content/details/info/author"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("10_1bryt")
+bbcode_enabled = true
+text = "[center][b] ALT_OhDude[/b] ([url=https://github.com/saltern]Github[/url])."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
@@ -1039,6 +1122,9 @@ layout_mode = 2
 size_flags_vertical = 8
 text = "PREFERENCES_SAVE"
 
-[connection signal="meta_clicked" from="about/content/details/acknowledgments" to="about/content/details/acknowledgments" method="link_clicked"]
-[connection signal="meta_clicked" from="about/content/details/info" to="about/content/details/info" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/acknowledgments/ryn_header" to="about/content/details/acknowledgments/ryn_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/acknowledgments/lovenus_header" to="about/content/details/acknowledgments/lovenus_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/acknowledgments/chloe_header" to="about/content/details/acknowledgments/chloe_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/info/gear_studio" to="about/content/details/info/gear_studio" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/info/author/name" to="about/content/details/info/author/name" method="link_clicked"]
 [connection signal="pressed" from="about/content/close_button/button" to="about" method="hide"]

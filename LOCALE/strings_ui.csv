@@ -55,8 +55,13 @@ ABOUT_BY,"""by ALT_OhDude (Github).""",by,por
 ABOUT_CLOSE,Close button on the about panel,Close,Cerrar
 ,GENERIC,,
 TAB_BASE_NAME,Name structure for an opened file's tab,File {id}: {name},Archivo {id}: {name}
-TAB_SCRIPTABLE_NAME_OBJECT,Name for a scriptable object without palettes,Object,Objeto
-TAB_SCRIPTABLE_NAME_PLAYER,Name for a scriptable object with palettes,Player,Jugador
+TAB_TITLE_OBJECT,Name for a scriptable object without palettes,Object,Objeto
+TAB_TITLE_PLAYER,Name for a scriptable object with palettes,Player,Jugador
+TAB_TITLE_SPRITE,Name for a 'single sprite' type object,Sprite,Sprite
+TAB_TITLE_SPRITE_LIST,Name for a spritelist object,Sprites,Sprites
+TAB_TITLE_SPRITE_LIST_SELECT,Name for select.bin's first object,Sprites + Cursor Mask,Sprites + Máscara del Cursor
+TAB_TITLE_PLAIN_TEXT,Name for the archive_jpf.bin plain_text object,Plain Text,Texto Plano
+TAB_TITLE_MULTI_SCRIPTABLE,Name for archive_jpf.bin's effects object,Effects,Efectos
 ,SPRITE EDITOR,,
 SPRITE_EDIT_TITLE,Tab title,Sprites,Sprites
 SPRITE_EDIT_PREVIEW,Preview panel title,Preview,Vista previa

@@ -9,7 +9,7 @@ extends FileDialog
 func _ready() -> void:
 	summon_button.pressed.connect(display)
 	file_selected.connect(select_edit.import)
-	file_selected.connect(register_path)
+	file_selected.connect(register_path.unbind(1))
 
 
 func display() -> void:
@@ -20,5 +20,5 @@ func display() -> void:
 	show()
 
 
-func register_path(path: String) -> void:
+func register_path() -> void:
 	FileMemory.select_import = current_path
