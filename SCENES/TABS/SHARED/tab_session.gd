@@ -4,6 +4,7 @@ var session_id: int
 
 @export var TabSpriteEdit: PackedScene
 @export var TabCellEdit: PackedScene
+@export var TabScriptEdit: PackedScene
 @export var TabPaletteEdit: PackedScene
 @export var TabSelectEdit: PackedScene
 
@@ -57,6 +58,13 @@ func get_cell_editor(object: Dictionary) -> CellEdit:
 	cell_edit.session_id = session_id
 	cell_edit.obj_data = object
 	return cell_edit
+
+
+func get_script_editor(object: Dictionary) -> ScriptEdit:
+	var script_edit: ScriptEdit = TabScriptEdit.instantiate()
+	script_edit.session_id = session_id
+	script_edit.obj_data = object
+	return script_edit
 
 
 func get_palette_editor(object: Dictionary) -> PaletteEdit:
@@ -119,6 +127,9 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	
 	new_tab.add_child(get_sprite_editor(object))
 	new_tab.add_child(get_cell_editor(object))
+	
+	if object.has("scripts"):
+		new_tab.add_child(get_script_editor(object))
 	
 	if object.has("palettes"):
 		new_tab.name = "#%s | %s" % [object_number, tr("TAB_TITLE_PLAYER")]

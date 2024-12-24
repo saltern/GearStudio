@@ -11,6 +11,7 @@ func _ready() -> void:
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	value_changed.connect(sprite_edit.sprite_set)
 	sprite_edit.provider.palette_imported.connect(external_set_sprite)
+	
 	update_sprite_count()
 
 

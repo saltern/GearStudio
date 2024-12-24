@@ -16,7 +16,7 @@ EDIT_PREFERENCES,,Preferences...,Preferencias...
 HELP_ABOUT,Help menu,About...,Acerca de...
 ,PREFERENCES MENU,,
 PREFERENCES_TITLE,Title bar of the preferences menu window,Preferences,Preferencias
-PREFERENCES_GENERAL_TITLE,"""General"" section of the preferences menu",General,General
+PREFERENCES_GENERAL_TITLE,"""General"" section of the preferences menu",General,
 PREFERENCES_GENERAL_LANGUAGE,,Language,Idioma
 PREFERENCES_CUSTOMIZATION_TITLE,"""Customization"" section of the preferences menu",Customization,Personalización
 PREFERENCES_CUSTOMIZATION_BG_GRID_1,,Background grid color 1,Color 2 grilla de fondo
@@ -35,7 +35,7 @@ PREFERENCES_BOXES_REGION_BACK,,"Color (region, back)","Color (región, fondo)"
 PREFERENCES_BOXES_REGION_FRONT,,"Color (region, front)","Color (región, frente)"
 PREFERENCES_BOXES_COLLISION_EXTENSION,,Color (collision extension),Color (extensión de colisión)
 PREFERENCES_BOXES_SPAWN,,Color (effect spawn point),Color (punto de creación de efectos)
-PREFERENCES_SPRITES_TITLE,"""Sprites"" section of the preferences menu",Sprites,Sprites
+PREFERENCES_SPRITES_TITLE,"""Sprites"" section of the preferences menu",Sprites,
 PREFERENCES_SPRITES_BOUNDS,,Color (bounds),Color (límites)
 PREFERENCES_MISCELLANEOUS_TITLE,"""Miscellaneous"" section of the preferences menu",Miscellaneous,Misceláneo
 PREFERENCES_MISCELLANEOUS_UNDO,,Max undo steps,Deshacer: pasos máximos
@@ -47,7 +47,7 @@ side of the about panel",ACKNOWLEDGMENTS,RECONOCIMIENTOS
 ABOUT_ACKNOWLEDGMENTS_RYN,Ryn's contribution credits,"- Character BIN parser
 - +R sprite decoder","- Conversor de BIN para personajes
 - Decodificador de sprites de +R"
-ABOUT_ACKNOWLEDGMENTS_LOVENUS,Lovenus' contribution credits,"- Parsers for various other resource files
+ABOUT_ACKNOWLEDGMENTS_LOVENUS,Lovenus' contribution credits,"- Parser for various other resource files
 - Additional info and research into +R","- Conversor de múltiples otros tipos de recursos
 - Información e investigación adicional sobre +R"
 ABOUT_ACKNOWLEDGMENTS_CHLOE,Chloe's contribution credits,"- Testing, various improvement suggestions","- Testeo, sugerencias de mejoras varias"
@@ -63,7 +63,7 @@ TAB_TITLE_SPRITE_LIST_SELECT,Name for select.bin's first object,Sprites + Cursor
 TAB_TITLE_PLAIN_TEXT,Name for the archive_jpf.bin plain_text object,Plain Text,Texto Plano
 TAB_TITLE_MULTI_SCRIPTABLE,Name for archive_jpf.bin's effects object,Effects,Efectos
 ,SPRITE EDITOR,,
-SPRITE_EDIT_TITLE,Tab title,Sprites,Sprites
+SPRITE_EDIT_TITLE,Tab title,Sprites,
 SPRITE_EDIT_PREVIEW,Preview panel title,Preview,Vista previa
 SPRITE_EDIT_SPRITE_IMPORT,Button that opens the sprite import dialog,Import...,Importar...
 SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,,Import one or more sprites...,Importar uno o más sprites...
@@ -384,7 +384,144 @@ PALETTE_EDIT_COLOR_EDITOR_TOOLTIP,,Choose here the color to apply to the selecte
 PALETTE_EDIT_PREVIEW,"""Preview"", title",Preview,Vista previa
 PALETTE_EDIT_SPRITE_INDEX,"""Sprite #"", title",Sprite #,
 PALETTE_EDIT_SPRITE_INDEX_TOOLTIP,,Sets the sprite to preview the current palette with.,Establece el sprite con el cual previsualizar la paleta actual.
-,SELECT EDIT,,
+,SCRIPT EDITOR,,
+SCRIPT_EDIT_TITLE,Main tab title,Script,
+SCRIPT_EDIT_TITLE_PLAY_DATA,"""Play data"", tab title, unused at the moment",Play data,Datos de juego
+SCRIPT_EDIT_TITLE_ACTIONS,"""Actions"", tab title",Actions,Acciones
+SCRIPT_EDIT_ACTION,"""Action #"", title",Action #,Acción #
+SCRIPT_EDIT_INSTRUCTIONS,"""Instructions"", section title",Instructions,Instrucciones
+,INSTRUCTION LIST,,
+SCRIPT_INST_UNKNOWN,"""Unknown""",Unknown,Desconocida
+SCRIPT_INST_ARG_UNKNOWN,"""Unknown"" (parameter)",Unknown,Desconocido
+SCRIPT_INST_ARG_UNUSED,"""Unused""",Unused,No utilizado
+,,,
+SCRIPT_INST_0,CellBegin,CellBegin,Mostrar Celda
+SCRIPT_INST_0_ARG_0,,Duration,Duración
+SCRIPT_INST_0_ARG_1,,Cell #,Celda #
+SCRIPT_INST_1,(Unused),Unused,No utilizada
+SCRIPT_INST_2,ASTFLAGCONTROL,Attack State Flag Control,Ctrl. Flags Estado Ataque
+SCRIPT_INST_2_ARG_0,,Flag,Flag
+SCRIPT_INST_2_ARG_1,,Mode,Modo
+SCRIPT_INST_3,BACK_MOTION,Recovery State,Estado de Recuperación
+SCRIPT_INST_4,RENEWAL_COLLISION,Reactivate Attack,Reactivar Ataque
+SCRIPT_INST_5,SETCOLLISIONDATA,Set Collision Data,Cambiar Datos Colisión
+SCRIPT_INST_6,SEMITRANS,Color Blending,Modo de Mezcla
+SCRIPT_INST_6_ARG_0,,Alpha,Alfa
+SCRIPT_INST_6_ARG_1,,Blend,Mezclado
+SCRIPT_INST_7,SCALE,Scale,Cambiar Tamaño
+SCRIPT_INST_7_ARG_0,,Mode,Modo
+SCRIPT_INST_7_ARG_1,,Value,Valor
+SCRIPT_INST_8,ROT,Rotate,Rotar
+SCRIPT_INST_8_ARG_0,,Mode,Modo
+SCRIPT_INST_8_ARG_1,,Value,Valor
+SCRIPT_INST_9,FIXEDEFFECT,FIXEDEFFECT,
+SCRIPT_INST_10,COMMUNICATE,COMMUNICATE,
+SCRIPT_INST_11,(Unused),Unused,No utilizada
+SCRIPT_INST_12,(Unused),Unused,No utilizada
+SCRIPT_INST_13,DO_NOT_CHECK_ATTACK,Do Not Check Attack,No Comprobar Ataque
+SCRIPT_INST_14,DO_NOT_CHECK_DAMAGE,Do Not Check Damage,No Comprobar Daño
+SCRIPT_INST_15,REVERSE,Reverse,Voltear
+SCRIPT_INST_16,DRAW_NORMAL,Draw Normal,Orientar al frente
+SCRIPT_INST_17,DRAW_REVERSE,Draw Reverse,Orientar al revés
+SCRIPT_INST_18,CHAIN_CANCEL,CHAIN_CANCEL,
+SCRIPT_INST_19,(Unused),Unused,No utilizada
+SCRIPT_INST_20,(Unused),Unused,No utilizada
+SCRIPT_INST_21,(Unused),Unused,No utilizada
+SCRIPT_INST_22,(Unused),Unused,No utilizada
+SCRIPT_INST_23,PARENT_OFFSET_POS_X,PARENT_OFFSET_POS_X,
+SCRIPT_INST_24,PARENT_OFFSET_POS_X,PARENT_OFFSET_POS_Y,
+SCRIPT_INST_25,InitInstance,InitInstance,Crear instancia
+SCRIPT_INST_26,DELETECHARACTER,Delete character,Eliminar personaje
+SCRIPT_INST_27,RQ_SOUND,Play sound,Reproducir sonido
+SCRIPT_INST_28,ENEMY_HIT_SE_MODE,ENEMY_HIT_SE_MODE,
+SCRIPT_INST_29,ENEMY_GUARD_SE_MODE,ENEMY_GUARD_SE_MODE,
+SCRIPT_INST_30,GUARD_VOICE,Guard voice,Voz al bloquear
+SCRIPT_INST_30_ARG_0,,Sound #,Sonido #
+SCRIPT_INST_30_ARG_2,,Probability,Probabilidad
+SCRIPT_INST_31,DAMAGE_VOICE,Damage voice,Voz al recibir daño
+SCRIPT_INST_31_ARG_0,,Sound #,Sonido #
+SCRIPT_INST_31_ARG_2,,Probability,Probabilidad
+SCRIPT_INST_32,(Unused),Unused,No utilizada
+SCRIPT_INST_33,ENEMYDAMAGE,ENEMYDAMAGE,
+SCRIPT_INST_34,DOWN_GRAV,DOWN_GRAV,
+SCRIPT_INST_35,DOWN_X,DOWN_X,
+SCRIPT_INST_36,DOWN_Y,DOWN_Y,
+SCRIPT_INST_37,(Unused),Unused,
+SCRIPT_INST_38,DELETE_ITTAI,DELETE_ITTAI,
+SCRIPT_INST_39,SkipInstructions,SkipInstructions,
+SCRIPT_INST_40,FADE,FADE,
+SCRIPT_INST_41,(Unused),Unused,No utilizada
+SCRIPT_INST_42,(Unused),Unused,No utilizada
+SCRIPT_INST_43,(Unused),Unused,No utilizada
+SCRIPT_INST_44,(Unused),Unused,No utilizada
+SCRIPT_INST_45,SET_PRIORITY,SET_PRIORITY,
+SCRIPT_INST_46,(Unused),Unused,No utilizada
+SCRIPT_INST_47,SET_DAMAGE,SET_DAMAGE,
+SCRIPT_INST_48,SET_LEVEL,SET_LEVEL,
+SCRIPT_INST_48_ARG_1,,Level,Nivel
+SCRIPT_INST_49,SET_ACTTYPE,SET_ACTTYPE,
+SCRIPT_INST_50,SET_DOWNTIME,SET_DOWNTIME,
+SCRIPT_INST_51,(Unused),Unused,No utilizada
+SCRIPT_INST_52,TENSION,TENSION,
+SCRIPT_INST_53,POSBYENEMY,POSBYENEMY,
+SCRIPT_INST_54,SETMARK,SETMARK,
+SCRIPT_INST_55,SETMASK,SETMASK,
+SCRIPT_INST_56,(Unused),Unused,No utilizada
+SCRIPT_INST_57,SETMAXHIT,Set Max Hits,Estab. Golpes Máximos
+SCRIPT_INST_58,INDEPENDENCE,INDEPENDENCE,
+SCRIPT_INST_59,VEBALL,VEBALL,
+SCRIPT_INST_60,PALETTE,Palette,Paleta
+SCRIPT_INST_60_ARG_0,,Player,Jugador
+SCRIPT_INST_60_ARG_1,,Section,Sección
+SCRIPT_INST_61,REVIVEDAMAGE,REVIVEDAMAGE,
+SCRIPT_INST_62,FREEIMAGE,FREEIMAGE,
+SCRIPT_INST_63,JUMPCANCEL,JUMPCANCEL,
+SCRIPT_INST_64,KAKUSEI,KAKUSEI,
+SCRIPT_INST_65,SETXSPEED,SETXSPEED,
+SCRIPT_INST_66,SETYSPEED,SETYSPEED,
+SCRIPT_INST_67,SETGRAVITY,SETGRAVITY,
+SCRIPT_INST_68,SETDOWNFLAG,SETDOWNFLAG,
+SCRIPT_INST_69,VISUAL,VISUAL,
+SCRIPT_INST_70,FLASH,FLASH,
+SCRIPT_INST_71,RENDACHANSEL,RENDACHANSEL,
+SCRIPT_INST_72,GROUNDSHAKE,GROUNDSHAKE,
+SCRIPT_INST_73,KEZURI,KEZURI,
+SCRIPT_INST_74,FAINT,FAINT,
+SCRIPT_INST_75,RANDPOS,RANDPOS,
+SCRIPT_INST_76,SIT,Set Crouch State,Estab. Estado Agachado
+SCRIPT_INST_76_ARG_1,,Operation,Operación
+SCRIPT_INST_77,JUMPCONTROL,JUMPCONTROL,
+SCRIPT_INST_78,DAMAGEHOSEI,DAMAGEHOSEI,
+SCRIPT_INST_79,MUTEKI,MUTEKI,
+SCRIPT_INST_80,NOTHROW,NOTHROW,
+SCRIPT_INST_81,SETLOCALID,SETLOCALID,
+SCRIPT_INST_82,AFTERIMAGE,AFTERIMAGE,
+SCRIPT_INST_83,GUARD,GUARD,
+SCRIPT_INST_84,(Unknown),Unknown,Desconocida
+SCRIPT_INST_85,(Unknown),Unknown,Desconocida
+SCRIPT_INST_86,(Unknown),Unknown,Desconocida
+SCRIPT_INST_87,(Unknown),Unknown,Desconocida
+SCRIPT_INST_88,(Unknown),Unknown,Desconocida
+SCRIPT_INST_89,(Unknown),Unknown,Desconocida
+SCRIPT_INST_90,(Unknown),Unknown,Desconocida
+SCRIPT_INST_91,(Unknown),Unknown,Desconocida
+SCRIPT_INST_92,(Unknown),Unknown,Desconocida
+SCRIPT_INST_93,(Unknown),Unknown,Desconocida
+SCRIPT_INST_94,(Unused/Broken),Unused/broken,No utilizada/no funcional
+SCRIPT_INST_95,(Unknown),Unknown,Desconocida
+SCRIPT_INST_96,(Unknown/WIP),Unknown,Desconocida
+SCRIPT_INST_97,CellBegin (complex),CellBegin (alternative),Mostrar Celda (alternativa)
+SCRIPT_INST_98,(Unknown),Unknown,Desconocida
+SCRIPT_INST_99,(Unknown),Unknown,Desconocida
+SCRIPT_INST_100,(Unknown),Unknown,Desconocida
+SCRIPT_INST_101,(Unknown),Unknown,Desconocida
+SCRIPT_INST_102,(Unknown),Unknown,Desconocida
+SCRIPT_INST_103,(Unknown),Unknown,Desconocida
+SCRIPT_INST_104,(Unused/Broken),Unused/broken,No utilizada/no funcional
+SCRIPT_INST_255,End of action,End action,Fin de acción
+SCRIPT_INST_255_ARG_0,,Mode,Modo
+SCRIPT_INST_255_ARG_1,,Parameter,Parámetro
+,SELECT EDITOR,,
 SELECT_EDIT_TITLE,Tab title,Cursor Mask,Máscara del Cursor
 SELECT_EDIT_IMPORT,Import cursor mask button,Import...,Importar...
 SELECT_EDIT_IMPORT_TOOLTIP,,Select an image to replace the cursor mask with.,Selecciona una imagen con la cual reemplazar la máscara del cursor.

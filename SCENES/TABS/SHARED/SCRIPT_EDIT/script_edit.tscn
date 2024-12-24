@@ -1,15 +1,32 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=29 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
-[ext_resource type="Script" uid="uid://bt30a0r02bvsc" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/main_preview.gd" id="1_ppvc4"]
+[ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
 [ext_resource type="Script" uid="uid://ojsjmxp21twu" path="res://CLASSES/CONTROL/class_stepping_spinbox.gd" id="2_cp5hf"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="2_hled3"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_i86rk"]
+[ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="3_y47wv"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="4_fp2qg"]
+[ext_resource type="Texture2D" uid="uid://7wmhqtwamyee" path="res://ICONS/new_left.svg" id="4_v65u5"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="5_7mwsm"]
+[ext_resource type="Texture2D" uid="uid://mtgfsjtan4rb" path="res://ICONS/new_right.svg" id="5_qi07w"]
+[ext_resource type="Texture2D" uid="uid://bnr5mkhl5ghgh" path="res://ICONS/copy.svg" id="6_uc0na"]
+[ext_resource type="Texture2D" uid="uid://b0oprk8vqk1sc" path="res://ICONS/clipboard_left.svg" id="7_5hivn"]
+[ext_resource type="Texture2D" uid="uid://b26ndog68sdw3" path="res://ICONS/clipboard.svg" id="8_3otq7"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="8_tc77i"]
+[ext_resource type="Texture2D" uid="uid://fd18dydlbond" path="res://ICONS/clipboard_right.svg" id="9_0a85a"]
 [ext_resource type="Script" uid="uid://b3jh2u54w2vda" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_rfuac"]
+[ext_resource type="Script" uid="uid://bf08biydngkbr" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_type.gd" id="11_3otq7"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
+[ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_list.gd" id="12_0a85a"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
+[ext_resource type="Texture2D" uid="uid://cte73girc3poy" path="res://ICONS/play_from_start.svg" id="18_uc0na"]
+[ext_resource type="Texture2D" uid="uid://bl3yqtc1r5xxi" path="res://ICONS/play.svg" id="19_5hivn"]
+[ext_resource type="Texture2D" uid="uid://blit50g7vol1d" path="res://ICONS/stop.svg" id="20_3otq7"]
+[ext_resource type="Script" uid="uid://c6m83ykf53y7y" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/box_draw.gd" id="20_fi3dn"]
+[ext_resource type="Script" uid="uid://qi65k6lh8ed7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/timeline.gd" id="24_1g2a5"]
+[ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
+[ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onbgg"]
 bg_color = Color(1, 1, 1, 1)
@@ -19,7 +36,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="script" type="TabContainer"]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -62,8 +79,95 @@ text_overrun_behavior = 3
 [node name="value" type="SpinBox" parent="Actions/content/scroll/margin/data/action_idx"]
 layout_mode = 2
 size_flags_horizontal = 3
-script = ExtResource("2_cp5hf")
+script = ExtResource("2_5hivn")
 metadata/_custom_type_script = ExtResource("2_cp5hf")
+
+[node name="instructions" type="VBoxContainer" parent="Actions/content/scroll/margin/data"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="title" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="text" type="Label" parent="Actions/content/scroll/margin/data/instructions/title"]
+layout_mode = 2
+text = "Instructions"
+
+[node name="hsep_1" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="toolbar" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+layout_mode = 2
+
+[node name="delete" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("3_y47wv")
+
+[node name="new_before" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("4_v65u5")
+
+[node name="new_after" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("5_qi07w")
+
+[node name="copy" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("6_uc0na")
+
+[node name="paste_before" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("7_5hivn")
+
+[node name="paste" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("8_3otq7")
+
+[node name="paste_after" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+layout_mode = 2
+icon = ExtResource("9_0a85a")
+
+[node name="type" type="OptionButton" parent="Actions/content/scroll/margin/data/instructions"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("11_3otq7")
+
+[node name="scroll" type="ScrollContainer" parent="Actions/content/scroll/margin/data/instructions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="items" type="ItemList" parent="Actions/content/scroll/margin/data/instructions/scroll" node_paths=PackedStringArray("action_spinbox")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("12_0a85a")
+action_spinbox = NodePath("../../../action_idx/value")
+
+[node name="parameters" type="VBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="title" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions/parameters"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="text" type="Label" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+layout_mode = 2
+text = "Parameters"
+
+[node name="hsep_1" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="v_sep" type="VSeparator" parent="Actions/content"]
 layout_mode = 2
@@ -77,6 +181,10 @@ mouse_filter = 2
 layout_mode = 2
 text = "Preview"
 
+[node name="warning" type="Label" parent="Actions/content/visualizer"]
+layout_mode = 2
+text = "WARNING: This part of Gear Studio is incomplete, and may not correctly mirror in-game behavior."
+
 [node name="borders" type="PanelContainer" parent="Actions/content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -87,7 +195,7 @@ texture_filter = 1
 clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
-script = ExtResource("1_ppvc4")
+script = ExtResource("13_fi3dn")
 visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="Actions/content/visualizer/borders/clipper"]
@@ -150,11 +258,30 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
+[node name="Control" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="sprite" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
 material = ExtResource("8_tc77i")
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
+
+[node name="parent" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite"]
+use_parent_material = true
+
+[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("20_fi3dn")
 
 [node name="origin_cross" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
 custom_minimum_size = Vector2(40, 40)
@@ -238,3 +365,47 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="timeline" type="HBoxContainer" parent="Actions/content/visualizer"]
+layout_mode = 2
+
+[node name="play_from_start" type="Button" parent="Actions/content/visualizer/timeline"]
+layout_mode = 2
+icon = ExtResource("18_uc0na")
+
+[node name="play" type="Button" parent="Actions/content/visualizer/timeline"]
+layout_mode = 2
+icon = ExtResource("19_5hivn")
+
+[node name="stop" type="Button" parent="Actions/content/visualizer/timeline"]
+layout_mode = 2
+icon = ExtResource("20_3otq7")
+
+[node name="timeline" type="HSlider" parent="Actions/content/visualizer/timeline" node_paths=PackedStringArray("action_spinbox", "button_play_from_start", "button_play")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource("24_1g2a5")
+action_spinbox = NodePath("../../../scroll/margin/data/action_idx/value")
+button_play_from_start = NodePath("../play_from_start")
+button_play = NodePath("../play")
+
+[node name="f_current" type="Label" parent="Actions/content/visualizer/timeline" node_paths=PackedStringArray("timeline")]
+custom_minimum_size = Vector2(41, 0)
+layout_mode = 2
+text = "1"
+horizontal_alignment = 2
+script = ExtResource("25_puh6r")
+timeline = NodePath("../timeline")
+
+[node name="f_separator" type="Label" parent="Actions/content/visualizer/timeline"]
+layout_mode = 2
+text = "/"
+horizontal_alignment = 1
+
+[node name="f_total" type="Label" parent="Actions/content/visualizer/timeline" node_paths=PackedStringArray("timeline")]
+layout_mode = 2
+text = "0000 F"
+horizontal_alignment = 1
+script = ExtResource("26_f2brd")
+timeline = NodePath("../timeline")

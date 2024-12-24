@@ -151,6 +151,7 @@ color = Color(0.101961, 0.101961, 0.101961, 1)
 script = ExtResource("8_5nt50")
 
 [node name="about" type="Panel" parent="."]
+visible = false
 z_index = 1
 custom_minimum_size = Vector2(650, 420)
 layout_mode = 1

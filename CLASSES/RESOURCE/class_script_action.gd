@@ -1,1 +1,1 @@
-class_name ScriptAction extends Resource
+class_name OldScriptAction extends Resource

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b7rn5ey4vtv0c" path="res://SCENES/TABS/SELECT/select_edit.gd" id="1_7td4e"]
 [ext_resource type="Script" uid="uid://ct0rwjnngmdqx" path="res://SCENES/TABS/SELECT/info_dimensions.gd" id="2_gnmd2"]
-[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="2_ufvnx"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="2_ufvnx"]
 [ext_resource type="Script" uid="uid://c3aijnk22cn7c" path="res://SCENES/TABS/SELECT/character_list.gd" id="3_a1uy8"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="3_gnmd2"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="4_a1uy8"]

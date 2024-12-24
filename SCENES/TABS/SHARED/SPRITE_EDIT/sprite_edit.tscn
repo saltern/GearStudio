@@ -42,7 +42,7 @@
 [ext_resource type="Script" uid="uid://br18i2lb6v11i" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_embed_palette.gd" id="32_4i4k0"]
 [ext_resource type="Script" uid="uid://c8a1w76vql5xm" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_halve_alpha.gd" id="33_lxtrp"]
 [ext_resource type="Script" uid="uid://0el54sl6wc13" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_flip_h.gd" id="34_82qre"]
-[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://SCENES/TABS/SHARED/zoomable_preview.gd" id="35_8a50l"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="35_8a50l"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="35_m8wg2"]
 [ext_resource type="Script" uid="uid://wwdbhi4lc0a3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_flip_v.gd" id="35_my7nx"]
 [ext_resource type="Script" uid="uid://dmvpsgfmt3wwm" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_as_rgb.gd" id="36_i6rxh"]

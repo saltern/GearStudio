@@ -32,6 +32,7 @@ Opened="*res://AUTOLOADS/opened.gd"
 SpriteImport="*res://AUTOLOADS/sprite_import.gd"
 SpriteExport="*res://AUTOLOADS/sprite_export.gd"
 Handshake="*res://AUTOLOADS/handshake.gd"
+ScriptInstructions="*res://AUTOLOADS/script_instructions.gd"
 
 [debug]
 
