@@ -3,9 +3,13 @@ class_name ScriptEdit extends Control
 signal action_loaded
 signal cell_updated
 signal cell_clear
+signal inst_cell
+signal inst_semitrans
 signal inst_scale
 signal inst_draw_normal
 signal inst_draw_reverse
+
+@export var anim_player: AnimationPlayer
 
 var SI: ScriptInstructions = ScriptInstructions
 var session_id: int
@@ -14,15 +18,13 @@ var obj_data: Dictionary
 var bin_script := BinScript.new()
 var this_cell: Cell
 
-var this_anim: Dictionary = {}
-
 
 func _enter_tree() -> void:
-	obj_data = SessionData.object_data_get(get_parent().get_index())
 	deserialize_script()
 
 
 func _ready() -> void:
+	anim_player.add_animation_library("", AnimationLibrary.new())
 	script_load_animation(0)
 
 
@@ -82,26 +84,43 @@ func deserialize_script() -> void:
 		bin_script.actions.append(new_action)
 
 
-# this_anim {
-#	0: {
-#		"CellBegin": 0,
-#		"DrawReverse": 1,
-#		"DrawNormal": 1,
-#	},
-#
-#	1: ...
-
-
 func script_load_animation(index: int) -> void:
-	this_anim.clear()
-	inst_draw_normal.emit()
-	var scale_values: Array[int] = [1, 1000]
-	inst_scale.emit(scale_values)
+	var anim := Animation.new()
+	anim.length = 1.0
+	
+	# Instruction tracks
+	var track_cells		:= anim.add_track(Animation.TYPE_METHOD)
+	var track_semitrans := anim.add_track(Animation.TYPE_METHOD)
+	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)
+	var track_draw_nor	:= anim.add_track(Animation.TYPE_METHOD)
+	var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)
+	
+	anim.track_set_path(track_cells, ".")
+	anim.track_set_path(track_semitrans, ".")
+	anim.track_set_path(track_scale, ".")
+	anim.track_set_path(track_draw_nor, ".")
+	anim.track_set_path(track_draw_rev, ".")
+	
+	# Resets
+	anim.track_insert_key(track_semitrans, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_semitrans", 0, 0xFF]
+	})
+	
+	anim.track_insert_key(track_scale, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_scale", 0, 1000]
+	})
+	
+	anim.track_insert_key(track_draw_nor, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_draw_normal"]
+	})
 	
 	var action = script_get_action(index)
 	var frame: int = 1
-	
 	var frame_offset: int = 0
+	var cell_count: int = 0
 	
 	for instruction: Instruction in action.instructions:
 		var instruction_name: String = \
@@ -109,81 +128,90 @@ func script_load_animation(index: int) -> void:
 		
 		match instruction_name:
 			SI.NAME_CELLBEGIN:
+				cell_count += 1
+				
 				frame += frame_offset
+				var cell_length: int = instruction.arguments[0].value
+				var cell_number: int = instruction.arguments[1].value
 				
-				if not this_anim.has(frame):
-					this_anim[frame] = {}
+				anim.length += cell_length
+				anim.track_insert_key(track_cells, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_cell", cell_number],
+				})
 				
-				this_anim[frame][SI.NAME_CELLBEGIN] = \
-					instruction.arguments[1].value
-				frame_offset = instruction.arguments[0].value
+				frame_offset = cell_length
+			
+			SI.NAME_SEMITRANS:
+				var blend_mode: int = instruction.arguments[1].value
+				var blend_value: int = instruction.arguments[0].value
+				
+				anim.track_insert_key(track_semitrans, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_semitrans", blend_mode, blend_value]
+				})
 			
 			SI.NAME_SCALE:
-				this_anim[frame][SI.NAME_SCALE] = [
-					instruction.arguments[0].value,
-					instruction.arguments[1].value
-				]
+				var scale_mode: int = instruction.arguments[0].value
+				var scale_value: int = instruction.arguments[1].value
+				
+				anim.track_insert_key(track_scale, frame,{
+					"method": &"emit_signal",
+					"args": [&"inst_scale", scale_mode, scale_value]
+				})
 			
 			SI.NAME_DRAW_NORMAL:
-				this_anim[frame][SI.NAME_DRAW_NORMAL] = 1
+				anim.track_insert_key(track_draw_nor, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_draw_normal"]
+				})
 			
 			SI.NAME_DRAW_REVERSE:
-				this_anim[frame][SI.NAME_DRAW_REVERSE] = 1
-
-	if this_anim.is_empty():
-		cell_clear.emit()
-		return
+				anim.track_insert_key(track_draw_rev, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_draw_reverse"]
+				})
 	
+	# Restart animation
+	if cell_count == 0:
+		cell_clear.emit()
+	
+	var library := anim_player.get_animation_library("")
+	library.add_animation(&"anim", anim)
+	
+	anim_player.play(&"anim")
+	anim_player.seek(0, true)
 	script_load_frame(1)
+	
 	action_loaded.emit()
 
 
 func script_load_frame(frame: int) -> void:
-	if this_anim.is_empty():
-		return
+	var time = anim_player.current_animation_position
 	
-	var keys: PackedInt32Array = this_anim.keys()
-	var index: int
-	var cell: int
-	
-	if not keys.has(frame):
-		index = keys.bsearch(frame)
-		index = max(index - 1, 0)
+	if frame > time:
+		anim_player.advance(frame - time)
 	else:
-		index = keys.find(frame)
-	
-	var this_frame: Dictionary = this_anim[keys[index]]
-	
-	if this_frame.has(SI.NAME_DRAW_NORMAL):
-		inst_draw_normal.emit()
-	
-	if this_frame.has(SI.NAME_DRAW_REVERSE):
-		inst_draw_reverse.emit()
-	
-	if this_frame.has(SI.NAME_SCALE):
-		inst_scale.emit(this_frame[SI.NAME_SCALE])
-	
-	if not this_frame.has(SI.NAME_CELLBEGIN):
-		return
-	
-	cell = this_anim[keys[index]][SI.NAME_CELLBEGIN]
-	this_cell = obj_data["cells"][cell]
-	cell_updated.emit(this_cell)
+		anim_player.seek(frame, true)
+
+
+func script_get_animation_frames() -> int:
+	return anim_player.current_animation_length
 
 
 func script_get_action(index: int) -> ScriptAction:
 	return bin_script.actions[index]
 
 
-func script_action_get_frames(index: int) -> int:
-	var action := script_get_action(index)
-	var duration: int = 0
-	
-	for instruction in action.instructions:
-		if instruction.id == 0:
-			duration += instruction.arguments[0].value
-	
-	return duration
+#func script_action_get_frames(index: int) -> int:
+	#var action := script_get_action(index)
+	#var duration: int = 0
+	#
+	#for instruction in action.instructions:
+		#if instruction.id == 0:
+			#duration += instruction.arguments[0].value
+	#
+	#return duration
 
 
 func sprite_get_count() -> int:
@@ -202,6 +230,13 @@ func sprite_get(index: int) -> BinSprite:
 		return obj_data["sprites"][index]
 	else:
 		return BinSprite.new()
+
+
+func cell_get_count() -> int:
+	if obj_data.has("cells"):
+		return obj_data["cells"].size()
+	else:
+		return 0
 
 
 func palette_get_count() -> int:

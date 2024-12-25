@@ -5,6 +5,7 @@ extends Label
 
 func _ready() -> void:
 	timeline.changed.connect(update)
+	update()
 
 
 func update() -> void:

@@ -36,7 +36,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="SCRIPT_EDIT_TITLE" type="TabContainer"]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim_player")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -44,6 +44,10 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 script = ExtResource("1_jcqcc")
+anim_player = NodePath("script_anim")
+
+[node name="script_anim" type="AnimationPlayer" parent="."]
+callback_mode_process = 2
 
 [node name="Actions" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -81,6 +85,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_5hivn")
 metadata/_custom_type_script = ExtResource("2_cp5hf")
+
+[node name="box_display" type="CheckButton" parent="Actions/content/scroll/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+button_pressed = true
+text = "Display boxes"
 
 [node name="instructions" type="VBoxContainer" parent="Actions/content/scroll/margin/data"]
 layout_mode = 2
@@ -274,14 +284,18 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
 
-[node name="parent" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite"]
+[node name="scale_node" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
+[node name="parent" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite/scale_node"]
+use_parent_material = true
+
+[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
+box_display = NodePath("../../../../../../scroll/margin/data/box_display")
 
 [node name="origin_cross" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
 custom_minimum_size = Vector2(40, 40)

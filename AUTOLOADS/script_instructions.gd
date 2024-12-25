@@ -2,12 +2,6 @@ extends Node
 
 const FILE_NAME: String = "/ggpr_instructions.csv"
 
-const NAME_CELLBEGIN		: String = "CellBegin"			# 0
-const NAME_BACK_MOTION		: String = "BACK_MOTION"		# 3
-const NAME_SCALE			: String = "SCALE"				# 7
-const NAME_DRAW_NORMAL		: String = "DRAW_NORMAL"		# 16
-const NAME_DRAW_REVERSE		: String = "DRAW_REVERSE"		# 17
-
 enum DBKeys {
 	ID,
 	NAME,
@@ -19,8 +13,16 @@ enum DBKeys {
 var INSTRUCTION_DB: Dictionary = {}
 var task_id: int
 
+@onready var NAME_CELLBEGIN		: String = get_instruction_name(0x00)
+@onready var NAME_BACK_MOTION	: String = get_instruction_name(0x03)
+@onready var NAME_SEMITRANS		: String = get_instruction_name(0x06)
+@onready var NAME_SCALE			: String = get_instruction_name(0x07)
+@onready var NAME_DRAW_NORMAL	: String = get_instruction_name(0x10)	# 16
+@onready var NAME_DRAW_REVERSE	: String = get_instruction_name(0x11)	# 17
 
-func _ready() -> void:
+
+# DB needs to be complete before _ready() for above instruction names
+func _enter_tree() -> void:
 	task_id = WorkerThreadPool.add_task(build_database)
 
 

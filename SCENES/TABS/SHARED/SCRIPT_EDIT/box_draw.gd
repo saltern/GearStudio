@@ -1,5 +1,7 @@
 extends Control
 
+@export var box_display: CheckButton
+
 var box_list: Array[BoxInfo]
 var scale_factor: Vector2 = Vector2(1.0, 1.0)
 
@@ -7,8 +9,9 @@ var scale_factor: Vector2 = Vector2(1.0, 1.0)
 
 
 func _ready() -> void:
-	script_edit.cell_updated.connect(on_cell_update)
+	box_display.toggled.connect(toggle_display)
 	script_edit.cell_clear.connect(clear_boxes)
+	script_edit.inst_cell.connect(on_cell)
 	script_edit.inst_scale.connect(on_scale)
 
 
@@ -56,6 +59,10 @@ func _draw():
 			color)
 
 
+func toggle_display(enabled: bool) -> void:
+	visible = enabled
+
+
 func on_cell_update(cell: Cell) -> void:
 	load_boxes(cell.boxes)
 
@@ -70,14 +77,17 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 
 
 #region INSTRUCTION SIMULATION
-func on_scale(arguments: Array) -> void:
-	var values: Array[int]
-	values.assign(arguments)
-	var fvalue: float = values[1] / 1000.00
+func on_cell(index: int) -> void:
+	var cell: Cell = script_edit.obj_data["cells"][index]
+	on_cell_update(cell)
+
+
+func on_scale(mode: int, value: int) -> void:
+	var fvalue: float = value / 1000.00
 	
 	#print(values)
 	
-	match values[0]: #mode
+	match mode: #mode
 		0:
 			scale_factor.x = fvalue
 			scale_factor.y = fvalue

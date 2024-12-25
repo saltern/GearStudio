@@ -12,11 +12,10 @@ var playback: bool = false
 func _ready() -> void:
 	min_value = 1
 	
-	script_edit.action_loaded.connect(reset)
-	action_spinbox.value_changed.connect(update)
-	value_changed.connect(load_frame)
+	script_edit.action_loaded.connect(update)
 	button_play_from_start.pressed.connect(play_from_start)
 	button_play.pressed.connect(play)
+	value_changed.connect(load_frame)
 
 
 func _physics_process(_delta: float) -> void:
@@ -34,8 +33,9 @@ func reset() -> void:
 	value = 1
 
 
-func update(action: int) -> void:
-	max_value = script_edit.script_action_get_frames(action)
+func update() -> void:
+	max_value = script_edit.script_get_animation_frames()
+	reset()
 
 
 func load_frame(frame: int) -> void:
@@ -43,7 +43,7 @@ func load_frame(frame: int) -> void:
 
 
 func play_from_start() -> void:
-	value = 1
+	reset()
 	play()
 
 
