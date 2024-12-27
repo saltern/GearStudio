@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func load_action(index: int) -> void:
-	script_edit.script_load_animation(index)
+	script_edit.script_load_action(index)

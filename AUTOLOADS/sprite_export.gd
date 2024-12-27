@@ -95,7 +95,7 @@ func export(output_path: String) -> void:
 	var name_start_index: int = 0 if name_from_zero else export_start_index
 	var palette: PackedByteArray = pal_gray
 	
-	if palette_include:
+	if palette_include and obj_data.has("palettes"):
 		palette = obj_data["palettes"][palette_index].palette
 	
 	if export_bin:

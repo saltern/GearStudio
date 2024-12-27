@@ -1,23 +1,37 @@
 extends Control
 
-var session_id: int
+signal scale_set
 
+@export var ignore_visual_toggle: CheckButton
+
+@export var sprite_scale: Node2D
+@export var sprite_scale_y: Node2D
+@export var sprite_origin: Node2D
+
+var session_id: int
 var palette_index: int = 0
 
+var angle: int = 0
+var scale_x: int = -1
+var scale_y: int = -1
+
+var ignore_visual: bool = false
+
 @onready var script_edit: ScriptEdit = owner
-@onready var sprite_scale: Node2D = get_child(0)
-@onready var sprite_origin: Node2D = sprite_scale.get_child(0)
 
 
 func _ready() -> void:
+	SessionData.palette_changed.connect(load_palette)
 	script_edit.cell_updated.connect(on_cell_loaded)
 	script_edit.cell_clear.connect(unload_sprite)
 	script_edit.inst_cell.connect(on_cell)
 	script_edit.inst_semitrans.connect(on_semitrans)
 	script_edit.inst_scale.connect(on_scale)
+	script_edit.inst_rotate.connect(on_rotate)
 	script_edit.inst_draw_normal.connect(on_draw_normal)
 	script_edit.inst_draw_reverse.connect(on_draw_reverse)
-	SessionData.palette_changed.connect(load_palette)
+	script_edit.inst_visual.connect(on_visual)
+	ignore_visual_toggle.toggled.connect(toggle_visual)
 
 
 func on_cell_loaded(cell: Cell) -> void:
@@ -103,6 +117,13 @@ func load_cell_sprite_pieces(
 		sprite_origin.add_child(new_tex)
 
 
+func toggle_visual(enabled: bool) -> void:
+	if enabled and not visible:
+		visible = true
+	
+	ignore_visual = enabled
+
+
 #region INSTRUCTION SIMULATION
 func on_cell(index: int) -> void:
 	if script_edit.cell_get_count() > index:
@@ -118,41 +139,68 @@ func on_semitrans(mode: int, value: int) -> void:
 
 
 func on_scale(mode: int, value: int) -> void:
-	var fvalue: float = value / 1000.00
-	
 	match mode:
 		0:
-			sprite_scale.scale.x = fvalue
-			sprite_scale.scale.y = fvalue
+			scale_x = value
 		1:
-			sprite_scale.scale.y = fvalue
-			pass #scaleY = value
+			scale_y = value
 		2:
-			sprite_scale.scale.x += fvalue
-			sprite_scale.scale.y += fvalue
-			pass #scale += value
+			scale_x += value
 		3:
-			sprite_scale.scale.y += fvalue
-			pass #scaleY += value
+			scale_y += value
 		4:
-			var rand_value: int = randi_range(0, 1000) & value
-			sprite_scale.scale = sprite_scale.scale + Vector2(
-				float(rand_value) / 1000.0,
-				float(rand_value) / 1000.0,
-			)
-			pass #scale = scale + (rng AND value)
+			scale_x += randi_range(0, pow(256, 2) - 1) & value
 		5:
-			var rand_value: int = randi_range(0, 1000) & value
-			sprite_scale.scale.y = sprite_scale.scale.y + \
-				float(rand_value) / 1000.0
-			pass #scaleY = scaleY + (rng AND value)
+			scale_y += randi_range(0, pow(256, 2) - 1) & value
 		6:
-			sprite_scale.scale.x = (scale.x * (fvalue / 100.00))
-			sprite_scale.scale.y = (scale.y * (fvalue / 100.00))
-			pass #scale = (scale * (value / 100.00))
+			scale_x = (scale_x * float(value) / 100.00)
 		7:
-			sprite_scale.scale.y = (scale.y * (fvalue / 100.00))
-			pass #scaleY = (scaleY * (value / 100.00))
+			scale_y = (scale_y * float(value) / 100.00)
+	
+	# Apply
+	if scale_x == -1:
+		sprite_scale.scale.x = 1.0
+	else:
+		sprite_scale.scale.x = float(scale_x) / 1000.00
+	
+	if scale_y == -1:
+		sprite_scale.scale.y = sprite_scale.scale.x
+	else:
+		sprite_scale.scale.y = float(scale_y) / 1000.00
+
+	scale_set.emit(scale_x, scale_y)
+
+
+func on_rotate(mode: int, value: int) -> void:
+	match mode:
+		0:
+			angle = value
+		1:
+			if value == 0:
+				angle = randi_range(0, 255) << 8
+			else:
+				angle = randi_range(0, pow(256, 2) - 1) & value
+		2:
+			angle += value
+		3:
+			# Depends on object's localid...
+			# Unimplemented at this time
+			pass
+		4:
+			angle += randi_range(0, pow(256, 2) - 1) & value
+		5:
+			# Original code is:
+			# rng2 = Random(&RandomSeed);
+			# offset->angle = offset->angle + (short)((ulonglong)rng2 % (ulonglong)ip->arg2);
+			
+			# Random returns a 4-byte int anyway, so the cast to ulonglong
+			# probably doesn't do anything. The random number is modulo-ed with
+			# the value parameter, then the whole thing is cast to a short, and
+			# added to the current angle.
+			
+			angle += (randi_range(0, pow(256, 4) - 1) % value) & 0xFFFF
+	
+	rotation_degrees = (90.0 / pow(128, 2)) * angle
 
 
 func on_draw_normal() -> void:
@@ -161,6 +209,13 @@ func on_draw_normal() -> void:
 
 func on_draw_reverse() -> void:
 	scale.x = -1
+
+
+func on_visual(mode: int, value: int) -> void:
+	if ignore_visual:
+		return
+	
+	visible = bool(value)
 #endregion
 
 

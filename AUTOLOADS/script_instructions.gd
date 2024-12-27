@@ -8,6 +8,7 @@ enum DBKeys {
 	ARG_SIZES,
 	ARG_NAMES,
 	ARG_DEFAULTS,
+	ARG_SIGNED,
 }
 
 var INSTRUCTION_DB: Dictionary = {}
@@ -17,8 +18,10 @@ var task_id: int
 @onready var NAME_BACK_MOTION	: String = get_instruction_name(0x03)
 @onready var NAME_SEMITRANS		: String = get_instruction_name(0x06)
 @onready var NAME_SCALE			: String = get_instruction_name(0x07)
+@onready var NAME_ROT			: String = get_instruction_name(0x08)
 @onready var NAME_DRAW_NORMAL	: String = get_instruction_name(0x10)	# 16
 @onready var NAME_DRAW_REVERSE	: String = get_instruction_name(0x11)	# 17
+@onready var NAME_VISUAL		: String = get_instruction_name(0x45)	# 69
 
 
 # DB needs to be complete before _ready() for above instruction names
@@ -38,7 +41,7 @@ func build_database() -> void:
 	var path: String = OS.get_executable_path().get_base_dir()
 	path += FILE_NAME
 	if not FileAccess.file_exists(path):
-		print("Instruction DB file not found!")
+		Status.set_status.call_deferred("Instruction DB file not found!")
 		return
 	
 	var db_read := FileAccess.open(path, FileAccess.READ)
@@ -53,21 +56,31 @@ func build_database() -> void:
 		var inst_name: String = line[DBKeys.NAME]
 		
 		var inst_arg_names: PackedStringArray = \
-			line[DBKeys.ARG_NAMES].split(";")
+			line[DBKeys.ARG_NAMES].split("\n")
 		
 		var key_arg_sizes: PackedStringArray = \
-			line[DBKeys.ARG_SIZES].split(";")
+			line[DBKeys.ARG_SIZES].split("\n")
 		
 		var inst_arg_sizes: PackedInt32Array = []
 		for arg in key_arg_sizes:
 			inst_arg_sizes.append(arg.to_int())
 		
 		var key_arg_defaults: PackedStringArray = \
-			line[DBKeys.ARG_DEFAULTS].split(";")
+			line[DBKeys.ARG_DEFAULTS].split("\n")
 		
 		var inst_arg_defaults: PackedInt32Array = []
 		for arg in key_arg_defaults:
 			inst_arg_defaults.append(arg.to_int())
+		
+		var key_arg_signed: PackedStringArray = \
+			line[DBKeys.ARG_SIGNED].split("\n")
+		
+		var inst_arg_signed: int = 0
+		
+		# Make into bit flags
+		for bit in key_arg_signed.size():
+			var flag: int = key_arg_signed[bit].to_int() << bit
+			inst_arg_signed |= flag
 		
 		var new_instruction := Instruction.new()
 		new_instruction.id = inst_id
@@ -78,6 +91,7 @@ func build_database() -> void:
 			new_argument.display_name = inst_arg_names[argument]
 			new_argument.size = inst_arg_sizes[argument]
 			new_argument.value = inst_arg_defaults[argument]
+			new_argument.signed = bool(inst_arg_signed & (1 << argument))
 			new_instruction.arguments.append(new_argument)
 		
 		INSTRUCTION_DB[inst_id] = new_instruction
@@ -123,14 +137,31 @@ func get_instruction_from_data(data: PackedByteArray) -> Instruction:
 		
 		new_arg.display_name = ref_arg.display_name
 		new_arg.size = ref_arg.size
+		new_arg.signed = ref_arg.signed
 		
 		match new_arg.size:
 			1:
-				new_arg.value = data.decode_u8(cursor)
+				if new_arg.signed:
+					new_arg.value = data.decode_s8(cursor)
+				else:
+					new_arg.value = data.decode_u8(cursor)
+				
 				cursor += 0x01
 			2:
-				new_arg.value = data.decode_u16(cursor)
+				if new_arg.signed:
+					new_arg.value = data.decode_s16(cursor)
+				else:
+					new_arg.value = data.decode_u16(cursor)
+				
 				cursor += 0x02
+			4:
+				if new_arg.signed:
+					new_arg.value = data.decode_s32(cursor)
+				else:
+					new_arg.value = data.decode_u32(cursor)
+				
+				cursor += 0x04
+		
 		
 		new_instruction.arguments.append(new_arg)
 	

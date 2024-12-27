@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=31 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_i86rk"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="3_y47wv"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="4_fp2qg"]
+[ext_resource type="Script" uid="uid://dke2bgsa8rc5w" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/flags.gd" id="4_t3ydv"]
 [ext_resource type="Texture2D" uid="uid://7wmhqtwamyee" path="res://ICONS/new_left.svg" id="4_v65u5"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="5_7mwsm"]
 [ext_resource type="Texture2D" uid="uid://mtgfsjtan4rb" path="res://ICONS/new_right.svg" id="5_qi07w"]
@@ -19,6 +20,7 @@
 [ext_resource type="Script" uid="uid://bf08biydngkbr" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_type.gd" id="11_3otq7"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
 [ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_list.gd" id="12_0a85a"]
+[ext_resource type="Script" uid="uid://driaid5d3iwtf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/arguments.gd" id="13_ctvg6"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
 [ext_resource type="Texture2D" uid="uid://cte73girc3poy" path="res://ICONS/play_from_start.svg" id="18_uc0na"]
 [ext_resource type="Texture2D" uid="uid://bl3yqtc1r5xxi" path="res://ICONS/play.svg" id="19_5hivn"]
@@ -56,128 +58,445 @@ metadata/_tab_index = 0
 [node name="content" type="HBoxContainer" parent="Actions"]
 layout_mode = 2
 
-[node name="scroll" type="ScrollContainer" parent="Actions/content"]
+[node name="actions" type="ScrollContainer" parent="Actions/content"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="Actions/content/scroll"]
+[node name="margin" type="MarginContainer" parent="Actions/content/actions"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 
-[node name="data" type="VBoxContainer" parent="Actions/content/scroll/margin"]
+[node name="data" type="VBoxContainer" parent="Actions/content/actions/margin"]
 layout_mode = 2
 
-[node name="action_idx" type="HBoxContainer" parent="Actions/content/scroll/margin/data"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="Actions/content/scroll/margin/data/action_idx"]
+[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="text" type="Label" parent="Actions/content/actions/margin/data/title"]
+layout_mode = 2
+text = "Actions"
+
+[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="action_idx" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/action_idx"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Action #"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="Actions/content/scroll/margin/data/action_idx"]
+[node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/action_idx"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("2_5hivn")
 metadata/_custom_type_script = ExtResource("2_cp5hf")
 
-[node name="box_display" type="CheckButton" parent="Actions/content/scroll/margin/data"]
+[node name="flags" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/flags"]
+layout_mode = 2
+
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/flags/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/flags/title"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Flags"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="h_sep2" type="HSeparator" parent="Actions/content/actions/margin/data/flags/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value" type="GridContainer" parent="Actions/content/actions/margin/data/flags"]
+layout_mode = 2
+columns = 2
+script = ExtResource("4_t3ydv")
+
+[node name="flags_0" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="0" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "0"
+
+[node name="1" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "1"
+
+[node name="2" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "2"
+
+[node name="3" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "3"
+
+[node name="4" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "4"
+
+[node name="5" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "5"
+
+[node name="6" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "6"
+
+[node name="7" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "7"
+
+[node name="flags_1" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="8" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "8"
+
+[node name="9" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "9"
+
+[node name="10" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "10"
+
+[node name="11" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "11"
+
+[node name="12" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "12"
+
+[node name="13" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "13"
+
+[node name="14" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "14"
+
+[node name="15" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "15"
+
+[node name="flags_2" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="16" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "16"
+
+[node name="17" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "17"
+
+[node name="18" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "18"
+
+[node name="19" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "19"
+
+[node name="20" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "20"
+
+[node name="21" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "21"
+
+[node name="22" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "22"
+
+[node name="23" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "23"
+
+[node name="flags_3" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="24" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "24"
+
+[node name="25" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "25"
+
+[node name="26" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "26"
+
+[node name="27" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "27"
+
+[node name="28" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "28"
+
+[node name="29" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "29"
+
+[node name="30" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "30"
+
+[node name="31" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "31"
+
+[node name="preview_title" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/preview_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="text" type="Label" parent="Actions/content/actions/margin/data/preview_title"]
+layout_mode = 2
+text = "Preview"
+
+[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/preview_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="box_display" type="CheckButton" parent="Actions/content/actions/margin/data"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_pressed = true
 text = "Display boxes"
 
-[node name="instructions" type="VBoxContainer" parent="Actions/content/scroll/margin/data"]
+[node name="ignore_visual" type="CheckButton" parent="Actions/content/actions/margin/data"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Ignore VISUAL"
+
+[node name="instructions" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="title" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/title"]
+[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="text" type="Label" parent="Actions/content/scroll/margin/data/instructions/title"]
+[node name="text" type="Label" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
 text = "Instructions"
 
-[node name="hsep_1" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/title"]
+[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="toolbar" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+[node name="toolbar" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions"]
 layout_mode = 2
 
-[node name="delete" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="delete" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("3_y47wv")
 
-[node name="new_before" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="new_before" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("4_v65u5")
 
-[node name="new_after" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="new_after" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("5_qi07w")
 
-[node name="copy" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="copy" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("6_uc0na")
 
-[node name="paste_before" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="paste_before" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("7_5hivn")
 
-[node name="paste" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="paste" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("8_3otq7")
 
-[node name="paste_after" type="Button" parent="Actions/content/scroll/margin/data/instructions/toolbar"]
+[node name="paste_after" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
 layout_mode = 2
 icon = ExtResource("9_0a85a")
 
-[node name="type" type="OptionButton" parent="Actions/content/scroll/margin/data/instructions"]
+[node name="type" type="OptionButton" parent="Actions/content/actions/margin/data/instructions"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("11_3otq7")
 
-[node name="scroll" type="ScrollContainer" parent="Actions/content/scroll/margin/data/instructions"]
+[node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/instructions"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="items" type="ItemList" parent="Actions/content/scroll/margin/data/instructions/scroll" node_paths=PackedStringArray("action_spinbox")]
+[node name="items" type="ItemList" parent="Actions/content/actions/margin/data/instructions/scroll" node_paths=PackedStringArray("action_spinbox")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("12_0a85a")
 action_spinbox = NodePath("../../../action_idx/value")
 
-[node name="parameters" type="VBoxContainer" parent="Actions/content/scroll/margin/data/instructions"]
+[node name="arguments" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="title" type="HBoxContainer" parent="Actions/content/scroll/margin/data/instructions/parameters"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/arguments"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="hsep_0" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/arguments/title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="text" type="Label" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+[node name="text" type="Label" parent="Actions/content/actions/margin/data/arguments/title"]
 layout_mode = 2
 text = "Parameters"
 
-[node name="hsep_1" type="HSeparator" parent="Actions/content/scroll/margin/data/instructions/parameters/title"]
+[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/arguments/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="arg0" type="HBoxContainer" parent="Actions/content/actions/margin/data/arguments"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="display_name" type="Label" parent="Actions/content/actions/margin/data/arguments/arg0"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/arguments/arg0"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("2_cp5hf")
+metadata/_custom_type_script = ExtResource("2_cp5hf")
+
+[node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/arguments"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="arg_container" type="VBoxContainer" parent="Actions/content/actions/margin/data/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("13_ctvg6")
+action_index = NodePath("../../../action_idx/value")
+instruction_list = NodePath("../../../instructions/scroll/items")
+model_arg = NodePath("../../arg0")
 
 [node name="v_sep" type="VSeparator" parent="Actions/content"]
 layout_mode = 2
@@ -273,7 +592,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="sprite" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
+[node name="sprite" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
 material = ExtResource("8_tc77i")
 layout_mode = 1
 anchors_preset = 15
@@ -283,19 +602,27 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
+ignore_visual_toggle = NodePath("../../../../../../actions/margin/data/ignore_visual")
+sprite_scale = NodePath("scale")
+sprite_scale_y = NodePath("scale/scale_y")
+sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale_node" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite"]
+[node name="scale" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite"]
 use_parent_material = true
 
-[node name="parent" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite/scale_node"]
+[node name="scale_y" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite/scale"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display")]
+[node name="origin" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite/scale/scale_y"]
+use_parent_material = true
+
+[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display", "sprite_handler")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
-box_display = NodePath("../../../../../../scroll/margin/data/box_display")
+box_display = NodePath("../../../../../../actions/margin/data/box_display")
+sprite_handler = NodePath("../sprite")
 
 [node name="origin_cross" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
 custom_minimum_size = Vector2(40, 40)
@@ -400,7 +727,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 script = ExtResource("24_1g2a5")
-action_spinbox = NodePath("../../../scroll/margin/data/action_idx/value")
+action_spinbox = NodePath("../../../actions/margin/data/action_idx/value")
 button_play_from_start = NodePath("../play_from_start")
 button_play = NodePath("../play")
 
@@ -418,6 +745,7 @@ text = "/"
 horizontal_alignment = 1
 
 [node name="f_total" type="Label" parent="Actions/content/visualizer/timeline" node_paths=PackedStringArray("timeline")]
+custom_minimum_size = Vector2(51, 0)
 layout_mode = 2
 text = "0000 F"
 horizontal_alignment = 1

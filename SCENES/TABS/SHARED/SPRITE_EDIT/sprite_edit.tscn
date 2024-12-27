@@ -776,6 +776,7 @@ vertical_alignment = 1
 [node name="palette_index" type="SpinBox" parent="sprite_import/background/content_margin/window_content/preview/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
+max_value = 0.0
 alignment = 2
 script = ExtResource("46_cp5l3")
 

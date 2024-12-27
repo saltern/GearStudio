@@ -107,6 +107,9 @@ func save_directory(path: String = ""):
 
 
 func save_binary(path: String = ""):
+	var session_id: int = get_child(current_tab).session_id
+	GlobalSignals.save_scripts.emit(session_id)
+	
 	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
 
 

@@ -6,8 +6,10 @@ signal cell_clear
 signal inst_cell
 signal inst_semitrans
 signal inst_scale
+signal inst_rotate
 signal inst_draw_normal
 signal inst_draw_reverse
+signal inst_visual
 
 @export var anim_player: AnimationPlayer
 
@@ -16,6 +18,8 @@ var session_id: int
 
 var obj_data: Dictionary
 var bin_script := BinScript.new()
+var action_index: int = 0
+var this_action: ScriptAction
 var this_cell: Cell
 
 
@@ -24,20 +28,26 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	GlobalSignals.save_scripts.connect(script_save)
+	
 	anim_player.add_animation_library("", AnimationLibrary.new())
-	script_load_animation(0)
+	script_load_action(0)
 
 
 func deserialize_script() -> void:
 	var script_bytes: PackedByteArray = obj_data["scripts"]
 	var action_bytes: PackedByteArray
 	
-	if script_bytes[0x100] != 0x00:
-		bin_script.variables = script_bytes.slice(0x000, 0x300)
-		action_bytes = script_bytes.slice(0x300, script_bytes.size())
+	if obj_data.has("palettes"):
+		if script_bytes[0x100] != 0x00:
+			bin_script.variables = script_bytes.slice(0x000, 0x300)
+			action_bytes = script_bytes.slice(0x300, script_bytes.size())
+		else:
+			bin_script.variables = script_bytes.slice(0x000, 0x100)
+			action_bytes = script_bytes.slice(0x100, script_bytes.size())
 	else:
-		bin_script.variables = script_bytes.slice(0x000, 0x100)
-		action_bytes = script_bytes.slice(0x100, script_bytes.size())
+		bin_script.variables = PackedByteArray([])
+		action_bytes = script_bytes.duplicate()
 	
 	var cursor: int = 0x00
 	
@@ -51,6 +61,7 @@ func deserialize_script() -> void:
 		
 		# Get action header
 		var new_action := ScriptAction.new()
+		
 		new_action.flag = action_bytes.decode_u32(cursor)
 		cursor += 0x04
 		
@@ -84,22 +95,75 @@ func deserialize_script() -> void:
 		bin_script.actions.append(new_action)
 
 
-func script_load_animation(index: int) -> void:
+func serialize_script() -> PackedByteArray:
+	var bytes: PackedByteArray = []
+	bytes.append_array(bin_script.variables)
+	
+	var cursor: int = bytes.size()
+	
+	for action in bin_script.actions:
+		# Header
+		bytes.resize(bytes.size() + 0x08)
+		
+		bytes.encode_u32(cursor, action.flag)
+		cursor += 0x04
+		
+		bytes.encode_u16(cursor, action.lvflag)
+		cursor += 0x02
+		
+		bytes.encode_u8(cursor, action.damage)
+		cursor += 0x01
+		
+		bytes.encode_u8(cursor, action.flag2)
+		cursor += 0x01
+		
+		# Instructions
+		for instruction in action.instructions:
+			# Instruction ID
+			bytes.resize(bytes.size() + 0x01)
+			bytes.encode_u8(cursor, instruction.id)
+			cursor += 0x01
+			
+			for argument in instruction.arguments:
+				bytes.resize(bytes.size() + argument.size)
+				
+				match argument.size:
+					1:
+						bytes.encode_u8(cursor, argument.value)
+					2:
+						bytes.encode_u16(cursor, argument.value)
+					4:
+						bytes.encode_u32(cursor, argument.value)
+					8:
+						bytes.encode_u64(cursor, argument.value)
+				
+				cursor += argument.size
+	
+	# End script
+	bytes.append_array(PackedByteArray([0xFD, 0x00]))
+	
+	# Zero-pad
+	bytes.resize(bytes.size() + bytes.size() % 0x10)
+	
+	return bytes
+
+
+func script_load_action(index: int) -> void:
 	var anim := Animation.new()
-	anim.length = 1.0
+	anim.length = 0.0
 	
 	# Instruction tracks
-	var track_cells		:= anim.add_track(Animation.TYPE_METHOD)
-	var track_semitrans := anim.add_track(Animation.TYPE_METHOD)
-	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)
-	var track_draw_nor	:= anim.add_track(Animation.TYPE_METHOD)
-	var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)
+	var track_cells		:= anim.add_track(Animation.TYPE_METHOD)	# 0
+	var track_semitrans := anim.add_track(Animation.TYPE_METHOD)	# 6
+	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)	# 7
+	var track_scale_y	:= anim.add_track(Animation.TYPE_METHOD)	# 7
+	var track_rotate	:= anim.add_track(Animation.TYPE_METHOD)	# 8
+	var track_draw_nor	:= anim.add_track(Animation.TYPE_METHOD)	# 16
+	var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
+	var track_visual	:= anim.add_track(Animation.TYPE_METHOD)	# 69
 	
-	anim.track_set_path(track_cells, ".")
-	anim.track_set_path(track_semitrans, ".")
-	anim.track_set_path(track_scale, ".")
-	anim.track_set_path(track_draw_nor, ".")
-	anim.track_set_path(track_draw_rev, ".")
+	for track in anim.get_track_count():
+		anim.track_set_path(track, ".")
 	
 	# Resets
 	anim.track_insert_key(track_semitrans, 0.0, {
@@ -109,7 +173,17 @@ func script_load_animation(index: int) -> void:
 	
 	anim.track_insert_key(track_scale, 0.0, {
 		"method": &"emit_signal",
-		"args": [&"inst_scale", 0, 1000]
+		"args": [&"inst_scale", 0, -1]
+	})
+	
+	anim.track_insert_key(track_scale_y, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_scale", 1, -1]
+	})
+	
+	anim.track_insert_key(track_rotate, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_rotate", 0, 0]
 	})
 	
 	anim.track_insert_key(track_draw_nor, 0.0, {
@@ -117,12 +191,19 @@ func script_load_animation(index: int) -> void:
 		"args": [&"inst_draw_normal"]
 	})
 	
-	var action = script_get_action(index)
+	anim.track_insert_key(track_visual, 0.0, {
+		"method": &"emit_signal",
+		"args": [&"inst_visual", 0, 1]
+	})
+	
+	action_index = index
+	this_action = script_get_action(action_index)
 	var frame: int = 1
 	var frame_offset: int = 0
 	var cell_count: int = 0
+	var tied: bool = true
 	
-	for instruction: Instruction in action.instructions:
+	for instruction: Instruction in this_action.instructions:
 		var instruction_name: String = \
 			SI.get_instruction_name(instruction.id)
 		
@@ -131,7 +212,7 @@ func script_load_animation(index: int) -> void:
 				cell_count += 1
 				
 				frame += frame_offset
-				var cell_length: int = instruction.arguments[0].value
+				var cell_length: int = max(1, instruction.arguments[0].value)
 				var cell_number: int = instruction.arguments[1].value
 				
 				anim.length += cell_length
@@ -154,10 +235,23 @@ func script_load_animation(index: int) -> void:
 			SI.NAME_SCALE:
 				var scale_mode: int = instruction.arguments[0].value
 				var scale_value: int = instruction.arguments[1].value
+				var which_track: int = track_scale
 				
-				anim.track_insert_key(track_scale, frame,{
+				if scale_mode % 2 == 1:
+					which_track = track_scale_y
+				
+				anim.track_insert_key(which_track, frame, {
 					"method": &"emit_signal",
 					"args": [&"inst_scale", scale_mode, scale_value]
+				})
+			
+			SI.NAME_ROT:
+				var rotate_mode: int = instruction.arguments[0].value
+				var rotate_value: int = instruction.arguments[1].value
+				
+				anim.track_insert_key(track_rotate, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_rotate", rotate_mode, rotate_value]
 				})
 			
 			SI.NAME_DRAW_NORMAL:
@@ -170,6 +264,16 @@ func script_load_animation(index: int) -> void:
 				anim.track_insert_key(track_draw_rev, frame, {
 					"method": &"emit_signal",
 					"args": [&"inst_draw_reverse"]
+				})
+			
+			SI.NAME_VISUAL:
+				#continue
+				var visual_mode: int = instruction.arguments[0].value
+				var visual_argument: int = instruction.arguments[1].value
+				
+				anim.track_insert_key(track_visual, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_visual", visual_mode, visual_argument]
 				})
 	
 	# Restart animation
@@ -192,6 +296,8 @@ func script_load_frame(frame: int) -> void:
 	if frame > time:
 		anim_player.advance(frame - time)
 	else:
+		# Likely slower, but required by instructions using additive operations
+		anim_player.seek(0, true)
 		anim_player.seek(frame, true)
 
 
@@ -199,19 +305,23 @@ func script_get_animation_frames() -> int:
 	return anim_player.current_animation_length
 
 
+func script_get_current_frame() -> int:
+	return int(anim_player.current_animation_position)
+
+
 func script_get_action(index: int) -> ScriptAction:
 	return bin_script.actions[index]
 
 
-#func script_action_get_frames(index: int) -> int:
-	#var action := script_get_action(index)
-	#var duration: int = 0
-	#
-	#for instruction in action.instructions:
-		#if instruction.id == 0:
-			#duration += instruction.arguments[0].value
-	#
-	#return duration
+func script_get_instruction(index: int) -> Instruction:
+	return this_action.instructions[index]
+
+
+func script_save(for_session: int) -> void:
+	if for_session != session_id:
+		return
+	
+	obj_data["scripts"] = serialize_script()
 
 
 func sprite_get_count() -> int:
@@ -223,6 +333,23 @@ func sprite_get_count() -> int:
 
 func sprite_get_index() -> int:
 	return this_cell.sprite_info.index
+
+
+func script_action_set_flag(flag: int, enabled: bool) -> void:
+	if enabled:
+		this_action.flag |= 1 << flag
+	else:
+		this_action.flag &= ~(1 << flag)
+
+
+func script_set_argument(instruction: int, argument: int, value: int) -> void:
+	var this_instruction: Instruction = this_action.instructions[instruction]
+	this_instruction.arguments[argument].value = value
+	
+	var frame: int = script_get_current_frame()
+	
+	script_load_action(action_index)
+	script_load_frame(frame)
 
 
 func sprite_get(index: int) -> BinSprite:

@@ -41,6 +41,7 @@ var regenerate_preview: bool = false
 # Used by this singleton
 var undo_redo: UndoRedo
 var obj_data: Dictionary
+var obj_name: String
 var import_list: PackedStringArray = []
 var placement_method: int
 var insert_position: int
@@ -92,7 +93,7 @@ func import_file_direct(path: String) -> BinSprite:
 
 func import_files(object_data: Dictionary) -> void:
 	obj_data = object_data
-	sprite_import_started.emit(object_data.name)
+	sprite_import_started.emit(obj_name)
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
 
 
@@ -111,12 +112,12 @@ func import_place_sprites(sprites: Array[BinSprite]) -> void:
 
 
 func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
-	var data_sprites: Array[BinSprite] = obj_data.sprites
+	var data_sprites: Array[BinSprite] = obj_data["sprites"]
 	
 	var action_text: String = TranslationServer.translate(
 		"ACTION_SPRITE_IMPORTER_IMPORT").format({
 			"count": sprites.size(),
-			"object": obj_data.name
+			"object": obj_name
 		}
 	)
 	
@@ -249,14 +250,20 @@ func generate_preview(sprite_index: int) -> void:
 		import_list[sprite_index], embed_palette, halve_alpha,
 		flip_h, flip_v, as_rgb, reindex, bit_depth)
 	
-	preview_palette = obj_data["palettes"][preview_palette_index].palette
+	if obj_data.has("palettes"):
+		preview_palette = obj_data["palettes"][preview_palette_index].palette
+	else:
+		preview_palette = preview_sprite.palette
+	
 	preview_generated.emit()
 
 
 func set_preview_palette_index(index: int) -> void:
 	preview_palette_index = index
-	preview_palette = obj_data["palettes"][index].palette
-	preview_palette_set.emit()
+	
+	if obj_data.has("palettes"):
+		preview_palette = obj_data["palettes"][index].palette
+		preview_palette_set.emit()
 
 
 func select_files(files: PackedStringArray) -> void:

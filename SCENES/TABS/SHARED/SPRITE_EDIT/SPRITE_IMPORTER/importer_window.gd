@@ -4,12 +4,15 @@ extends Window
 @export var import_file_dialog: FileDialog
 
 var local_file_list: PackedStringArray
+var object_name: String = ""
 
 @onready var sprite_edit: SpriteEdit = get_owner()
 
 
 func _ready() -> void:
-	var object_name = sprite_edit.get_parent().name.right(-5)
+	var base_name := sprite_edit.get_parent().name
+	object_name = base_name.split("|")[-1].right(-1)
+	
 	title = tr("SPRITE_EDIT_IMPORT_TITLE").format({
 		"name": object_name
 	})
@@ -35,6 +38,7 @@ func _input(event: InputEvent) -> void:
 
 func display() -> void:
 	SpriteImport.obj_data = sprite_edit.obj_data
+	SpriteImport.obj_name = object_name
 	update(local_file_list)
 	show()
 

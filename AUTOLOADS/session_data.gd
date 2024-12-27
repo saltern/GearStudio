@@ -80,9 +80,13 @@ func save_binary(path: String) -> void:
 		)
 		
 		GlobalSignals.save_complete.emit.call_deferred()
+		return
 	
 	GlobalSignals.save_start.emit.call_deferred()
 	Status.set_status.call_deferred("Saving binary file...")
+	
+	# Register scripts
+	
 	
 	BinResource.save_resource_file(this_session["data"], path)
 	
