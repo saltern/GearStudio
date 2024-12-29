@@ -1,6 +1,7 @@
 class_name ScriptEdit extends Control
 
 signal action_loaded
+signal action_set_damage
 signal cell_updated
 signal cell_clear
 signal inst_cell
@@ -11,19 +12,28 @@ signal inst_draw_normal
 signal inst_draw_reverse
 signal inst_visual
 
+enum FlagType {
+	FLAGS,
+	LVFLAG,
+	FLAG2,
+}
+
 @export var anim_player: AnimationPlayer
 
-var SI: ScriptInstructions = ScriptInstructions
+var SI := ScriptInstructions
 var session_id: int
+var undo_redo := UndoRedo.new()
 
 var obj_data: Dictionary
 var bin_script := BinScript.new()
 var action_index: int = 0
+var instruction_index: int = -1
 var this_action: ScriptAction
 var this_cell: Cell
 
 
 func _enter_tree() -> void:
+	undo_redo.max_steps = Settings.misc_max_undo
 	deserialize_script()
 
 
@@ -34,6 +44,29 @@ func _ready() -> void:
 	script_load_action(0)
 
 
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not event is InputEventKey:
+		return
+	
+	if Input.is_action_just_pressed("redo"):
+		undo_redo.redo()
+	
+	elif Input.is_action_just_pressed("undo"):
+		undo_redo.undo()
+
+
+# Undo/Redo status shorthand
+func status_register_action(action_text: String) -> void:
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
+		"action": action_text
+	})))
+
+
+#region Script de/serialization
 func deserialize_script() -> void:
 	var script_bytes: PackedByteArray = obj_data["scripts"]
 	var action_bytes: PackedByteArray
@@ -62,7 +95,7 @@ func deserialize_script() -> void:
 		# Get action header
 		var new_action := ScriptAction.new()
 		
-		new_action.flag = action_bytes.decode_u32(cursor)
+		new_action.flags = action_bytes.decode_u32(cursor)
 		cursor += 0x04
 		
 		new_action.lvflag = action_bytes.decode_u16(cursor)
@@ -105,7 +138,7 @@ func serialize_script() -> PackedByteArray:
 		# Header
 		bytes.resize(bytes.size() + 0x08)
 		
-		bytes.encode_u32(cursor, action.flag)
+		bytes.encode_u32(cursor, action.flags)
 		cursor += 0x04
 		
 		bytes.encode_u16(cursor, action.lvflag)
@@ -146,9 +179,12 @@ func serialize_script() -> PackedByteArray:
 	bytes.resize(bytes.size() + bytes.size() % 0x10)
 	
 	return bytes
+#endregion
 
 
 func script_load_action(index: int) -> void:
+	instruction_index = -1
+	
 	var anim := Animation.new()
 	anim.length = 0.0
 	
@@ -335,11 +371,88 @@ func sprite_get_index() -> int:
 	return this_cell.sprite_info.index
 
 
-func script_action_set_flag(flag: int, enabled: bool) -> void:
+func script_action_set_damage(value: int) -> void:
+	var action_text: String = "Action #%s set damage" % action_index
+	
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
+	
+	undo_redo.add_do_property(this_action, "damage", value)
+	undo_redo.add_do_method(
+		emit_signal.bind("action_set_damage", value)
+	)
+	
+	undo_redo.add_undo_property(this_action, "damage", this_action.damage)
+	undo_redo.add_undo_method(
+		emit_signal.bind("action_set_damage", this_action.damage)
+	)
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
+func script_action_set_flag(
+	flag_type: FlagType, flag: int, enabled: bool
+) -> void:
 	if enabled:
-		this_action.flag |= 1 << flag
+		match flag_type:
+			FlagType.FLAGS:
+				this_action.flag |= 1 << flag
+			FlagType.LVFLAG:
+				this_action.lvflag |= 1 << flag
+			FlagType.FLAG2:
+				this_action.flag2 |= 1 << flag
+				
 	else:
-		this_action.flag &= ~(1 << flag)
+		match flag_type:
+			FlagType.FLAGS:	
+				this_action.flag &= ~(1 << flag)
+			FlagType.LVFLAG:
+				this_action.lvflag &= ~(1 << flag)
+			FlagType.FLAG2:
+				this_action.flag2 &= ~(1 << flag)
+
+
+func script_instruction_select(index: int) -> void:
+	instruction_index = index
+
+
+func script_instruction_delete() -> void:
+	if instruction_index < 0:
+		return
+	
+	var action_text: String = "Action #%s delete instruction" % action_index
+	
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(
+		script_instruction_delete_commit.bind(instruction_index)
+	)
+	undo_redo.add_do_method(script_load_action.bind(action_index))
+	undo_redo.add_do_method(script_load_frame.bind(script_get_current_frame()))
+	
+	undo_redo.add_undo_method(
+		script_instruction_insert_commit.bind(
+			instruction_index,
+			script_get_instruction(instruction_index)
+		)
+	)
+	undo_redo.add_undo_method(script_load_action.bind(action_index))
+	undo_redo.add_undo_method(script_load_frame.bind(script_get_current_frame()))
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
+func script_instruction_delete_commit(at_index: int) -> void:
+	this_action.instructions.remove_at(at_index)
+
+
+func script_instruction_insert_commit(
+	at_index: int, instruction: Instruction
+) -> void:
+	this_action.instructions.insert(at_index, instruction)
 
 
 func script_set_argument(instruction: int, argument: int, value: int) -> void:
