@@ -6,14 +6,14 @@ extends ItemList
 
 
 func _ready() -> void:
-	action_spinbox.value_changed.connect(update)
-	update(0)
+	script_edit.action_loaded.connect(update)
+	item_selected.connect(script_edit.script_instruction_select)
 
 
-func update(action_index: int) -> void:
+func update() -> void:
 	clear()
 	
-	var action: ScriptAction = script_edit.bin_script.actions[action_index]
+	var action: ScriptAction = script_edit.this_action
 	
 	for instruction in action.instructions:
 		add_item(instruction.display_name)
