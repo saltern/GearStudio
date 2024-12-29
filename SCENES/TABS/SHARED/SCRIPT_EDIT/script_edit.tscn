@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=38 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -7,13 +7,16 @@
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_i86rk"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="3_y47wv"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="4_fp2qg"]
-[ext_resource type="Script" uid="uid://dke2bgsa8rc5w" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/flags.gd" id="4_t3ydv"]
+[ext_resource type="Script" uid="uid://bxfq7dkvl07ge" path="res://SCENES/TABS/SHARED/expand_collapse.gd" id="4_h01nf"]
 [ext_resource type="Texture2D" uid="uid://7wmhqtwamyee" path="res://ICONS/new_left.svg" id="4_v65u5"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="5_7mwsm"]
+[ext_resource type="Script" uid="uid://hefyqjd6683" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/damage.gd" id="5_h01nf"]
 [ext_resource type="Texture2D" uid="uid://mtgfsjtan4rb" path="res://ICONS/new_right.svg" id="5_qi07w"]
+[ext_resource type="Script" uid="uid://djnb5rtnkvwlu" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/flags.gd" id="6_mno2r"]
 [ext_resource type="Texture2D" uid="uid://bnr5mkhl5ghgh" path="res://ICONS/copy.svg" id="6_uc0na"]
 [ext_resource type="Texture2D" uid="uid://b0oprk8vqk1sc" path="res://ICONS/clipboard_left.svg" id="7_5hivn"]
 [ext_resource type="Texture2D" uid="uid://b26ndog68sdw3" path="res://ICONS/clipboard.svg" id="8_3otq7"]
+[ext_resource type="Script" uid="uid://lost5udvpguk" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/delete_instruction.gd" id="8_mno2r"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="8_tc77i"]
 [ext_resource type="Texture2D" uid="uid://fd18dydlbond" path="res://ICONS/clipboard_right.svg" id="9_0a85a"]
 [ext_resource type="Script" uid="uid://b3jh2u54w2vda" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_rfuac"]
@@ -29,6 +32,22 @@
 [ext_resource type="Script" uid="uid://qi65k6lh8ed7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/timeline.gd" id="24_1g2a5"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhjo"]
+content_margin_left = 5.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h01nf"]
+content_margin_left = 5.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mno2r"]
+content_margin_left = 5.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxwds"]
+content_margin_left = 5.0
+draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onbgg"]
 bg_color = Color(1, 1, 1, 1)
@@ -73,23 +92,6 @@ theme_override_constants/margin_left = 20
 [node name="data" type="VBoxContainer" parent="Actions/content/actions/margin"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="text" type="Label" parent="Actions/content/actions/margin/data/title"]
-layout_mode = 2
-text = "Actions"
-
-[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="action_idx" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
 layout_mode = 2
 
@@ -102,293 +104,539 @@ text_overrun_behavior = 3
 [node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/action_idx"]
 layout_mode = 2
 size_flags_horizontal = 3
+alignment = 2
 script = ExtResource("2_5hivn")
 metadata/_custom_type_script = ExtResource("2_cp5hf")
 
-[node name="flags" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
+[node name="properties" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/flags"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties" node_paths=PackedStringArray("collapsible")]
 layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../collapsible")
 
-[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/flags/title"]
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/properties/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="title" type="Label" parent="Actions/content/actions/margin/data/flags/title"]
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/properties/title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Flags"
+text = "Properties"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="h_sep2" type="HSeparator" parent="Actions/content/actions/margin/data/flags/title"]
+[node name="h_sep2" type="HSeparator" parent="Actions/content/actions/margin/data/properties/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="value" type="GridContainer" parent="Actions/content/actions/margin/data/flags"]
+[node name="collapsible" type="VBoxContainer" parent="Actions/content/actions/margin/data/properties"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="damage" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/properties/collapsible/damage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Damage"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/properties/collapsible/damage"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 255.0
+alignment = 2
+script = ExtResource("5_h01nf")
+metadata/_custom_type_script = ExtResource("2_cp5hf")
+
+[node name="flags_title" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible" node_paths=PackedStringArray("collapsible")]
+layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../flags_value")
+
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/properties/collapsible/flags_title"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Flags"
+vertical_alignment = 1
+
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/properties/collapsible/flags_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="flags_value" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
 layout_mode = 2
 columns = 2
-script = ExtResource("4_t3ydv")
+script = ExtResource("6_mno2r")
+total_flags = 32
 
-[node name="flags_0" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+[node name="flags_0" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="0" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="0" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="1" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="2" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="3" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "3"
 
-[node name="4" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="4" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="5" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "5"
 
-[node name="6" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="6" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "6"
 
-[node name="7" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_0"]
+[node name="7" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "7"
 
-[node name="flags_1" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+[node name="flags_1" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="8" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="8" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "8"
 
-[node name="9" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="9" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "9"
 
-[node name="10" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="10" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "10"
 
-[node name="11" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="11" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "11"
 
-[node name="12" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="12" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "12"
 
-[node name="13" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="13" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "13"
 
-[node name="14" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="14" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "14"
 
-[node name="15" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_1"]
+[node name="15" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "15"
 
-[node name="flags_2" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+[node name="flags_2" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="16" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="16" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "16"
 
-[node name="17" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="17" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "17"
 
-[node name="18" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="18" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "18"
 
-[node name="19" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="19" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "19"
 
-[node name="20" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="20" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "20"
 
-[node name="21" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="21" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "21"
 
-[node name="22" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="22" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "22"
 
-[node name="23" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_2"]
+[node name="23" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "23"
 
-[node name="flags_3" type="GridContainer" parent="Actions/content/actions/margin/data/flags/value"]
+[node name="flags_3" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="24" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="24" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "24"
 
-[node name="25" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="25" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "25"
 
-[node name="26" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="26" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "26"
 
-[node name="27" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="27" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "27"
 
-[node name="28" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="28" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "28"
 
-[node name="29" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="29" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "29"
 
-[node name="30" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="30" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "30"
 
-[node name="31" type="Button" parent="Actions/content/actions/margin/data/flags/value/flags_3"]
+[node name="31" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "31"
 
-[node name="preview_title" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
+[node name="lvflag_title" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible" node_paths=PackedStringArray("collapsible")]
+layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../lvflag_value")
+
+[node name="title" type="Label" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+text = "LV Flags"
+vertical_alignment = 1
 
-[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/preview_title"]
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="text" type="Label" parent="Actions/content/actions/margin/data/preview_title"]
+[node name="lvflag_value" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
 layout_mode = 2
-text = "Preview"
+columns = 2
+script = ExtResource("6_mno2r")
+total_flags = 16
+flag_type = 1
 
-[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/preview_title"]
+[node name="lvflag_0" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="0" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
+text = "0"
 
-[node name="box_display" type="CheckButton" parent="Actions/content/actions/margin/data"]
+[node name="1" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "1"
+
+[node name="2" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "2"
+
+[node name="3" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "3"
+
+[node name="4" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "4"
+
+[node name="5" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "5"
+
+[node name="6" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "6"
+
+[node name="7" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+toggle_mode = true
+text = "7"
+
+[node name="lvflag_1" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="8" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "8"
+
+[node name="9" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "9"
+
+[node name="10" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "10"
+
+[node name="11" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "11"
+
+[node name="12" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "12"
+
+[node name="13" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "13"
+
+[node name="14" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "14"
+
+[node name="15" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/lvflag_value/lvflag_1"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+toggle_mode = true
+text = "15"
+
+[node name="flag2_title" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible" node_paths=PackedStringArray("collapsible")]
+layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../flag2_value")
+
+[node name="flag2" type="Label" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-button_pressed = true
-text = "Display boxes"
+text = "Flags 2"
+vertical_alignment = 1
 
-[node name="ignore_visual" type="CheckButton" parent="Actions/content/actions/margin/data"]
-custom_minimum_size = Vector2(0, 30)
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_title"]
 layout_mode = 2
-text = "Ignore VISUAL"
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="flag2_value" type="VBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
+layout_mode = 2
+script = ExtResource("6_mno2r")
+total_flags = 8
+flag_type = 2
+
+[node name="flag2_0" type="HBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="0" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "0"
+
+[node name="1" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "1"
+
+[node name="2" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "2"
+
+[node name="3" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "3"
+
+[node name="4" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "4"
+
+[node name="5" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "5"
+
+[node name="6" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "6"
+
+[node name="7" type="Button" parent="Actions/content/actions/margin/data/properties/collapsible/flag2_value/flag2_0"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+text = "7"
 
 [node name="instructions" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions" node_paths=PackedStringArray("collapsible")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../collapsible")
+collapse_parent = true
 
 [node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="text" type="Label" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
@@ -397,105 +645,116 @@ text = "Instructions"
 [node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/instructions/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="toolbar" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions"]
+[node name="collapsible" type="VBoxContainer" parent="Actions/content/actions/margin/data/instructions"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="delete" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="toolbar" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible"]
 layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="delete" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("3_y47wv")
+script = ExtResource("8_mno2r")
 
-[node name="new_before" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="new_before" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("4_v65u5")
 
-[node name="new_after" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="new_after" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("5_qi07w")
 
-[node name="copy" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="copy" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("6_uc0na")
 
-[node name="paste_before" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="paste_before" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("7_5hivn")
 
-[node name="paste" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="paste" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("8_3otq7")
 
-[node name="paste_after" type="Button" parent="Actions/content/actions/margin/data/instructions/toolbar"]
+[node name="paste_after" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
+size_flags_horizontal = 6
 icon = ExtResource("9_0a85a")
 
-[node name="type" type="OptionButton" parent="Actions/content/actions/margin/data/instructions"]
+[node name="type" type="OptionButton" parent="Actions/content/actions/margin/data/instructions/collapsible"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("11_3otq7")
 
-[node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/instructions"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="items" type="ItemList" parent="Actions/content/actions/margin/data/instructions/scroll" node_paths=PackedStringArray("action_spinbox")]
+[node name="items" type="ItemList" parent="Actions/content/actions/margin/data/instructions/collapsible" node_paths=PackedStringArray("action_spinbox")]
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+item_count = 1
 script = ExtResource("12_0a85a")
 action_spinbox = NodePath("../../../action_idx/value")
 
-[node name="arguments" type="VBoxContainer" parent="Actions/content/actions/margin/data"]
+[node name="arguments" type="VBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/arguments"]
+[node name="title" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments" node_paths=PackedStringArray("collapsible")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../scroll")
+collapse_parent = true
 
-[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/arguments/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="text" type="Label" parent="Actions/content/actions/margin/data/arguments/title"]
+[node name="text" type="Label" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/title"]
 layout_mode = 2
 text = "Parameters"
 
-[node name="hsep_1" type="HSeparator" parent="Actions/content/actions/margin/data/arguments/title"]
+[node name="hsep_0" type="HSeparator" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/title"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
-[node name="arg0" type="HBoxContainer" parent="Actions/content/actions/margin/data/arguments"]
+[node name="arg0" type="HBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments"]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="display_name" type="Label" parent="Actions/content/actions/margin/data/arguments/arg0"]
+[node name="display_name" type="Label" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/arg0"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/arguments/arg0"]
+[node name="value" type="SpinBox" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/arg0"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_cp5hf")
 metadata/_custom_type_script = ExtResource("2_cp5hf")
 
-[node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/arguments"]
+[node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 4
 
-[node name="arg_container" type="VBoxContainer" parent="Actions/content/actions/margin/data/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg")]
+[node name="arg_container" type="VBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("13_ctvg6")
-action_index = NodePath("../../../action_idx/value")
-instruction_list = NodePath("../../../instructions/scroll/items")
+action_index = NodePath("../../../../../action_idx/value")
+instruction_list = NodePath("../../../items")
 model_arg = NodePath("../../arg0")
 
 [node name="v_sep" type="VSeparator" parent="Actions/content"]
@@ -506,13 +765,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="title" type="Label" parent="Actions/content/visualizer"]
+[node name="preview_options" type="HBoxContainer" parent="Actions/content/visualizer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+
+[node name="title" type="Label" parent="Actions/content/visualizer/preview_options"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Preview"
 
-[node name="warning" type="Label" parent="Actions/content/visualizer"]
+[node name="box_display" type="CheckBox" parent="Actions/content/visualizer/preview_options"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "WARNING: This part of Gear Studio is incomplete, and may not correctly mirror in-game behavior."
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h01nf")
+button_pressed = true
+text = "Display boxes"
+flat = true
+
+[node name="ignore_visual" type="CheckBox" parent="Actions/content/visualizer/preview_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
+text = "Ignore \"VISUAL\""
+flat = true
 
 [node name="borders" type="PanelContainer" parent="Actions/content/visualizer"]
 layout_mode = 2
@@ -602,7 +879,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
-ignore_visual_toggle = NodePath("../../../../../../actions/margin/data/ignore_visual")
+ignore_visual_toggle = NodePath("../../../../../preview_options/ignore_visual")
 sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
@@ -616,12 +893,12 @@ use_parent_material = true
 [node name="origin" type="Node2D" parent="Actions/content/visualizer/borders/clipper/visualizer/origin/sprite/scale/scale_y"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display", "sprite_handler")]
+[node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
-box_display = NodePath("../../../../../../actions/margin/data/box_display")
+box_display_toggle = NodePath("../../../../../preview_options/box_display")
 sprite_handler = NodePath("../sprite")
 
 [node name="origin_cross" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin"]
@@ -706,6 +983,13 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="warning" type="Label" parent="Actions/content/visualizer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "WARNING: This part of Gear Studio is incomplete, and may not correctly mirror in-game behavior."
+vertical_alignment = 1
 
 [node name="timeline" type="HBoxContainer" parent="Actions/content/visualizer"]
 layout_mode = 2
