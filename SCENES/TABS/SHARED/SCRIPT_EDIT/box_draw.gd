@@ -1,6 +1,6 @@
 extends Control
 
-@export var box_display: CheckButton
+@export var box_display_toggle: CheckBox
 @export var sprite_handler: Control
 
 var box_list: Array[BoxInfo]
@@ -15,7 +15,7 @@ var angle: int = 0
 
 
 func _ready() -> void:
-	box_display.toggled.connect(toggle_display)
+	box_display_toggle.toggled.connect(toggle_display)
 	script_edit.cell_clear.connect(clear_boxes)
 	script_edit.inst_cell.connect(on_cell)
 	script_edit.inst_scale.connect(on_scale)

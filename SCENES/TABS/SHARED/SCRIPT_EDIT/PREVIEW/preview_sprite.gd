@@ -2,7 +2,7 @@ extends Control
 
 signal scale_set
 
-@export var ignore_visual_toggle: CheckButton
+@export var ignore_visual_toggle: CheckBox
 
 @export var sprite_scale: Node2D
 @export var sprite_scale_y: Node2D
