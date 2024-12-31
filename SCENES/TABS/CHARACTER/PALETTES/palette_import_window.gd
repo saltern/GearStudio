@@ -20,7 +20,7 @@ func display() -> void:
 
 
 func on_file_selected(file: String) -> void:
-	FileMemory.palette_palette_import = current_path
+	FileMemory.palette_import = current_path
 	
 	var palette: BinPalette
 	
