@@ -7,6 +7,7 @@ extends ItemList
 
 func _ready() -> void:
 	script_edit.action_loaded.connect(update)
+	script_edit.action_select_instruction.connect(external_select)
 	item_selected.connect(script_edit.script_instruction_select)
 
 
@@ -17,3 +18,7 @@ func update() -> void:
 	
 	for instruction in action.instructions:
 		add_item(instruction.display_name)
+
+
+func external_select(index: int) -> void:
+	select(index)

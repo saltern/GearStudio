@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://b3jh2u54w2vda" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_rfuac"]
 [ext_resource type="Script" uid="uid://crklydx8hyb15" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/new_instruction.gd" id="10_hxwds"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
-[ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_list.gd" id="12_0a85a"]
+[ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_list.gd" id="12_0a85a"]
 [ext_resource type="Script" uid="uid://driaid5d3iwtf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/arguments.gd" id="13_ctvg6"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
 [ext_resource type="Script" uid="uid://bqjpr18xm0kt7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/copy_instruction.gd" id="16_sx0bg"]
@@ -36,7 +36,7 @@
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
-[ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_type_itemlist.gd" id="36_h0fgr"]
+[ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhjo"]
 content_margin_left = 5.0
