@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=45 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -17,21 +17,26 @@
 [ext_resource type="Texture2D" uid="uid://b0oprk8vqk1sc" path="res://ICONS/clipboard_left.svg" id="7_5hivn"]
 [ext_resource type="Texture2D" uid="uid://b26ndog68sdw3" path="res://ICONS/clipboard.svg" id="8_3otq7"]
 [ext_resource type="Script" uid="uid://lost5udvpguk" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/delete_instruction.gd" id="8_mno2r"]
-[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="8_tc77i"]
 [ext_resource type="Texture2D" uid="uid://fd18dydlbond" path="res://ICONS/clipboard_right.svg" id="9_0a85a"]
 [ext_resource type="Script" uid="uid://b3jh2u54w2vda" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_rfuac"]
-[ext_resource type="Script" uid="uid://bf08biydngkbr" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_type.gd" id="11_3otq7"]
+[ext_resource type="Script" uid="uid://crklydx8hyb15" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/new_instruction.gd" id="10_hxwds"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
 [ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_list.gd" id="12_0a85a"]
 [ext_resource type="Script" uid="uid://driaid5d3iwtf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/arguments.gd" id="13_ctvg6"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
+[ext_resource type="Script" uid="uid://bqjpr18xm0kt7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/copy_instruction.gd" id="16_sx0bg"]
+[ext_resource type="Script" uid="uid://b5jjbrvtaa2on" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/paste_instruction.gd" id="17_h0fgr"]
 [ext_resource type="Texture2D" uid="uid://cte73girc3poy" path="res://ICONS/play_from_start.svg" id="18_uc0na"]
 [ext_resource type="Texture2D" uid="uid://bl3yqtc1r5xxi" path="res://ICONS/play.svg" id="19_5hivn"]
+[ext_resource type="Script" uid="uid://bwetp10s0dg8u" path="res://CLASSES/CONTROL/class_debouncing_spinbox.gd" id="19_dn4hq"]
 [ext_resource type="Texture2D" uid="uid://blit50g7vol1d" path="res://ICONS/stop.svg" id="20_3otq7"]
 [ext_resource type="Script" uid="uid://c6m83ykf53y7y" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/box_draw.gd" id="20_fi3dn"]
 [ext_resource type="Script" uid="uid://qi65k6lh8ed7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/timeline.gd" id="24_1g2a5"]
+[ext_resource type="Shader" uid="uid://lcidhjapjeyc" path="res://MATERIALS/palette_script.gdshader" id="25_h0fgr"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
+[ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
+[ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/instruction_type_itemlist.gd" id="36_h0fgr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhjo"]
 content_margin_left = 5.0
@@ -52,6 +57,23 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onbgg"]
 bg_color = Color(1, 1, 1, 1)
 draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0fgr"]
+resource_local_to_scene = true
+shader = ExtResource("25_h0fgr")
+shader_parameter/blend_mode = 0
+shader_parameter/blend_value = 256
+shader_parameter/alpha_double = true
+shader_parameter/reindex = true
+shader_parameter/visual_3 = true
+shader_parameter/palette = PackedInt32Array()
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0fgr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -90,6 +112,52 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 
 [node name="data" type="VBoxContainer" parent="Actions/content/actions/margin"]
+layout_mode = 2
+
+[node name="toolbar" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="delete" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("3_y47wv")
+
+[node name="new_before" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("4_v65u5")
+
+[node name="new_after" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("5_qi07w")
+
+[node name="copy" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("6_uc0na")
+
+[node name="paste_before" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("7_5hivn")
+
+[node name="paste" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("8_3otq7")
+
+[node name="paste_after" type="Button" parent="Actions/content/actions/margin/data/toolbar"]
+layout_mode = 2
+size_flags_horizontal = 6
+icon = ExtResource("9_0a85a")
+
+[node name="h_sep" type="HSeparator" parent="Actions/content/actions/margin/data"]
+layout_mode = 2
+
+[node name="padding" type="Control" parent="Actions/content/actions/margin/data"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
 [node name="action_idx" type="HBoxContainer" parent="Actions/content/actions/margin/data"]
@@ -173,6 +241,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="flags_value" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
+visible = false
 layout_mode = 2
 columns = 2
 script = ExtResource("6_mno2r")
@@ -415,6 +484,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="lvflag_value" type="GridContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
+visible = false
 layout_mode = 2
 columns = 2
 script = ExtResource("6_mno2r")
@@ -556,6 +626,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="flag2_value" type="VBoxContainer" parent="Actions/content/actions/margin/data/properties/collapsible"]
+visible = false
 layout_mode = 2
 script = ExtResource("6_mno2r")
 total_flags = 8
@@ -665,39 +736,46 @@ script = ExtResource("8_mno2r")
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("4_v65u5")
+script = ExtResource("10_hxwds")
 
 [node name="new_after" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("5_qi07w")
+script = ExtResource("10_hxwds")
+after = true
 
 [node name="copy" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("6_uc0na")
+script = ExtResource("16_sx0bg")
 
 [node name="paste_before" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("7_5hivn")
+script = ExtResource("17_h0fgr")
+paste_mode = -1
 
 [node name="paste" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("8_3otq7")
+script = ExtResource("17_h0fgr")
 
 [node name="paste_after" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible/toolbar"]
 layout_mode = 2
 size_flags_horizontal = 6
 icon = ExtResource("9_0a85a")
+script = ExtResource("17_h0fgr")
+paste_mode = 1
 
-[node name="type" type="OptionButton" parent="Actions/content/actions/margin/data/instructions/collapsible"]
-custom_minimum_size = Vector2(0, 30)
+[node name="type" type="Button" parent="Actions/content/actions/margin/data/instructions/collapsible"]
 layout_mode = 2
-script = ExtResource("11_3otq7")
+text = "CellBegin"
 
 [node name="items" type="ItemList" parent="Actions/content/actions/margin/data/instructions/collapsible" node_paths=PackedStringArray("action_spinbox")]
-custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -740,15 +818,19 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
-script = ExtResource("2_cp5hf")
-metadata/_custom_type_script = ExtResource("2_cp5hf")
+script = ExtResource("19_dn4hq")
+metadata/_custom_type_script = ExtResource("19_dn4hq")
+
+[node name="nothing" type="Label" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments"]
+layout_mode = 2
+text = "No instructions selected."
 
 [node name="scroll" type="ScrollContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="arg_container" type="VBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg")]
+[node name="arg_container" type="VBoxContainer" parent="Actions/content/actions/margin/data/instructions/collapsible/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg", "nothing_selected")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -756,6 +838,7 @@ script = ExtResource("13_ctvg6")
 action_index = NodePath("../../../../../action_idx/value")
 instruction_list = NodePath("../../../items")
 model_arg = NodePath("../../arg0")
+nothing_selected = NodePath("../../nothing")
 
 [node name="v_sep" type="VSeparator" parent="Actions/content"]
 layout_mode = 2
@@ -774,22 +857,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Preview"
 
-[node name="box_display" type="CheckBox" parent="Actions/content/visualizer/preview_options"]
-custom_minimum_size = Vector2(0, 30)
+[node name="box_display" type="CheckButton" parent="Actions/content/visualizer/preview_options"]
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
 theme_override_styles/normal = SubResource("StyleBoxFlat_h01nf")
 button_pressed = true
 text = "Display boxes"
-flat = true
 
-[node name="ignore_visual" type="CheckBox" parent="Actions/content/visualizer/preview_options"]
-custom_minimum_size = Vector2(0, 30)
+[node name="ignore_visual" type="CheckButton" parent="Actions/content/visualizer/preview_options"]
+visible = false
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
 text = "Ignore \"VISUAL\""
-flat = true
 
 [node name="borders" type="PanelContainer" parent="Actions/content/visualizer"]
 layout_mode = 2
@@ -821,6 +903,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("3_i86rk")
+metadata/_edit_lock_ = true
 
 [node name="background_b" type="TextureRect" parent="Actions/content/visualizer/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
@@ -834,6 +917,7 @@ mouse_filter = 2
 texture = ExtResource("4_fp2qg")
 stretch_mode = 1
 script = ExtResource("5_7mwsm")
+metadata/_edit_lock_ = true
 
 [node name="origin" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer"]
 layout_mode = 3
@@ -870,7 +954,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="sprite" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
-material = ExtResource("8_tc77i")
+material = SubResource("ShaderMaterial_h0fgr")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -894,8 +978,14 @@ use_parent_material = true
 use_parent_material = true
 
 [node name="box_parent" type="Control" parent="Actions/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
+custom_minimum_size = Vector2(6000, 6000)
 layout_mode = 3
 anchors_preset = 0
+offset_left = -3000.0
+offset_top = -3000.0
+offset_right = 3000.0
+offset_bottom = 3000.0
+pivot_offset = Vector2(3000, 3000)
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
 box_display_toggle = NodePath("../../../../../preview_options/box_display")
@@ -1035,3 +1125,36 @@ text = "0000 F"
 horizontal_alignment = 1
 script = ExtResource("26_f2brd")
 timeline = NodePath("../timeline")
+
+[node name="instruction_select" type="Window" parent="." node_paths=PackedStringArray("summon_button", "instruction_list")]
+title = "Select Instruction"
+initial_position = 2
+size = Vector2i(300, 500)
+visible = false
+transient = true
+exclusive = true
+borderless = true
+popup_window = true
+sharp_corners = true
+script = ExtResource("36_dn4hq")
+summon_button = NodePath("../Actions/content/actions/margin/data/instructions/collapsible/type")
+instruction_list = NodePath("panel/margin/items")
+
+[node name="panel" type="PanelContainer" parent="instruction_select"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h0fgr")
+
+[node name="margin" type="MarginContainer" parent="instruction_select/panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="items" type="ItemList" parent="instruction_select/panel/margin"]
+layout_mode = 2
+script = ExtResource("36_h0fgr")

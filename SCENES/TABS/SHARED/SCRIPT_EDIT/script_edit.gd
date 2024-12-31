@@ -2,6 +2,8 @@ class_name ScriptEdit extends Control
 
 signal action_loaded
 signal action_set_damage
+signal action_seek_to_frame
+signal action_select_instruction
 signal cell_updated
 signal cell_clear
 signal inst_cell
@@ -30,6 +32,8 @@ var action_index: int = 0
 var instruction_index: int = -1
 var this_action: ScriptAction
 var this_cell: Cell
+
+var new_instruction_type: int = 0
 
 
 func _enter_tree() -> void:
@@ -183,8 +187,17 @@ func serialize_script() -> PackedByteArray:
 
 
 func script_load_action(index: int) -> void:
+	action_index = index
+	this_action = script_get_action(action_index)
 	instruction_index = -1
 	
+	script_animation_load()
+	script_animation_restart()
+	
+	action_loaded.emit()
+
+
+func script_animation_load() -> void:
 	var anim := Animation.new()
 	anim.length = 0.0
 	
@@ -232,12 +245,14 @@ func script_load_action(index: int) -> void:
 		"args": [&"inst_visual", 0, 1]
 	})
 	
-	action_index = index
-	this_action = script_get_action(action_index)
+	anim.track_insert_key(track_visual, 0.1, {
+		"method": &"emit_signal",
+		"args": [&"inst_visual", 3, 0]
+	})
+	
 	var frame: int = 1
 	var frame_offset: int = 0
 	var cell_count: int = 0
-	var tied: bool = true
 	
 	for instruction: Instruction in this_action.instructions:
 		var instruction_name: String = \
@@ -318,12 +333,12 @@ func script_load_action(index: int) -> void:
 	
 	var library := anim_player.get_animation_library("")
 	library.add_animation(&"anim", anim)
-	
+
+
+func script_animation_restart() -> void:
 	anim_player.play(&"anim")
 	anim_player.seek(0, true)
 	script_load_frame(1)
-	
-	action_loaded.emit()
 
 
 func script_load_frame(frame: int) -> void:
@@ -347,10 +362,6 @@ func script_get_current_frame() -> int:
 
 func script_get_action(index: int) -> ScriptAction:
 	return bin_script.actions[index]
-
-
-func script_get_instruction(index: int) -> Instruction:
-	return this_action.instructions[index]
 
 
 func script_save(for_session: int) -> void:
@@ -397,7 +408,7 @@ func script_action_set_flag(
 	if enabled:
 		match flag_type:
 			FlagType.FLAGS:
-				this_action.flag |= 1 << flag
+				this_action.flags |= 1 << flag
 			FlagType.LVFLAG:
 				this_action.lvflag |= 1 << flag
 			FlagType.FLAG2:
@@ -406,22 +417,43 @@ func script_action_set_flag(
 	else:
 		match flag_type:
 			FlagType.FLAGS:	
-				this_action.flag &= ~(1 << flag)
+				this_action.flags &= ~(1 << flag)
 			FlagType.LVFLAG:
 				this_action.lvflag &= ~(1 << flag)
 			FlagType.FLAG2:
 				this_action.flag2 &= ~(1 << flag)
 
 
+func script_instruction_get(index: int) -> Instruction:
+	return this_action.instructions[index]
+
+
+func script_instruction_get_frame(index: int) -> int:
+	var frame: int = 1
+	var frame_offset: int = 0
+	
+	for number in range(0, index + 1):
+		var instruction: Instruction = this_action.instructions[number]
+		if instruction.id == 0:
+			frame += frame_offset
+			frame_offset = instruction.arguments[0].value
+	
+	return frame
+
+
 func script_instruction_select(index: int) -> void:
 	instruction_index = index
+	var instruction_frame: int = script_instruction_get_frame(instruction_index)
+	script_load_frame(instruction_frame)
+	action_select_instruction.emit(instruction_index)
+	action_seek_to_frame.emit(instruction_frame)
 
 
 func script_instruction_delete() -> void:
 	if instruction_index < 0:
 		return
 	
-	var action_text: String = "Action #%s delete instruction" % action_index
+	var action_text: String = "Action #%s: delete instruction" % action_index
 	
 	undo_redo.create_action(action_text)
 	
@@ -434,7 +466,7 @@ func script_instruction_delete() -> void:
 	undo_redo.add_undo_method(
 		script_instruction_insert_commit.bind(
 			instruction_index,
-			script_get_instruction(instruction_index)
+			script_instruction_get(instruction_index)
 		)
 	)
 	undo_redo.add_undo_method(script_load_action.bind(action_index))
@@ -449,20 +481,139 @@ func script_instruction_delete_commit(at_index: int) -> void:
 	this_action.instructions.remove_at(at_index)
 
 
+func script_instruction_insert(at_index: int, instruction: Instruction) -> void:
+	if at_index == -1:
+		at_index = 0
+	
+	var action_text: String = "Action #%s: insert instruction" % action_index
+	
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(
+		script_instruction_insert_commit.bind(at_index, instruction)
+	)
+	undo_redo.add_do_method(script_load_action.bind(action_index))
+	#undo_redo.add_do_method(script_load_frame.bind(script_get_current_frame()))
+	undo_redo.add_do_method(script_instruction_select.bind(at_index))
+	
+	undo_redo.add_undo_method(script_instruction_delete_commit.bind(at_index))
+	undo_redo.add_undo_method(script_load_action.bind(action_index))
+	#undo_redo.add_undo_method(
+		#script_load_frame.bind(script_get_current_frame())
+	#)
+	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
 func script_instruction_insert_commit(
 	at_index: int, instruction: Instruction
 ) -> void:
 	this_action.instructions.insert(at_index, instruction)
 
 
-func script_set_argument(instruction: int, argument: int, value: int) -> void:
-	var this_instruction: Instruction = this_action.instructions[instruction]
-	this_instruction.arguments[argument].value = value
+func script_instruction_copy() -> void:
+	if instruction_index < 0:
+		Status.set_status("No instruction selected. Nothing copied.")
+		return
+	
+	var new_instruction := Instruction.new()
+	var ref_instruction := script_instruction_get(instruction_index)
+	new_instruction.id = ref_instruction.id
+	new_instruction.display_name = ref_instruction.display_name
+	
+	for argument in ref_instruction.arguments:
+		var new_argument := InstructionArgument.new()
+		new_argument.display_name = argument.display_name
+		new_argument.signed = argument.signed
+		new_argument.value = argument.value
+		new_argument.size = argument.size
+		new_instruction.arguments.append(new_argument)
+	
+	Clipboard.instruction = new_instruction
+
+
+func script_instruction_paste(at: int) -> void:
+	var instruction: Instruction = Clipboard.get_instruction()
+	var old_instruction = script_instruction_get(instruction_index)
+	
+	if instruction == null:
+		Status.set_status("No instructions on clipboard. Nothing pasted.")
+		return
+	
+	# -1 insertion would put new instructions at the back
+	var at_clamp: int = max(0, at)
+	
+	var action_text: String = "Action #%s: paste instruction" % action_index
+	
+	undo_redo.create_action(action_text)
+	
+	# Replacement
+	if at == 0:
+		undo_redo.add_do_method(
+			script_instruction_delete_commit.bind(instruction_index)
+		)
+		undo_redo.add_do_method(
+			script_instruction_insert_commit.bind(instruction_index, instruction)
+		)
+		
+		undo_redo.add_undo_method(
+			script_instruction_delete_commit.bind(instruction_index)
+		)
+		undo_redo.add_undo_method(
+			script_instruction_insert_commit.bind(instruction_index, old_instruction)
+		)
+	
+	# Insertion
+	else:
+		undo_redo.add_do_method(
+			script_instruction_insert_commit.bind(
+				instruction_index + at_clamp, instruction
+			)
+		)
+	
+		undo_redo.add_undo_method(
+			script_instruction_delete_commit.bind(instruction_index + at_clamp)
+		)
+	
+	undo_redo.add_do_method(script_load_action.bind(action_index))
+	undo_redo.add_do_method(
+		script_instruction_select.bind(instruction_index + at_clamp)
+	)
+	
+	undo_redo.add_undo_method(script_load_action.bind(action_index))
+	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
+
+
+func script_argument_set(instruction: int, argument: int, value: int) -> void:
+	var action_text: String = "Action #%s: set instruction #%s argument #%s" \
+		% [action_index, instruction, argument]
+	
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
+	
+	var this_instruction := this_action.instructions[instruction]
+	var this_argument := this_instruction.arguments[argument]
+	
+	undo_redo.add_do_property(this_argument, "value", value)
+	undo_redo.add_undo_property(this_argument, "value", this_argument.value)
 	
 	var frame: int = script_get_current_frame()
 	
-	script_load_action(action_index)
-	script_load_frame(frame)
+	undo_redo.add_do_method(script_animation_load)
+	undo_redo.add_do_method(script_load_frame.bind(frame))
+	undo_redo.add_do_method(emit_signal.bind("action_seek_to_frame", frame))
+	
+	undo_redo.add_undo_method(script_animation_load)
+	undo_redo.add_undo_method(script_instruction_select.bind(instruction))
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
 
 
 func sprite_get(index: int) -> BinSprite:
