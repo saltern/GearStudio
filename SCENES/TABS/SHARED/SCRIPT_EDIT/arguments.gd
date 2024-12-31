@@ -3,6 +3,7 @@ extends VBoxContainer
 @export var action_index: SteppingSpinBox
 @export var instruction_list: ItemList
 @export var model_arg: HBoxContainer
+@export var nothing_selected: Label
 
 var instruction_index: int = -1
 
@@ -10,11 +11,14 @@ var instruction_index: int = -1
 
 
 func _ready() -> void:
+	script_edit.action_select_instruction.connect(create_controls)
 	action_index.value_changed.connect(clear_controls.unbind(1))
 	instruction_list.item_selected.connect(create_controls)
 
 
 func clear_controls() -> void:
+	nothing_selected.show()
+	
 	instruction_index = -1
 	
 	for child in get_children():
@@ -23,7 +27,9 @@ func clear_controls() -> void:
 
 func create_controls(index: int) -> void:
 	clear_controls()
-	var instruction: Instruction = script_edit.script_get_instruction(index)
+	nothing_selected.hide()
+	
+	var instruction: Instruction = script_edit.script_instruction_get(index)
 	
 	instruction_index = index
 	
@@ -51,4 +57,4 @@ func create_controls(index: int) -> void:
 
 # I'd usually invert this order, but .bind() adds arguments at the end
 func set_argument(value: int, argument: int) -> void:
-	script_edit.script_set_argument(instruction_index, argument, value)
+	script_edit.script_argument_set(instruction_index, argument, value)
