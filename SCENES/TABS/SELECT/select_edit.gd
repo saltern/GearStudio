@@ -10,7 +10,6 @@ var undo_redo: UndoRedo = UndoRedo.new()
 var obj_data: Dictionary
 
 var image: Image
-var image_texture: ImageTexture
 
 
 func _ready() -> void:
@@ -81,8 +80,8 @@ func export(path: String) -> void:
 	SpriteExporter.export_png_direct(path, sprite, SpriteExport.pal_gray)
 
 
-func set_mask_from_image(image: Image) -> void:
-	obj_data["select_width"] = image.get_width()
-	obj_data["select_height"] = image.get_height()
-	obj_data["select_pixels"] = image.get_data()
+func set_mask_from_image(from_image: Image) -> void:
+	obj_data["select_width"] = from_image.get_width()
+	obj_data["select_height"] = from_image.get_height()
+	obj_data["select_pixels"] = from_image.get_data()
 	generate_texture()
