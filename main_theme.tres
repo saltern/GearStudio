@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=52 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=54 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
@@ -182,6 +182,18 @@ corner_detail = 1
 bg_color = Color(0.17, 0.17, 0.17, 1)
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_470mv"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.376471, 0.376471, 0.376471, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2l2q"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.376471, 0.376471, 0.376471, 1)
+corner_detail = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2do2w"]
 bg_color = Color(0.1, 0.1, 0.1, 1)
 corner_detail = 1
@@ -328,14 +340,25 @@ content_margin_bottom = 5.0
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0vmr"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 bg_color = Color(1, 1, 1, 1)
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bksn"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1tnr"]
-content_margin_left = 7.0
+content_margin_left = 5.0
+content_margin_top = 0.0
+content_margin_right = 5.0
+content_margin_bottom = 0.0
 bg_color = Color(0, 0, 0, 1)
 
 [resource]
@@ -367,6 +390,8 @@ ItemList/styles/cursor = SubResource("StyleBoxEmpty_ols8d")
 ItemList/styles/cursor_unfocused = SubResource("StyleBoxEmpty_g2cls")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wpn7q")
 ItemList/styles/hovered = SubResource("StyleBoxFlat_bt44o")
+ItemList/styles/hovered_selected = SubResource("StyleBoxFlat_470mv")
+ItemList/styles/hovered_selected_focus = SubResource("StyleBoxFlat_a2l2q")
 ItemList/styles/panel = SubResource("StyleBoxFlat_2do2w")
 ItemList/styles/selected = SubResource("StyleBoxFlat_e5l03")
 ItemList/styles/selected_focus = SubResource("StyleBoxFlat_e5l03")
