@@ -1,8 +1,9 @@
 extends Control
 
 signal scale_set
+signal rotation_set
 
-@export var ignore_visual_toggle: CheckBox
+@export var ignore_visual_toggle: CheckButton
 
 @export var sprite_scale: Node2D
 @export var sprite_scale_y: Node2D
@@ -198,9 +199,11 @@ func on_rotate(mode: int, value: int) -> void:
 			# the value parameter, then the whole thing is cast to a short, and
 			# added to the current angle.
 			
+			value = max(value, 1)
 			angle += (randi_range(0, pow(256, 4) - 1) % value) & 0xFFFF
 	
 	rotation_degrees = (90.0 / pow(128, 2)) * angle
+	rotation_set.emit(rotation_degrees)
 
 
 func on_draw_normal() -> void:
@@ -215,7 +218,11 @@ func on_visual(mode: int, value: int) -> void:
 	if ignore_visual:
 		return
 	
-	visible = bool(value)
+	match mode:
+		0:
+			visible = bool(value)
+		3:
+			material.set_shader_parameter("visual_3", bool(value))
 #endregion
 
 
