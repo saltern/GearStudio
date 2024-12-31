@@ -6,6 +6,7 @@ extends Control
 
 func _ready() -> void:
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	check_state()
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -21,7 +22,15 @@ func _gui_input(event: InputEvent) -> void:
 
 func toggle_collapsible() -> void:
 	collapsible.visible = !collapsible.visible
+	check_state()
 
+
+func check_state() -> void:
+	if collapsible.visible:
+		modulate.a = 1.0
+	else:
+		modulate.a = 0.5
+	
 	if not collapse_parent:
 		return
 	
