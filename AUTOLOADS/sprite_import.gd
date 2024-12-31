@@ -87,7 +87,7 @@ func status_register_action(action_text: String) -> void:
 
 
 func import_file_direct(path: String) -> BinSprite:
-	return sprite_importer.import_sprite(
+	return SpriteImporter.import_sprite(
 		path, false, false, false, false, false, false, 8)
 
 
