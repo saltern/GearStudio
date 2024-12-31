@@ -21,5 +21,5 @@ func display() -> void:
 	show()
 
 
-func register_path(path: String) -> void:
+func register_path(_path: String) -> void:
 	FileMemory.select_export = current_path
