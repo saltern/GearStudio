@@ -103,7 +103,21 @@ func build_database() -> void:
 			
 
 func get_instruction(id: int) -> Instruction:
-	return INSTRUCTION_DB[id].duplicate(true)
+	var new_instruction: Instruction = Instruction.new()
+	var ref_instruction: Instruction = INSTRUCTION_DB[id]
+	
+	new_instruction.id = id
+	new_instruction.display_name = ref_instruction.display_name
+	
+	for argument in ref_instruction.arguments:
+		var new_argument := InstructionArgument.new()
+		new_argument.display_name = argument.display_name
+		new_argument.signed = argument.signed
+		new_argument.value = argument.value
+		new_argument.size = argument.size
+		new_instruction.arguments.append(new_argument)
+	
+	return new_instruction
 
 
 func get_instruction_name(id: int) -> String:
