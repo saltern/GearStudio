@@ -99,7 +99,7 @@ func _input(event: InputEvent) -> void:
 			sprite_info_copy.sprite_index = this_cell.sprite_index
 			sprite_info_copy.sprite_x_offset = this_cell.sprite_x_offset
 			sprite_info_copy.sprite_y_offset = this_cell.sprite_y_offset
-			sprite_info_copy.unknown = this_cell.unknown1
+			sprite_info_copy.unknown = this_cell.unknown_1
 			
 			Clipboard.sprite_info = sprite_info_copy
 			
@@ -117,8 +117,11 @@ func _input(event: InputEvent) -> void:
 					# duplicate() doesn't work here either
 					var this_box := this_cell.boxes[box]
 					var new_box := BoxInfo.new()
-					new_box.rect = this_box.rect
-					new_box.type = this_box.type
+					new_box.width = this_box.width
+					new_box.height = this_box.height
+					new_box.x_offset = this_box.x_offset
+					new_box.y_offset = this_box.y_offset
+					new_box.box_type = this_box.box_type
 					new_box.crop_x_offset = this_box.crop_x_offset
 					new_box.crop_y_offset = this_box.crop_y_offset
 					
