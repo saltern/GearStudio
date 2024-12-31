@@ -13,6 +13,7 @@ func _ready() -> void:
 	min_value = 1
 	
 	script_edit.action_loaded.connect(update)
+	script_edit.action_seek_to_frame.connect(external_seek)
 	button_play_from_start.pressed.connect(play_from_start)
 	button_play.pressed.connect(play)
 	value_changed.connect(load_frame)
@@ -36,6 +37,10 @@ func reset() -> void:
 func update() -> void:
 	max_value = script_edit.script_get_animation_frames()
 	reset()
+
+
+func external_seek(frame: int) -> void:
+	set_value_no_signal(frame)
 
 
 func load_frame(frame: int) -> void:
