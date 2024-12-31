@@ -39,7 +39,6 @@ func get_string_at(at: Vector2) -> String:
 
 func get_index_at(at: Vector2) -> int:
 	var width: int = obj_data["select_width"]
-	var height: int = obj_data["select_height"]
 	var pixel: int = max(0, at.y - 1) * width + int(at.x)
 	
 	return obj_data["select_pixels"][pixel]
