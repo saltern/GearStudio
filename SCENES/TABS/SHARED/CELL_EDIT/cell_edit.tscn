@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=67 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -29,11 +29,18 @@
 [ext_resource type="Script" uid="uid://bxfq7dkvl07ge" path="res://SCENES/TABS/SHARED/expand_collapse.gd" id="15_5ipus"]
 [ext_resource type="Script" uid="uid://x3lnl8485814" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_width.gd" id="16_88dc2"]
 [ext_resource type="Script" uid="uid://5f87wfo45rol" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_height.gd" id="17_7hjvn"]
+[ext_resource type="Script" uid="uid://1syvxtfk0ibd" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_control_type_toggle.gd" id="17_586km"]
 [ext_resource type="Script" uid="uid://c5qvjayw6pww3" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_visibility.gd" id="18_u7qgc"]
+[ext_resource type="Texture2D" uid="uid://byshg4k387mm5" path="res://ICONS/arrow_left.svg" id="19_j2vpp"]
 [ext_resource type="Script" uid="uid://b8sx133ng56cy" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_x.gd" id="19_vpw2d"]
+[ext_resource type="Texture2D" uid="uid://cald4jvk0kkic" path="res://ICONS/arrow_up.svg" id="20_0ls1h"]
+[ext_resource type="Script" uid="uid://dodknp0u3fr7b" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/ALT_CONTROLS/arrow.gd" id="20_586km"]
+[ext_resource type="Script" uid="uid://d3ll2y77ukc4x" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/ALT_CONTROLS/text_field.gd" id="20_hdyd6"]
 [ext_resource type="Script" uid="uid://dolbx4baflvmi" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_y.gd" id="20_i2dqh"]
+[ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="21_586km"]
 [ext_resource type="Script" uid="uid://lchv1pomnana" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/main_preview.gd" id="21_md3df"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="22_4xx0u"]
+[ext_resource type="Texture2D" uid="uid://d20u5ru5u3txy" path="res://ICONS/arrow_right.svg" id="22_hdyd6"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="23_jn2pb"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="24_kifap"]
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
@@ -258,19 +265,44 @@ size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("4_ckx06")
 
-[node name="offset_x" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible"]
-custom_minimum_size = Vector2(0, 30)
+[node name="offset_alt" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_x"]
+[node name="titles" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title_x" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "CELL_EDIT_SPRITE_INFO_OFFSET_X_TOOLTIP"
 mouse_filter = 0
 text = "CELL_EDIT_SPRITE_INFO_OFFSET_X"
+vertical_alignment = 1
 text_overrun_behavior = 3
+script = ExtResource("17_586km")
+controls_a = NodePath("../../controls_a")
+controls_b = NodePath("../../controls_b")
 
-[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_x"]
+[node name="title_y" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP"
+mouse_filter = 0
+text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y"
+vertical_alignment = 1
+text_overrun_behavior = 3
+script = ExtResource("17_586km")
+controls_a = NodePath("../../controls_a")
+controls_b = NodePath("../../controls_b")
+
+[node name="controls_a" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -279,19 +311,7 @@ alignment = 2
 suffix = "px"
 script = ExtResource("5_r3hxp")
 
-[node name="offset_y" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_y"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP"
-mouse_filter = 0
-text = "CELL_EDIT_SPRITE_INFO_OFFSET_Y"
-text_overrun_behavior = 3
-
-[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_y"]
+[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -299,6 +319,75 @@ max_value = 32767.0
 alignment = 2
 suffix = "px"
 script = ExtResource("6_ua8f0")
+
+[node name="controls_b" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="line_edits" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value_x" type="LineEdit" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/line_edits"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+max_length = 6
+virtual_keyboard_type = 2
+script = ExtResource("20_hdyd6")
+
+[node name="value_y" type="LineEdit" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/line_edits"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+max_length = 6
+script = ExtResource("20_hdyd6")
+type = 1
+
+[node name="buttons" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="left" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = ExtResource("19_j2vpp")
+flat = true
+script = ExtResource("20_586km")
+
+[node name="y_buttons" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 0
+
+[node name="up" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons/y_buttons"]
+layout_mode = 2
+size_flags_vertical = 2
+icon = ExtResource("20_0ls1h")
+flat = true
+script = ExtResource("20_586km")
+direction = 1
+
+[node name="down" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons/y_buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+icon = ExtResource("21_586km")
+flat = true
+script = ExtResource("20_586km")
+direction = 2
+
+[node name="right" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+icon = ExtResource("22_hdyd6")
+flat = true
+script = ExtResource("20_586km")
+direction = 3
 
 [node name="boxes" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
