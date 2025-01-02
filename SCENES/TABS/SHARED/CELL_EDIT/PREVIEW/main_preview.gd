@@ -77,6 +77,30 @@ func mouse_motion(event: InputEventMouseMotion) -> void:
 
 func keyboard(event: InputEventKey) -> void:
 	match event.keycode:
+		KEY_UP:
+			if event.alt_pressed:
+				cell_edit.sprite_set_position_y(
+					cell_edit.this_cell.sprite_y_offset - 1
+				)
+		
+		KEY_DOWN:
+			if event.alt_pressed:
+				cell_edit.sprite_set_position_y(
+					cell_edit.this_cell.sprite_y_offset + 1
+				)
+		
+		KEY_LEFT:
+			if event.alt_pressed:
+				cell_edit.sprite_set_position_x(
+					cell_edit.this_cell.sprite_x_offset - 1
+				)
+		
+		KEY_RIGHT:
+			if event.alt_pressed:
+				cell_edit.sprite_set_position_x(
+					cell_edit.this_cell.sprite_x_offset + 1
+				)
+		
 		KEY_G:
 			guide_cycle_mode()
 		KEY_H:
@@ -85,7 +109,7 @@ func keyboard(event: InputEventKey) -> void:
 			guide_mode = GuideMode.BOTH
 			guide_cycle_mode()
 			cell_edit.box_deselect_all()
-			
+
 
 func guide_cycle_mode() -> void:
 	guide_mode = wrapi(guide_mode + 1, 0, GuideMode.MAX) as GuideMode
