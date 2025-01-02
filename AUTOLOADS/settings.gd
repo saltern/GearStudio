@@ -22,15 +22,11 @@ signal guide_color_changed
 # Sprites
 signal sprite_bounds_color_changed
 
-enum Language {
-	ENGLISH,
-	SPANISH,
-}
-
 const FILENAME: String = "/gearstudio.ini"
-const LANGUAGE_KEYS: Dictionary = {
-	0: "en",
-	1: "es",
+
+const LOCALE_PATH: String = "/locale"
+var language_keys: Dictionary = {
+	"en": "English",
 }
 
 const CFG_SECTION_GENERAL: String = "general"
@@ -78,7 +74,7 @@ enum BoxType {
 	UNKNOWN,			# 7+
 }
 
-var general_language: Language = Language.ENGLISH
+var general_language: String = "en"
 
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
 var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
@@ -115,11 +111,67 @@ var config: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
 	load_config()
+	load_locales()
 	update_locale()
 
 
+func load_locales() -> void:
+	# No "locale" directory
+	if not DirAccess.dir_exists_absolute(path + LOCALE_PATH):
+		return
+	
+	var file_list := DirAccess.get_files_at(path + LOCALE_PATH)
+	
+	for file in file_list:
+		var locale: PackedStringArray = file.split(".")
+		
+		# Ignore files with invalid names
+		if locale.size() < 2:
+			continue
+		
+		var locale_key: String = locale[0]
+		var locale_name: String = locale[1]
+		print(locale_name)
+		var this_path: String = path + LOCALE_PATH + "/" + file
+		
+		# Generate Translation...
+		var translation: Translation = Translation.new()
+		translation.locale = locale[0]
+		
+		var csv_read := FileAccess.open(this_path, FileAccess.READ)
+		
+		# Keys
+		var keys: Dictionary = {}
+		var count: int = 0
+		for key in csv_read.get_csv_line():
+			keys[key] = count
+			count += 1
+		
+		# Ignore bad files
+		if not keys.has("key") or not keys.has("translation"):
+			continue
+		
+		var column_key: int = keys["key"]
+		var column_translation: int = keys["translation"]
+		
+		while not csv_read.eof_reached():
+			var line: PackedStringArray = csv_read.get_csv_line()
+			
+			# Ignore empty messages
+			if line[column_key].is_empty():
+				continue
+			
+			translation.add_message(
+				line[column_key], line[column_translation]
+			)
+		
+		# Register
+		language_keys[locale[0]] = locale[1]
+		TranslationServer.add_translation(translation)
+
+
 func update_locale() -> void:
-	TranslationServer.set_locale(LANGUAGE_KEYS[general_language])
+	TranslationServer.set_locale(general_language)
 
 
 func load_config() -> bool:
