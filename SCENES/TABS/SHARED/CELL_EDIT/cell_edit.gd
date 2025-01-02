@@ -192,7 +192,7 @@ func cell_load(index: int) -> void:
 	cell_updated.emit(this_cell)
 	boxes_selected.resize(0)
 	
-	Status.set_status(tr("CELL_EDIT_CELL_LOAD").format({
+	Status.set_status(tr("STATUS_CELL_EDIT_CELL_LOAD").format({
 		"index": index
 	}))
 
@@ -406,6 +406,9 @@ func sprite_set_position_x(new_x: int) -> void:
 		"index": cell_index
 	})
 	
+	if new_x < -32768 or new_x > 32767:
+		return
+	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_property(this_cell, "sprite_x_offset", new_x)
@@ -423,6 +426,9 @@ func sprite_set_position_y(new_y: int) -> void:
 	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_OFFSET_Y").format({
 		"index": cell_index
 	})
+	
+	if new_y < -32768 or new_y > 32767:
+		return
 	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
