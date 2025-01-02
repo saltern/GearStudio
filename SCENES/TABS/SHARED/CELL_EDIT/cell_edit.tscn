@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=75 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -35,7 +35,6 @@
 [ext_resource type="Script" uid="uid://b8sx133ng56cy" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_x.gd" id="19_vpw2d"]
 [ext_resource type="Texture2D" uid="uid://cald4jvk0kkic" path="res://ICONS/arrow_up.svg" id="20_0ls1h"]
 [ext_resource type="Script" uid="uid://dodknp0u3fr7b" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/ALT_CONTROLS/arrow.gd" id="20_586km"]
-[ext_resource type="Script" uid="uid://d3ll2y77ukc4x" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/ALT_CONTROLS/text_field.gd" id="20_hdyd6"]
 [ext_resource type="Script" uid="uid://dolbx4baflvmi" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_crop_offset_y.gd" id="20_i2dqh"]
 [ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="21_586km"]
 [ext_resource type="Script" uid="uid://lchv1pomnana" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/main_preview.gd" id="21_md3df"]
@@ -46,6 +45,7 @@
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
 [ext_resource type="Script" uid="uid://bo2yy3x4q81al" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="25_4scjx"]
+[ext_resource type="Script" uid="uid://b3fbwsivrxg4h" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_visual_1_preview.gd" id="25_hdyd6"]
 [ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="26_gliws"]
 [ext_resource type="Script" uid="uid://r020ctynf2ii" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/user_guide.gd" id="26_q1wae"]
 [ext_resource type="Script" uid="uid://dm60wn3ewqnaf" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_sprite.gd" id="27_na53u"]
@@ -64,6 +64,30 @@
 [ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
 [ext_resource type="Script" uid="uid://c74itl7vmivsm" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
 [ext_resource type="Script" uid="uid://djjtxxhtt80c4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="56_r07ix"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hdyd6"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mq2d8"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nea0q"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_psrad"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6mbkh"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_rqavn"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_12gym"]
+size = Vector2(0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
 bg_color = Color(1, 1, 1, 1)
@@ -265,14 +289,14 @@ size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("4_ckx06")
 
-[node name="offset_alt" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible"]
+[node name="offset" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible"]
 layout_mode = 2
 
-[node name="titles" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+[node name="titles" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title_x" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
+[node name="title_x" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -285,7 +309,7 @@ script = ExtResource("17_586km")
 controls_a = NodePath("../../controls_a")
 controls_b = NodePath("../../controls_b")
 
-[node name="title_y" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
+[node name="title_y" type="Label" parent="content/scroll/margin/data/sprite_info/collapsible/offset/titles" node_paths=PackedStringArray("controls_a", "controls_b")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -298,11 +322,11 @@ script = ExtResource("17_586km")
 controls_a = NodePath("../../controls_a")
 controls_b = NodePath("../../controls_b")
 
-[node name="controls_a" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+[node name="controls_a" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_a"]
+[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -311,7 +335,7 @@ alignment = 2
 suffix = "px"
 script = ExtResource("5_r3hxp")
 
-[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_a"]
+[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -32768.0
@@ -320,36 +344,56 @@ alignment = 2
 suffix = "px"
 script = ExtResource("6_ua8f0")
 
-[node name="controls_b" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt"]
+[node name="controls_b" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="line_edits" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="value_x" type="LineEdit" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/line_edits"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-max_length = 6
-virtual_keyboard_type = 2
-script = ExtResource("20_hdyd6")
-
-[node name="value_y" type="LineEdit" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/line_edits"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-max_length = 6
-script = ExtResource("20_hdyd6")
-type = 1
-
-[node name="buttons" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b"]
-layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="left" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+[node name="spinboxes" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="value_x" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/spinboxes"]
+layout_mode = 2
+theme_override_constants/buttons_width = 0
+theme_override_constants/field_and_buttons_separation = 0
+theme_override_icons/up_disabled = SubResource("PlaceholderTexture2D_586km")
+theme_override_icons/down = SubResource("PlaceholderTexture2D_hdyd6")
+theme_override_icons/down_hover = SubResource("PlaceholderTexture2D_mq2d8")
+theme_override_icons/down_pressed = SubResource("PlaceholderTexture2D_nea0q")
+theme_override_icons/down_disabled = SubResource("PlaceholderTexture2D_psrad")
+theme_override_icons/up_pressed = SubResource("PlaceholderTexture2D_6mbkh")
+theme_override_icons/up_hover = SubResource("PlaceholderTexture2D_rqavn")
+theme_override_icons/up = SubResource("PlaceholderTexture2D_12gym")
+min_value = -32768.0
+max_value = 32767.0
+alignment = 2
+script = ExtResource("5_r3hxp")
+
+[node name="value_y" type="SpinBox" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/spinboxes"]
+layout_mode = 2
+theme_override_constants/buttons_width = 0
+theme_override_constants/field_and_buttons_separation = 0
+theme_override_icons/up_disabled = SubResource("PlaceholderTexture2D_586km")
+theme_override_icons/down = SubResource("PlaceholderTexture2D_hdyd6")
+theme_override_icons/down_hover = SubResource("PlaceholderTexture2D_mq2d8")
+theme_override_icons/down_pressed = SubResource("PlaceholderTexture2D_nea0q")
+theme_override_icons/down_disabled = SubResource("PlaceholderTexture2D_psrad")
+theme_override_icons/up_pressed = SubResource("PlaceholderTexture2D_6mbkh")
+theme_override_icons/up_hover = SubResource("PlaceholderTexture2D_rqavn")
+theme_override_icons/up = SubResource("PlaceholderTexture2D_12gym")
+min_value = -32768.0
+max_value = 32767.0
+alignment = 2
+script = ExtResource("6_ua8f0")
+
+[node name="buttons" type="HBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 0
+
+[node name="left" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -357,13 +401,13 @@ icon = ExtResource("19_j2vpp")
 flat = true
 script = ExtResource("20_586km")
 
-[node name="y_buttons" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+[node name="y_buttons" type="VBoxContainer" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/buttons"]
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="up" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons/y_buttons"]
+[node name="up" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/buttons/y_buttons"]
 layout_mode = 2
 size_flags_vertical = 2
 icon = ExtResource("20_0ls1h")
@@ -371,7 +415,7 @@ flat = true
 script = ExtResource("20_586km")
 direction = 1
 
-[node name="down" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons/y_buttons"]
+[node name="down" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/buttons/y_buttons"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -380,7 +424,7 @@ flat = true
 script = ExtResource("20_586km")
 direction = 2
 
-[node name="right" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset_alt/controls_b/buttons"]
+[node name="right" type="Button" parent="content/scroll/margin/data/sprite_info/collapsible/offset/controls_b/buttons"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -388,6 +432,15 @@ icon = ExtResource("22_hdyd6")
 flat = true
 script = ExtResource("20_586km")
 direction = 3
+
+[node name="visual_1" type="CheckButton" parent="content/scroll/margin/data/sprite_info/collapsible" node_paths=PackedStringArray("cell_sprite_display")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview VISUAL 1"
+text_overrun_behavior = 3
+script = ExtResource("25_hdyd6")
+cell_sprite_display = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/sprite")
 
 [node name="boxes" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
