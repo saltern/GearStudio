@@ -211,13 +211,14 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
 text = "SPRITE_EDIT_INFO_DIMENSIONS"
 text_overrun_behavior = 3
 
 [node name="value" type="Label" parent="content/left_panel/scroll/margin/data/dimensions"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "256 x 256"
+text = "65535 x 65535"
 script = ExtResource("5_lrujt")
 
 [node name="color_depth" type="HBoxContainer" parent="content/left_panel/scroll/margin/data"]
@@ -227,6 +228,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/color_depth"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
 text = "SPRITE_EDIT_INFO_BIT_DEPTH"
 text_overrun_behavior = 3
 
@@ -243,6 +245,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/left_panel/scroll/margin/data/embedded_pal"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
 text = "SPRITE_EDIT_INFO_EMBEDDED_PALETTE"
 text_overrun_behavior = 3
 

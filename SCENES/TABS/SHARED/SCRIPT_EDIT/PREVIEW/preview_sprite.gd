@@ -1,3 +1,4 @@
+# I should later look into extending this from CellSpriteDisplay instead
 extends Control
 
 signal scale_set
@@ -16,6 +17,7 @@ var angle: int = 0
 var scale_x: int = -1
 var scale_y: int = -1
 
+var visual_1: bool = false
 var ignore_visual: bool = false
 
 @onready var script_edit: ScriptEdit = owner
@@ -23,6 +25,7 @@ var ignore_visual: bool = false
 
 func _ready() -> void:
 	SessionData.palette_changed.connect(load_palette)
+	script_edit.action_loaded.connect(disable_visual_1)
 	script_edit.cell_updated.connect(on_cell_loaded)
 	script_edit.cell_clear.connect(unload_sprite)
 	script_edit.inst_cell.connect(on_cell)
@@ -56,27 +59,36 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	
 	var cutout_list: Array[Rect2i] = []
 	var offset_list: Array[Vector2i] = []
+	var v_flip_list: Array[bool] = []
 	
 	# Type 6 crops appear in front of type 3 crops, add them later
 	# (Thanks Athenya)
+	# Also-- type 6 cutouts are flipped vertically when the script
+	# has a mode 1 VISUAL instruction
 	for type in [3, 6]:
 		for box in boxes:
-			if box.box_type != type: continue
+			v_flip_list.append(box.box_type == 6)
+			
+			if box.box_type != type:
+				continue
 			
 			var offset_x: int = 8 * box.crop_x_offset
 			var offset_y: int = 8 * box.crop_y_offset
 			
 			offset_list.append(Vector2i(offset_x, offset_y))
-			cutout_list.append(Rect2i(
+			
+			var cutout := Rect2i(
 				box.x_offset, box.y_offset, box.width, box.height
-			))
+			)
+			
+			cutout_list.append(cutout)
 	
-	load_cell_sprite_pieces(index, cutout_list, offset_list)
+	load_cell_sprite_pieces(index, cutout_list, offset_list, v_flip_list)
 	material.set_shader_parameter("palette", get_palette(index))
 
 
 func load_cell_sprite_pieces(
-	index: int, rects: Array[Rect2i], offsets: Array[Vector2i]
+	index: int, rects: Array[Rect2i], offsets: Array[Vector2i], v_flips: Array[bool]
 ) -> void:
 	var sprite: BinSprite = script_edit.sprite_get(index)
 	
@@ -91,12 +103,17 @@ func load_cell_sprite_pieces(
 			source_image.get_height()))
 		
 		offsets.append(Vector2i.ZERO)
+		v_flips.append(false)
 	
 	# Likely slower, but more accurate (?) representation
 	for rect in rects.size():
 		var new_tex: TextureRect = TextureRect.new()
 		new_tex.mouse_filter = MOUSE_FILTER_IGNORE
 		new_tex.position = (offsets[rect] + rects[rect].position) - Vector2i(128, 128)
+		
+		if v_flips[rect] and visual_1:
+			new_tex.position.y += rects[rect].size.y
+			new_tex.scale.y = -1
 		
 		var empty_pixels: PackedByteArray = []
 		empty_pixels.resize(rects[rect].size.x * rects[rect].size.y)
@@ -126,6 +143,9 @@ func toggle_visual(enabled: bool) -> void:
 
 
 #region INSTRUCTION SIMULATION
+func disable_visual_1() -> void:
+	visual_1 = false
+
 func on_cell(index: int) -> void:
 	if script_edit.cell_get_count() > index:
 		var this_cell: Cell = script_edit.obj_data["cells"][index]
@@ -221,6 +241,8 @@ func on_visual(mode: int, value: int) -> void:
 	match mode:
 		0:
 			visible = bool(value)
+		1:
+			visual_1 = true
 		3:
 			material.set_shader_parameter("visual_3", bool(value))
 #endregion

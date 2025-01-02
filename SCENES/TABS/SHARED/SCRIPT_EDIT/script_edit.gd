@@ -468,9 +468,11 @@ func script_animation_load() -> void:
 				})
 			
 			SI.NAME_VISUAL:
-				#continue
 				var visual_mode: int = instruction.arguments[0].value
 				var visual_argument: int = instruction.arguments[1].value
+				
+				if visual_mode == 1:
+					frame -= 0.1
 				
 				anim.track_insert_key(track_visual, frame, {
 					"method": &"emit_signal",
