@@ -86,8 +86,6 @@ func save_binary(path: String) -> void:
 	Status.set_status.call_deferred("Saving binary file...")
 	
 	# Register scripts
-	
-	
 	BinResource.save_resource_file(this_session["data"], path)
 	
 	Status.set_status.call_deferred("Save complete.")
