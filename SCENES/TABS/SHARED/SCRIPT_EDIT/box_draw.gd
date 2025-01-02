@@ -4,12 +4,7 @@ extends Control
 @export var sprite_handler: Control
 
 var box_list: Array[BoxInfo]
-
-var scale_x: int = -1
-var scale_y: int = -1
 var scale_factor: Vector2 = Vector2(1.0, 1.0)
-
-var angle: int = 0
 
 @onready var script_edit: ScriptEdit = owner
 @onready var draw_offset: Vector2 = -position
