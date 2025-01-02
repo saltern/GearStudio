@@ -67,6 +67,14 @@ ui_focus_prev={
 "deadzone": 0.5,
 "events": []
 }
+ui_up={
+"deadzone": 0.2,
+"events": []
+}
+ui_down={
+"deadzone": 0.2,
+"events": []
+}
 ui_undo={
 "deadzone": 0.5,
 "events": []
