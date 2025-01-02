@@ -103,6 +103,9 @@ func save_resource(path: String = ""):
 
 
 func save_directory(path: String = ""):
+	var session_id: int = get_child(current_tab).session_id
+	GlobalSignals.save_scripts.emit(session_id)
+	
 	add_task(WorkerThreadPool.add_task(SessionData.save_directory.bind(path)))
 
 
@@ -114,8 +117,11 @@ func save_binary(path: String = ""):
 
 
 func finished_loading(path: String, data: Dictionary) -> void:
-	if data.is_empty():
-		Status.set_status("STATUS_LOAD_INVALID")
+	if data["data"].is_empty():
+		if data["session_type"] == SessionData.SessionType.DIRECTORY:
+			Status.set_status(tr("STATUS_LOAD_DIR_NOTHING").format({path=path}))
+		else:
+			Status.set_status("STATUS_LOAD_INVALID")
 		return
 	
 	Opened.path_open(path)
