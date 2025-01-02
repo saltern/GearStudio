@@ -1,11 +1,25 @@
 extends OptionButton
 
+var keys: PackedStringArray = ["en"]
+
 
 func _ready() -> void:
-	selected = Settings.general_language
+	# Add locales found in root folder
+	for key in Settings.language_keys:
+		if key == "en":
+			continue
+		
+		add_item(Settings.language_keys[key])
+		keys.append(key)
+	
+	var language_key: int = keys.find(Settings.general_language)
+	
+	selected = language_key
 	item_selected.connect(update)
 
 
-func update(new_language: Settings.Language) -> void:
+func update(item: int) -> void:
+	var new_language: String = keys[item]
+	
 	Settings.general_language = new_language
 	Settings.update_locale()
