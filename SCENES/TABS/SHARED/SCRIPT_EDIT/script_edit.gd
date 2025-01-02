@@ -4,6 +4,8 @@ signal action_loaded
 signal action_set_damage
 signal action_seek_to_frame
 signal action_select_instruction
+signal action_count_changed
+signal action_force_select
 signal cell_updated
 signal cell_clear
 signal inst_cell
@@ -38,14 +40,14 @@ var new_instruction_type: int = 0
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
-	deserialize_script()
+	script_deserialize()
 
 
 func _ready() -> void:
 	GlobalSignals.save_scripts.connect(script_save)
 	
 	anim_player.add_animation_library("", AnimationLibrary.new())
-	script_load_action(0)
+	script_action_load(0)
 
 
 func _input(event: InputEvent) -> void:
@@ -71,7 +73,7 @@ func status_register_action(action_text: String) -> void:
 
 
 #region Script de/serialization
-func deserialize_script() -> void:
+func script_deserialize() -> void:
 	var script_bytes: PackedByteArray = obj_data["scripts"]
 	var action_bytes: PackedByteArray
 	
@@ -132,7 +134,7 @@ func deserialize_script() -> void:
 		bin_script.actions.append(new_action)
 
 
-func serialize_script() -> PackedByteArray:
+func script_serialize() -> PackedByteArray:
 	var bytes: PackedByteArray = []
 	bytes.append_array(bin_script.variables)
 	
@@ -183,18 +185,166 @@ func serialize_script() -> PackedByteArray:
 	bytes.resize(bytes.size() + bytes.size() % 0x10)
 	
 	return bytes
+
+
+func script_save(for_session: int) -> void:
+	if for_session != session_id:
+		return
+	
+	obj_data["scripts"] = script_serialize()
 #endregion
 
 
-func script_load_action(index: int) -> void:
+func script_action_get(index: int) -> ScriptAction:
+	return bin_script.actions[index]
+
+
+func script_action_get_count() -> int:
+	return bin_script.actions.size()
+
+
+func script_action_load(index: int) -> void:
 	action_index = index
-	this_action = script_get_action(action_index)
+	this_action = script_action_get(action_index)
 	instruction_index = -1
 	
 	script_animation_load()
 	script_animation_restart()
 	
 	action_loaded.emit()
+
+
+func script_action_delete() -> void:
+	if bin_script.actions.size() < 2:
+		Status.set_status("STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS")
+		return
+	
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_DELETE_ACTION".format({
+		"index": action_index
+	}))
+	
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(script_action_delete_commit.bind(action_index))
+	undo_redo.add_undo_method(
+		script_action_insert_commit.bind(action_index, this_action)
+	)
+	
+	undo_redo.add_do_method(script_action_load.bind(action_index))
+	undo_redo.add_do_method(
+		emit_signal.bind("action_force_select", action_index)
+	)
+	
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(
+		emit_signal.bind("action_force_select", action_index)
+	)
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
+
+
+func script_action_insert(at_offset: int) -> void:
+	var at: int = action_index + at_offset
+	
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_NEW_ACTION").format({
+		"index": at
+	})
+	
+	undo_redo.create_action(action_text)
+	
+	var new_action := ScriptAction.new()
+	new_action.instructions.append(
+		ScriptInstructions.get_instruction(255)
+	)
+
+	undo_redo.add_do_method(script_action_insert_commit.bind(at, new_action))
+	undo_redo.add_do_method(script_action_load.bind(at))
+	undo_redo.add_do_method(emit_signal.bind("action_force_select", at))
+	
+	undo_redo.add_undo_method(script_action_delete_commit.bind(at))
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(
+		emit_signal.bind("action_force_select", action_index)
+	)
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
+
+
+func script_action_delete_commit(at_index: int) -> void:
+	bin_script.actions.remove_at(at_index)
+	action_count_changed.emit()
+
+
+func script_action_insert_commit(at_index: int, action: ScriptAction) -> void:
+	bin_script.actions.insert(at_index, action)
+	action_count_changed.emit()
+
+
+func script_action_copy() -> void:
+	Clipboard.script_action = this_action
+	Status.set_status(tr("STATUS_SCRIPT_EDIT_ACTION_COPY").format({
+		"index": action_index
+	}))
+
+
+func script_action_paste(at: int) -> void:
+	var new_action: ScriptAction = Clipboard.get_script_action()
+	
+	if new_action == null:
+		Status.set_status("STATUS_SCRIPT_EDIT_ACTION_CANNOT_PASTE")
+		return
+	
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_PASTE_ACTION").format({
+		"index": max(0, at)
+	})
+	
+	undo_redo.create_action(action_text)
+	
+	if at == 0:
+		var old_action: ScriptAction = script_action_get(action_index)
+		
+		undo_redo.add_do_method(script_action_delete_commit.bind(action_index))
+		undo_redo.add_do_method(
+			script_action_insert_commit.bind(action_index, new_action)
+		)
+		undo_redo.add_do_method(
+			emit_signal.bind("action_force_select", action_index)
+		)
+		
+		undo_redo.add_undo_method(
+			script_action_delete_commit.bind(action_index)
+		)
+		undo_redo.add_undo_method(
+			script_action_insert_commit.bind(action_index, old_action)
+		)
+		undo_redo.add_undo_method(
+			emit_signal.bind("action_force_select", action_index)
+		)
+	
+	else:
+		at = max(0, at)
+		
+		undo_redo.add_do_method(
+			script_action_insert_commit.bind(action_index + at, new_action)
+		)
+		undo_redo.add_do_method(
+			emit_signal.bind("action_force_select", action_index + at)
+		)
+		
+		undo_redo.add_undo_method(
+			script_action_delete_commit.bind(action_index + at)
+		)
+		undo_redo.add_undo_method(
+			emit_signal.bind("action_force_select", action_index + at)
+		)
+	
+	undo_redo.add_do_method(script_action_load.bind(action_index + at))
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
 
 
 func script_animation_load() -> void:
@@ -338,10 +488,10 @@ func script_animation_load() -> void:
 func script_animation_restart() -> void:
 	anim_player.play(&"anim")
 	anim_player.seek(0, true)
-	script_load_frame(1)
+	script_animation_load_frame(1)
 
 
-func script_load_frame(frame: int) -> void:
+func script_animation_load_frame(frame: int) -> void:
 	var time = anim_player.current_animation_position
 	
 	if frame > time:
@@ -352,38 +502,19 @@ func script_load_frame(frame: int) -> void:
 		anim_player.seek(frame, true)
 
 
-func script_get_animation_frames() -> int:
+func script_animation_get_length() -> int:
 	return anim_player.current_animation_length
 
 
-func script_get_current_frame() -> int:
+func script_animation_get_current_frame() -> int:
 	return int(anim_player.current_animation_position)
 
 
-func script_get_action(index: int) -> ScriptAction:
-	return bin_script.actions[index]
-
-
-func script_save(for_session: int) -> void:
-	if for_session != session_id:
-		return
-	
-	obj_data["scripts"] = serialize_script()
-
-
-func sprite_get_count() -> int:
-	if obj_data.has("sprites"):
-		return obj_data["sprites"].size()
-	
-	return 0
-
-
-func sprite_get_index() -> int:
-	return this_cell.sprite_info.index
-
-
 func script_action_set_damage(value: int) -> void:
-	var action_text: String = "Action #%s set damage" % action_index
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_DAMAGE").format({
+		
+	})
+	#"Action #%s set damage" % action_index
 	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
@@ -444,7 +575,7 @@ func script_instruction_get_frame(index: int) -> int:
 func script_instruction_select(index: int) -> void:
 	instruction_index = index
 	var instruction_frame: int = script_instruction_get_frame(instruction_index)
-	script_load_frame(instruction_frame)
+	script_animation_load_frame(instruction_frame)
 	action_select_instruction.emit(instruction_index)
 	action_seek_to_frame.emit(instruction_frame)
 
@@ -453,15 +584,19 @@ func script_instruction_delete() -> void:
 	if instruction_index < 0:
 		return
 	
-	var action_text: String = "Action #%s: delete instruction" % action_index
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_DELETE_INSTRUCTION").format({
+		"index": action_index
+	})
 	
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(
 		script_instruction_delete_commit.bind(instruction_index)
 	)
-	undo_redo.add_do_method(script_load_action.bind(action_index))
-	undo_redo.add_do_method(script_load_frame.bind(script_get_current_frame()))
+	undo_redo.add_do_method(script_action_load.bind(action_index))
+	undo_redo.add_do_method(
+		script_animation_load_frame.bind(script_animation_get_current_frame())
+	)
 	
 	undo_redo.add_undo_method(
 		script_instruction_insert_commit.bind(
@@ -469,8 +604,10 @@ func script_instruction_delete() -> void:
 			script_instruction_get(instruction_index)
 		)
 	)
-	undo_redo.add_undo_method(script_load_action.bind(action_index))
-	undo_redo.add_undo_method(script_load_frame.bind(script_get_current_frame()))
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(
+		script_animation_load_frame.bind(script_animation_get_current_frame())
+	)
 	
 	status_register_action(action_text)
 	
@@ -485,22 +622,20 @@ func script_instruction_insert(at_index: int, instruction: Instruction) -> void:
 	if at_index == -1:
 		at_index = 0
 	
-	var action_text: String = "Action #%s: insert instruction" % action_index
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_INSERT_INSTRUCTION").format({
+		"index": action_index
+	})
 	
 	undo_redo.create_action(action_text)
 	
 	undo_redo.add_do_method(
 		script_instruction_insert_commit.bind(at_index, instruction)
 	)
-	undo_redo.add_do_method(script_load_action.bind(action_index))
-	#undo_redo.add_do_method(script_load_frame.bind(script_get_current_frame()))
+	undo_redo.add_do_method(script_action_load.bind(action_index))
 	undo_redo.add_do_method(script_instruction_select.bind(at_index))
 	
 	undo_redo.add_undo_method(script_instruction_delete_commit.bind(at_index))
-	undo_redo.add_undo_method(script_load_action.bind(action_index))
-	#undo_redo.add_undo_method(
-		#script_load_frame.bind(script_get_current_frame())
-	#)
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
 	
 	status_register_action(action_text)
@@ -516,7 +651,7 @@ func script_instruction_insert_commit(
 
 func script_instruction_copy() -> void:
 	if instruction_index < 0:
-		Status.set_status("No instruction selected. Nothing copied.")
+		Status.set_status("STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_COPY")
 		return
 	
 	var new_instruction := Instruction.new()
@@ -537,53 +672,60 @@ func script_instruction_copy() -> void:
 
 func script_instruction_paste(at: int) -> void:
 	var instruction: Instruction = Clipboard.get_instruction()
-	var old_instruction = script_instruction_get(instruction_index)
 	
 	if instruction == null:
-		Status.set_status("No instructions on clipboard. Nothing pasted.")
+		Status.set_status("STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_PASTE")
 		return
 	
-	# -1 insertion would put new instructions at the back
-	var at_clamp: int = max(0, at)
-	
-	var action_text: String = "Action #%s: paste instruction" % action_index
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_PASTE_INSTRUCTION").format({
+		"index": action_index
+	})
 	
 	undo_redo.create_action(action_text)
 	
 	# Replacement
 	if at == 0:
+		var old_instruction = script_instruction_get(instruction_index)
+		
 		undo_redo.add_do_method(
 			script_instruction_delete_commit.bind(instruction_index)
 		)
 		undo_redo.add_do_method(
-			script_instruction_insert_commit.bind(instruction_index, instruction)
+			script_instruction_insert_commit.bind(
+				instruction_index, instruction
+			)
 		)
 		
 		undo_redo.add_undo_method(
 			script_instruction_delete_commit.bind(instruction_index)
 		)
 		undo_redo.add_undo_method(
-			script_instruction_insert_commit.bind(instruction_index, old_instruction)
+			script_instruction_insert_commit.bind(
+				instruction_index, old_instruction
+			)
 		)
 	
 	# Insertion
 	else:
+		# -1 insertion would put new instructions at the back
+		at = max(0, at)
+		
 		undo_redo.add_do_method(
 			script_instruction_insert_commit.bind(
-				instruction_index + at_clamp, instruction
+				instruction_index + at, instruction
 			)
 		)
 	
 		undo_redo.add_undo_method(
-			script_instruction_delete_commit.bind(instruction_index + at_clamp)
+			script_instruction_delete_commit.bind(instruction_index + at)
 		)
 	
-	undo_redo.add_do_method(script_load_action.bind(action_index))
+	undo_redo.add_do_method(script_action_load.bind(action_index))
 	undo_redo.add_do_method(
-		script_instruction_select.bind(instruction_index + at_clamp)
+		script_instruction_select.bind(instruction_index + at)
 	)
 	
-	undo_redo.add_undo_method(script_load_action.bind(action_index))
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
 	
 	status_register_action(action_text)
@@ -591,8 +733,9 @@ func script_instruction_paste(at: int) -> void:
 
 
 func script_argument_set(instruction: int, argument: int, value: int) -> void:
-	var action_text: String = "Action #%s: set instruction #%s argument #%s" \
-		% [action_index, instruction, argument]
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_ARGUMENT").format({
+		"index": action_index, "instruction": instruction, "argument": argument
+	})
 	
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
@@ -602,10 +745,10 @@ func script_argument_set(instruction: int, argument: int, value: int) -> void:
 	undo_redo.add_do_property(this_argument, "value", value)
 	undo_redo.add_undo_property(this_argument, "value", this_argument.value)
 	
-	var frame: int = script_get_current_frame()
+	var frame: int = script_animation_get_current_frame()
 	
 	undo_redo.add_do_method(script_animation_load)
-	undo_redo.add_do_method(script_load_frame.bind(frame))
+	undo_redo.add_do_method(script_animation_load_frame.bind(frame))
 	undo_redo.add_do_method(emit_signal.bind("action_seek_to_frame", frame))
 	
 	undo_redo.add_undo_method(script_animation_load)
@@ -621,6 +764,17 @@ func sprite_get(index: int) -> BinSprite:
 		return obj_data["sprites"][index]
 	else:
 		return BinSprite.new()
+
+
+func sprite_get_count() -> int:
+	if obj_data.has("sprites"):
+		return obj_data["sprites"].size()
+	
+	return 0
+
+
+func sprite_get_index() -> int:
+	return this_cell.sprite_info.index
 
 
 func cell_get_count() -> int:
