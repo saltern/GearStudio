@@ -3,6 +3,7 @@ extends HSlider
 @export var action_spinbox: SteppingSpinBox
 @export var button_play_from_start: Button
 @export var button_play: Button
+@export var button_stop: Button
 
 var playback: bool = false
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 	script_edit.action_seek_to_frame.connect(external_seek)
 	button_play_from_start.pressed.connect(play_from_start)
 	button_play.pressed.connect(play)
+	button_stop.pressed.connect(stop)
 	value_changed.connect(load_frame)
 
 
@@ -35,7 +37,7 @@ func reset() -> void:
 
 
 func update() -> void:
-	max_value = script_edit.script_get_animation_frames()
+	max_value = script_edit.script_animation_get_length()
 	reset()
 
 
@@ -44,7 +46,7 @@ func external_seek(frame: int) -> void:
 
 
 func load_frame(frame: int) -> void:
-	script_edit.script_load_frame(frame)
+	script_edit.script_animation_load_frame(frame)
 
 
 func play_from_start() -> void:
@@ -54,3 +56,7 @@ func play_from_start() -> void:
 
 func play() -> void:
 	playback = true
+
+
+func stop() -> void:
+	playback = false
