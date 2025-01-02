@@ -128,7 +128,7 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	new_tab.add_child(get_sprite_editor(object))
 	new_tab.add_child(get_cell_editor(object))
 	
-	if object.has("scripts"):
+	if object.has("scripts") and ScriptInstructions.INSTRUCTION_DB.size() > 0:
 		new_tab.add_child(get_script_editor(object))
 	
 	if object.has("palettes"):
