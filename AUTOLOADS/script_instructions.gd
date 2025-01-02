@@ -1,6 +1,6 @@
 extends Node
 
-const FILE_NAME: String = "/ggpr_instructions.csv"
+const FILE_NAME: String = "res://DATA/ggpr_instructions.csv"
 
 enum DBKeys {
 	ID,
@@ -36,22 +36,23 @@ func _physics_process(_delta: float) -> void:
 
 
 func build_database() -> void:	
-	Status.set_status.call_deferred("Building Script Instruction Database...")
+	Status.set_status.call_deferred("STATUS_INSTRUCTION_DB_START")
 	
-	var path: String = OS.get_executable_path().get_base_dir()
-	path += FILE_NAME
-	if not FileAccess.file_exists(path):
-		Status.set_status.call_deferred("Instruction DB file not found!")
+	#var path: String = OS.get_executable_path().get_base_dir()
+	#path += FILE_NAME
+	if not FileAccess.file_exists(FILE_NAME):
+		Status.set_status.call_deferred("STATUS_INSTRUCTION_DB_FILE_NOT_FOUND")
 		return
 	
-	var db_read := FileAccess.open(path, FileAccess.READ)
+	var db_read := FileAccess.open(FILE_NAME, FileAccess.READ)
 	
 	# Header
-	#var keys = db_read.get_csv_line()
+	var keys = db_read.get_csv_line()
 	
 	# Grab instruction data
 	while not db_read.eof_reached():
 		var line := db_read.get_csv_line()
+		
 		var inst_id: int = line[DBKeys.ID].to_int()
 		var inst_name: String = line[DBKeys.NAME]
 		
@@ -96,11 +97,14 @@ func build_database() -> void:
 		
 		INSTRUCTION_DB[inst_id] = new_instruction
 	
-	Status.set_status.call_deferred(
-		"Script Instruction DB build complete. Entries: %s."
-		% INSTRUCTION_DB.size()
-	)
-			
+	status_build_complete.bind(INSTRUCTION_DB.size()).call_deferred()
+
+
+func status_build_complete(count: int) -> void:
+	Status.set_status(tr("STATUS_INSTRUCTION_DB_FINISH").format({
+		"count": count
+	}))
+
 
 func get_instruction(id: int) -> Instruction:
 	var new_instruction: Instruction = Instruction.new()
@@ -121,6 +125,9 @@ func get_instruction(id: int) -> Instruction:
 
 
 func get_instruction_name(id: int) -> String:
+	if id >= INSTRUCTION_DB.size():
+		return "SCRIPT_INSTRUCTION_NOT_FOUND"
+	
 	return INSTRUCTION_DB[id].display_name
 
 
