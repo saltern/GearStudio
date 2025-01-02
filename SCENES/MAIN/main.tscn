@@ -764,16 +764,22 @@ grow_vertical = 2
 
 [node name="title" type="Label" parent="save_lock/content"]
 layout_mode = 2
+size_flags_vertical = 6
 text = "Please wait..."
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="step" type="Label" parent="save_lock/content"]
+visible = false
 layout_mode = 2
+size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="sub" type="Label" parent="save_lock/content"]
+visible = false
 layout_mode = 2
+size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -825,11 +831,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 selected = 0
-item_count = 2
+item_count = 1
 popup/item_0/text = "ENGLISH"
 popup/item_0/id = 0
-popup/item_1/text = "Español"
-popup/item_1/id = 1
 script = ExtResource("13_hgppk")
 
 [node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
