@@ -1,6 +1,10 @@
 class_name SteppingSpinBox extends SpinBox
 
 
+func _ready() -> void:
+	focus_mode = Control.FOCUS_CLICK
+
+
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
@@ -12,6 +16,9 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if not event.pressed:
+		return
+	
+	if event.alt_pressed:
 		return
 	
 	var key: InputEventKey = event
@@ -28,3 +35,6 @@ func _input(event: InputEvent) -> void:
 				value -= 9
 			
 			value -= 1
+
+		KEY_ESCAPE:
+			get_line_edit().release_focus()
