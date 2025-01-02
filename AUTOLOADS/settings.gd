@@ -131,7 +131,6 @@ func load_locales() -> void:
 		
 		var locale_key: String = locale[0]
 		var locale_name: String = locale[1]
-		print(locale_name)
 		var this_path: String = path + LOCALE_PATH + "/" + file
 		
 		# Generate Translation...
