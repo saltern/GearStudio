@@ -18,19 +18,23 @@ func set_status() -> void:
 	var err_string: String = ""
 	
 	if files_read_only:
-		err_string = err_string + "Some files were read only! "
+		err_string = err_string + "STATUS_SAVE_DIR_ERROR_READ_ONLY" + " "
 	
 	if cell_save_error:
-		err_string = err_string + "Could not save some cells! "
+		err_string = err_string + "STATUS_SAVE_DIR_ERROR_CELLS" + " "
 	
 	if sprite_save_error:
-		err_string = err_string + "Could not save some sprites! "
+		err_string = err_string + "STATUS_SAVE_DIR_ERROR_SPRITES" + " "
 	
 	if palette_save_error:
-		err_string = err_string + "Could not save some palettes!"
+		err_string = err_string + "STATUS_SAVE_DIR_ERROR_PALETTES"
 	
 	if err_string.is_empty():
-		Status.set_status("Saved cells, sprites, and palettes.")
+		Status.set_status("STATUS_SAVE_COMPLETE")
 	
 	else:
-		Status.set_status("Save had errors: %s" % err_string)
+		Status.set_status(
+			tr("STATUS_SAVE_DIR_ERROR").format({
+				"errors": err_string
+			})
+		)
