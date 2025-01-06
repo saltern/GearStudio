@@ -55,16 +55,16 @@ func save_directory(path: String) -> void:
 	
 	if path.is_empty():
 		Status.call_deferred(\
-			"set_status", "Could not save! Cause: no path. Try \"Save as...\""
+			"set_status", "STATUS_SAVE_DIR_PATH_ERROR"
 		)
 		
 		GlobalSignals.save_complete.emit.call_deferred()
 		return
 	
 	GlobalSignals.save_start.emit.call_deferred()
-	Status.set_status.call_deferred("Saving directory...")
+	Status.set_status.call_deferred("STATUS_SAVE_DIR_START")
 	
-	BinResource.save_resource_directory(this_session, path)
+	BinResource.save_resource_directory(this_session, path, GlobalSignals)
 
 	SaveErrors.call_deferred("set_status")
 	GlobalSignals.save_complete.emit.call_deferred()
@@ -76,19 +76,19 @@ func save_binary(path: String) -> void:
 	
 	if path.is_empty():
 		Status.call_deferred(\
-			"set_status", "Could not save! Cause: no path. Try \"Save as...\""
+			"set_status", "STATUS_SAVE_BIN_PATH_ERROR"
 		)
 		
 		GlobalSignals.save_complete.emit.call_deferred()
 		return
 	
 	GlobalSignals.save_start.emit.call_deferred()
-	Status.set_status.call_deferred("Saving binary file...")
+	Status.set_status.call_deferred("STATUS_SAVE_BIN_START")
 	
 	# Register scripts
-	BinResource.save_resource_file(this_session["data"], path)
+	BinResource.save_resource_file(this_session["data"], path, GlobalSignals)
 	
-	Status.set_status.call_deferred("Save complete.")
+	Status.set_status.call_deferred("STATUS_SAVE_COMPLETE")
 	GlobalSignals.save_complete.emit.call_deferred()
 
 
@@ -112,9 +112,7 @@ func new_binary_session(path: String) -> void:
 	var bin_resource: Dictionary = BinResource.from_file(path)
 	
 	if bin_resource.has("error"):
-		Status.set_status.bind(
-			"Load failed with error: %s" % bin_resource["error"]
-		).call_deferred()
+		binary_load_error.bind(bin_resource["error"]).call_deferred()
 		return
 	
 	var new_session: Dictionary = {
@@ -130,6 +128,10 @@ func new_binary_session(path: String) -> void:
 	load_complete.emit.bind(path, new_session).call_deferred()
 
 
+func binary_load_error(error: String) -> void:
+	Status.set_status(tr("STATUS_LOAD_BIN_ERROR").format({"error": error}))
+
+
 func tab_load(index: int = 0) -> void:
 	if index < 0 || index >= sessions.size():
 		Status.set_ready()
@@ -141,14 +143,14 @@ func tab_load(index: int = 0) -> void:
 
 func tab_close() -> void:
 	if sessions.size() < 1:
-		Status.set_status("Nothing currently open, can't close.")
+		Status.set_status("STATUS_NOTHING_OPEN_CANT_CLOSE")
 		return
 	
 	tab_closed.emit(session_index)
 	sessions.remove_at(session_index)
 	this_session = {}
 	tab_load(min(session_index, sessions.size() - 1))
-	Status.set_status("Closed tab.")
+	Status.set_status("STATUS_TAB_CLOSE")
 #endregion
 
 
