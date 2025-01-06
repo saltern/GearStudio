@@ -27,7 +27,7 @@ func _draw():
 	
 	for box in box_list:
 		# Don't draw cutout boxes
-		if box.box_type % 3 == 0:
+		if box.box_type in [3, 6]:
 			continue
 		
 		var color := Settings.box_colors[box.box_type]
