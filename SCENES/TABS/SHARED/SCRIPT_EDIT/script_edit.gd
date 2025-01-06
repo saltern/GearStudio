@@ -2,6 +2,7 @@ class_name ScriptEdit extends Control
 
 signal action_loaded
 signal action_set_damage
+signal action_flags_updated
 signal action_seek_to_frame
 signal action_select_instruction
 signal action_count_changed
@@ -73,17 +74,47 @@ func status_register_action(action_text: String) -> void:
 
 
 #region Script de/serialization
+func get_play_data_length(bin_data: PackedByteArray) -> int:
+	var cursor: int = 0x0
+	
+	# From plusr_scripts.txt
+	if bin_data[0x01] < 0x81 and bin_data[0x01] > 0x02:
+		if bin_data[0x01] == 0x05:
+			cursor = 0x300
+		else:
+			cursor = 0x100
+			
+			if bin_data[0x50] & 0x01:
+				cursor = 0x180
+			
+			if bin_data[0x50] & 0x02:
+				cursor += 0x80
+			
+			if bin_data[0x50] & 0x04:
+				cursor += 0x80
+			
+			if bin_data[0x50] & 0x08:
+				cursor += 0x80
+	
+	else:
+		cursor = 0x80
+	
+	# Isuka hack
+	if bin_data[cursor] == 0xE5:
+		cursor *= 2
+	
+	return cursor
+
+
 func script_deserialize() -> void:
 	var script_bytes: PackedByteArray = obj_data["scripts"]
 	var action_bytes: PackedByteArray
 	
+	# Player objects...
 	if obj_data.has("palettes"):
-		if script_bytes[0x100] != 0x00:
-			bin_script.variables = script_bytes.slice(0x000, 0x300)
-			action_bytes = script_bytes.slice(0x300, script_bytes.size())
-		else:
-			bin_script.variables = script_bytes.slice(0x000, 0x100)
-			action_bytes = script_bytes.slice(0x100, script_bytes.size())
+		var cursor: int = get_play_data_length(script_bytes)
+		bin_script.variables = script_bytes.slice(0x0, cursor)
+		action_bytes = script_bytes.slice(cursor, script_bytes.size())
 	else:
 		bin_script.variables = PackedByteArray([])
 		action_bytes = script_bytes.duplicate()
@@ -347,6 +378,77 @@ func script_action_paste(at: int) -> void:
 	undo_redo.commit_action()
 
 
+func script_action_set_damage(value: int) -> void:
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_DAMAGE").format({
+		"index": action_index
+	})
+	
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
+	
+	undo_redo.add_do_property(this_action, "damage", value)
+	undo_redo.add_do_method(
+		emit_signal.bind("action_set_damage", value)
+	)
+	
+	undo_redo.add_undo_property(this_action, "damage", this_action.damage)
+	undo_redo.add_undo_method(
+		emit_signal.bind("action_set_damage", this_action.damage)
+	)
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
+func script_action_set_flag(
+	flag_type: FlagType, flag: int, enabled: bool
+) -> void:
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_FLAG").format({
+		"index": action_index
+	})
+	
+	undo_redo.create_action(action_text)
+	
+	if enabled:
+		match flag_type:
+			FlagType.FLAGS:
+				undo_redo.add_do_property(
+					this_action, "flags", this_action.flags | 1 << flag)
+			FlagType.LVFLAG:
+				undo_redo.add_do_property(
+					this_action, "lvflag", this_action.lvflag | 1 << flag)
+			FlagType.FLAG2:
+				undo_redo.add_do_property(
+					this_action, "flag2", this_action.flag2 | 1 << flag)
+				
+	else:
+		match flag_type:
+			FlagType.FLAGS:
+				undo_redo.add_do_property(
+					this_action, "flags", this_action.flags & ~(1 << flag))
+			FlagType.LVFLAG:
+				undo_redo.add_do_property(
+					this_action, "lvflag", this_action.lvflag & ~(1 << flag))
+			FlagType.FLAG2:
+				undo_redo.add_do_property(
+					this_action, "flag2", this_action.flag2 & ~(1 << flag))
+	
+	match flag_type:
+		FlagType.FLAGS:
+			undo_redo.add_undo_property(this_action,"flags",this_action.flags)
+		FlagType.LVFLAG:
+			undo_redo.add_undo_property(this_action,"lvflag",this_action.lvflag)
+		FlagType.FLAG2:
+			undo_redo.add_undo_property(this_action,"flag2",this_action.flag2)
+	
+	undo_redo.add_do_method(emit_signal.bind("action_flags_updated"))
+	undo_redo.add_undo_method(emit_signal.bind("action_flags_updated"))
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
 func script_animation_load() -> void:
 	var anim := Animation.new()
 	anim.length = 0.0
@@ -470,11 +572,12 @@ func script_animation_load() -> void:
 			SI.NAME_VISUAL:
 				var visual_mode: int = instruction.arguments[0].value
 				var visual_argument: int = instruction.arguments[1].value
+				var visual_offset: float = 0.0
 				
 				if visual_mode == 1:
-					frame -= 0.1
+					visual_offset = -0.1
 				
-				anim.track_insert_key(track_visual, frame, {
+				anim.track_insert_key(track_visual, frame + visual_offset, {
 					"method": &"emit_signal",
 					"args": [&"inst_visual", visual_mode, visual_argument]
 				})
@@ -501,7 +604,7 @@ func script_animation_load_frame(frame: int) -> void:
 	else:
 		# Likely slower, but required by instructions using additive operations
 		anim_player.seek(0, true)
-		anim_player.seek(frame, true)
+		anim_player.advance(frame)
 
 
 func script_animation_get_length() -> int:
@@ -510,51 +613,6 @@ func script_animation_get_length() -> int:
 
 func script_animation_get_current_frame() -> int:
 	return int(anim_player.current_animation_position)
-
-
-func script_action_set_damage(value: int) -> void:
-	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_DAMAGE").format({
-		
-	})
-	#"Action #%s set damage" % action_index
-	
-	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
-	
-	undo_redo.add_do_property(this_action, "damage", value)
-	undo_redo.add_do_method(
-		emit_signal.bind("action_set_damage", value)
-	)
-	
-	undo_redo.add_undo_property(this_action, "damage", this_action.damage)
-	undo_redo.add_undo_method(
-		emit_signal.bind("action_set_damage", this_action.damage)
-	)
-	
-	status_register_action(action_text)
-	
-	undo_redo.commit_action()
-
-
-func script_action_set_flag(
-	flag_type: FlagType, flag: int, enabled: bool
-) -> void:
-	if enabled:
-		match flag_type:
-			FlagType.FLAGS:
-				this_action.flags |= 1 << flag
-			FlagType.LVFLAG:
-				this_action.lvflag |= 1 << flag
-			FlagType.FLAG2:
-				this_action.flag2 |= 1 << flag
-				
-	else:
-		match flag_type:
-			FlagType.FLAGS:	
-				this_action.flags &= ~(1 << flag)
-			FlagType.LVFLAG:
-				this_action.lvflag &= ~(1 << flag)
-			FlagType.FLAG2:
-				this_action.flag2 &= ~(1 << flag)
 
 
 func script_instruction_get(index: int) -> Instruction:

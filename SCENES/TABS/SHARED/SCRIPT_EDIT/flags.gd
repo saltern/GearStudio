@@ -8,6 +8,7 @@ extends Control
 
 func _ready() -> void:
 	script_edit.action_loaded.connect(update)
+	script_edit.action_flags_updated.connect(update)
 	
 	for bit in range(total_flags):
 		var group: int = bit / 8
@@ -40,4 +41,3 @@ func update() -> void:
 
 func set_flag(enabled: bool, bit: int) -> void:
 	script_edit.script_action_set_flag(flag_type, bit, enabled)
-	update()
