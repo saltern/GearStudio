@@ -1,8 +1,5 @@
 extends TextureRect
 
-const ERR_STRING: String = \
-	"The file was not found or is not a valid sprite.\n(%s)"
-
 @export var invalid_file: Label
 
 var gray_pal: PackedInt32Array
@@ -27,7 +24,9 @@ func update_preview() -> void:
 	if sprite == null:
 		texture = null
 		invalid_file.show()
-		invalid_file.text = ERR_STRING % SpriteImport.get_preview_sprite_path()
+		invalid_file.text = tr("SPRITE_EDIT_IMPORT_PREVIEW_INVALID").format({
+			"file": SpriteImport.get_preview_sprite_path()
+		})
 	else:
 		invalid_file.hide()
 		texture = sprite.texture

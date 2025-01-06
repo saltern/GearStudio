@@ -12,11 +12,13 @@ func _ready() -> void:
 
 func ask_for_confirmation() -> void:
 	if SpriteImport.import_list.size() == 0:
-		Status.set_status("No sprites selected, can't import.")
+		Status.set_status("STATUS_SPRITE_EDIT_IMPORT_NOTHING")
 		return
 		
 	confirmation_dialog.dialog_text = \
-		"Import %s sprite(s)?" % SpriteImport.import_list.size()
+		tr("SPRITE_EDIT_IMPORT_CONFIRM_TEXT").format({
+			"count": SpriteImport.import_list.size()
+		})
 	confirmation_dialog.show()
 
 

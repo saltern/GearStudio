@@ -856,14 +856,17 @@ offset_right = 163.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "The file was not found or is not a valid sprite."
+text = "SPRITE_EDIT_IMPORT_PREVIEW_INVALID"
 label_settings = SubResource("LabelSettings_gwjl0")
 horizontal_alignment = 1
 
 [node name="import_confirm" type="ConfirmationDialog" parent="sprite_import"]
+title = "SPRITE_EDIT_IMPORT_CONFIRM_TITLE"
 initial_position = 2
-ok_button_text = "Import"
+size = Vector2i(565, 100)
+ok_button_text = "SPRITE_EDIT_IMPORT_IMPORT_BUTTON"
 dialog_text = "Import %s sprites?"
+cancel_button_text = "SPRITE_EDIT_IMPORT_CONFIRM_CANCEL"
 
 [node name="import_progress" type="Window" parent="sprite_import" node_paths=PackedStringArray("progress_label")]
 title = "Importing sprites..."
