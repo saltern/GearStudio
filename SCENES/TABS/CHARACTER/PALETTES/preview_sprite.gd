@@ -8,8 +8,6 @@ var provider: PaletteProvider
 
 func _ready() -> void:
 	provider = palette_edit.get_provider()
-	
-	sprite_index.max_value = palette_edit.sprite_get_count() - 1
 	sprite_index.value_changed.connect(on_sprite_changed)
 	provider.palette_updated.connect(on_palette_updated)
 	

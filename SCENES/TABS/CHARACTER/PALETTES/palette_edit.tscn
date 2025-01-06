@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=21 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" uid="uid://ctgq48v8mcfo3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="2_dydbr"]
@@ -7,16 +7,19 @@
 [ext_resource type="Script" uid="uid://d0r0xflrunftr" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_reindex.gd" id="5_hju2g"]
 [ext_resource type="Script" uid="uid://lkslufkq0rwm" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]
 [ext_resource type="Script" uid="uid://c6ffe06hjdyn3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
-[ext_resource type="Script" uid="uid://ce07edvcwysg4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="5_ylny5"]
 [ext_resource type="Script" uid="uid://x5sdd5l25sii" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="7_d35hw"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="7_nwdex"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="8_3mp4x"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="8_7jrqg"]
 [ext_resource type="Script" uid="uid://440keewssy5f" path="res://SCENES/TABS/CHARACTER/PALETTES/gradient_menu.gd" id="8_8p6ps"]
+[ext_resource type="Script" uid="uid://cbpnkfyfl50pt" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite_index.gd" id="8_ana8q"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="9_tj8hv"]
 [ext_resource type="Script" uid="uid://1g2lar48gvjx" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_import_window.gd" id="16_llwwi"]
 [ext_resource type="Script" uid="uid://uoydhlvow0pq" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_export_window.gd" id="17_ana8q"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_llwwi"]
+size = Vector2(0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m215a"]
 draw_center = false
@@ -52,22 +55,30 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="HBoxContainer" parent="scroll/margin"]
+[node name="content" type="VBoxContainer" parent="scroll/margin"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="h_sep" type="HSeparator" parent="scroll/margin/content"]
+visible = false
+layout_mode = 2
+
+[node name="editors" type="HBoxContainer" parent="scroll/margin/content"]
+layout_mode = 2
 size_flags_vertical = 3
 
-[node name="data" type="VBoxContainer" parent="scroll/margin/content"]
+[node name="color_grid" type="VBoxContainer" parent="scroll/margin/content/editors"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 
-[node name="palette" type="HBoxContainer" parent="scroll/margin/content/data"]
+[node name="palette" type="HBoxContainer" parent="scroll/margin/content/editors/color_grid"]
 custom_minimum_size = Vector2(300, 30)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="title" type="Label" parent="scroll/margin/content/data/palette"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/color_grid/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "PALETTE_EDIT_PALETTE_INDEX_TOOLTIP"
@@ -75,33 +86,22 @@ mouse_filter = 0
 text = "PALETTE_EDIT_PALETTE_INDEX"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="scroll/margin/content/data/palette"]
+[node name="value" type="SpinBox" parent="scroll/margin/content/editors/color_grid/palette"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
 script = ExtResource("3_nhpkb")
 
-[node name="h_sep" type="HSeparator" parent="scroll/margin/content/data"]
-layout_mode = 2
-
-[node name="editors" type="HBoxContainer" parent="scroll/margin/content/data"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="color_grid" type="VBoxContainer" parent="scroll/margin/content/data/editors"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="title" type="Label" parent="scroll/margin/content/data/editors/color_grid"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/color_grid"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 tooltip_text = "PALETTE_EDIT_PALETTE_VIEW_TOOLTIP"
 mouse_filter = 0
 text = "PALETTE_EDIT_PALETTE_VIEW"
 
-[node name="background" type="TextureRect" parent="scroll/margin/content/data/editors/color_grid"]
+[node name="background" type="TextureRect" parent="scroll/margin/content/editors/color_grid"]
 custom_minimum_size = Vector2(273, 273)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -109,7 +109,7 @@ size_flags_vertical = 6
 texture = ExtResource("4_612b6")
 stretch_mode = 1
 
-[node name="palette" type="GridContainer" parent="scroll/margin/content/data/editors/color_grid/background" node_paths=PackedStringArray("preview", "color_picker")]
+[node name="palette" type="GridContainer" parent="scroll/margin/content/editors/color_grid/background" node_paths=PackedStringArray("preview", "color_picker")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
 anchors_preset = 8
@@ -133,51 +133,49 @@ script = ExtResource("5_ocm7y")
 preview = NodePath("../../../preview/borders/clipper/visualizer/sprite")
 color_picker = NodePath("../../../color_edit/color_pick")
 
-[node name="reindex" type="Button" parent="scroll/margin/content/data/editors/color_grid"]
+[node name="reindex" type="Button" parent="scroll/margin/content/editors/color_grid"]
 layout_mode = 2
 tooltip_text = "PALETTE_EDIT_REINDEX_TOOLTIP"
 text = "PALETTE_EDIT_REINDEX"
 script = ExtResource("5_hju2g")
 
-[node name="import_export" type="HBoxContainer" parent="scroll/margin/content/data/editors/color_grid"]
+[node name="import_export" type="HBoxContainer" parent="scroll/margin/content/editors/color_grid"]
 layout_mode = 2
 
-[node name="import" type="Button" parent="scroll/margin/content/data/editors/color_grid/import_export" node_paths=PackedStringArray("window")]
+[node name="import" type="Button" parent="scroll/margin/content/editors/color_grid/import_export"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "PALETTE_EDIT_IMPORT_TOOLTIP"
 text = "PALETTE_EDIT_IMPORT"
 text_overrun_behavior = 3
-script = ExtResource("5_ylny5")
-window = NodePath("../../../../../../../../palette_import")
 
-[node name="export" type="Button" parent="scroll/margin/content/data/editors/color_grid/import_export" node_paths=PackedStringArray("window")]
+[node name="export" type="Button" parent="scroll/margin/content/editors/color_grid/import_export"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "PALETTE_EDIT_EXPORT_TOOLTIP"
 text = "PALETTE_EDIT_EXPORT"
 text_overrun_behavior = 3
-script = ExtResource("5_ylny5")
-window = NodePath("../../../../../../../../palette_export")
 
-[node name="v_sep_1" type="VSeparator" parent="scroll/margin/content/data/editors"]
+[node name="v_sep_1" type="VSeparator" parent="scroll/margin/content/editors"]
 layout_mode = 2
 
-[node name="color_edit" type="VBoxContainer" parent="scroll/margin/content/data/editors"]
+[node name="color_edit" type="VBoxContainer" parent="scroll/margin/content/editors"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="scroll/margin/content/data/editors/color_edit"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/color_edit"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "PALETTE_EDIT_COLOR_EDITOR_TOOLTIP"
 mouse_filter = 0
 text = "PALETTE_EDIT_COLOR_EDITOR"
+vertical_alignment = 1
 
-[node name="color_pick" type="ColorPicker" parent="scroll/margin/content/data/editors/color_edit"]
+[node name="color_pick" type="ColorPicker" parent="scroll/margin/content/editors/color_edit"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-color = Color(0.501407, 0.501406, 0.501406, 1)
+theme_override_icons/menu_option = SubResource("PlaceholderTexture2D_llwwi")
 color_mode = 1
 deferred_mode = true
 picker_shape = 1
@@ -186,49 +184,52 @@ sampler_visible = false
 presets_visible = false
 script = ExtResource("5_nqd2y")
 
-[node name="v_sep_2" type="VSeparator" parent="scroll/margin/content/data/editors"]
+[node name="v_sep_2" type="VSeparator" parent="scroll/margin/content/editors"]
 layout_mode = 2
 
-[node name="preview" type="VBoxContainer" parent="scroll/margin/content/data/editors"]
+[node name="preview" type="VBoxContainer" parent="scroll/margin/content/editors"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="scroll/margin/content/data/editors/preview"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/preview"]
+visible = false
 layout_mode = 2
 text = "PALETTE_EDIT_PREVIEW"
 
-[node name="sprite" type="HBoxContainer" parent="scroll/margin/content/data/editors/preview"]
+[node name="sprite" type="HBoxContainer" parent="scroll/margin/content/editors/preview"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="scroll/margin/content/data/editors/preview/sprite"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/preview/sprite"]
 layout_mode = 2
 tooltip_text = "PALETTE_EDIT_SPRITE_INDEX_TOOLTIP"
 mouse_filter = 0
 text = "PALETTE_EDIT_SPRITE_INDEX"
 
-[node name="value" type="SpinBox" parent="scroll/margin/content/data/editors/preview/sprite"]
+[node name="value" type="SpinBox" parent="scroll/margin/content/editors/preview/sprite"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
+script = ExtResource("8_ana8q")
 
-[node name="borders" type="PanelContainer" parent="scroll/margin/content/data/editors/preview"]
+[node name="borders" type="PanelContainer" parent="scroll/margin/content/editors/preview"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_m215a")
 
-[node name="clipper" type="PanelContainer" parent="scroll/margin/content/data/editors/preview/borders" node_paths=PackedStringArray("visualizer")]
+[node name="clipper" type="PanelContainer" parent="scroll/margin/content/editors/preview/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("7_d35hw")
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="scroll/margin/content/data/editors/preview/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="scroll/margin/content/editors/preview/borders/clipper"]
 script = ExtResource("8_3mp4x")
 
-[node name="background_a" type="ColorRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="scroll/margin/content/editors/preview/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
@@ -246,7 +247,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("7_nwdex")
 
-[node name="background_b" type="TextureRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="scroll/margin/content/editors/preview/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -259,7 +260,7 @@ texture = ExtResource("8_7jrqg")
 stretch_mode = 1
 script = ExtResource("9_tj8hv")
 
-[node name="sprite" type="TextureRect" parent="scroll/margin/content/data/editors/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
+[node name="sprite" type="TextureRect" parent="scroll/margin/content/editors/preview/borders/clipper/visualizer" node_paths=PackedStringArray("sprite_index")]
 texture_filter = 1
 material = SubResource("ShaderMaterial_oa07j")
 anchors_preset = 8
@@ -295,7 +296,7 @@ access = 2
 filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
 use_native_dialog = true
 script = ExtResource("16_llwwi")
-summon_button = NodePath("../scroll/margin/content/data/editors/color_grid/import_export/import")
+summon_button = NodePath("../scroll/margin/content/editors/color_grid/import_export/import")
 
 [node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
 auto_translate_mode = 1
@@ -306,4 +307,4 @@ access = 2
 filters = PackedStringArray("*.bin; Binary file", "*.act; Adobe Color Table")
 use_native_dialog = true
 script = ExtResource("17_ana8q")
-summon_button = NodePath("../scroll/margin/content/data/editors/color_grid/import_export/export")
+summon_button = NodePath("../scroll/margin/content/editors/color_grid/import_export/export")
