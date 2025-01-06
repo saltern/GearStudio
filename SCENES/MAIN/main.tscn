@@ -106,6 +106,7 @@ initial_position = 2
 size = Vector2i(600, 400)
 ok_button_text = "Save"
 access = 2
+filters = PackedStringArray("*.bin;Binary files")
 use_native_dialog = true
 script = ExtResource("5_nliut")
 
@@ -764,21 +765,22 @@ grow_vertical = 2
 
 [node name="title" type="Label" parent="save_lock/content"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 text = "Please wait..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="step" type="Label" parent="save_lock/content"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="sub" type="Label" parent="save_lock/content"]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
