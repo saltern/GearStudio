@@ -38,12 +38,8 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 	
 	# Type 6 crops appear in front of type 3 crops, add them later
 	# (Thanks Athenya)
-	# Also-- type 6 cutouts are flipped vertically when the script
-	# has a mode 1 VISUAL instruction
 	for type in [3, 6]:
 		for box in boxes:
-			v_flip_list.append(box.box_type == 6)
-			
 			if box.box_type != type:
 				continue
 			
@@ -57,6 +53,12 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 			)
 			
 			cutout_list.append(cutout)
+	
+	# Also-- type 6 cutouts are flipped vertically when the script
+	# has a mode 1 "VISUAL" instruction
+	for box in boxes:
+		if box.box_type in [3, 6]:
+			v_flip_list.append(box.box_type == 6)
 	
 	load_cell_sprite_pieces(index, cutout_list, offset_list, v_flip_list)
 	material.set_shader_parameter("palette", get_palette(index))
