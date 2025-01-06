@@ -1,4 +1,4 @@
-key,_info,translation
+key,_info,en
 ,TOP MENU BAR,
 TOP_MENU_FILE,Top menu bar options,File
 TOP_MENU_EDIT,,Edit
@@ -147,8 +147,13 @@ SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview 
 SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,,Sets the imported sprite to preview.
 SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,"Preview palette index, spinbox title",Preview palette
 SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,,Sets the palette to preview sprites with.
+SPRITE_EDIT_IMPORT_PREVIEW_INVALID,Message when trying to preview an invalid sprite file.,"The file was not found or is not a valid sprite.
+{file}"
 SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import button at the bottom of the dialog,Import
 SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,,Click to begin importing sprites with the above settings.
+SPRITE_EDIT_IMPORT_CONFIRM_TITLE,Title of the confirmation dialog,Please confirm...
+SPRITE_EDIT_IMPORT_CONFIRM_TEXT,Content of the confirmation dialog,Import {count} sprite(s)?
+SPRITE_EDIT_IMPORT_CONFIRM_CANCEL,Cancel button in the confirmation dialog,Cancel
 ,SPRITE EXPORT DIALOG,
 SPRITE_EDIT_EXPORT_TITLE,Title bar of the sprite exporter dialog,Export '{name}' sprites...
 SPRITE_EDIT_EXPORT_RANGE_TITLE,"Title of the ""Sprite range"" section of the dialog",Sprite range
@@ -241,7 +246,7 @@ Consider importing new sprites to replace the old ones."
 SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,Accept button for the above dialog,OK
 ,CELL EDITOR,
 CELL_EDIT_TITLE,Tab title,Cells
-CELL_EDIT_DELETE_TOOLTIP,Tooltips for the cell tollbar's buttons,Delete a single cell or a range of cells.
+CELL_EDIT_DELETE_TOOLTIP,Tooltips for the cell toolbar's buttons,Delete a single cell or a range of cells.
 CELL_EDIT_NEW_BEFORE_TOOLTIP,,"Add a new cell before the current one.
 Displaces cells after it!"
 CELL_EDIT_NEW_AFTER_TOOLTIP,,"Add a new cell after the current one.
@@ -270,6 +275,8 @@ Click to change the control type."
 CELL_EDIT_SPRITE_INFO_OFFSET_Y,"Sprite Info -> Offset Y, title",Offset Y
 CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP,,"Controls the sprite's vertical offset for this cell.
 Click to change the control type."
+CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1,"Sprite Info -> Preview VISUAL 1, title",Preview VISUAL 1
+CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1_TOOLTIP,,Flips type 6 sprite cutouts vertically as the mode 1 VISUAL instruction does.
 CELL_EDIT_BOXES_TITLE,"Title of the ""Boxes"" section of the editor",Boxes
 CELL_EDIT_BOXES_TITLE_TOOLTIP,,"This section controls the boxes for this cell.
 Modifying them will cause desyncs in online matches and old replays!"
@@ -392,10 +399,13 @@ INSTRUCTION_PARAM_TYPE,,Type
 INSTRUCTION_PARAM_ENABLE,,Enable
 INSTRUCTION_PARAM_VALUE,,Value
 INSTRUCTION_PARAM_AMOUNT,,Amount
+INSTRUCTION_PARAM_FLAG,,Flag
 INSTRUCTION_PARAM_FLAGS,,Flags
 INSTRUCTION_PARAM_OPERATION,,Operation
 INSTRUCTION_PARAM_DURATION,,Duration
+INSTRUCTION_PARAM_PERCENTAGE,,Percentage
 INSTRUCTION_PARAM_CELL,,Cell #
+INSTRUCTION_PARAM_GATLINGS,,Allow gatlings
 INSTRUCTION_PARAM_ALPHA,,Alpha
 INSTRUCTION_PARAM_BLEND,,Blend mode
 INSTRUCTION_PARAM_FRC,,FRC time (4/6)
@@ -409,7 +419,11 @@ INSTRUCTION_PARAM_SOUND_ID,,Sound #
 INSTRUCTION_PARAM_PROBABILITY,,Probability
 INSTRUCTION_PARAM_GUARD_SND_NO,,Guard Snd. #
 INSTRUCTION_PARAM_DAMAGE_SND_NO,,Dmge. Snd. #
+INSTRUCTION_PARAM_GRAVITY,,Gravity
+INSTRUCTION_PARAM_SPEED,,Speed
 INSTRUCTION_PARAM_LEVEL,,Level
+INSTRUCTION_PARAM_ADD_ALWAYS,,Add always
+INSTRUCTION_PARAM_ADD_ON_HIT,,Add on hit
 INSTRUCTION_PARAM_OFFSET_X,,X Offset
 INSTRUCTION_PARAM_OFFSET_Y,,Y Offset
 INSTRUCTION_PARAM_PLAYER,,Player
@@ -462,8 +476,21 @@ STATUS_LOADING,,Loading [{path}]...
 STATUS_LOAD_COMPLETE,,Loaded data from [{path}].
 STATUS_LOAD_INVALID,,"Unable to load, file invalid or unsupported."
 STATUS_LOAD_DIR_NOTHING,,No compatible data found at [{path}].
+STATUS_LOAD_BIN_ERROR,,Load failed with error: {error}
 STATUS_SAVE_NOTHING,,Nothing to save.
+STATUS_SAVE_DIR_START,,Saving directory...
+STATUS_SAVE_BIN_START,,Saving binary file...
+STATUS_SAVE_COMPLETE,,Save complete.
+STATUS_SAVE_DIR_ERROR,,Save had errors: {errors}
+STATUS_SAVE_DIR_ERROR_READ_ONLY,,Some files were read-only!
+STATUS_SAVE_DIR_ERROR_CELLS,,Could not save some cells!
+STATUS_SAVE_DIR_ERROR_SPRITES,,Could not save some sprites!
+STATUS_SAVE_DIR_ERROR_PALETTES,,Could not save some palettes!
+STATUS_SAVE_DIR_PATH_ERROR,,ERROR! Could not save. Cause: no path.
+STATUS_SAVE_BIN_PATH_ERROR,,"ERROR! Could not save. Cause: no path. Try ""Save as..."""
 STATUS_DIRECTORY_CANT_SAVE_AS,,"Directory session, can't 'save as'."
+STATUS_NOTHING_OPEN_CANT_CLOSE,,"Nothing currently open, can't close."
+STATUS_TAB_CLOSE,,Closed tab.
 STATUS_PREFERENCES_SAVED,,Saved preferences.
 STATUS_PREFERENCES_SAVE_ERROR,,Could not save preferences!
 STATUS_ACTION_HISTORY_NO,,The Action History is not currently available.
@@ -476,7 +503,7 @@ STATUS_INSTRUCTION_DB_START,,Building script instruction database...
 STATUS_INSTRUCTION_DB_FILE_NOT_FOUND,,Instruction database file not found!
 STATUS_INSTRUCTION_DB_FINISH,,Script instruction database build complete. Entries: {count}.
 ,SPRITE EDITOR,
-,,
+STATUS_SPRITE_EDIT_IMPORT_NOTHING,"Trying to import sprites, but selected no files","No sprites selected, can't import."
 ,CELL EDITOR,
 STATUS_CELL_EDIT_CELL_LOAD,,Loaded cell #{index}.
 STATUS_CELL_EDIT_CELL_COPY,,Copied cell #{index} to the clipboard.
@@ -515,12 +542,12 @@ ACTION_CELL_EDIT_SPRITE_INFO_PASTE,,Cell #{index}: Paste sprite info
 ACTION_CELL_EDIT_BOX_NEW,,Cell #{index}: Add box
 ACTION_CELL_EDIT_BOX_PASTE,,Cell #{index}: Paste box(es)
 ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE,,with overwrite
-ACTION_CELL_EDIT_BOX_DELETE,,Cell #%s: Delete box
-ACTION_CELL_EDIT_BOX_DELETE_MULTI,,Cell #%s: Delete boxes
-ACTION_CELL_EDIT_BOX_TYPE,,Cell #%s: Set box type
+ACTION_CELL_EDIT_BOX_DELETE,,Cell #{index}: Delete box
+ACTION_CELL_EDIT_BOX_DELETE_MULTI,,Cell #{index}: Delete boxes
+ACTION_CELL_EDIT_BOX_TYPE,,Cell #{index}: Set box type
 ACTION_CELL_EDIT_BOX_TYPE_MULTI,,Cell #{index}: Set type for multiple boxes
 ACTION_CELL_EDIT_BOX_OFFSET_X,,Cell #{index}: Set box x offset
-ACTION_CELL_EDIT_BOX_OFFSET_Y,,Cell #%s: Set box y offset
+ACTION_CELL_EDIT_BOX_OFFSET_Y,,Cell #{index}: Set box y offset
 ACTION_CELL_EDIT_BOX_WIDTH,,Cell #{index}: Set box width
 ACTION_CELL_EDIT_BOX_HEIGHT,,Cell #{index}: Set box height
 ACTION_CELL_EDIT_BOX_MODIFY,,Cell #{index}: Modify box #{box}
@@ -542,6 +569,7 @@ ACTION_SELECT_IMPORT,,Import cursor mask
 ACTION_SCRIPT_EDIT_DELETE_ACTION,,Action #{index}: delete
 ACTION_SCRIPT_EDIT_NEW_ACTION,,New action at index #{index}
 ACTION_SCRIPT_EDIT_PASTE_ACTION,,Paste action at index #{index}
+ACTION_SCRIPT_EDIT_SET_FLAG,,Action #{index}: set flag
 ACTION_SCRIPT_EDIT_SET_DAMAGE,,Action #{index}: set damage
 ACTION_SCRIPT_EDIT_DELETE_INSTRUCTION,,Action #{index}: delete instruction
 ACTION_SCRIPT_EDIT_INSERT_INSTRUCTION,,Action #{index}: insert instruction
