@@ -606,6 +606,8 @@ func script_animation_load_frame(frame: int) -> void:
 		anim_player.seek(0, true)
 		anim_player.advance(frame)
 
+	action_seek_to_frame.emit(frame)
+
 
 func script_animation_get_length() -> int:
 	return anim_player.current_animation_length
@@ -637,7 +639,7 @@ func script_instruction_select(index: int) -> void:
 	var instruction_frame: int = script_instruction_get_frame(instruction_index)
 	script_animation_load_frame(instruction_frame)
 	action_select_instruction.emit(instruction_index)
-	action_seek_to_frame.emit(instruction_frame)
+	#action_seek_to_frame.emit(instruction_frame)
 
 
 func script_instruction_delete() -> void:
@@ -807,11 +809,10 @@ func script_argument_set(instruction: int, argument: int, value: int) -> void:
 	
 	var frame: int = script_animation_get_current_frame()
 	
-	undo_redo.add_do_method(script_animation_load)
+	undo_redo.add_do_method(script_action_load.bind(action_index))
 	undo_redo.add_do_method(script_animation_load_frame.bind(frame))
-	undo_redo.add_do_method(emit_signal.bind("action_seek_to_frame", frame))
 	
-	undo_redo.add_undo_method(script_animation_load)
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction))
 	
 	status_register_action(action_text)
