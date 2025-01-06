@@ -19,6 +19,29 @@ func _ready() -> void:
 	pal_selection.resize(256)
 
 
+func get_box_data() -> Array[BoxInfo]:
+	var return_array: Array[BoxInfo] = []
+	
+	for box in box_data:
+		return_array.append(duplicate_box(box))
+	
+	return return_array
+
+
+func duplicate_box(box: BoxInfo) -> BoxInfo:
+	var new_box := BoxInfo.new()
+	
+	new_box.box_type = box.box_type
+	new_box.x_offset = box.x_offset
+	new_box.y_offset = box.y_offset
+	new_box.width = box.width
+	new_box.height = box.height
+	new_box.crop_x_offset = box.crop_x_offset
+	new_box.crop_y_offset = box.crop_y_offset
+	
+	return new_box
+
+
 # Wouldn't want to always return the same reference
 func get_script_action() -> ScriptAction:
 	if script_action == null:
