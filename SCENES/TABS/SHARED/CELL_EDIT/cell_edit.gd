@@ -94,40 +94,25 @@ func _input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("ui_copy"):
 		if Input.is_key_pressed(KEY_ALT):
-			# duplicate() doesn't work here even with (true) for some reason
-			var sprite_info_copy := SpriteInfo.new()
-			sprite_info_copy.sprite_index = this_cell.sprite_index
-			sprite_info_copy.sprite_x_offset = this_cell.sprite_x_offset
-			sprite_info_copy.sprite_y_offset = this_cell.sprite_y_offset
-			sprite_info_copy.unknown = this_cell.unknown_1
+			Clipboard.set_sprite_info(this_cell)
 			
-			Clipboard.sprite_info = sprite_info_copy
-			
-			Status.set_status(tr("CELL_EDIT_SPRITE_INFO_COPY").format({
+			Status.set_status(tr("STATUS_CELL_EDIT_SPRITE_INFO_COPY").format({
 				"index": cell_get_index()
 			}))
 		
 		else:
 			if boxes_selected.size() == 0:
-				Status.set_status("CELL_EDIT_BOX_COPY_NOTHING")
+				Status.set_status("STATUS_CELL_EDIT_BOX_COPY_NOTHING")
+			
 			else:
-				Clipboard.box_data.clear()
+				var array: Array[BoxInfo] = []
 				
 				for box in boxes_selected:
-					# duplicate() doesn't work here either
-					var this_box := this_cell.boxes[box]
-					var new_box := BoxInfo.new()
-					new_box.width = this_box.width
-					new_box.height = this_box.height
-					new_box.x_offset = this_box.x_offset
-					new_box.y_offset = this_box.y_offset
-					new_box.box_type = this_box.box_type
-					new_box.crop_x_offset = this_box.crop_x_offset
-					new_box.crop_y_offset = this_box.crop_y_offset
-					
-					Clipboard.box_data.append(new_box)
+					array.append(this_cell.boxes[box])
 				
-				Status.set_status("CELL_EDIT_BOX_COPY")
+				Clipboard.set_box_data(array)
+				
+				Status.set_status("STATUS_CELL_EDIT_BOX_COPY")
 
 	elif Input.is_action_just_pressed("ui_paste"):
 		if Input.is_key_pressed(KEY_ALT):
@@ -549,9 +534,11 @@ func box_append(box: BoxInfo) -> void:
 	
 	undo_redo.create_action(action_text)
 	
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
 	undo_redo.add_undo_method(box_delete_commit.bind(this_cell, box))
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
@@ -620,7 +607,7 @@ func box_paste(overwrite: bool = false) -> void:
 			undo_redo.add_do_method(box_delete_commit.bind(this_cell, box))
 			undo_redo.add_undo_method(box_append_commit.bind(this_cell, box))
 	
-	for box in Clipboard.box_data:
+	for box in Clipboard.get_box_data():
 		undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
 		undo_redo.add_undo_method(box_delete_commit.bind(this_cell, box))
 		
@@ -773,6 +760,7 @@ func box_set_height(new_value: int) -> void:
 	undo_redo.commit_action()
 
 
+# Seems to work fine...?
 func box_set_rect_for(index: int, rect: Rect2i) -> void:
 	var action_text: String
 	
@@ -790,21 +778,21 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 		})
 		undo_redo.create_action(action_text)
 	
-	var box: BoxInfo = box_get(index)
+	var this_box: BoxInfo = box_get(index)
 	
-	undo_redo.add_do_property(box, "x_offset", rect.position.x)
-	undo_redo.add_do_property(box, "y_offset", rect.position.y)
-	undo_redo.add_do_property(box, "width", rect.size.x)
-	undo_redo.add_do_property(box, "height", rect.size.y)
+	undo_redo.add_do_property(this_box, "x_offset", rect.position.x)
+	undo_redo.add_do_property(this_box, "y_offset", rect.position.y)
+	undo_redo.add_do_property(this_box, "width", rect.size.x)
+	undo_redo.add_do_property(this_box, "height", rect.size.y)
 	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
-	undo_redo.add_do_method(emit_signal.bind("box_updated", box))
+	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
 	
-	undo_redo.add_undo_property(box, "x_offset", box.x_offset)
-	undo_redo.add_undo_property(box, "y_offset", box.y_offset)
-	undo_redo.add_undo_property(box, "width", box.width)
-	undo_redo.add_undo_property(box, "height", box.height)
+	undo_redo.add_undo_property(this_box, "x_offset", this_box.x_offset)
+	undo_redo.add_undo_property(this_box, "y_offset", this_box.y_offset)
+	undo_redo.add_undo_property(this_box, "width", this_box.width)
+	undo_redo.add_undo_property(this_box, "height", this_box.height)
 	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
-	undo_redo.add_undo_method(emit_signal.bind("box_updated", box))
+	undo_redo.add_undo_method(emit_signal.bind("box_updated", this_box))
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()
