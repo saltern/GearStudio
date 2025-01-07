@@ -10,7 +10,6 @@ signal rotation_set
 @export var sprite_scale_y: Node2D
 @export var sprite_origin: Node2D
 
-var session_id: int
 var palette_index: int = 0
 
 var angle: int = 0
@@ -261,7 +260,7 @@ func get_palette(index: int) -> PackedByteArray:
 
 
 func load_palette(for_session: int, pal_index: int) -> void:
-	if for_session != session_id:
+	if for_session != script_edit.session_id:
 		return
 	
 	if not script_edit.obj_data.has("palettes"):
