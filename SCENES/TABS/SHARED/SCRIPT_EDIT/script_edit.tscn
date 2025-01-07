@@ -832,7 +832,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PARAMETERS_TOOLTIP"
 script = ExtResource("4_h01nf")
-collapsible = NodePath("../scroll")
+collapsible = NodePath("../collapsible")
 collapse_parent = true
 
 [node name="text" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/title"]
@@ -862,25 +862,29 @@ alignment = 2
 script = ExtResource("19_dn4hq")
 metadata/_custom_type_script = ExtResource("19_dn4hq")
 
-[node name="nothing" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments"]
+[node name="collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments"]
+layout_mode = 2
+
+[node name="nothing" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/collapsible"]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PARAMETERS_NOTHING_TOOLTIP"
 mouse_filter = 0
 text = "SCRIPT_EDIT_PARAMETERS_NOTHING"
 
-[node name="scroll" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments"]
+[node name="scroll" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/collapsible"]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="arg_container" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg", "nothing_selected")]
+[node name="arg_container" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/collapsible/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg", "nothing_selected")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("13_ctvg6")
-action_index = NodePath("../../../../../action_idx/value")
-instruction_list = NodePath("../../../items")
-model_arg = NodePath("../../arg0")
+action_index = NodePath("../../../../../../action_idx/value")
+instruction_list = NodePath("../../../../items")
+model_arg = NodePath("../../../arg0")
 nothing_selected = NodePath("../../nothing")
 
 [node name="v_sep" type="VSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content"]
@@ -1035,6 +1039,7 @@ box_display_toggle = NodePath("../../../../../preview_options/box_display")
 sprite_handler = NodePath("../sprite")
 
 [node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
