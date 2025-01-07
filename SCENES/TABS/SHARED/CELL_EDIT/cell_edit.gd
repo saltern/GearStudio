@@ -436,17 +436,23 @@ func sprite_info_paste() -> void:
 	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_INFO_PASTE").format({
 		"index": cell_index
 	})
+	
 	undo_redo.create_action(action_text)
 	
+	# Do
 	undo_redo.add_do_property(this_cell, "sprite_index", Clipboard.sprite_index)
 	undo_redo.add_do_property(
-		this_cell, "sprite_x_offset",Clipboard.sprite_x_offset
+		this_cell, "sprite_x_offset", Clipboard.sprite_x_offset
 	)
 	undo_redo.add_do_property(
 		this_cell, "sprite_y_offset", Clipboard.sprite_y_offset
 	)
+	undo_redo.add_do_property(this_cell, "unknown_1", Clipboard.unknown_1)
+	undo_redo.add_do_property(this_cell, "unknown_2", Clipboard.unknown_2)
+	
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	
+	# Undo
 	undo_redo.add_undo_property(
 		this_cell, "sprite_index", this_cell.sprite_index
 	)
@@ -456,9 +462,14 @@ func sprite_info_paste() -> void:
 	undo_redo.add_undo_property(
 		this_cell, "sprite_y_offset", this_cell.sprite_y_offset
 	)
+	undo_redo.add_undo_property(this_cell, "unknown_1", this_cell.unknown_1)
+	undo_redo.add_undo_property(this_cell, "unknown_2", this_cell.unknown_2)
+	
 	undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
 	
+	# Commit
 	status_register_action(action_text)
+	
 	undo_redo.commit_action()
 #endregion
 
