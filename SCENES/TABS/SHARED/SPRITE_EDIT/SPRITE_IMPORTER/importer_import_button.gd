@@ -19,6 +19,8 @@ func ask_for_confirmation() -> void:
 		tr("SPRITE_EDIT_IMPORT_CONFIRM_TEXT").format({
 			"count": SpriteImport.import_list.size()
 		})
+	
+	confirmation_dialog.size.x = 0
 	confirmation_dialog.show()
 
 
