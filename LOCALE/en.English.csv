@@ -288,6 +288,12 @@ CELL_EDIT_BOXES_EDIT_MODE_TOOLTIP,,"Toggles box editing on/off.
 Editing boxes will cause desyncs in online matches and old replays!"
 CELL_EDIT_BOXES_TYPES_DROPDOWN,Menubutton that toggles box types for display,Types to display...
 CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP,,Controls which types of boxes will be displayed in the preview.
+CELL_EDIT_BOXES_TYPES_UNKNOWN,Box type dropdown options,Unknown types
+CELL_EDIT_BOXES_TYPES_HITBOXES,,Hitboxes
+CELL_EDIT_BOXES_TYPES_HURTBOXES,,Hurtboxes
+CELL_EDIT_BOXES_TYPES_REGIONS,,Sprite regions
+CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION,,Collision box extension
+CELL_EDIT_BOXES_TYPES_SPAWN,,Spawn points
 CELL_EDIT_BOXES_LIST_TOOLTIP,Tooltip for the itemlist containing the cell's hitboxes,The list of boxes contained in this cell.
 CELL_EDIT_BOXES_DRAW_MODE,Button that toggles box drawing,Draw Mode
 CELL_EDIT_BOXES_DRAW_MODE_TOOLTIP,,Toggles drawing new boxes on/off.
