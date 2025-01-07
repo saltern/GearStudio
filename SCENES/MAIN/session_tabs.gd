@@ -97,7 +97,7 @@ func save_resource(path: String = ""):
 				
 				var file_name: String = path.get_file()
 				get_child(current_tab).base_name = file_name
-				rename_tab(current_tab, current_tab)
+				rename_tab(current_tab)
 			
 			save_binary(path)
 
@@ -155,26 +155,27 @@ func on_tab_changed(new_tab: int) -> void:
 
 
 func on_tab_closed(index: int) -> void:
-	get_child(index).queue_free()
-	rename_all_tabs(index)
+	var closed_tab: Node = get_child(index)
+	
+	remove_child(closed_tab)
+	closed_tab.queue_free()
+	
+	rename_all_tabs()
+	SessionData.tab_reset_session_ids.emit()
+	
 	Opened.path_close(index)
 
 
-func rename_all_tabs(skip_index: int) -> void:
+func rename_all_tabs() -> void:
 	var number: int = 0
 	
 	for tab in get_tab_count():
-		if tab == skip_index:
-			continue
-		
-		rename_tab(tab, number)
-		
-		number += 1
+		rename_tab(tab)
 
 
-func rename_tab(tab_index: int, number: int) -> void:
+func rename_tab(tab_index: int) -> void:
 	var pretty_name: String = tr("TAB_BASE_NAME").format(
-		{id=number, name=get_child(tab_index).base_name}
+		{id=tab_index, name=get_child(tab_index).base_name}
 	)
 	
 	set_tab_title(tab_index, pretty_name)

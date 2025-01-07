@@ -1,5 +1,7 @@
 extends TabContainer
 
+signal session_id_changed
+
 var session_id: int
 
 @export var TabSpriteEdit: PackedScene
@@ -9,6 +11,15 @@ var session_id: int
 @export var TabSelectEdit: PackedScene
 
 var base_name: String = ""
+
+
+func _ready() -> void:
+	SessionData.tab_reset_session_ids.connect(reset_session_id)
+
+
+func reset_session_id() -> void:
+	session_id = get_index()
+	session_id_changed.emit(session_id)
 
 
 func load_tabs(data: Dictionary) -> void:
@@ -48,6 +59,7 @@ func get_base_tab() -> TabContainer:
 
 func get_sprite_editor(object: Dictionary) -> SpriteEdit:
 	var sprite_edit: SpriteEdit = TabSpriteEdit.instantiate()
+	session_id_changed.connect(sprite_edit.set_session_id)
 	sprite_edit.session_id = session_id
 	sprite_edit.obj_data = object
 	return sprite_edit
@@ -55,6 +67,7 @@ func get_sprite_editor(object: Dictionary) -> SpriteEdit:
 
 func get_cell_editor(object: Dictionary) -> CellEdit:
 	var cell_edit: CellEdit = TabCellEdit.instantiate()
+	session_id_changed.connect(cell_edit.set_session_id)
 	cell_edit.session_id = session_id
 	cell_edit.obj_data = object
 	return cell_edit
@@ -62,6 +75,7 @@ func get_cell_editor(object: Dictionary) -> CellEdit:
 
 func get_script_editor(object: Dictionary) -> ScriptEdit:
 	var script_edit: ScriptEdit = TabScriptEdit.instantiate()
+	session_id_changed.connect(script_edit.set_session_id)
 	script_edit.session_id = session_id
 	script_edit.obj_data = object
 	return script_edit
@@ -69,6 +83,7 @@ func get_script_editor(object: Dictionary) -> ScriptEdit:
 
 func get_palette_editor(object: Dictionary) -> PaletteEdit:
 	var palette_edit: PaletteEdit = TabPaletteEdit.instantiate()
+	session_id_changed.connect(palette_edit.set_session_id)
 	palette_edit.session_id = session_id
 	palette_edit.obj_data = object
 	return palette_edit
@@ -76,6 +91,7 @@ func get_palette_editor(object: Dictionary) -> PaletteEdit:
 
 func get_select_editor(object: Dictionary) -> SelectEdit:
 	var select_edit: SelectEdit = TabSelectEdit.instantiate()
+	session_id_changed.connect(select_edit.set_session_id)
 	select_edit.session_id = session_id
 	select_edit.obj_data = object
 	return select_edit

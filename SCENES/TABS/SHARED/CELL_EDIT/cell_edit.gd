@@ -128,6 +128,10 @@ func _input(event: InputEvent) -> void:
 		box_delete()
 
 
+func set_session_id(new_id: int) -> void:
+	session_id = new_id
+
+
 func status_register_action(action_text: String) -> void:
 	undo_redo.add_do_method(Status.set_status.bind(action_text))
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({

@@ -47,6 +47,10 @@ func _input(event: InputEvent) -> void:
 		undo_redo.undo()
 
 
+func set_session_id(new_id: int) -> void:
+	session_id = new_id
+
+
 func get_provider() -> PaletteProvider:
 	return provider
 

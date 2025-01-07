@@ -5,6 +5,7 @@ signal load_complete
 @warning_ignore("unused_signal")
 signal save_complete
 signal tab_closed
+signal tab_reset_session_ids	# Emitted by session_tabs.gd
 signal palette_changed
 
 enum SessionType {
