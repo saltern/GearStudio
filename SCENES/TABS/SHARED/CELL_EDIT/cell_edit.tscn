@@ -589,6 +589,7 @@ text_overrun_behavior = 3
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/collapsible/editable/type" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
+max_value = 6.0
 alignment = 2
 editable = false
 script = ExtResource("13_vxqe1")
