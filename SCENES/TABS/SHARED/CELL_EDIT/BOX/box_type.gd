@@ -10,7 +10,7 @@ func _ready() -> void:
 	cell_edit.cell_updated.connect(on_cell_update)
 	cell_edit.box_updated.connect(on_box_update)
 	cell_edit.box_selected.connect(on_box_update)
-	cell_edit.box_deselected_all.connect(reset)
+	#cell_edit.box_deselected_all.connect(reset)
 
 
 func reset() -> void:
