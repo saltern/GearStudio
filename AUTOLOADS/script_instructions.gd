@@ -22,6 +22,7 @@ var task_id: int
 @onready var NAME_DRAW_NORMAL	: String = get_instruction_name(0x10)	# 16
 @onready var NAME_DRAW_REVERSE	: String = get_instruction_name(0x11)	# 17
 @onready var NAME_VISUAL		: String = get_instruction_name(0x45)	# 69
+@onready var NAME_END_ACTION	: String = get_instruction_name(0xFF)	# 255
 
 
 # DB needs to be complete before _ready() for above instruction names

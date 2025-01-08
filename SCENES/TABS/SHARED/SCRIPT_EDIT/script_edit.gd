@@ -16,6 +16,7 @@ signal inst_rotate
 signal inst_draw_normal
 signal inst_draw_reverse
 signal inst_visual
+signal inst_end_action
 
 enum FlagType {
 	FLAGS,
@@ -472,6 +473,7 @@ func script_animation_load() -> void:
 	var track_draw_nor	:= anim.add_track(Animation.TYPE_METHOD)	# 16
 	var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
 	var track_visual	:= anim.add_track(Animation.TYPE_METHOD)	# 69
+	var track_end		:= anim.add_track(Animation.TYPE_METHOD)	# 255
 	
 	for track in anim.get_track_count():
 		anim.track_set_path(track, ".")
@@ -590,6 +592,14 @@ func script_animation_load() -> void:
 				anim.track_insert_key(track_visual, frame + visual_offset, {
 					"method": &"emit_signal",
 					"args": [&"inst_visual", visual_mode, visual_argument]
+				})
+			
+			SI.NAME_END_ACTION:
+				var end_mode: int = instruction.arguments[0].value
+				
+				anim.track_insert_key(track_end, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_end_action", end_mode]
 				})
 	
 	# Restart animation
