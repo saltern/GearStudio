@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=52 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -35,8 +35,11 @@
 [ext_resource type="Script" uid="uid://bwetp10s0dg8u" path="res://CLASSES/CONTROL/class_debouncing_spinbox.gd" id="19_dn4hq"]
 [ext_resource type="Texture2D" uid="uid://blit50g7vol1d" path="res://ICONS/stop.svg" id="20_3otq7"]
 [ext_resource type="Script" uid="uid://c6m83ykf53y7y" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/box_draw.gd" id="20_fi3dn"]
+[ext_resource type="Texture2D" uid="uid://cald4jvk0kkic" path="res://ICONS/arrow_up.svg" id="23_5tpxh"]
 [ext_resource type="Script" uid="uid://qi65k6lh8ed7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/timeline.gd" id="24_1g2a5"]
+[ext_resource type="Script" uid="uid://bjqloe0nwhcdy" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/move.gd" id="24_sq6ji"]
 [ext_resource type="Shader" uid="uid://lcidhjapjeyc" path="res://MATERIALS/palette_script.gdshader" id="25_h0fgr"]
+[ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="25_oai88"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
@@ -815,13 +818,36 @@ layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_TYPE_TOOLTIP"
 text = "CellBegin"
 
-[node name="items" type="ItemList" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible" node_paths=PackedStringArray("action_spinbox")]
+[node name="list" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="items" type="ItemList" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/list" node_paths=PackedStringArray("action_spinbox")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 item_count = 1
 script = ExtResource("12_0a85a")
-action_spinbox = NodePath("../../../action_idx/value")
+action_spinbox = NodePath("../../../../action_idx/value")
+
+[node name="move_buttons" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/list"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="up" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/list/move_buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+icon = ExtResource("23_5tpxh")
+icon_alignment = 1
+script = ExtResource("24_sq6ji")
+
+[node name="down" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/list/move_buttons"]
+layout_mode = 2
+size_flags_vertical = 3
+icon = ExtResource("25_oai88")
+icon_alignment = 1
+script = ExtResource("24_sq6ji")
+direction = 1
 
 [node name="arguments" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible"]
 layout_mode = 2
@@ -864,6 +890,7 @@ metadata/_custom_type_script = ExtResource("19_dn4hq")
 
 [node name="collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="nothing" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/collapsible"]
 layout_mode = 2
@@ -872,7 +899,6 @@ mouse_filter = 0
 text = "SCRIPT_EDIT_PARAMETERS_NOTHING"
 
 [node name="scroll" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments/collapsible"]
-visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 3
@@ -883,7 +909,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("13_ctvg6")
 action_index = NodePath("../../../../../../action_idx/value")
-instruction_list = NodePath("../../../../items")
+instruction_list = NodePath("../../../../list/items")
 model_arg = NodePath("../../../arg0")
 nothing_selected = NodePath("../../nothing")
 

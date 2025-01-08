@@ -249,6 +249,12 @@ func script_action_load(index: int) -> void:
 	action_loaded.emit()
 
 
+func script_action_ensure_selected(index: int) -> void:
+	if action_index != index:
+		script_action_load(index)
+		action_force_select.emit(index)
+
+
 func script_action_delete() -> void:
 	if bin_script.actions.size() < 2:
 		Status.set_status("STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS")
@@ -793,6 +799,47 @@ func script_instruction_paste(at: int) -> void:
 	
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
+
+
+func script_instruction_move(direction: int) -> void:
+	if instruction_index == -1:
+		Status.set_status("STATUS_SCRIPT_EDIT_INSTRUCTION_MOVE_NOTHING")
+		return
+	
+	var inst: Instruction = this_action.instructions[instruction_index]
+	var from: int = instruction_index
+	var to: int = 0
+	
+	match direction:
+		0:	# Up
+			to = max(0, instruction_index - 1)
+		
+		1:	# Down
+			to = min(instruction_index + 1, this_action.instructions.size() - 1)
+	
+	if from == to:
+		Status.set_status("STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_MOVE")
+		return
+	
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_MOVE_INSTRUCTION").format({
+		"index": action_index
+	})
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(script_action_ensure_selected.bind(action_index))
+	undo_redo.add_do_method(script_instruction_delete_commit.bind(from))
+	undo_redo.add_do_method(script_instruction_insert_commit.bind(to, inst))
+	undo_redo.add_do_method(script_action_load.bind(action_index))
+	undo_redo.add_do_method(script_instruction_select.bind(to))
+	
+	undo_redo.add_undo_method(script_action_ensure_selected.bind(action_index))
+	undo_redo.add_undo_method(script_instruction_delete_commit.bind(to))
+	undo_redo.add_undo_method(script_instruction_insert_commit.bind(from, inst))
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(script_instruction_select.bind(from))
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()
