@@ -470,8 +470,8 @@ func script_animation_load() -> void:
 	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)	# 7
 	var track_scale_y	:= anim.add_track(Animation.TYPE_METHOD)	# 7
 	var track_rotate	:= anim.add_track(Animation.TYPE_METHOD)	# 8
-	var track_draw_nor	:= anim.add_track(Animation.TYPE_METHOD)	# 16
-	var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
+	var track_draw	:= anim.add_track(Animation.TYPE_METHOD)	# 16
+	#var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
 	var track_visual	:= anim.add_track(Animation.TYPE_METHOD)	# 69
 	var track_end		:= anim.add_track(Animation.TYPE_METHOD)	# 255
 	
@@ -499,7 +499,7 @@ func script_animation_load() -> void:
 		"args": [&"inst_rotate", 0, 0]
 	})
 	
-	anim.track_insert_key(track_draw_nor, 0.0, {
+	anim.track_insert_key(track_draw, 0.0, {
 		"method": &"emit_signal",
 		"args": [&"inst_draw_normal"]
 	})
@@ -570,13 +570,13 @@ func script_animation_load() -> void:
 				})
 			
 			SI.NAME_DRAW_NORMAL:
-				anim.track_insert_key(track_draw_nor, frame, {
+				anim.track_insert_key(track_draw, frame, {
 					"method": &"emit_signal",
 					"args": [&"inst_draw_normal"]
 				})
 			
 			SI.NAME_DRAW_REVERSE:
-				anim.track_insert_key(track_draw_rev, frame, {
+				anim.track_insert_key(track_draw, frame, {
 					"method": &"emit_signal",
 					"args": [&"inst_draw_reverse"]
 				})
