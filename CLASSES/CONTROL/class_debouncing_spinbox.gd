@@ -2,7 +2,6 @@ class_name DebouncingSpinBox extends SteppingSpinBox
 
 signal drag_ended
 signal value_set
-signal value_preview
 
 var start_value: int = 0
 var dragging: bool = false

@@ -48,7 +48,7 @@ func build_database() -> void:
 	var db_read := FileAccess.open(FILE_NAME, FileAccess.READ)
 	
 	# Header
-	var keys = db_read.get_csv_line()
+	db_read.get_csv_line()
 	
 	# Grab instruction data
 	while not db_read.eof_reached():

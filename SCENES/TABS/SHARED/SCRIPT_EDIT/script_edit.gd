@@ -1,5 +1,6 @@
 class_name ScriptEdit extends Control
 
+@warning_ignore_start("unused_signal")
 signal action_loaded
 signal action_set_damage
 signal action_flags_updated
@@ -17,6 +18,7 @@ signal inst_draw_normal
 signal inst_draw_reverse
 signal inst_visual
 signal inst_end_action
+@warning_ignore_restore("unused_signal")
 
 enum FlagType {
 	FLAGS,
@@ -117,6 +119,7 @@ func script_deserialize() -> void:
 	
 	# Player objects...
 	if obj_data.has("palettes"):
+		@warning_ignore("confusable_local_declaration")
 		var cursor: int = get_play_data_length(script_bytes)
 		bin_script.variables = script_bytes.slice(0x0, cursor)
 		action_bytes = script_bytes.slice(cursor, script_bytes.size())
@@ -397,9 +400,7 @@ func script_action_set_damage(value: int) -> void:
 	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_property(this_action, "damage", value)
-	undo_redo.add_do_method(
-		emit_signal.bind("action_set_damage", value)
-	)
+	undo_redo.add_do_method(emit_signal.bind("action_set_damage", value))
 	
 	undo_redo.add_undo_property(this_action, "damage", this_action.damage)
 	undo_redo.add_undo_method(

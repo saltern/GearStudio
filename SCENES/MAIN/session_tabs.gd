@@ -167,8 +167,6 @@ func on_tab_closed(index: int) -> void:
 
 
 func rename_all_tabs() -> void:
-	var number: int = 0
-	
 	for tab in get_tab_count():
 		rename_tab(tab)
 

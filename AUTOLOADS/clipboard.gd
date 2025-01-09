@@ -82,10 +82,8 @@ func duplicate_script_action(from_action: ScriptAction) -> ScriptAction:
 	new_script_action.damage = from_action.damage
 	new_script_action.flag2 = from_action.flag2
 	
-	for instruction in from_action.instructions:
-		new_script_action.instructions.append(
-			duplicate_instruction(instruction)
-		)
+	for index in from_action.instructions:
+		new_script_action.instructions.append(duplicate_instruction(index))
 	
 	return new_script_action
 
