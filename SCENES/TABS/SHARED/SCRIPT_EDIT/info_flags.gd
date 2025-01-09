@@ -20,9 +20,9 @@ func hide_info() -> void:
 func show_info(bit: int) -> void:
 	match bit:
 		0:
-			text = "Uses hitspark: weak attack"
+			text = "Is weak attack"
 		2:
-			text = "Uses hitspark: special attack"
+			text = "Is special attack"
 		4:
 			text = "Is sweep"
 		8:
