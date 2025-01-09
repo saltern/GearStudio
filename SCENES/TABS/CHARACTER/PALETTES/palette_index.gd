@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @onready var palette_edit: PaletteEdit = get_owner()
 @onready var provider: PaletteProvider = palette_edit.provider

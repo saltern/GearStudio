@@ -1,4 +1,4 @@
-extends SpinBox
+extends SteppingSpinBox
 
 @onready var palette_edit: PaletteEdit = owner
 
