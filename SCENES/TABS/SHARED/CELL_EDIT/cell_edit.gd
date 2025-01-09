@@ -27,7 +27,7 @@ var cell_index: int
 var this_cell: Cell
 var cell_clipboard: Cell
 
-var boxes_selected: Array[int] = []
+var boxes_selected: PackedInt32Array = []
 var box_drawing_mode: bool
 var box_edits_allowed: bool
 
@@ -588,7 +588,10 @@ func box_delete() -> void:
 		
 		undo_redo.add_undo_method(box_append_commit.bind(this_cell, deleted_box, box_index))
 		undo_redo.add_undo_method(emit_signal.bind("cell_updated", this_cell))
-		
+	
+	undo_redo.add_do_method(box_deselect_all)
+	undo_redo.add_undo_method(box_set_selection.bind(boxes_selected))
+	
 	status_register_action(action_text)
 	undo_redo.commit_action()
 
