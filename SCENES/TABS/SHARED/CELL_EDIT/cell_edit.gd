@@ -609,7 +609,8 @@ func box_delete_commit(cell: Cell, box: BoxInfo) -> void:
 
 func box_paste(overwrite: bool = false) -> void:
 	if Clipboard.box_data.size() == 0:
-		Status.set_status("CELL_EDIT_BOX_PASTE_NOTHING")
+		Status.set_status("STATUS_CELL_EDIT_BOX_PASTE_NOTHING")
+		return
 	
 	var action_text: String = tr("ACTION_CELL_EDIT_BOX_PASTE").format({
 		"index": cell_index
