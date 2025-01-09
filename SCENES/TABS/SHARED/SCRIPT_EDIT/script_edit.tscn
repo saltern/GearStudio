@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=53 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
 [ext_resource type="Script" uid="uid://bqjpr18xm0kt7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/copy_instruction.gd" id="16_sx0bg"]
 [ext_resource type="Script" uid="uid://b5jjbrvtaa2on" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/paste_instruction.gd" id="17_h0fgr"]
+[ext_resource type="Script" uid="uid://ib4qoh5rfwwd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/info_flags.gd" id="17_sq6ji"]
 [ext_resource type="Texture2D" uid="uid://cte73girc3poy" path="res://ICONS/play_from_start.svg" id="18_uc0na"]
 [ext_resource type="Texture2D" uid="uid://bl3yqtc1r5xxi" path="res://ICONS/play.svg" id="19_5hivn"]
 [ext_resource type="Script" uid="uid://bwetp10s0dg8u" path="res://CLASSES/CONTROL/class_debouncing_spinbox.gd" id="19_dn4hq"]
@@ -231,6 +232,7 @@ mouse_filter = 2
 [node name="collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="damage" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible"]
 custom_minimum_size = Vector2(0, 30)
@@ -259,7 +261,7 @@ layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP"
 mouse_filter = 0
 script = ExtResource("4_h01nf")
-collapsible = NodePath("../flags_value")
+collapsible = NodePath("../flags_collapsible")
 
 [node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_title"]
 custom_minimum_size = Vector2(0, 30)
@@ -272,228 +274,237 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="flags_value" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible"]
-visible = false
+[node name="flags_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible"]
+layout_mode = 2
+
+[node name="info" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible" node_paths=PackedStringArray("grid_flags")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+vertical_alignment = 1
+script = ExtResource("17_sq6ji")
+grid_flags = NodePath("../flags_value")
+
+[node name="flags_value" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible"]
 layout_mode = 2
 columns = 2
 script = ExtResource("6_mno2r")
 total_flags = 32
 
-[node name="flags_0" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value"]
+[node name="flags_0" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "3"
 
-[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "5"
 
-[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "6"
 
-[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_0"]
+[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "7"
 
-[node name="flags_1" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value"]
+[node name="flags_1" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "8"
 
-[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "9"
 
-[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "10"
 
-[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "11"
 
-[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "12"
 
-[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "13"
 
-[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "14"
 
-[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_1"]
+[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "15"
 
-[node name="flags_2" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value"]
+[node name="flags_2" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="16" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="16" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "16"
 
-[node name="17" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="17" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "17"
 
-[node name="18" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="18" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "18"
 
-[node name="19" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="19" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "19"
 
-[node name="20" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="20" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "20"
 
-[node name="21" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="21" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "21"
 
-[node name="22" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="22" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "22"
 
-[node name="23" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_2"]
+[node name="23" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "23"
 
-[node name="flags_3" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value"]
+[node name="flags_3" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="24" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="24" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "24"
 
-[node name="25" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="25" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "25"
 
-[node name="26" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="26" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "26"
 
-[node name="27" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="27" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "27"
 
-[node name="28" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="28" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "28"
 
-[node name="29" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="29" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "29"
 
-[node name="30" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="30" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "30"
 
-[node name="31" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_value/flags_3"]
+[node name="31" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
