@@ -14,6 +14,8 @@ func _ready() -> void:
 	box_display_toggle.toggled.connect(toggle_display)
 	script_edit.cell_clear.connect(clear_boxes)
 	script_edit.inst_cell.connect(on_cell)
+	script_edit.inst_draw_normal.connect(on_draw_normal)
+	script_edit.inst_draw_reverse.connect(on_draw_reverse)
 	sprite_handler.scale_set.connect(on_scale)
 
 
@@ -101,6 +103,14 @@ func on_cell(index: int) -> void:
 		cell = Cell.new()
 	
 	on_cell_update(cell)
+
+
+func on_draw_normal() -> void:
+	scale.x = 1.0
+
+
+func on_draw_reverse() -> void:
+	scale.x = -1.0
 
 
 func on_scale(scale_x: float, scale_y: float) -> void:
