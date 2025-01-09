@@ -7,6 +7,10 @@ var panning: bool = false
 var accum: Vector2
 
 
+func _ready() -> void:
+	set_focus_mode(Control.FOCUS_CLICK)
+
+
 func _process(_delta: float) -> void:
 	queue_redraw()
 
@@ -38,6 +42,7 @@ func _input(event: InputEvent) -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		grab_focus.call_deferred()
 		if not handle_zoom_pan(event):
 			mouse_button(event as InputEventMouseButton)
 	
