@@ -16,6 +16,7 @@ signal inst_scale
 signal inst_rotate
 signal inst_draw_normal
 signal inst_draw_reverse
+signal inst_cell_jump
 signal inst_visual
 signal inst_end_action
 @warning_ignore_restore("unused_signal")
@@ -174,6 +175,7 @@ func script_deserialize() -> void:
 
 
 func script_serialize() -> PackedByteArray:
+	print_debug("Script serialization started")
 	var bytes: PackedByteArray = []
 	bytes.append_array(bin_script.variables)
 	
@@ -231,6 +233,7 @@ func script_save(for_session: int) -> void:
 		return
 	
 	obj_data["scripts"] = script_serialize()
+	print_debug("Script serialization complete")
 #endregion
 
 
@@ -471,8 +474,9 @@ func script_animation_load() -> void:
 	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)	# 7
 	var track_scale_y	:= anim.add_track(Animation.TYPE_METHOD)	# 7
 	var track_rotate	:= anim.add_track(Animation.TYPE_METHOD)	# 8
-	var track_draw	:= anim.add_track(Animation.TYPE_METHOD)	# 16
+	var track_draw		:= anim.add_track(Animation.TYPE_METHOD)	# 16
 	#var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
+	var track_cell_jump	:= anim.add_track(Animation.TYPE_METHOD)	# 39
 	var track_visual	:= anim.add_track(Animation.TYPE_METHOD)	# 69
 	var track_end		:= anim.add_track(Animation.TYPE_METHOD)	# 255
 	
@@ -582,6 +586,18 @@ func script_animation_load() -> void:
 					"args": [&"inst_draw_reverse"]
 				})
 			
+			SI.NAME_CELL_JUMP:
+				var disabled: int = instruction.arguments[0].value
+				var cell_begin_number: int = instruction.arguments[2].value
+				
+				if disabled:
+					continue
+				
+				anim.track_insert_key(track_cell_jump, frame, {
+					"method": &"emit_signal",
+					"args": [&"inst_cell_jump", cell_begin_number]
+				})
+			
 			SI.NAME_VISUAL:
 				var visual_mode: int = instruction.arguments[0].value
 				var visual_argument: int = instruction.arguments[1].value
@@ -651,6 +667,27 @@ func script_instruction_get_frame(index: int) -> int:
 		if instruction.id == 0:
 			frame += frame_offset
 			frame_offset = instruction.arguments[0].value
+	
+	return frame
+
+
+func script_instruction_get_cell_frame(index: int) -> int:
+	var frame: int = 1
+	var frame_offset: int = 0
+	var cell_begin_index: int = 0
+	var inst_index: int = 0
+	
+	while cell_begin_index < index + 1:
+		var instruction := this_action.instructions[inst_index]
+		if instruction.id == 0:
+			frame += frame_offset
+			frame_offset = instruction.arguments[0].value
+			cell_begin_index += 1
+		
+		inst_index += 1
+		
+		if inst_index >= this_action.instructions.size():
+			break
 	
 	return frame
 

@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c5rvpsthw3570"]
+
+[ext_resource type="Shader" uid="uid://lcidhjapjeyc" path="res://MATERIALS/palette_script.gdshader" id="1_qnbiw"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_qnbiw")
+shader_parameter/blend_mode = 0
+shader_parameter/blend_value = 256
+shader_parameter/alpha_double = true
+shader_parameter/reindex = true
+shader_parameter/visual_3 = false
+shader_parameter/palette = PackedInt32Array()

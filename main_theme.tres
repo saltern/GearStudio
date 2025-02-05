@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=54 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=56 format=3 uid="uid://bompixxaxswea"]
 
+[ext_resource type="FontFile" uid="uid://dlgxqrir2wfju" path="res://FONTS/jetbrainsmono_semibold.ttf" id="1_a2l2q"]
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u221g"]
@@ -146,6 +147,13 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0omi4"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bxrua"]
 border_width_left = 1
 border_width_top = 1
@@ -255,6 +263,10 @@ corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7adf"]
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42feg"]
@@ -379,6 +391,8 @@ CheckButton/styles/hover = SubResource("StyleBoxFlat_s4t8r")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_oh5x3")
 CheckButton/styles/normal = SubResource("StyleBoxFlat_djpj6")
 CheckButton/styles/pressed = SubResource("StyleBoxFlat_n86ds")
+CodeEdit/fonts/font = ExtResource("1_a2l2q")
+CodeEdit/styles/normal = SubResource("StyleBoxFlat_0omi4")
 ColorPicker/styles/tab_selected = SubResource("StyleBoxFlat_bxrua")
 ColorPicker/styles/tab_unselected = SubResource("StyleBoxFlat_o0it0")
 HBoxContainer/constants/separation = 6

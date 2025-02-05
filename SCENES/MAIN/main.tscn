@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene load_steps=39 format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -36,6 +36,9 @@
 [ext_resource type="Script" uid="uid://dg5ke7hjoabse" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
 [ext_resource type="Script" uid="uid://cg2m3kk5iqejb" path="res://SCENES/MAIN/save_lock.gd" id="28_j0856"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nliut"]
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i6eya"]
 bg_color = Color(0.0687983, 0.0687983, 0.0687982, 1)
 border_width_left = 1
@@ -66,6 +69,7 @@ theme_override_constants/separation = 0
 
 [node name="top_bar" type="PanelContainer" parent="content"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nliut")
 
 [node name="menu_bar" type="MenuBar" parent="content/top_bar"]
 layout_mode = 2
@@ -104,7 +108,6 @@ script = ExtResource("4_csxth")
 [node name="save_as_dialog" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE"]
 initial_position = 2
 size = Vector2i(600, 400)
-ok_button_text = "Save"
 access = 2
 filters = PackedStringArray("*.bin;Binary files")
 use_native_dialog = true
@@ -838,6 +841,30 @@ popup/item_0/text = "ENGLISH"
 popup/item_0/id = 0
 script = ExtResource("13_hgppk")
 
+[node name="max_undo" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PREFERENCES_MISCELLANEOUS_UNDO"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 200.0
+alignment = 2
+script = ExtResource("19_w7ci1")
+
+[node name="reopen" type="CheckButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+button_pressed = true
+text = "PREFERENCES_MISCELLANEOUS_REOPEN"
+script = ExtResource("20_560p1")
+
 [node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
@@ -1091,38 +1118,6 @@ text_overrun_behavior = 3
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("15_4p7l4")
-
-[node name="PREFERENCES_MISCELLANEOUS_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 5
-
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_MISCELLANEOUS_TITLE"]
-layout_mode = 2
-
-[node name="max_undo" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_MISCELLANEOUS_TITLE/contents"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_MISCELLANEOUS_TITLE/contents/max_undo"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_MISCELLANEOUS_UNDO"
-text_overrun_behavior = 3
-
-[node name="value" type="SpinBox" parent="preferences_2/background/margin/contents/categories/PREFERENCES_MISCELLANEOUS_TITLE/contents/max_undo"]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 200.0
-alignment = 2
-script = ExtResource("19_w7ci1")
-
-[node name="reopen" type="CheckButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_MISCELLANEOUS_TITLE/contents"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-button_pressed = true
-text = "PREFERENCES_MISCELLANEOUS_REOPEN"
-script = ExtResource("20_560p1")
 
 [node name="save" type="Button" parent="preferences_2/background/margin/contents"]
 layout_mode = 2

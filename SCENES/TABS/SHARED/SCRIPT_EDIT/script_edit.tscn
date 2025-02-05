@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=51 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -39,10 +39,10 @@
 [ext_resource type="Texture2D" uid="uid://cald4jvk0kkic" path="res://ICONS/arrow_up.svg" id="23_5tpxh"]
 [ext_resource type="Script" uid="uid://qi65k6lh8ed7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/timeline.gd" id="24_1g2a5"]
 [ext_resource type="Script" uid="uid://bjqloe0nwhcdy" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/move.gd" id="24_sq6ji"]
-[ext_resource type="Shader" uid="uid://lcidhjapjeyc" path="res://MATERIALS/palette_script.gdshader" id="25_h0fgr"]
 [ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="25_oai88"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
+[ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="34_sq6ji"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
 [ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
 
@@ -61,24 +61,6 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxwds"]
 content_margin_left = 5.0
 draw_center = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_onbgg"]
-bg_color = Color(1, 1, 1, 1)
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0fgr"]
-resource_local_to_scene = true
-shader = ExtResource("25_h0fgr")
-shader_parameter/blend_mode = 0
-shader_parameter/blend_value = 256
-shader_parameter/alpha_double = true
-shader_parameter/reindex = true
-shader_parameter/visual_3 = true
-shader_parameter/palette = PackedInt32Array()
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h0fgr"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -275,6 +257,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="flags_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible"]
+visible = false
 layout_mode = 2
 
 [node name="info" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible" node_paths=PackedStringArray("grid_flags")]
@@ -960,7 +943,6 @@ text = "Ignore \"VISUAL\""
 [node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_onbgg")
 
 [node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders" node_paths=PackedStringArray("visualizer")]
 texture_filter = 1
@@ -1037,7 +1019,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
-material = SubResource("ShaderMaterial_h0fgr")
+material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -6,4 +6,5 @@ func _ready() -> void:
 
 
 func save_confirmed() -> void:
+	print_debug("save_overwrite.gd::GlobalSignals.menu_save.emit()")
 	GlobalSignals.menu_save.emit()

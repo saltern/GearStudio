@@ -1,11 +1,13 @@
 class_name CellSpriteDisplay extends Control
 
-var obj_data: Dictionary
+@export var sprite_origin: CanvasItem
 
 var sprite_index: int = 0
 var palette_index: int = 0
 
 var visual_1: bool = false
+
+@onready var obj_data: Dictionary = owner.obj_data
 
 
 func _enter_tree() -> void:
@@ -19,14 +21,14 @@ func load_cell(cell: Cell) -> void:
 	
 	else:
 		unload_sprite()
-		
-	position = Vector2i(cell.sprite_x_offset, cell.sprite_y_offset)
+	
+	sprite_origin.position.x = cell.sprite_x_offset
+	sprite_origin.position.y = cell.sprite_y_offset
 
 
 func unload_sprite() -> void:
-	for child in get_children():
+	for child in sprite_origin.get_children():
 		child.queue_free()
-	
 
 
 func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
@@ -109,7 +111,7 @@ func load_cell_sprite_pieces(
 		
 		new_tex.texture = ImageTexture.create_from_image(target_image)
 		new_tex.use_parent_material = true
-		add_child(new_tex)
+		sprite_origin.add_child(new_tex)
 
 
 func get_palette(index: int) -> PackedByteArray:

@@ -15,7 +15,8 @@ func display() -> void:
 	if visible:
 		return
 	
-	current_path = FileMemory.palette_palette_export
+	current_path = FileMemory.palette_export
+	show()
 
 
 func on_file_selected(path: String) -> void:

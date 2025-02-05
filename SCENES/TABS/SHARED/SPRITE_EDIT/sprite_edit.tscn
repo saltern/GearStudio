@@ -365,8 +365,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="title" type="Label" parent="content/visualizer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SPRITE_EDIT_PREVIEW"
+vertical_alignment = 1
 
 [node name="borders" type="PanelContainer" parent="content/visualizer"]
 layout_mode = 2
@@ -907,7 +909,7 @@ size = Vector2i(640, 480)
 ok_button_text = "Open"
 file_mode = 1
 access = 2
-filters = PackedStringArray("*.bin, *.raw, *.png, *.bmp; Supported image files")
+filters = PackedStringArray("*.bin; Binary sprites", "*.raw; RAW images", "*.png; PNG images", "*.bmp; BMP images")
 use_native_dialog = true
 script = ExtResource("43_05050")
 browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/browse")
@@ -1536,7 +1538,7 @@ size = Vector2i(640, 480)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
+filters = PackedStringArray("*.bin; Binary sprites and palettes", "*.act; Adobe Color Table", "*.png; PNG images", "*.bmp; BMP images")
 use_native_dialog = true
 script = ExtResource("59_vae45")
 summon_button = NodePath("../content/left_panel/margin/palette_buttons/import_export/import")

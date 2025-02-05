@@ -44,6 +44,14 @@ var this_session: Dictionary = {}
 #	...
 
 
+func get_session(index: int) -> Dictionary:
+	return sessions[index]
+
+
+func get_current_session() -> Dictionary:
+	return get_session(session_index)
+
+
 func get_session_type() -> SessionType:
 	return this_session["session_type"]
 
@@ -72,6 +80,7 @@ func save_directory(path: String) -> void:
 
 
 func save_binary(path: String) -> void:
+	print("session_data.gd::save_binary(%s)" % path)
 	if path.is_empty() and this_session.has("path"):
 		path = this_session["path"]
 	
@@ -83,13 +92,17 @@ func save_binary(path: String) -> void:
 		GlobalSignals.save_complete.emit.call_deferred()
 		return
 	
+	print("GlobalSignals.save_start.emit.call_deferred()")
 	GlobalSignals.save_start.emit.call_deferred()
 	Status.set_status.call_deferred("STATUS_SAVE_BIN_START")
 	
 	# Register scripts
+	print("BinResource.save_resource_file(data, %s, GlobalSignals)" % path)
 	BinResource.save_resource_file(this_session["data"], path, GlobalSignals)
 	
 	Status.set_status.call_deferred("STATUS_SAVE_COMPLETE")
+	
+	print("GlobalSignals.save_complete.emit.call_deferred()")
 	GlobalSignals.save_complete.emit.call_deferred()
 
 

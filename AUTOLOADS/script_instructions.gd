@@ -21,6 +21,7 @@ var task_id: int
 @onready var NAME_ROT			: String = get_instruction_name(0x08)
 @onready var NAME_DRAW_NORMAL	: String = get_instruction_name(0x10)	# 16
 @onready var NAME_DRAW_REVERSE	: String = get_instruction_name(0x11)	# 17
+@onready var NAME_CELL_JUMP		: String = get_instruction_name(0x27)	# 39
 @onready var NAME_VISUAL		: String = get_instruction_name(0x45)	# 69
 @onready var NAME_END_ACTION	: String = get_instruction_name(0xFF)	# 255
 
@@ -126,7 +127,7 @@ func get_instruction(id: int) -> Instruction:
 
 
 func get_instruction_name(id: int) -> String:
-	if id >= INSTRUCTION_DB.size():
+	if not INSTRUCTION_DB.has(id):
 		return "SCRIPT_INSTRUCTION_NOT_FOUND"
 	
 	return INSTRUCTION_DB[id].display_name

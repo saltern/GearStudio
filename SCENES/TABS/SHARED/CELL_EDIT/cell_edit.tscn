@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=77 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -54,7 +54,9 @@
 [ext_resource type="Script" uid="uid://4ftotvxeg250" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
 [ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/palette_index.gd" id="32_dcsig"]
+[ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="41_nea0q"]
 [ext_resource type="Script" uid="uid://cujo5m4bsquxe" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
+[ext_resource type="Script" uid="uid://bwg145ak3y6so" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_button.gd" id="42_psrad"]
 [ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="45_y6307"]
 [ext_resource type="Script" uid="uid://rfk4urnbvjsk" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
@@ -63,6 +65,7 @@
 [ext_resource type="Script" uid="uid://cujy7qymdhsh5" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
 [ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
 [ext_resource type="Script" uid="uid://c74itl7vmivsm" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
+[ext_resource type="Script" uid="uid://b206jwcgnyfrp" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_menu.gd" id="56_psrad"]
 [ext_resource type="Script" uid="uid://djjtxxhtt80c4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="56_r07ix"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
@@ -88,14 +91,6 @@ size = Vector2(0, 0)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_12gym"]
 size = Vector2(0, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imj6l"]
-bg_color = Color(1, 1, 1, 1)
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
 shader = ExtResource("24_nqtan")
@@ -433,7 +428,7 @@ flat = true
 script = ExtResource("20_586km")
 direction = 3
 
-[node name="visual_1" type="CheckButton" parent="content/scroll/margin/data/sprite_info/collapsible" node_paths=PackedStringArray("cell_sprite_display")]
+[node name="visual_1" type="CheckButton" parent="content/scroll/margin/data/sprite_info/collapsible"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -441,7 +436,6 @@ tooltip_text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1_TOOLTIP"
 text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1"
 text_overrun_behavior = 3
 script = ExtResource("25_hdyd6")
-cell_sprite_display = NodePath("../../../../../../visualizer/borders/clipper/visualizer/origin/sprite")
 
 [node name="boxes" type="VBoxContainer" parent="content/scroll/margin/data"]
 layout_mode = 2
@@ -485,7 +479,7 @@ button_pressed = true
 text = "CELL_EDIT_BOXES_DISPLAY"
 text_overrun_behavior = 3
 script = ExtResource("7_fl2cb")
-box_draw_node = NodePath("../../../../../../../visualizer/borders/clipper/visualizer/origin/box_parent")
+box_draw_node = NodePath("../../../../../../../visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/box_parent")
 editable_parent = NodePath("../../editable")
 edit_mode = NodePath("../edit_mode")
 type_menu_button = NodePath("../../type_menu_button")
@@ -745,12 +739,15 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="title" type="Label" parent="content/visualizer/title"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
 text = "CELL_EDIT_PREVIEW"
+vertical_alignment = 1
 
 [node name="palette" type="HBoxContainer" parent="content/visualizer/title"]
 layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="title" type="Label" parent="content/visualizer/title/palette"]
 custom_minimum_size = Vector2(120, 0)
@@ -763,17 +760,10 @@ custom_minimum_size = Vector2(134, 0)
 layout_mode = 2
 script = ExtResource("32_dcsig")
 
-[node name="snapshot" type="Button" parent="content/visualizer/title"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 8
-text = "Save snapshot"
-icon = ExtResource("28_76gqd")
-
 [node name="borders" type="PanelContainer" parent="content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
+theme_override_styles/panel = ExtResource("41_nea0q")
 
 [node name="clipper" type="PanelContainer" parent="content/visualizer/borders" node_paths=PackedStringArray("box_parent", "origin_point", "user_guide_h", "user_guide_v", "user_guides", "visualizer")]
 texture_filter = 1
@@ -781,7 +771,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("21_md3df")
-box_parent = NodePath("visualizer/origin/box_parent")
+box_parent = NodePath("visualizer/origin/viewport_container/viewport/parent/box_parent")
 origin_point = NodePath("visualizer/origin")
 user_guide_h = NodePath("visualizer/origin/user_guide_h")
 user_guide_v = NodePath("visualizer/origin/user_guide_v")
@@ -859,12 +849,6 @@ script = ExtResource("25_4rpsl")
 onion_index = NodePath("../../../../../../scroll/margin/data/onion/value")
 front_toggle = NodePath("../../../../../../scroll/margin/data/onion_in_front")
 
-[node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
-material = ExtResource("26_gliws")
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("27_na53u")
-
 [node name="transparent" type="CanvasGroup" parent="content/visualizer/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.784314)
 
@@ -872,12 +856,6 @@ modulate = Color(1, 1, 1, 0.784314)
 visible = false
 material = ExtResource("26_gliws")
 script = ExtResource("42_e5pnn")
-
-[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_type")]
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("28_h6aqa")
-box_type = NodePath("../../../../../../scroll/margin/data/boxes/collapsible/editable/type/value")
 
 [node name="user_guide_h" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
 visible = false
@@ -919,8 +897,56 @@ script = ExtResource("26_q1wae")
 anchors_preset = 0
 script = ExtResource("27_vdvp0")
 
-[node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin"]
-visible = false
+[node name="viewport_container" type="SubViewportContainer" parent="content/visualizer/borders/clipper/visualizer/origin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2000.0
+offset_top = -1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="viewport" type="SubViewport" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(4000, 4000)
+render_target_update_mode = 4
+
+[node name="parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent" node_paths=PackedStringArray("sprite_origin")]
+material = ExtResource("26_gliws")
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1273.0
+offset_top = 1551.0
+offset_right = 1273.0
+offset_bottom = 1551.0
+mouse_filter = 2
+script = ExtResource("27_na53u")
+sprite_origin = NodePath(".")
+
+[node name="box_parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent" node_paths=PackedStringArray("box_type")]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("28_h6aqa")
+box_type = NodePath("../../../../../../../../../scroll/margin/data/boxes/collapsible/editable/type/value")
+
+[node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
@@ -937,7 +963,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
-[node name="vert_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -954,7 +980,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="horz_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -971,7 +997,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="vert_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -987,7 +1013,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="horz_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1002,6 +1028,29 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="bottom_buttons" type="HBoxContainer" parent="content/visualizer"]
+layout_mode = 2
+
+[node name="reference" type="MenuButton" parent="content/visualizer/bottom_buttons"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Reference options"
+flat = false
+script = ExtResource("56_psrad")
+
+[node name="snapshot" type="Button" parent="content/visualizer/bottom_buttons" node_paths=PackedStringArray("subviewport")]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Save snapshot"
+icon = ExtResource("28_76gqd")
+script = ExtResource("42_psrad")
+subviewport = NodePath("../../borders/clipper/visualizer/origin/viewport_container/viewport")
+
+[node name="v_sep1" type="VSeparator" parent="content"]
+layout_mode = 2
 
 [node name="delete_cells" type="Window" parent="."]
 title = "Delete cells"
@@ -1117,7 +1166,7 @@ range_end = NodePath("../../../range/to/value")
 [node name="borders" type="PanelContainer" parent="delete_cells/margin/content/preview"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_imj6l")
+theme_override_styles/panel = ExtResource("41_nea0q")
 
 [node name="clipper" type="PanelContainer" parent="delete_cells/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
 clip_contents = true
@@ -1182,13 +1231,14 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="sprite" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+[node name="sprite" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index", "sprite_origin")]
 material = ExtResource("26_gliws")
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("49_hlqrw")
 cell_index = NodePath("../../../../../cell_index/value")
+sprite_origin = NodePath(".")
 
 [node name="boxes" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
 custom_minimum_size = Vector2(2000, 2000)
@@ -1315,4 +1365,4 @@ dialog_text = "Cannot delete all cells! Object needs at least 1.
 Consider creating new cells before deleting all the old ones."
 script = ExtResource("56_r07ix")
 
-[connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/box_parent" to="." method="on_box_changed"]
+[connection signal="box_changed" from="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/parent/box_parent" to="." method="on_box_changed"]

@@ -1,0 +1,171 @@
+[gd_scene load_steps=13 format=3 uid="uid://db5rbab1qdsas"]
+
+[ext_resource type="Script" uid="uid://c8ixuwhhsw3w3" path="res://SCENES/TEST/script_edit_code.gd" id="1_lkt25"]
+[ext_resource type="FontFile" uid="uid://dlgxqrir2wfju" path="res://FONTS/jetbrainsmono_semibold.ttf" id="1_po51v"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="2_52bim"]
+[ext_resource type="Script" uid="uid://bdjmmj6ehu14" path="res://SCENES/TEST/explanation.gd" id="2_k4stp"]
+[ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="3_rf3ak"]
+[ext_resource type="Script" uid="uid://bs7gdfn4jexm0" path="res://SCENES/TEST/code_edit.gd" id="3_wh060"]
+[ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="4_rvtv6"]
+[ext_resource type="Script" uid="uid://1vrtmn5wbtle" path="res://CLASSES/CONTROL/class_cell_sprite_display.gd" id="4_vyh7o"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="5_lkt25"]
+[ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="6_wh060"]
+[ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="9_7fuyq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wh060"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[node name="Control" type="Control" node_paths=PackedStringArray("cell_sprite_display", "code_edit")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lkt25")
+cell_sprite_display = NodePath("MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer/Origin/CellSpriteDisplay")
+code_edit = NodePath("MarginContainer/HBoxContainer/VBoxContainer/CodeEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CodeEdit" type="CodeEdit" parent="MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("completion_timer", "explanation")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("1_po51v")
+theme_override_styles/completion = SubResource("StyleBoxFlat_wh060")
+gutters_draw_bookmarks = true
+gutters_draw_line_numbers = true
+gutters_zero_pad_line_numbers = true
+gutters_draw_fold_gutter = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+script = ExtResource("3_wh060")
+completion_timer = NodePath("Timer")
+explanation = NodePath("../explanation")
+
+[node name="Timer" type="Timer" parent="MarginContainer/HBoxContainer/VBoxContainer/CodeEdit"]
+wait_time = 0.001
+one_shot = true
+
+[node name="explanation" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+vertical_alignment = 1
+script = ExtResource("2_k4stp")
+
+[node name="arguments" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/arguments"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ZoomablePreview" type="PanelContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("2_52bim")
+metadata/_custom_type_script = ExtResource("2_52bim")
+
+[node name="Visualizer" type="Node2D" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview"]
+script = ExtResource("3_rf3ak")
+
+[node name="background_a" type="ColorRect" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(6000, 6000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("4_rvtv6")
+
+[node name="background_b" type="TextureRect" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_lkt25")
+stretch_mode = 1
+script = ExtResource("6_wh060")
+metadata/_edit_lock_ = true
+
+[node name="Origin" type="Control" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="guide" type="ColorRect" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer/Origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(2, 4000)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2000.0
+offset_right = 1.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+[node name="guide_horz" type="ColorRect" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer/Origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 2)
+layout_mode = 0
+offset_left = -2000.0
+offset_top = 1999.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+mouse_filter = 2
+
+[node name="CellSpriteDisplay" type="Control" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview/Visualizer/Origin" node_paths=PackedStringArray("sprite_origin")]
+material = ExtResource("9_7fuyq")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("4_vyh7o")
+sprite_origin = NodePath(".")
+metadata/_custom_type_script = ExtResource("4_vyh7o")

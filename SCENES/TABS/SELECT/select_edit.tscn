@@ -247,7 +247,6 @@ title = "Select save path"
 initial_position = 2
 size = Vector2i(640, 480)
 force_native = true
-ok_button_text = "Save"
 access = 2
 filters = PackedStringArray("*.png; PNG images")
 use_native_dialog = true

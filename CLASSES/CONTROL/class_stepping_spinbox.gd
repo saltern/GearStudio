@@ -3,6 +3,7 @@ class_name SteppingSpinBox extends SpinBox
 
 func _ready() -> void:
 	focus_mode = Control.FOCUS_CLICK
+	alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 
 func _input(event: InputEvent) -> void:

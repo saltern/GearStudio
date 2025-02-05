@@ -20,23 +20,6 @@ func _ready() -> void:
 	tab_changed.connect(on_tab_changed)
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_pressed() and not event.is_echo():
-		match event.keycode:
-			KEY_F:
-				var data: Dictionary = {
-					0: {
-						"type": "sprite",
-						"sprites": [BinSprite.new()],
-					},
-				}
-				
-				var new_tab: Control = session_scene.instantiate()
-				new_tab.load_tabs(data)
-				
-				add_child(new_tab)
-
-
 func _physics_process(_delta: float) -> void:
 	if waiting_tasks.is_empty():
 		set_physics_process(false)
@@ -79,6 +62,7 @@ func load_binary(path: String) -> void:
 
 
 func save_resource(path: String = ""):
+	print_debug("session_tabs.gd::save_resource(%s)" % path)
 	if SessionData.this_session.is_empty():
 		Status.set_status("STATUS_SAVE_NOTHING")
 		return
@@ -99,6 +83,7 @@ func save_resource(path: String = ""):
 				get_child(current_tab).base_name = file_name
 				rename_tab(current_tab)
 			
+			print_debug("session_tabs.gd::save_binary(%s)" % path)
 			save_binary(path)
 
 
@@ -110,9 +95,16 @@ func save_directory(path: String = ""):
 
 
 func save_binary(path: String = ""):
+	print_debug("session_tabs.gd::save_binary(%s)" % path)
 	var session_id: int = get_child(current_tab).session_id
+	
+	print_debug("GlobalSignals.save_scripts.emit(%s)" % session_id)
 	GlobalSignals.save_scripts.emit(session_id)
 	
+	print_debug(
+		"add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(%s)" %
+		path
+	)
 	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
 
 
