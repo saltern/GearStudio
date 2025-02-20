@@ -69,10 +69,10 @@ func show_hints(tokens: PackedStringArray) -> void:
 					)
 				3:
 					match tokens[1].to_int():
-						_:
-							set_code_hint("(Unused by this mode)")
 						4:
 							set_code_hint("Relative jump offset")
+						_:
+							set_code_hint("(Unused by this mode)")
 		_:
 			set_code_hint("")
 

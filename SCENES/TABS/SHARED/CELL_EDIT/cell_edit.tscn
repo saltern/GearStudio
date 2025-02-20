@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=82 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -42,7 +42,6 @@
 [ext_resource type="Texture2D" uid="uid://d20u5ru5u3txy" path="res://ICONS/arrow_right.svg" id="22_hdyd6"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="23_jn2pb"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="24_kifap"]
-[ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="24_nqtan"]
 [ext_resource type="Script" uid="uid://bo2yy3x4q81al" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="25_4scjx"]
 [ext_resource type="Script" uid="uid://b3fbwsivrxg4h" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_visual_1_preview.gd" id="25_hdyd6"]
@@ -59,14 +58,20 @@
 [ext_resource type="Script" uid="uid://bwg145ak3y6so" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_button.gd" id="42_psrad"]
 [ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="45_y6307"]
+[ext_resource type="Shader" uid="uid://cjek4vkw48pc8" path="res://MATERIALS/palette_reference.gdshader" id="47_12gym"]
 [ext_resource type="Script" uid="uid://rfk4urnbvjsk" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
 [ext_resource type="Script" uid="uid://51faqh0sw33k" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/box_display.gd" id="48_qqw76"]
 [ext_resource type="Script" uid="uid://chnlwxvpkxeuh" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_display.gd" id="49_hlqrw"]
 [ext_resource type="Script" uid="uid://cujy7qymdhsh5" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
 [ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
+[ext_resource type="Material" uid="uid://c5hb8w4wgn54j" path="res://MATERIALS/mat_reference.material" id="53_d2y4c"]
+[ext_resource type="Script" uid="uid://drwx3f8xe5q21" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_reference_sprite.gd" id="53_rqavn"]
 [ext_resource type="Script" uid="uid://c74itl7vmivsm" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
 [ext_resource type="Script" uid="uid://b206jwcgnyfrp" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_menu.gd" id="56_psrad"]
 [ext_resource type="Script" uid="uid://djjtxxhtt80c4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="56_r07ix"]
+[ext_resource type="Texture2D" uid="uid://cq5r56uv0gc1j" path="res://ICONS/reference.svg" id="58_6mbkh"]
+[ext_resource type="Script" uid="uid://cgwmbug2jv841" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_session.gd" id="58_d2y4c"]
+[ext_resource type="Script" uid="uid://c7nsrbidk1wr7" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_object.gd" id="59_i1mux"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
 size = Vector2(0, 0)
@@ -93,12 +98,14 @@ size = Vector2(0, 0)
 size = Vector2(0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k4855"]
-shader = ExtResource("24_nqtan")
+shader = ExtResource("47_12gym")
 shader_parameter/alpha_double = false
 shader_parameter/reindex = true
 shader_parameter/hover_index = -1
-shader_parameter/highlight = null
+shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/palette = PackedInt32Array()
+shader_parameter/post_transparency = 1.0
+shader_parameter/modulate = Color(0, 0, 0, 1)
 
 [node name="CELL_EDIT_TITLE" type="MarginContainer"]
 anchors_preset = 15
@@ -917,6 +924,20 @@ handle_input_locally = false
 size = Vector2i(4000, 4000)
 render_target_update_mode = 4
 
+[node name="reference" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2000.0
+offset_top = 2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+
+[node name="sprite" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport/reference" node_paths=PackedStringArray("sprite_origin")]
+material = ExtResource("53_d2y4c")
+anchors_preset = 0
+script = ExtResource("53_rqavn")
+sprite_origin = NodePath(".")
+
 [node name="parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/viewport_container/viewport"]
 layout_mode = 3
 anchors_preset = 8
@@ -1029,19 +1050,96 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="bottom_panel" type="HBoxContainer" parent="content/visualizer"]
+layout_mode = 2
+
+[node name="reference_options" type="VBoxContainer" parent="content/visualizer/bottom_panel"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="session" type="HBoxContainer" parent="content/visualizer/bottom_panel/reference_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/bottom_panel/reference_options/session"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Session"
+vertical_alignment = 1
+
+[node name="value" type="OptionButton" parent="content/visualizer/bottom_panel/reference_options/session"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+allow_reselect = true
+item_count = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+script = ExtResource("58_d2y4c")
+
+[node name="object" type="HBoxContainer" parent="content/visualizer/bottom_panel/reference_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/bottom_panel/reference_options/object"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Object #"
+vertical_alignment = 1
+
+[node name="value" type="OptionButton" parent="content/visualizer/bottom_panel/reference_options/object"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+allow_reselect = true
+item_count = 1
+popup/item_0/text = "Select a reference file first."
+popup/item_0/id = 0
+popup/item_0/disabled = true
+script = ExtResource("59_i1mux")
+
+[node name="in_front" type="CheckButton" parent="content/visualizer/bottom_panel/reference_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Show in front"
+
+[node name="hitboxes" type="CheckButton" parent="content/visualizer/bottom_panel/reference_options"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Show hitboxes"
+
+[node name="padding" type="Control" parent="content/visualizer/bottom_panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="bottom_buttons" type="HBoxContainer" parent="content/visualizer"]
 layout_mode = 2
 
 [node name="reference" type="MenuButton" parent="content/visualizer/bottom_buttons"]
-custom_minimum_size = Vector2(200, 0)
+visible = false
+custom_minimum_size = Vector2(30, 60)
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Reference options"
+icon = ExtResource("58_6mbkh")
 flat = false
 script = ExtResource("56_psrad")
 
+[node name="reference_expand" type="Button" parent="content/visualizer/bottom_buttons" node_paths=PackedStringArray("collapsible")]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+toggle_mode = true
+text = "Reference options"
+icon = ExtResource("58_6mbkh")
+script = ExtResource("15_5ipus")
+collapsible = NodePath("../../bottom_panel/reference_options")
+apply_visual = false
+
 [node name="snapshot" type="Button" parent="content/visualizer/bottom_buttons" node_paths=PackedStringArray("subviewport")]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Save snapshot"
@@ -1050,6 +1148,7 @@ script = ExtResource("42_psrad")
 subviewport = NodePath("../../borders/clipper/visualizer/origin/viewport_container/viewport")
 
 [node name="v_sep1" type="VSeparator" parent="content"]
+visible = false
 layout_mode = 2
 
 [node name="delete_cells" type="Window" parent="."]

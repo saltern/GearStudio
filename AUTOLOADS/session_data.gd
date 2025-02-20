@@ -44,18 +44,6 @@ var this_session: Dictionary = {}
 #	...
 
 
-func get_session(index: int) -> Dictionary:
-	return sessions[index]
-
-
-func get_current_session() -> Dictionary:
-	return get_session(session_index)
-
-
-func get_session_type() -> SessionType:
-	return this_session["session_type"]
-
-
 func save_directory(path: String) -> void:
 	SaveErrors.reset()
 	
@@ -107,6 +95,22 @@ func save_binary(path: String) -> void:
 
 
 #region Sessions
+func get_session(index: int) -> Dictionary:
+	return sessions[index]
+
+
+func get_current_session() -> Dictionary:
+	return get_session(session_index)
+
+
+func get_session_type() -> SessionType:
+	return this_session["session_type"]
+
+
+func get_session_count() -> int:
+	return sessions.size()
+
+
 func new_directory_session(path: String) -> void:
 	var new_session: Dictionary = {
 		"session_type": SessionType.DIRECTORY,
@@ -160,9 +164,10 @@ func tab_close() -> void:
 		Status.set_status("STATUS_NOTHING_OPEN_CANT_CLOSE")
 		return
 	
-	tab_closed.emit(session_index)
+	#tab_closed.emit(session_index)
 	sessions.remove_at(session_index)
 	this_session = {}
+	tab_closed.emit(session_index)
 	tab_load(min(session_index, sessions.size() - 1))
 	Status.set_status("STATUS_TAB_CLOSE")
 #endregion

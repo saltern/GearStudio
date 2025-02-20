@@ -51,6 +51,10 @@ window/stretch/aspect="ignore"
 
 project/assembly_name="Gear Studio"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+
 [gui]
 
 theme/custom="res://main_theme.tres"

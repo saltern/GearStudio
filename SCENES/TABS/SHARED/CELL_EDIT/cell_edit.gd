@@ -18,10 +18,17 @@ signal box_multi_drag_stopped
 signal cell_count_changed
 signal cell_updated
 
+signal ref_session_set
+signal ref_data_set
+signal ref_data_cleared
+signal ref_cell_updated
+
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
 var obj_data: Dictionary
+var ref_session: Dictionary
+var ref_data: Dictionary
 
 var cell_index: int
 var this_cell: Cell
@@ -184,6 +191,15 @@ func cell_load(index: int) -> void:
 	Status.set_status(tr("STATUS_CELL_EDIT_CELL_LOAD").format({
 		"index": index
 	}))
+	
+	# Reference
+	if ref_data.is_empty():
+		return
+	
+	if ref_data.cells.size() <= index:
+		return
+	
+	ref_cell_updated.emit(ref_data.cells[cell_index])
 
 
 func cell_ensure_selected(cell: int) -> void:
@@ -863,4 +879,36 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()
+#endregion
+
+
+#region Reference
+func reference_set_session(session: int) -> void:
+	ref_session = SessionData.get_session(session)
+	ref_session_set.emit(ref_session)
+
+
+func reference_set_object(object: int) -> void:
+	if ref_session.size() <= object:
+		ref_data = {}
+		return
+	
+	ref_data = ref_session.data[object]
+	ref_data_set.emit(ref_data)
+
+
+func reference_clear_data() -> void:
+	ref_session = {}
+	ref_data = {}
+	ref_data_cleared.emit()
+
+
+func reference_cell_get(index: int) -> Cell:
+	if ref_data.is_empty():
+		return Cell.new()
+	
+	if not ref_data.cells.size() > index:
+		return Cell.new()
+	
+	return ref_data.cells[index]
 #endregion

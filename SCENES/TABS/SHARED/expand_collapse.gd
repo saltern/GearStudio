@@ -2,6 +2,7 @@ extends Control
 
 @export var collapsible: Control
 @export var collapse_parent: bool = false
+@export var apply_visual: bool = true
 
 
 func _ready() -> void:
@@ -26,7 +27,7 @@ func toggle_collapsible() -> void:
 
 
 func check_state() -> void:
-	if collapsible.visible:
+	if collapsible.visible or not apply_visual:
 		modulate.a = 1.0
 	else:
 		modulate.a = 0.5

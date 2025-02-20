@@ -8,6 +8,8 @@ uniform bool reindex = true;
 uniform int hover_index = -1;
 uniform bool[256] highlight;
 uniform int[0x400]	palette;
+uniform float post_transparency = 1.0;
+uniform vec4 modulate: source_color;
 
 void fragment() {
 	int index = int(COLOR.r * 256.00);
@@ -38,6 +40,7 @@ void fragment() {
 	lowp float blend = 0.0;
 
 	COLOR = pal_color;
+	//COLOR.a *= post_transparency;
 
 	if (highlight[index]) {
 		blend = abs(sin(TIME * 5.0));
@@ -48,4 +51,6 @@ void fragment() {
 		blend = abs(sin(TIME * 5.0));
 		COLOR = mix(vec4(0.0, 0.0, 0.0, 1.0), vec4(0.0, 1.0, 1.0, 1.0), blend);
 	}
+	
+	COLOR *= modulate;
 }
