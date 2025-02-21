@@ -1,4 +1,3 @@
-# I should later look into extending this from CellSpriteDisplay instead
 extends CellSpriteDisplay
 
 signal scale_set
@@ -19,6 +18,8 @@ var ignore_visual: bool = false
 
 
 func _ready() -> void:
+	provider = script_edit
+	
 	SessionData.palette_changed.connect(on_palette_changed)
 	script_edit.action_loaded.connect(disable_visual_1)
 	script_edit.cell_updated.connect(load_cell)

@@ -19,7 +19,7 @@ func add_session(path: String) -> void:
 
 func update_sessions() -> void:
 	clear()
-	cell_edit.reference_clear_data()
+	cell_edit.reference_clear_session()
 	
 	add_item("None", -2)
 	
@@ -40,7 +40,7 @@ func set_session(index: int) -> void:
 	var id: int = get_item_id(index)
 	
 	if id < 0:
-		cell_edit.reference_clear_data()
+		cell_edit.reference_clear_session()
 		return
 	
 	cell_edit.reference_set_session(id)

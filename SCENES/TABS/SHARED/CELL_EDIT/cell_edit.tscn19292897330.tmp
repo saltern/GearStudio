@@ -932,6 +932,7 @@ size = Vector2i(4000, 4000)
 render_target_update_mode = 4
 
 [node name="reference" type="CanvasGroup" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
+self_modulate = Color(1, 1, 1, 0.501961)
 
 [node name="parent" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference"]
 layout_mode = 3
@@ -1149,6 +1150,7 @@ box_parent = NodePath("../../../borders/clipper/visualizer/origin/main_cell_vp/v
 [node name="semitransparent" type="CheckButton" parent="content/visualizer/bottom_panel/reference_options" node_paths=PackedStringArray("reference")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+button_pressed = true
 text = "Semitransparent display"
 script = ExtResource("63_3nb3e")
 reference = NodePath("../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference")

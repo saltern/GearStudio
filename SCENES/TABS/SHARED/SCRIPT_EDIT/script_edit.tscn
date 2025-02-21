@@ -1,8 +1,7 @@
-[gd_scene load_steps=51 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=50 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
-[ext_resource type="Script" uid="uid://ojsjmxp21twu" path="res://CLASSES/CONTROL/class_stepping_spinbox.gd" id="2_cp5hf"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="2_hled3"]
 [ext_resource type="Script" uid="uid://civmt0g6od8aq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/ACTIONS/TOOLBAR/delete.gd" id="3_dxoqf"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_i86rk"]
@@ -183,7 +182,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_5hivn")
-metadata/_custom_type_script = ExtResource("2_cp5hf")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="properties" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
 layout_mode = 2
@@ -236,7 +235,7 @@ size_flags_horizontal = 3
 max_value = 255.0
 alignment = 2
 script = ExtResource("5_h01nf")
-metadata/_custom_type_script = ExtResource("2_cp5hf")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="flags_title" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible" node_paths=PackedStringArray("collapsible")]
 layout_mode = 2
@@ -880,7 +879,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("19_dn4hq")
-metadata/_custom_type_script = ExtResource("19_dn4hq")
+metadata/_custom_type_script = "uid://bwetp10s0dg8u"
 
 [node name="collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/collapsible/arguments"]
 layout_mode = 2

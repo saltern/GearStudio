@@ -16,7 +16,7 @@ func set_session_id(new_id: int) -> void:
 	session_id = new_id
 
 
-func code_edit_inst_cell_begin(duration: int, cell_index: int) -> void:
+func code_edit_inst_cell_begin(_duration: int, cell_index: int) -> void:
 	if not obj_data.has("cells"):
 		return
 	

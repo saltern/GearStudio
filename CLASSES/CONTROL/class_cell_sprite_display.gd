@@ -7,7 +7,7 @@ var palette_index: int = 0
 
 var visual_1: bool = false
 
-@onready var obj_data: Dictionary = owner.obj_data
+var provider: Node
 
 
 func _enter_tree() -> void:
@@ -15,7 +15,7 @@ func _enter_tree() -> void:
 
 
 func load_cell(cell: Cell) -> void:
-	if cell.sprite_index < obj_data["sprites"].size():
+	if cell.sprite_index < provider.obj_data.sprites.size():
 		sprite_index = cell.sprite_index
 		load_cell_sprite(sprite_index, cell.boxes)
 	
@@ -69,10 +69,12 @@ func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
 func load_cell_sprite_pieces(
 	index: int, rects: Array[Rect2i], offsets: Array[Vector2i], v_flips: Array[bool]
 ) -> void:
-	var sprite: BinSprite = obj_data["sprites"][index]
+	var sprite: BinSprite = provider.obj_data.sprites[index]
 	
-	if not obj_data.has("palettes"):
+	if not provider.obj_data.has("palettes"):
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
+	else:
+		material.set_shader_parameter("reindex", true)
 	
 	var source_image := sprite.image
 	
@@ -116,11 +118,11 @@ func load_cell_sprite_pieces(
 
 func get_palette(index: int) -> PackedByteArray:
 	# Global palette
-	if obj_data.has("palettes"):
-		return obj_data["palettes"][palette_index].palette
+	if provider.obj_data.has("palettes"):
+		return provider.obj_data.palettes[palette_index].palette
 	
 	# Embedded palette
-	var sprite: BinSprite = obj_data["sprites"][index]
+	var sprite: BinSprite = provider.obj_data.sprites[index]
 	return sprite.palette
 
 
@@ -130,7 +132,7 @@ func load_palette(index: int) -> void:
 
 
 func reload_palette() -> void:
-	if obj_data.has("palettes"):
+	if provider.obj_data.has("palettes"):
 		load_palette(palette_index)
 	else:
 		load_palette(sprite_index)

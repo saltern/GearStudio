@@ -19,9 +19,12 @@ signal cell_count_changed
 signal cell_updated
 
 signal ref_session_set
+signal ref_session_cleared
 signal ref_data_set
 signal ref_data_cleared
 signal ref_cell_updated
+signal ref_cell_cleared
+signal ref_cell_index_set
 
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
@@ -33,6 +36,7 @@ var ref_data: Dictionary
 var cell_index: int
 var this_cell: Cell
 var cell_clipboard: Cell
+var ref_cell_index: int = -1
 
 var boxes_selected: PackedInt32Array = []
 var box_drawing_mode: bool
@@ -193,10 +197,11 @@ func cell_load(index: int) -> void:
 	}))
 	
 	# Reference
-	if ref_data.is_empty():
+	if ref_data.is_empty() or ref_data.cells.size() <= index:
+		ref_cell_cleared.emit()
 		return
 	
-	if ref_data.cells.size() <= index:
+	if ref_cell_index > -1:
 		return
 	
 	ref_cell_updated.emit(ref_data.cells[cell_index])
@@ -897,8 +902,13 @@ func reference_set_object(object: int) -> void:
 	ref_data_set.emit(ref_data)
 
 
-func reference_clear_data() -> void:
+func reference_clear_session() -> void:
 	ref_session = {}
+	ref_data = {}
+	ref_session_cleared.emit()
+
+
+func reference_clear_object() -> void:
 	ref_data = {}
 	ref_data_cleared.emit()
 
@@ -911,4 +921,9 @@ func reference_cell_get(index: int) -> Cell:
 		return Cell.new()
 	
 	return ref_data.cells[index]
+
+
+func reference_cell_set(index: int) -> void:
+	ref_cell_index = index
+	ref_cell_index_set.emit(ref_cell_index)
 #endregion

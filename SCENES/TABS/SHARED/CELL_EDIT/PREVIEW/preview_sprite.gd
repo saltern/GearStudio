@@ -4,12 +4,12 @@ extends CellSpriteDisplay
 
 
 func _ready() -> void:
-	obj_data = cell_edit.obj_data
+	provider = cell_edit
 	
 	cell_edit.cell_updated.connect(load_cell)
 	cell_edit.box_updated.connect(on_box_update)
 	
-	if obj_data.has("palettes"):
+	if provider.obj_data.has("palettes"):
 		SessionData.palette_changed.connect(palette_set_session)
 	
 	else:
