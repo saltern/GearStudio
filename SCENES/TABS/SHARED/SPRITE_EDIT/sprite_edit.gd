@@ -113,6 +113,8 @@ func sprite_get_count() -> int:
 
 
 func sprite_set(index: int) -> void:
+	index = min(index, sprite_get_count() - 1)
+	
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	
