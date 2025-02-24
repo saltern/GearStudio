@@ -1067,6 +1067,7 @@ mouse_filter = 2
 layout_mode = 2
 
 [node name="reference_options" type="VBoxContainer" parent="content/visualizer/bottom_panel" node_paths=PackedStringArray("button")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("59_5bsu5")
