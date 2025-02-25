@@ -34,7 +34,7 @@ var session_id: int
 var undo_redo := UndoRedo.new()
 
 var obj_data: Dictionary
-var bin_script := BinScript.new()
+#var bin_script := BinScript.new()
 var action_index: int = 0
 var instruction_index: int = -1
 var this_action: ScriptAction
@@ -45,7 +45,8 @@ var new_instruction_type: int = 0
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
-	script_deserialize()
+	#bin_script = obj_data.scripts
+	#script_deserialize()
 
 
 func _ready() -> void:
@@ -114,74 +115,74 @@ func get_play_data_length(bin_data: PackedByteArray) -> int:
 	return cursor
 
 
-func script_deserialize() -> void:
-	var script_bytes: PackedByteArray = obj_data["scripts"]
-	var action_bytes: PackedByteArray
-	
-	# Player objects...
-	if obj_data.has("palettes"):
-		@warning_ignore("confusable_local_declaration")
-		var cursor: int = get_play_data_length(script_bytes)
-		bin_script.variables = script_bytes.slice(0x0, cursor)
-		action_bytes = script_bytes.slice(cursor, script_bytes.size())
-	else:
-		bin_script.variables = PackedByteArray([])
-		action_bytes = script_bytes.duplicate()
-	
-	var cursor: int = 0x00
-	
-	while cursor < action_bytes.size():
-		# Check if script over
-		# (slice end index is exclusive)
-		if action_bytes.slice(cursor, cursor + 0x02) == PackedByteArray([
-			0xFD, 0x00
-		]):
-			break
-		
-		# Get action header
-		var new_action := ScriptAction.new()
-		
-		new_action.flags = action_bytes.decode_u32(cursor)
-		cursor += 0x04
-		
-		new_action.lvflag = action_bytes.decode_u16(cursor)
-		cursor += 0x02
-		
-		new_action.damage = action_bytes.decode_u8(cursor)
-		cursor += 0x01
-		
-		new_action.flag2 = action_bytes.decode_u8(cursor)
-		cursor += 0x01
-		
-		# Get action instructions
-		var action_over: bool = false
-		
-		while not action_over and cursor < action_bytes.size():
-			var inst_id := action_bytes.decode_u8(cursor)
-			var inst_size := ScriptInstructions.get_instruction_size(inst_id)
-			var inst_bytes := action_bytes.slice(cursor, cursor + inst_size)
-			
-			var instruction := ScriptInstructions.get_instruction_from_data(
-				inst_bytes)
-			
-			cursor += inst_size
-			
-			if inst_id == 0xFF:
-				action_over = true
-		
-			new_action.instructions.append(instruction)
-		
-		bin_script.actions.append(new_action)
+#func script_deserialize() -> void:
+	#var script_bytes: PackedByteArray = obj_data["scripts"]
+	#var action_bytes: PackedByteArray
+	#
+	## Player objects...
+	#if obj_data.has("palettes"):
+		#@warning_ignore("confusable_local_declaration")
+		#var cursor: int = get_play_data_length(script_bytes)
+		#bin_script.variables = script_bytes.slice(0x0, cursor)
+		#action_bytes = script_bytes.slice(cursor, script_bytes.size())
+	#else:
+		#bin_script.variables = PackedByteArray([])
+		#action_bytes = script_bytes.duplicate()
+	#
+	#var cursor: int = 0x00
+	#
+	#while cursor < action_bytes.size():
+		## Check if script over
+		## (slice end index is exclusive)
+		#if action_bytes.slice(cursor, cursor + 0x02) == PackedByteArray([
+			#0xFD, 0x00
+		#]):
+			#break
+		#
+		## Get action header
+		#var new_action := ScriptAction.new()
+		#
+		#new_action.flags = action_bytes.decode_u32(cursor)
+		#cursor += 0x04
+		#
+		#new_action.lvflag = action_bytes.decode_u16(cursor)
+		#cursor += 0x02
+		#
+		#new_action.damage = action_bytes.decode_u8(cursor)
+		#cursor += 0x01
+		#
+		#new_action.flag2 = action_bytes.decode_u8(cursor)
+		#cursor += 0x01
+		#
+		## Get action instructions
+		#var action_over: bool = false
+		#
+		#while not action_over and cursor < action_bytes.size():
+			#var inst_id := action_bytes.decode_u8(cursor)
+			#var inst_size := ScriptInstructions.get_instruction_size(inst_id)
+			#var inst_bytes := action_bytes.slice(cursor, cursor + inst_size)
+			#
+			#var instruction := ScriptInstructions.get_instruction_from_data(
+				#inst_bytes)
+			#
+			#cursor += inst_size
+			#
+			#if inst_id == 0xFF:
+				#action_over = true
+		#
+			#new_action.instructions.append(instruction)
+		#
+		#bin_script.actions.append(new_action)
 
 
 func script_serialize() -> PackedByteArray:
 	print_debug("Script serialization started")
 	var bytes: PackedByteArray = []
-	bytes.append_array(bin_script.variables)
+	bytes.append_array(obj_data.scripts.variables)
 	
 	var cursor: int = bytes.size()
 	
-	for action in bin_script.actions:
+	for action in obj_data.scripts.actions:
 		# Header
 		bytes.resize(bytes.size() + 0x08)
 		
@@ -238,11 +239,11 @@ func script_save(for_session: int) -> void:
 
 
 func script_action_get(index: int) -> ScriptAction:
-	return bin_script.actions[index]
+	return obj_data.scripts.actions[index]
 
 
 func script_action_get_count() -> int:
-	return bin_script.actions.size()
+	return obj_data.scripts.actions.size()
 
 
 func script_action_load(index: int) -> void:
@@ -263,7 +264,7 @@ func script_action_ensure_selected(index: int) -> void:
 
 
 func script_action_delete() -> void:
-	if bin_script.actions.size() < 2:
+	if obj_data.scripts.actions.size() < 2:
 		Status.set_status("STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS")
 		return
 	
@@ -321,12 +322,12 @@ func script_action_insert(at_offset: int) -> void:
 
 
 func script_action_delete_commit(at_index: int) -> void:
-	bin_script.actions.remove_at(at_index)
+	obj_data.scripts.actions.remove_at(at_index)
 	action_count_changed.emit()
 
 
 func script_action_insert_commit(at_index: int, action: ScriptAction) -> void:
-	bin_script.actions.insert(at_index, action)
+	obj_data.scripts.actions.insert(at_index, action)
 	action_count_changed.emit()
 
 
