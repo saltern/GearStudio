@@ -125,7 +125,7 @@ func get_instruction(id: int) -> Instruction:
 	var ref_instruction: Dictionary = INSTRUCTION_DB[id]
 	
 	new_instruction.id = id
-	new_instruction.display_name = ref_instruction.display_name
+	#new_instruction.display_name = ref_instruction.display_name
 	
 	for argument in ref_instruction.arguments:
 		var new_argument := InstructionArgument.new()
