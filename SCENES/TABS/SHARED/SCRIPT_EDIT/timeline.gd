@@ -86,8 +86,6 @@ func stop() -> void:
 
 #region Instruction Simulation
 func on_cell_jump(index: int) -> void:
-	print("CELL JUMP")
 	var frame: int = script_edit.script_instruction_get_cell_frame(index)
-	print("GOT FRAME %s" % frame)
 	value = frame
 #endregion
