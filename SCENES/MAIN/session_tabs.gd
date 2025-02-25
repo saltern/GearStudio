@@ -62,7 +62,6 @@ func load_binary(path: String) -> void:
 
 
 func save_resource(path: String = ""):
-	print_debug("session_tabs.gd::save_resource(%s)" % path)
 	if SessionData.this_session.is_empty():
 		Status.set_status("STATUS_SAVE_NOTHING")
 		return
@@ -83,7 +82,6 @@ func save_resource(path: String = ""):
 				get_child(current_tab).base_name = file_name
 				rename_tab(current_tab)
 			
-			print_debug("session_tabs.gd::save_binary(%s)" % path)
 			save_binary(path)
 
 
@@ -95,16 +93,7 @@ func save_directory(path: String = ""):
 
 
 func save_binary(path: String = ""):
-	print_debug("session_tabs.gd::save_binary(%s)" % path)
 	var session_id: int = get_child(current_tab).session_id
-	
-	print_debug("GlobalSignals.save_scripts.emit(%s)" % session_id)
-	GlobalSignals.save_scripts.emit(session_id)
-	
-	print_debug(
-		"add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(%s)" %
-		path
-	)
 	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
 
 
