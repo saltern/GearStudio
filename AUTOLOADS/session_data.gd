@@ -68,7 +68,6 @@ func save_directory(path: String) -> void:
 
 
 func save_binary(path: String) -> void:
-	print("session_data.gd::save_binary(%s)" % path)
 	if path.is_empty() and this_session.has("path"):
 		path = this_session["path"]
 	
@@ -110,7 +109,7 @@ func new_directory_session(path: String) -> void:
 	var new_session: Dictionary = {
 		"session_type": SessionType.DIRECTORY,
 		"current_object": 0,
-		"data": BinResource.from_path(path),
+		"data": BinResource.from_path(path, ScriptInstructions.INSTRUCTION_DB),
 	}
 	
 	if not new_session["data"].is_empty():
