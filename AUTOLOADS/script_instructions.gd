@@ -31,6 +31,16 @@ func _enter_tree() -> void:
 	task_id = WorkerThreadPool.add_task(build_database)
 
 
+func _ready() -> void:
+	var db_file: FileAccess = FileAccess.open(
+		OS.get_executable_path().get_base_dir() + "/inst_db.dat",
+		FileAccess.WRITE
+	)
+	
+	db_file.store_var(INSTRUCTION_DB, true)
+	db_file.close()
+
+
 func _physics_process(_delta: float) -> void:
 	if WorkerThreadPool.is_task_completed(task_id):
 		WorkerThreadPool.wait_for_task_completion(task_id)
@@ -85,19 +95,21 @@ func build_database() -> void:
 			var flag: int = key_arg_signed[bit].to_int() << bit
 			inst_arg_signed |= flag
 		
-		var new_instruction := Instruction.new()
-		new_instruction.id = inst_id
-		new_instruction.display_name = inst_name
+		var arguments: Array[Dictionary]
 		
 		for argument in inst_arg_sizes.size():
-			var new_argument := InstructionArgument.new()
+			var new_argument: Dictionary = {}
 			new_argument.display_name = inst_arg_names[argument]
 			new_argument.size = inst_arg_sizes[argument]
 			new_argument.value = inst_arg_defaults[argument]
 			new_argument.signed = bool(inst_arg_signed & (1 << argument))
-			new_instruction.arguments.append(new_argument)
+			arguments.append(new_argument)
 		
-		INSTRUCTION_DB[inst_id] = new_instruction
+		INSTRUCTION_DB[inst_id] = {
+			"id": inst_id,
+			"display_name": inst_name,
+			"arguments": arguments,
+		}
 	
 	status_build_complete.bind(INSTRUCTION_DB.size()).call_deferred()
 
@@ -110,14 +122,13 @@ func status_build_complete(count: int) -> void:
 
 func get_instruction(id: int) -> Instruction:
 	var new_instruction: Instruction = Instruction.new()
-	var ref_instruction: Instruction = INSTRUCTION_DB[id]
+	var ref_instruction: Dictionary = INSTRUCTION_DB[id]
 	
 	new_instruction.id = id
-	new_instruction.display_name = ref_instruction.display_name
+	#new_instruction.display_name = ref_instruction.display_name
 	
 	for argument in ref_instruction.arguments:
 		var new_argument := InstructionArgument.new()
-		new_argument.display_name = argument.display_name
 		new_argument.signed = argument.signed
 		new_argument.value = argument.value
 		new_argument.size = argument.size
@@ -189,3 +200,7 @@ func get_instruction_from_data(data: PackedByteArray) -> Instruction:
 		new_instruction.arguments.append(new_arg)
 	
 	return new_instruction
+
+
+func get_argument_name(instruction_id: int, argument_index: int) -> String:
+	return INSTRUCTION_DB[instruction_id].arguments[argument_index].display_name

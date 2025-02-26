@@ -17,7 +17,7 @@ func update() -> void:
 	var action: ScriptAction = script_edit.this_action
 	
 	for instruction in action.instructions:
-		add_item(instruction.display_name)
+		add_item(ScriptInstructions.get_instruction_name(instruction.id))
 
 
 func external_select(index: int) -> void:

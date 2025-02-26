@@ -68,7 +68,6 @@ func save_directory(path: String) -> void:
 
 
 func save_binary(path: String) -> void:
-	print("session_data.gd::save_binary(%s)" % path)
 	if path.is_empty() and this_session.has("path"):
 		path = this_session["path"]
 	
@@ -80,17 +79,12 @@ func save_binary(path: String) -> void:
 		GlobalSignals.save_complete.emit.call_deferred()
 		return
 	
-	print("GlobalSignals.save_start.emit.call_deferred()")
 	GlobalSignals.save_start.emit.call_deferred()
 	Status.set_status.call_deferred("STATUS_SAVE_BIN_START")
 	
 	# Register scripts
-	print("BinResource.save_resource_file(data, %s, GlobalSignals)" % path)
 	BinResource.save_resource_file(this_session["data"], path, GlobalSignals)
-	
 	Status.set_status.call_deferred("STATUS_SAVE_COMPLETE")
-	
-	print("GlobalSignals.save_complete.emit.call_deferred()")
 	GlobalSignals.save_complete.emit.call_deferred()
 
 
@@ -115,7 +109,7 @@ func new_directory_session(path: String) -> void:
 	var new_session: Dictionary = {
 		"session_type": SessionType.DIRECTORY,
 		"current_object": 0,
-		"data": BinResource.from_path(path),
+		"data": BinResource.from_path(path, ScriptInstructions.INSTRUCTION_DB),
 	}
 	
 	if not new_session["data"].is_empty():
@@ -127,7 +121,9 @@ func new_directory_session(path: String) -> void:
 
 
 func new_binary_session(path: String) -> void:
-	var bin_resource: Dictionary = BinResource.from_file(path)
+	var bin_resource: Dictionary = BinResource.from_file(
+		path, ScriptInstructions.INSTRUCTION_DB
+	)
 	
 	if bin_resource.has("error"):
 		binary_load_error.bind(bin_resource["error"]).call_deferred()

@@ -55,6 +55,9 @@ func palette_set_session_sprite(for_session: int, _index: int) -> void:
 
 # Override, obtain reference file palette instead of main file palette
 func get_palette(index: int) -> PackedByteArray:
+	if provider.ref_data.is_empty():
+		return []
+	
 	# Global palette
 	if provider.ref_data.has("palettes"):
 		return provider.ref_data.palettes[palette_index].palette

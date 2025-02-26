@@ -41,7 +41,9 @@ func create_controls(index: int) -> void:
 		var label: Label = new_control.get_child(0)
 		var value: SteppingSpinBox = new_control.get_child(1)
 		
-		label.text = argument.display_name
+		label.text = ScriptInstructions.get_argument_name(
+			instruction.id, arg_number
+		)
 		
 		if argument.signed:
 			value.min_value = -pow(2, argument.size * 8) / 2

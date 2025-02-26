@@ -9,8 +9,7 @@ func _ready() -> void:
 	var index: int = 0
 	
 	for id: int in ScriptInstructions.INSTRUCTION_DB:
-		var instruction: Instruction = ScriptInstructions.get_instruction(id)
-		add_item(instruction.display_name)
+		add_item(ScriptInstructions.get_instruction_name(id))
 		item_to_id[index] = id
 		index += 1
 
