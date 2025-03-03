@@ -76,6 +76,9 @@ func mouse_motion(event: InputEventMouseMotion) -> void:
 
 
 func keyboard(event: InputEventKey) -> void:
+	if not event.pressed:
+		return
+	
 	match event.keycode:
 		KEY_UP:
 			if event.alt_pressed:

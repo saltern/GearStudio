@@ -49,9 +49,6 @@ func _gui_input(event: InputEvent) -> void:
 	elif event is InputEventMouseMotion:
 		if not handle_pan_drag(event):
 			mouse_motion(event as InputEventMouseMotion)
-	
-	elif event is InputEventKey:
-		keyboard(event as InputEventKey)
 
 
 func handle_zoom_pan(event: InputEventMouseButton) -> bool:
