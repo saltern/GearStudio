@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=51 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="25_oai88"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
+[ext_resource type="Texture2D" uid="uid://cq5r56uv0gc1j" path="res://ICONS/reference.svg" id="28_lvea1"]
 [ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="34_sq6ji"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
 [ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
@@ -924,6 +925,7 @@ size_flags_horizontal = 3
 text = "SCRIPT_EDIT_PREVIEW"
 
 [node name="box_display" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
+visible = false
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
@@ -939,11 +941,29 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
 text = "Ignore \"VISUAL\""
 
-[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="reference" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
+visible = false
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+toggle_mode = true
+text = "Reference options"
+icon = ExtResource("28_lvea1")
+
+[node name="Button" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
+layout_mode = 2
+text = "Preview options"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders" node_paths=PackedStringArray("visualizer")]
+[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders" node_paths=PackedStringArray("visualizer")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
@@ -951,11 +971,11 @@ size_flags_vertical = 3
 script = ExtResource("13_fi3dn")
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper"]
 position = Vector2(400, 400)
 script = ExtResource("2_hled3")
 
-[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
@@ -969,7 +989,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("3_i86rk")
 
-[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -983,7 +1003,7 @@ stretch_mode = 1
 script = ExtResource("5_7mwsm")
 metadata/_edit_lock_ = true
 
-[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer"]
+[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer"]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
@@ -991,7 +1011,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin"]
+[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
 custom_minimum_size = Vector2(2, 4000)
@@ -1002,7 +1022,7 @@ offset_right = 1.0
 offset_bottom = 2000.0
 mouse_filter = 2
 
-[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/guide"]
+[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
 custom_minimum_size = Vector2(2000, 2)
 layout_mode = 0
@@ -1012,12 +1032,12 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin"]
+[node name="Control" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
 material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
@@ -1027,21 +1047,21 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
-ignore_visual_toggle = NodePath("../../../../../preview_options/ignore_visual")
+ignore_visual_toggle = NodePath("../../../../../../preview_options/ignore_visual")
 sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite"]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite/scale"]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite/scale/scale_y"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
 custom_minimum_size = Vector2(6000, 6000)
 layout_mode = 3
 anchors_preset = 0
@@ -1052,10 +1072,10 @@ offset_bottom = 3000.0
 pivot_offset = Vector2(3000, 3000)
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
-box_display_toggle = NodePath("../../../../../preview_options/box_display")
+box_display_toggle = NodePath("../../../../../../preview_options/box_display")
 sprite_handler = NodePath("../sprite")
 
-[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin"]
+[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
 visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
@@ -1073,7 +1093,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_uvd1h")
 
-[node name="vert_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1090,7 +1110,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="horz_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1107,7 +1127,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="vert_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="vert_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1123,7 +1143,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="horz_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/borders/clipper/visualizer/origin/origin_cross"]
+[node name="horz_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1139,12 +1159,18 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="preview_options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "SCRIPT_EDIT_WARNING"
-vertical_alignment = 1
+
+[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/preview_options"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/preview_options/margin"]
+layout_mode = 2
 
 [node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
@@ -1198,6 +1224,13 @@ text = "0000 F"
 horizontal_alignment = 1
 script = ExtResource("26_f2brd")
 timeline = NodePath("../timeline")
+
+[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "SCRIPT_EDIT_WARNING"
+vertical_alignment = 1
 
 [node name="instruction_select" type="Window" parent="." node_paths=PackedStringArray("summon_button", "instruction_list")]
 title = "Select Instruction"

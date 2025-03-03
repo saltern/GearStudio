@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=87 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -68,7 +68,6 @@
 [ext_resource type="Script" uid="uid://drwx3f8xe5q21" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_reference_sprite.gd" id="53_rqavn"]
 [ext_resource type="Script" uid="uid://c74itl7vmivsm" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
 [ext_resource type="Script" uid="uid://de5u26gmcnib4" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_box_draw.gd" id="55_vjh8k"]
-[ext_resource type="Script" uid="uid://b206jwcgnyfrp" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_menu.gd" id="56_psrad"]
 [ext_resource type="Script" uid="uid://djjtxxhtt80c4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="56_r07ix"]
 [ext_resource type="Texture2D" uid="uid://cq5r56uv0gc1j" path="res://ICONS/reference.svg" id="58_6mbkh"]
 [ext_resource type="Script" uid="uid://cgwmbug2jv841" path="res://SCENES/TABS/SHARED/CELL_EDIT/REFERENCE/reference_session.gd" id="58_d2y4c"]
@@ -744,8 +743,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="title" type="HBoxContainer" parent="content/visualizer"]
 custom_minimum_size = Vector2(0, 30)
@@ -792,7 +789,7 @@ user_guides = NodePath("visualizer/origin/user_guides")
 visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="content/visualizer/borders/clipper"]
-position = Vector2(400, 400)
+position = Vector2(400, 390)
 script = ExtResource("22_4xx0u")
 
 [node name="background_a" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer"]
@@ -833,9 +830,8 @@ metadata/_edit_use_anchors_ = true
 [node name="guide" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
-custom_minimum_size = Vector2(2, 4000)
+custom_minimum_size = Vector2(1, 4000)
 layout_mode = 0
-offset_left = -1.0
 offset_top = -2000.0
 offset_right = 1.0
 offset_bottom = 2000.0
@@ -843,10 +839,10 @@ mouse_filter = 2
 
 [node name="guide_horz" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
-custom_minimum_size = Vector2(2000, 2)
+custom_minimum_size = Vector2(2000, 1)
 layout_mode = 0
 offset_left = -2000.0
-offset_top = 1999.0
+offset_top = 2000.0
 offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
@@ -981,97 +977,26 @@ script = ExtResource("28_h6aqa")
 box_type = NodePath("../../../../../../../../../scroll/margin/data/boxes/collapsible/editable/type/value")
 
 [node name="origin_cross" type="Control" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent"]
-custom_minimum_size = Vector2(40, 40)
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -21.0
-offset_right = 21.0
-offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
-[node name="vert_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -21.0
-offset_right = 2.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="horz_bg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="vert_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -20.0
-offset_right = 1.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="horz_fg" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -1.0
-offset_right = 20.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
 [node name="bottom_panel" type="HBoxContainer" parent="content/visualizer"]
 layout_mode = 2
 
 [node name="reference_options" type="VBoxContainer" parent="content/visualizer/bottom_panel" node_paths=PackedStringArray("button")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("59_5bsu5")
-button = NodePath("../../bottom_buttons/reference_expand")
+button = NodePath("../../bottom_buttons/reference")
 
 [node name="session" type="HBoxContainer" parent="content/visualizer/bottom_panel/reference_options"]
 custom_minimum_size = Vector2(0, 30)
@@ -1161,16 +1086,7 @@ size_flags_horizontal = 3
 [node name="bottom_buttons" type="HBoxContainer" parent="content/visualizer"]
 layout_mode = 2
 
-[node name="reference" type="MenuButton" parent="content/visualizer/bottom_buttons"]
-visible = false
-custom_minimum_size = Vector2(30, 60)
-layout_mode = 2
-size_flags_horizontal = 0
-icon = ExtResource("58_6mbkh")
-flat = false
-script = ExtResource("56_psrad")
-
-[node name="reference_expand" type="Button" parent="content/visualizer/bottom_buttons"]
+[node name="reference" type="Button" parent="content/visualizer/bottom_buttons"]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 toggle_mode = true

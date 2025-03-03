@@ -1,22 +1,17 @@
 extends Node
 
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal display_window
 
 # Customization
-@warning_ignore("unused_signal")
 signal custom_color_bg_a_changed
-@warning_ignore("unused_signal")
 signal custom_color_bg_b_changed
-@warning_ignore("unused_signal")
 signal custom_color_status_changed
 
 # Cells
-@warning_ignore("unused_signal")
 signal draw_origin_changed
-@warning_ignore("unused_signal")
+signal origin_type_changed
 signal onion_color_changed
-@warning_ignore("unused_signal")
 signal guide_color_changed
 
 # Sprites
@@ -39,6 +34,7 @@ const CFG_CUSTOM_STATUS: String = "color_status"
 
 const CFG_SECTION_CELLS: String = "cells"
 const CFG_CELL_ORIGIN: String = "draw_origin"
+const CFG_CELL_ORIGIN_TYPE: String = "origin_type"
 const CFG_CELL_ONION: String = "onion_color"
 const CFG_CELL_GUIDE: String = "guide_color"
 
@@ -81,6 +77,7 @@ var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
 var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
 
 var cell_draw_origin: bool = true
+var cell_origin_type: int = 0
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 var cell_guide: Color = Color8(255, 0, 0, 0xA0)
 
@@ -187,6 +184,8 @@ func load_config() -> bool:
 	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
+	cell_origin_type = config.get_value(
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0)
 	cell_onion_skin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	cell_guide = config.get_value(
@@ -228,6 +227,8 @@ func save_config() -> bool:
 	
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin)
+	config.set_value(
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, cell_origin_type)
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	config.set_value(
