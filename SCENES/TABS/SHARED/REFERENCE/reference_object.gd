@@ -1,11 +1,11 @@
 extends OptionButton
 
-@onready var cell_edit: CellEdit = owner
+@onready var ref_handler: ReferenceHandler = owner.ref_handler
 
 
 func _ready() -> void:
-	cell_edit.ref_session_set.connect(update_objects)
-	cell_edit.ref_session_cleared.connect(update_objects.bind({}))
+	ref_handler.ref_session_set.connect(update_objects)
+	ref_handler.ref_session_cleared.connect(update_objects.bind({}))
 	item_selected.connect(set_reference_data)
 
 
@@ -28,7 +28,7 @@ func set_reference_data(index: int) -> void:
 	var id: int = get_item_id(index)
 	
 	if id < 0:
-		cell_edit.reference_clear_object()
+		ref_handler.reference_clear_object()
 		return
 	
-	cell_edit.reference_set_object(id)
+	ref_handler.reference_set_object(id)

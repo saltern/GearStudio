@@ -1,16 +1,17 @@
 extends Control
 
 @onready var cell_edit: CellEdit = owner
+@onready var ref_handler: ReferenceHandler = owner.ref_handler
 
 var box_array: Array[BoxInfo] = []
 
 
 func _ready() -> void:
-	cell_edit.ref_cell_updated.connect(cell_update)
-	cell_edit.ref_cell_cleared.connect(cell_clear)
-	cell_edit.ref_data_cleared.connect(cell_clear)
-	cell_edit.ref_data_set.connect(on_ref_data_set.unbind(1))
-	cell_edit.ref_cell_index_set.connect(on_ref_cell_index_set)
+	ref_handler.ref_cell_updated.connect(cell_update)
+	ref_handler.ref_cell_cleared.connect(cell_clear)
+	ref_handler.ref_data_cleared.connect(cell_clear)
+	ref_handler.ref_data_set.connect(on_ref_data_set.unbind(1))
+	ref_handler.ref_cell_index_set.connect(on_ref_cell_index_set)
 
 
 func _process(_delta: float) -> void:

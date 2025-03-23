@@ -1,6 +1,6 @@
 extends OptionButton
 
-@onready var cell_edit: CellEdit = owner
+@onready var ref_handler: ReferenceHandler = owner.ref_handler
 
 
 func _ready() -> void:
@@ -19,7 +19,7 @@ func add_session(path: String) -> void:
 
 func update_sessions() -> void:
 	clear()
-	cell_edit.reference_clear_session()
+	ref_handler.reference_clear_session()
 	
 	add_item("None", -2)
 	
@@ -27,7 +27,7 @@ func update_sessions() -> void:
 		return
 	
 	for session_number in SessionData.get_session_count():
-		if session_number == cell_edit.session_id:
+		if session_number == owner.session_id:
 			continue
 		
 		var this_session: Dictionary = SessionData.get_session(session_number)
@@ -40,7 +40,7 @@ func set_session(index: int) -> void:
 	var id: int = get_item_id(index)
 	
 	if id < 0:
-		cell_edit.reference_clear_session()
+		ref_handler.reference_clear_session()
 		return
 	
-	cell_edit.reference_set_session(id)
+	ref_handler.reference_set_session(id)

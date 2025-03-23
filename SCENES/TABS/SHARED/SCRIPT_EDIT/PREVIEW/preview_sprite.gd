@@ -47,6 +47,8 @@ func disable_visual_1() -> void:
 
 
 func on_cell(index: int) -> void:
+	script_edit.cell_index = index
+	
 	if script_edit.cell_get_count() > index:
 		var this_cell: Cell = script_edit.obj_data["cells"][index]
 		load_cell(this_cell)

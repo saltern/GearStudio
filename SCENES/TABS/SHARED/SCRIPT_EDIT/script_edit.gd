@@ -28,15 +28,19 @@ enum FlagType {
 }
 
 @export var anim_player: AnimationPlayer
+@export var anim_player_ref: AnimationPlayer
 
 var SI := ScriptInstructions
 var session_id: int
 var undo_redo := UndoRedo.new()
 
 var obj_data: Dictionary
-#var bin_script := BinScript.new()
+var ref_handler: ReferenceHandler = ReferenceHandler.new()
+
 var action_index: int = 0
 var instruction_index: int = -1
+var cell_index: int = 0
+
 var this_action: ScriptAction
 var this_cell: Cell
 
@@ -49,6 +53,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	anim_player.add_animation_library("", AnimationLibrary.new())
+	anim_player_ref.add_animation_library("", AnimationLibrary.new())
 	script_action_load(0)
 
 
@@ -340,171 +345,35 @@ func script_action_set_flag(
 
 
 func script_animation_load() -> void:
-	var anim := Animation.new()
-	anim.length = 0.0
-	
-	# Instruction tracks
-	var track_cells		:= anim.add_track(Animation.TYPE_METHOD)	# 0
-	var track_semitrans := anim.add_track(Animation.TYPE_METHOD)	# 6
-	var track_scale		:= anim.add_track(Animation.TYPE_METHOD)	# 7
-	var track_scale_y	:= anim.add_track(Animation.TYPE_METHOD)	# 7
-	var track_rotate	:= anim.add_track(Animation.TYPE_METHOD)	# 8
-	var track_draw		:= anim.add_track(Animation.TYPE_METHOD)	# 16
-	#var track_draw_rev	:= anim.add_track(Animation.TYPE_METHOD)	# 17
-	var track_cell_jump	:= anim.add_track(Animation.TYPE_METHOD)	# 39
-	var track_visual	:= anim.add_track(Animation.TYPE_METHOD)	# 69
-	var track_end		:= anim.add_track(Animation.TYPE_METHOD)	# 255
-	
-	for track in anim.get_track_count():
-		anim.track_set_path(track, ".")
-	
-	# Resets
-	anim.track_insert_key(track_semitrans, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_semitrans", 0, 0xFF]
-	})
-	
-	anim.track_insert_key(track_scale, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_scale", 0, -1]
-	})
-	
-	anim.track_insert_key(track_scale_y, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_scale", 1, -1]
-	})
-	
-	anim.track_insert_key(track_rotate, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_rotate", 0, 0]
-	})
-	
-	anim.track_insert_key(track_draw, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_draw_normal"]
-	})
-	
-	anim.track_insert_key(track_visual, 0.0, {
-		"method": &"emit_signal",
-		"args": [&"inst_visual", 0, 1]
-	})
-	
-	anim.track_insert_key(track_visual, 0.1, {
-		"method": &"emit_signal",
-		"args": [&"inst_visual", 3, 0]
-	})
-	
-	var frame: int = 1
-	var frame_offset: int = 0
-	var cell_count: int = 0
-	
-	for instruction: Instruction in this_action.instructions:
-		var instruction_name: String = \
-			SI.get_instruction_name(instruction.id)
-		
-		match instruction_name:
-			SI.NAME_CELLBEGIN:
-				cell_count += 1
-				
-				frame += frame_offset
-				var cell_length: int = max(1, instruction.arguments[0].value)
-				var cell_number: int = instruction.arguments[1].value
-				
-				anim.length += cell_length
-				anim.track_insert_key(track_cells, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_cell", cell_number],
-				})
-				
-				frame_offset = cell_length
-			
-			SI.NAME_SEMITRANS:
-				var blend_mode: int = instruction.arguments[1].value
-				var blend_value: int = instruction.arguments[0].value
-				
-				anim.track_insert_key(track_semitrans, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_semitrans", blend_mode, blend_value]
-				})
-			
-			SI.NAME_SCALE:
-				var scale_mode: int = instruction.arguments[0].value
-				var scale_value: int = instruction.arguments[1].value
-				var which_track: int = track_scale
-				
-				if scale_mode % 2 == 1:
-					which_track = track_scale_y
-				
-				anim.track_insert_key(which_track, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_scale", scale_mode, scale_value]
-				})
-			
-			SI.NAME_ROT:
-				var rotate_mode: int = instruction.arguments[0].value
-				var rotate_value: int = instruction.arguments[1].value
-				
-				anim.track_insert_key(track_rotate, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_rotate", rotate_mode, rotate_value]
-				})
-			
-			SI.NAME_DRAW_NORMAL:
-				anim.track_insert_key(track_draw, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_draw_normal"]
-				})
-			
-			SI.NAME_DRAW_REVERSE:
-				anim.track_insert_key(track_draw, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_draw_reverse"]
-				})
-			
-			SI.NAME_CELL_JUMP:
-				var disabled: int = instruction.arguments[0].value
-				var cell_begin_number: int = instruction.arguments[2].value
-				
-				if disabled:
-					continue
-				
-				anim.track_insert_key(track_cell_jump, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_cell_jump", cell_begin_number]
-				})
-			
-			SI.NAME_VISUAL:
-				var visual_mode: int = instruction.arguments[0].value
-				var visual_argument: int = instruction.arguments[1].value
-				var visual_offset: float = 0.0
-				
-				if visual_mode == 1:
-					visual_offset = -0.1
-				
-				anim.track_insert_key(track_visual, frame + visual_offset, {
-					"method": &"emit_signal",
-					"args": [&"inst_visual", visual_mode, visual_argument]
-				})
-			
-			SI.NAME_END_ACTION:
-				var end_mode: int = instruction.arguments[0].value
-				
-				anim.track_insert_key(track_end, frame, {
-					"method": &"emit_signal",
-					"args": [&"inst_end_action", end_mode]
-				})
+	var anim: Animation = this_action.get_animation()
 	
 	# Restart animation
-	if cell_count == 0:
+	if anim.track_get_key_count(0) == 0:
 		cell_clear.emit()
 	
-	var library := anim_player.get_animation_library("")
+	var library: AnimationLibrary = anim_player.get_animation_library("")
 	library.add_animation(&"anim", anim)
+	
+	# Reference
+	if not ref_handler.script_has_action(action_index):
+		return
+	
+	var ref_anim: Animation = ref_handler.script_get_animation(action_index)
+	
+	if ref_anim.track_get_key_count(0) == 0:
+		ref_handler.ref_cell_cleared.emit()
+	
+	var library_ref: AnimationLibrary = anim_player_ref.get_animation_library("")
+	library_ref.add_animation(&"anim", anim)
 
 
 func script_animation_restart() -> void:
 	anim_player.play(&"anim")
 	anim_player.seek(0, true)
+	
+	anim_player_ref.play(&"anim")
+	anim_player_ref.seek(0, true)
+	
 	script_animation_load_frame(1)
 
 
@@ -513,10 +382,14 @@ func script_animation_load_frame(frame: int) -> void:
 	
 	if frame > time:
 		anim_player.advance(frame - time)
+		anim_player_ref.advance(frame - time)
 	else:
 		# Likely slower, but required by instructions using additive operations
 		anim_player.seek(0, true)
 		anim_player.advance(frame)
+		
+		anim_player_ref.seek(0, true)
+		anim_player_ref.advance(frame)
 
 	action_seek_to_frame.emit(frame)
 
@@ -831,3 +704,8 @@ func palette_get(index: int) -> BinPalette:
 		return obj_data["palettes"][index]
 	else:
 		return BinPalette.new()
+
+
+#region Reference
+func reference_cell(index: int) -> void:
+	ref_handler.reference_cell_set(index)

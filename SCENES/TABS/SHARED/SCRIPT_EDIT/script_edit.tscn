@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=61 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -23,7 +23,7 @@
 [ext_resource type="Script" uid="uid://b3jh2u54w2vda" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/PREVIEW/preview_sprite.gd" id="9_rfuac"]
 [ext_resource type="Script" uid="uid://bh3mpdgka0vb8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/ACTIONS/TOOLBAR/paste.gd" id="10_8bvup"]
 [ext_resource type="Script" uid="uid://crklydx8hyb15" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/new_instruction.gd" id="10_hxwds"]
-[ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
+[ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/PREVIEW/preview_origin_cross.gd" id="11_uvd1h"]
 [ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_list.gd" id="12_0a85a"]
 [ext_resource type="Script" uid="uid://driaid5d3iwtf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/arguments.gd" id="13_ctvg6"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
@@ -41,10 +41,24 @@
 [ext_resource type="Texture2D" uid="uid://bhpambb4juss6" path="res://ICONS/arrow_down.svg" id="25_oai88"]
 [ext_resource type="Script" uid="uid://bqlokphjugvfa" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_current.gd" id="25_puh6r"]
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
-[ext_resource type="Texture2D" uid="uid://cq5r56uv0gc1j" path="res://ICONS/reference.svg" id="28_lvea1"]
+[ext_resource type="Script" uid="uid://dl65n2yrwicv7" path="res://SCENES/TABS/SHARED/expand_collapse_button.gd" id="28_oai88"]
 [ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="34_sq6ji"]
+[ext_resource type="Material" uid="uid://c5hb8w4wgn54j" path="res://MATERIALS/mat_reference.material" id="34_t1u05"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
 [ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
+[ext_resource type="Script" uid="uid://chq6mxac5w20n" path="res://SCENES/TABS/SHARED/REFERENCE/reference_session.gd" id="38_lnoga"]
+[ext_resource type="Script" uid="uid://cpqisxrw30xfp" path="res://SCENES/TABS/SHARED/REFERENCE/reference_preview_sprite.gd" id="38_lvea1"]
+[ext_resource type="Script" uid="uid://c7nsrbidk1wr7" path="res://SCENES/TABS/SHARED/REFERENCE/reference_object.gd" id="39_30w5o"]
+[ext_resource type="Script" uid="uid://de5u26gmcnib4" path="res://SCENES/TABS/SHARED/REFERENCE/reference_box_draw.gd" id="39_jy6ly"]
+[ext_resource type="Script" uid="uid://c1pesubbwmlcc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_cell_number.gd" id="40_30w5o"]
+[ext_resource type="Script" uid="uid://bba3b4sxaog1k" path="res://SCENES/TABS/SHARED/REFERENCE/reference_in_front.gd" id="41_h0kyv"]
+[ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="42_2p55a"]
+[ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="43_f47ks"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oai88"]
+font_size = 14
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.784314)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ejhjo"]
 content_margin_left = 5.0
@@ -69,7 +83,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim_player")]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim_player", "anim_player_ref")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -78,9 +92,12 @@ grow_vertical = 2
 current_tab = 0
 script = ExtResource("1_jcqcc")
 anim_player = NodePath("script_anim")
+anim_player_ref = NodePath("script_anim_ref")
 
 [node name="script_anim" type="AnimationPlayer" parent="."]
 callback_mode_process = 2
+
+[node name="script_anim_ref" type="AnimationPlayer" parent="."]
 
 [node name="SCRIPT_EDIT_TITLE_ACTIONS" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -915,55 +932,32 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="preview_options" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="top_bar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 text = "SCRIPT_EDIT_PREVIEW"
 
-[node name="box_display" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
-visible = false
-custom_minimum_size = Vector2(150, 30)
-layout_mode = 2
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
-theme_override_styles/normal = SubResource("StyleBoxFlat_h01nf")
-button_pressed = true
-text = "SCRIPT_EDIT_DISPLAY_BOXES"
-
-[node name="ignore_visual" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
-visible = false
-custom_minimum_size = Vector2(150, 30)
-layout_mode = 2
-theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
-theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
-text = "Ignore \"VISUAL\""
-
-[node name="reference" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
-visible = false
+[node name="expand_button" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar" node_paths=PackedStringArray("collapsible")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-size_flags_horizontal = 10
-toggle_mode = true
-text = "Reference options"
-icon = ExtResource("28_lvea1")
+text = "PREVIEW_OPTIONS"
+script = ExtResource("28_oai88")
+collapsible = NodePath("../../preview_contents/options")
 
-[node name="Button" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_options"]
-layout_mode = 2
-text = "Preview options"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="preview_contents" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer"]
+[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders" node_paths=PackedStringArray("visualizer")]
+[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders" node_paths=PackedStringArray("visualizer")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
@@ -971,11 +965,11 @@ size_flags_vertical = 3
 script = ExtResource("13_fi3dn")
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper"]
 position = Vector2(400, 400)
 script = ExtResource("2_hled3")
 
-[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(6000, 6000)
 anchors_preset = 8
@@ -989,7 +983,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("3_i86rk")
 
-[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/background_a"]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -1003,7 +997,7 @@ stretch_mode = 1
 script = ExtResource("5_7mwsm")
 metadata/_edit_lock_ = true
 
-[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer"]
+[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer"]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
@@ -1011,33 +1005,70 @@ size_flags_vertical = 4
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
+[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
-custom_minimum_size = Vector2(2, 4000)
+custom_minimum_size = Vector2(1, 4000)
 layout_mode = 0
-offset_left = -1.0
 offset_top = -2000.0
 offset_right = 1.0
 offset_bottom = 2000.0
 mouse_filter = 2
 
-[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/guide"]
+[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
-custom_minimum_size = Vector2(2000, 2)
+custom_minimum_size = Vector2(2000, 1)
 layout_mode = 0
 offset_left = -2000.0
-offset_top = 1999.0
+offset_top = 2000.0
 offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="main_cell_vp" type="SubViewportContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
+layout_mode = 0
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+[node name="viewport" type="SubViewport" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(4000, 4000)
+render_target_update_mode = 4
+
+[node name="reference" type="CanvasGroup" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
+position = Vector2(2000, 2000)
+fit_margin = 1000.0
+clear_margin = 1000.0
+
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent" node_paths=PackedStringArray("sprite_origin")]
+material = ExtResource("34_t1u05")
+anchors_preset = 0
+script = ExtResource("38_lvea1")
+sprite_origin = NodePath(".")
+
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent"]
+visible = false
+anchors_preset = 0
+script = ExtResource("39_jy6ly")
+
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2000.0
+offset_top = 2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+visible = false
 material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
@@ -1047,130 +1078,200 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
-ignore_visual_toggle = NodePath("../../../../../../preview_options/ignore_visual")
+ignore_visual_toggle = NodePath("../../../../../../../../options/margin/data/misc_collapsible/ignore_visual")
 sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite"]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite/scale"]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite/scale/scale_y"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
-custom_minimum_size = Vector2(6000, 6000)
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler")]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
 pivot_offset = Vector2(3000, 3000)
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
-box_display_toggle = NodePath("../../../../../../preview_options/box_display")
+box_display_toggle = NodePath("../../../../../../../../options/margin/data/misc_collapsible/hitboxes")
 sprite_handler = NodePath("../sprite")
 
-[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin"]
-visible = false
-custom_minimum_size = Vector2(40, 40)
+[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -21.0
-offset_right = 21.0
-offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_uvd1h")
 
-[node name="vert_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -21.0
-offset_right = 2.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
+[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "SCRIPT_EDIT_WARNING"
+label_settings = SubResource("LabelSettings_oai88")
+vertical_alignment = 1
+text_overrun_behavior = 3
 
-[node name="horz_bg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="vert_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -20.0
-offset_right = 1.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="horz_fg" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -1.0
-offset_right = 20.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="preview_options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer"]
-visible = false
+[node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/preview_options"]
+[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/HBoxContainer/preview_options/margin"]
+[node name="data" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin"]
 layout_mode = 2
+
+[node name="misc_title" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" node_paths=PackedStringArray("collapsible")]
+layout_mode = 2
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../misc_collapsible")
+
+[node name="h_sep" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_title"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "PREVIEW_MISC_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="h_sep2" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="misc_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data"]
+layout_mode = 2
+
+[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_h01nf")
+button_pressed = true
+text = "SCRIPT_EDIT_DISPLAY_BOXES"
+
+[node name="ignore_visual" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
+theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
+text = "Ignore \"VISUAL\""
+
+[node name="ref_title" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" node_paths=PackedStringArray("collapsible")]
+layout_mode = 2
+tooltip_text = "SCRIPT_EDIT_PROPERTIES_TOOLTIP"
+script = ExtResource("4_h01nf")
+collapsible = NodePath("../ref_collapsible")
+
+[node name="h_sep" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_title"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "PREVIEW_REFERENCE_TITLE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="h_sep2" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ref_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data"]
+layout_mode = 2
+
+[node name="session" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/session"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "REFERENCE_SESSION"
+clip_text = true
+
+[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/session"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+fit_to_longest_item = false
+item_count = 1
+popup/item_0/id = 0
+script = ExtResource("38_lnoga")
+
+[node name="object" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/object"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "REFERENCE_OBJECT"
+clip_text = true
+
+[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/object"]
+layout_mode = 2
+size_flags_horizontal = 3
+selected = 0
+fit_to_longest_item = false
+item_count = 1
+popup/item_0/id = 0
+script = ExtResource("39_30w5o")
+
+[node name="cell" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/cell"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "REFERENCE_CELL"
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/cell"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+alignment = 2
+editable = false
+script = ExtResource("40_30w5o")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "REFERENCE_FRONT"
+script = ExtResource("41_h0kyv")
+
+[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "REFERENCE_HITBOXES"
+script = ExtResource("42_2p55a")
+
+[node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "REFERENCE_SEMITRANS"
+script = ExtResource("43_f47ks")
 
 [node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
@@ -1224,13 +1325,6 @@ text = "0000 F"
 horizontal_alignment = 1
 script = ExtResource("26_f2brd")
 timeline = NodePath("../timeline")
-
-[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-text = "SCRIPT_EDIT_WARNING"
-vertical_alignment = 1
 
 [node name="instruction_select" type="Window" parent="." node_paths=PackedStringArray("summon_button", "instruction_list")]
 title = "Select Instruction"

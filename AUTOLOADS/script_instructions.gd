@@ -31,6 +31,7 @@ func _enter_tree() -> void:
 	task_id = WorkerThreadPool.add_task(build_database)
 
 
+# ???
 func _ready() -> void:
 	var db_file: FileAccess = FileAccess.open(
 		OS.get_executable_path().get_base_dir() + "/inst_db.dat",

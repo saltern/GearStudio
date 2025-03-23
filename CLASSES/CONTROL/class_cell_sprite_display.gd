@@ -7,7 +7,7 @@ var palette_index: int = 0
 
 var visual_1: bool = false
 
-var provider: Node
+var provider: Object
 
 
 func _enter_tree() -> void:

@@ -1,15 +1,15 @@
 extends SteppingSpinBox
 
-@onready var cell_edit: CellEdit = owner
+@onready var ref_handler: ReferenceHandler = owner.ref_handler
 
 
 func _ready() -> void:
 	min_value = -1
 	on_ref_data_cleared()
 	
-	cell_edit.ref_data_set.connect(on_ref_data_set)
-	cell_edit.ref_data_cleared.connect(on_ref_data_cleared)
-	cell_edit.ref_session_cleared.connect(on_ref_data_cleared)
+	ref_handler.ref_data_set.connect(on_ref_data_set)
+	ref_handler.ref_data_cleared.connect(on_ref_data_cleared)
+	ref_handler.ref_session_cleared.connect(on_ref_data_cleared)
 	value_changed.connect(update)
 
 
@@ -28,4 +28,4 @@ func on_ref_data_cleared() -> void:
 
 
 func update(new_value: float) -> void:
-	cell_edit.reference_cell_set(int(new_value))
+	ref_handler.reference_cell_set(int(new_value))
