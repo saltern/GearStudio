@@ -69,7 +69,9 @@ func set_end_mode(new_mode: int) -> void:
 
 
 func load_frame(frame: int) -> void:
-	script_edit.script_animation_load_frame(frame)
+	#script_edit.script_animation_load_frame(frame)
+	script_edit.anim.load_frame(frame)
+	script_edit.anim_ref.load_frame(frame)
 
 
 func play_from_start() -> void:

@@ -16,11 +16,26 @@ signal inst_visual
 signal inst_end_action
 @warning_ignore_restore("unused_signal")
 
+@export var reference_mode: bool = false
+
 var provider: Object
+
+@onready var script_edit: ScriptEdit = owner
 
 
 func _ready() -> void:
 	add_animation_library("", AnimationLibrary.new())
+	
+	if reference_mode:
+		provider.ref_data_set.connect(on_ref_data_set.unbind(1))
+
+
+func on_ref_data_set() -> void:
+	load_action(script_edit.action_index)
+	play(&"anim")
+	seek(0.0, true)
+	
+	load_frame(script_edit.script_animation_get_current_frame())
 
 
 func load_action(index: int) -> void:
@@ -46,6 +61,13 @@ func load_action(index: int) -> void:
 
 
 func load_frame(frame: int) -> void:
+	if assigned_animation == "":
+		return
+	
+	if frame > current_animation_length:
+		cell_clear.emit()
+		return
+	
 	var time = current_animation_position
 	
 	if frame > time:

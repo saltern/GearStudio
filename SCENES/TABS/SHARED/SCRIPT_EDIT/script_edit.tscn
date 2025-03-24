@@ -82,7 +82,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim_player", "anim_player_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim", "anim_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -90,8 +90,8 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 script = ExtResource("1_jcqcc")
-anim_player = NodePath("script_anim")
-anim_player_ref = NodePath("script_anim_ref")
+anim = NodePath("script_anim")
+anim_ref = NodePath("script_anim_ref")
 cell_display = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite")
 cell_display_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/sprite")
 box_parent = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/box_parent")
@@ -104,7 +104,9 @@ script = ExtResource("2_hca04")
 
 [node name="script_anim_ref" type="AnimationPlayer" parent="."]
 root_node = NodePath(".")
+callback_mode_process = 2
 script = ExtResource("2_hca04")
+reference_mode = true
 
 [node name="SCRIPT_EDIT_TITLE_ACTIONS" type="MarginContainer" parent="."]
 layout_mode = 2

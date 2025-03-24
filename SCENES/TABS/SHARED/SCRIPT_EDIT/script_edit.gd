@@ -17,8 +17,8 @@ enum FlagType {
 	FLAG2,
 }
 
-@export var anim_player: ScriptAnimationPlayer
-@export var anim_player_ref: ScriptAnimationPlayer
+@export var anim: ScriptAnimationPlayer
+@export var anim_ref: ScriptAnimationPlayer
 
 @export var cell_display: CellSpriteDisplay
 @export var cell_display_ref: CellSpriteDisplay
@@ -48,15 +48,15 @@ func _enter_tree() -> void:
 	
 	cell_display.provider = self
 	box_parent.provider = self
-	anim_player.provider = self
+	anim.provider = self
 	
-	cell_display.anim = anim_player
+	cell_display.anim = anim
 	
 	cell_display_ref.provider = ref_handler
 	box_parent_ref.provider = ref_handler
-	anim_player_ref.provider = ref_handler
+	anim_ref.provider = ref_handler
 	
-	cell_display_ref.anim = anim_player_ref
+	cell_display_ref.anim = anim_ref
 
 
 func _ready() -> void:
@@ -351,44 +351,46 @@ func script_action_set_flag(
 
 
 func script_animation_load() -> void:
-	anim_player.load_action(action_index)
-	anim_player_ref.load_action(action_index)
+	anim.load_action(action_index)
+	anim_ref.load_action(action_index)
 
 
 func script_animation_restart() -> void:
-	anim_player.play(&"anim")
-	anim_player.seek(0, true)
+	anim.play(&"anim")
+	anim.seek(0, true)
 	
-	if anim_player_ref.has_animation(&"anim"):
-		anim_player_ref.play(&"anim")
-		anim_player_ref.seek(0, true)
+	if anim_ref.has_animation(&"anim"):
+		anim_ref.play(&"anim")
+		anim_ref.seek(0, true)
 	
-	script_animation_load_frame(1)
+	anim.load_frame(1)
+	anim_ref.load_frame(1)
+	#script_animation_load_frame(1)
 
 
-func script_animation_load_frame(frame: int) -> void:
-	var time = anim_player.current_animation_position
-	
-	if frame > time:
-		anim_player.advance(frame - time)
-		anim_player_ref.advance(frame - time)
-	else:
-		# Likely slower, but required by instructions using additive operations
-		anim_player.seek(0, true)
-		anim_player.advance(frame)
-		
-		anim_player_ref.seek(0, true)
-		anim_player_ref.advance(frame)
-
-	action_seek_to_frame.emit(frame)
+#func script_animation_load_frame(frame: int) -> void:
+	#var time = anim_player.current_animation_position
+	#
+	#if frame > time:
+		#anim_player.advance(frame - time)
+		#anim_player_ref.advance(frame - time)
+	#else:
+		## Likely slower, but required by instructions using additive operations
+		#anim_player.seek(0, true)
+		#anim_player.advance(frame)
+		#
+		#anim_player_ref.seek(0, true)
+		#anim_player_ref.advance(frame)
+#
+	#action_seek_to_frame.emit(frame)
 
 
 func script_animation_get_length() -> int:
-	return anim_player.current_animation_length
+	return anim.current_animation_length
 
 
 func script_animation_get_current_frame() -> int:
-	return int(anim_player.current_animation_position)
+	return int(anim.current_animation_position)
 
 
 func script_instruction_get(index: int) -> Instruction:
@@ -432,7 +434,9 @@ func script_instruction_get_cell_frame(index: int) -> int:
 func script_instruction_select(index: int) -> void:
 	instruction_index = index
 	var instruction_frame: int = script_instruction_get_frame(instruction_index)
-	script_animation_load_frame(instruction_frame)
+	#script_animation_load_frame(instruction_frame)
+	anim.load_frame(1)
+	anim_ref.load_frame(1)
 	action_select_instruction.emit(instruction_index)
 	#action_seek_to_frame.emit(instruction_frame)
 
@@ -452,7 +456,8 @@ func script_instruction_delete() -> void:
 	)
 	undo_redo.add_do_method(script_action_load.bind(action_index))
 	undo_redo.add_do_method(
-		script_animation_load_frame.bind(script_animation_get_current_frame())
+		#script_animation_load_frame.bind(script_animation_get_current_frame())
+		anim.load_frame.bind(script_animation_get_current_frame())
 	)
 	
 	undo_redo.add_undo_method(
@@ -463,7 +468,8 @@ func script_instruction_delete() -> void:
 	)
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(
-		script_animation_load_frame.bind(script_animation_get_current_frame())
+		#script_animation_load_frame.bind(script_animation_get_current_frame())
+		anim.load_frame.bind(script_animation_get_current_frame())
 	)
 	
 	status_register_action(action_text)
@@ -646,7 +652,8 @@ func script_argument_set(instruction: int, argument: int, value: int) -> void:
 	var frame: int = script_animation_get_current_frame()
 	
 	undo_redo.add_do_method(script_action_load.bind(action_index))
-	undo_redo.add_do_method(script_animation_load_frame.bind(frame))
+	#undo_redo.add_do_method(script_animation_load_frame.bind(frame))
+	undo_redo.add_do_method(anim.load_frame.bind(frame))
 	
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction))
