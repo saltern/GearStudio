@@ -9,16 +9,6 @@ signal action_select_instruction
 signal action_count_changed
 signal action_force_select
 signal cell_updated
-signal cell_clear
-signal inst_cell
-signal inst_semitrans
-signal inst_scale
-signal inst_rotate
-signal inst_draw_normal
-signal inst_draw_reverse
-signal inst_cell_jump
-signal inst_visual
-signal inst_end_action
 @warning_ignore_restore("unused_signal")
 
 enum FlagType {
@@ -27,8 +17,14 @@ enum FlagType {
 	FLAG2,
 }
 
-@export var anim_player: AnimationPlayer
-@export var anim_player_ref: AnimationPlayer
+@export var anim_player: ScriptAnimationPlayer
+@export var anim_player_ref: ScriptAnimationPlayer
+
+@export var cell_display: CellSpriteDisplay
+@export var cell_display_ref: CellSpriteDisplay
+
+@export var box_parent: Control
+@export var box_parent_ref: Control
 
 var SI := ScriptInstructions
 var session_id: int
@@ -39,7 +35,7 @@ var ref_handler: ReferenceHandler = ReferenceHandler.new()
 
 var action_index: int = 0
 var instruction_index: int = -1
-var cell_index: int = 0
+#var cell_index: int = 0
 
 var this_action: ScriptAction
 var this_cell: Cell
@@ -49,11 +45,21 @@ var new_instruction_type: int = 0
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
+	
+	cell_display.provider = self
+	box_parent.provider = self
+	anim_player.provider = self
+	
+	cell_display.anim = anim_player
+	
+	cell_display_ref.provider = ref_handler
+	box_parent_ref.provider = ref_handler
+	anim_player_ref.provider = ref_handler
+	
+	cell_display_ref.anim = anim_player_ref
 
 
 func _ready() -> void:
-	anim_player.add_animation_library("", AnimationLibrary.new())
-	anim_player_ref.add_animation_library("", AnimationLibrary.new())
 	script_action_load(0)
 
 
@@ -345,34 +351,17 @@ func script_action_set_flag(
 
 
 func script_animation_load() -> void:
-	var anim: Animation = this_action.get_animation()
-	
-	# Restart animation
-	if anim.track_get_key_count(0) == 0:
-		cell_clear.emit()
-	
-	var library: AnimationLibrary = anim_player.get_animation_library("")
-	library.add_animation(&"anim", anim)
-	
-	# Reference
-	if not ref_handler.script_has_action(action_index):
-		return
-	
-	var ref_anim: Animation = ref_handler.script_get_animation(action_index)
-	
-	if ref_anim.track_get_key_count(0) == 0:
-		ref_handler.ref_cell_cleared.emit()
-	
-	var library_ref: AnimationLibrary = anim_player_ref.get_animation_library("")
-	library_ref.add_animation(&"anim", anim)
+	anim_player.load_action(action_index)
+	anim_player_ref.load_action(action_index)
 
 
 func script_animation_restart() -> void:
 	anim_player.play(&"anim")
 	anim_player.seek(0, true)
 	
-	anim_player_ref.play(&"anim")
-	anim_player_ref.seek(0, true)
+	if anim_player_ref.has_animation(&"anim"):
+		anim_player_ref.play(&"anim")
+		anim_player_ref.seek(0, true)
 	
 	script_animation_load_frame(1)
 
@@ -690,6 +679,13 @@ func cell_get_count() -> int:
 		return obj_data["cells"].size()
 	else:
 		return 0
+
+
+func cell_get(index: int) -> Cell:
+	if cell_get_count() > index:
+		return obj_data.cells[index]
+	else:
+		return Cell.new()
 
 
 func palette_get_count() -> int:

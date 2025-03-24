@@ -2,7 +2,9 @@ extends Control
 
 @export var box_display_toggle: CheckButton
 @export var sprite_handler: Control
+@export var anim: ScriptAnimationPlayer
 
+var provider: Object
 var box_list: Array[BoxInfo]
 var scale_factor: Vector2 = Vector2(1.0, 1.0)
 
@@ -12,10 +14,10 @@ var scale_factor: Vector2 = Vector2(1.0, 1.0)
 
 func _ready() -> void:
 	box_display_toggle.toggled.connect(toggle_display)
-	script_edit.cell_clear.connect(clear_boxes)
-	script_edit.inst_cell.connect(on_cell)
-	script_edit.inst_draw_normal.connect(on_draw_normal)
-	script_edit.inst_draw_reverse.connect(on_draw_reverse)
+	anim.cell_clear.connect(clear_boxes)
+	anim.inst_cell.connect(on_cell)
+	anim.inst_draw_normal.connect(on_draw_normal)
+	anim.inst_draw_reverse.connect(on_draw_reverse)
 	sprite_handler.scale_set.connect(on_scale)
 
 
@@ -98,7 +100,7 @@ func on_cell(index: int) -> void:
 	var cell: Cell
 	
 	if script_edit.obj_data["cells"].size() > index:
-		cell = script_edit.obj_data["cells"][index]
+		cell = provider.obj_data["cells"][index]
 	else:
 		cell = Cell.new()
 	

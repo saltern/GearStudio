@@ -27,6 +27,17 @@ func cell_load(index: int) -> void:
 	ref_cell_updated.emit(obj_data.cells[index])
 
 
+func cell_get_count() -> int:
+	return obj_data.cells.size()
+
+
+func cell_get(index: int) -> Cell:
+	if obj_data.cells.size() > index:
+		return obj_data.cells[index]
+	else:
+		return Cell.new()
+
+
 func reference_set_session(session_index: int) -> void:
 	session = SessionData.get_session(session_index)
 	ref_session_set.emit(session)
@@ -74,5 +85,5 @@ func script_has_action(index: int) -> bool:
 	return true
 
 
-func script_get_animation(index: int) -> Animation:
-	return obj_data.scripts.actions[index].get_animation()
+func script_get_action(index: int) -> ScriptAction:
+	return obj_data.scripts.actions[index]

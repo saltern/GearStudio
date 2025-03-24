@@ -14,23 +14,20 @@ var scale_y: int = -1
 
 var ignore_visual: bool = false
 
-@onready var script_edit: ScriptEdit = owner
+var anim: ScriptAnimationPlayer
 
 
 func _ready() -> void:
-	provider = script_edit
-	
 	SessionData.palette_changed.connect(on_palette_changed)
-	script_edit.action_loaded.connect(disable_visual_1)
-	script_edit.cell_updated.connect(load_cell)
-	script_edit.cell_clear.connect(unload_sprite)
-	script_edit.inst_cell.connect(on_cell)
-	script_edit.inst_semitrans.connect(on_semitrans)
-	script_edit.inst_scale.connect(on_scale)
-	script_edit.inst_rotate.connect(on_rotate)
-	script_edit.inst_draw_normal.connect(on_draw_normal)
-	script_edit.inst_draw_reverse.connect(on_draw_reverse)
-	script_edit.inst_visual.connect(on_visual)
+	anim.action_loaded.connect(disable_visual_1)
+	anim.cell_clear.connect(unload_sprite)
+	anim.inst_cell.connect(on_cell)
+	anim.inst_semitrans.connect(on_semitrans)
+	anim.inst_scale.connect(on_scale)
+	anim.inst_rotate.connect(on_rotate)
+	anim.inst_draw_normal.connect(on_draw_normal)
+	anim.inst_draw_reverse.connect(on_draw_reverse)
+	anim.inst_visual.connect(on_visual)
 	ignore_visual_toggle.toggled.connect(toggle_visual)
 
 
@@ -47,10 +44,8 @@ func disable_visual_1() -> void:
 
 
 func on_cell(index: int) -> void:
-	script_edit.cell_index = index
-	
-	if script_edit.cell_get_count() > index:
-		var this_cell: Cell = script_edit.obj_data["cells"][index]
+	if provider.cell_get_count() > index:
+		var this_cell: Cell = provider.cell_get(index)
 		load_cell(this_cell)
 	else:
 		unload_sprite()
@@ -151,10 +146,10 @@ func on_visual(mode: int, value: int) -> void:
 
 
 func on_palette_changed(for_session: int, pal_index: int) -> void:
-	if for_session != script_edit.session_id:
+	if for_session != owner.session_id:
 		return
 	
-	if not script_edit.obj_data.has("palettes"):
+	if not provider.obj_data.has("palettes"):
 		return
 	
 	load_palette(pal_index)

@@ -12,6 +12,7 @@ enum EndMode {
 	UNK_8,
 }
 
+@export var anim: ScriptAnimationPlayer
 @export var action_spinbox: SteppingSpinBox
 @export var button_play_from_start: Button
 @export var button_play: Button
@@ -28,8 +29,8 @@ func _ready() -> void:
 	
 	script_edit.action_loaded.connect(update)
 	script_edit.action_seek_to_frame.connect(external_seek)
-	script_edit.inst_cell_jump.connect(on_cell_jump)
-	script_edit.inst_end_action.connect(set_end_mode)
+	anim.inst_cell_jump.connect(on_cell_jump)
+	anim.inst_end_action.connect(set_end_mode)
 	button_play_from_start.pressed.connect(play_from_start)
 	button_play.pressed.connect(play)
 	button_stop.pressed.connect(stop)
