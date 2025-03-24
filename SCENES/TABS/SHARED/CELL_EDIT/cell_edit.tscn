@@ -954,6 +954,7 @@ mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
 [node name="options" type="ScrollContainer" parent="content/visualizer/preview_contents"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 

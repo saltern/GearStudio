@@ -1092,7 +1092,6 @@ offset_right = 2000.0
 offset_bottom = 2000.0
 
 [node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
-visible = false
 material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
