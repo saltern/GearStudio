@@ -28,14 +28,17 @@ func _ready() -> void:
 	
 	if reference_mode:
 		provider.ref_data_set.connect(on_ref_data_set.unbind(1))
+		provider.ref_data_cleared.connect(on_ref_data_cleared)
 
 
 func on_ref_data_set() -> void:
 	load_action(script_edit.action_index)
-	play(&"anim")
-	seek(0.0, true)
-	
 	load_frame(script_edit.script_animation_get_current_frame())
+
+
+func on_ref_data_cleared() -> void:
+	stop()
+	cell_clear.emit()
 
 
 func load_action(index: int) -> void:
@@ -56,12 +59,13 @@ func load_action(index: int) -> void:
 
 	var library: AnimationLibrary = get_animation_library("")
 	library.add_animation(&"anim", anim)
+	play(&"anim")
 
 	action_loaded.emit()
 
 
 func load_frame(frame: int) -> void:
-	if assigned_animation == "":
+	if current_animation == "":
 		return
 	
 	if frame > current_animation_length:
