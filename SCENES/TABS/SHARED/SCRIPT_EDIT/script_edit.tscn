@@ -92,10 +92,10 @@ current_tab = 0
 script = ExtResource("1_jcqcc")
 anim = NodePath("script_anim")
 anim_ref = NodePath("script_anim_ref")
-cell_display = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite")
-cell_display_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/sprite")
-box_parent = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/box_parent")
-box_parent_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/box_parent")
+cell_display = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite")
+cell_display_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite")
+box_parent = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
+box_parent_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/box_parent")
 
 [node name="script_anim" type="AnimationPlayer" parent="."]
 root_node = NodePath(".")
@@ -1034,64 +1034,45 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="main_cell_vp" type="SubViewportContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
-layout_mode = 0
-offset_left = -2000.0
-offset_top = -2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
-
-[node name="viewport" type="SubViewport" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp"]
-disable_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(4000, 4000)
-render_target_update_mode = 4
-
-[node name="reference" type="CanvasGroup" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
-position = Vector2(2000, 2000)
+[node name="reference" type="CanvasGroup" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
 fit_margin = 1000.0
 clear_margin = 1000.0
 
-[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference"]
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference"]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
 material = ExtResource("34_t1u05")
 anchors_preset = 0
 script = ExtResource("9_rfuac")
-ignore_visual_toggle = NodePath("../../../../../../../../../options/margin/data/misc_collapsible/ignore_visual")
+ignore_visual_toggle = NodePath("../../../../../../../options/margin/data/misc_collapsible/ignore_visual")
 sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite"]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale"]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale/scale_y"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
 visible = false
 anchors_preset = 0
 script = ExtResource("20_fi3dn")
-box_display_toggle = NodePath("../../../../../../../../../options/margin/data/ref_collapsible/hitboxes")
+box_display_toggle = NodePath("../../../../../../../options/margin/data/ref_collapsible/hitboxes")
 sprite_handler = NodePath("../sprite")
-anim = NodePath("../../../../../../../../../../../../../script_anim_ref")
+anim = NodePath("../../../../../../../../../../../script_anim_ref")
 
-[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 2000.0
-offset_top = 2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
 material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
@@ -1101,31 +1082,31 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("9_rfuac")
-ignore_visual_toggle = NodePath("../../../../../../../../options/margin/data/misc_collapsible/ignore_visual")
+ignore_visual_toggle = NodePath("../../../../../../options/margin/data/misc_collapsible/ignore_visual")
 sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite"]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale"]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale/scale_y"]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
 layout_mode = 3
 anchors_preset = 0
 pivot_offset = Vector2(3000, 3000)
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
-box_display_toggle = NodePath("../../../../../../../../options/margin/data/misc_collapsible/hitboxes")
+box_display_toggle = NodePath("../../../../../../options/margin/data/misc_collapsible/hitboxes")
 sprite_handler = NodePath("../sprite")
-anim = NodePath("../../../../../../../../../../../../script_anim")
+anim = NodePath("../../../../../../../../../../script_anim")
 
-[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent"]
+[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1146,6 +1127,7 @@ vertical_alignment = 1
 text_overrun_behavior = 3
 
 [node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -1284,21 +1266,21 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "REFERENCE_FRONT"
 script = ExtResource("41_h0kyv")
-reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference")
+reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
 [node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "REFERENCE_HITBOXES"
 script = ExtResource("42_2p55a")
-box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/box_parent")
+box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
 [node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "REFERENCE_SEMITRANS"
 script = ExtResource("43_f47ks")
-reference = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference")
+reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
 [node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
 layout_mode = 2
