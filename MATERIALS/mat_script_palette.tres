@@ -5,9 +5,9 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_qnbiw")
-shader_parameter/blend_mode = 0
+shader_parameter/blend_mode = 1
 shader_parameter/blend_value = 256
 shader_parameter/alpha_double = true
 shader_parameter/reindex = true
 shader_parameter/visual_3 = false
-shader_parameter/palette = PackedInt32Array()
+shader_parameter/palette = PackedInt32Array(0, 0, 0, 0, 128, 128, 255, 255)
