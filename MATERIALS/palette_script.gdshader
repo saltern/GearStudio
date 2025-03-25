@@ -15,9 +15,7 @@ uniform sampler2D screen_tex: hint_screen_texture, filter_nearest;
 
 void fragment() {
 	vec4 SCREEN_TEXTURE = texture(screen_tex, SCREEN_UV);
-	COLOR = SCREEN_TEXTURE + vec4(0.5, 0.5, 0.5, 1.0);
-}
-/*
+
 	int index = int(COLOR.r * 256.00);
 	index = clamp(index, 0, 255);
 
@@ -64,4 +62,3 @@ void fragment() {
 		COLOR = vec4(pal_color.rgb, pal_color.a * float(blend_value) / 255.0);
 	}
 }
-*/
