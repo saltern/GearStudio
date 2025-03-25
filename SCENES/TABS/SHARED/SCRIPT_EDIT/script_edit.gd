@@ -434,9 +434,8 @@ func script_instruction_get_cell_frame(index: int) -> int:
 func script_instruction_select(index: int) -> void:
 	instruction_index = index
 	var instruction_frame: int = script_instruction_get_frame(instruction_index)
-	#script_animation_load_frame(instruction_frame)
-	anim.load_frame(1)
-	anim_ref.load_frame(1)
+	anim.load_frame(instruction_frame)
+	anim_ref.load_frame(instruction_frame)
 	action_select_instruction.emit(instruction_index)
 	#action_seek_to_frame.emit(instruction_frame)
 
