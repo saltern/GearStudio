@@ -200,11 +200,9 @@ script = ExtResource("9_umb15")
 at = 1
 
 [node name="sep" type="HSeparator" parent="content/scroll/margin/data"]
-layout_mode = 2
-
-[node name="padding" type="Control" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="cell" type="HBoxContainer" parent="content/scroll/margin/data"]
 custom_minimum_size = Vector2(0, 30)
@@ -1169,10 +1167,6 @@ text_overrun_behavior = 3
 clip_text = true
 script = ExtResource("42_psrad")
 subviewport = NodePath("../preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport")
-
-[node name="v_sep1" type="VSeparator" parent="content"]
-visible = false
-layout_mode = 2
 
 [node name="delete_cells" type="Window" parent="."]
 title = "Delete cells"
