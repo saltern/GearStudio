@@ -13,11 +13,7 @@ func _ready() -> void:
 	ref_handler.ref_cell_updated.connect(load_cell)
 	ref_handler.ref_cell_index_set.connect(on_ref_cell_index_set)
 	
-	if ref_handler.obj_data.has("palettes"):
-		SessionData.palette_changed.connect(palette_set_session)
-	
-	else:
-		SessionData.palette_changed.connect(palette_set_session_sprite)
+	SessionData.palette_changed.connect(palette_set_session)
 
 
 func on_ref_data_set(data: Dictionary) -> void:
@@ -27,6 +23,8 @@ func on_ref_data_set(data: Dictionary) -> void:
 		cell_index = ref_handler.cell_index
 	
 	load_cell(ref_handler.reference_cell_get(cell_index))
+	# TODO: Make clearer, maybe move this whole script under the CellEdit folder
+	load_palette(owner.provider.palette_index)
 
 
 func on_ref_cell_index_set(index: int) -> void:
@@ -41,6 +39,9 @@ func on_ref_cell_index_set(index: int) -> void:
 
 func palette_set_session(for_session: int, index: int) -> void:
 	if for_session != owner.session_id:
+		return
+	
+	if ref_handler.obj_data.is_empty():
 		return
 	
 	load_palette(index)
