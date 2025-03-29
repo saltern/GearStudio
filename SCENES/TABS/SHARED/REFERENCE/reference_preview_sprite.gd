@@ -28,7 +28,7 @@ func on_ref_data_set(data: Dictionary) -> void:
 
 
 func on_ref_cell_index_set(index: int) -> void:
-	if ref_handler.ref_data.is_empty():
+	if ref_handler.obj_data.is_empty():
 		return
 	
 	if index < 0:
