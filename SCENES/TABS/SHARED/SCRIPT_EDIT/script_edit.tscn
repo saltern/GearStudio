@@ -44,7 +44,7 @@
 [ext_resource type="Script" uid="uid://dud7ag7xuumh8" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/f_total.gd" id="26_f2brd"]
 [ext_resource type="Script" uid="uid://dl65n2yrwicv7" path="res://SCENES/TABS/SHARED/expand_collapse_button.gd" id="28_oai88"]
 [ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="34_sq6ji"]
-[ext_resource type="Material" uid="uid://c5hb8w4wgn54j" path="res://MATERIALS/mat_reference.material" id="34_t1u05"]
+[ext_resource type="Material" uid="uid://blp2xnrwkmu6" path="res://MATERIALS/mat_reference_script.material" id="35_jy6ly"]
 [ext_resource type="Script" uid="uid://bbkprrublamh2" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/select_window.gd" id="36_dn4hq"]
 [ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
 [ext_resource type="Script" uid="uid://chq6mxac5w20n" path="res://SCENES/TABS/SHARED/REFERENCE/reference_session.gd" id="38_lnoga"]
@@ -1043,7 +1043,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
-material = ExtResource("34_t1u05")
+material = ExtResource("35_jy6ly")
 anchors_preset = 0
 script = ExtResource("9_rfuac")
 ignore_visual_toggle = NodePath("../../../../../../../options/margin/data/misc_collapsible/ignore_visual")
