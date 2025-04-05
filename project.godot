@@ -58,8 +58,7 @@ enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
 [gui]
 
 theme/custom="res://main_theme.tres"
-theme/custom_font="res://FONTS/segoeui.ttf"
-theme/default_font_antialiasing=2
+theme/custom_font="uid://baruwur6x1qav"
 
 [input]
 
