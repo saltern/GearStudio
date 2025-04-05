@@ -519,11 +519,9 @@ func script_instruction_copy() -> void:
 	var new_instruction := Instruction.new()
 	var ref_instruction := script_instruction_get(instruction_index)
 	new_instruction.id = ref_instruction.id
-	new_instruction.display_name = ref_instruction.display_name
 	
 	for argument in ref_instruction.arguments:
 		var new_argument := InstructionArgument.new()
-		new_argument.display_name = argument.display_name
 		new_argument.signed = argument.signed
 		new_argument.value = argument.value
 		new_argument.size = argument.size

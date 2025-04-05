@@ -92,11 +92,9 @@ func duplicate_instruction(from_instruction: Instruction) -> Instruction:
 	var new_instruction := Instruction.new()
 	
 	new_instruction.id = from_instruction.id
-	new_instruction.display_name = from_instruction.display_name
 	
 	for argument in from_instruction.arguments:
 		var new_argument := InstructionArgument.new()
-		new_argument.display_name = argument.display_name
 		new_argument.signed = argument.signed
 		new_argument.value = argument.value
 		new_argument.size = argument.size
