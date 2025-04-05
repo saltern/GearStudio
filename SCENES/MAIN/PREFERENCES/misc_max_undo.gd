@@ -8,3 +8,4 @@ func _ready() -> void:
 
 func update(new_value: int) -> void:
 	Settings.misc_max_undo = new_value
+	Settings.max_undo_changed.emit()

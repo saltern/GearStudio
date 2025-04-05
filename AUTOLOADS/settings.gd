@@ -17,6 +17,9 @@ signal guide_color_changed
 # Sprites
 signal sprite_bounds_color_changed
 
+# Misc
+signal max_undo_changed
+
 const FILENAME: String = "/gearstudio.ini"
 
 const LOCALE_PATH: String = "/locale"
