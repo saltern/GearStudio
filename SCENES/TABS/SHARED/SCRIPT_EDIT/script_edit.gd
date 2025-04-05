@@ -1,4 +1,4 @@
-class_name ScriptEdit extends Control
+class_name ScriptEdit extends TabContainer
 
 @warning_ignore_start("unused_signal")
 signal action_loaded
@@ -16,6 +16,9 @@ enum FlagType {
 	LVFLAG,
 	FLAG2,
 }
+
+@export var var_editor: PackedScene
+@export var chain_editor: PackedScene
 
 @export var anim: ScriptAnimationPlayer
 @export var anim_ref: ScriptAnimationPlayer
@@ -35,7 +38,6 @@ var ref_handler: ReferenceHandler = ReferenceHandler.new()
 
 var action_index: int = 0
 var instruction_index: int = -1
-#var cell_index: int = 0
 
 var this_action: ScriptAction
 var this_cell: Cell
@@ -57,6 +59,15 @@ func _enter_tree() -> void:
 	anim_ref.provider = ref_handler
 	
 	cell_display_ref.anim = anim_ref
+	
+	if obj_data.scripts.has_play_data:
+		var index: int = 0
+		for data_set: PlayData in obj_data.scripts.play_data:
+			var new_var_editor: VariableEdit = var_editor.instantiate()
+			new_var_editor.play_data = data_set
+			add_child(new_var_editor)
+			move_child(new_var_editor, 0 + index)
+			index += 1
 
 
 func _ready() -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=61 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="2_hled3"]
 [ext_resource type="Script" uid="uid://civmt0g6od8aq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/ACTIONS/TOOLBAR/delete.gd" id="3_dxoqf"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="3_i86rk"]
+[ext_resource type="PackedScene" uid="uid://c5uc6fdtlf2nq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/variable_editor.tscn" id="3_t1u05"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="3_y47wv"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="4_fp2qg"]
 [ext_resource type="Script" uid="uid://bxfq7dkvl07ge" path="res://SCENES/TABS/SHARED/expand_collapse.gd" id="4_h01nf"]
@@ -90,6 +91,7 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 script = ExtResource("1_jcqcc")
+var_editor = ExtResource("3_t1u05")
 anim = NodePath("script_anim")
 anim_ref = NodePath("script_anim_ref")
 cell_display = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite")

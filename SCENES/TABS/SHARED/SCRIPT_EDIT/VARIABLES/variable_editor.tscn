@@ -1,0 +1,1111 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5uc6fdtlf2nq"]
+
+[ext_resource type="Script" uid="uid://biv7dfbokh105" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/tab_variables.gd" id="1_povuj"]
+[ext_resource type="Script" uid="uid://b037a4y0jpp2o" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/variable_spinbox.gd" id="2_s76eq"]
+[ext_resource type="Script" uid="uid://cdgx7q6v8yvqf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_entry.gd" id="3_s76eq"]
+[ext_resource type="Script" uid="uid://bn3448pegp5s3" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_index.gd" id="3_saasy"]
+
+[node name="SCRIPT_EDIT_TITLE_PLAY_DATA" type="MarginContainer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -631.0
+offset_right = 631.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_povuj")
+metadata/_tab_index = 0
+
+[node name="content" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="column_0" type="VBoxContainer" parent="content"]
+layout_mode = 2
+
+[node name="title_prop" type="Label" parent="content/column_0"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "SCRIPT_VARIABLES_SECTION_PROPERTIES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scroll_prop" type="ScrollContainer" parent="content/column_0"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="margin" type="MarginContainer" parent="content/column_0/scroll_prop"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="content/column_0/scroll_prop/margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="faint_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/faint_point"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_FAINT_POINT"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/faint_point"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_faint_point"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="defense_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/defense_point"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_DEFENSE_POINT"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/defense_point"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_defense_point"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="konjo" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/konjo"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_KONJO"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/konjo"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_konjo"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="kaishin" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/kaishin"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_KAISHIN"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/kaishin"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_kaishin"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="gc_gauge_def_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_GC_DEF_POINT"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pdgc_gauge_def_point"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="gc_gauge_recovery" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_GC_RECOVERY"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pdgc_gauge_recovery"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="title_tension" type="Label" parent="content/column_0"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "SCRIPT_VARIABLES_SECTION_TENSION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scroll_tension" type="ScrollContainer" parent="content/column_0"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="margin" type="MarginContainer" parent="content/column_0/scroll_tension"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="content/column_0/scroll_tension/margin"]
+layout_mode = 2
+
+[node name="pd_tension_walk" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_TENSION_WALK"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_tension_walk"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_tension_jump" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_TENSION_JUMP"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_tension_jump"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_tension_dash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_TENSION_DASH"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_tension_dash"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_tension_airdash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_TENSION_ADASH"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_tension_airdash"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_tension_ib" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_TENSION_IB"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_tension_ib"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="column_1" type="VBoxContainer" parent="content"]
+layout_mode = 2
+
+[node name="title_ground" type="Label" parent="content/column_1"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 8
+text = "SCRIPT_VARIABLES_SECTION_GROUND"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scroll_ground" type="ScrollContainer" parent="content/column_1"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="margin" type="MarginContainer" parent="content/column_1/scroll_ground"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="content/column_1/scroll_ground/margin"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="walk_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_WALK_FWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "walk_fwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="walk_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_WALK_BWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "walk_bwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="dash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_DASH_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "dash_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="backdash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_BACKDASH_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "backdash_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="backdash_y_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_BACKDASH_Y"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "backdash_y_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="backdash_gravity" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_gravity"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_BACKDASH_GRAVITY"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_gravity"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "backdash_gravity"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="dash_acceleration" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_acceleration"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_DASH_ACCELERATION"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_acceleration"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "dash_acceleration"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="dash_resist" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_resist"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_DASH_RESIST"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_resist"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "dash_resist"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="title_air" type="Label" parent="content/column_1"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "SCRIPT_VARIABLES_SECTION_AIR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="scroll_air" type="ScrollContainer" parent="content/column_1"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="margin" type="MarginContainer" parent="content/column_1/scroll_air"]
+layout_mode = 2
+
+[node name="content" type="VBoxContainer" parent="content/column_1/scroll_air/margin"]
+layout_mode = 2
+
+[node name="jump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_JUMP_FWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "jump_fwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="jump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_JUMP_BWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "jump_bwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="jump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_y_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_JUMP_Y_SPEED"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_y_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "jump_y_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="jump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_gravity"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_JUMP_GRAVITY"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_gravity"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "jump_gravity"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="sjump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_SUPERJUMP_FWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "sjump_fwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="sjump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_SUPERJUMP_BWD_X"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "sjump_bwd_x_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="sjump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_y_speed"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_SUPERJUMP_Y"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_y_speed"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "sjump_y_speed"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="sjump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_gravity"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_SUPERJUMP_GRAVITY"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_gravity"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "sjump_gravity"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="homing_jump_y_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_HOMING_Y_MAX"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "homing_jump_y_max"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="homing_jump_x_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_HOMING_X_MAX"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "homing_jump_x_max"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="homing_jump_x_resist" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_HOMING_X_RESIST"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "homing_jump_x_resist"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="homing_target_y_offset" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_HOMING_TARGET_Y"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "homing_target_y_offset"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="airdash_height" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_height"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_HOMING_TARGET_Y"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_height"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "airdash_height"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_airdash_fwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_airdash_fwd_time"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_ADASH_FWD_TIME"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_airdash_fwd_time"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_airdash_fwd_time"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_airdash_bwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_airdash_bwd_time"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_ADASH_BWD_TIME"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_airdash_bwd_time"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_airdash_bwd_time"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_airdash_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_airdash_count"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_AIRDASH_COUNT"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_airdash_count"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_airdash_count"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_jump_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_jump_count"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_JUMP_COUNT"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_jump_count"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_jump_count"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_airdash_fwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_airdash_fwd_atk_time"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_ADASH_FWD_ATK"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_airdash_fwd_atk_time"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_airdash_fwd_atk_time"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_airdash_bwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_airdash_bwd_atk_time"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_ADASH_BWD_ATK"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_airdash_bwd_atk_time"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_airdash_bwd_atk_time"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="pd_defense_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/pd_defense_gravity"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VAR_PD_DEFENSE_GRAVITY"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/pd_defense_gravity"]
+layout_mode = 2
+min_value = -32768.0
+value = -32768.0
+script = ExtResource("2_s76eq")
+variable = "pd_defense_gravity"
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="section_2" type="VBoxContainer" parent="content"]
+layout_mode = 2
+
+[node name="chain_tables" type="VBoxContainer" parent="content"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="title" type="Label" parent="content/chain_tables"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "SCRIPT_VARIABLES_CHAIN_TABLES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="table_index" type="HBoxContainer" parent="content/chain_tables"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/chain_tables/table_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CHAIN_TABLE_INDEX"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="content/chain_tables/table_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("3_saasy")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="entries" type="GridContainer" parent="content/chain_tables"]
+layout_mode = 2
+columns = 4
+
+[node name="chain_00" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5P"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_01" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6P"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_02" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_03" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "f.S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_04" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "c.S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_05" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_06" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_07" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2P"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_08" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_09" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2D"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_10" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_11" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_12" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.P"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_13" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_14" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_15" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_16" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_17" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.2K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_18" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3P"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_19" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_20" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_21" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_22" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.2S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_23" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3S"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_24" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3K"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_25" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_26" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "j.2H"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_27" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_28" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_29" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_30" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")
+
+[node name="chain_31" type="MenuButton" parent="content/chain_tables/entries"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "[?]"
+flat = false
+script = ExtResource("3_s76eq")

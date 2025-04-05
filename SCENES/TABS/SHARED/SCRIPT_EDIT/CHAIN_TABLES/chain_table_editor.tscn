@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx5jovpglipev"]
+
+[ext_resource type="Script" uid="uid://cyk07nweturhb" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/CHAIN_TABLES/tab_gatlings.gd" id="1_1m4uc"]
+
+[node name="SCRIPT_EDIT_TITLE_GATLINGS" type="TabContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+script = ExtResource("1_1m4uc")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/GridContainer"]
+layout_mode = 2
