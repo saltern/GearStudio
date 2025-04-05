@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene load_steps=44 format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -51,9 +51,6 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3catb"]
-bg_color = Color(0, 0, 0, 1)
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -337,410 +334,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="preferences" type="Window" parent="." node_paths=PackedStringArray("save_button")]
-title = "PREFERENCES_TITLE"
-initial_position = 2
-size = Vector2i(400, 750)
-visible = false
-exclusive = true
-min_size = Vector2i(400, 200)
-max_size = Vector2i(400, 750)
-script = ExtResource("9_amh60")
-save_button = NodePath("background/margin/content/save")
-active = false
-
-[node name="background" type="PanelContainer" parent="preferences"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_3catb")
-
-[node name="margin" type="MarginContainer" parent="preferences/background"]
-layout_mode = 2
-
-[node name="content" type="VBoxContainer" parent="preferences/background/margin"]
-layout_mode = 2
-
-[node name="scroll" type="ScrollContainer" parent="preferences/background/margin/content"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="settings_margin" type="MarginContainer" parent="preferences/background/margin/content/scroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="settings" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="general" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/general"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/general/title"]
-layout_mode = 2
-text = "PREFERENCES_GENERAL_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/general/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="language" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/general"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/general/language"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_GENERAL_LANGUAGE"
-text_overrun_behavior = 3
-
-[node name="value" type="OptionButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/general/language"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-selected = 0
-item_count = 2
-popup/item_0/text = "ENGLISH"
-popup/item_0/id = 0
-popup/item_1/text = "Español"
-popup/item_1/id = 1
-script = ExtResource("13_hgppk")
-
-[node name="custom" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/title"]
-layout_mode = 2
-text = "PREFERENCES_CUSTOMIZATION_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="bg_a" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/bg_a"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_CUSTOMIZATION_BG_GRID_1"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/bg_a"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("10_32rfu")
-
-[node name="bg_b" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/bg_b"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_CUSTOMIZATION_BG_GRID_2"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/bg_b"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("11_36hta")
-
-[node name="status" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/status"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_CUSTOMIZATION_STATUS"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/custom/status"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("13_pomsy")
-
-[node name="cells" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/title"]
-layout_mode = 2
-text = "PREFERENCES_CELLS_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="origin" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-size_flags_horizontal = 3
-button_pressed = true
-text = "PREFERENCES_CELLS_CROSS"
-script = ExtResource("10_ed0ih")
-
-[node name="onion" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/onion"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_CELLS_ONION"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/onion"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("10_p1185")
-
-[node name="guide" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/guide"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_CELLS_GUIDE"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/cells/guide"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("17_nxxtx")
-
-[node name="boxes" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/title"]
-layout_mode = 2
-text = "PREFERENCES_BOXES_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/thickness"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_THICKNESS"
-text_overrun_behavior = 3
-
-[node name="value" type="SpinBox" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/thickness"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = 1.0
-max_value = 5.0
-value = 1.0
-alignment = 2
-script = ExtResource("9_t7qug")
-
-[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_unknown"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_UNKNOWN"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_unknown"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("11_5e06x")
-
-[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hurtbox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_HURTBOX"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hurtbox"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("12_3dcda")
-
-[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hitbox"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_HITBOX"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_hitbox"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("13_dgg1r")
-
-[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region_b"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_REGION_BACK"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region_b"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("15_ndrkd")
-
-[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region_f"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_REGION_FRONT"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_region_f"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("16_4ql6k")
-
-[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_collision_extend"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_COLLISION_EXTENSION"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_collision_extend"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("17_jr1md")
-
-[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_spawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_BOXES_SPAWN"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/boxes/color_spawn"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("15_4p7l4")
-
-[node name="sprites" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/title"]
-layout_mode = 2
-text = "PREFERENCES_SPRITES_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="color_bounds" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/color_bounds"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_SPRITES_BOUNDS"
-text_overrun_behavior = 3
-
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/sprites/color_bounds"]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("16_n6nme")
-
-[node name="misc" type="VBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/title"]
-layout_mode = 2
-text = "PREFERENCES_MISCELLANEOUS_TITLE"
-
-[node name="separator" type="HSeparator" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="max_undo" type="HBoxContainer" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/max_undo"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "PREFERENCES_MISCELLANEOUS_UNDO"
-text_overrun_behavior = 3
-
-[node name="value" type="SpinBox" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc/max_undo"]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 200.0
-alignment = 2
-script = ExtResource("19_w7ci1")
-
-[node name="reopen" type="CheckButton" parent="preferences/background/margin/content/scroll/settings_margin/settings/misc"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-button_pressed = true
-text = "PREFERENCES_MISCELLANEOUS_REOPEN"
-script = ExtResource("20_560p1")
-
-[node name="save" type="Button" parent="preferences/background/margin/content"]
-layout_mode = 2
-text = "PREFERENCES_SAVE"
-
 [node name="save_overwrite" type="ConfirmationDialog" parent="."]
 initial_position = 2
 size = Vector2i(222, 100)
@@ -794,7 +387,7 @@ size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="preferences_2" type="Window" parent="." node_paths=PackedStringArray("save_button")]
+[node name="preferences" type="Window" parent="." node_paths=PackedStringArray("save_button")]
 title = "PREFERENCES_TITLE"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -802,42 +395,42 @@ visible = false
 script = ExtResource("9_amh60")
 save_button = NodePath("background/margin/contents/save")
 
-[node name="background" type="PanelContainer" parent="preferences_2"]
+[node name="background" type="PanelContainer" parent="preferences"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="margin" type="MarginContainer" parent="preferences_2/background"]
+[node name="margin" type="MarginContainer" parent="preferences/background"]
 layout_mode = 2
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="categories" type="TabContainer" parent="preferences_2/background/margin/contents"]
+[node name="categories" type="TabContainer" parent="preferences/background/margin/contents"]
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 use_hidden_tabs_for_min_size = true
 
-[node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE"]
 layout_mode = 2
 
-[node name="language" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="language" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_GENERAL_LANGUAGE"
 
-[node name="value" type="OptionButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -847,115 +440,115 @@ popup/item_0/text = "ENGLISH"
 popup/item_0/id = 0
 script = ExtResource("13_hgppk")
 
-[node name="max_undo" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="max_undo" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_MISCELLANEOUS_UNDO"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 200.0
 alignment = 2
 script = ExtResource("19_w7ci1")
 
-[node name="reopen" type="CheckButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="reopen" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_pressed = true
 text = "PREFERENCES_MISCELLANEOUS_REOPEN"
 script = ExtResource("20_560p1")
 
-[node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE"]
 layout_mode = 2
 
-[node name="bg_a" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="bg_a" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_BG_GRID_1"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("10_32rfu")
 
-[node name="bg_b" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="bg_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_BG_GRID_2"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_36hta")
 
-[node name="status" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="status" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_STATUS"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("13_pomsy")
 
-[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE"]
 layout_mode = 2
 
-[node name="color_bounds" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents"]
+[node name="color_bounds" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_SPRITES_BOUNDS"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("16_n6nme")
 
-[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE"]
 layout_mode = 2
 
-[node name="origin" type="CheckButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="origin" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -963,16 +556,16 @@ button_pressed = true
 text = "PREFERENCES_CELLS_CROSS"
 script = ExtResource("10_ed0ih")
 
-[node name="origin_type" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="origin_type" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_CROSS_TYPE"
 
-[node name="value" type="OptionButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -995,55 +588,55 @@ popup/item_4/icon = ExtResource("40_obp7x")
 popup/item_4/id = 4
 script = ExtResource("40_yld3e")
 
-[node name="onion" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="onion" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_ONION"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("10_p1185")
 
-[node name="guide" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="guide" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_GUIDE"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("17_nxxtx")
 
-[node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences_2/background/margin/contents/categories"]
+[node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="contents" type="VBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE"]
 layout_mode = 2
 
-[node name="thickness" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_THICKNESS"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -1052,112 +645,112 @@ value = 1.0
 alignment = 2
 script = ExtResource("9_t7qug")
 
-[node name="color_unknown" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_UNKNOWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_5e06x")
 
-[node name="color_hurtbox" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HURTBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("12_3dcda")
 
-[node name="color_hitbox" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HITBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("13_dgg1r")
 
-[node name="color_region_b" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_BACK"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("15_ndrkd")
 
-[node name="color_region_f" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_FRONT"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("16_4ql6k")
 
-[node name="color_collision_extend" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_COLLISION_EXTENSION"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("17_jr1md")
 
-[node name="color_spawn" type="HBoxContainer" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_SPAWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences_2/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("15_4p7l4")
 
-[node name="save" type="Button" parent="preferences_2/background/margin/contents"]
+[node name="save" type="Button" parent="preferences/background/margin/contents"]
 layout_mode = 2
 size_flags_vertical = 8
 text = "PREFERENCES_SAVE"
