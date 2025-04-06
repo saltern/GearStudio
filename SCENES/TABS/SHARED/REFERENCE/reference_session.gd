@@ -8,20 +8,34 @@ func _ready() -> void:
 	SessionData.tab_closed.connect(update_sessions.unbind(1))
 	item_selected.connect(set_session)
 	update_sessions()
+	
+	Settings.language_changed.connect(on_language_changed)
+
+
+func get_entry_name(index: int) -> String:
+	var this_session: Dictionary = SessionData.get_session(index)
+	var file_name: String = this_session["path"].get_file()
+	
+	return tr("REFERENCE_SESSION_ENTRY").format({
+		"index": index, "name": file_name
+	})
+
+
+func on_language_changed() -> void:
+	for item in range(1, item_count):
+		set_item_text(item, get_entry_name(item))
 
 
 func add_session(path: String) -> void:
 	var session_id: int = SessionData.get_session_count() - 1
-	
-	var file_name: String = path.get_file()
-	add_item("File %s: %s" % [item_count, file_name], session_id)
+	add_item(get_entry_name(item_count), session_id)
 
 
 func update_sessions() -> void:
 	clear()
 	ref_handler.reference_clear_session()
 	
-	add_item("None", -2)
+	add_item("REFERENCE_SESSION_NONE", -2)
 	
 	if SessionData.sessions.size() < 2:
 		return
@@ -30,10 +44,7 @@ func update_sessions() -> void:
 		if session_number == owner.session_id:
 			continue
 		
-		var this_session: Dictionary = SessionData.get_session(session_number)
-		var path: String = this_session["path"].get_file()
-		
-		add_item("File %s: %s" % [session_number, path], session_number)
+		add_item(get_entry_name(session_number), session_number)
 
 
 func set_session(index: int) -> void:

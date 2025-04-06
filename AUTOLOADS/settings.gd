@@ -3,6 +3,9 @@ extends Node
 @warning_ignore_start("unused_signal")
 signal display_window
 
+# General
+signal language_changed
+
 # Customization
 signal custom_color_bg_a_changed
 signal custom_color_bg_b_changed
@@ -169,6 +172,7 @@ func load_locales() -> void:
 
 func update_locale() -> void:
 	TranslationServer.set_locale(general_language)
+	language_changed.emit()
 
 
 func load_config() -> bool:

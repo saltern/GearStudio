@@ -1,230 +1,232 @@
-key,en
-,
-TOP_MENU_FILE,File
-TOP_MENU_EDIT,Edit
-TOP_MENU_HELP,Help
-FILE_OPEN_DIR,Open directory...
-FILE_OPEN_BIN,Open binary...
-FILE_SAVE,Save
-FILE_SAVE_AS,Save as...
-FILE_CLOSE,Close
-FILE_EXIT,Exit
-EDIT_UNDO,Undo
-EDIT_REDO,Redo
-EDIT_ACTION_HISTORY,Action History...
-EDIT_PREFERENCES,Preferences...
-HELP_ABOUT,About...
-,
-PREFERENCES_TITLE,Preferences
-PREFERENCES_GENERAL_TITLE,General
-PREFERENCES_GENERAL_LANGUAGE,Language
-PREFERENCES_CUSTOMIZATION_TITLE,Customization
-PREFERENCES_CUSTOMIZATION_BG_GRID_1,Background grid color 1
-PREFERENCES_CUSTOMIZATION_BG_GRID_2,Background grid color 2
-PREFERENCES_CUSTOMIZATION_STATUS,Status bar color
-PREFERENCES_CELLS_TITLE,Cells
-PREFERENCES_CELLS_CROSS,Draw origin cross
-PREFERENCES_CELLS_CROSS_TYPE,Origin cross type
-PREFERENCES_CELLS_CROSS_A,Type A
-PREFERENCES_CELLS_CROSS_B,Type B
-PREFERENCES_CELLS_CROSS_C,Type C
-PREFERENCES_CELLS_CROSS_D,Type D
-PREFERENCES_CELLS_CROSS_E,Type E
-PREFERENCES_CELLS_ONION,Onion skin color
-PREFERENCES_CELLS_GUIDE,Guide line color
-PREFERENCES_BOXES_TITLE,Boxes
-PREFERENCES_BOXES_THICKNESS,Edge thickness
-PREFERENCES_BOXES_UNKNOWN,Color (unknown)
-PREFERENCES_BOXES_HURTBOX,Color (hurtbox)
-PREFERENCES_BOXES_HITBOX,Color (hitbox)
-PREFERENCES_BOXES_REGION_BACK,"Color (region, back)"
-PREFERENCES_BOXES_REGION_FRONT,"Color (region, front)"
-PREFERENCES_BOXES_COLLISION_EXTENSION,Color (collision extension)
-PREFERENCES_BOXES_SPAWN,Color (effect spawn point)
-PREFERENCES_SPRITES_TITLE,Sprites
-PREFERENCES_SPRITES_BOUNDS,Color (bounds)
-PREFERENCES_MISCELLANEOUS_TITLE,Miscellaneous
-PREFERENCES_MISCELLANEOUS_UNDO,Max undo steps
-PREFERENCES_MISCELLANEOUS_REOPEN,Allow reopening same file or folder
-PREFERENCES_SAVE,Save preferences
-,
-ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS
-ABOUT_ACKNOWLEDGMENTS_RYN,"- Character BIN parser
+key,_info,en
+,TOP MENU BAR,
+TOP_MENU_FILE,Top menu bar options,File
+TOP_MENU_EDIT,,Edit
+TOP_MENU_HELP,,Help
+FILE_OPEN_DIR,File menu,Open directory...
+FILE_OPEN_BIN,,Open binary...
+FILE_SAVE,,Save
+FILE_SAVE_AS,,Save as...
+FILE_CLOSE,,Close
+FILE_EXIT,,Exit
+EDIT_UNDO,Edit menu,Undo
+EDIT_REDO,,Redo
+EDIT_ACTION_HISTORY,,Action History...
+EDIT_PREFERENCES,,Preferences...
+HELP_ABOUT,Help menu,About...
+,PREFERENCES MENU,
+PREFERENCES_TITLE,Title bar of the preferences menu window,Preferences
+PREFERENCES_GENERAL_TITLE,"""General"" section of the preferences menu",General
+PREFERENCES_GENERAL_LANGUAGE,,Language
+PREFERENCES_CUSTOMIZATION_TITLE,"""Customization"" section of the preferences menu",Customization
+PREFERENCES_CUSTOMIZATION_BG_GRID_1,,Background grid color 1
+PREFERENCES_CUSTOMIZATION_BG_GRID_2,,Background grid color 2
+PREFERENCES_CUSTOMIZATION_STATUS,,Status bar color
+PREFERENCES_CELLS_TITLE,"""Cells"" section of the preferences menu",Cells
+PREFERENCES_CELLS_CROSS,,Draw origin cross
+PREFERENCES_CELLS_CROSS_TYPE,,Origin cross type
+PREFERENCES_CELLS_CROSS_A,,Type A
+PREFERENCES_CELLS_CROSS_B,,Type B
+PREFERENCES_CELLS_CROSS_C,,Type C
+PREFERENCES_CELLS_CROSS_D,,Type D
+PREFERENCES_CELLS_CROSS_E,,Type E
+PREFERENCES_CELLS_ONION,,Onion skin color
+PREFERENCES_CELLS_GUIDE,,Guide line color
+PREFERENCES_BOXES_TITLE,"""Boxes"" section of the preferences menu",Boxes
+PREFERENCES_BOXES_THICKNESS,,Edge thickness
+PREFERENCES_BOXES_UNKNOWN,,Color (unknown)
+PREFERENCES_BOXES_HURTBOX,,Color (hurtbox)
+PREFERENCES_BOXES_HITBOX,,Color (hitbox)
+PREFERENCES_BOXES_REGION_BACK,,"Color (region, back)"
+PREFERENCES_BOXES_REGION_FRONT,,"Color (region, front)"
+PREFERENCES_BOXES_COLLISION_EXTENSION,,Color (collision extension)
+PREFERENCES_BOXES_SPAWN,,Color (effect spawn point)
+PREFERENCES_SPRITES_TITLE,"""Sprites"" section of the preferences menu",Sprites
+PREFERENCES_SPRITES_BOUNDS,,Color (bounds)
+PREFERENCES_MISCELLANEOUS_TITLE,"""Miscellaneous"" section of the preferences menu",Miscellaneous
+PREFERENCES_MISCELLANEOUS_UNDO,,Max undo steps
+PREFERENCES_MISCELLANEOUS_REOPEN,,Allow reopening same file or folder
+PREFERENCES_SAVE,The save button,Save preferences
+,ACKNOWLEDGMENTS PANEL,
+ABOUT_ACKNOWLEDGMENTS_TITLE,"Header on the ""acknowledgments""
+side of the about panel",ACKNOWLEDGMENTS
+ABOUT_ACKNOWLEDGMENTS_RYN,Ryn's contribution credits,"- Character BIN parser
 - +R sprite decoder"
-ABOUT_ACKNOWLEDGMENTS_LOVENUS,"- Parser for various other resource files
+ABOUT_ACKNOWLEDGMENTS_LOVENUS,Lovenus' contribution credits,"- Parser for various other resource files
 - Additional info and research into +R"
-ABOUT_ACKNOWLEDGMENTS_CHLOE,"- Testing, various improvement suggestions"
-ABOUT_BY,by
-ABOUT_CLOSE,Close
-,
-TAB_BASE_NAME,File {id}: {name}
-TAB_TITLE_OBJECT,Object
-TAB_TITLE_PLAYER,Player
-TAB_TITLE_SPRITE,Sprite
-TAB_TITLE_SPRITE_LIST,Sprites
-TAB_TITLE_SPRITE_LIST_SELECT,Sprites + Cursor Mask
-TAB_TITLE_PLAIN_TEXT,Plain Text
-TAB_TITLE_MULTI_SCRIPTABLE,Effects
-,
-SPRITE_EDIT_TITLE,Sprites
-SPRITE_EDIT_PREVIEW,Preview
-SPRITE_EDIT_SPRITE_IMPORT,Import...
-SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,Import one or more sprites...
-SPRITE_EDIT_SPRITE_EXPORT,Export...
-SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP,Export one or more sprites...
-SPRITE_EDIT_SPRITE_DELETE,Delete...
-SPRITE_EDIT_SPRITE_DELETE_TOOLTIP,Delete one or more sprites...
-SPRITE_EDIT_SPRITE_REINDEX,Reindex
-SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,Reorder color indexes using +R's pattern.
-SPRITE_EDIT_BOUNDS,Display bounds
-SPRITE_EDIT_BOUNDS_TOOLTIP,"Show a colored rectangle behind the sprite, extending to its dimensions"
-SPRITE_EDIT_SPRITE_INDEX,Sprite #
-SPRITE_EDIT_PALETTE_INDEX,Palette #
-SPRITE_EDIT_INFO_DIMENSIONS,Dimensions
-SPRITE_EDIT_INFO_BIT_DEPTH,Color depth
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE,Embedded palette
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,Yes
-SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,No
-SPRITE_EDIT_PALETTE_IMPORT,Import palette...
-SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,Replace the embedded palette with an import.
-SPRITE_EDIT_PALETTE_EXPORT,Export palette...
-SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,Export the embedded palette to a file...
-SPRITE_EDIT_PALETTE_EDITOR,Open palette editor
-SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,Open the embedded palette editor and enable changes
-SPRITE_EDIT_PALETTE_EDITOR_TITLE,Color editor
-,
-SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...
-SPRITE_EDIT_IMPORT_FILES_TITLE,Input files
-SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,Select files to import here.
-SPRITE_EDIT_IMPORT_FILES_BROWSE,Browse...
-SPRITE_EDIT_IMPORT_FILES_COUNT,Will import {count} sprite(s).
-SPRITE_EDIT_IMPORT_PLACEMENT_TITLE,Placement
-SPRITE_EDIT_IMPORT_PLACEMENT_TITLE_TOOLTIP,The way in which sprites will be placed once imported.
-SPRITE_EDIT_IMPORT_PLACEMENT_METHOD,Method
-SPRITE_EDIT_IMPORT_PLACEMENT_METHOD_TOOLTIP,"The method used for placing sprites.
+ABOUT_ACKNOWLEDGMENTS_CHLOE,Chloe's contribution credits,"- Testing, various improvement suggestions"
+ABOUT_BY,"""by ALT_OhDude (Github).""",by
+ABOUT_CLOSE,Close button on the about panel,Close
+,GENERIC,
+TAB_BASE_NAME,Name structure for an opened file's tab,File {id}: {name}
+TAB_TITLE_OBJECT,Name for a scriptable object without palettes,Object
+TAB_TITLE_PLAYER,Name for a scriptable object with palettes,Player
+TAB_TITLE_SPRITE,Name for a 'single sprite' type object,Sprite
+TAB_TITLE_SPRITE_LIST,Name for a spritelist object,Sprites
+TAB_TITLE_SPRITE_LIST_SELECT,Name for select.bin's first object,Sprites + Cursor Mask
+TAB_TITLE_PLAIN_TEXT,Name for the archive_jpf.bin plain_text object,Plain Text
+TAB_TITLE_MULTI_SCRIPTABLE,Name for archive_jpf.bin's effects object,Effects
+,SPRITE EDITOR,
+SPRITE_EDIT_TITLE,Tab title,Sprites
+SPRITE_EDIT_PREVIEW,Preview panel title,Preview
+SPRITE_EDIT_SPRITE_IMPORT,Button that opens the sprite import dialog,Import...
+SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP,,Import one or more sprites...
+SPRITE_EDIT_SPRITE_EXPORT,Button that opens the sprite export dialog,Export...
+SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP,,Export one or more sprites...
+SPRITE_EDIT_SPRITE_DELETE,Button that opens the sprite delete dialog,Delete...
+SPRITE_EDIT_SPRITE_DELETE_TOOLTIP,,Delete one or more sprites...
+SPRITE_EDIT_SPRITE_REINDEX,Button that reindexes the current sprite,Reindex
+SPRITE_EDIT_SPRITE_REINDEX_TOOLTIP,,Reorder color indexes using +R's pattern.
+SPRITE_EDIT_BOUNDS,CheckButton that toggles the colored background,Display bounds
+SPRITE_EDIT_BOUNDS_TOOLTIP,,"Show a colored rectangle behind the sprite, extending to its dimensions"
+SPRITE_EDIT_SPRITE_INDEX,"Preview sprite index spinbox, title",Sprite #
+SPRITE_EDIT_PALETTE_INDEX,"Preview palette index spinbox, title",Palette #
+SPRITE_EDIT_INFO_DIMENSIONS,"Sprite dimensions field, title",Dimensions
+SPRITE_EDIT_INFO_BIT_DEPTH,"Color depth field, title",Color depth
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE,"Embedded palette yes/no field, title",Embedded palette
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_YES,"""Yes"", sprite has an embedded palette",Yes
+SPRITE_EDIT_INFO_EMBEDDED_PALETTE_NO,"""No"", the sprite has no palette of its own",No
+SPRITE_EDIT_PALETTE_IMPORT,Button that brings up file select dialog to import a palette,Import palette...
+SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP,,Replace the embedded palette with an import.
+SPRITE_EDIT_PALETTE_EXPORT,Button that brings up file select dialog to export a palette,Export palette...
+SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,,Export the embedded palette to a file...
+SPRITE_EDIT_PALETTE_EDITOR,Button that brings up the color editor panel,Open palette editor
+SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,,Open the embedded palette editor and enable changes
+SPRITE_EDIT_PALETTE_EDITOR_TITLE,Title of the color editor panel,Color editor
+,SPRITE IMPORT DIALOG,
+SPRITE_EDIT_IMPORT_TITLE,Title bar of the sprite importer dialog,Import '{name}' sprites...
+SPRITE_EDIT_IMPORT_FILES_TITLE,"Title of the ""Input files"" section of the dialog",Input files
+SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,,Select files to import here.
+SPRITE_EDIT_IMPORT_FILES_BROWSE,Button that brings up the file select dialog for input sprites,Browse...
+SPRITE_EDIT_IMPORT_FILES_COUNT,Info label showing how many sprites will be imported,Will import {count} sprite(s).
+SPRITE_EDIT_IMPORT_PLACEMENT_TITLE,"Title of the ""Placement"" section of the dialog",Placement
+SPRITE_EDIT_IMPORT_PLACEMENT_TITLE_TOOLTIP,,The way in which sprites will be placed once imported.
+SPRITE_EDIT_IMPORT_PLACEMENT_METHOD,"Placement method dropdown, title",Method
+SPRITE_EDIT_IMPORT_PLACEMENT_METHOD_TOOLTIP,,"The method used for placing sprites.
 Append: add sprites at the end. Existing sprites are not affected.
 Replace: replaces as many sprites as are being imported, starting at the set position. Excess sprites are appended.
 Insert: inserts sprites at the set position. Sprites that come after will be moved, affecting existing cells."
-SPRITE_EDIT_IMPORT_PLACEMENT_APPEND,Append
-SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE,Replace
-SPRITE_EDIT_IMPORT_PLACEMENT_INSERT,Insert
-SPRITE_EDIT_IMPORT_PLACEMENT_POSITION,At position
-SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP,What position to replace/insert sprites at.
-SPRITE_EDIT_IMPORT_PLACEMENT_WAITING,Waiting for files to be selected.
-SPRITE_EDIT_IMPORT_PLACEMENT_NO_REPLACE,"Will not replace sprites.
+SPRITE_EDIT_IMPORT_PLACEMENT_APPEND,"Placement method dropdown, option names",Append
+SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE,,Replace
+SPRITE_EDIT_IMPORT_PLACEMENT_INSERT,,Insert
+SPRITE_EDIT_IMPORT_PLACEMENT_POSITION,"Placement position spinbox, title",At position
+SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP,,What position to replace/insert sprites at.
+SPRITE_EDIT_IMPORT_PLACEMENT_WAITING,Placement info label at the bottom of the section,Waiting for files to be selected.
+SPRITE_EDIT_IMPORT_PLACEMENT_NO_REPLACE,,"Will not replace sprites.
 Total sprites after import: {total}"
-SPRITE_EDIT_IMPORT_PLACEMENT_WILL_REPLACE,"Will REPLACE {replace} sprite(s)!
+SPRITE_EDIT_IMPORT_PLACEMENT_WILL_REPLACE,,"Will REPLACE {replace} sprite(s)!
 Total sprites after import: {total}"
-SPRITE_EDIT_IMPORT_PLACEMENT_NO_DISPLACE,"Will not displace sprites.
+SPRITE_EDIT_IMPORT_PLACEMENT_NO_DISPLACE,,"Will not displace sprites.
 Total sprites after import: {total}"
-SPRITE_EDIT_IMPORT_PLACEMENT_WILL_DISPLACE,"Will DISPLACE {displace} sprite(s)!
+SPRITE_EDIT_IMPORT_PLACEMENT_WILL_DISPLACE,,"Will DISPLACE {displace} sprite(s)!
 Total sprites after import: {total}"
-SPRITE_EDIT_IMPORT_PALETTE_TITLE,Palette
-SPRITE_EDIT_IMPORT_PALETTE_TITLE_TOOLTIP,Set how to handle the palettes of imported sprites here.
-SPRITE_EDIT_IMPORT_PALETTE_EMBED,Embed palette
-SPRITE_EDIT_IMPORT_PALETTE_EMBED_TOOLTIP,"Whether to include the palette of imported sprites.
+SPRITE_EDIT_IMPORT_PALETTE_TITLE,"Title of the ""Palette"" section of the dialog",Palette
+SPRITE_EDIT_IMPORT_PALETTE_TITLE_TOOLTIP,,Set how to handle the palettes of imported sprites here.
+SPRITE_EDIT_IMPORT_PALETTE_EMBED,CheckButton that toggles palette embedding,Embed palette
+SPRITE_EDIT_IMPORT_PALETTE_EMBED_TOOLTIP,,"Whether to include the palette of imported sprites.
 Embedded palettes are ignored by 'Player' sprites, but required by everything else."
-SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA,Halve alpha
-SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA_TOOLTIP,"If the input sprite has a palette, this setting will halve its alpha channel (transparency) values."
-SPRITE_EDIT_IMPORT_SPRITE_TITLE,Sprite
-SPRITE_EDIT_IMPORT_SPRITE_TITLE_TOOLTIP,Configure additional processing to apply to imported sprites here.
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_H,Flip horizontally
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_H_TOOLTIP,Mirror imported sprites horizontally.
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_V,Flip vertically
-SPRITE_EDIT_IMPORT_SPRITE_FLIP_V_TOOLTIP,Mirror imported sprites vertically.
-SPRITE_EDIT_IMPORT_INDEX_WITH_RED,Index with red channel
-SPRITE_EDIT_IMPORT_INDEX_WITH_RED_TOOLTIP,"If checked, sprites will be treated as RGB images,
+SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA,CheckButton that toggles alpha halving,Halve alpha
+SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA_TOOLTIP,,"If the input sprite has a palette, this setting will halve its alpha channel (transparency) values."
+SPRITE_EDIT_IMPORT_SPRITE_TITLE,"Title of the ""Sprite"" section of the dialog",Sprite
+SPRITE_EDIT_IMPORT_SPRITE_TITLE_TOOLTIP,,Configure additional processing to apply to imported sprites here.
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_H,CheckButton that toggles horizontal mirroring,Flip horizontally
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_H_TOOLTIP,,Mirror imported sprites horizontally.
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_V,CheckButton that toggles vertical mirroring,Flip vertically
+SPRITE_EDIT_IMPORT_SPRITE_FLIP_V_TOOLTIP,,Mirror imported sprites vertically.
+SPRITE_EDIT_IMPORT_INDEX_WITH_RED,"CheckButton that toggles red channel as color index
+(-as-rgb parameter in Ghoul)",Index with red channel
+SPRITE_EDIT_IMPORT_INDEX_WITH_RED_TOOLTIP,,"If checked, sprites will be treated as RGB images,
 and the color index of each pixel will be obtained
 from its red channel, rather than the input pixel's
 actual color index."
-SPRITE_EDIT_IMPORT_REINDEX,Reindex
-SPRITE_EDIT_IMPORT_REINDEX_TOOLTIP,"Whether to reindex input sprites, changing the order of their color groups from 1-2-3-4 to 1-3-2-4 or vice-versa."
-SPRITE_EDIT_IMPORT_BIT_DEPTH,Bit depth
-SPRITE_EDIT_IMPORT_BIT_DEPTH_TOOLTIP,"Whether to modify the bit depth of imported sprites (note that resulting depth will always be at least 4 bpp).
+SPRITE_EDIT_IMPORT_REINDEX,CheckButton that toggles sprite reindexing,Reindex
+SPRITE_EDIT_IMPORT_REINDEX_TOOLTIP,,"Whether to reindex input sprites, changing the order of their color groups from 1-2-3-4 to 1-3-2-4 or vice-versa."
+SPRITE_EDIT_IMPORT_BIT_DEPTH,Bit depth mode dropdown title,Bit depth
+SPRITE_EDIT_IMPORT_BIT_DEPTH_TOOLTIP,,"Whether to modify the bit depth of imported sprites (note that resulting depth will always be at least 4 bpp).
 No change: bit depth will be left as-is.
 Force 4-bit: bit depth will be brought down to 4 bpp (16 colors) if higher.
 Force 8-bit: bit depth will be brought up to 8 bpp (256 colors) if lower."
-SPRITE_EDIT_IMPORT_BIT_DEPTH_NO_CHANGE,No change
-SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_4,Force 4-bit
-SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_8,Force 8-bit
-SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,Preview sprite
-SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,Sets the imported sprite to preview.
-SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,Preview palette
-SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,Sets the palette to preview sprites with.
-SPRITE_EDIT_IMPORT_PREVIEW_INVALID,"The file was not found or is not a valid sprite.
+SPRITE_EDIT_IMPORT_BIT_DEPTH_NO_CHANGE,Bit depth mode dropdown options,No change
+SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_4,,Force 4-bit
+SPRITE_EDIT_IMPORT_BIT_DEPTH_FORCE_8,,Force 8-bit
+SPRITE_EDIT_IMPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview sprite
+SPRITE_EDIT_IMPORT_PREVIEW_SPRITE_TOOLTIP,,Sets the imported sprite to preview.
+SPRITE_EDIT_IMPORT_PREVIEW_PALETTE,"Preview palette index, spinbox title",Preview palette
+SPRITE_EDIT_IMPORT_PREVIEW_PALETTE_TOOLTIP,,Sets the palette to preview sprites with.
+SPRITE_EDIT_IMPORT_PREVIEW_INVALID,Message when trying to preview an invalid sprite file.,"The file was not found or is not a valid sprite.
 {file}"
-SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import
-SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,Click to begin importing sprites with the above settings.
-SPRITE_EDIT_IMPORT_CONFIRM_TITLE,Please confirm...
-SPRITE_EDIT_IMPORT_CONFIRM_TEXT,Import {count} sprite(s)?
-SPRITE_EDIT_IMPORT_CONFIRM_CANCEL,Cancel
-,
-SPRITE_EDIT_EXPORT_TITLE,Export '{name}' sprites...
-SPRITE_EDIT_EXPORT_RANGE_TITLE,Sprite range
-SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP,"Select the range of sprites to export here.
+SPRITE_EDIT_IMPORT_IMPORT_BUTTON,Import button at the bottom of the dialog,Import
+SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP,,Click to begin importing sprites with the above settings.
+SPRITE_EDIT_IMPORT_CONFIRM_TITLE,Title of the confirmation dialog,Please confirm...
+SPRITE_EDIT_IMPORT_CONFIRM_TEXT,Content of the confirmation dialog,Import {count} sprite(s)?
+SPRITE_EDIT_IMPORT_CONFIRM_CANCEL,Cancel button in the confirmation dialog,Cancel
+,SPRITE EXPORT DIALOG,
+SPRITE_EDIT_EXPORT_TITLE,Title bar of the sprite exporter dialog,Export '{name}' sprites...
+SPRITE_EDIT_EXPORT_RANGE_TITLE,"Title of the ""Sprite range"" section of the dialog",Sprite range
+SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP,,"Select the range of sprites to export here.
 To export only one sprite, set both boxes to the same value."
-SPRITE_EDIT_EXPORT_RANGE_START,Start sprite
-SPRITE_EDIT_EXPORT_RANGE_START_TOOLTIP,Sets the starting sprite of the export range.
-SPRITE_EDIT_EXPORT_RANGE_END,End sprite
-SPRITE_EDIT_EXPORT_RANGE_END_TOOLTIP,Sets the ending sprite of the export range.
-SPRITE_EDIT_EXPORT_FORMAT_TITLE,Output formats
-SPRITE_EDIT_EXPORT_FORMAT_TITLE_TOOLTIP,"Select formats to export to here.
+SPRITE_EDIT_EXPORT_RANGE_START,"Starting sprite in export range, spinbox title",Start sprite
+SPRITE_EDIT_EXPORT_RANGE_START_TOOLTIP,,Sets the starting sprite of the export range.
+SPRITE_EDIT_EXPORT_RANGE_END,"Ending sprite in export range, spinbox title",End sprite
+SPRITE_EDIT_EXPORT_RANGE_END_TOOLTIP,,Sets the ending sprite of the export range.
+SPRITE_EDIT_EXPORT_FORMAT_TITLE,Export formats section title,Output formats
+SPRITE_EDIT_EXPORT_FORMAT_TITLE_TOOLTIP,,"Select formats to export to here.
 Nothing will be exported unless you select at least one."
-SPRITE_EDIT_EXPORT_FORMAT_BIN_TOOLTIP,"Exports a binary sprite in the same format it is found in in the game's files.
+SPRITE_EDIT_EXPORT_FORMAT_BIN_TOOLTIP,Tooltip for compressed .bin export,"Exports a binary sprite in the same format it is found in in the game's files.
 Supports palettes with transparency.
 Analogous to extracting sprites with a hex editor."
-SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED,BIN (uncompressed)
-SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED_TOOLTIP,"Export an uncompressed binary sprite.
+SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED,"Title for uncompressed bin export (keep ""BIN"" as-is)",BIN (uncompressed)
+SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED_TOOLTIP,Tooltip for uncompressed .bin export,"Export an uncompressed binary sprite.
 Supports palettes with transparency.
 These work in game, but are not recommended."
-SPRITE_EDIT_EXPORT_FORMAT_RAW_TOOLTIP,Export a RAW file that can be used as a PalMod preview.
-SPRITE_EDIT_EXPORT_FORMAT_PNG_TOOLTIP,"Export an indexed PNG.
+SPRITE_EDIT_EXPORT_FORMAT_RAW_TOOLTIP,Tooltip for .raw export,Export a RAW file that can be used as a PalMod preview.
+SPRITE_EDIT_EXPORT_FORMAT_PNG_TOOLTIP,Tooltip for .png export,"Export an indexed PNG.
 Supports palettes with transparency."
-SPRITE_EDIT_EXPORT_FORMAT_BMP_TOOLTIP,"Export an indexed BMP.
+SPRITE_EDIT_EXPORT_FORMAT_BMP_TOOLTIP,Tooltip for .bmp export,"Export an indexed BMP.
 Supports palettes, but not transparency."
-SPRITE_EDIT_EXPORT_PALETTE_TITLE,Palette
-SPRITE_EDIT_EXPORT_PALETTE_TITLE_TOOLTIP,Choose how to handle palettes for exported sprites here.
-SPRITE_EDIT_EXPORT_PALETTE_INCLUDE,Include
-SPRITE_EDIT_EXPORT_PALETTE_INCLUDE_TOOLTIP,Whether to include a palette at all.
-SPRITE_EDIT_EXPORT_PALETTE_INDEX,Index
-SPRITE_EDIT_EXPORT_PALETTE_INDEX_TOOLTIP,Which palette number to apply to exported sprites.
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA,Alpha mode
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_TOOLTIP,"Ways in which to alter the alpha of exported sprites.
+SPRITE_EDIT_EXPORT_PALETTE_TITLE,"Title of the ""Palette"" section of the dialog",Palette
+SPRITE_EDIT_EXPORT_PALETTE_TITLE_TOOLTIP,,Choose how to handle palettes for exported sprites here.
+SPRITE_EDIT_EXPORT_PALETTE_INCLUDE,CheckButton that toggles including palette on export,Include
+SPRITE_EDIT_EXPORT_PALETTE_INCLUDE_TOOLTIP,,Whether to include a palette at all.
+SPRITE_EDIT_EXPORT_PALETTE_INDEX,spinbox that selects which palette is used on export,Index
+SPRITE_EDIT_EXPORT_PALETTE_INDEX_TOOLTIP,,Which palette number to apply to exported sprites.
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA,"Palette alpha mode, dropdown title",Alpha mode
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_TOOLTIP,,"Ways in which to alter the alpha of exported sprites.
 Do nothing: alpha will be left as-is.
 Double: double alpha of all colors.
 Halve: halve alpha of all colors.
 Make opaque: turn all colors completely solid."
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DO_NOTHING,Do nothing
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DOUBLE,Double
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_HALVE,Halve
-SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE,Make opaque
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE,Miscellaneous
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE_TOOLTIP,Set miscellaneous export options here.
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX,Reindex
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP,"Reindex output sprites, changing the order of their
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DO_NOTHING,Dropdown options,Do nothing
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_DOUBLE,,Double
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_HALVE,,Halve
+SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE,,Make opaque
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE,"Title of the ""Miscellaneous"" section of the dialog",Miscellaneous
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE_TOOLTIP,,Set miscellaneous export options here.
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX,CheckButton that toggles reindexing on export,Reindex
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP,,"Reindex output sprites, changing the order of their
 color groups from 1-2-3-4 to 1-3-2-4 and vice-versa.
 
 Only applies to 8 bpp sprites."
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING,Name outputs starting at 0
-SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP,"By default, exported sprites will be named according to their original indices.
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING,CheckButton that toggles naming files from 0,Name outputs starting at 0
+SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP,,"By default, exported sprites will be named according to their original indices.
 Enabling this setting will cause exported sprites to always be named 'sprite_0', 'sprite_1', 'sprite_2', etc."
-SPRITE_EDIT_EXPORT_PREVIEW_SPRITE,Preview sprite
-SPRITE_EDIT_EXPORT_PREVIEW_SPRITE_TOOLTIP,Set the exported sprite to preview.
-SPRITE_EDIT_EXPORT_EXPORT_BUTTON,Export...
-SPRITE_EDIT_EXPORT_EXPORT_BUTTON_TOOLTIP,Click to begin exporting sprites with the above settings.
-,
-SPRITE_EDIT_DELETE_TITLE,Delete '{name}' sprites...
-SPRITE_EDIT_DELETE_RANGE_TITLE,Range
-SPRITE_EDIT_DELETE_RANGE_TITLE_TOOLTIP,"Select the range of sprites to delete here.
+SPRITE_EDIT_EXPORT_PREVIEW_SPRITE,"Preview sprite index, spinbox title",Preview sprite
+SPRITE_EDIT_EXPORT_PREVIEW_SPRITE_TOOLTIP,,Set the exported sprite to preview.
+SPRITE_EDIT_EXPORT_EXPORT_BUTTON,Export button at the bottom of the dialog,Export...
+SPRITE_EDIT_EXPORT_EXPORT_BUTTON_TOOLTIP,,Click to begin exporting sprites with the above settings.
+,SPRITE DELETE DIALOG,
+SPRITE_EDIT_DELETE_TITLE,Title bar of the sprite delete dialog,Delete '{name}' sprites...
+SPRITE_EDIT_DELETE_RANGE_TITLE,"Title of the ""Range"" section of the dialog",Range
+SPRITE_EDIT_DELETE_RANGE_TITLE_TOOLTIP,,"Select the range of sprites to delete here.
 To delete only one sprite, set both boxes to the same value."
-SPRITE_EDIT_DELETE_RANGE_START,From sprite
-SPRITE_EDIT_DELETE_RANGE_START_TOOLTIP,Sets the starting sprite of the range to delete.
-SPRITE_EDIT_DELETE_RANGE_END,To sprite
-SPRITE_EDIT_DELETE_RANGE_END_TOOLTIP,Sets the ending sprite of the range to delete.
-SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE,Miscellaneous
-SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE_TOOLTIP,Set miscellaneous delete options here.
-SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT,Redirect cells
-SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT_TOOLTIP,"ON: After deleting, automatically adjust the sprite index
+SPRITE_EDIT_DELETE_RANGE_START,"Starting sprite in delete range, title",From sprite
+SPRITE_EDIT_DELETE_RANGE_START_TOOLTIP,,Sets the starting sprite of the range to delete.
+SPRITE_EDIT_DELETE_RANGE_END,"Ending sprite in delete range, title",To sprite
+SPRITE_EDIT_DELETE_RANGE_END_TOOLTIP,,Sets the ending sprite of the range to delete.
+SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE,"Title of the ""Miscellaneous"" section of the dialog",Miscellaneous
+SPRITE_EDIT_DELETE_MISCELLANEOUS_TITLE_TOOLTIP,,Set miscellaneous delete options here.
+SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT,CheckButton that toggles cell sprite index redirection,Redirect cells
+SPRITE_EDIT_DELETE_MISCELLANEOUS_REDIRECT_TOOLTIP,,"ON: After deleting, automatically adjust the sprite index
 for cells whose sprites were displaced, so that they don't
 visually change.
 
@@ -234,98 +236,98 @@ sprite index set back to 0.
 OFF: Do not adjust cells after deleting sprites. If a cell's
 sprite index is still within the bounds of the sprite array,
 don't change it. If it's out of bounds, clamp it."
-SPRITE_EDIT_DELETE_COUNT,Will delete {count} sprite(s).
-SPRITE_EDIT_DELETE_CANT_DELETE_ALL,Cannot delete all sprites!
-SPRITE_EDIT_DELETE_DELETE_BUTTON,Delete selected
-SPRITE_EDIT_DELETE_DELETE_BUTTON_TOOLTIP,Click to delete sprites with the above settings.
-SPRITE_EDIT_DELETE_PREVIEW,Preview sprite
-SPRITE_EDIT_DELETE_PREVIEW_TOOLTIP,Use this preview to check what sprites will be deleted.
-SPRITE_EDIT_DELETE_CONFIRM_TITLE,Confirm action
-SPRITE_EDIT_DELETE_CONFIRM_TEXT,Really delete {count} sprites?
-SPRITE_EDIT_DELETE_CONFIRM_DELETE_BUTTON,Delete
-SPRITE_EDIT_DELETE_CONFIRM_CANCEL_BUTTON,Cancel
-SPRITE_EDIT_DELETE_CANNOT_DELETE_TITLE,Cannot delete
-SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT,"Cannot delete all sprites! Object needs at least 1.
+SPRITE_EDIT_DELETE_COUNT,"Info text at the bottom, above the delete button",Will delete {count} sprite(s).
+SPRITE_EDIT_DELETE_CANT_DELETE_ALL,,Cannot delete all sprites!
+SPRITE_EDIT_DELETE_DELETE_BUTTON,Delete button at the bottom of the dialog,Delete selected
+SPRITE_EDIT_DELETE_DELETE_BUTTON_TOOLTIP,,Click to delete sprites with the above settings.
+SPRITE_EDIT_DELETE_PREVIEW,"spinbox that selects a preview sprite, title",Preview sprite
+SPRITE_EDIT_DELETE_PREVIEW_TOOLTIP,,Use this preview to check what sprites will be deleted.
+SPRITE_EDIT_DELETE_CONFIRM_TITLE,Title bar of the confirmation dialog,Confirm action
+SPRITE_EDIT_DELETE_CONFIRM_TEXT,Text of the confirmation dialog,Really delete {count} sprites?
+SPRITE_EDIT_DELETE_CONFIRM_DELETE_BUTTON,Confirm button,Delete
+SPRITE_EDIT_DELETE_CONFIRM_CANCEL_BUTTON,Cancel button,Cancel
+SPRITE_EDIT_DELETE_CANNOT_DELETE_TITLE,Title bar of the dialog saying you can't delete all sprites,Cannot delete
+SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT,Main text for the above dialog,"Cannot delete all sprites! Object needs at least 1.
 Consider importing new sprites to replace the old ones."
-SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,OK
-,
-CELL_EDIT_TITLE,Cells
-CELL_EDIT_DELETE_TOOLTIP,Delete a single cell or a range of cells.
-CELL_EDIT_NEW_BEFORE_TOOLTIP,"Add a new cell before the current one.
+SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,Accept button for the above dialog,OK
+,CELL EDITOR,
+CELL_EDIT_TITLE,Tab title,Cells
+CELL_EDIT_DELETE_TOOLTIP,Tooltips for the cell toolbar's buttons,Delete a single cell or a range of cells.
+CELL_EDIT_NEW_BEFORE_TOOLTIP,,"Add a new cell before the current one.
 Displaces cells after it!"
-CELL_EDIT_NEW_AFTER_TOOLTIP,"Add a new cell after the current one.
+CELL_EDIT_NEW_AFTER_TOOLTIP,,"Add a new cell after the current one.
 Displaces cells after it!"
-CELL_EDIT_COPY_TOOLTIP,Copy the current cell to the clipboard.
-CELL_EDIT_PASTE_BEFORE_TOOLTIP,"Paste the cell in the clipboard as a new cell before the current one.
+CELL_EDIT_COPY_TOOLTIP,,Copy the current cell to the clipboard.
+CELL_EDIT_PASTE_BEFORE_TOOLTIP,,"Paste the cell in the clipboard as a new cell before the current one.
 Displaces cells after it!"
-CELL_EDIT_PASTE_TOOLTIP,"Paste the cell in the clipboard as a replacement to the current one.
+CELL_EDIT_PASTE_TOOLTIP,,"Paste the cell in the clipboard as a replacement to the current one.
 Does not displace cells."
-CELL_EDIT_PASTE_AFTER_TOOLTIP,"Paste the cell in the clipboard as a new cell after the current one.
+CELL_EDIT_PASTE_AFTER_TOOLTIP,,"Paste the cell in the clipboard as a new cell after the current one.
 Displaces cells after it!"
-CELL_EDIT_CELL_INDEX,Cell #
-CELL_EDIT_CELL_INDEX_TOOLTIP,Selects a cell to view or modify.
-CELL_EDIT_ONION_INDEX,Onion skin #
-CELL_EDIT_ONION_INDEX_TOOLTIP,"Selects which cell to display an onion skin in the preview for.
+CELL_EDIT_CELL_INDEX,"Cell index spinbox, title",Cell #
+CELL_EDIT_CELL_INDEX_TOOLTIP,,Selects a cell to view or modify.
+CELL_EDIT_ONION_INDEX,"Onion skin cell index spinbox, title",Onion skin #
+CELL_EDIT_ONION_INDEX_TOOLTIP,,"Selects which cell to display an onion skin in the preview for.
 Set this to '-1' to disable the onion skin."
-CELL_EDIT_ONION_IN_FRONT,Onion skin in front
-CELL_EDIT_ONION_IN_FRONT_TOOLTIP,Toggles whether the onion skin should appear behind or in front of the current cell's sprite.
-CELL_EDIT_SPRITE_INFO_TITLE,Sprite Info
-CELL_EDIT_SPRITE_INFO_TITLE_TOOLTIP,These values control how cells display sprites.
-CELL_EDIT_SPRITE_INFO_INDEX,Index
-CELL_EDIT_SPRITE_INFO_INDEX_TOOLTIP,Controls which sprite number this cell will display in game.
-CELL_EDIT_SPRITE_INFO_OFFSET_X,Offset X
-CELL_EDIT_SPRITE_INFO_OFFSET_X_TOOLTIP,"Controls the sprite's horizontal offset for this cell.
+CELL_EDIT_ONION_IN_FRONT,Checkbutton that toggles onion skins in front,Onion skin in front
+CELL_EDIT_ONION_IN_FRONT_TOOLTIP,,Toggles whether the onion skin should appear behind or in front of the current cell's sprite.
+CELL_EDIT_SPRITE_INFO_TITLE,"Title of the ""Sprite Info"" section of the editor.",Sprite Info
+CELL_EDIT_SPRITE_INFO_TITLE_TOOLTIP,,These values control how cells display sprites.
+CELL_EDIT_SPRITE_INFO_INDEX,"Sprite Info -> Index, title",Index
+CELL_EDIT_SPRITE_INFO_INDEX_TOOLTIP,,Controls which sprite number this cell will display in game.
+CELL_EDIT_SPRITE_INFO_OFFSET_X,"Sprite Info -> Offset X, title",Offset X
+CELL_EDIT_SPRITE_INFO_OFFSET_X_TOOLTIP,,"Controls the sprite's horizontal offset for this cell.
 Click to change the control type."
-CELL_EDIT_SPRITE_INFO_OFFSET_Y,Offset Y
-CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP,"Controls the sprite's vertical offset for this cell.
+CELL_EDIT_SPRITE_INFO_OFFSET_Y,"Sprite Info -> Offset Y, title",Offset Y
+CELL_EDIT_SPRITE_INFO_OFFSET_Y_TOOLTIP,,"Controls the sprite's vertical offset for this cell.
 Click to change the control type."
-CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1,Preview VISUAL 1
-CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1_TOOLTIP,Flips type 6 sprite cutouts vertically as the mode 1 VISUAL instruction does.
-CELL_EDIT_BOXES_TITLE,Boxes
-CELL_EDIT_BOXES_TITLE_TOOLTIP,"This section controls the boxes for this cell.
+CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1,"Preview Options -> Preview VISUAL 1, title",Preview VISUAL 1
+CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1_TOOLTIP,,Flips type 6 sprite cutouts vertically as the mode 1 VISUAL instruction does.
+CELL_EDIT_BOXES_TITLE,"Title of the ""Boxes"" section of the editor",Boxes
+CELL_EDIT_BOXES_TITLE_TOOLTIP,,"This section controls the boxes for this cell.
 Modifying them will cause desyncs in online matches and old replays!"
-CELL_EDIT_BOXES_DISPLAY,Display
-CELL_EDIT_BOXES_DISPLAY_TOOLTIP,"Toggles whether to display boxes at all.
+CELL_EDIT_BOXES_DISPLAY,Checkbutton that toggles box display,Display
+CELL_EDIT_BOXES_DISPLAY_TOOLTIP,,"Toggles whether to display boxes at all.
 They can't be edited while hidden."
-CELL_EDIT_BOXES_EDIT_MODE,Edit Mode
-CELL_EDIT_BOXES_EDIT_MODE_TOOLTIP,"Toggles box editing on/off.
+CELL_EDIT_BOXES_EDIT_MODE,Checkbutton that toggles box editing,Edit Mode
+CELL_EDIT_BOXES_EDIT_MODE_TOOLTIP,,"Toggles box editing on/off.
 Editing boxes will cause desyncs in online matches and old replays!"
-CELL_EDIT_BOXES_TYPES_DROPDOWN,Types to display...
-CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP,Controls which types of boxes will be displayed in the preview.
-CELL_EDIT_BOXES_TYPES_UNKNOWN,Unknown types
-CELL_EDIT_BOXES_TYPES_HITBOXES,Hitboxes
-CELL_EDIT_BOXES_TYPES_HURTBOXES,Hurtboxes
-CELL_EDIT_BOXES_TYPES_REGIONS,Sprite regions
-CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION,Collision box extension
-CELL_EDIT_BOXES_TYPES_SPAWN,Spawn points
-CELL_EDIT_BOXES_LIST_TOOLTIP,The list of boxes contained in this cell.
-CELL_EDIT_BOXES_DRAW_MODE,Draw Mode
-CELL_EDIT_BOXES_DRAW_MODE_TOOLTIP,Toggles drawing new boxes on/off.
-CELL_EDIT_BOXES_DELETE,Delete
-CELL_EDIT_BOXES_DELETE_TOOLTIP,Deletes the selected boxes.
-CELL_EDIT_BOXES_TYPE,Type
-CELL_EDIT_BOXES_TYPE_TOOLTIP,Sets the type of selected boxes.
-CELL_EDIT_BOXES_OFFSET_X,Offset X
-CELL_EDIT_BOXES_OFFSET_X_TOOLTIP,Sets the selected box's horizontal offset.
-CELL_EDIT_BOXES_OFFSET_Y,Offset Y
-CELL_EDIT_BOXES_OFFSET_Y_TOOLTIP,Sets the selected box's vertical offset.
-CELL_EDIT_BOXES_WIDTH,Width
-CELL_EDIT_BOXES_WIDTH_TOOLTIP,Sets the selected box's width.
-CELL_EDIT_BOXES_HEIGHT,Height
-CELL_EDIT_BOXES_HEIGHT_TOOLTIP,Sets the selected box's height.
-CELL_EDIT_BOXES_REGION_X,Region Offset X
-CELL_EDIT_BOXES_REGION_X_TOOLTIP,"Moves the cropped sprite region to the right, 8 pixels at a time."
-CELL_EDIT_BOXES_REGION_Y,Region Offset Y
-CELL_EDIT_BOXES_REGION_Y_TOOLTIP,"Moves the cropped sprite region down, 8 pixels at a time."
-CELL_EDIT_PREVIEW,Preview
-CELL_EDIT_PREVIEW_PALETTE_INDEX,Palette #
-CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,Set the palette to preview sprites with.
-,
-PALETTE_EDIT_TITLE,Palettes
-PALETTE_EDIT_PALETTE_INDEX,Palette #
-PALETTE_EDIT_PALETTE_INDEX_TOOLTIP,Set the palette to edit.
-PALETTE_EDIT_PALETTE_VIEW,Palette view
-PALETTE_EDIT_PALETTE_VIEW_TOOLTIP,"Click: Select colors
+CELL_EDIT_BOXES_TYPES_DROPDOWN,Menubutton that toggles box types for display,Types to display...
+CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP,,Controls which types of boxes will be displayed in the preview.
+CELL_EDIT_BOXES_TYPES_UNKNOWN,Box type dropdown options,Unknown types
+CELL_EDIT_BOXES_TYPES_HITBOXES,,Hitboxes
+CELL_EDIT_BOXES_TYPES_HURTBOXES,,Hurtboxes
+CELL_EDIT_BOXES_TYPES_REGIONS,,Sprite regions
+CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION,,Collision box extension
+CELL_EDIT_BOXES_TYPES_SPAWN,,Spawn points
+CELL_EDIT_BOXES_LIST_TOOLTIP,Tooltip for the itemlist containing the cell's hitboxes,The list of boxes contained in this cell.
+CELL_EDIT_BOXES_DRAW_MODE,Button that toggles box drawing,Draw Mode
+CELL_EDIT_BOXES_DRAW_MODE_TOOLTIP,,Toggles drawing new boxes on/off.
+CELL_EDIT_BOXES_DELETE,Button that deletes selected boxes,Delete
+CELL_EDIT_BOXES_DELETE_TOOLTIP,,Deletes the selected boxes.
+CELL_EDIT_BOXES_TYPE,"Box type spinbox, title",Type
+CELL_EDIT_BOXES_TYPE_TOOLTIP,,Sets the type of selected boxes.
+CELL_EDIT_BOXES_OFFSET_X,"Boxes -> Offset X, title",Offset X
+CELL_EDIT_BOXES_OFFSET_X_TOOLTIP,,Sets the selected box's horizontal offset.
+CELL_EDIT_BOXES_OFFSET_Y,"Boxes -> Offset Y, title",Offset Y
+CELL_EDIT_BOXES_OFFSET_Y_TOOLTIP,,Sets the selected box's vertical offset.
+CELL_EDIT_BOXES_WIDTH,"Boxes -> Width, title",Width
+CELL_EDIT_BOXES_WIDTH_TOOLTIP,,Sets the selected box's width.
+CELL_EDIT_BOXES_HEIGHT,"Boxes -> Height, title",Height
+CELL_EDIT_BOXES_HEIGHT_TOOLTIP,,Sets the selected box's height.
+CELL_EDIT_BOXES_REGION_X,"Boxes -> Region Offset X, title",Region Offset X
+CELL_EDIT_BOXES_REGION_X_TOOLTIP,,"Moves the cropped sprite region to the right, 8 pixels at a time."
+CELL_EDIT_BOXES_REGION_Y,"Boxes -> Region Offset Y, title",Region Offset Y
+CELL_EDIT_BOXES_REGION_Y_TOOLTIP,,"Moves the cropped sprite region down, 8 pixels at a time."
+CELL_EDIT_PREVIEW,"Preview, title",Preview
+CELL_EDIT_PREVIEW_PALETTE_INDEX,"Preview ""Palette #"", title",Palette #
+CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,,Set the palette to preview sprites with.
+,PALETTE EDITOR,
+PALETTE_EDIT_TITLE,Tab title,Palettes
+PALETTE_EDIT_PALETTE_INDEX,"""Palette #"", title",Palette #
+PALETTE_EDIT_PALETTE_INDEX_TOOLTIP,,Set the palette to edit.
+PALETTE_EDIT_PALETTE_VIEW,"""Palette view"", title",Palette view
+PALETTE_EDIT_PALETTE_VIEW_TOOLTIP,,"Click: Select colors
 Shift + click: Add to selection
 Shift + right click: Remove from selection
 CTRL + C: Copy
@@ -333,258 +335,333 @@ CTRL + V: Paste
 CTRL: Preview paste
 Tab: Swap selection mode (box/range)
 Escape: Clear selection"
-PALETTE_EDIT_REINDEX,Reindex
-PALETTE_EDIT_REINDEX_TOOLTIP,Reorder color indexes using +R's pattern.
-PALETTE_EDIT_IMPORT,Import...
-PALETTE_EDIT_IMPORT_TOOLTIP,Replace the current palette with an import.
-PALETTE_EDIT_EXPORT,Export...
-PALETTE_EDIT_EXPORT_TOOLTIP,Export the current palette as an .act or .bin file.
-PALETTE_EDIT_COLOR_EDITOR,Color editor
-PALETTE_EDIT_COLOR_EDITOR_TOOLTIP,Choose here the color to apply to the selected indexes.
-PALETTE_EDIT_PREVIEW,Preview
-PALETTE_EDIT_SPRITE_INDEX,Sprite #
-PALETTE_EDIT_SPRITE_INDEX_TOOLTIP,Sets the sprite to preview the current palette with.
-,
-SCRIPT_INSTRUCTION_NOT_FOUND,ERROR
-SCRIPT_EDIT_TITLE,Script
-SCRIPT_EDIT_TITLE_PLAY_DATA,Play data
-SCRIPT_EDIT_TITLE_ACTIONS,Actions
-SCRIPT_EDIT_ACTIONS_DELETE_TOOLTIP,"Delete the current action.
+PALETTE_EDIT_REINDEX,Button that reindexes the current palette,Reindex
+PALETTE_EDIT_REINDEX_TOOLTIP,,Reorder color indexes using +R's pattern.
+PALETTE_EDIT_IMPORT,Import palette button,Import...
+PALETTE_EDIT_IMPORT_TOOLTIP,,Replace the current palette with an import.
+PALETTE_EDIT_EXPORT,Export palette button,Export...
+PALETTE_EDIT_EXPORT_TOOLTIP,,Export the current palette as an .act or .bin file.
+PALETTE_EDIT_COLOR_EDITOR,"""Color editor"", title",Color editor
+PALETTE_EDIT_COLOR_EDITOR_TOOLTIP,,Choose here the color to apply to the selected indexes.
+PALETTE_EDIT_PREVIEW,"""Preview"", title",Preview
+PALETTE_EDIT_SPRITE_INDEX,"""Sprite #"", title",Sprite #
+PALETTE_EDIT_SPRITE_INDEX_TOOLTIP,,Sets the sprite to preview the current palette with.
+,SCRIPT EDITOR,
+SCRIPT_INSTRUCTION_NOT_FOUND,Instruction name out of bounds,ERROR
+SCRIPT_EDIT_TITLE,Main tab title,Script
+SCRIPT_EDIT_TITLE_PLAY_DATA,"""Play data"", tab title, unused at the moment",Play data
+SCRIPT_EDIT_TITLE_ACTIONS,"""Actions"", tab title",Actions
+SCRIPT_EDIT_ACTIONS_DELETE_TOOLTIP,Action toolbar button tooltips,"Delete the current action.
 Displaces actions after it!"
-SCRIPT_EDIT_ACTIONS_NEW_BEFORE_TOOLTIP,"Add a new action before the current one.
+SCRIPT_EDIT_ACTIONS_NEW_BEFORE_TOOLTIP,,"Add a new action before the current one.
 Displaces actions after it!"
-SCRIPT_EDIT_ACTIONS_NEW_AFTER_TOOLTIP,"Add a new action after the current one.
+SCRIPT_EDIT_ACTIONS_NEW_AFTER_TOOLTIP,,"Add a new action after the current one.
 Displaces actions after it!"
-SCRIPT_EDIT_ACTIONS_COPY_TOOLTIP,Copy the current action to the clipboard.
-SCRIPT_EDIT_ACTIONS_PASTE_BEFORE_TOOLTIP,"Paste the action in the clipboard as a new action before the current one.
+SCRIPT_EDIT_ACTIONS_COPY_TOOLTIP,,Copy the current action to the clipboard.
+SCRIPT_EDIT_ACTIONS_PASTE_BEFORE_TOOLTIP,,"Paste the action in the clipboard as a new action before the current one.
 Displaces actions after it!"
-SCRIPT_EDIT_ACTIONS_PASTE_TOOLTIP,"Paste the action in the clipboard as a replacement to the current one.
+SCRIPT_EDIT_ACTIONS_PASTE_TOOLTIP,,"Paste the action in the clipboard as a replacement to the current one.
 Does not displace actions."
-SCRIPT_EDIT_ACTIONS_PASTE_AFTER_TOOLTIP,"Paste the action in the clipboard as a new action after the current one.
+SCRIPT_EDIT_ACTIONS_PASTE_AFTER_TOOLTIP,,"Paste the action in the clipboard as a new action after the current one.
 Displaces actions after it!"
-SCRIPT_EDIT_ACTION,Action #
-SCRIPT_EDIT_ACTION_TOOLTIP,Selects an action to view or modify.
-SCRIPT_EDIT_PROPERTIES,Properties
-SCRIPT_EDIT_PROPERTIES_TOOLTIP,This section holds the action's basic properties: damage and flags.
-SCRIPT_EDIT_PROPERTIES_DAMAGE,Damage
-SCRIPT_EDIT_PROPERTIES_DAMAGE_TOOLTIP,Damage dealt by this action on hit.
-SCRIPT_EDIT_PROPERTIES_FLAGS,Flags
-SCRIPT_EDIT_PROPERTIES_LVFLAGS,LV Flags
-SCRIPT_EDIT_PROPERTIES_FLAGS2,Flags 2
-SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP,Various action properties. Their functionality is unknown at this time.
-SCRIPT_EDIT_INSTRUCTIONS,Instructions
-SCRIPT_EDIT_INSTRUCTIONS_TOOLTIP,"This section holds the action's instructions (the list of functions to run, in order) and allows modifying them."
-SCRIPT_EDIT_INSTRUCTIONS_DELETE_TOOLTIP,"Delete the current instruction.
+SCRIPT_EDIT_ACTION,"""Action #"", title",Action #
+SCRIPT_EDIT_ACTION_TOOLTIP,,Selects an action to view or modify.
+SCRIPT_EDIT_PROPERTIES,"""Properties"" section header",Properties
+SCRIPT_EDIT_PROPERTIES_TOOLTIP,,This section holds the action's basic properties: damage and flags.
+SCRIPT_EDIT_PROPERTIES_DAMAGE,"""Damage"", title",Damage
+SCRIPT_EDIT_PROPERTIES_DAMAGE_TOOLTIP,,Damage dealt by this action on hit.
+SCRIPT_EDIT_PROPERTIES_FLAGS,"""Flags"", title, unsure whether should be translated",Flags
+SCRIPT_EDIT_PROPERTIES_LVFLAGS,"""LV Flags"", same as above",LV Flags
+SCRIPT_EDIT_PROPERTIES_FLAGS2,"""Flags 2"", same as above",Flags 2
+SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP,Generic tooltip for all flags,Various action properties. Their functionality is unknown at this time.
+SCRIPT_EDIT_INSTRUCTIONS,"""Instructions"" section header",Instructions
+SCRIPT_EDIT_INSTRUCTIONS_TOOLTIP,,"This section holds the action's instructions (the list of functions to run, in order) and allows modifying them."
+SCRIPT_EDIT_INSTRUCTIONS_DELETE_TOOLTIP,Instruction toolbar button tooltips,"Delete the current instruction.
 Displaces instructions after it!"
-SCRIPT_EDIT_INSTRUCTIONS_NEW_BEFORE_TOOLTIP,"Add a new instruction of the selected type before the current one.
+SCRIPT_EDIT_INSTRUCTIONS_NEW_BEFORE_TOOLTIP,,"Add a new instruction of the selected type before the current one.
 Displaces instructions after it!"
-SCRIPT_EDIT_INSTRUCTIONS_NEW_AFTER_TOOLTIP,"Add a new instruction of the selected type after the current one.
+SCRIPT_EDIT_INSTRUCTIONS_NEW_AFTER_TOOLTIP,,"Add a new instruction of the selected type after the current one.
 Displaces instructions after it!"
-SCRIPT_EDIT_INSTRUCTIONS_COPY_TOOLTIP,Copy the current instruction to the clipboard.
-SCRIPT_EDIT_INSTRUCTIONS_PASTE_BEFORE_TOOLTIP,"Paste the instruction in the clipboard as a new instruction before the current one.
+SCRIPT_EDIT_INSTRUCTIONS_COPY_TOOLTIP,,Copy the current instruction to the clipboard.
+SCRIPT_EDIT_INSTRUCTIONS_PASTE_BEFORE_TOOLTIP,,"Paste the instruction in the clipboard as a new instruction before the current one.
 Displaces instructions after it!"
-SCRIPT_EDIT_INSTRUCTIONS_PASTE_TOOLTIP,"Paste the instruction in the clipboard as a replacement to the current one.
+SCRIPT_EDIT_INSTRUCTIONS_PASTE_TOOLTIP,,"Paste the instruction in the clipboard as a replacement to the current one.
 Does not displace instructions."
-SCRIPT_EDIT_INSTRUCTIONS_PASTE_AFTER_TOOLTIP,"Paste the instruction in the clipboard as a new instruction after the current one.
+SCRIPT_EDIT_INSTRUCTIONS_PASTE_AFTER_TOOLTIP,,"Paste the instruction in the clipboard as a new instruction after the current one.
 Displaces instructions after it!"
-SCRIPT_EDIT_INSTRUCTIONS_TYPE_TOOLTIP,Click to select the type of new instructions.
-SCRIPT_EDIT_PARAMETERS,Parameters
-SCRIPT_EDIT_PARAMETERS_TOOLTIP,This section allow modifying an instruction's parameters.
-SCRIPT_EDIT_PARAMETERS_NOTHING,No instruction selected.
-SCRIPT_EDIT_PARAMETERS_NOTHING_TOOLTIP,Select an instruction from the above list in order to view and modify its parameters.
-SCRIPT_EDIT_PREVIEW,Preview
-SCRIPT_EDIT_DISPLAY_BOXES,Display boxes
-SCRIPT_EDIT_WARNING,"WARNING: This part of Gear Studio is incomplete, and may not correctly mirror in-game behavior."
-SCRIPT_EDIT_PLAY_FROM_START_TOOLTIP,Play from start
-SCRIPT_EDIT_PLAY_TOOLTIP,Play
-SCRIPT_EDIT_STOP_TOOLTIP,Stop
-SCRIPT_EDIT_CURRENT_FRAME_TOOLTIP,Current frame
-SCRIPT_EDIT_TOTAL_FRAMES_TOOLTIP,Total frames
-SCRIPT_EDIT_INSTRUCTIONS,Instructions
-,
-INSTRUCTION_PARAM_UNUSED,Unused
-INSTRUCTION_PARAM_UNKNOWN,Unknown
-INSTRUCTION_PARAM_MODE,Mode
-INSTRUCTION_PARAM_TYPE,Type
-INSTRUCTION_PARAM_ENABLE,Enable
-INSTRUCTION_PARAM_VALUE,Value
-INSTRUCTION_PARAM_AMOUNT,Amount
-INSTRUCTION_PARAM_FLAG,Flag
-INSTRUCTION_PARAM_FLAGS,Flags
-INSTRUCTION_PARAM_OPERATION,Operation
-INSTRUCTION_PARAM_DURATION,Duration
-INSTRUCTION_PARAM_PERCENTAGE,Percentage
-INSTRUCTION_PARAM_CELL,Cell #
-INSTRUCTION_PARAM_GATLINGS,Allow gatlings
-INSTRUCTION_PARAM_ALPHA,Alpha
-INSTRUCTION_PARAM_BLEND,Blend mode
-INSTRUCTION_PARAM_FRC,FRC time (4/6)
-INSTRUCTION_PARAM_OFFSET,Offset
-INSTRUCTION_PARAM_ANIMENO,AnimeNo
-INSTRUCTION_PARAM_IDNO,idno
-INSTRUCTION_PARAM_LOCALID,Localid
-INSTRUCTION_PARAM_KIND,Kind
-INSTRUCTION_PARAM_EFFECT,Effect
-INSTRUCTION_PARAM_SOUND_ID,Sound #
-INSTRUCTION_PARAM_PROBABILITY,Probability
-INSTRUCTION_PARAM_GUARD_SND_NO,Guard Snd. #
-INSTRUCTION_PARAM_DAMAGE_SND_NO,Dmge. Snd. #
-INSTRUCTION_PARAM_GRAVITY,Gravity
-INSTRUCTION_PARAM_SPEED,Speed
-INSTRUCTION_PARAM_LEVEL,Level
-INSTRUCTION_PARAM_ADD_ALWAYS,Add always
-INSTRUCTION_PARAM_ADD_ON_HIT,Add on hit
-INSTRUCTION_PARAM_OFFSET_X,X Offset
-INSTRUCTION_PARAM_OFFSET_Y,Y Offset
-INSTRUCTION_PARAM_PLAYER,Player
-INSTRUCTION_PARAM_SECTION,Section
-INSTRUCTION_PARAM_ACTION,Action
-INSTRUCTION_PARAM_ARGUMENT,Argument
-INSTRUCTION_PARAM_HITCOUNT,Hit Count
-,
-SELECT_EDIT_TITLE,Cursor Mask
-SELECT_EDIT_IMPORT,Import...
-SELECT_EDIT_IMPORT_TOOLTIP,Select an image to replace the cursor mask with.
-SELECT_EDIT_EXPORT,Export...
-SELECT_EDIT_EXPORT_TOOLTIP,Save the current cursor mask as an indexed PNG image.
-SELECT_EDIT_INFO_DIMENSIONS,Dimensions
-SELECT_EDIT_PREVIEW,Preview
-SELECT_CHAR_00,None
-SELECT_CHAR_01,Sol-Badguy
-SELECT_CHAR_02,Ky Kiske
-SELECT_CHAR_03,May
-SELECT_CHAR_04,Millia Rage
-SELECT_CHAR_05,Axl Low
-SELECT_CHAR_06,Potemkin
-SELECT_CHAR_07,Chipp Zanuff
-SELECT_CHAR_08,Eddie
-SELECT_CHAR_09,Baiken
-SELECT_CHAR_10,Faust
-SELECT_CHAR_11,Testament
-SELECT_CHAR_12,Jam Kuradoberi
-SELECT_CHAR_13,Anji Mito
-SELECT_CHAR_14,Johnny
-SELECT_CHAR_15,Venom
-SELECT_CHAR_16,Dizzy
-SELECT_CHAR_17,Slayer
-SELECT_CHAR_18,I-No
-SELECT_CHAR_19,Zappa
-SELECT_CHAR_20,Bridget
-SELECT_CHAR_21,Robo-Ky
-SELECT_CHAR_22,A.B.A.
-SELECT_CHAR_23,Order-Sol
-SELECT_CHAR_24,Kliff Undersn
-SELECT_CHAR_25,Justice
-SELECT_CHAR_255,Random select
-SELECT_CHAR_INVALID,Invalid pixel!
-,
-,
-STATUS_READY,Ready.
-STATUS_OPEN_ALREADY_OPEN_DIR,Directory already open!
-STATUS_OPEN_ALREADY_OPEN_BIN,File already open!
-STATUS_LOADING,Loading [{path}]...
-STATUS_LOAD_COMPLETE,Loaded data from [{path}].
-STATUS_LOAD_INVALID,"Unable to load, file invalid or unsupported."
-STATUS_LOAD_DIR_NOTHING,No compatible data found at [{path}].
-STATUS_LOAD_BIN_ERROR,Load failed with error: {error}
-STATUS_SAVE_NOTHING,Nothing to save.
-STATUS_SAVE_DIR_START,Saving directory...
-STATUS_SAVE_BIN_START,Saving binary file...
-STATUS_SAVE_COMPLETE,Save complete.
-STATUS_SAVE_DIR_ERROR,Save had errors: {errors}
-STATUS_SAVE_DIR_ERROR_READ_ONLY,Some files were read-only!
-STATUS_SAVE_DIR_ERROR_CELLS,Could not save some cells!
-STATUS_SAVE_DIR_ERROR_SPRITES,Could not save some sprites!
-STATUS_SAVE_DIR_ERROR_PALETTES,Could not save some palettes!
-STATUS_SAVE_DIR_PATH_ERROR,ERROR! Could not save. Cause: no path.
-STATUS_SAVE_BIN_PATH_ERROR,"ERROR! Could not save. Cause: no path. Try ""Save as..."""
-STATUS_DIRECTORY_CANT_SAVE_AS,"Directory session, can't 'save as'."
-STATUS_NOTHING_OPEN_CANT_CLOSE,"Nothing currently open, can't close."
-STATUS_TAB_CLOSE,Closed tab.
-STATUS_PREFERENCES_SAVED,Saved preferences.
-STATUS_PREFERENCES_SAVE_ERROR,Could not save preferences!
-STATUS_ACTION_HISTORY_NO,The Action History is not currently available.
-STATUS_ZOOM_IN,Zoomed in ({factor}x)
-STATUS_ZOOM_OUT,Zoomed out ({factor}x)
-STATUS_ZOOM_ALREADY_MAX,Already at max zoom!
-STATUS_ZOOM_ALREADY_MIN,"Already at min zoom, centered view."
-STATUS_PALETTE_IMPORT_NULL,"Could not load palette, file is invalid or does not exist."
-STATUS_INSTRUCTION_DB_START,Building script instruction database...
-STATUS_INSTRUCTION_DB_FILE_NOT_FOUND,Instruction database file not found!
-STATUS_INSTRUCTION_DB_FINISH,Script instruction database build complete. Entries: {count}.
-,
-STATUS_SPRITE_EDIT_IMPORT_NOTHING,"No sprites selected, can't import."
-,
-STATUS_CELL_EDIT_CELL_LOAD,Loaded cell #{index}.
-STATUS_CELL_EDIT_CELL_COPY,Copied cell #{index} to the clipboard.
-STATUS_CELL_EDIT_CELL_PASTE_NOTHING,"No cell on clipboard, nothing pasted."
-STATUS_CELL_EDIT_SPRITE_INFO_COPY,Copied sprite info for cell #{index}.
-STATUS_CELL_EDIT_SPRITE_INFO_PASTE_NOTHING,"No sprite info on clipboard, nothing pasted."
-STATUS_CELL_EDIT_BOX_COPY_NOTHING,"No boxes selected, nothing copied."
-STATUS_CELL_EDIT_BOX_COPY,Copied box(es).
-STATUS_CELL_EDIT_BOX_PASTE_NOTHING,"No boxes on clipboard, nothing pasted."
-STATUS_CELL_EDIT_BOX_DELETE_NOTHING,"No boxes selected, can't delete."
-,
-STATUS_PROVIDER_NOTHING_SELECTED,Nothing selected. Palette has not been modified.
-STATUS_PROVIDER_CANNOT_IMPORT,"Could not apply palette, no sprite selected."
-,
-STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS,Cannot delete all actions! Nothing done.
-STATUS_SCRIPT_EDIT_ACTION_COPY,Copied action #{index} to the clipboard.
-STATUS_SCRIPT_EDIT_ACTION_CANNOT_PASTE,"No actions on clipboard, nothing pasted."
-STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_COPY,"No instruction selected, nothing copied."
-STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_PASTE,"No instructions on clipboard, nothing pasted."
-STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_MOVE,Cannot move instruction any further!
-STATUS_SCRIPT_EDIT_INSTRUCTION_MOVE_NOTHING,"No instruction selected, nothing moved."
-,
-ACTION_UNDO,Undo: {action}
-,
-ACTION_SPRITE_EDIT_DELETE,Delete {count} sprite(s)
-ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,Cannot delete all sprites!
-,
-ACTION_SPRITE_IMPORTER_IMPORT,Import {count} '{object}' sprites
-,
-ACTION_CELL_EDIT_CELL_NEW,New cell (#{index})
-ACTION_CELL_EDIT_CELL_PASTE,Paste cell (#{index})
-ACTION_CELL_EDIT_CELL_DELETE,Delete {count} cell(s)
-ACTION_CELL_EDIT_SPRITE_INDEX,Cell #{index}: Set sprite index
-ACTION_CELL_EDIT_SPRITE_OFFSET,Cell #{index}: Set sprite offset
-ACTION_CELL_EDIT_SPRITE_OFFSET_X,Cell #{index}: Set sprite x offset
-ACTION_CELL_EDIT_SPRITE_OFFSET_Y,Cell #{index}: Set sprite y offset
-ACTION_CELL_EDIT_SPRITE_INFO_PASTE,Cell #{index}: Paste sprite info
-ACTION_CELL_EDIT_BOX_NEW,Cell #{index}: Add box
-ACTION_CELL_EDIT_BOX_PASTE,Cell #{index}: Paste box(es)
-ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE,with overwrite
-ACTION_CELL_EDIT_BOX_DELETE,Cell #{index}: Delete box
-ACTION_CELL_EDIT_BOX_DELETE_MULTI,Cell #{index}: Delete boxes
-ACTION_CELL_EDIT_BOX_TYPE,Cell #{index}: Set box type
-ACTION_CELL_EDIT_BOX_TYPE_MULTI,Cell #{index}: Set type for multiple boxes
-ACTION_CELL_EDIT_BOX_OFFSET_X,Cell #{index}: Set box x offset
-ACTION_CELL_EDIT_BOX_OFFSET_Y,Cell #{index}: Set box y offset
-ACTION_CELL_EDIT_BOX_WIDTH,Cell #{index}: Set box width
-ACTION_CELL_EDIT_BOX_HEIGHT,Cell #{index}: Set box height
-ACTION_CELL_EDIT_BOX_MODIFY,Cell #{index}: Modify box #{box}
-ACTION_CELL_EDIT_BOX_MODIFY_MULTI,Cell #{index}: Modify multiple boxes
-ACTION_CELL_EDIT_REGION_OFFSET_X,Cell #{index}: Set sprite region x offset
-ACTION_CELL_EDIT_REGION_OFFSET_Y,Cell #{index}: Set sprite region y offset
-,
-ACTION_PROVIDER_PALETTE_SET_COLOR,Palette #{index}: set color(s)
-ACTION_PROVIDER_PALETTE_PASTE_COLOR,Palette #{index}: paste color(s)
-ACTION_PROVIDER_PALETTE_IMPORT,Palette #{index}: import replacement
-ACTION_PROVIDER_PALETTE_REINDEX,Palette #{index}: reindex
-ACTION_PROVIDER_SPRITE_SET_COLOR,Sprite #{index}: set color(s)
-ACTION_PROVIDER_SPRITE_PASTE_COLOR,Sprite #{index}: paste color(s)
-ACTION_PROVIDER_SPRITE_IMPORT,Sprite #{index}: import palette
-ACTION_PROVIDER_SPRITE_REINDEX,Sprite #{index}: reindex
-,
-ACTION_SELECT_IMPORT,Import cursor mask
-,
-ACTION_SCRIPT_EDIT_DELETE_ACTION,Action #{index}: delete
-ACTION_SCRIPT_EDIT_NEW_ACTION,New action at index #{index}
-ACTION_SCRIPT_EDIT_PASTE_ACTION,Paste action at index #{index}
-ACTION_SCRIPT_EDIT_SET_FLAG,Action #{index}: set flag
-ACTION_SCRIPT_EDIT_SET_DAMAGE,Action #{index}: set damage
-ACTION_SCRIPT_EDIT_DELETE_INSTRUCTION,Action #{index}: delete instruction
-ACTION_SCRIPT_EDIT_INSERT_INSTRUCTION,Action #{index}: insert instruction
-ACTION_SCRIPT_EDIT_PASTE_INSTRUCTION,Action #{index}: paste instruction
-ACTION_SCRIPT_EDIT_MOVE_INSTRUCTION,Action #{index}: move instruction
-ACTION_SCRIPT_EDIT_SET_ARGUMENT,Action #{index}: set instruction {instruction} argument {argument}
+SCRIPT_EDIT_INSTRUCTIONS_TYPE_TOOLTIP,Instruction type menu button tooltip,Click to select the type of new instructions.
+SCRIPT_EDIT_PARAMETERS,"""Parameters"" section header",Parameters
+SCRIPT_EDIT_PARAMETERS_TOOLTIP,,This section allow modifying an instruction's parameters.
+SCRIPT_EDIT_PARAMETERS_NOTHING,"""No instruction selected"" text",No instruction selected.
+SCRIPT_EDIT_PARAMETERS_NOTHING_TOOLTIP,,Select an instruction from the above list in order to view and modify its parameters.
+SCRIPT_EDIT_PREVIEW,Preview title,Preview
+SCRIPT_EDIT_IGNORE_VISUAL,"""Ignore VISUAL"" checkbutton",Ignore VISUAL
+SCRIPT_EDIT_IGNORE_VISUAL_TOOLTIP,,"Stops ""VISUAL"" effects from being applied to the preview."
+SCRIPT_EDIT_WARNING,Warning text (script editor incomplete/inaccurate),"WARNING: This part of Gear Studio is incomplete, and may not correctly mirror in-game behavior."
+SCRIPT_EDIT_PLAY_FROM_START_TOOLTIP,"Tooltip for ""play from start"" button",Play from start
+SCRIPT_EDIT_PLAY_TOOLTIP,Tooltip for play button,Play
+SCRIPT_EDIT_STOP_TOOLTIP,Tooltip for stop button,Stop
+SCRIPT_EDIT_CURRENT_FRAME_TOOLTIP,Tooltip for current frame label,Current frame
+SCRIPT_EDIT_TOTAL_FRAMES_TOOLTIP,Tooltip for total frames label,Total frames
+SCRIPT_EDIT_INSTRUCTIONS,"""Instructions"", section title",Instructions
+,PLAY DATA,
+SCRIPT_VARIABLES_SECTION_PROPERTIES,Base properties section header,Character properties
+SCRIPT_VARIABLES_SECTION_TENSION,Tension gain section header,Tension gain
+SCRIPT_VARIABLES_SECTION_GROUND,Grounded movement header,Grounded movement
+SCRIPT_VARIABLES_SECTION_AIR,Air movement header,Airborne movement
+SCRIPT_VARIABLES_CHAIN_TABLES,Chain tables header,Chain tables
+VAR_FAINT_POINT,PDFaintPoint,Faint point
+VAR_DEFENSE_POINT,PDDefPoint,Defense point
+VAR_KONJO,PDKonjo,Konjo
+VAR_KAISHIN,PDKaishin,Kaishin
+VAR_GC_DEF_POINT,PDGCGauge_DefPoint,GCGauge_DefPoint
+VAR_GC_RECOVERY,PDGCGauge_Recovery,GCGauge_Recovery
+VAR_TENSION_WALK,PDTensionAdd_FWalk,Walking forward
+VAR_TENSION_JUMP,PDTensionAdd_FJump,Jumping forward
+VAR_TENSION_DASH,PDTensionAdd_FDash,Dashing forward
+VAR_TENSION_ADASH,PDTensionAdd_FSDash,Airdashing forward
+VAR_TENSION_IB,JGTension,Instant Block
+VAR_WALK_FWD_X,ForwardWalk_XSpeed,Walk forward X speed
+VAR_WALK_BWD_X,BackWalk_XSpeed,Walk backward X speed
+VAR_DASH_X,Dash_XSpeed,Forward dash X speed
+VAR_BACKDASH_X,BackStep_XSpeed,Backdash X speed
+VAR_BACKDASH_Y,BackStep_YSpeed,Backdash Y speed
+VAR_BACKDASH_GRAVITY,BackStep_Gravity,Backdash gravity
+VAR_DASH_ACCELERATION,Dash_Accel,Dash acceleration
+VAR_DASH_RESIST,Dash_Resist,Dash resistance
+VAR_JUMP_FWD_X,FrontJump_XSpeed,Jump forward X speed
+VAR_JUMP_BWD_X,BackJump_XSpeed,Jump backward X speed
+VAR_JUMP_Y_SPEED,Jump_YSpeed,Jump Y speed
+VAR_JUMP_GRAVITY,Jump_Gravity,Jump gravity
+VAR_SUPERJUMP_FWD_X,FrontHighJump_XSpeed,Superjump forward X speed
+VAR_SUPERJUMP_BWD_X,BackHighJump_XSpeed,Superjump back X speed
+VAR_SUPERJUMP_Y,HighJump_YSpeed,Superjump Y speed
+VAR_SUPERJUMP_GRAVITY,HighJump_Gravity,Superjump gravity
+VAR_HOMING_Y_MAX,HomingJump_YMAX,Homing jump Y max
+VAR_HOMING_X_MAX,HomingJump_XMAX,Homing jump X max
+VAR_HOMING_X_RESIST,HomingJump_XResist,Homing jump X resistance
+VAR_HOMING_TARGET_Y,HomingTarget_YOffset,Homing target Y offset
+VAR_AIRDASH_HEIGHT,SkyDash_Height,Airdash minimum height
+VAR_ADASH_FWD_TIME,PDSkyDashF_Time,Airdash forward time
+VAR_ADASH_BWD_TIME,PDSkyDashB_Time,Airdash backward time
+VAR_AIRDASH_COUNT,PDSkyDashCount,Airdash count
+VAR_JUMP_COUNT,PDJumpCount,Jump count
+VAR_ADASH_FWD_ATK,PDSkyDashF_AttackTime,Airdash forward attack time
+VAR_ADASH_BWD_ATK,PDSkyDashB_AttackTime,Airdash backward attack time
+VAR_DEFENSE_GRAVITY,PDDef_Gravity,Defense gravity
+CHAIN_TABLE_INDEX,Chain table selector title,Table #
+CHAIN_TABLE_UNKNOWN,Unknown gatling option,Unknown
+,SCRIPT INSTRUCTION PARAMETERS,
+INSTRUCTION_PARAM_UNUSED,Parameter names,Unused
+INSTRUCTION_PARAM_UNKNOWN,,Unknown
+INSTRUCTION_PARAM_MODE,,Mode
+INSTRUCTION_PARAM_TYPE,,Type
+INSTRUCTION_PARAM_ENABLE,,Enable
+INSTRUCTION_PARAM_DISABLE,,Disable
+INSTRUCTION_PARAM_VALUE,,Value
+INSTRUCTION_PARAM_AMOUNT,,Amount
+INSTRUCTION_PARAM_FLAG,,Flag
+INSTRUCTION_PARAM_FLAGS,,Flags
+INSTRUCTION_PARAM_OPERATION,,Operation
+INSTRUCTION_PARAM_DURATION,,Duration
+INSTRUCTION_PARAM_PERCENTAGE,,Percentage
+INSTRUCTION_PARAM_CELL,,Cell #
+INSTRUCTION_PARAM_GATLINGS,,Allow gatlings
+INSTRUCTION_PARAM_ALPHA,,Alpha
+INSTRUCTION_PARAM_BLEND,,Blend mode
+INSTRUCTION_PARAM_FRC,,FRC time (4/6)
+INSTRUCTION_PARAM_OFFSET,,Offset
+INSTRUCTION_PARAM_ANIMENO,,AnimeNo
+INSTRUCTION_PARAM_IDNO,,idno
+INSTRUCTION_PARAM_LOCALID,,Localid
+INSTRUCTION_PARAM_KIND,,Kind
+INSTRUCTION_PARAM_EFFECT,,Effect
+INSTRUCTION_PARAM_SOUND_ID,,Sound #
+INSTRUCTION_PARAM_PROBABILITY,,Probability
+INSTRUCTION_PARAM_GUARD_SND_NO,,Guard Snd. #
+INSTRUCTION_PARAM_DAMAGE_SND_NO,,Dmge. Snd. #
+INSTRUCTION_PARAM_GRAVITY,,Gravity
+INSTRUCTION_PARAM_SPEED,,Speed
+INSTRUCTION_PARAM_LEVEL,,Level
+INSTRUCTION_PARAM_ADD_ALWAYS,,Add always
+INSTRUCTION_PARAM_ADD_ON_HIT,,Add on hit
+INSTRUCTION_PARAM_OFFSET_X,,X Offset
+INSTRUCTION_PARAM_OFFSET_Y,,Y Offset
+INSTRUCTION_PARAM_PLAYER,,Player
+INSTRUCTION_PARAM_SECTION,,Section
+INSTRUCTION_PARAM_ACTION,,Action
+INSTRUCTION_PARAM_ARGUMENT,,Argument
+INSTRUCTION_PARAM_HITCOUNT,,Hit Count
+,SELECT EDITOR,
+SELECT_EDIT_TITLE,Tab title,Cursor Mask
+SELECT_EDIT_IMPORT,Import cursor mask button,Import...
+SELECT_EDIT_IMPORT_TOOLTIP,,Select an image to replace the cursor mask with.
+SELECT_EDIT_EXPORT,Export cursor mask button,Export...
+SELECT_EDIT_EXPORT_TOOLTIP,,Save the current cursor mask as an indexed PNG image.
+SELECT_EDIT_INFO_DIMENSIONS,"""Dimensions"", title",Dimensions
+SELECT_EDIT_PREVIEW,"""Preview"", title",Preview
+SELECT_CHAR_00,"Characters on list, on the left panel",None
+SELECT_CHAR_01,,Sol-Badguy
+SELECT_CHAR_02,,Ky Kiske
+SELECT_CHAR_03,,May
+SELECT_CHAR_04,,Millia Rage
+SELECT_CHAR_05,,Axl Low
+SELECT_CHAR_06,,Potemkin
+SELECT_CHAR_07,,Chipp Zanuff
+SELECT_CHAR_08,,Eddie
+SELECT_CHAR_09,,Baiken
+SELECT_CHAR_10,,Faust
+SELECT_CHAR_11,,Testament
+SELECT_CHAR_12,,Jam Kuradoberi
+SELECT_CHAR_13,,Anji Mito
+SELECT_CHAR_14,,Johnny
+SELECT_CHAR_15,,Venom
+SELECT_CHAR_16,,Dizzy
+SELECT_CHAR_17,,Slayer
+SELECT_CHAR_18,,I-No
+SELECT_CHAR_19,,Zappa
+SELECT_CHAR_20,,Bridget
+SELECT_CHAR_21,,Robo-Ky
+SELECT_CHAR_22,,A.B.A.
+SELECT_CHAR_23,,Order-Sol
+SELECT_CHAR_24,,Kliff Undersn
+SELECT_CHAR_25,,Justice
+SELECT_CHAR_255,,Random select
+SELECT_CHAR_INVALID,Tooltip when mouse goes over an invalid pixel,Invalid pixel!
+,SHARED,
+PREVIEW_OPTIONS,Preview options button on right side,Preview options
+PREVIEW_OPTIONS_TOOLTIP,,Opens the preview options side panel.
+PREVIEW_TITLE_MISC,Title of the miscellaneous section,Miscellaneous
+PREVIEW_PALETTE_INDEX,Title of the palette index spinbox,Palette #
+PREVIEW_PALETTE_INDEX_TOOLTIP,,"Select which palette to use in the preview.
+Affects reference files."
+PREVIEW_HITBOXES,Hitbox visibility toggle,Display hitboxes
+PREVIEW_HITBOXES_TOOLTIP,,Toggles display of this object's hitboxes in the preview.
+PREVIEW_TITLE_REFERENCE,Title of the reference section,Reference
+REFERENCE_SESSION,Reference session selector,Reference session
+REFERENCE_SESSION_TOOLTIP,,Which open tab to draw reference objects from.
+REFERENCE_OBJECT,Reference session object selector,Reference object
+REFERENCE_OBJECT_TOOLTIP,,Which object from the selected session to use as a reference.
+REFERENCE_CELL,Reference session cell selector,Reference cell #
+REFERENCE_CELL_TOOLTIP,,Sets a specific cell to use as a static reference.
+REFERENCE_FRONT,Reference in front toggle,Reference in front
+REFERENCE_FRONT_TOOLTIP,,Toggles displaying the reference in front of the main preview.
+REFERENCE_HITBOXES,Reference hitbox visibility toggle,Display hitboxes
+REFERENCE_HITBOXES_TOOLTIP,,Toggles display of the reference object's hitboxes.
+REFERENCE_SEMITRANS,Reference semitransparent toggle,Semitransparent display
+REFERENCE_SEMITRANS_TOOLTIP,,Toggles displaying the reference at half transparency.
+REFERENCE_SESSION_NONE,"""None"" entry in reference session list",None
+REFERENCE_SESSION_ENTRY,File entry in reference session list,File {index}: {name}
+REFERENCE_OBJECT_NONE,"""None"" entry in reference object list",None
+REFERENCE_OBJECT_ENTRY,Object entry in reference object list,Object #{index}
+,STATUS,
+,GENERIC/GLOBAL,
+STATUS_READY,,Ready.
+STATUS_OPEN_ALREADY_OPEN_DIR,,Directory already open!
+STATUS_OPEN_ALREADY_OPEN_BIN,,File already open!
+STATUS_LOADING,,Loading [{path}]...
+STATUS_LOAD_COMPLETE,,Loaded data from [{path}].
+STATUS_LOAD_INVALID,,"Unable to load, file invalid or unsupported."
+STATUS_LOAD_DIR_NOTHING,,No compatible data found at [{path}].
+STATUS_LOAD_BIN_ERROR,,Load failed with error: {error}
+STATUS_SAVE_NOTHING,,Nothing to save.
+STATUS_SAVE_DIR_START,,Saving directory...
+STATUS_SAVE_BIN_START,,Saving binary file...
+STATUS_SAVE_COMPLETE,,Save complete.
+STATUS_SAVE_DIR_ERROR,,Save had errors: {errors}
+STATUS_SAVE_DIR_ERROR_READ_ONLY,,Some files were read-only!
+STATUS_SAVE_DIR_ERROR_CELLS,,Could not save some cells!
+STATUS_SAVE_DIR_ERROR_SPRITES,,Could not save some sprites!
+STATUS_SAVE_DIR_ERROR_PALETTES,,Could not save some palettes!
+STATUS_SAVE_DIR_PATH_ERROR,,ERROR! Could not save. Cause: no path.
+STATUS_SAVE_BIN_PATH_ERROR,,"ERROR! Could not save. Cause: no path. Try ""Save as..."""
+STATUS_DIRECTORY_CANT_SAVE_AS,,"Directory session, can't 'save as'."
+STATUS_NOTHING_OPEN_CANT_CLOSE,,"Nothing currently open, can't close."
+STATUS_TAB_CLOSE,,Closed tab.
+STATUS_PREFERENCES_SAVED,,Saved preferences.
+STATUS_PREFERENCES_SAVE_ERROR,,Could not save preferences!
+STATUS_ACTION_HISTORY_NO,,The Action History is not currently available.
+STATUS_ZOOM_IN,,Zoomed in ({factor}x)
+STATUS_ZOOM_OUT,,Zoomed out ({factor}x)
+STATUS_ZOOM_ALREADY_MAX,,Already at max zoom!
+STATUS_ZOOM_ALREADY_MIN,,"Already at min zoom, centered view."
+STATUS_PALETTE_IMPORT_NULL,,"Could not load palette, file is invalid or does not exist."
+STATUS_INSTRUCTION_DB_START,,Building script instruction database...
+STATUS_INSTRUCTION_DB_FILE_NOT_FOUND,,Instruction database file not found!
+STATUS_INSTRUCTION_DB_FINISH,,Script instruction database build complete. Entries: {count}.
+,SPRITE EDITOR,
+STATUS_SPRITE_EDIT_IMPORT_NOTHING,"Trying to import sprites, but selected no files","No sprites selected, can't import."
+,CELL EDITOR,
+STATUS_CELL_EDIT_CELL_LOAD,,Loaded cell #{index}.
+STATUS_CELL_EDIT_CELL_COPY,,Copied cell #{index} to the clipboard.
+STATUS_CELL_EDIT_CELL_PASTE_NOTHING,,"No cell on clipboard, nothing pasted."
+STATUS_CELL_EDIT_SPRITE_INFO_COPY,,Copied sprite info for cell #{index}.
+STATUS_CELL_EDIT_SPRITE_INFO_PASTE_NOTHING,,"No sprite info on clipboard, nothing pasted."
+STATUS_CELL_EDIT_BOX_COPY_NOTHING,,"No boxes selected, nothing copied."
+STATUS_CELL_EDIT_BOX_COPY,,Copied box(es).
+STATUS_CELL_EDIT_BOX_PASTE_NOTHING,,"No boxes on clipboard, nothing pasted."
+STATUS_CELL_EDIT_BOX_DELETE_NOTHING,,"No boxes selected, can't delete."
+,PALETTE PROVIDER,
+STATUS_PROVIDER_NOTHING_SELECTED,,Nothing selected. Palette has not been modified.
+STATUS_PROVIDER_CANNOT_IMPORT,This shouldn't show up,"Could not apply palette, no sprite selected."
+,SCRIPT EDITOR,
+STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS,,Cannot delete all actions! Nothing done.
+STATUS_SCRIPT_EDIT_ACTION_COPY,,Copied action #{index} to the clipboard.
+STATUS_SCRIPT_EDIT_ACTION_CANNOT_PASTE,,"No actions on clipboard, nothing pasted."
+STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_COPY,,"No instruction selected, nothing copied."
+STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_PASTE,,"No instructions on clipboard, nothing pasted."
+STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_MOVE,,Cannot move instruction any further!
+STATUS_SCRIPT_EDIT_INSTRUCTION_MOVE_NOTHING,,"No instruction selected, nothing moved."
+,ACTIONS: GENERIC,
+ACTION_UNDO,,Undo: {action}
+,ACTIONS: SPRITE EDITOR,
+ACTION_SPRITE_EDIT_DELETE,,Delete {count} sprite(s)
+ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,,Cannot delete all sprites!
+,ACTIONS: SPRITE IMPORTER,
+ACTION_SPRITE_IMPORTER_IMPORT,,Import {count} '{object}' sprites
+,ACTIONS: CELL EDITOR,
+ACTION_CELL_EDIT_CELL_NEW,,New cell (#{index})
+ACTION_CELL_EDIT_CELL_PASTE,,Paste cell (#{index})
+ACTION_CELL_EDIT_CELL_DELETE,,Delete {count} cell(s)
+ACTION_CELL_EDIT_SPRITE_INDEX,,Cell #{index}: Set sprite index
+ACTION_CELL_EDIT_SPRITE_OFFSET,,Cell #{index}: Set sprite offset
+ACTION_CELL_EDIT_SPRITE_OFFSET_X,,Cell #{index}: Set sprite x offset
+ACTION_CELL_EDIT_SPRITE_OFFSET_Y,,Cell #{index}: Set sprite y offset
+ACTION_CELL_EDIT_SPRITE_INFO_PASTE,,Cell #{index}: Paste sprite info
+ACTION_CELL_EDIT_BOX_NEW,,Cell #{index}: Add box
+ACTION_CELL_EDIT_BOX_PASTE,,Cell #{index}: Paste box(es)
+ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE,,with overwrite
+ACTION_CELL_EDIT_BOX_DELETE,,Cell #{index}: Delete box
+ACTION_CELL_EDIT_BOX_DELETE_MULTI,,Cell #{index}: Delete boxes
+ACTION_CELL_EDIT_BOX_TYPE,,Cell #{index}: Set box type
+ACTION_CELL_EDIT_BOX_TYPE_MULTI,,Cell #{index}: Set type for multiple boxes
+ACTION_CELL_EDIT_BOX_OFFSET_X,,Cell #{index}: Set box x offset
+ACTION_CELL_EDIT_BOX_OFFSET_Y,,Cell #{index}: Set box y offset
+ACTION_CELL_EDIT_BOX_WIDTH,,Cell #{index}: Set box width
+ACTION_CELL_EDIT_BOX_HEIGHT,,Cell #{index}: Set box height
+ACTION_CELL_EDIT_BOX_MODIFY,,Cell #{index}: Modify box #{box}
+ACTION_CELL_EDIT_BOX_MODIFY_MULTI,,Cell #{index}: Modify multiple boxes
+ACTION_CELL_EDIT_REGION_OFFSET_X,,Cell #{index}: Set sprite region x offset
+ACTION_CELL_EDIT_REGION_OFFSET_Y,,Cell #{index}: Set sprite region y offset
+,ACTIONS: PALETTE PROVIDER,
+ACTION_PROVIDER_PALETTE_SET_COLOR,,Palette #{index}: set color(s)
+ACTION_PROVIDER_PALETTE_PASTE_COLOR,,Palette #{index}: paste color(s)
+ACTION_PROVIDER_PALETTE_IMPORT,,Palette #{index}: import replacement
+ACTION_PROVIDER_PALETTE_REINDEX,,Palette #{index}: reindex
+ACTION_PROVIDER_SPRITE_SET_COLOR,,Sprite #{index}: set color(s)
+ACTION_PROVIDER_SPRITE_PASTE_COLOR,,Sprite #{index}: paste color(s)
+ACTION_PROVIDER_SPRITE_IMPORT,,Sprite #{index}: import palette
+ACTION_PROVIDER_SPRITE_REINDEX,,Sprite #{index}: reindex
+,ACTIONS: SELECT EDITOR,
+ACTION_SELECT_IMPORT,,Import cursor mask
+,ACTIONS: SCRIPT EDITOR,
+ACTION_SCRIPT_EDIT_DELETE_ACTION,,Action #{index}: delete
+ACTION_SCRIPT_EDIT_NEW_ACTION,,New action at index #{index}
+ACTION_SCRIPT_EDIT_PASTE_ACTION,,Paste action at index #{index}
+ACTION_SCRIPT_EDIT_SET_FLAG,,Action #{index}: set flag
+ACTION_SCRIPT_EDIT_SET_DAMAGE,,Action #{index}: set damage
+ACTION_SCRIPT_EDIT_DELETE_INSTRUCTION,,Action #{index}: delete instruction
+ACTION_SCRIPT_EDIT_INSERT_INSTRUCTION,,Action #{index}: insert instruction
+ACTION_SCRIPT_EDIT_PASTE_INSTRUCTION,,Action #{index}: paste instruction
+ACTION_SCRIPT_EDIT_MOVE_INSTRUCTION,,Action #{index}: move instruction
+ACTION_SCRIPT_EDIT_SET_ARGUMENT,,Action #{index}: set instruction {instruction} argument {argument}
