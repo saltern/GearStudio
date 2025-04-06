@@ -52,7 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://b8kpkmxgsoo7r" path="res://ICONS/camera.png" id="28_76gqd"]
 [ext_resource type="Script" uid="uid://4ftotvxeg250" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_draw.gd" id="28_h6aqa"]
 [ext_resource type="Script" uid="uid://btxrx0w6v6bop" path="res://SCENES/TABS/SHARED/PREVIEW/preview_origin_cross.gd" id="29_uhtn5"]
-[ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/CELL_EDIT/PREVIEW/palette_index.gd" id="32_dcsig"]
+[ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/PREVIEW/palette_index.gd" id="32_dcsig"]
 [ext_resource type="Script" uid="uid://dl65n2yrwicv7" path="res://SCENES/TABS/SHARED/expand_collapse_button.gd" id="39_3nb3e"]
 [ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="41_nea0q"]
 [ext_resource type="Script" uid="uid://cujo5m4bsquxe" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
@@ -723,6 +723,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+tooltip_text = "PREVIEW_OPTIONS_TOOLTIP"
 text = "PREVIEW_OPTIONS"
 script = ExtResource("39_3nb3e")
 collapsible = NodePath("../../preview_contents/options")
@@ -977,7 +978,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "PREVIEW_MISC_TITLE"
+text = "PREVIEW_TITLE_MISC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -997,9 +998,9 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP"
+tooltip_text = "PREVIEW_PALETTE_INDEX_TOOLTIP"
 mouse_filter = 0
-text = "CELL_EDIT_PREVIEW_PALETTE_INDEX"
+text = "PREVIEW_PALETTE_INDEX"
 clip_text = true
 text_overrun_behavior = 3
 
@@ -1038,8 +1039,8 @@ text = "CELL_EDIT_ONION_IN_FRONT"
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1_TOOLTIP"
-text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL1"
+tooltip_text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1_TOOLTIP"
+text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1"
 text_overrun_behavior = 3
 script = ExtResource("25_hdyd6")
 cell_sprite_display = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite")
@@ -1057,7 +1058,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "PREVIEW_REFERENCE_TITLE"
+text = "PREVIEW_TITLE_REFERENCE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1076,6 +1077,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/session"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "REFERENCE_SESSION_TOOLTIP"
+mouse_filter = 0
 text = "REFERENCE_SESSION"
 vertical_alignment = 1
 text_overrun_behavior = 3
@@ -1098,6 +1101,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/object"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
+mouse_filter = 0
 text = "REFERENCE_OBJECT"
 vertical_alignment = 1
 text_overrun_behavior = 3
@@ -1118,6 +1123,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/specific_cell"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "REFERENCE_CELL_TOOLTIP"
+mouse_filter = 0
 text = "REFERENCE_CELL"
 vertical_alignment = 1
 text_overrun_behavior = 3
@@ -1134,6 +1141,7 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 [node name="in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_FRONT_TOOLTIP"
 text = "REFERENCE_FRONT"
 text_overrun_behavior = 3
 script = ExtResource("60_jqdwu")
@@ -1142,6 +1150,7 @@ reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/ma
 [node name="hitboxes" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_HITBOXES_TOOLTIP"
 button_pressed = true
 text = "REFERENCE_HITBOXES"
 text_overrun_behavior = 3
@@ -1161,7 +1170,7 @@ custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 8
-text = "CELL_EDIT_SNAPSHOT_BUTTON"
+text = "SNAPSHOT_BUTTON"
 icon = ExtResource("28_76gqd")
 text_overrun_behavior = 3
 clip_text = true

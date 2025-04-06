@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5uc6fdtlf2nq"]
+[gd_scene load_steps=6 format=3 uid="uid://c5uc6fdtlf2nq"]
 
 [ext_resource type="Script" uid="uid://biv7dfbokh105" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/tab_variables.gd" id="1_povuj"]
+[ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="2_7kkro"]
 [ext_resource type="Script" uid="uid://b037a4y0jpp2o" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/variable_spinbox.gd" id="2_s76eq"]
 [ext_resource type="Script" uid="uid://cdgx7q6v8yvqf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_entry.gd" id="3_s76eq"]
 [ext_resource type="Script" uid="uid://bn3448pegp5s3" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_index.gd" id="3_saasy"]
@@ -25,6 +26,7 @@ size_flags_horizontal = 4
 
 [node name="column_0" type="VBoxContainer" parent="content"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="title_prop" type="Label" parent="content/column_0"]
 custom_minimum_size = Vector2(0, 30)
@@ -37,6 +39,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
@@ -169,6 +172,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("2_7kkro")
 
 [node name="margin" type="MarginContainer" parent="content/column_0/scroll_tension"]
 layout_mode = 2
@@ -270,6 +274,7 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="column_1" type="VBoxContainer" parent="content"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="title_ground" type="Label" parent="content/column_1"]
 custom_minimum_size = Vector2(0, 30)
@@ -283,6 +288,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
@@ -447,15 +453,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="scroll_air" type="ScrollContainer" parent="content/column_1"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 100
+theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="content/column_1/scroll_air"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="content" type="VBoxContainer" parent="content/column_1/scroll_air/margin"]
 layout_mode = 2
@@ -822,6 +828,7 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="column_2" type="MarginContainer" parent="content"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="chain_tables" type="VBoxContainer" parent="content/column_2"]
 custom_minimum_size = Vector2(300, 0)
@@ -831,6 +838,7 @@ size_flags_vertical = 4
 [node name="title" type="Label" parent="content/column_2/chain_tables"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_vertical = 0
 text = "SCRIPT_VARIABLES_CHAIN_TABLES"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -853,6 +861,7 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="entries" type="GridContainer" parent="content/column_2/chain_tables"]
 layout_mode = 2
+size_flags_vertical = 4
 columns = 4
 
 [node name="chain_00" type="MenuButton" parent="content/column_2/chain_tables/entries"]
