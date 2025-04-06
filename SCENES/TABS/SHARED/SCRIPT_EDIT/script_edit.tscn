@@ -50,8 +50,8 @@
 [ext_resource type="Script" uid="uid://b0l572xluspcq" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_type_itemlist.gd" id="36_h0fgr"]
 [ext_resource type="Script" uid="uid://chq6mxac5w20n" path="res://SCENES/TABS/SHARED/REFERENCE/reference_session.gd" id="38_lnoga"]
 [ext_resource type="Script" uid="uid://c7nsrbidk1wr7" path="res://SCENES/TABS/SHARED/REFERENCE/reference_object.gd" id="39_30w5o"]
-[ext_resource type="Script" uid="uid://c1pesubbwmlcc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_cell_number.gd" id="40_30w5o"]
 [ext_resource type="Script" uid="uid://bba3b4sxaog1k" path="res://SCENES/TABS/SHARED/REFERENCE/reference_in_front.gd" id="41_h0kyv"]
+[ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/PREVIEW/palette_index.gd" id="41_t1u05"]
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="42_2p55a"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="43_f47ks"]
 
@@ -1154,7 +1154,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "PREVIEW_MISC_TITLE"
+text = "PREVIEW_TITLE_MISC"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1166,24 +1166,46 @@ mouse_filter = 2
 [node name="misc_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data"]
 layout_mode = 2
 
+[node name="palette" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible/palette"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_PALETTE_INDEX_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_PALETTE_INDEX"
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible/palette"]
+custom_minimum_size = Vector2(134, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("41_t1u05")
+
 [node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible"]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
+tooltip_text = "PREVIEW_HITBOXES_TOOLTIP"
 theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
 theme_override_styles/normal = SubResource("StyleBoxFlat_h01nf")
 button_pressed = true
-text = "SCRIPT_EDIT_DISPLAY_BOXES"
+text = "PREVIEW_HITBOXES"
 
 [node name="ignore_visual" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/misc_collapsible"]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
+tooltip_text = "SCRIPT_EDIT_IGNORE_VISUAL_TOOLTIP"
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
 theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
-text = "Ignore \"VISUAL\""
+text = "SCRIPT_EDIT_IGNORE_VISUAL"
 
 [node name="ref_title" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" node_paths=PackedStringArray("collapsible")]
 layout_mode = 2
-tooltip_text = "SCRIPT_EDIT_PROPERTIES_TOOLTIP"
 script = ExtResource("4_h01nf")
 collapsible = NodePath("../ref_collapsible")
 
@@ -1195,7 +1217,7 @@ mouse_filter = 2
 [node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_title"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "PREVIEW_REFERENCE_TITLE"
+text = "PREVIEW_TITLE_REFERENCE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1214,6 +1236,8 @@ layout_mode = 2
 [node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/session"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "REFERENCE_SESSION_TOOLTIP"
+mouse_filter = 0
 text = "REFERENCE_SESSION"
 clip_text = true
 
@@ -1229,10 +1253,13 @@ script = ExtResource("38_lnoga")
 [node name="object" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
 
 [node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/object"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
+mouse_filter = 0
 text = "REFERENCE_OBJECT"
 clip_text = true
 
@@ -1245,27 +1272,10 @@ item_count = 1
 popup/item_0/id = 0
 script = ExtResource("39_30w5o")
 
-[node name="cell" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/cell"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "REFERENCE_CELL"
-
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/cell"]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-alignment = 2
-editable = false
-script = ExtResource("40_30w5o")
-metadata/_custom_type_script = "uid://ojsjmxp21twu"
-
 [node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_FRONT_TOOLTIP"
 text = "REFERENCE_FRONT"
 script = ExtResource("41_h0kyv")
 reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
@@ -1273,6 +1283,7 @@ reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/re
 [node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_HITBOXES_TOOLTIP"
 text = "REFERENCE_HITBOXES"
 script = ExtResource("42_2p55a")
 box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
@@ -1280,6 +1291,7 @@ box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/referenc
 [node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+tooltip_text = "REFERENCE_SEMITRANS_TOOLTIP"
 text = "REFERENCE_SEMITRANS"
 script = ExtResource("43_f47ks")
 reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
