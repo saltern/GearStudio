@@ -77,6 +77,7 @@ func set_chain_table_bit(entry_name: String, bit: int, value: bool) -> void:
 	var chain_table: ChainTable = play_data.chain_tables[chain_table_index]
 	var old_flags: int = chain_table.get(entry_name)
 	var new_flags: int = old_flags ^ (1 << bit)
+	var old_value: bool = get_chain_table_bit(entry_name, bit)
 	
 	undo_redo.add_do_method(chain_table.set.bind(entry_name, new_flags))
 	undo_redo.add_do_method(
@@ -85,7 +86,7 @@ func set_chain_table_bit(entry_name: String, bit: int, value: bool) -> void:
 	
 	undo_redo.add_undo_method(chain_table.set.bind(entry_name, old_flags))
 	undo_redo.add_undo_method(
-		emit_signal.bind("table_entry_changed", entry_name, bit, value)
+		emit_signal.bind("table_entry_changed", entry_name, bit, old_value)
 	)
 	
 	status_register_action(action_text)
