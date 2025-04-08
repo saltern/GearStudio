@@ -173,6 +173,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("2_7kkro")
+vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="content/column_0/scroll_tension"]
 layout_mode = 2
@@ -294,10 +295,10 @@ vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="content/column_1/scroll_ground"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="content" type="VBoxContainer" parent="content/column_1/scroll_ground/margin"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
