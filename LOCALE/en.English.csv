@@ -322,6 +322,8 @@ CELL_EDIT_BOXES_REGION_Y_TOOLTIP,,"Moves the cropped sprite region down, 8 pixel
 CELL_EDIT_PREVIEW,"Preview, title",Preview
 CELL_EDIT_PREVIEW_PALETTE_INDEX,"Preview ""Palette #"", title",Palette #
 CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,,Set the palette to preview sprites with.
+SNAPSHOT_BUTTON,"""Save snapshot"" button on the bottom right",Save snapshot
+SNAPSHOT_BUTTON_TOOLTIP,,"Saves the current cell as an image to Gear Studio's install path, under 'snapshots'."
 ,PALETTE EDITOR,
 PALETTE_EDIT_TITLE,Tab title,Palettes
 PALETTE_EDIT_PALETTE_INDEX,"""Palette #"", title",Palette #
