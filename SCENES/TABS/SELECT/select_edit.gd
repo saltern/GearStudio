@@ -79,6 +79,7 @@ func export(path: String) -> void:
 	
 	var sprite: BinSprite = BinSprite.new_from_data(
 		obj_data["select_pixels"],
+		image.get_width(), image.get_height(),
 		image, 8, PackedByteArray([]))
 	
 	SpriteExporter.export_png_direct(path, sprite, SpriteExport.pal_gray)
