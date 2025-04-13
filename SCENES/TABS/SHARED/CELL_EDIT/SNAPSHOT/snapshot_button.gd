@@ -6,6 +6,23 @@ extends Button
 
 
 func _pressed() -> void:
+	var cell: Cell = cell_edit.this_cell
+	
+	var pal: PackedByteArray
+	
+	if cell_edit.obj_data.has("palettes"):
+		pal = cell_edit.obj_data.palettes[0].palette
+	else:
+		pal = cell_edit.obj_data.sprites[cell.sprite_index].palette
+	
+	var img: Image = cell.save_snapshot_png(
+		cell_edit.obj_data.sprites[cell.sprite_index], 
+		pal, false, Settings.box_colors, Settings.box_thickness, ""
+	)
+	
+	img.save_png("C:/Users/alt_o/Desktop/test.png")
+	
+	return
 	var image: Image = subviewport.get_texture().get_image()
 	var used_rect: Rect2i = image.get_used_rect()
 	var snapshot: Image = Image.create_empty(
