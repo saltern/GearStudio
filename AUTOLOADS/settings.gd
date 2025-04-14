@@ -43,6 +43,7 @@ const CFG_CELL_ORIGIN: String = "draw_origin"
 const CFG_CELL_ORIGIN_TYPE: String = "origin_type"
 const CFG_CELL_ONION: String = "onion_color"
 const CFG_CELL_GUIDE: String = "guide_color"
+const CFG_CELL_SNAPSHOT: String = "snapshot_format"
 
 const CFG_SECTION_BOXES: String = "boxes"
 const CFG_BOX_THICKNESS: String = "thickness"
@@ -76,6 +77,12 @@ enum BoxType {
 	UNKNOWN,			# 7+
 }
 
+enum SnapshotFormat {
+	PNG,
+	PSD,
+	BOTH,
+}
+
 var general_language: String = "en"
 
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
@@ -86,6 +93,7 @@ var cell_draw_origin: bool = true
 var cell_origin_type: int = 0
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 var cell_guide: Color = Color8(255, 0, 0, 0xA0)
+var cell_snapshot_format: SnapshotFormat = SnapshotFormat.PNG
 
 var box_thickness: int = 2
 var box_colors: Array[Color] = [
@@ -108,6 +116,7 @@ var misc_max_undo: int = 200
 var misc_allow_reopen: bool = true
 
 var config: ConfigFile = ConfigFile.new()
+
 
 @onready var path: String = OS.get_executable_path().get_base_dir()
 
@@ -197,6 +206,8 @@ func load_config() -> bool:
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	cell_guide = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
+	cell_snapshot_format = config.get_value(
+		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format)
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
 	box_colors = [
@@ -240,6 +251,8 @@ func save_config() -> bool:
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	config.set_value(
 		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
+	config.set_value(
+		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format)
 	
 	config.set_value(
 		CFG_SECTION_BOXES, CFG_BOX_THICKNESS, box_thickness)

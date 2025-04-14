@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene load_steps=45 format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://ch0kfhlvhxbdh" path="res://SCENES/MAIN/PREFERENCES/misc_max_undo.gd" id="19_w7ci1"]
 [ext_resource type="Script" uid="uid://dg5ke7hjoabse" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
 [ext_resource type="Script" uid="uid://cg2m3kk5iqejb" path="res://SCENES/MAIN/save_lock.gd" id="28_j0856"]
+[ext_resource type="Script" uid="uid://dpim21nuwcox8" path="res://SCENES/MAIN/PREFERENCES/cell_snapshot_format.gd" id="34_8vno3"]
 [ext_resource type="Texture2D" uid="uid://cnudlthiitnny" path="res://ICONS/origin_a.png" id="36_biqay"]
 [ext_resource type="Texture2D" uid="uid://l752kjruckn" path="res://ICONS/origin_b.png" id="37_127pr"]
 [ext_resource type="Texture2D" uid="uid://cc6o788mhl7im" path="res://ICONS/origin_c.png" id="38_larvh"]
@@ -617,6 +618,28 @@ text_overrun_behavior = 3
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("17_nxxtx")
+
+[node name="snapshot_format" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PREFERENCES_CELLS_SNAPSHOT_FORMAT"
+
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "PNG"
+popup/item_0/id = 0
+popup/item_1/text = "PSD"
+popup/item_1/id = 1
+popup/item_2/text = "PREFERENCES_CELLS_SNAPSHOT_BOTH"
+popup/item_2/id = 2
+script = ExtResource("34_8vno3")
 
 [node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
 visible = false

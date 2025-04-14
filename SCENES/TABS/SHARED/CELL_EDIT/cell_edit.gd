@@ -32,23 +32,24 @@ var boxes_selected: PackedInt32Array = []
 var box_drawing_mode: bool
 var box_edits_allowed: bool
 
-enum BoxTypes {
-	UNKNOWN,
-	HITBOX,
-	HURTBOX,
-	REGION,
-	COLLISION,
-	SPAWN,
-}
+var box_type_ids: Array[PackedInt32Array] = [
+	# Hitbox
+	[0, 1],
+	# Hurtbox
+	[2],
+	# Region (back and front)
+	[3, 6],
+	# Collision extension
+	[4],
+	# Spawn point
+	[5],
+	# Unknown type (>=this)
+	[7],
+]
 
-var box_display_types: Dictionary = {
-	BoxTypes.UNKNOWN: true,
-	BoxTypes.HITBOX: true,
-	BoxTypes.HURTBOX: true,
-	BoxTypes.REGION: true,
-	BoxTypes.COLLISION: true,
-	BoxTypes.SPAWN: true,
-}
+var box_display_types: Array[bool] = [
+	true, true, true, true, true, true, true, true
+]
 
 var provider: PaletteProvider = PaletteProvider.new()
 
@@ -531,19 +532,12 @@ func box_set_draw_mode(enabled: bool) -> void:
 
 
 func box_is_type_visible(type: int) -> bool:
-	# Front region, same as region
-	if type == 6:
-		type = 3
-	
-	# Unknown types
-	if type < 1 or type > 5:
-		type = 0
-	
-	return box_display_types[type]
+	return box_display_types[clampi(type, 0, box_type_ids.size() - 1)]
 
 
 func box_set_type_visible(type: int, enabled: bool) -> void:
-	box_display_types[type] = enabled
+	for index in box_type_ids[clampi(type, 0, box_type_ids.size() - 1)]:
+		box_display_types[index] = enabled
 
 
 func box_append(box: BoxInfo) -> void:

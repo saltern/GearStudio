@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=91 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -76,6 +76,11 @@
 [ext_resource type="Script" uid="uid://c1pesubbwmlcc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_cell_number.gd" id="62_fxvck"]
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="62_qauf1"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="63_3nb3e"]
+[ext_resource type="Texture2D" uid="uid://c00nyifhcskle" path="res://GRAPHICS/CROSS_0.PNG" id="68_spn66"]
+[ext_resource type="Texture2D" uid="uid://dwo2e0q2qwaa1" path="res://GRAPHICS/CROSS_1.PNG" id="69_mkpt3"]
+[ext_resource type="Texture2D" uid="uid://dub3a3006mhde" path="res://GRAPHICS/CROSS_2.PNG" id="70_tjwtw"]
+[ext_resource type="Texture2D" uid="uid://idosmf4124rn" path="res://GRAPHICS/CROSS_3.PNG" id="71_lpevd"]
+[ext_resource type="Texture2D" uid="uid://b3bcpjp0qq1mp" path="res://GRAPHICS/CROSS_4.PNG" id="72_ifugv"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
 size = Vector2(0, 0)
@@ -476,34 +481,33 @@ tooltip_text = "CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP"
 text = "CELL_EDIT_BOXES_TYPES_DROPDOWN"
 flat = false
 item_count = 6
-popup/item_0/text = "CELL_EDIT_BOXES_TYPES_UNKNOWN"
+popup/item_0/text = "CELL_EDIT_BOXES_TYPES_HITBOXES"
 popup/item_0/checkable = 1
 popup/item_0/checked = true
 popup/item_0/id = 0
-popup/item_1/text = "CELL_EDIT_BOXES_TYPES_HITBOXES"
+popup/item_1/text = "CELL_EDIT_BOXES_TYPES_HURTBOXES"
 popup/item_1/checkable = 1
 popup/item_1/checked = true
 popup/item_1/id = 1
-popup/item_2/text = "CELL_EDIT_BOXES_TYPES_HURTBOXES"
+popup/item_2/text = "CELL_EDIT_BOXES_TYPES_REGIONS"
 popup/item_2/checkable = 1
 popup/item_2/checked = true
 popup/item_2/id = 2
-popup/item_3/text = "CELL_EDIT_BOXES_TYPES_REGIONS"
+popup/item_3/text = "CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION"
 popup/item_3/checkable = 1
 popup/item_3/checked = true
 popup/item_3/id = 3
-popup/item_4/text = "CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION"
+popup/item_4/text = "CELL_EDIT_BOXES_TYPES_SPAWN"
 popup/item_4/checkable = 1
 popup/item_4/checked = true
 popup/item_4/id = 4
-popup/item_5/text = "CELL_EDIT_BOXES_TYPES_SPAWN"
+popup/item_5/text = "CELL_EDIT_BOXES_TYPES_UNKNOWN"
 popup/item_5/checkable = 1
 popup/item_5/checked = true
 popup/item_5/id = 5
 script = ExtResource("9_4ybbf")
 
 [node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes/collapsible"]
-visible = false
 layout_mode = 2
 
 [node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/collapsible/editable"]
@@ -672,7 +676,8 @@ text_overrun_behavior = 3
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/collapsible/editable/crop_offset_x" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 255.0
+min_value = -128.0
+max_value = 127.0
 alignment = 2
 editable = false
 script = ExtResource("19_vpw2d")
@@ -695,7 +700,8 @@ text_overrun_behavior = 3
 [node name="value" type="SpinBox" parent="content/scroll/margin/data/boxes/collapsible/editable/crop_offset_y" groups=["box_editors"]]
 layout_mode = 2
 size_flags_horizontal = 3
-max_value = 255.0
+min_value = -128.0
+max_value = 127.0
 alignment = 2
 editable = false
 script = ExtResource("20_i2dqh")
@@ -882,6 +888,7 @@ offset_right = 2000.0
 offset_bottom = 2000.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="viewport" type="SubViewport" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp"]
 disable_3d = true
@@ -1177,6 +1184,7 @@ text_overrun_behavior = 3
 clip_text = true
 script = ExtResource("42_psrad")
 subviewport = NodePath("../preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport")
+origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
 
 [node name="delete_cells" type="Window" parent="."]
 title = "Delete cells"
