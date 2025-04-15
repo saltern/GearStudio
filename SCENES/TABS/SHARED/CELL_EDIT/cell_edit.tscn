@@ -460,7 +460,7 @@ button_pressed = true
 text = "CELL_EDIT_BOXES_DISPLAY"
 text_overrun_behavior = 3
 script = ExtResource("7_fl2cb")
-box_draw_node = NodePath("../../../../../../../visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/box_parent")
+box_draw_node = NodePath("../../../../../../../visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
 editable_parent = NodePath("../../editable")
 edit_mode = NodePath("../edit_mode")
 type_menu_button = NodePath("../../type_menu_button")
@@ -750,7 +750,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("21_md3df")
-box_parent = NodePath("visualizer/origin/main_cell_vp/viewport/parent/box_parent")
+box_parent = NodePath("visualizer/origin/parent/box_parent")
 origin_point = NodePath("visualizer/origin")
 user_guide_h = NodePath("visualizer/origin/user_guide_h")
 user_guide_v = NodePath("visualizer/origin/user_guide_v")
@@ -875,31 +875,9 @@ script = ExtResource("26_q1wae")
 anchors_preset = 0
 script = ExtResource("27_vdvp0")
 
-[node name="main_cell_vp" type="SubViewportContainer" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2000.0
-offset_top = -2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
+[node name="reference" type="CanvasGroup" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
 
-[node name="viewport" type="SubViewport" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp"]
-disable_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(4000, 4000)
-render_target_update_mode = 4
-
-[node name="reference" type="CanvasGroup" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
-
-[node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference"]
+[node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 2000.0
@@ -907,18 +885,18 @@ offset_top = 2000.0
 offset_right = 2000.0
 offset_bottom = 2000.0
 
-[node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent" node_paths=PackedStringArray("sprite_origin")]
+[node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("sprite_origin")]
 material = ExtResource("53_d2y4c")
 anchors_preset = 0
 script = ExtResource("52_3nb3e")
 sprite_origin = NodePath(".")
 
-[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent"]
+[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent"]
 anchors_preset = 0
 script = ExtResource("55_vjh8k")
 
-[node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport"]
-layout_mode = 3
+[node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -927,7 +905,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("sprite_origin")]
+[node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("sprite_origin")]
 material = ExtResource("26_gliws")
 layout_mode = 3
 anchors_preset = 0
@@ -939,14 +917,20 @@ mouse_filter = 2
 script = ExtResource("27_na53u")
 sprite_origin = NodePath(".")
 
-[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent" node_paths=PackedStringArray("box_type")]
-layout_mode = 3
-anchors_preset = 0
+[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("box_type")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("28_h6aqa")
-box_type = NodePath("../../../../../../../../../../scroll/margin/data/boxes/collapsible/editable/type/value")
+box_type = NodePath("../../../../../../../../scroll/margin/data/boxes/collapsible/editable/type/value")
 
-[node name="origin_cross" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent"]
+[node name="origin_cross" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1050,7 +1034,7 @@ tooltip_text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1_TOOLTIP"
 text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1"
 text_overrun_behavior = 3
 script = ExtResource("25_hdyd6")
-cell_sprite_display = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/sprite")
+cell_sprite_display = NodePath("../../../../../borders/clipper/visualizer/origin/parent/sprite")
 
 [node name="ref_title" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data" node_paths=PackedStringArray("collapsible")]
 layout_mode = 2
@@ -1152,7 +1136,7 @@ tooltip_text = "REFERENCE_FRONT_TOOLTIP"
 text = "REFERENCE_FRONT"
 text_overrun_behavior = 3
 script = ExtResource("60_jqdwu")
-reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference")
+reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
 [node name="hitboxes" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
@@ -1162,7 +1146,7 @@ button_pressed = true
 text = "REFERENCE_HITBOXES"
 text_overrun_behavior = 3
 script = ExtResource("62_qauf1")
-box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference/parent/box_parent")
+box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
 [node name="semitransparent" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("reference")]
 custom_minimum_size = Vector2(0, 30)
@@ -1170,7 +1154,7 @@ layout_mode = 2
 text = "REFERENCE_SEMITRANS"
 text_overrun_behavior = 3
 script = ExtResource("63_3nb3e")
-reference = NodePath("../../../../../borders/clipper/visualizer/origin/main_cell_vp/viewport/reference")
+reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
 [node name="snapshot" type="Button" parent="content/visualizer" node_paths=PackedStringArray("subviewport")]
 custom_minimum_size = Vector2(180, 0)
@@ -1183,7 +1167,7 @@ icon = ExtResource("28_76gqd")
 text_overrun_behavior = 3
 clip_text = true
 script = ExtResource("42_psrad")
-subviewport = NodePath("../preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport")
+subviewport = NodePath("")
 origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
 
 [node name="delete_cells" type="Window" parent="."]
@@ -1499,4 +1483,4 @@ dialog_text = "Cannot delete all cells! Object needs at least 1.
 Consider creating new cells before deleting all the old ones."
 script = ExtResource("56_r07ix")
 
-[connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/main_cell_vp/viewport/parent/box_parent" to="." method="on_box_changed"]
+[connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent" to="." method="on_box_changed"]
