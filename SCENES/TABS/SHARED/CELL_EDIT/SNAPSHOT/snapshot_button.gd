@@ -1,7 +1,6 @@
 extends Button
 
-@export var subviewport: SubViewport
-
+@export var box_display_toggle: CheckButton
 # I don't like this any more than you do
 @export var origin_textures: Array[Texture2D] = []
 
@@ -40,6 +39,13 @@ func _pressed() -> void:
 	# Origin cross
 	var origin: PackedByteArray = []
 	
+	# Boxes visible at all?
+	var box_display_types: Array[bool] = []
+	box_display_types.resize(7)
+	
+	if box_display_toggle.button_pressed:
+		box_display_types = cell_edit.box_display_types
+	
 	if Settings.cell_draw_origin:
 		var this_tex: Texture2D = origin_textures[Settings.cell_origin_type]
 		# Tex width/height
@@ -55,7 +61,7 @@ func _pressed() -> void:
 			# Sprite
 			cell_edit.obj_data.sprites[cell.sprite_index], pal, false,
 			# Boxes
-			cell_edit.box_display_types,
+			box_display_types,
 			Settings.box_colors,
 			Settings.box_thickness,
 			# Origin cross
@@ -71,7 +77,7 @@ func _pressed() -> void:
 			# Sprite
 			cell_edit.obj_data.sprites[cell.sprite_index], pal, false,
 			# Boxes
-			cell_edit.box_display_types,
+			box_display_types,
 			Settings.box_colors,
 			Settings.box_thickness,
 			# Origin cross

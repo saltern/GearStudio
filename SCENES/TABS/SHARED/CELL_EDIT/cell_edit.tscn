@@ -508,6 +508,7 @@ popup/item_5/id = 5
 script = ExtResource("9_4ybbf")
 
 [node name="editable" type="VBoxContainer" parent="content/scroll/margin/data/boxes/collapsible"]
+visible = false
 layout_mode = 2
 
 [node name="list" type="ScrollContainer" parent="content/scroll/margin/data/boxes/collapsible/editable"]
@@ -1156,7 +1157,7 @@ text_overrun_behavior = 3
 script = ExtResource("63_3nb3e")
 reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
-[node name="snapshot" type="Button" parent="content/visualizer" node_paths=PackedStringArray("subviewport")]
+[node name="snapshot" type="Button" parent="content/visualizer" node_paths=PackedStringArray("box_display_toggle")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1167,7 +1168,7 @@ icon = ExtResource("28_76gqd")
 text_overrun_behavior = 3
 clip_text = true
 script = ExtResource("42_psrad")
-subviewport = NodePath("")
+box_display_toggle = NodePath("../../scroll/margin/data/boxes/collapsible/toggles/visibility")
 origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
 
 [node name="delete_cells" type="Window" parent="."]
