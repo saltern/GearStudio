@@ -13,6 +13,7 @@ enum DBKeys {
 
 var INSTRUCTION_DB: Dictionary = {}
 var task_id: int
+var db_path: String = OS.get_executable_path().get_base_dir() + "/inst_db.dat"
 
 @onready var NAME_CELLBEGIN		: String = get_instruction_name(0x00)
 @onready var NAME_BACK_MOTION	: String = get_instruction_name(0x03)
@@ -28,11 +29,20 @@ var task_id: int
 
 # DB needs to be complete before _ready() for above instruction names
 func _enter_tree() -> void:
-	task_id = WorkerThreadPool.add_task(build_database)
+	if FileAccess.file_exists(db_path):
+		var inst_db: FileAccess = FileAccess.open(db_path, FileAccess.READ)
+		INSTRUCTION_DB = inst_db.get_var(true)
+		inst_db.close()
+		
+	else:
+		task_id = WorkerThreadPool.add_task(build_database)
 
 
-# ???
 func _ready() -> void:
+	if FileAccess.file_exists(db_path):
+		set_physics_process(false)
+		return
+	
 	var db_file: FileAccess = FileAccess.open(
 		OS.get_executable_path().get_base_dir() + "/inst_db.dat",
 		FileAccess.WRITE
