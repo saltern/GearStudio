@@ -982,7 +982,7 @@ script = ExtResource("2_hled3")
 
 [node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

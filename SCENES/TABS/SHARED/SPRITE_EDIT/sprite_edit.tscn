@@ -388,16 +388,16 @@ script = ExtResource("35_m8wg2")
 
 [node name="background_a" type="ColorRect" parent="content/visualizer/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -803,16 +803,16 @@ script = ExtResource("35_m8wg2")
 
 [node name="background_a" type="ColorRect" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1244,16 +1244,16 @@ script = ExtResource("35_m8wg2")
 
 [node name="background_a" type="ColorRect" parent="sprite_export/background/content_margin/window_content/preview/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1466,16 +1466,16 @@ script = ExtResource("35_m8wg2")
 
 [node name="background_a" type="ColorRect" parent="sprite_delete/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3000.0
-offset_top = -3000.0
-offset_right = 3000.0
-offset_bottom = 3000.0
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2

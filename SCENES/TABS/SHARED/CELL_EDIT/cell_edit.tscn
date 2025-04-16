@@ -764,7 +764,7 @@ script = ExtResource("22_4xx0u")
 
 [node name="background_a" type="ColorRect" parent="content/visualizer/preview_contents/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -1300,12 +1300,16 @@ script = ExtResource("22_4xx0u")
 
 [node name="background_a" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
-custom_minimum_size = Vector2(6000, 6000)
+custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1313,11 +1317,12 @@ color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("23_jn2pb")
 
 [node name="background_b" type="TextureRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/background_a"]
-modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -3000.0
+offset_bottom = -3000.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
