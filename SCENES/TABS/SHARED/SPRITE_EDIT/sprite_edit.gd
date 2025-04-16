@@ -214,6 +214,9 @@ func clamp_sprite_indices() -> void:
 func redirect_get_affected(from: int) -> PackedInt64Array:
 	var return_array: PackedInt64Array = []
 	
+	if not obj_data.has("cells"):
+		return return_array
+	
 	for cell_number in obj_data.cells.size():
 		if obj_data.cells[cell_number].sprite_index > from:
 			return_array.append(cell_number)
@@ -222,6 +225,9 @@ func redirect_get_affected(from: int) -> PackedInt64Array:
 
 
 func redirect_sprite_indices(from: int, how_many: int) -> void:
+	if not obj_data.has("cells"):
+		return
+	
 	var to: int = from + how_many - 1
 	
 	for cell in obj_data.cells:
