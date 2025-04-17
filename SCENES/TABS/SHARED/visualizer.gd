@@ -2,10 +2,13 @@ extends Node2D
 
 const MAX_ZOOM: int = 8
 
+var old_size: Vector2
+
 
 func _ready() -> void:
 	center_view()
-	get_parent().resized.connect(center_view)
+	get_parent().resized.connect(on_resize)
+	old_size = get_parent().size
 
 
 func _process(_delta: float) -> void:
@@ -14,6 +17,13 @@ func _process(_delta: float) -> void:
 	
 	position.x = clampi(position.x, -1500 * scale.x + get_parent().size.x, 1500 * scale.x)
 	position.y = clampi(position.y, -1500 * scale.y + get_parent().size.y, 1500 * scale.y)
+
+
+# Keep center point on window resize
+func on_resize() -> void:
+	var new_size: Vector2 = get_parent().size
+	position += (new_size - old_size) / 2
+	old_size = new_size
 
 
 func center_view() -> void:
