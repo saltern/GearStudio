@@ -4,6 +4,7 @@ signal var_changed
 signal table_entry_changed
 signal chain_table_changed
 
+var index: int = 0
 var undo_redo: UndoRedo = UndoRedo.new()
 var play_data: PlayData
 var chain_table_index: int = 0
@@ -11,6 +12,8 @@ var chain_table_index: int = 0
 
 func _ready() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
+	Settings.language_changed.connect(update_title)
+	update_title()
 
 
 func _input(event: InputEvent) -> void:
@@ -25,6 +28,14 @@ func _input(event: InputEvent) -> void:
 	
 	elif Input.is_action_just_pressed("undo"):
 		undo_redo.undo()
+
+
+func update_title() -> void:
+	var base_name: String = tr("SCRIPT_EDIT_TITLE_PLAY_DATA")
+	if index == 1:
+		name = base_name + " (EX)"
+	elif index > 0:
+		name = base_name + " (%s)" % [index + 1]
 
 
 # Undo/Redo status shorthand

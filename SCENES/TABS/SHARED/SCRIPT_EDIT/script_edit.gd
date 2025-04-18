@@ -65,6 +65,7 @@ func _enter_tree() -> void:
 		for data_set: PlayData in obj_data.scripts.play_data:
 			var new_var_editor: VariableEdit = var_editor.instantiate()
 			new_var_editor.play_data = data_set
+			new_var_editor.index = index
 			add_child(new_var_editor)
 			move_child(new_var_editor, 0 + index)
 			index += 1
