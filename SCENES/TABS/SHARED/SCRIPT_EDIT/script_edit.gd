@@ -165,9 +165,9 @@ func script_action_delete() -> void:
 		Status.set_status("STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS")
 		return
 	
-	var action_text: String = tr("ACTION_SCRIPT_EDIT_DELETE_ACTION".format({
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_DELETE_ACTION").format({
 		"index": action_index
-	}))
+	})
 	
 	undo_redo.create_action(action_text)
 	
