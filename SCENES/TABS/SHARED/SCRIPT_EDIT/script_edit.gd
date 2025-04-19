@@ -144,7 +144,7 @@ func script_action_get_count() -> int:
 
 
 func script_action_load(index: int) -> void:
-	action_index = index
+	action_index = clampi(index, 0, script_action_get_count() - 1)
 	this_action = script_action_get(action_index)
 	instruction_index = -1
 	
