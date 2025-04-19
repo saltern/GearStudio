@@ -893,7 +893,7 @@ size_flags_vertical = 6
 [node name="please_wait" type="Label" parent="sprite_import/import_progress/content"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "Please wait."
+text = "SPRITE_EDIT_IMPORT_PLEASE_WAIT"
 horizontal_alignment = 1
 
 [node name="progress" type="Label" parent="sprite_import/import_progress/content"]

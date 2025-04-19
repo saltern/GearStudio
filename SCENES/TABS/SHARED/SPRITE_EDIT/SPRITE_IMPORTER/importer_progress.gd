@@ -30,7 +30,7 @@ func on_sprite_import_started(for_session: int, object_name: String) -> void:
 
 
 func on_sprite_placement_started() -> void:
-	progress_label.text = "Placing sprites..."
+	progress_label.text = "SPRITE_EDIT_IMPORT_PLACING"
 
 
 func on_sprite_placement_finished() -> void:
