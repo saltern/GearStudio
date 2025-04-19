@@ -877,7 +877,7 @@ size = Vector2i(300, 100)
 visible = false
 transient = true
 exclusive = true
-force_native = true
+unresizable = true
 script = ExtResource("42_k4ivw")
 progress_label = NodePath("content/progress")
 
