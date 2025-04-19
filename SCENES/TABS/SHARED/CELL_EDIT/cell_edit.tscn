@@ -1172,6 +1172,7 @@ box_display_toggle = NodePath("../../scroll/margin/data/boxes/collapsible/toggle
 origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
 
 [node name="delete_cells" type="Window" parent="."]
+canvas_item_default_texture_filter = 0
 title = "Delete cells"
 initial_position = 2
 size = Vector2i(900, 500)
@@ -1321,8 +1322,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -3000.0
-offset_bottom = -3000.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -1337,9 +1336,8 @@ anchors_preset = 0
 [node name="guide" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin"]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
-custom_minimum_size = Vector2(2, 4000)
+custom_minimum_size = Vector2(1, 4000)
 layout_mode = 0
-offset_left = -1.0
 offset_top = -2000.0
 offset_right = 1.0
 offset_bottom = 2000.0
@@ -1347,10 +1345,10 @@ mouse_filter = 2
 
 [node name="guide_horz" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/guide"]
 show_behind_parent = true
-custom_minimum_size = Vector2(2000, 2)
+custom_minimum_size = Vector2(2000, 1)
 layout_mode = 0
 offset_left = -2000.0
-offset_top = 1999.0
+offset_top = 2000.0
 offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
@@ -1384,87 +1382,16 @@ cell_index = NodePath("../../../../../cell_index/value")
 offset = Vector2i(1000, 1000)
 
 [node name="origin_cross" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin"]
-custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -21.0
-offset_right = 21.0
-offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
-
-[node name="vert_bg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -2.0
-offset_top = -21.0
-offset_right = 2.0
-offset_bottom = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="horz_bg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -21.0
-offset_top = -2.0
-offset_right = 21.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="vert_fg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1.0
-offset_top = -20.0
-offset_right = 1.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="horz_fg" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin/origin_cross"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -1.0
-offset_right = 20.0
-offset_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="delete_confirm" type="ConfirmationDialog" parent="delete_cells" node_paths=PackedStringArray("delete_from", "delete_to", "summon_button", "cannot_delete")]
 auto_translate_mode = 1
