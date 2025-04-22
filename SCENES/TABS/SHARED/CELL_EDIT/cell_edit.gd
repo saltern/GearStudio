@@ -75,6 +75,8 @@ func _ready() -> void:
 	if obj_data.has("palettes"):
 		SessionData.palette_changed.connect(palette_set_session)
 	
+	SessionData.sprite_reindexed.connect(on_sprite_reindexed)
+	
 	cell_load(0)
 
 
@@ -340,6 +342,12 @@ func sprite_get_count() -> int:
 
 
 func on_sprites_imported() -> void:
+	cell_load(cell_index)
+	
+func on_sprite_reindexed(for_session: int, sprite_index: int) -> void:
+	if for_session != session_id or this_cell.sprite_index != sprite_index:
+		return
+	
 	cell_load(cell_index)
 #endregion
 

@@ -40,8 +40,6 @@ var action_index: int = 0
 var instruction_index: int = -1
 
 var this_action: ScriptAction
-var this_cell: Cell
-
 var new_instruction_type: int = 0
 
 
@@ -69,6 +67,8 @@ func _enter_tree() -> void:
 			add_child(new_var_editor)
 			move_child(new_var_editor, 0 + index)
 			index += 1
+	
+	SessionData.sprite_reindexed.connect(on_sprite_reindexed.unbind(1))
 
 
 func _ready() -> void:
@@ -686,10 +686,6 @@ func sprite_get_count() -> int:
 	return 0
 
 
-func sprite_get_index() -> int:
-	return this_cell.sprite_info.index
-
-
 func cell_get_count() -> int:
 	if obj_data.has("cells"):
 		return obj_data["cells"].size()
@@ -721,3 +717,11 @@ func palette_get(index: int) -> BinPalette:
 #region Reference
 func reference_cell(index: int) -> void:
 	ref_handler.reference_cell_set(index)
+#endregion
+
+
+func on_sprite_reindexed(for_session: int) -> void:
+	if for_session != session_id:
+		return
+	
+	anim.load_frame(script_animation_get_current_frame())
