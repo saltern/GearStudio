@@ -65,7 +65,7 @@ func load_action(index: int) -> void:
 
 
 func load_frame(frame: int) -> void:
-	if assigned_animation == "":
+	if assigned_animation == "" or current_animation == "":
 		return
 	
 	if frame > current_animation_length:
