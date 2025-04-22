@@ -18,8 +18,8 @@ func _process(_delta: float) -> void:
 	update_progress()
 
 
-func on_sprite_import_started(for_session: int, object_name: String) -> void:
-	if for_session != owner.session_id:
+func on_sprite_import_started() -> void:
+	if not owner.is_visible_in_tree():
 		return
 	
 	sprite_count = SpriteImport.import_list.size()

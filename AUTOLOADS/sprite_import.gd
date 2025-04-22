@@ -93,7 +93,7 @@ func import_file_direct(path: String) -> BinSprite:
 
 func import_files(object_data: Dictionary) -> void:
 	obj_data = object_data
-	sprite_import_started.emit(SessionData.session_index, obj_name)
+	sprite_import_started.emit()
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
 
 

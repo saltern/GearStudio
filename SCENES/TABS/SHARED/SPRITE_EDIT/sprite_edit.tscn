@@ -871,6 +871,7 @@ dialog_text = "Import %s sprites?"
 cancel_button_text = "SPRITE_EDIT_IMPORT_CONFIRM_CANCEL"
 
 [node name="import_progress" type="Window" parent="sprite_import" node_paths=PackedStringArray("progress_label")]
+auto_translate_mode = 1
 title = "Importing sprites..."
 initial_position = 2
 size = Vector2i(300, 100)
