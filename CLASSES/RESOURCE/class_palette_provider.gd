@@ -71,6 +71,10 @@ func palette_load(index: int = 0) -> void:
 		palette_updated.emit(sprite.palette)
 
 
+func palette_reload() -> void:
+	palette_load(palette_index)
+
+
 func palette_get_color_count() -> int:
 	return palette_get_colors().size() / 4
 
@@ -393,27 +397,6 @@ func palette_reindex() -> void:
 	undo_redo.add_undo_method(palette.reindex)
 	undo_redo.add_undo_method(palette_load.bind(palette_index))
 	undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
-	
-	status_register_action(action_text)
-	undo_redo.commit_action()
-
-
-func sprite_reindex(bin_sprite: BinSprite) -> void:
-	var action_text: String = tr("ACTION_PROVIDER_SPRITE_REINDEX").format({
-		"index": sprite_index
-	})
-	
-	undo_redo.create_action(action_text)
-	
-	undo_redo.add_do_method(bin_sprite.reindex)
-	undo_redo.add_do_method(palette_load.bind(sprite_index))
-	undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
-	undo_redo.add_do_method(emit_signal.bind("sprite_reindexed"))
-	
-	undo_redo.add_undo_method(bin_sprite.reindex)
-	undo_redo.add_undo_method(palette_load.bind(sprite_index))
-	undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
-	undo_redo.add_undo_method(emit_signal.bind("sprite_reindexed"))
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()

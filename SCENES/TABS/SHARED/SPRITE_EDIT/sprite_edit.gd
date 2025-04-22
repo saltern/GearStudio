@@ -187,7 +187,23 @@ func sprite_insert_commit(at: int, sprite: BinSprite) -> void:
 
 
 func sprite_reindex() -> void:
-	provider.sprite_reindex(this_sprite)
+	var action_text: String = tr("ACTION_PROVIDER_SPRITE_REINDEX").format({
+		"index": sprite_index
+	})
+	
+	undo_redo.create_action(action_text)
+	undo_redo.add_do_method(this_sprite.reindex)
+	undo_redo.add_do_method(sprite_reload)
+	undo_redo.add_do_method(SessionData.emit_signal.bind(
+		"sprite_reindexed", SessionData.session_index, sprite_index))
+	
+	undo_redo.add_undo_method(this_sprite.reindex)
+	undo_redo.add_undo_method(sprite_reload)
+	undo_redo.add_undo_method(SessionData.emit_signal.bind(
+		"sprite_reindexed", SessionData.session_index, sprite_index))
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
 #endregion
 
 
