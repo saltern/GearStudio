@@ -26,6 +26,10 @@ func clear_controls() -> void:
 
 
 func create_controls(index: int) -> void:
+	if index == instruction_index:
+		update_values()
+		return
+	
 	clear_controls()
 	nothing_selected.hide()
 	
@@ -60,3 +64,13 @@ func create_controls(index: int) -> void:
 # I'd usually invert this order, but .bind() adds arguments at the end
 func set_argument(value: int, argument: int) -> void:
 	script_edit.script_argument_set(instruction_index, argument, value)
+
+
+func update_values() -> void:
+	var instruction: Instruction = script_edit.script_instruction_get(
+		instruction_index)
+	
+	for arg_number in instruction.arguments.size():
+		var arg_spinbox: SteppingSpinBox = get_child(arg_number).get_child(1)
+		var argument: InstructionArgument = instruction.arguments[arg_number]
+		arg_spinbox.set_value_no_signal(argument.value)
