@@ -377,24 +377,6 @@ func script_animation_restart() -> void:
 	
 	anim.load_frame(1)
 	anim_ref.load_frame(1)
-	#script_animation_load_frame(1)
-
-
-#func script_animation_load_frame(frame: int) -> void:
-	#var time = anim_player.current_animation_position
-	#
-	#if frame > time:
-		#anim_player.advance(frame - time)
-		#anim_player_ref.advance(frame - time)
-	#else:
-		## Likely slower, but required by instructions using additive operations
-		#anim_player.seek(0, true)
-		#anim_player.advance(frame)
-		#
-		#anim_player_ref.seek(0, true)
-		#anim_player_ref.advance(frame)
-#
-	#action_seek_to_frame.emit(frame)
 
 
 func script_animation_get_length() -> int:
@@ -559,23 +541,20 @@ func script_instruction_paste(at: int) -> void:
 	if at == 0:
 		var old_instruction = script_instruction_get(instruction_index)
 		
+		
 		undo_redo.add_do_method(
-			script_instruction_delete_commit.bind(instruction_index)
-		)
+			script_action_ensure_selected.bind(action_index))
 		undo_redo.add_do_method(
-			script_instruction_insert_commit.bind(
-				instruction_index, instruction
-			)
-		)
+			script_instruction_delete_commit.bind(instruction_index))
+		undo_redo.add_do_method(script_instruction_insert_commit.bind(
+			instruction_index, instruction))
 		
 		undo_redo.add_undo_method(
-			script_instruction_delete_commit.bind(instruction_index)
-		)
+			script_action_ensure_selected.bind(action_index))
 		undo_redo.add_undo_method(
-			script_instruction_insert_commit.bind(
-				instruction_index, old_instruction
-			)
-		)
+			script_instruction_delete_commit.bind(instruction_index))
+		undo_redo.add_undo_method(script_instruction_insert_commit.bind(
+			instruction_index, old_instruction))
 	
 	# Insertion
 	else:
@@ -583,19 +562,18 @@ func script_instruction_paste(at: int) -> void:
 		at = max(0, at)
 		
 		undo_redo.add_do_method(
-			script_instruction_insert_commit.bind(
-				instruction_index + at, instruction
-			)
-		)
+			script_action_ensure_selected.bind(action_index))
+		undo_redo.add_do_method(script_instruction_insert_commit.bind(
+			instruction_index + at, instruction))
 	
 		undo_redo.add_undo_method(
-			script_instruction_delete_commit.bind(instruction_index + at)
-		)
+			script_action_ensure_selected.bind(action_index))
+		undo_redo.add_undo_method(
+			script_instruction_delete_commit.bind(instruction_index + at))
 	
 	undo_redo.add_do_method(script_action_load.bind(action_index))
 	undo_redo.add_do_method(
-		script_instruction_select.bind(instruction_index + at)
-	)
+		script_instruction_select.bind(instruction_index + at))
 	
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
@@ -661,11 +639,15 @@ func script_argument_set(instruction: int, argument: int, value: int) -> void:
 	var frame: int = script_animation_get_current_frame()
 	
 	undo_redo.add_do_method(script_action_load.bind(action_index))
-	#undo_redo.add_do_method(script_animation_load_frame.bind(frame))
 	undo_redo.add_do_method(anim.load_frame.bind(frame))
+	undo_redo.add_do_method(script_instruction_select.bind(instruction))
+	#undo_redo.add_do_method(
+		#emit_signal.bind("action_select_instruction", instruction))
 	
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction))
+	#undo_redo.add_undo_method(
+		#emit_signal.bind("action_select_instruction", instruction))
 	
 	status_register_action(action_text)
 	
