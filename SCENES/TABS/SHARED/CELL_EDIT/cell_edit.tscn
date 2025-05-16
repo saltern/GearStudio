@@ -881,10 +881,6 @@ script = ExtResource("27_vdvp0")
 [node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 2000.0
-offset_top = 2000.0
-offset_right = 2000.0
-offset_bottom = 2000.0
 
 [node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("sprite_origin")]
 material = ExtResource("53_d2y4c")
