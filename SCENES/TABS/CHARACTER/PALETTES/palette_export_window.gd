@@ -22,7 +22,7 @@ func display() -> void:
 func on_file_selected(path: String) -> void:
 	FileMemory.palette_export = current_path
 	
-	match path.get_extension():
+	match path.get_extension().to_lower():
 		"bin":
 			provider.palette.to_bin_file(path)
 		"act":
