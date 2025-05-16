@@ -101,40 +101,6 @@ func status_register_action(action_text: String) -> void:
 	})))
 
 
-#region Script de/serialization
-func get_play_data_length(bin_data: PackedByteArray) -> int:
-	var cursor: int = 0x0
-	
-	# From plusr_scripts.txt
-	if bin_data[0x01] < 0x81 and bin_data[0x01] > 0x02:
-		if bin_data[0x01] == 0x05:
-			cursor = 0x300
-		else:
-			cursor = 0x100
-			
-			if bin_data[0x50] & 0x01:
-				cursor = 0x180
-			
-			if bin_data[0x50] & 0x02:
-				cursor += 0x80
-			
-			if bin_data[0x50] & 0x04:
-				cursor += 0x80
-			
-			if bin_data[0x50] & 0x08:
-				cursor += 0x80
-	
-	else:
-		cursor = 0x80
-	
-	# Isuka hack
-	if bin_data[cursor] == 0xE5:
-		cursor *= 2
-	
-	return cursor
-#endregion
-
-
 func script_action_get(index: int) -> ScriptAction:
 	return obj_data.scripts.actions[index]
 
@@ -697,8 +663,8 @@ func palette_get(index: int) -> BinPalette:
 
 
 #region Reference
-func reference_cell(index: int) -> void:
-	ref_handler.reference_cell_set(index)
+#func reference_cell(index: int) -> void:
+	#ref_handler.reference_cell_set(index)
 #endregion
 
 
