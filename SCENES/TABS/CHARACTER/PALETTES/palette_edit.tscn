@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://cbpnkfyfl50pt" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite_index.gd" id="8_ana8q"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="9_tj8hv"]
 [ext_resource type="Shader" uid="uid://cjek4vkw48pc8" path="res://MATERIALS/palette_reference.gdshader" id="13_llwwi"]
-[ext_resource type="Script" uid="uid://1g2lar48gvjx" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_import_window.gd" id="16_llwwi"]
+[ext_resource type="Script" uid="uid://1g2lar48gvjx" path="res://SCENES/TABS/SHARED/palette_import_window.gd" id="16_llwwi"]
 [ext_resource type="Script" uid="uid://uoydhlvow0pq" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_export_window.gd" id="17_ana8q"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_llwwi"]
@@ -298,6 +298,7 @@ access = 2
 filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
 use_native_dialog = true
 script = ExtResource("16_llwwi")
+import_context = 1
 summon_button = NodePath("../scroll/margin/content/editors/color_grid/import_export/import")
 
 [node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]

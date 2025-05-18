@@ -62,12 +62,12 @@
 [ext_resource type="Script" uid="uid://d0dma0ads2k3w" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_sprite_index.gd" id="54_kmxcs"]
 [ext_resource type="Script" uid="uid://buh18xtvxoqc3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_preview.gd" id="55_oqxu8"]
 [ext_resource type="Script" uid="uid://npvhijlugl5n" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_confirm_window.gd" id="59_nsx52"]
-[ext_resource type="Script" uid="uid://di733j1c776tt" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_import_window.gd" id="59_vae45"]
 [ext_resource type="Script" uid="uid://bxja8douxiocu" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_export_window.gd" id="61_dcgxr"]
 [ext_resource type="Material" uid="uid://cc2c834tdtbf7" path="res://MATERIALS/mat_delete_preview.tres" id="61_n3lvp"]
 [ext_resource type="Script" uid="uid://kyig6x6nchhq" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_count_info.gd" id="62_jdt6m"]
 [ext_resource type="Script" uid="uid://bndmbci8s0p7p" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_redirect_cells.gd" id="62_u8u8s"]
 [ext_resource type="Script" uid="uid://djjtxxhtt80c4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_cannot_delete.gd" id="64_vgp6d"]
+[ext_resource type="Script" uid="uid://1g2lar48gvjx" path="res://SCENES/TABS/SHARED/palette_import_window.gd" id="67_vriyv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eeqgc"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -1541,7 +1541,7 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.bin; Binary sprites and palettes", "*.act; Adobe Color Table", "*.png; PNG images", "*.bmp; BMP images")
 use_native_dialog = true
-script = ExtResource("59_vae45")
+script = ExtResource("67_vriyv")
 summon_button = NodePath("../content/left_panel/margin/palette_buttons/import_export/import")
 
 [node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
