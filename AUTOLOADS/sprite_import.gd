@@ -253,7 +253,10 @@ func generate_preview(sprite_index: int) -> void:
 	if obj_data.has("palettes"):
 		preview_palette = obj_data["palettes"][preview_palette_index].palette
 	else:
-		preview_palette = preview_sprite.palette
+		if preview_sprite:
+			preview_palette = preview_sprite.palette
+		else:
+			preview_palette = PackedByteArray([])
 	
 	preview_generated.emit()
 
