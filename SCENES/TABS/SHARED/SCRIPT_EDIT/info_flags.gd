@@ -11,6 +11,8 @@ func _ready() -> void:
 		
 		button.mouse_exited.connect(hide_info)
 		button.mouse_entered.connect(show_info.bind(bit))
+	
+	hide_info()
 
 
 func hide_info() -> void:
@@ -19,37 +21,7 @@ func hide_info() -> void:
 
 func show_info(bit: int) -> void:
 	match bit:
-		0:
-			text = "Is weak attack"
-		2:
-			text = "Is special attack"
-		4:
-			text = "Is sweep"
-		8:
-			text = "Knocks down"
-		9:
-			text = "Launches (Dust)"
-		10:
-			text = "Can be blocked high"
-		11:
-			text = "Can be blocked low"
-		12:
-			text = "Can be blocked in the air"
-		14:
-			text = "Requires FD to air block"
-		18:
-			text = "Enables fire effect"
-		19:
-			text = "Enables lightning effect"
-		20:
-			text = "No hitstop"
-		21:
-			text = "Reduced hitstop"
-		23:
-			text = "Seals Burst (both players)"
-		25:
-			text = "Is Instant Kill"
-		26:
-			text = "Seals Burst (?)"
+		1, 3, 5, 6, 7, 13, 15, 16, 17, 22, 24, 27, 28, 29, 30, 31:
+			text = "SCRIPT_EDIT_FLAGS_UNKNOWN"
 		_:
-			text = "Unknown"
+			text = "SCRIPT_EDIT_FLAGS_%s" % bit
