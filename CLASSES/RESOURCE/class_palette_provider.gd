@@ -95,6 +95,9 @@ func palette_get_color(index: int = 0) -> Color:
 			palette.palette[4 * index + 3])
 			
 	else:
+		if 4 * index >= sprite.palette.size():
+			return Color8(0, 0, 0, 255)
+		
 		return Color8(
 			sprite.palette[4 * index + 0],
 			sprite.palette[4 * index + 1],
