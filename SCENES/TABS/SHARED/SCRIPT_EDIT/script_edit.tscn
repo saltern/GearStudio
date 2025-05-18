@@ -285,12 +285,12 @@ size_flags_horizontal = 3
 mouse_filter = 2
 
 [node name="flags_collapsible" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible"]
-visible = false
 layout_mode = 2
 
 [node name="info" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/collapsible/flags_collapsible" node_paths=PackedStringArray("grid_flags")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+text = "-"
 vertical_alignment = 1
 script = ExtResource("17_sq6ji")
 grid_flags = NodePath("../flags_value")
