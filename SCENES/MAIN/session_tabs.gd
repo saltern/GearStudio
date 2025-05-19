@@ -87,8 +87,6 @@ func save_resource(path: String = ""):
 
 func save_directory(path: String = ""):
 	var session_id: int = get_child(current_tab).session_id
-	GlobalSignals.save_scripts.emit(session_id)
-	
 	add_task(WorkerThreadPool.add_task(SessionData.save_directory.bind(path)))
 
 
