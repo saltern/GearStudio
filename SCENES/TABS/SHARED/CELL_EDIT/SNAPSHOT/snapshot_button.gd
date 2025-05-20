@@ -32,7 +32,7 @@ func _pressed() -> void:
 	
 	# Global/local pal
 	if cell_edit.obj_data.has("palettes"):
-		pal = cell_edit.obj_data.palettes[0].palette
+		pal = cell_edit.obj_data.palettes[cell_edit.provider.palette_index].palette
 	else:
 		pal = cell_edit.obj_data.sprites[cell.sprite_index].palette
 	
