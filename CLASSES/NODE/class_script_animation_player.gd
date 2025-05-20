@@ -45,6 +45,9 @@ func load_action(index: int) -> void:
 	if provider.obj_data.is_empty():
 		return
 	
+	if not provider.obj_data.has("scripts"):
+		return
+	
 	if provider.obj_data.scripts.actions.size() <= index:
 		cell_clear.emit()
 		action_loaded.emit()
