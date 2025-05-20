@@ -14,7 +14,7 @@ func reset() -> void:
 	palette_save_error = false
 
 
-func set_status() -> void:
+func set_status(path: String) -> void:
 	var err_string: String = ""
 	
 	if files_read_only:
@@ -30,7 +30,9 @@ func set_status() -> void:
 		err_string = err_string + "STATUS_SAVE_DIR_ERROR_PALETTES"
 	
 	if err_string.is_empty():
-		Status.set_status("STATUS_SAVE_COMPLETE")
+		Status.set_status(
+			tr("STATUS_SAVE_COMPLETE").format({"path": path})
+		)
 	
 	else:
 		Status.set_status(

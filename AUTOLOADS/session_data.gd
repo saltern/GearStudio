@@ -60,11 +60,11 @@ func save_directory(path: String) -> void:
 		return
 	
 	GlobalSignals.save_start.emit.call_deferred()
-	Status.set_status.call_deferred("STATUS_SAVE_DIR_START")
+	Status.save_status_start.call_deferred(true, path)
 	
 	BinResource.save_resource_directory(this_session, path, GlobalSignals)
 
-	SaveErrors.call_deferred("set_status")
+	SaveErrors.call_deferred("set_status", path)
 	GlobalSignals.save_complete.emit.call_deferred()
 
 
@@ -81,11 +81,11 @@ func save_binary(path: String) -> void:
 		return
 	
 	GlobalSignals.save_start.emit.call_deferred()
-	Status.set_status.call_deferred("STATUS_SAVE_BIN_START")
+	Status.save_status_start.call_deferred(false, path)
 	
-	# Register scripts
 	BinResource.save_resource_file(this_session["data"], path, GlobalSignals)
-	Status.set_status.call_deferred("STATUS_SAVE_COMPLETE")
+	
+	Status.save_status_end.call_deferred(path)
 	GlobalSignals.save_complete.emit.call_deferred()
 
 
