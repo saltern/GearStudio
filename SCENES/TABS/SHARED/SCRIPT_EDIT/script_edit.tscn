@@ -1102,7 +1102,6 @@ use_parent_material = true
 [node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
 layout_mode = 3
 anchors_preset = 0
-pivot_offset = Vector2(3000, 3000)
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
 box_display_toggle = NodePath("../../../../../../options/margin/data/misc_collapsible/hitboxes")
