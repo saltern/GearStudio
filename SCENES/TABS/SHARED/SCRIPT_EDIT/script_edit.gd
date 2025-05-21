@@ -58,6 +58,8 @@ func _enter_tree() -> void:
 	
 	cell_display_ref.anim = anim_ref
 	
+	ref_handler.ref_action_index_set.connect(script_animation_load_ref.unbind(1))
+	
 	if obj_data.scripts.has_play_data:
 		var index: int = 0
 		for data_set: PlayData in obj_data.scripts.play_data:
@@ -330,7 +332,16 @@ func script_action_set_flag(
 
 func script_animation_load() -> void:
 	anim.load_action(action_index)
-	anim_ref.load_action(action_index)
+	script_animation_load_ref()
+
+
+func script_animation_load_ref() -> void:
+	if ref_handler.action_index == -1:
+		anim_ref.load_action(action_index)
+	else:
+		anim_ref.load_action(ref_handler.action_index)
+	
+	anim_ref.load_frame(script_animation_get_current_frame())
 
 
 func script_animation_restart() -> void:

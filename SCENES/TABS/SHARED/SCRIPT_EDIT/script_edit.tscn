@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=62 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -54,6 +54,7 @@
 [ext_resource type="Script" uid="uid://dnygkc2ahb5pg" path="res://SCENES/TABS/SHARED/PREVIEW/palette_index.gd" id="41_t1u05"]
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="42_2p55a"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="43_f47ks"]
+[ext_resource type="Script" uid="uid://1cdimsixei7p" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/REFERENCE/reference_action_index.gd" id="44_hca04"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oai88"]
 font_size = 14
@@ -1129,7 +1130,6 @@ vertical_alignment = 1
 text_overrun_behavior = 3
 
 [node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -1271,6 +1271,26 @@ fit_to_longest_item = false
 item_count = 1
 popup/item_0/id = 0
 script = ExtResource("39_30w5o")
+
+[node name="specific_action" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/specific_action"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "REFERENCE_ACTION_TOOLTIP"
+mouse_filter = 0
+text = "REFERENCE_ACTION"
+clip_text = true
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/specific_action"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("44_hca04")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)

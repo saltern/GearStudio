@@ -6,7 +6,7 @@ extends SteppingSpinBox
 func _ready() -> void:
 	min_value = -1
 	on_ref_data_cleared()
-	
+
 	ref_handler.ref_data_set.connect(on_ref_data_set)
 	ref_handler.ref_data_cleared.connect(on_ref_data_cleared)
 	ref_handler.ref_session_cleared.connect(on_ref_data_cleared)
@@ -14,11 +14,11 @@ func _ready() -> void:
 
 
 func on_ref_data_set(data: Dictionary) -> void:
-	if not data.has("cells"):
+	if not data.has("scripts"):
 		on_ref_data_cleared()
 		return
 	
-	max_value = data.cells.size() - 1
+	max_value = data.scripts.actions.size() - 1
 	editable = true
 
 
@@ -28,5 +28,5 @@ func on_ref_data_cleared() -> void:
 
 
 func update(_new_value: float) -> void:
-	max_value = ref_handler.obj_data.cells.size() - 1
-	ref_handler.reference_cell_set(value)
+	max_value = ref_handler.obj_data.scripts.actions.size() - 1
+	ref_handler.reference_action_set(value)

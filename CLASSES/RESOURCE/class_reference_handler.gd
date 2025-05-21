@@ -7,6 +7,7 @@ signal ref_data_cleared
 signal ref_cell_updated
 signal ref_cell_cleared
 signal ref_cell_index_set
+signal ref_action_index_set
 
 var session: Dictionary
 var obj_data: Dictionary
@@ -76,6 +77,11 @@ func reference_cell_get(index: int) -> Cell:
 func reference_cell_set(index: int) -> void:
 	cell_index = index
 	ref_cell_index_set.emit(cell_index)
+
+
+func reference_action_set(index: int) -> void:
+	action_index = index
+	ref_action_index_set.emit(action_index)
 
 
 func script_has_action(index: int) -> bool:
