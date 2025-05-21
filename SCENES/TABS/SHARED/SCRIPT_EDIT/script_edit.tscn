@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene load_steps=63 format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -55,6 +55,7 @@
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="42_2p55a"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="43_f47ks"]
 [ext_resource type="Script" uid="uid://1cdimsixei7p" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/REFERENCE/reference_action_index.gd" id="44_hca04"]
+[ext_resource type="Script" uid="uid://bihjs517xc2oc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_opacity.gd" id="48_3vsx4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oai88"]
 font_size = 14
@@ -1292,6 +1293,27 @@ alignment = 2
 script = ExtResource("44_hca04")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
+[node name="opacity" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/opacity"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "REFERENCE_OPACITY_TOOLTIP"
+mouse_filter = 0
+text = "REFERENCE_OPACITY"
+clip_text = true
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible/opacity" node_paths=PackedStringArray("reference_node")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("48_3vsx4")
+reference_node = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
 [node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1309,6 +1331,7 @@ script = ExtResource("42_2p55a")
 box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
 [node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/ref_collapsible" node_paths=PackedStringArray("reference")]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_SEMITRANS_TOOLTIP"

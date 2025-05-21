@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=92 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -76,6 +76,7 @@
 [ext_resource type="Script" uid="uid://c1pesubbwmlcc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_cell_number.gd" id="62_fxvck"]
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="62_qauf1"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="63_3nb3e"]
+[ext_resource type="Script" uid="uid://bihjs517xc2oc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_opacity.gd" id="66_mkpt3"]
 [ext_resource type="Texture2D" uid="uid://c00nyifhcskle" path="res://GRAPHICS/CROSS_0.PNG" id="68_spn66"]
 [ext_resource type="Texture2D" uid="uid://dwo2e0q2qwaa1" path="res://GRAPHICS/CROSS_1.PNG" id="69_mkpt3"]
 [ext_resource type="Texture2D" uid="uid://dub3a3006mhde" path="res://GRAPHICS/CROSS_2.PNG" id="70_tjwtw"]
@@ -941,7 +942,6 @@ mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
 [node name="options" type="ScrollContainer" parent="content/visualizer/preview_contents"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -1126,6 +1126,27 @@ editable = false
 script = ExtResource("62_fxvck")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
+[node name="opacity" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/ref_content"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/opacity"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "REFERENCE_OPACITY_TOOLTIP"
+mouse_filter = 0
+text = "REFERENCE_OPACITY"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/ref_content/opacity" node_paths=PackedStringArray("reference_node")]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+alignment = 2
+script = ExtResource("66_mkpt3")
+reference_node = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
 [node name="in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1146,6 +1167,7 @@ script = ExtResource("62_qauf1")
 box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
 [node name="semitransparent" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" node_paths=PackedStringArray("reference")]
+visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "REFERENCE_SEMITRANS"
