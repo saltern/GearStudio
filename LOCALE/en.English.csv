@@ -565,12 +565,16 @@ REFERENCE_OBJECT,Reference object
 REFERENCE_OBJECT_TOOLTIP,Which object from the selected session to use as a reference.
 REFERENCE_CELL,Reference cell #
 REFERENCE_CELL_TOOLTIP,Sets a specific cell to use as a static reference.
+REFERENCE_ACTION,Reference action #
+REFERENCE_ACTION_TOOLTIP,Sets a specific action to use as reference.
 REFERENCE_FRONT,Reference in front
 REFERENCE_FRONT_TOOLTIP,Toggles displaying the reference in front of the main preview.
 REFERENCE_HITBOXES,Display hitboxes
 REFERENCE_HITBOXES_TOOLTIP,Toggles display of the reference object's hitboxes.
 REFERENCE_SEMITRANS,Semitransparent display
 REFERENCE_SEMITRANS_TOOLTIP,Toggles displaying the reference at half transparency.
+REFERENCE_OPACITY,Reference opacity
+REFERENCE_OPACITY_TOOLTIP,Controls the reference's opacity level (0 - 255).
 REFERENCE_SESSION_NONE,None
 REFERENCE_SESSION_ENTRY,File {index}: {name}
 REFERENCE_OBJECT_NONE,None
