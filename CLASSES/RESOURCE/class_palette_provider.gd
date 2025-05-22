@@ -136,7 +136,7 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		selected_count += selected as int
 	
 	if selected_count < 1:
-		Status.set_status("PROVIDER_NOTHING_SELECTED_MODIFY")
+		Status.set_status("STATUS_PROVIDER_NOTHING_SELECTED")
 		return
 	
 	if obj_data.has("palettes"):
