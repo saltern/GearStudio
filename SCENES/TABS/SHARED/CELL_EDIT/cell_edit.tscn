@@ -942,6 +942,7 @@ mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
 [node name="options" type="ScrollContainer" parent="content/visualizer/preview_contents"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -1160,7 +1161,6 @@ reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/re
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_HITBOXES_TOOLTIP"
-button_pressed = true
 text = "REFERENCE_HITBOXES"
 text_overrun_behavior = 3
 script = ExtResource("62_qauf1")
