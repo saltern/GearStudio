@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d0on1hyt2xq0e"]
+[gd_scene load_steps=22 format=3 uid="uid://d0on1hyt2xq0e"]
 
 [ext_resource type="Script" uid="uid://ctgq48v8mcfo3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_edit.gd" id="1_fj0lo"]
 [ext_resource type="Script" uid="uid://cy11iu7302bx" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_index.gd" id="3_nhpkb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://d0r0xflrunftr" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_reindex.gd" id="5_hju2g"]
 [ext_resource type="Script" uid="uid://lkslufkq0rwm" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="5_nqd2y"]
 [ext_resource type="Script" uid="uid://c6ffe06hjdyn3" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_grid.gd" id="5_ocm7y"]
+[ext_resource type="Script" uid="uid://bggdanlujqyug" path="res://SCENES/TABS/SHARED/palette_by_channel.gd" id="6_ana8q"]
 [ext_resource type="Script" uid="uid://x5sdd5l25sii" path="res://SCENES/TABS/CHARACTER/PALETTES/preview_sprite.gd" id="6_eajfu"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="7_d35hw"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="7_nwdex"]
@@ -172,6 +173,14 @@ tooltip_text = "PALETTE_EDIT_COLOR_EDITOR_TOOLTIP"
 mouse_filter = 0
 text = "PALETTE_EDIT_COLOR_EDITOR"
 vertical_alignment = 1
+
+[node name="by_channel" type="CheckButton" parent="scroll/margin/content/editors/color_edit"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 8
+tooltip_text = "PALETTE_EDIT_BY_CHANNEL_TOOLTIP"
+text = "PALETTE_EDIT_BY_CHANNEL"
+script = ExtResource("6_ana8q")
 
 [node name="color_pick" type="ColorPicker" parent="scroll/margin/content/editors/color_edit"]
 layout_mode = 2
