@@ -16,7 +16,7 @@ func _ready() -> void:
 	SessionData.palette_changed.connect(palette_set_session)
 
 
-func on_ref_data_set(data: Dictionary) -> void:
+func on_ref_data_set(_data: Dictionary) -> void:
 	var cell_index: int = owner.cell_index
 	
 	if ref_handler.cell_index > -1:

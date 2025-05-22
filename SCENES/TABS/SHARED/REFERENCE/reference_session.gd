@@ -26,7 +26,7 @@ func on_language_changed() -> void:
 		set_item_text(item, get_entry_name(item))
 
 
-func add_session(path: String) -> void:
+func add_session(_path: String) -> void:
 	var session_id: int = SessionData.get_session_count() - 1
 	add_item(get_entry_name(item_count), session_id)
 
