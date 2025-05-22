@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func on_item_selected(item: int) -> void:
-	Settings.cell_snapshot_format = item
+	Settings.cell_snapshot_format = item as Settings.SnapshotFormat
