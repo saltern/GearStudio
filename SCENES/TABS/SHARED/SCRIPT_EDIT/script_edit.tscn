@@ -1131,6 +1131,7 @@ vertical_alignment = 1
 text_overrun_behavior = 3
 
 [node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
