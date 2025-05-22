@@ -17,6 +17,10 @@ var sprite: BinSprite
 var bit_depth: int
 var color_index: int = 0
 
+var by_channel: bool = false
+
+var last_color: Color
+
 
 # Undo/Redo status shorthand
 func status_register_action(action_text: String) -> void:
