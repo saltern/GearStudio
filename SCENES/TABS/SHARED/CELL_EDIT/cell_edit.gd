@@ -166,6 +166,19 @@ func palette_set_session(for_session: int, index: int) -> void:
 	provider.palette_load(index)
 
 
+func on_sprite_palette_changed(
+	for_session: int, object: Dictionary, index: int
+) -> void:
+	if for_session != session_id:
+		return
+	
+	if object != obj_data:
+		return
+	
+	if index == sprite_get_index():
+		provider.palette_reload()
+
+
 #region Cells
 func cell_get_count() -> int:
 	return obj_data.cells.size()

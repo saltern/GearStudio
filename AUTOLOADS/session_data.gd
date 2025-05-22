@@ -8,6 +8,7 @@ signal tab_closed
 signal tab_reset_session_ids	# Emitted by session_tabs.gd
 signal palette_changed
 signal sprite_reindexed			# Emitted by SpriteEdit's PaletteProvider
+signal sprite_palette_changed
 
 enum SessionType {
 	DIRECTORY,
@@ -176,3 +177,8 @@ func object_data_get(object: int) -> Dictionary:
 
 func set_palette(palette_index: int) -> void:
 	palette_changed.emit(session_index, palette_index)
+
+
+# Called by PaletteProvider
+func set_sprite_palette(obj_data: Dictionary, sprite_index: int) -> void:
+	sprite_palette_changed.emit(session_index, obj_data, sprite_index)

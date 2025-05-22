@@ -11,9 +11,8 @@ func _ready() -> void:
 	
 	if provider.obj_data.has("palettes"):
 		SessionData.palette_changed.connect(palette_set_session)
-	
 	else:
-		SessionData.palette_changed.connect(palette_set_session_sprite)
+		SessionData.sprite_palette_changed.connect(palette_set_session_sprite)
 
 
 func on_box_update(_box: BoxInfo) -> void:
@@ -27,8 +26,13 @@ func palette_set_session(for_session: int, index: int) -> void:
 	load_palette(index)
 
 
-func palette_set_session_sprite(for_session: int, _index: int) -> void:
+func palette_set_session_sprite(
+	for_session: int, object: Dictionary, _index: int
+) -> void:
 	if for_session != cell_edit.session_id:
+		return
+	
+	if object != cell_edit.obj_data:
 		return
 	
 	reload_palette()

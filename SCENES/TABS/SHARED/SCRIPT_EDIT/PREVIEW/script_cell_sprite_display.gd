@@ -19,6 +19,7 @@ var anim: ScriptAnimationPlayer
 
 func _ready() -> void:
 	SessionData.palette_changed.connect(on_palette_changed)
+	SessionData.sprite_palette_changed.connect(on_sprite_palette_changed)
 	anim.action_loaded.connect(disable_visual_1)
 	anim.cell_clear.connect(unload_sprite)
 	anim.inst_cell.connect(on_cell)
@@ -153,3 +154,16 @@ func on_palette_changed(for_session: int, pal_index: int) -> void:
 		return
 	
 	load_palette(pal_index)
+
+
+func on_sprite_palette_changed(
+	for_session: int, object: Dictionary, _index: int
+) -> void:
+	
+	if for_session != owner.session_id:
+		return
+	
+	if object != provider.obj_data:
+		return
+	
+	reload_palette()
