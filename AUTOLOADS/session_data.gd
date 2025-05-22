@@ -7,6 +7,7 @@ signal tab_closed
 @warning_ignore("unused_signal")
 signal tab_reset_session_ids	# Emitted by session_tabs.gd
 signal palette_changed
+@warning_ignore("unused_signal")
 signal sprite_reindexed			# Emitted by SpriteEdit's PaletteProvider
 
 enum SessionType {
