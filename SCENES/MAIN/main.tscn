@@ -288,7 +288,7 @@ size_flags_vertical = 4
 theme_override_fonts/bold_font = ExtResource("10_1bryt")
 bbcode_enabled = true
 text = "[center][b]GEAR STUDIO[/b]
-0.6.0 (May 20th 2025)
+0.6.1 (May 22nd 2025)
 
 "
 fit_content = true
