@@ -19,7 +19,9 @@ func load_cell(cell: Cell) -> void:
 	
 	if cell.sprite_index >= provider.obj_data.sprites.size():
 		return
-		
+	
+	sprite_index = cell.sprite_index
+	
 	var sprite: BinSprite = provider.obj_data.sprites[cell.sprite_index]
 	var region_dict: Dictionary = cell.rebuild_sprite(sprite, visual_1)
 	

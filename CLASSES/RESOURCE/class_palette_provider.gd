@@ -76,7 +76,10 @@ func palette_load(index: int = 0) -> void:
 
 
 func palette_reload() -> void:
-	palette_load(palette_index)
+	if obj_data.has("palettes"):
+		palette_load(palette_index)
+	else:
+		palette_load(sprite_index)
 
 
 func palette_get_color_count() -> int:
@@ -189,10 +192,14 @@ func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
-	undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
+	#undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
+	undo_redo.add_do_method(
+		SessionData.set_sprite_palette.bind(obj_data, sprite_index))
 	undo_redo.add_do_method(palette_load.bind(sprite_index))
 
-	undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
+	#undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
+	undo_redo.add_undo_method(
+		SessionData.set_sprite_palette.bind(obj_data, sprite_index))
 	undo_redo.add_undo_method(palette_load.bind(sprite_index))
 	
 	status_register_action(action_text)
