@@ -1,7 +1,9 @@
 class_name VariableEdit extends MarginContainer
 
+@warning_ignore_start("unused_signal")
 signal var_changed
 signal table_entry_changed
+@warning_ignore_restore("unused_signal")
 signal chain_table_changed
 
 var index: int = 0
@@ -46,8 +48,8 @@ func status_register_action(action_text: String) -> void:
 	})))
 
 
-func set_chain_table(index: int) -> void:
-	chain_table_index = index
+func set_chain_table(table_index: int) -> void:
+	chain_table_index = table_index
 	chain_table_changed.emit()
 
 
