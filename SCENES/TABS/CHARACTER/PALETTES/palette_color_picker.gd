@@ -15,4 +15,8 @@ func on_color_selected(index: int) -> void:
 
 
 func update_palette() -> void:
+	# Avoids excessive calls to provider.palette_get_color()
+	if not is_visible_in_tree():
+		return
+	
 	on_color_selected(last_index)
