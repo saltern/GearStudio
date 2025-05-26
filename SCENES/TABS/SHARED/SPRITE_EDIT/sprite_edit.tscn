@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=70 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://dk4uprfet8ovs" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_preview_sprite.gd" id="24_s7ufg"]
 [ext_resource type="Script" uid="uid://cdmkkr3jup48p" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_save_dialog.gd" id="25_ainjy"]
 [ext_resource type="Script" uid="uid://dqyh005xcccne" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_window.gd" id="26_647dd"]
+[ext_resource type="Script" uid="uid://btfynwlc1k62h" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_placement_pos_by_filename.gd" id="26_sifk5"]
 [ext_resource type="Script" uid="uid://4j6owhqpmc7t" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_file_count.gd" id="27_r1shb"]
 [ext_resource type="Script" uid="uid://dsljvdmm4vssw" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_placement.gd" id="28_stfek"]
 [ext_resource type="Script" uid="uid://snikl84ailgr" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_placement_position_visibility.gd" id="29_xvhlu"]
@@ -445,7 +446,6 @@ display_toggle = NodePath("../../../../../../left_panel/scroll/margin/data/displ
 title = "SPRITE_EDIT_IMPORT_TITLE"
 initial_position = 2
 size = Vector2i(1000, 614)
-visible = false
 transient = true
 exclusive = true
 min_size = Vector2i(580, 180)
@@ -587,6 +587,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("30_yw1xa")
+
+[node name="pos_by_filename" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME_TOOLTIP"
+text = "SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME"
+text_overrun_behavior = 3
+script = ExtResource("26_sifk5")
 
 [node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 custom_minimum_size = Vector2(0, 30)
