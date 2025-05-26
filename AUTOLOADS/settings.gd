@@ -60,7 +60,7 @@ const CFG_SPRITE_COLOR_BOUNDS: String = "color_bounds"
 const CFG_SPRITE_REINDEX: String = "reindex"
 
 const CFG_SECTION_PALETTES: String = "palettes"
-const CFG_PALETTE_ALPHA: String = "alpha_double"
+const CFG_PAL_GRAD_REINDEX: String = "gradient_reindex"
 
 const CFG_SECTION_MISC: String = "misc"
 const CFG_MISC_MAX_UNDO: String = "max_undo"
@@ -111,6 +111,8 @@ var sprite_color_bounds: Color = Color.BLACK:
 	set(value):
 		sprite_color_bounds = value
 		sprite_bounds_color_changed.emit()
+
+var pal_gradient_reindex: bool = false
 
 var misc_max_undo: int = 200
 var misc_allow_reopen: bool = true
@@ -224,6 +226,9 @@ func load_config() -> bool:
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
 	
+	pal_gradient_reindex = config.get_value(
+		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
+	
 	misc_max_undo = config.get_value(
 		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	misc_allow_reopen = config.get_value(
@@ -273,6 +278,9 @@ func save_config() -> bool:
 	
 	config.set_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
+	
+	config.set_value(
+		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
 	
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)

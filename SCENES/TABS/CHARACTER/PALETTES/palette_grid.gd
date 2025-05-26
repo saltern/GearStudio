@@ -482,3 +482,7 @@ func on_palette_load(palette: PackedByteArray) -> void:
 			palette[4 * index + 2],
 			min(alpha * 2, 0xFF))
 #endregion
+
+
+func apply_gradient(mode: int) -> void:
+	provider.palette_apply_gradient(mode, selected)

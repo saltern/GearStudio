@@ -1,5 +1,11 @@
 class_name PaletteProvider extends Resource
- 
+
+enum GradientMode {
+	RGB,
+	HSV,
+	OKHSL,
+}
+
 signal palette_updated
 @warning_ignore("unused_signal")
 signal palette_imported		# Used by SpriteEdit
@@ -17,9 +23,8 @@ var sprite: BinSprite
 var bit_depth: int
 var color_index: int = 0
 
-var by_channel: bool = false
-
-var last_color: Color
+var by_channel: bool = false	# Set remotely by toggle CheckButton
+var last_color: Color			# Set remotely by ColorPicker
 
 
 # Undo/Redo status shorthand
@@ -133,6 +138,18 @@ func palette_get_color_in(color: int = 0, index: int = 0) -> Color:
 
 
 func palette_set_color(color: Color, selection: Array[bool]) -> void:
+	var channels: Array[bool] = [true, true, true, true]
+	
+	if by_channel:
+		if color.r == last_color.r:
+			channels[0] = false
+		if color.g == last_color.g:
+			channels[1] = false
+		if color.b == last_color.b:
+			channels[2] = false
+		if color.a == last_color.a:
+			channels[3] = false
+	
 	var selected_count: int = 0
 	
 	for selected in selection:
@@ -143,12 +160,16 @@ func palette_set_color(color: Color, selection: Array[bool]) -> void:
 		return
 	
 	if obj_data.has("palettes"):
-		palette_set_color_palette(color, selection)
+		palette_set_color_palette(color, selection, channels)
 	else:
-		palette_set_color_sprite(color, selection)
+		palette_set_color_sprite(color, selection, channels)
+	
+	last_color = color
 
 
-func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
+func palette_set_color_palette(
+	color: Color, selection: Array[bool], channels: Array[bool]
+) -> void:
 	var action_text: String = tr("ACTION_PROVIDER_PALETTE_SET_COLOR").format({
 		"index": palette_index
 	})
@@ -159,9 +180,11 @@ func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
 		if not selection[index]:
 			continue
 		
-		undo_redo.add_do_method(palette_set_color_commit.bind(index, color))
+		undo_redo.add_do_method(
+			palette_set_color_commit.bind(index, color, channels))
 		undo_redo.add_undo_method(
-			palette_set_color_commit.bind(index, palette_get_color(index))
+			palette_set_color_commit.bind(
+				index, palette_get_color(index), channels)
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
@@ -175,7 +198,9 @@ func palette_set_color_palette(color: Color, selection: Array[bool]) -> void:
 	undo_redo.commit_action()
 
 
-func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
+func palette_set_color_sprite(
+	color: Color, selection: Array[bool], channels: Array[bool]
+) -> void:
 	var action_text: String = tr("ACTION_PROVIDER_SPRITE_SET_COLOR").format({
 		"index": sprite_index
 	})
@@ -186,9 +211,11 @@ func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
 		if not selection[index]:
 			continue
 		
-		undo_redo.add_do_method(sprite_set_color_commit.bind(index, color))
+		undo_redo.add_do_method(
+			sprite_set_color_commit.bind(index, color, channels))
 		undo_redo.add_undo_method(
-			sprite_set_color_commit.bind(index, palette_get_color(index))
+			sprite_set_color_commit.bind(
+				index, palette_get_color(index), channels)
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
@@ -206,18 +233,30 @@ func palette_set_color_sprite(color: Color, selection: Array[bool]) -> void:
 	undo_redo.commit_action()
 
 
-func palette_set_color_commit(index: int, color: Color) -> void:
-	palette.palette[4 * index + 0] = color.r8
-	palette.palette[4 * index + 1] = color.g8
-	palette.palette[4 * index + 2] = color.b8
-	palette.palette[4 * index + 3] = color.a8
+func palette_set_color_commit(
+	index: int, color: Color, channels: Array[bool]
+) -> void:
+	if channels[0]:
+		palette.palette[4 * index + 0] = color.r8
+	if channels[1]:
+		palette.palette[4 * index + 1] = color.g8
+	if channels[2]:
+		palette.palette[4 * index + 2] = color.b8
+	if channels[3]:
+		palette.palette[4 * index + 3] = color.a8
 
 
-func sprite_set_color_commit(index: int, color: Color) -> void:
-	sprite.palette[4 * index + 0] = color.r8
-	sprite.palette[4 * index + 1] = color.g8
-	sprite.palette[4 * index + 2] = color.b8
-	sprite.palette[4 * index + 3] = color.a8
+func sprite_set_color_commit(
+	index: int, color: Color, channels: Array[bool]
+) -> void:
+	if channels[0]:
+		sprite.palette[4 * index + 0] = color.r8
+	if channels[1]:
+		sprite.palette[4 * index + 1] = color.g8
+	if channels[2]:
+		sprite.palette[4 * index + 2] = color.b8
+	if channels[3]:
+		sprite.palette[4 * index + 3] = color.a8
 
 
 func palette_paste_color(at_index: int) -> void:
@@ -414,4 +453,142 @@ func palette_reindex() -> void:
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()
+
+
+func palette_apply_gradient(mode: GradientMode, selection: Array[bool]) -> void:
+	var start_index: int = -1
+	var end_index: int = -1
+	var gradient_steps: int = 0
+	
+	# Get first color
+	for index in selection.size():
+		if selection[index]:
+			start_index = index
+			break
+	
+	if start_index == -1:
+		Status.set_status("PROVIDER_GRADIENT_NOTHING_SELECTED")
+		return
+	
+	# Get last color
+	for index in selection.size():
+		if selection[selection.size() - 1 - index]:
+			end_index = selection.size() - 1 - index
+			break
+	
+	if (end_index - start_index) < 2:
+		Status.set_status("PROVIDER_GRADIENT_INSUFFICIENT_COLORS")
+		return
+	
+	# Indices to apply to
+	var apply_indices: PackedInt32Array = []
+	
+	# Get color count
+	for index in selection.size():
+		if selection[index]:
+			gradient_steps += 1
+			apply_indices.append(index)
+	
+	if Settings.pal_gradient_reindex:
+		var reindex: Dictionary = {}
+		
+		for index in apply_indices:
+			var reindexed: int = index
+			
+			if ((index / 8) + 2) % 4 == 0:
+				reindexed -= 8
+			elif ((index / 8) + 3) % 4 == 0:
+				reindexed += 8
+			
+			reindex[reindexed] = index
+		
+		var keys: Array = reindex.keys()
+		keys.sort()
+		
+		for key in keys.size():
+			apply_indices[key] = reindex[keys[key]]
+		
+		start_index = apply_indices[0]
+		end_index = apply_indices[-1]
+	
+	var start_color: Color = Color8(
+		palette.palette[4 * start_index + 0],
+		palette.palette[4 * start_index + 1],
+		palette.palette[4 * start_index + 2],
+		palette.palette[4 * start_index + 3],
+	)
+	
+	var end_color: Color = Color8(
+		palette.palette[4 * end_index + 0],
+		palette.palette[4 * end_index + 1],
+		palette.palette[4 * end_index + 2],
+		palette.palette[4 * end_index + 3],
+	)
+	
+	# Generate gradient
+	var gradient: Array[Color] = palette_generate_gradient(
+		mode, gradient_steps, start_color, end_color)
+	
+	var action_text: String = tr("ACTION_PROVIDER_MAKE_GRADIENT").format({
+		"index": palette_index
+	})
+	
+	var channels: Array[bool] = [true, true, true, true]
+	
+	undo_redo.create_action(action_text)
+	
+	var index: int = 0
+	
+	for color in gradient:
+		undo_redo.add_do_method(palette_set_color_commit.bind(
+			apply_indices[index], color, channels)
+		)
+		undo_redo.add_undo_method(palette_set_color_commit.bind(
+			apply_indices[index], palette_get_color(apply_indices[index]), channels)
+		)
+		
+		index += 1
+	
+	# palette_updated signal needs to happen before palette_load call
+	undo_redo.add_do_method(SessionData.set_palette.bind(palette_index))
+	undo_redo.add_do_method(palette_load.bind(palette_index))
+	
+	undo_redo.add_undo_method(SessionData.set_palette.bind(palette_index))
+	undo_redo.add_undo_method(palette_load.bind(palette_index))
+	
+	status_register_action(action_text)
+	undo_redo.commit_action()
+
+
+func palette_generate_gradient(
+	mode: GradientMode, steps: int, start: Color, end: Color
+) -> Array[Color]:
+	var color_array: Array[Color] = []
+	var f_steps: float = float(steps)
+	
+	color_array.append(start)
+	
+	for step in range(1.0, f_steps - 1):
+		var progress: float = (1.0 / (f_steps - 1)) * (step)
+		var new: Color = start
+		
+		match mode:
+			GradientMode.RGB:
+				new.r8 = lerp(start.r8, end.r8, progress)
+				new.g8 = lerp(start.g8, end.g8, progress)
+				new.b8 = lerp(start.b8, end.b8, progress)
+			
+			GradientMode.HSV:
+				new.h = lerp(start.h, end.h, progress)
+				new.s = lerp(start.s, end.s, progress)
+				new.v = lerp(start.v, end.v, progress)
+			
+			GradientMode.OKHSL:
+				new.ok_hsl_h = lerp(start.ok_hsl_h, end.ok_hsl_h, progress)
+				new.ok_hsl_s = lerp(start.ok_hsl_s, end.ok_hsl_s, progress)
+				new.ok_hsl_l = lerp(start.ok_hsl_l, end.ok_hsl_l, progress)
+		
+		color_array.append(new)
+	
+	return color_array
 #endregion
