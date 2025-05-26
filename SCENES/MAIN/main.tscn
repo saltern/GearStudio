@@ -786,6 +786,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "PREFERENCES_PALETTES_GRADIENT_REINDEX_TOOLTIP"
 text = "PREFERENCES_PALETTES_GRADIENT_REINDEX"
 text_overrun_behavior = 3
 script = ExtResource("43_4qwfh")
