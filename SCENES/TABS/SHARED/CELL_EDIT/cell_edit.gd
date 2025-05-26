@@ -148,11 +148,19 @@ func undo() -> void:
 	if not is_visible_in_tree():
 		return
 	
+	if not undo_redo.has_undo():
+		Status.set_status("ACTION_NO_UNDO")
+		return
+	
 	undo_redo.undo()
 
 
 func redo() -> void:
 	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_redo():
+		Status.set_status("ACTION_NO_REDO")
 		return
 	
 	undo_redo.redo()

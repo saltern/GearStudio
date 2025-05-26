@@ -75,6 +75,9 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	script_action_load(0)
+	
+	GlobalSignals.menu_undo.connect(undo)
+	GlobalSignals.menu_redo.connect(redo)
 
 
 func _input(event: InputEvent) -> void:
@@ -85,10 +88,10 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("redo"):
-		undo_redo.redo()
+		redo()
 	
-	elif Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
+	if Input.is_action_just_pressed("undo"):
+		undo()
 
 
 func set_session_id(new_id: int) -> void:
@@ -101,6 +104,30 @@ func status_register_action(action_text: String) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
 		"action": action_text
 	})))
+
+
+#region Undo/Redo
+func undo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_undo():
+		Status.set_status("ACTION_NO_UNDO")
+		return
+	
+	undo_redo.undo()
+
+
+func redo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_redo():
+		Status.set_status("ACTION_NO_REDO")
+		return
+	
+	undo_redo.redo()
+#endregion
 
 
 func script_action_get(index: int) -> ScriptAction:

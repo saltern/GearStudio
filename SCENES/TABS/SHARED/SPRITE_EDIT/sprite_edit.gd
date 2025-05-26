@@ -42,6 +42,9 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	provider.palette_load(0)
 	sprite_set(0)
+	
+	GlobalSignals.menu_undo.connect(undo)
+	GlobalSignals.menu_redo.connect(redo)
 
 
 func _input(event: InputEvent) -> void:
@@ -52,20 +55,10 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("redo"):
-		undo_redo.redo()
-		
-		if not obj_data.has("palettes"):
-			sprite_set(provider.sprite_index)
-			sprite_index_spinbox.call_deferred(
-				"set_value_no_signal", sprite_index)
+		redo()
 	
 	elif Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
-		
-		if not obj_data.has("palettes"):
-			sprite_set(provider.sprite_index)
-			sprite_index_spinbox.call_deferred(
-				"set_value_no_signal", sprite_index)
+		undo()
 
 
 func set_session_id(new_id: int) -> void:
@@ -78,6 +71,30 @@ func status_register_action(action_text: String) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
 		"action": action_text
 	})))
+
+
+#region Undo/Redo
+func undo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_undo():
+		Status.set_status("ACTION_NO_UNDO")
+		return
+	
+	undo_redo.undo()
+
+
+func redo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_redo():
+		Status.set_status("ACTION_NO_REDO")
+		return
+	
+	undo_redo.redo()
+#endregion
 
 
 func palette_set_session(for_session: int, index: int) -> void:

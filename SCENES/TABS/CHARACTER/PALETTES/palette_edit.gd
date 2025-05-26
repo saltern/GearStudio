@@ -19,6 +19,9 @@ func _enter_tree() -> void:
 	
 	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
+	
+	GlobalSignals.menu_undo.connect(undo)
+	GlobalSignals.menu_redo.connect(redo)
 
 
 func _ready() -> void:
@@ -40,15 +43,39 @@ func _input(event: InputEvent) -> void:
 		gradient_menu.display()
 		return
 	
-	if Input.is_action_just_pressed("redo"):
-		undo_redo.redo()
+	if Input.is_action_just_pressed("undo"):
+		undo()
 	
-	elif Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
+	if Input.is_action_just_pressed("redo"):
+		redo()
 
 
 func set_session_id(new_id: int) -> void:
 	session_id = new_id
+
+
+#region Undo/Redo
+func undo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_undo():
+		Status.set_status("ACTION_NO_UNDO")
+		return
+	
+	undo_redo.undo()
+
+
+func redo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_redo():
+		Status.set_status("ACTION_NO_REDO")
+		return
+	
+	undo_redo.redo()
+#endregion
 
 
 func get_provider() -> PaletteProvider:
