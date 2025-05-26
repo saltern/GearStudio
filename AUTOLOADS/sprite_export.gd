@@ -20,6 +20,7 @@ var preview_index: int = 0
 var preview_sprite: BinSprite
 
 var export_bin: bool = false
+var export_bin_u: bool = false
 var export_raw: bool = false
 var export_png: bool = false
 var export_bmp: bool = false
@@ -101,6 +102,18 @@ func export(output_path: String) -> void:
 	if export_bin:
 		SpriteExporter.export_sprites(
 			"bin",
+			output_path,
+			export_list,
+			name_start_index,
+			palette_include,
+			palette,
+			palette_alpha_mode,
+			obj_data.has("palettes"),
+			sprite_reindex)
+	
+	if export_bin_u:
+		SpriteExporter.export_sprites(
+			"bin_u",
 			output_path,
 			export_list,
 			name_start_index,
