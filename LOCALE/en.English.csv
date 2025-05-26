@@ -18,6 +18,8 @@ HELP_ABOUT,About...
 PREFERENCES_TITLE,Preferences
 PREFERENCES_GENERAL_TITLE,General
 PREFERENCES_GENERAL_LANGUAGE,Language
+PREFERENCES_GENERAL_UNDO,Max undo steps
+PREFERENCES_GENERAL_REOPEN,Allow reopening same file or folder
 PREFERENCES_CUSTOMIZATION_TITLE,Customization
 PREFERENCES_CUSTOMIZATION_BG_GRID_1,Background grid color 1
 PREFERENCES_CUSTOMIZATION_BG_GRID_2,Background grid color 2
@@ -45,9 +47,10 @@ PREFERENCES_BOXES_COLLISION_EXTENSION,Color (collision extension)
 PREFERENCES_BOXES_SPAWN,Color (effect spawn point)
 PREFERENCES_SPRITES_TITLE,Sprites
 PREFERENCES_SPRITES_BOUNDS,Color (bounds)
-PREFERENCES_MISCELLANEOUS_TITLE,Miscellaneous
-PREFERENCES_MISCELLANEOUS_UNDO,Max undo steps
-PREFERENCES_MISCELLANEOUS_REOPEN,Allow reopening same file or folder
+PREFERENCES_PALETTES_TITLE,Palettes
+PREFERENCES_PALETTES_GRADIENT_REINDEX,Reindex palette gradients
+PREFERENCES_PALETTES_GRADIENT_REINDEX_TOOLTIP,"If enabled, gradients will be generated respecting
++R's color order on 8 bpp (256-color) palettes."
 PREFERENCES_SAVE,Save preferences
 ,
 ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS
@@ -350,6 +353,10 @@ PALETTE_EDIT_COLOR_EDITOR_TOOLTIP,Choose here the color to apply to the selected
 PALETTE_EDIT_PREVIEW,Preview
 PALETTE_EDIT_SPRITE_INDEX,Sprite #
 PALETTE_EDIT_SPRITE_INDEX_TOOLTIP,Sets the sprite to preview the current palette with.
+PALETTE_EDIT_BY_CHANNEL,Edit individual channels
+PALETTE_EDIT_BY_CHANNEL_TOOLTIP,"If enabled and when multiple indices are selected, changing their color will be
+done on a channel by channel basis, e.g. setting a new red value will not affect
+the existing green, blue, or alpha values of each selected index."
 ,
 SCRIPT_INSTRUCTION_NOT_FOUND,ERROR
 SCRIPT_EDIT_TITLE,Script
@@ -639,6 +646,8 @@ STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_MOVE,Cannot move instruction any further!
 STATUS_SCRIPT_EDIT_INSTRUCTION_MOVE_NOTHING,"No instruction selected, nothing moved."
 ,
 ACTION_UNDO,Undo: {action}
+ACTION_NO_UNDO,Nothing to undo.
+ACTION_NO_REDO,Nothing to redo.
 ,
 ACTION_SPRITE_EDIT_DELETE,Delete {count} sprite(s)
 ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,Cannot delete all sprites!
@@ -677,6 +686,7 @@ ACTION_PROVIDER_SPRITE_SET_COLOR,Sprite #{index}: set color(s)
 ACTION_PROVIDER_SPRITE_PASTE_COLOR,Sprite #{index}: paste color(s)
 ACTION_PROVIDER_SPRITE_IMPORT,Sprite #{index}: import palette
 ACTION_PROVIDER_SPRITE_REINDEX,Sprite #{index}: reindex
+ACTION_PROVIDER_MAKE_GRADIENT,Generate and apply gradient
 ,
 ACTION_SELECT_IMPORT,Import cursor mask
 ,
