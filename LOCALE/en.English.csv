@@ -115,6 +115,12 @@ SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE,Replace
 SPRITE_EDIT_IMPORT_PLACEMENT_INSERT,Insert
 SPRITE_EDIT_IMPORT_PLACEMENT_POSITION,At position
 SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP,What position to replace/insert sprites at.
+SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME,Place by filename number
+SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME_TOOLTIP,"Places sprites based on filename, e.g. 'sprite_12.png' will be imported into position 12.
+
+Notes:
+- A file called '1_abc_5.png' will be placed at position 15, as this setting ignores all non-number characters.
+- File names not containing any numbers will default to position 0."
 SPRITE_EDIT_IMPORT_PLACEMENT_WAITING,Waiting for files to be selected.
 SPRITE_EDIT_IMPORT_PLACEMENT_NO_REPLACE,"Will not replace sprites.
 Total sprites after import: {total}"
