@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=69 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
@@ -17,12 +17,8 @@
 [ext_resource type="Script" uid="uid://bnpv4j4m8b1xx" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_palette_import_export_buttons.gd" id="10_jsn4m"]
 [ext_resource type="Script" uid="uid://44utueqvrc1t" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_start.gd" id="10_tbtm3"]
 [ext_resource type="Script" uid="uid://d6xs4guymfaq" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_end.gd" id="11_o6jgh"]
-[ext_resource type="Script" uid="uid://u1t7jxjip0h6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format_bin.gd" id="12_gpmfg"]
-[ext_resource type="Script" uid="uid://dx0ts68elfrln" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format_raw.gd" id="13_a30bt"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="13_htehq"]
-[ext_resource type="Script" uid="uid://vp4tumj6chcy" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format_png.gd" id="14_dampd"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="14_pyfkm"]
-[ext_resource type="Script" uid="uid://6qmp3l3b3h2p" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format_bmp.gd" id="15_gwdvx"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="15_uhgr3"]
 [ext_resource type="Script" uid="uid://8ucqepthpk4j" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_include.gd" id="16_2qa0c"]
 [ext_resource type="Script" uid="uid://d76u2wexlqt3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_index.gd" id="17_er65l"]
@@ -53,6 +49,7 @@
 [ext_resource type="Script" uid="uid://bojfvrl4y0hew" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_preview.gd" id="41_616vi"]
 [ext_resource type="Script" uid="uid://b4b546bd12th" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_progress.gd" id="42_k4ivw"]
 [ext_resource type="Script" uid="uid://db2lbgtx03sv8" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_file_dialog.gd" id="43_05050"]
+[ext_resource type="Script" uid="uid://som8h7u5nuxf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format.gd" id="45_3pi4a"]
 [ext_resource type="Script" uid="uid://b7ii1r66cfq4g" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
 [ext_resource type="Script" uid="uid://dond4w4wi7ox2" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_from.gd" id="52_eg8u3"]
 [ext_resource type="Script" uid="uid://w20b7j7pdnwj" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_to.gd" id="52_ft3y0"]
@@ -1051,9 +1048,18 @@ mouse_filter = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+text = "BIN"
+text_overrun_behavior = 3
+script = ExtResource("45_3pi4a")
+
+[node name="bin_uncompressed" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "SPRITE_EDIT_EXPORT_FORMAT_BIN_UNCOMPRESSED"
 text_overrun_behavior = 3
-script = ExtResource("12_gpmfg")
+script = ExtResource("45_3pi4a")
+export_format = 1
 
 [node name="raw" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
@@ -1061,7 +1067,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 15
 text = "RAW"
-script = ExtResource("13_a30bt")
+script = ExtResource("45_3pi4a")
+export_format = 2
 
 [node name="png" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
@@ -1070,14 +1077,16 @@ size_flags_horizontal = 3
 tooltip_text = "Export an indexed PNG.
 Supports palettes with transparency."
 text = "PNG"
-script = ExtResource("14_dampd")
+script = ExtResource("45_3pi4a")
+export_format = 3
 
 [node name="bmp" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "BMP"
-script = ExtResource("15_gwdvx")
+script = ExtResource("45_3pi4a")
+export_format = 4
 
 [node name="palette" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
