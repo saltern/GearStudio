@@ -449,7 +449,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "PREFERENCES_MISCELLANEOUS_UNDO"
+text = "PREFERENCES_GENERAL_UNDO"
 text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
@@ -463,7 +463,7 @@ script = ExtResource("19_w7ci1")
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_pressed = true
-text = "PREFERENCES_MISCELLANEOUS_REOPEN"
+text = "PREFERENCES_GENERAL_REOPEN"
 script = ExtResource("20_560p1")
 
 [node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
