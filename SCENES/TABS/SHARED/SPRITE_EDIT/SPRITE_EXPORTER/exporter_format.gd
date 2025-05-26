@@ -8,7 +8,7 @@ enum ExportFormat {
 	BMP,
 }
 
-@export var export_format: ExportFormat = 0
+@export var export_format: ExportFormat = ExportFormat.BIN
 
 
 func _ready() -> void:
