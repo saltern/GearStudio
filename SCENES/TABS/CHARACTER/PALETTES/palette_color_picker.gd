@@ -12,6 +12,7 @@ func _ready() -> void:
 func on_color_selected(index: int) -> void:
 	last_index = index
 	color = provider.palette_get_color(index)
+	provider.last_color = color
 
 
 func update_palette() -> void:
