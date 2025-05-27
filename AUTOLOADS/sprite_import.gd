@@ -45,6 +45,8 @@ var obj_name: String
 var import_list: PackedStringArray = []
 var placement_method: int
 var insert_position: int
+var place_by_filename: bool = false
+var import_order: PackedInt32Array
 
 # Used by actual importer
 var embed_palette: bool = false
@@ -133,44 +135,25 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 				import_resize_sprites.bind(obj_data, old_size))
 		
 		PlaceMode.REPLACE:
-			# "Replacing" at end
-			if insert_position == data_sprites.size():
-				var old_size: int = data_sprites.size()
-				
-				undo_redo.add_do_method(
-					import_append_sprites.bind(sprites))
-				undo_redo.add_undo_method(
-					import_resize_sprites.bind(obj_data, old_size))
-			
-			# Imported sprite count replaces end and extends it
-			elif sprites.size() >= data_sprites.size() - insert_position:
-				var old_array: Array[BinSprite] = []
-				
-				for sprite in data_sprites.size() - insert_position:
-					old_array.append(data_sprites[insert_position + sprite])
-				
-				undo_redo.add_do_method(
-					import_resize_sprites.bind(obj_data, insert_position))
-				undo_redo.add_do_method(import_append_sprites.bind(sprites))
-				
-				undo_redo.add_undo_method(
-					import_resize_sprites.bind(obj_data, insert_position))
-				undo_redo.add_undo_method(import_append_sprites.bind(old_array))
-			
-			# Imported sprites replace section in the middle
+			# Import at locations defined by file name
+			if place_by_filename:
+				for index in sprites.size():
+					var replace_at: int = import_order[index]
+					
+					undo_redo.add_do_method(
+						import_replace_sprite.bind(
+							data_sprites, replace_at, sprites[index]
+						)
+					)
+					
+					undo_redo.add_undo_method(
+						import_replace_sprite.bind(
+							data_sprites, replace_at, data_sprites[replace_at]
+						)
+					)
+					
 			else:
-				var l_side: Array[BinSprite] = data_sprites.slice(
-					0, insert_position)
-				var r_side: Array[BinSprite] = data_sprites.slice(
-					insert_position + sprites.size(), data_sprites.size())
-				
-				var new_sprites: Array[BinSprite] = []
-				new_sprites.append_array(l_side)
-				new_sprites.append_array(sprites)
-				new_sprites.append_array(r_side)
-				
-				undo_redo.add_do_method(import_set_sprites.bind(new_sprites))
-				undo_redo.add_undo_method(import_set_sprites.bind(data_sprites))
+				import_place_sprites_replace(data_sprites, sprites)
 		
 		PlaceMode.INSERT:
 			var l_side: Array[BinSprite] = data_sprites.slice(
@@ -195,6 +178,49 @@ func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	undo_redo.commit_action()
 
 
+func import_place_sprites_replace(
+	data_sprites: Array[BinSprite], sprites: Array[BinSprite]
+) -> void:
+	# "Replacing" at end
+	if insert_position == data_sprites.size():
+		var old_size: int = data_sprites.size()
+		
+		undo_redo.add_do_method(
+			import_append_sprites.bind(sprites))
+		undo_redo.add_undo_method(
+			import_resize_sprites.bind(obj_data, old_size))
+	
+	# Imported sprite count replaces end and extends it
+	elif sprites.size() >= data_sprites.size() - insert_position:
+		var old_array: Array[BinSprite] = []
+		
+		for sprite in data_sprites.size() - insert_position:
+			old_array.append(data_sprites[insert_position + sprite])
+		
+		undo_redo.add_do_method(
+			import_resize_sprites.bind(obj_data, insert_position))
+		undo_redo.add_do_method(import_append_sprites.bind(sprites))
+		
+		undo_redo.add_undo_method(
+			import_resize_sprites.bind(obj_data, insert_position))
+		undo_redo.add_undo_method(import_append_sprites.bind(old_array))
+	
+	# Imported sprites replace section in the middle
+	else:
+		var l_side: Array[BinSprite] = data_sprites.slice(
+			0, insert_position)
+		var r_side: Array[BinSprite] = data_sprites.slice(
+			insert_position + sprites.size(), data_sprites.size())
+		
+		var new_sprites: Array[BinSprite] = []
+		new_sprites.append_array(l_side)
+		new_sprites.append_array(sprites)
+		new_sprites.append_array(r_side)
+		
+		undo_redo.add_do_method(import_set_sprites.bind(new_sprites))
+		undo_redo.add_undo_method(import_set_sprites.bind(data_sprites))
+
+
 func import_set_sprites(sprites: Array[BinSprite]) -> void:
 	obj_data["sprites"] = sprites
 
@@ -210,6 +236,7 @@ func import_append_sprites(new_sprites: Array[BinSprite]) -> void:
 func import_replace_sprite(
 	array: Array[BinSprite], at: int, with: BinSprite
 ) -> void:
+	at = clampi(at, 0, array.size() - 1)
 	array[at] = with
 
 
@@ -270,6 +297,11 @@ func set_preview_palette_index(index: int) -> void:
 
 
 func select_files(files: PackedStringArray) -> void:
+	import_order.clear()
+	
+	for file in files:
+		import_order.append(file.to_int())
+	
 	import_list = files
 	files_selected.emit()
 	preview_index = 0
