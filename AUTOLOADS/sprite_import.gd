@@ -93,12 +93,14 @@ func import_file_direct(path: String) -> BinSprite:
 		path, false, false, false, false, false, false, 8)
 
 
+# First step after hitting OK to import
 func import_files(object_data: Dictionary) -> void:
 	obj_data = object_data
 	sprite_import_started.emit()
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
 
 
+# Actual worker for above
 func import_files_thread() -> void:
 	var sprites: Array[BinSprite] = sprite_importer.import_sprites(
 		import_list, embed_palette, halve_alpha,
@@ -107,15 +109,18 @@ func import_files_thread() -> void:
 	call_deferred("emit_signal", "sprite_import_finished", sprites)
 
 
+# Second step after import finished into sprite array
 func import_place_sprites(sprites: Array[BinSprite]) -> void:
 	sprite_placement_started.emit()
 	waiting_tasks.append(
 		WorkerThreadPool.add_task(import_place_sprites_thread.bind(sprites)))
 
 
+# Actual worker for above
 func import_place_sprites_thread(sprites: Array[BinSprite]) -> void:
 	var data_sprites: Array[BinSprite] = obj_data["sprites"]
 	
+	# Can't use tr from a worker thread, keep as-is
 	var action_text: String = TranslationServer.translate(
 		"ACTION_SPRITE_IMPORTER_IMPORT").format({
 			"count": sprites.size(),
