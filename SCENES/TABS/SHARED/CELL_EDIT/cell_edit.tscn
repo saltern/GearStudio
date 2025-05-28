@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=93 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -57,12 +57,12 @@
 [ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="41_nea0q"]
 [ext_resource type="Script" uid="uid://cujo5m4bsquxe" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
 [ext_resource type="Script" uid="uid://bwg145ak3y6so" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_button.gd" id="42_psrad"]
-[ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/main_window.gd" id="45_7gddw"]
+[ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="45_7gddw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="45_y6307"]
 [ext_resource type="Shader" uid="uid://cjek4vkw48pc8" path="res://MATERIALS/palette_reference.gdshader" id="47_12gym"]
-[ext_resource type="Script" uid="uid://rfk4urnbvjsk" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_spinboxes.gd" id="47_eycev"]
-[ext_resource type="Script" uid="uid://51faqh0sw33k" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/box_display.gd" id="48_qqw76"]
-[ext_resource type="Script" uid="uid://chnlwxvpkxeuh" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/sprite_display.gd" id="49_hlqrw"]
+[ext_resource type="Script" uid="uid://rfk4urnbvjsk" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_range_spinboxes.gd" id="47_eycev"]
+[ext_resource type="Script" uid="uid://51faqh0sw33k" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_box_display.gd" id="48_qqw76"]
+[ext_resource type="Script" uid="uid://chnlwxvpkxeuh" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_sprite_display.gd" id="49_hlqrw"]
 [ext_resource type="Script" uid="uid://cujy7qymdhsh5" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
 [ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
 [ext_resource type="Script" uid="uid://cpqisxrw30xfp" path="res://SCENES/TABS/SHARED/REFERENCE/reference_preview_sprite.gd" id="52_3nb3e"]
@@ -82,6 +82,7 @@
 [ext_resource type="Texture2D" uid="uid://dub3a3006mhde" path="res://GRAPHICS/CROSS_2.PNG" id="70_tjwtw"]
 [ext_resource type="Texture2D" uid="uid://idosmf4124rn" path="res://GRAPHICS/CROSS_3.PNG" id="71_lpevd"]
 [ext_resource type="Texture2D" uid="uid://b3bcpjp0qq1mp" path="res://GRAPHICS/CROSS_4.PNG" id="72_ifugv"]
+[ext_resource type="Script" uid="uid://ba2jqkm63eqoc" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_count_info.gd" id="83_tjwtw"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
 size = Vector2(0, 0)
@@ -1191,7 +1192,7 @@ origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkp
 
 [node name="delete_cells" type="Window" parent="."]
 canvas_item_default_texture_filter = 0
-title = "Delete cells"
+title = "CELL_EDIT_DELETE_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
 visible = false
@@ -1222,7 +1223,7 @@ size_flags_horizontal = 3
 
 [node name="title" type="Label" parent="delete_cells/margin/content/range/title"]
 layout_mode = 2
-text = "Range"
+text = "CELL_EDIT_DELETE_RANGE_TITLE"
 
 [node name="h_sep2" type="HSeparator" parent="delete_cells/margin/content/range/title"]
 layout_mode = 2
@@ -1235,13 +1236,15 @@ size_flags_horizontal = 3
 [node name="title" type="Label" parent="delete_cells/margin/content/range/from"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "From cell"
+text = "CELL_EDIT_DELETE_RANGE_FROM"
+text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="delete_cells/margin/content/range/from"]
+[node name="value" type="SpinBox" parent="delete_cells/margin/content/range/from" node_paths=PackedStringArray("lower_limit")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
+lower_limit = NodePath("../../../../../../multi_snapshots/margin/content/range/from/value")
 
 [node name="to" type="HBoxContainer" parent="delete_cells/margin/content/range"]
 layout_mode = 2
@@ -1250,7 +1253,8 @@ size_flags_horizontal = 3
 [node name="title" type="Label" parent="delete_cells/margin/content/range/to"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "To cell"
+text = "CELL_EDIT_DELETE_RANGE_TO"
+text_overrun_behavior = 3
 
 [node name="value" type="SpinBox" parent="delete_cells/margin/content/range/to" node_paths=PackedStringArray("lower_limit")]
 layout_mode = 2
@@ -1264,7 +1268,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 10
-text = "Will delete 1 cell(s)."
+text = "CELL_EDIT_DELETE_WILL_DELETE"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("51_lf3kt")
@@ -1275,7 +1279,7 @@ range_end = NodePath("../to/value")
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Delete selected"
+text = "CELL_EDIT_DELETE_DELETE_BUTTON"
 
 [node name="v_sep" type="VSeparator" parent="delete_cells/margin/content"]
 layout_mode = 2
@@ -1290,7 +1294,7 @@ layout_mode = 2
 [node name="title" type="Label" parent="delete_cells/margin/content/preview/cell_index"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Preview cell to delete"
+text = "CELL_EDIT_DELETE_PREVIEW"
 
 [node name="value" type="SpinBox" parent="delete_cells/margin/content/preview/cell_index" node_paths=PackedStringArray("range_start", "range_end")]
 layout_mode = 2
@@ -1336,6 +1340,7 @@ color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("23_jn2pb")
 
 [node name="background_b" type="TextureRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1413,11 +1418,13 @@ script = ExtResource("29_uhtn5")
 
 [node name="delete_confirm" type="ConfirmationDialog" parent="delete_cells" node_paths=PackedStringArray("delete_from", "delete_to", "summon_button", "cannot_delete")]
 auto_translate_mode = 1
-title = "Confirm action"
+title = "DIALOG_CONFIRM_ACTION"
 initial_position = 2
+size = Vector2i(405, 100)
 unresizable = true
-ok_button_text = "Delete"
-dialog_text = "Really delete %s cell(s)?"
+ok_button_text = "CELL_EDIT_DELETE_CONFIRM_DELETE"
+dialog_text = "CELL_EDIT_DELETE_CONFIRM_TEXT"
+cancel_button_text = "BUTTON_CANCEL"
 script = ExtResource("55_h82s7")
 delete_from = NodePath("../margin/content/range/from/value")
 delete_to = NodePath("../margin/content/range/to/value")
@@ -1426,12 +1433,232 @@ cannot_delete = NodePath("../cannot_delete")
 
 [node name="cannot_delete" type="AcceptDialog" parent="delete_cells"]
 auto_translate_mode = 1
-title = "Cannot delete"
+title = "CELL_EDIT_DELETE_CANNOT_TITLE"
 initial_position = 2
 size = Vector2i(399, 103)
 force_native = true
-dialog_text = "Cannot delete all cells! Object needs at least 1.
-Consider creating new cells before deleting all the old ones."
+dialog_text = "CELL_EDIT_DELETE_CANNOT_TEXT"
 script = ExtResource("56_r07ix")
+
+[node name="multi_snapshots" type="Window" parent="."]
+title = "CELL_EDIT_SNAPSHOTS_TITLE"
+initial_position = 2
+size = Vector2i(900, 500)
+visible = false
+script = ExtResource("45_7gddw")
+
+[node name="margin" type="MarginContainer" parent="multi_snapshots"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="HBoxContainer" parent="multi_snapshots/margin"]
+layout_mode = 2
+
+[node name="range" type="VBoxContainer" parent="multi_snapshots/margin/content"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="title" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="h_sep" type="HSeparator" parent="multi_snapshots/margin/content/range/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/range/title"]
+layout_mode = 2
+text = "CELL_EDIT_SNAPSHOTS_RANGE_TITLE"
+
+[node name="h_sep2" type="HSeparator" parent="multi_snapshots/margin/content/range/title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="from" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/range/from"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CELL_EDIT_SNAPSHOTS_RANGE_FROM"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/range/from"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("47_eycev")
+
+[node name="to" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/range/to"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CELL_EDIT_SNAPSHOTS_RANGE_TO"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/range/to" node_paths=PackedStringArray("lower_limit")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("47_eycev")
+lower_limit = NodePath("../../from/value")
+
+[node name="info" type="Label" parent="multi_snapshots/margin/content/range"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 10
+text = "CELL_EDIT_SNAPSHOTS_WILL_SAVE"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("83_tjwtw")
+
+[node name="delete" type="Button" parent="multi_snapshots/margin/content/range"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CELL_EDIT_SNAPSHOTS_SAVE_BUTTON"
+
+[node name="v_sep" type="VSeparator" parent="multi_snapshots/margin/content"]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="multi_snapshots/margin/content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="cell_index" type="HBoxContainer" parent="multi_snapshots/margin/content/preview"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/preview/cell_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CELL_EDIT_SNAPSHOTS_PREVIEW"
+
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/preview/cell_index"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+
+[node name="borders" type="PanelContainer" parent="multi_snapshots/margin/content/preview"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("41_nea0q")
+
+[node name="clipper" type="PanelContainer" parent="multi_snapshots/margin/content/preview/borders" node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+focus_mode = 1
+script = ExtResource("45_y6307")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="multi_snapshots/margin/content/preview/borders/clipper"]
+position = Vector2(242, 400)
+script = ExtResource("22_4xx0u")
+
+[node name="background_a" type="ColorRect" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer"]
+texture_filter = 1
+custom_minimum_size = Vector2(3000, 3000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("23_jn2pb")
+
+[node name="background_b" type="TextureRect" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/background_a"]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_kifap")
+stretch_mode = 1
+script = ExtResource("25_4scjx")
+
+[node name="origin" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="guide" type="ColorRect" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin"]
+modulate = Color(1, 1, 1, 0.313726)
+show_behind_parent = true
+custom_minimum_size = Vector2(1, 4000)
+layout_mode = 0
+offset_top = -2000.0
+offset_right = 1.0
+offset_bottom = 2000.0
+mouse_filter = 2
+
+[node name="guide_horz" type="ColorRect" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin/guide"]
+show_behind_parent = true
+custom_minimum_size = Vector2(2000, 1)
+layout_mode = 0
+offset_left = -2000.0
+offset_top = 2000.0
+offset_right = 2000.0
+offset_bottom = 2001.0
+mouse_filter = 2
+
+[node name="sprite" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index", "sprite_origin")]
+material = ExtResource("26_gliws")
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("49_hlqrw")
+cell_index = NodePath("../../../../../../../../../delete_cells/margin/content/preview/cell_index/value")
+sprite_origin = NodePath(".")
+
+[node name="boxes" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+custom_minimum_size = Vector2(2000, 2000)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("48_qqw76")
+cell_index = NodePath("../../../../../cell_index/value")
+offset = Vector2i(1000, 1000)
+match_cell_editor = true
+
+[node name="origin_cross" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("29_uhtn5")
 
 [connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent" to="." method="on_box_changed"]

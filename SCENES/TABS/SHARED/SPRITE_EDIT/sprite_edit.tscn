@@ -1317,7 +1317,7 @@ script = ExtResource("25_ainjy")
 export_button = NodePath("../sprite_export/background/content_margin/window_content/config_contents/export")
 
 [node name="sprite_delete" type="Window" parent="." node_paths=PackedStringArray("summon_button")]
-title = "Delete sprites"
+title = "SPRITE_EDIT_DELETE_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
 visible = false
@@ -1528,7 +1528,7 @@ script = ExtResource("55_oqxu8")
 sprite_index = NodePath("../../../../sprite_index/value")
 
 [node name="delete_confirm" type="ConfirmationDialog" parent="sprite_delete" node_paths=PackedStringArray("delete_from", "delete_to", "summon_button", "cannot_delete")]
-title = "SPRITE_EDIT_DELETE_CONFIRM_TITLE"
+title = "DIALOG_CONFIRM_ACTION"
 initial_position = 2
 size = Vector2i(676, 100)
 unresizable = true

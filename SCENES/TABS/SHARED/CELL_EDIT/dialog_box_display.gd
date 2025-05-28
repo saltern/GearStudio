@@ -2,6 +2,7 @@ extends Control
 
 @export var cell_index: SpinBox
 @export var offset: Vector2i
+@export var match_cell_editor: bool
 
 var obj_data: Dictionary
 var current_cell: Cell

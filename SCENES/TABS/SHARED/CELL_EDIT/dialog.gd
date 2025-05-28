@@ -4,7 +4,7 @@ extends Window
 
 
 func _ready() -> void:
-	title = "Delete '%s' cells..." % cell_edit.obj_data.name
+	title = tr(title).format({ "object": cell_edit.obj_data.name })
 	close_requested.connect(hide)
 
 

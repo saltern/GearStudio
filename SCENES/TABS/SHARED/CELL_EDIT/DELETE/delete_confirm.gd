@@ -20,7 +20,9 @@ func display() -> void:
 		cannot_delete.show()
 		return
 	
-	dialog_text = "Really delete %s cell(s)?" % delete_count
+	dialog_text = tr("CELL_EDIT_DELETE_CONFIRM_TEXT").format({
+		"count": delete_count
+	})
 	show()
 
 

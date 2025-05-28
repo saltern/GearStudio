@@ -1,5 +1,6 @@
 extends Button
 
+@export var multi_snap_dialog: Window
 @export var box_display_toggle: CheckButton
 # I don't like this any more than you do
 @export var origin_textures: Array[Texture2D] = []
@@ -8,6 +9,10 @@ extends Button
 
 
 func _pressed() -> void:
+	if Input.is_key_pressed(KEY_SHIFT):
+		multi_snap_dialog.show()
+		return
+	
 	# Generate filename, path
 	var file: String = \
 		SessionData.get_session(cell_edit.session_id)["path"].get_file()

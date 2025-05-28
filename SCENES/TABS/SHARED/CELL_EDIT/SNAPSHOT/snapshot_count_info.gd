@@ -13,11 +13,8 @@ func _ready() -> void:
 
 
 func update() -> void:
-	var delete_count: int = 1 + range_end.value - range_start.value
+	var snap_count: int = 1 + range_end.value - range_start.value
 	
-	if delete_count >= cell_edit.cell_get_count():
-		text = "CELL_EDIT_DELETE_CANNOT_DELETE"
-	else:
-		text = tr("CELL_EDIT_DELETE_WILL_DELETE").format({
-			"count": delete_count
-		})
+	text = tr("CELL_EDIT_SNAPSHOTS_WILL_SAVE").format({
+		"count": snap_count
+	})
