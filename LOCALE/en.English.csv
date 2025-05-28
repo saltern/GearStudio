@@ -350,6 +350,14 @@ CELL_EDIT_DELETE_CANNOT_TITLE,Cannot delete
 CELL_EDIT_DELETE_CANNOT_TEXT,"Cannot delete all cells! Object needs at least 1.
 Consider creating new cells before deleting all the old ones."
 ,
+CELL_EDIT_SNAPSHOTS_TITLE,Take multiple snapshots
+CELL_EDIT_SNAPSHOTS_RANGE_TITLE,Range
+CELL_EDIT_SNAPSHOTS_RANGE_FROM,From cell
+CELL_EDIT_SNAPSHOTS_RANGE_TO,To cell
+CELL_EDIT_SNAPSHOTS_PREVIEW,Preview cell to snapshot
+CELL_EDIT_SNAPSHOTS_WILL_SAVE,Will save {count} snapshot(s).
+CELL_EDIT_SNAPSHOTS_SAVE_BUTTON,Take snapshot(s)
+,
 PALETTE_EDIT_TITLE,Palettes
 PALETTE_EDIT_PALETTE_INDEX,Palette #
 PALETTE_EDIT_PALETTE_INDEX_TOOLTIP,Set the palette to edit.
