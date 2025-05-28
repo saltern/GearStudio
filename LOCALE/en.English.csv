@@ -253,7 +253,6 @@ SPRITE_EDIT_DELETE_DELETE_BUTTON,Delete selected
 SPRITE_EDIT_DELETE_DELETE_BUTTON_TOOLTIP,Click to delete sprites with the above settings.
 SPRITE_EDIT_DELETE_PREVIEW,Preview sprite
 SPRITE_EDIT_DELETE_PREVIEW_TOOLTIP,Use this preview to check what sprites will be deleted.
-SPRITE_EDIT_DELETE_CONFIRM_TITLE,Confirm action
 SPRITE_EDIT_DELETE_CONFIRM_TEXT,Really delete {count} sprites?
 SPRITE_EDIT_DELETE_CONFIRM_DELETE_BUTTON,Delete
 SPRITE_EDIT_DELETE_CONFIRM_CANCEL_BUTTON,Cancel
@@ -334,7 +333,22 @@ CELL_EDIT_PREVIEW,Preview
 CELL_EDIT_PREVIEW_PALETTE_INDEX,Palette #
 CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,Set the palette to preview sprites with.
 SNAPSHOT_BUTTON,Save snapshot
-SNAPSHOT_BUTTON_TOOLTIP,"Saves the current cell as an image to Gear Studio's install path, under 'snapshots'."
+SNAPSHOT_BUTTON_TOOLTIP,"Saves the current cell as an image to Gear Studio's install path, under 'snapshots'.
+Shift+click to bring up a dialog to save multiple snapshots at once."
+,
+CELL_EDIT_DELETE_TITLE,Delete cells
+CELL_EDIT_DELETE_RANGE_TITLE,Range
+CELL_EDIT_DELETE_RANGE_FROM,From cell
+CELL_EDIT_DELETE_RANGE_TO,To cell
+CELL_EDIT_DELETE_WILL_DELETE,Will delete {count} cell(s).
+CELL_EDIT_DELETE_CANNOT_DELETE,Cannot delete all cells!
+CELL_EDIT_DELETE_PREVIEW,Preview cell to delete
+CELL_EDIT_DELETE_DELETE_BUTTON,Delete selected
+CELL_EDIT_DELETE_CONFIRM_TEXT,Really delete {count} cell(s)?
+CELL_EDIT_DELETE_CONFIRM_DELETE,Delete
+CELL_EDIT_DELETE_CANNOT_TITLE,Cannot delete
+CELL_EDIT_DELETE_CANNOT_TEXT,"Cannot delete all cells! Object needs at least 1.
+Consider creating new cells before deleting all the old ones."
 ,
 PALETTE_EDIT_TITLE,Palettes
 PALETTE_EDIT_PALETTE_INDEX,Palette #
@@ -563,6 +577,8 @@ SELECT_CHAR_25,Justice
 SELECT_CHAR_255,Random select
 SELECT_CHAR_INVALID,Invalid pixel!
 ,
+BUTTON_CANCEL,Cancel
+DIALOG_CONFIRM_ACTION,Confirm action
 PREVIEW_OPTIONS,Preview options
 PREVIEW_OPTIONS_TOOLTIP,Opens the preview options side panel.
 PREVIEW_TITLE_MISC,Miscellaneous
