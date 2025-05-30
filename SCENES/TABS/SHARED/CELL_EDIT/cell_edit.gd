@@ -22,6 +22,10 @@ signal cell_updated
 @export var box_draw_node: Control
 @export var box_type_menu: Button
 @export var box_edit_mode: Button
+
+@export_group("Snapshots")
+@export var origin_textures: Array[Texture2D] = []
+
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
@@ -907,4 +911,86 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	
 	status_register_action(action_text)
 	undo_redo.commit_action()
+#endregion
+
+
+#region Snapshots
+func save_snapshot(cell_number: int) -> void:
+	var cell: Cell = obj_data.cells[cell_number]
+	
+	# Generate filename, path
+	var file: String = \
+		SessionData.get_session(session_id)["path"].get_file()
+	var date: Dictionary = Time.get_datetime_dict_from_system()
+	var file_name: String = "%s_CELL-%04d" % [file, cell_number]
+	
+	file_name += "_%04d-%02d-%02d_%02d-%02d-%02d" % [
+		date["year"], date["month"], date["day"],
+		date["hour"], date["minute"], date["second"]
+	]
+	
+	var path: String = OS.get_executable_path().get_base_dir()\
+		 + "/snapshots/"
+	
+	# Create path for first time save
+	if not DirAccess.dir_exists_absolute(path):
+		DirAccess.make_dir_recursive_absolute(path)
+	
+	# Snapshot data...
+	var pal: PackedByteArray
+	
+	# Global/local pal
+	if obj_data.has("palettes"):
+		pal = provider.palette.palette
+	else:
+		pal = obj_data.sprites[cell.sprite_index].palette
+	
+	# Origin cross
+	var origin: PackedByteArray = []
+	
+	var types_to_draw: Array[bool] = []
+	types_to_draw.resize(box_display_types.size())
+	
+	if display_boxes:
+		types_to_draw = box_display_types
+	
+	if Settings.cell_draw_origin:
+		var this_tex: Texture2D = origin_textures[Settings.cell_origin_type]
+		# Tex width/height
+		origin.append(this_tex.get_width())
+		# Pixels
+		origin.append_array(this_tex.get_image().get_data())
+	
+	
+	# Options 0 and 2: PNG
+	if Settings.cell_snapshot_format % 2 == 0:
+		# Save
+		cell.save_snapshot_png(
+			# Sprite
+			obj_data.sprites[cell.sprite_index], pal, false,
+			# Boxes
+			types_to_draw,
+			Settings.box_colors,
+			Settings.box_thickness,
+			# Origin cross
+			origin,
+			# Save path
+			path + file_name + ".png"
+		)
+	
+	# Options 1 and 2: PSD
+	if Settings.cell_snapshot_format > 0:
+		# Save
+		cell.save_snapshot_psd(
+			# Sprite
+			obj_data.sprites[cell.sprite_index], pal, false,
+			# Boxes
+			types_to_draw,
+			Settings.box_colors,
+			Settings.box_thickness,
+			# Origin cross
+			origin,
+			# Save path
+			path + file_name + ".psd"
+		)
 #endregion
