@@ -878,7 +878,7 @@ cancel_button_text = "SPRITE_EDIT_IMPORT_CONFIRM_CANCEL"
 
 [node name="import_progress" type="Window" parent="sprite_import" node_paths=PackedStringArray("progress_label")]
 auto_translate_mode = 1
-title = "Importing sprites..."
+title = "SPRITE_EDIT_IMPORT_PROGRESS_TITLE"
 initial_position = 2
 size = Vector2i(300, 100)
 visible = false
@@ -900,7 +900,7 @@ size_flags_vertical = 6
 [node name="please_wait" type="Label" parent="sprite_import/import_progress/content"]
 layout_mode = 2
 size_flags_vertical = 10
-text = "SPRITE_EDIT_IMPORT_PLEASE_WAIT"
+text = "PLEASE_WAIT"
 horizontal_alignment = 1
 
 [node name="progress" type="Label" parent="sprite_import/import_progress/content"]
