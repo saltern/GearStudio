@@ -1,18 +1,7 @@
 extends CheckButton
 
-@export var box_draw_node: Control
-@export var editable_parent: Control
-@export var edit_mode: CheckButton
-@export var type_menu_button: Button
+@onready var cell_edit: CellEdit = owner
 
 
-func _ready() -> void:
-	toggled.connect(toggle)
-
-
-func toggle(new_value: bool) -> void:
-	box_draw_node.visible = new_value
-	type_menu_button.visible = new_value
-	edit_mode.button_pressed = false
-	edit_mode.toggled.emit(false)
-	edit_mode.disabled = !new_value
+func _toggled(toggled_on: bool) -> void:
+	cell_edit.box_toggle_display(toggled_on)

@@ -18,6 +18,10 @@ signal box_multi_drag_stopped
 signal cell_count_changed
 signal cell_updated
 
+@export_group("Boxes")
+@export var box_draw_node: Control
+@export var box_type_menu: Button
+@export var box_edit_mode: Button
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
@@ -28,6 +32,7 @@ var cell_index: int
 var this_cell: Cell
 var cell_clipboard: Cell
 
+var display_boxes: bool = true
 var boxes_selected: PackedInt32Array = []
 var box_drawing_mode: bool
 var box_edits_allowed: bool
@@ -513,6 +518,18 @@ func sprite_info_paste() -> void:
 
 
 #region Boxes
+func box_toggle_display(value: bool) -> void:
+	display_boxes = value
+	box_update_display()
+
+
+func box_update_display() -> void:
+	box_draw_node.visible = display_boxes
+	box_type_menu.visible = display_boxes
+	box_edit_mode.button_pressed = false
+	box_edit_mode.disabled = !display_boxes
+
+
 func box_get(index: int = 0) -> BoxInfo:
 	return box_get_all()[index]
 
