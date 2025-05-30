@@ -18,6 +18,10 @@ signal box_multi_drag_stopped
 signal cell_count_changed
 signal cell_updated
 
+signal cell_snapshots_start
+signal cell_snapshot_taken
+signal cell_snapshots_done
+
 @export_group("Boxes")
 @export var box_draw_node: Control
 @export var box_type_menu: Button
@@ -62,6 +66,8 @@ var box_display_types: Array[bool] = [
 
 var provider: PaletteProvider = PaletteProvider.new()
 
+var waiting_tasks: Array[int] = []
+
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
@@ -89,6 +95,13 @@ func _ready() -> void:
 	provider.palette_load()
 	
 	cell_load(0)
+
+
+func _physics_process(_delta: float) -> void:
+	for task in waiting_tasks:
+		if WorkerThreadPool.is_task_completed(task):
+			WorkerThreadPool.wait_for_task_completion(task)
+			waiting_tasks.pop_at(waiting_tasks.find(task))
 
 
 func _input(event: InputEvent) -> void:
@@ -997,4 +1010,21 @@ func save_snapshot(cell_number: int) -> void:
 			# Save path
 			path + file_name + ".psd"
 		)
+
+
+func snapshot_range(from: int, to: int) -> void:
+	WorkerThreadPool.add_task(snapshot_range_thread.bind(from, to))
+
+
+func snapshot_range_thread(from: int, to: int) -> void:
+	from = min(from, obj_data.cells.size() - 1)
+	to = max(to, 0)
+	
+	call_deferred("emit_signal", "cell_snapshots_start", to - from + 1)
+	
+	for index in range(from, to + 1):
+		save_snapshot(index)
+		call_deferred("emit_signal", "cell_snapshot_taken")
+	
+	call_deferred("emit_signal", "cell_snapshots_done")
 #endregion

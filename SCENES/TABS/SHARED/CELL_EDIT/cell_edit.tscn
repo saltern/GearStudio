@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://bb5abxm4foa3j"]
+[gd_scene load_steps=96 format=3 uid="uid://bb5abxm4foa3j"]
 
 [ext_resource type="Script" uid="uid://bsti3mnr50vlf" path="res://SCENES/TABS/SHARED/CELL_EDIT/cell_edit.gd" id="1_tgv18"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="2_mn5jm"]
@@ -64,7 +64,7 @@
 [ext_resource type="Script" uid="uid://51faqh0sw33k" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_box_display.gd" id="48_qqw76"]
 [ext_resource type="Script" uid="uid://chnlwxvpkxeuh" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_sprite_display.gd" id="49_hlqrw"]
 [ext_resource type="Script" uid="uid://cujy7qymdhsh5" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_count_info.gd" id="51_lf3kt"]
-[ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/preview_cell_index.gd" id="51_t2iij"]
+[ext_resource type="Script" uid="uid://7gfiix6mnbm8" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_preview_cell_index.gd" id="51_t2iij"]
 [ext_resource type="Script" uid="uid://cpqisxrw30xfp" path="res://SCENES/TABS/SHARED/REFERENCE/reference_preview_sprite.gd" id="52_3nb3e"]
 [ext_resource type="Material" uid="uid://c5hb8w4wgn54j" path="res://MATERIALS/mat_reference.material" id="53_d2y4c"]
 [ext_resource type="Script" uid="uid://c74itl7vmivsm" path="res://SCENES/TABS/SHARED/CELL_EDIT/DELETE/delete_confirm.gd" id="55_h82s7"]
@@ -83,6 +83,9 @@
 [ext_resource type="Texture2D" uid="uid://idosmf4124rn" path="res://GRAPHICS/CROSS_3.PNG" id="71_lpevd"]
 [ext_resource type="Texture2D" uid="uid://b3bcpjp0qq1mp" path="res://GRAPHICS/CROSS_4.PNG" id="72_ifugv"]
 [ext_resource type="Script" uid="uid://ba2jqkm63eqoc" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_count_info.gd" id="83_tjwtw"]
+[ext_resource type="Script" uid="uid://cic6infif3we7" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_box_visibility.gd" id="84_lpevd"]
+[ext_resource type="Script" uid="uid://dtyigi8j775h8" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_start_capture.gd" id="85_kemly"]
+[ext_resource type="Script" uid="uid://d3snfjn721waq" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_progress_dialog.gd" id="86_ehmjy"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
 size = Vector2(0, 0)
@@ -118,7 +121,7 @@ shader_parameter/palette = PackedInt32Array()
 shader_parameter/post_transparency = 1.0
 shader_parameter/modulate = Color(1, 1, 1, 1)
 
-[node name="CELL_EDIT_TITLE" type="MarginContainer"]
+[node name="CELL_EDIT_TITLE" type="MarginContainer" node_paths=PackedStringArray("box_draw_node", "box_type_menu", "box_edit_mode")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -126,6 +129,10 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_tgv18")
+box_draw_node = NodePath("content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
+box_type_menu = NodePath("content/scroll/margin/data/boxes/collapsible/type_menu_button")
+box_edit_mode = NodePath("content/scroll/margin/data/boxes/collapsible/toggles/edit_mode")
+origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
 metadata/_tab_index = 1
 
 [node name="content" type="HBoxContainer" parent="."]
@@ -453,7 +460,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="visibility" type="CheckButton" parent="content/scroll/margin/data/boxes/collapsible/toggles" node_paths=PackedStringArray("box_draw_node", "editable_parent", "edit_mode", "type_menu_button")]
+[node name="visibility" type="CheckButton" parent="content/scroll/margin/data/boxes/collapsible/toggles"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -462,10 +469,6 @@ button_pressed = true
 text = "CELL_EDIT_BOXES_DISPLAY"
 text_overrun_behavior = 3
 script = ExtResource("7_fl2cb")
-box_draw_node = NodePath("../../../../../../../visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
-editable_parent = NodePath("../../editable")
-edit_mode = NodePath("../edit_mode")
-type_menu_button = NodePath("../../type_menu_button")
 
 [node name="edit_mode" type="CheckButton" parent="content/scroll/margin/data/boxes/collapsible/toggles" node_paths=PackedStringArray("editable_parent")]
 custom_minimum_size = Vector2(0, 30)
@@ -740,6 +743,8 @@ collapsible = NodePath("../../preview_contents/options")
 [node name="preview_contents" type="HBoxContainer" parent="content/visualizer"]
 layout_mode = 2
 size_flags_vertical = 3
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="borders" type="PanelContainer" parent="content/visualizer/preview_contents"]
 layout_mode = 2
@@ -1176,7 +1181,7 @@ text_overrun_behavior = 3
 script = ExtResource("63_3nb3e")
 reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
 
-[node name="snapshot" type="Button" parent="content/visualizer" node_paths=PackedStringArray("box_display_toggle")]
+[node name="snapshot" type="Button" parent="content/visualizer" node_paths=PackedStringArray("multi_snap_dialog")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1187,8 +1192,7 @@ icon = ExtResource("28_76gqd")
 text_overrun_behavior = 3
 clip_text = true
 script = ExtResource("42_psrad")
-box_display_toggle = NodePath("../../scroll/margin/data/boxes/collapsible/toggles/visibility")
-origin_textures = Array[Texture2D]([ExtResource("68_spn66"), ExtResource("69_mkpt3"), ExtResource("70_tjwtw"), ExtResource("71_lpevd"), ExtResource("72_ifugv")])
+multi_snap_dialog = NodePath("../../../multi_snapshots")
 
 [node name="delete_cells" type="Window" parent="."]
 canvas_item_default_texture_filter = 0
@@ -1196,6 +1200,8 @@ title = "CELL_EDIT_DELETE_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
 visible = false
+transient = true
+exclusive = true
 script = ExtResource("45_7gddw")
 
 [node name="margin" type="MarginContainer" parent="delete_cells"]
@@ -1244,7 +1250,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
-lower_limit = NodePath("../../../../../../multi_snapshots/margin/content/range/from/value")
+lower_limit = NodePath("../../../../../../multi_snapshots/margin/content/scroll/margin/config/range_collapsible/from/value")
 
 [node name="to" type="HBoxContainer" parent="delete_cells/margin/content/range"]
 layout_mode = 2
@@ -1445,6 +1451,8 @@ title = "CELL_EDIT_SNAPSHOTS_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
 visible = false
+transient = true
+exclusive = true
 script = ExtResource("45_7gddw")
 
 [node name="margin" type="MarginContainer" parent="multi_snapshots"]
@@ -1459,60 +1467,75 @@ size_flags_vertical = 3
 [node name="content" type="HBoxContainer" parent="multi_snapshots/margin"]
 layout_mode = 2
 
-[node name="range" type="VBoxContainer" parent="multi_snapshots/margin/content"]
+[node name="scroll" type="ScrollContainer" parent="multi_snapshots/margin/content"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="margin" type="MarginContainer" parent="multi_snapshots/margin/content/scroll"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+
+[node name="config" type="VBoxContainer" parent="multi_snapshots/margin/content/scroll/margin"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="title" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+[node name="range_title" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config" node_paths=PackedStringArray("collapsible")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+script = ExtResource("15_5ipus")
+collapsible = NodePath("../range_collapsible")
 
-[node name="h_sep" type="HSeparator" parent="multi_snapshots/margin/content/range/title"]
+[node name="h_sep" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/range_title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="multi_snapshots/margin/content/range/title"]
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/range_title"]
 layout_mode = 2
 text = "CELL_EDIT_SNAPSHOTS_RANGE_TITLE"
 
-[node name="h_sep2" type="HSeparator" parent="multi_snapshots/margin/content/range/title"]
+[node name="h_sep2" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/range_title"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="from" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+[node name="range_collapsible" type="VBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config"]
+layout_mode = 2
+
+[node name="from" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="multi_snapshots/margin/content/range/from"]
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CELL_EDIT_SNAPSHOTS_RANGE_FROM"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/range/from"]
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible/from"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
 
-[node name="to" type="HBoxContainer" parent="multi_snapshots/margin/content/range"]
+[node name="to" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="multi_snapshots/margin/content/range/to"]
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible/to"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CELL_EDIT_SNAPSHOTS_RANGE_TO"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/range/to" node_paths=PackedStringArray("lower_limit")]
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible/to" node_paths=PackedStringArray("lower_limit")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("47_eycev")
 lower_limit = NodePath("../../from/value")
 
-[node name="info" type="Label" parent="multi_snapshots/margin/content/range"]
+[node name="info" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/range_collapsible" node_paths=PackedStringArray("range_start", "range_end")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -1521,12 +1544,80 @@ text = "CELL_EDIT_SNAPSHOTS_WILL_SAVE"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("83_tjwtw")
+range_start = NodePath("../from/value")
+range_end = NodePath("../to/value")
 
-[node name="delete" type="Button" parent="multi_snapshots/margin/content/range"]
+[node name="boxes_title" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config" node_paths=PackedStringArray("collapsible")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("15_5ipus")
+collapsible = NodePath("../boxes_collapsible")
+
+[node name="h_sep" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/boxes_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/boxes_title"]
+layout_mode = 2
+text = "CELL_EDIT_BOXES_TITLE"
+
+[node name="h_sep2" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/boxes_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="boxes_collapsible" type="VBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config"]
+layout_mode = 2
+
+[node name="visibility" type="CheckButton" parent="multi_snapshots/margin/content/scroll/margin/config/boxes_collapsible" node_paths=PackedStringArray("main_button")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "CELL_EDIT_BOXES_DISPLAY_TOOLTIP"
+text = "CELL_EDIT_BOXES_DISPLAY"
+script = ExtResource("84_lpevd")
+main_button = NodePath("../../../../../../../../content/scroll/margin/data/boxes/collapsible/toggles/visibility")
+
+[node name="type_menu_button" type="MenuButton" parent="multi_snapshots/margin/content/scroll/margin/config/boxes_collapsible"]
+layout_mode = 2
+tooltip_text = "CELL_EDIT_BOXES_TYPES_DROPDOWN_TOOLTIP"
+text = "CELL_EDIT_BOXES_TYPES_DROPDOWN"
+flat = false
+item_count = 6
+popup/item_0/text = "CELL_EDIT_BOXES_TYPES_HITBOXES"
+popup/item_0/checkable = 1
+popup/item_0/checked = true
+popup/item_0/id = 0
+popup/item_1/text = "CELL_EDIT_BOXES_TYPES_HURTBOXES"
+popup/item_1/checkable = 1
+popup/item_1/checked = true
+popup/item_1/id = 1
+popup/item_2/text = "CELL_EDIT_BOXES_TYPES_REGIONS"
+popup/item_2/checkable = 1
+popup/item_2/checked = true
+popup/item_2/id = 2
+popup/item_3/text = "CELL_EDIT_BOXES_TYPES_COLLISION_EXTENSION"
+popup/item_3/checkable = 1
+popup/item_3/checked = true
+popup/item_3/id = 3
+popup/item_4/text = "CELL_EDIT_BOXES_TYPES_SPAWN"
+popup/item_4/checkable = 1
+popup/item_4/checked = true
+popup/item_4/id = 4
+popup/item_5/text = "CELL_EDIT_BOXES_TYPES_UNKNOWN"
+popup/item_5/checkable = 1
+popup/item_5/checked = true
+popup/item_5/id = 5
+script = ExtResource("9_4ybbf")
+
+[node name="start_capture" type="Button" parent="multi_snapshots/margin/content/scroll/margin/config" node_paths=PackedStringArray("from", "to")]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 10
 text = "CELL_EDIT_SNAPSHOTS_SAVE_BUTTON"
+icon = ExtResource("28_76gqd")
+script = ExtResource("85_kemly")
+from = NodePath("../range_collapsible/from/value")
+to = NodePath("../range_collapsible/to/value")
 
 [node name="v_sep" type="VSeparator" parent="multi_snapshots/margin/content"]
 layout_mode = 2
@@ -1543,11 +1634,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "CELL_EDIT_SNAPSHOTS_PREVIEW"
 
-[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/preview/cell_index"]
+[node name="value" type="SpinBox" parent="multi_snapshots/margin/content/preview/cell_index" node_paths=PackedStringArray("range_start", "range_end")]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
+script = ExtResource("51_t2iij")
+range_start = NodePath("../../../scroll/margin/config/range_collapsible/from/value")
+range_end = NodePath("../../../scroll/margin/config/range_collapsible/to/value")
 
 [node name="borders" type="PanelContainer" parent="multi_snapshots/margin/content/preview"]
 layout_mode = 2
@@ -1626,10 +1720,10 @@ layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("49_hlqrw")
-cell_index = NodePath("../../../../../../../../../delete_cells/margin/content/preview/cell_index/value")
+cell_index = NodePath("../../../../../cell_index/value")
 sprite_origin = NodePath(".")
 
-[node name="boxes" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
+[node name="boxes" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index", "box_display_toggle")]
 custom_minimum_size = Vector2(2000, 2000)
 layout_mode = 1
 anchors_preset = 8
@@ -1648,6 +1742,7 @@ script = ExtResource("48_qqw76")
 cell_index = NodePath("../../../../../cell_index/value")
 offset = Vector2i(1000, 1000)
 match_cell_editor = true
+box_display_toggle = NodePath("../../../../../../../../../content/scroll/margin/data/boxes/collapsible/toggles/visibility")
 
 [node name="origin_cross" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin"]
 layout_mode = 1
@@ -1660,5 +1755,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
+
+[node name="snapshot_progress" type="Window" parent="multi_snapshots" node_paths=PackedStringArray("progress_label")]
+title = "CELL_EDIT_SNAPSHOTS_PROGRESS_TITLE"
+initial_position = 2
+size = Vector2i(300, 100)
+visible = false
+transient = true
+exclusive = true
+script = ExtResource("86_ehmjy")
+progress_label = NodePath("content/progress")
+
+[node name="content" type="VBoxContainer" parent="multi_snapshots/snapshot_progress"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -22.0
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="please_wait" type="Label" parent="multi_snapshots/snapshot_progress/content"]
+layout_mode = 2
+text = "PLEASE_WAIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="progress" type="Label" parent="multi_snapshots/snapshot_progress/content"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "0 / 0"
+horizontal_alignment = 1
 
 [connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent" to="." method="on_box_changed"]

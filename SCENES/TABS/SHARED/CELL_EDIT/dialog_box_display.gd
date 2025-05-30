@@ -3,13 +3,15 @@ extends Control
 @export var cell_index: SpinBox
 @export var offset: Vector2i
 @export var match_cell_editor: bool
+@export var box_display_toggle: CheckButton
 
 var obj_data: Dictionary
 var current_cell: Cell
 
+@onready var cell_edit: CellEdit = owner
+
 
 func _ready() -> void:
-	var cell_edit: CellEdit = owner
 	obj_data = cell_edit.obj_data
 	
 	if obj_data.has("cells"):
@@ -27,6 +29,12 @@ func _draw() -> void:
 		return
 		
 	for box_info in current_cell.boxes:
+		if match_cell_editor:
+			if not cell_edit.box_display_types[box_info.box_type]:
+				continue
+			if not box_display_toggle.button_pressed:
+				continue
+		
 		draw_box(box_info)
 
 
