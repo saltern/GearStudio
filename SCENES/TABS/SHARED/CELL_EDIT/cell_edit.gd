@@ -178,6 +178,7 @@ func redo() -> void:
 #endregion
 
 
+#region Palettes
 func palette_set_session(for_session: int, index: int) -> void:
 	if for_session != session_id:
 		return
@@ -196,6 +197,7 @@ func on_sprite_palette_changed(
 	
 	if index == sprite_get_index():
 		provider.palette_reload()
+#endregion
 
 
 #region Cells
