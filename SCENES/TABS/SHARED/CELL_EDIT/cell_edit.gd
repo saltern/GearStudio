@@ -86,6 +86,8 @@ func _ready() -> void:
 	
 	SessionData.sprite_reindexed.connect(on_sprite_reindexed)
 	
+	provider.palette_load()
+	
 	cell_load(0)
 
 
