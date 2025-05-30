@@ -476,12 +476,14 @@ layout_mode = 2
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 8
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
 
 [node name="margin" type="MarginContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 20
 
 [node name="config" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin"]
 layout_mode = 2
