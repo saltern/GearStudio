@@ -10,4 +10,4 @@ func _pressed() -> void:
 		multi_snap_dialog.show()
 		return
 	
-	cell_edit.save_snapshot(cell_edit.cell_index)
+	cell_edit.save_snapshot(cell_edit.cell_index, [])

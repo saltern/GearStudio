@@ -2,6 +2,8 @@ extends CellSpriteDisplay
 
 @export var cell_index: SteppingSpinBox
 
+var override_pal: PackedByteArray = []
+
 
 func _ready() -> void:
 	provider = owner
@@ -20,3 +22,16 @@ func cell_selected(index: int) -> void:
 
 func on_cell_count_changed() -> void:
 	cell_selected(cell_index.value)
+
+
+func get_palette(index: int) -> PackedByteArray:
+	if not override_pal.is_empty():
+		return override_pal
+	
+	# Global palette
+	if provider.obj_data.has("palettes"):
+		return provider.obj_data.palettes[palette_index].palette
+	
+	# Embedded palette
+	var sprite: BinSprite = provider.obj_data.sprites[index]
+	return sprite.palette

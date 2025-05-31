@@ -3,8 +3,7 @@ extends Window
 @onready var cell_edit: CellEdit = owner
 
 
-func _ready() -> void:
-	title = tr(title).format({ "object": cell_edit.obj_data.name })
+func _enter_tree() -> void:
 	close_requested.connect(hide)
 
 

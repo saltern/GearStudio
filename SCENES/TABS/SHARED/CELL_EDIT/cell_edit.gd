@@ -932,7 +932,7 @@ func box_set_crop_offset_y(new_value: int) -> void:
 
 
 #region Snapshots
-func save_snapshot(cell_number: int) -> void:
+func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 	var cell: Cell = obj_data.cells[cell_number]
 	
 	# Generate filename, path
@@ -957,10 +957,13 @@ func save_snapshot(cell_number: int) -> void:
 	var pal: PackedByteArray
 	
 	# Global/local pal
-	if obj_data.has("palettes"):
-		pal = provider.palette.palette
+	if not override_pal.is_empty():
+		pal = override_pal
 	else:
-		pal = obj_data.sprites[cell.sprite_index].palette
+		if obj_data.has("palettes"):
+			pal = provider.palette.palette
+		else:
+			pal = obj_data.sprites[cell.sprite_index].palette
 	
 	# Origin cross
 	var origin: PackedByteArray = []
@@ -1012,18 +1015,18 @@ func save_snapshot(cell_number: int) -> void:
 		)
 
 
-func snapshot_range(from: int, to: int) -> void:
-	WorkerThreadPool.add_task(snapshot_range_thread.bind(from, to))
+func snapshot_range(from: int, to: int, pal: PackedByteArray) -> void:
+	WorkerThreadPool.add_task(snapshot_range_thread.bind(from, to, pal))
 
 
-func snapshot_range_thread(from: int, to: int) -> void:
+func snapshot_range_thread(from: int, to: int, pal: PackedByteArray) -> void:
 	from = min(from, obj_data.cells.size() - 1)
 	to = max(to, 0)
 	
 	call_deferred("emit_signal", "cell_snapshots_start", to - from + 1)
 	
 	for index in range(from, to + 1):
-		save_snapshot(index)
+		save_snapshot(index, pal)
 		call_deferred("emit_signal", "cell_snapshot_taken")
 	
 	call_deferred("emit_signal", "cell_snapshots_done")

@@ -57,7 +57,6 @@
 [ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="41_nea0q"]
 [ext_resource type="Script" uid="uid://cujo5m4bsquxe" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_type_3.gd" id="42_e5pnn"]
 [ext_resource type="Script" uid="uid://bwg145ak3y6so" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_button.gd" id="42_psrad"]
-[ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="45_7gddw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="45_y6307"]
 [ext_resource type="Shader" uid="uid://cjek4vkw48pc8" path="res://MATERIALS/palette_reference.gdshader" id="47_12gym"]
 [ext_resource type="Script" uid="uid://rfk4urnbvjsk" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog_range_spinboxes.gd" id="47_eycev"]
@@ -82,9 +81,10 @@
 [ext_resource type="Texture2D" uid="uid://dub3a3006mhde" path="res://GRAPHICS/CROSS_2.PNG" id="70_tjwtw"]
 [ext_resource type="Texture2D" uid="uid://idosmf4124rn" path="res://GRAPHICS/CROSS_3.PNG" id="71_lpevd"]
 [ext_resource type="Texture2D" uid="uid://b3bcpjp0qq1mp" path="res://GRAPHICS/CROSS_4.PNG" id="72_ifugv"]
+[ext_resource type="Script" uid="uid://dyqb1f2hgtfm4" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_dialog.gd" id="74_ehmjy"]
+[ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="74_kemly"]
 [ext_resource type="Script" uid="uid://ba2jqkm63eqoc" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_count_info.gd" id="83_tjwtw"]
 [ext_resource type="Script" uid="uid://cic6infif3we7" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_box_visibility.gd" id="84_lpevd"]
-[ext_resource type="Script" uid="uid://dtyigi8j775h8" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_start_capture.gd" id="85_kemly"]
 [ext_resource type="Script" uid="uid://d3snfjn721waq" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_progress_dialog.gd" id="86_ehmjy"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_586km"]
@@ -1202,7 +1202,7 @@ size = Vector2i(900, 500)
 visible = false
 transient = true
 exclusive = true
-script = ExtResource("45_7gddw")
+script = ExtResource("74_kemly")
 
 [node name="margin" type="MarginContainer" parent="delete_cells"]
 anchors_preset = 15
@@ -1446,14 +1446,22 @@ force_native = true
 dialog_text = "CELL_EDIT_DELETE_CANNOT_TEXT"
 script = ExtResource("56_r07ix")
 
-[node name="multi_snapshots" type="Window" parent="."]
+[node name="multi_snapshots" type="Window" parent="." node_paths=PackedStringArray("from", "to", "palette_mode", "pal_browse_button", "pal_file_dialog", "pal_error_dialog", "snapshot_button", "preview")]
 title = "CELL_EDIT_SNAPSHOTS_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
 visible = false
 transient = true
 exclusive = true
-script = ExtResource("45_7gddw")
+script = ExtResource("74_ehmjy")
+from = NodePath("margin/content/scroll/margin/config/range_collapsible/from/value")
+to = NodePath("margin/content/scroll/margin/config/range_collapsible/to/value")
+palette_mode = NodePath("margin/content/scroll/margin/config/palette_collapsible/palette_mode/value")
+pal_browse_button = NodePath("margin/content/scroll/margin/config/palette_collapsible/browse")
+pal_file_dialog = NodePath("palette_file")
+pal_error_dialog = NodePath("palette_file_error")
+snapshot_button = NodePath("margin/content/scroll/margin/config/start_capture")
+preview = NodePath("margin/content/preview/borders/clipper/visualizer/origin/sprite")
 
 [node name="margin" type="MarginContainer" parent="multi_snapshots"]
 anchors_preset = 15
@@ -1608,16 +1616,68 @@ popup/item_5/checked = true
 popup/item_5/id = 5
 script = ExtResource("9_4ybbf")
 
-[node name="start_capture" type="Button" parent="multi_snapshots/margin/content/scroll/margin/config" node_paths=PackedStringArray("from", "to")]
+[node name="palette_title" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config" node_paths=PackedStringArray("collapsible")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("15_5ipus")
+collapsible = NodePath("../palette_collapsible")
+
+[node name="h_sep" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/palette_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/palette_title"]
+layout_mode = 2
+text = "CELL_EDIT_SNAPSHOTS_PALETTE_TITLE"
+
+[node name="h_sep2" type="HSeparator" parent="multi_snapshots/margin/content/scroll/margin/config/palette_title"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="palette_collapsible" type="VBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config"]
+layout_mode = 2
+
+[node name="palette_mode" type="HBoxContainer" parent="multi_snapshots/margin/content/scroll/margin/config/palette_collapsible"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="multi_snapshots/margin/content/scroll/margin/config/palette_collapsible/palette_mode"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "CELL_EDIT_SNAPSHOTS_PALETTE_MODE"
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="value" type="OptionButton" parent="multi_snapshots/margin/content/scroll/margin/config/palette_collapsible/palette_mode"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+text_overrun_behavior = 3
+selected = 0
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "CELL_EDIT_SNAPSHOTS_PALETTE_GLOBAL_EMBEDDED"
+popup/item_0/id = 0
+popup/item_1/text = "CELL_EDIT_SNAPSHOTS_PALETTE_GRAYSCALE"
+popup/item_1/id = 1
+popup/item_2/text = "CELL_EDIT_SNAPSHOTS_PALETTE_FILE"
+popup/item_2/id = 2
+
+[node name="browse" type="Button" parent="multi_snapshots/margin/content/scroll/margin/config/palette_collapsible"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "CELL_EDIT_SNAPSHOTS_PALETTE_BROWSE"
+
+[node name="start_capture" type="Button" parent="multi_snapshots/margin/content/scroll/margin/config"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 10
 text = "CELL_EDIT_SNAPSHOTS_SAVE_BUTTON"
 icon = ExtResource("28_76gqd")
-script = ExtResource("85_kemly")
-from = NodePath("../range_collapsible/from/value")
-to = NodePath("../range_collapsible/to/value")
 
 [node name="v_sep" type="VSeparator" parent="multi_snapshots/margin/content"]
 layout_mode = 2
@@ -1755,6 +1815,22 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("29_uhtn5")
+
+[node name="palette_file" type="FileDialog" parent="multi_snapshots"]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
+use_native_dialog = true
+
+[node name="palette_file_error" type="AcceptDialog" parent="multi_snapshots"]
+title = "DIALOG_ERROR"
+initial_position = 2
+size = Vector2i(300, 100)
+ok_button_text = "BUTTON_OK"
+dialog_text = "CELL_EDIT_SNAPSHOTS_PALETTE_ERROR"
 
 [node name="snapshot_progress" type="Window" parent="multi_snapshots" node_paths=PackedStringArray("progress_label")]
 title = "CELL_EDIT_SNAPSHOTS_PROGRESS_TITLE"
