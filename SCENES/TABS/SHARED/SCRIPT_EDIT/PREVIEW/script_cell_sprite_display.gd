@@ -40,8 +40,6 @@ func _ready() -> void:
 
 func load_cell(cell: Cell) -> void:
 	super.load_cell(cell)
-	
-	material.set_shader_parameter("reindex", palette_override.size() > 16 * 4)
 
 
 func get_palette(index: int) -> PackedByteArray:
