@@ -12,6 +12,8 @@ signal inst_rotate
 signal inst_draw_normal
 signal inst_draw_reverse
 signal inst_cell_jump
+signal inst_palette_clear
+signal inst_palette
 signal inst_visual
 signal inst_end_action
 @warning_ignore_restore("unused_signal")

@@ -2,7 +2,6 @@
 extends Node
 
 signal load_complete
-#signal save_complete
 signal tab_closed
 @warning_ignore("unused_signal")
 signal tab_reset_session_ids	# Emitted by session_tabs.gd
@@ -27,6 +26,7 @@ var this_session: Dictionary = {}
 #	{
 #		"current_object": 0,
 #		"session_type": "directory",
+#		"palettes": Array[BinPalette],
 #		"data": {
 #			0: {
 #				"type": "scriptable",
@@ -142,6 +142,11 @@ func new_binary_session(path: String) -> void:
 	this_session = new_session
 	this_session["path"] = path
 	
+	# Add session-wide reference to palette data
+	# Palettes should always be under object 0 (player)
+	if this_session.data[0].has("palettes"):
+		this_session["palettes"] = this_session.data[0].palettes
+	
 	load_complete.emit.bind(path, new_session).call_deferred()
 
 
@@ -183,3 +188,15 @@ func set_palette(palette_index: int) -> void:
 # Called by PaletteProvider
 func set_sprite_palette(obj_data: Dictionary, sprite_index: int) -> void:
 	sprite_palette_changed.emit(session_index, obj_data, sprite_index)
+
+
+# Called by script_cell_sprite_display.gd
+func session_get_palettes(session_id: int) -> Array[BinPalette]:
+	if not session_has_palettes(session_id):
+		return []
+	else:
+		return get_session(session_id).palettes
+
+
+func session_has_palettes(session_id: int) -> bool:
+	return get_session(session_id).has("palettes")

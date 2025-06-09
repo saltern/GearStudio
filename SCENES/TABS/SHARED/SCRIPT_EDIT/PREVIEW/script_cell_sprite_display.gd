@@ -8,9 +8,13 @@ signal rotation_set
 @export var sprite_scale: Node2D
 @export var sprite_scale_y: Node2D
 
+@export var palette_preview: TextureRect
+
 var angle: int = 0
 var scale_x: int = -1
 var scale_y: int = -1
+
+var palette_override: PackedByteArray = []
 
 var ignore_visual: bool = false
 
@@ -28,8 +32,23 @@ func _ready() -> void:
 	anim.inst_rotate.connect(on_rotate)
 	anim.inst_draw_normal.connect(on_draw_normal)
 	anim.inst_draw_reverse.connect(on_draw_reverse)
+	anim.inst_palette_clear.connect(on_palette_clear)
+	anim.inst_palette.connect(on_palette)
 	anim.inst_visual.connect(on_visual)
 	ignore_visual_toggle.toggled.connect(toggle_visual)
+
+
+func load_cell(cell: Cell) -> void:
+	super.load_cell(cell)
+	
+	material.set_shader_parameter("reindex", palette_override.size() > 16 * 4)
+
+
+func get_palette(index: int) -> PackedByteArray:
+	if not palette_override.is_empty():
+		return palette_override
+	else:
+		return super.get_palette(index)
 
 
 func toggle_visual(enabled: bool) -> void:
@@ -130,6 +149,45 @@ func on_draw_normal() -> void:
 
 func on_draw_reverse() -> void:
 	scale.x = -1
+
+
+func on_palette_clear() -> void:
+	palette_override = []
+	reload_palette()
+
+
+func on_palette(_player: int, section: int) -> void:
+	var session_id: int = owner.session_id
+	
+	if not SessionData.session_has_palettes(session_id):
+		on_palette_clear()
+		return
+	
+	var session_palettes = SessionData.session_get_palettes(session_id)
+	var temp_pal: BinPalette = \
+		session_palettes[provider.palette_index].duplicate(true)
+	
+	temp_pal.reindex()
+	
+	var new_pal: PackedByteArray = []
+	
+	new_pal.append_array(temp_pal.palette.slice(4 * section * 16))
+	new_pal.resize(4 * 256)
+	
+	# Index 0 in newly obtained palette is always transparent, apparently
+	new_pal[3] = 0
+	
+	for index in 256:
+		var alpha = 4 * index + 3
+		new_pal[alpha] = clampi(new_pal[alpha] * 2, 0, 0xFF)
+	
+	var new_image: Image = Image.create_from_data(
+		16, 16, false, Image.FORMAT_RGBA8, new_pal)
+	
+	palette_preview.texture = ImageTexture.create_from_image(new_image)
+	
+	palette_override = new_pal
+	reload_palette()
 
 
 func on_visual(mode: int, value: int) -> void:

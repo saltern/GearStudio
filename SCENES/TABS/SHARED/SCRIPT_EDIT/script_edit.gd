@@ -42,6 +42,8 @@ var instruction_index: int = -1
 var this_action: ScriptAction
 var new_instruction_type: int = 0
 
+var palette_index: int = 0
+
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
@@ -435,7 +437,6 @@ func script_instruction_select(index: int) -> void:
 	anim.load_frame(instruction_frame)
 	anim_ref.load_frame(instruction_frame)
 	action_select_instruction.emit(instruction_index)
-	#action_seek_to_frame.emit(instruction_frame)
 
 
 func script_instruction_delete() -> void:
@@ -700,10 +701,13 @@ func palette_get(index: int) -> BinPalette:
 		return BinPalette.new()
 
 
-#region Reference
-#func reference_cell(index: int) -> void:
-	#ref_handler.reference_cell_set(index)
-#endregion
+func palette_set_index(index: int) -> void:
+	palette_index = index
+	
+	# A little nasty, but...
+	var frame: int = script_animation_get_current_frame()
+	anim.load_frame(frame)
+	anim_ref.load_frame(frame)
 
 
 func on_sprite_reindexed(for_session: int) -> void:
