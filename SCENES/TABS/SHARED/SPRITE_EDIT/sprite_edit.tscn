@@ -1,11 +1,10 @@
-[gd_scene load_steps=70 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=71 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
 [ext_resource type="Script" uid="uid://b3445nvpply4l" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_index.gd" id="3_vy2oh"]
 [ext_resource type="Script" uid="uid://djwvtg5ol4lw7" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/palette_index.gd" id="4_260ug"]
 [ext_resource type="Script" uid="uid://cmo8nppa3l4vr" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_dimensions.gd" id="5_lrujt"]
-[ext_resource type="Material" uid="uid://stjyil5uw5j4" path="res://MATERIALS/mat_shared_palette.material" id="6_pyihx"]
 [ext_resource type="Script" uid="uid://73jejw7qhm5b" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_color_depth.gd" id="6_s2w76"]
 [ext_resource type="Script" uid="uid://c3b4hov8h8uyf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_has_embedded_palette.gd" id="7_7k1uo"]
 [ext_resource type="Script" uid="uid://bbav2bpy8cbu2" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_texture.gd" id="7_mx30f"]
@@ -23,6 +22,7 @@
 [ext_resource type="Script" uid="uid://8ucqepthpk4j" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_include.gd" id="16_2qa0c"]
 [ext_resource type="Script" uid="uid://d76u2wexlqt3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_index.gd" id="17_er65l"]
 [ext_resource type="Material" uid="uid://cmrekkhn07td8" path="res://MATERIALS/mat_exporter_preview.material" id="18_ebg8o"]
+[ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="18_sifk5"]
 [ext_resource type="Script" uid="uid://u6ulqtip3b0l" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_alpha_mode.gd" id="20_014r4"]
 [ext_resource type="Script" uid="uid://vnm7p7soypoe" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_reindex.gd" id="21_qqr6w"]
 [ext_resource type="Script" uid="uid://bangii8yxdac6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_naming.gd" id="22_j4vvt"]
@@ -74,6 +74,15 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7btt"]
+resource_local_to_scene = true
+shader = ExtResource("18_sifk5")
+shader_parameter/alpha_double = true
+shader_parameter/reindex = true
+shader_parameter/hover_index = -1
+shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/palette = PackedInt32Array()
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neyyb"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 1)
@@ -419,7 +428,7 @@ metadata/_edit_lock_ = true
 
 [node name="sprite" type="TextureRect" parent="content/visualizer/borders/clipper/visualizer"]
 texture_filter = 1
-material = ExtResource("6_pyihx")
+material = SubResource("ShaderMaterial_e7btt")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
