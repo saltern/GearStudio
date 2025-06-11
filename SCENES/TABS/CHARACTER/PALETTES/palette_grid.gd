@@ -469,8 +469,8 @@ func on_palette_load(palette: PackedByteArray) -> void:
 		get_parent().custom_minimum_size.y = 17 * (palette.size() / 64) + 1
 		custom_minimum_size.y = get_parent().custom_minimum_size.y - 1
 	
-	for index in 256:
-		get_child(index).hide()
+	for child in get_children():
+		child.hide()
 	
 	for index in palette.size() / 4:
 		get_child(index).show()
