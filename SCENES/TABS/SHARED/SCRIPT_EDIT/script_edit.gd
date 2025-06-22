@@ -17,6 +17,7 @@ enum FlagType {
 	FLAG2,
 }
 
+@export var tab_action_edit: MarginContainer
 @export var var_editor: PackedScene
 @export var chain_editor: PackedScene
 
@@ -47,6 +48,8 @@ var palette_index: int = 0
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
+	GlobalSignals.menu_undo.connect(undo)
+	GlobalSignals.menu_redo.connect(redo)
 	
 	cell_display.provider = self
 	box_parent.provider = self
@@ -73,17 +76,16 @@ func _enter_tree() -> void:
 			index += 1
 	
 	SessionData.sprite_reindexed.connect(on_sprite_reindexed.unbind(1))
+	
+	tab_action_edit.visibility_changed.connect(register_action_history)
 
 
 func _ready() -> void:
 	script_action_load(0)
-	
-	GlobalSignals.menu_undo.connect(undo)
-	GlobalSignals.menu_redo.connect(redo)
 
 
 func _input(event: InputEvent) -> void:
-	if not is_visible_in_tree():
+	if not tab_action_edit.is_visible_in_tree():
 		return
 	
 	if not event is InputEventKey:
@@ -109,8 +111,15 @@ func status_register_action(action_text: String) -> void:
 
 
 #region Undo/Redo
+func register_action_history() -> void:
+	if not tab_action_edit.is_visible_in_tree():
+		return
+	
+	ActionHistory.set_undo_redo(undo_redo)
+
+
 func undo() -> void:
-	if not is_visible_in_tree():
+	if not tab_action_edit.is_visible_in_tree():
 		return
 	
 	if not undo_redo.has_undo():
@@ -121,7 +130,7 @@ func undo() -> void:
 
 
 func redo() -> void:
-	if not is_visible_in_tree():
+	if not tab_action_edit.is_visible_in_tree():
 		return
 	
 	if not undo_redo.has_redo():

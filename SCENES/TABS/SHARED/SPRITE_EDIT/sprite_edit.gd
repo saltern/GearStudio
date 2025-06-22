@@ -37,6 +37,8 @@ func _enter_tree() -> void:
 	
 	if obj_data.has("palettes"):
 		SessionData.palette_changed.connect(palette_set_session)
+	
+	visibility_changed.connect(register_action_history)
 
 
 func _ready() -> void:
@@ -74,6 +76,13 @@ func status_register_action(action_text: String) -> void:
 
 
 #region Undo/Redo
+func register_action_history() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	ActionHistory.set_undo_redo(undo_redo)
+
+
 func undo() -> void:
 	if not is_visible_in_tree():
 		return

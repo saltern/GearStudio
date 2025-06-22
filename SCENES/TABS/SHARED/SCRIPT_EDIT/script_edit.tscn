@@ -86,7 +86,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("anim", "anim_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("tab_action_edit", "anim", "anim_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,6 +94,7 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 script = ExtResource("1_jcqcc")
+tab_action_edit = NodePath("SCRIPT_EDIT_TITLE_ACTIONS")
 var_editor = ExtResource("3_t1u05")
 anim = NodePath("script_anim")
 anim_ref = NodePath("script_anim_ref")
@@ -216,11 +217,9 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 [node name="properties" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_TOOLTIP"
-folded = true
 title = "SCRIPT_EDIT_PROPERTIES"
 
 [node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -264,18 +263,15 @@ vertical_alignment = 1
 script = ExtResource("17_sq6ji")
 grid_flags = NodePath("../flags_value")
 
-[node name="flags_value" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content"]
+[node name="flags_value" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content"]
 layout_mode = 2
-columns = 2
 script = ExtResource("6_mno2r")
 total_flags = 32
 
-[node name="flags_0" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 4
+theme_override_constants/separation = 0
 
 [node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
 custom_minimum_size = Vector2(30, 30)
@@ -325,12 +321,10 @@ layout_mode = 2
 toggle_mode = true
 text = "7"
 
-[node name="flags_1" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_1" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 4
+theme_override_constants/separation = 0
 
 [node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
 custom_minimum_size = Vector2(30, 30)
@@ -380,12 +374,10 @@ layout_mode = 2
 toggle_mode = true
 text = "15"
 
-[node name="flags_2" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_2" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 4
+theme_override_constants/separation = 0
 
 [node name="16" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
 custom_minimum_size = Vector2(30, 30)
@@ -435,12 +427,10 @@ layout_mode = 2
 toggle_mode = true
 text = "23"
 
-[node name="flags_3" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_3" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
 layout_mode = 2
 size_flags_horizontal = 6
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 4
+theme_override_constants/separation = 0
 
 [node name="24" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
 custom_minimum_size = Vector2(30, 30)

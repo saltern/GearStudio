@@ -22,6 +22,7 @@ func _enter_tree() -> void:
 	
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
+	visibility_changed.connect(register_action_history)
 
 
 func _ready() -> void:
@@ -55,6 +56,13 @@ func set_session_id(new_id: int) -> void:
 
 
 #region Undo/Redo
+func register_action_history() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	ActionHistory.set_undo_redo(undo_redo)
+
+
 func undo() -> void:
 	if not is_visible_in_tree():
 		return

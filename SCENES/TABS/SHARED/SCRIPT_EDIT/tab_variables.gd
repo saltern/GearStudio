@@ -16,6 +16,8 @@ func _ready() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	Settings.language_changed.connect(update_title)
 	update_title()
+	
+	visibility_changed.connect(register_action_history)
 
 
 func _input(event: InputEvent) -> void:
@@ -30,6 +32,13 @@ func _input(event: InputEvent) -> void:
 	
 	elif Input.is_action_just_pressed("undo"):
 		undo_redo.undo()
+
+
+func register_action_history() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	ActionHistory.set_undo_redo(undo_redo)
 
 
 func update_title() -> void:
