@@ -17,7 +17,7 @@ enum SessionType {
 
 const serialize_ignore: Array[String] = ["path", "current_object"]
 
-var object_name: String
+#var object_name: String
 var sessions: Array = []
 var session_index: int = 0
 var this_session: Dictionary = {}
