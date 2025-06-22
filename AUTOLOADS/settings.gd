@@ -30,6 +30,8 @@ var language_keys: Dictionary = {
 	"en": "English",
 }
 
+const CUSTOM_PATH: String = "/custom"
+
 const CFG_SECTION_GENERAL: String = "general"
 const CFG_GENERAL_LANGUAGE: String = "language"
 
@@ -41,6 +43,7 @@ const CFG_CUSTOM_STATUS: String = "color_status"
 const CFG_SECTION_CELLS: String = "cells"
 const CFG_CELL_ORIGIN: String = "draw_origin"
 const CFG_CELL_ORIGIN_TYPE: String = "origin_type"
+const CFG_CELL_ORIGIN_FILE: String = "origin_file"
 const CFG_CELL_ONION: String = "onion_color"
 const CFG_CELL_GUIDE: String = "guide_color"
 const CFG_CELL_SNAPSHOT: String = "snapshot_format"
@@ -66,6 +69,8 @@ const CFG_SECTION_MISC: String = "misc"
 const CFG_MISC_MAX_UNDO: String = "max_undo"
 const CFG_MISC_REOPEN: String = "allow_reopen"
 
+const ORIGIN_ICON_SIZE: int = 21
+
 enum BoxType {
 	HITBOX_ALT,			# 0
 	HITBOX,				# 1
@@ -90,7 +95,23 @@ var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
 var custom_color_status: Color = Color8(0x1A, 0x1A, 0x1A)
 
 var cell_draw_origin: bool = true
+
 var cell_origin_type: int = 0
+var cell_origin_textures: Array[Texture2D] = [
+	preload("res://GRAPHICS/CROSS_0.PNG"),
+	preload("res://GRAPHICS/CROSS_1.PNG"),
+	preload("res://GRAPHICS/CROSS_2.PNG"),
+	preload("res://GRAPHICS/CROSS_3.PNG"),
+	preload("res://GRAPHICS/CROSS_4.PNG"),
+]
+var cell_origin_icons: Dictionary[int, Texture2D] = {
+	0: preload("res://ICONS/origin_a.png"),
+	1: preload("res://ICONS/origin_b.png"),
+	2: preload("res://ICONS/origin_c.png"),
+	3: preload("res://ICONS/origin_d.png"),
+	4: preload("res://ICONS/origin_e.png"),
+}
+
 var cell_onion_skin: Color = Color8(255, 0, 0, 0xA0)
 var cell_guide: Color = Color8(255, 0, 0, 0xA0)
 var cell_snapshot_format: SnapshotFormat = SnapshotFormat.PNG
@@ -124,6 +145,7 @@ var config: ConfigFile = ConfigFile.new()
 
 
 func _ready() -> void:
+	load_origin_textures()
 	load_config()
 	load_locales()
 	update_locale()
@@ -202,8 +224,9 @@ func load_config() -> bool:
 	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
-	cell_origin_type = config.get_value(
-		CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0)
+	set_origin_type(
+		config.get_value(CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0))
+	
 	cell_onion_skin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
 	cell_guide = config.get_value(
@@ -289,3 +312,61 @@ func save_config() -> bool:
 		return false
 		
 	return true
+
+
+func load_origin_textures() -> void:
+	# Custom files
+	# No "custom" directory
+	if not DirAccess.dir_exists_absolute(path + CUSTOM_PATH):
+		return
+	
+	var file_list := DirAccess.get_files_at(path + CUSTOM_PATH)
+	
+	for file in file_list:
+		if file.get_basename().ends_with("_icon"):
+			continue
+		
+		if not file.to_lower().begins_with("cross_"):
+			continue
+		
+		var base_path: String = path + CUSTOM_PATH + "/"
+		var this_path: String = base_path + file
+		var image: Image = Image.load_from_file(this_path)
+		
+		# Invalid image
+		if image == null:
+			continue
+		
+		var texture: ImageTexture = ImageTexture.create_from_image(image)
+		cell_origin_textures.append(texture)
+		
+		# Icon for custom cross
+		var icon_index: int = cell_origin_textures.size() - 1
+		var new_icon: Image = image.duplicate()
+		new_icon.resize(ORIGIN_ICON_SIZE, ORIGIN_ICON_SIZE)
+		var new_texture: ImageTexture = ImageTexture.create_from_image(new_icon)
+		cell_origin_icons[icon_index] = new_texture
+
+
+func set_origin_type(type: int) -> void:
+	type = clampi(type, 0, cell_origin_textures.size() - 1)
+	cell_origin_type = type
+	origin_type_changed.emit()
+
+
+func get_origin_texture(index: int = -1) -> ImageTexture:
+	if index == -1:
+		index = cell_origin_type
+	
+	return cell_origin_textures[index]
+
+
+func get_origin_textures() -> Array[Texture2D]:
+	return cell_origin_textures
+
+
+func get_origin_icon(index: int = -1) -> ImageTexture:
+	if index == -1:
+		index = cell_origin_type
+		
+	return cell_origin_icons[index]
