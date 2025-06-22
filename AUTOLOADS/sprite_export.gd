@@ -8,6 +8,8 @@ signal palette_index_set
 signal palette_include_set
 signal palette_alpha_mode_set
 signal sprite_reindex_set
+signal sprite_flip_h_set
+signal sprite_flip_v_set
 
 enum AlphaMode {
 	AS_IS,
@@ -34,6 +36,8 @@ var palette_include: bool = false
 var palette_alpha_mode: AlphaMode = AlphaMode.AS_IS
 
 var sprite_reindex: bool = false
+var sprite_flip_h: bool = false
+var sprite_flip_v: bool = false
 var name_from_zero: bool = false
 
 var obj_data: Dictionary
@@ -83,6 +87,16 @@ func set_sprite_reindex(enabled: bool) -> void:
 	sprite_reindex_set.emit()
 
 
+func set_sprite_flip_h(enabled: bool) -> void:
+	sprite_flip_h = enabled
+	sprite_flip_h_set.emit()
+
+
+func set_sprite_flip_v(enabled: bool) -> void:
+	sprite_flip_v = enabled
+	sprite_flip_v_set.emit()
+
+
 func set_name_from_zero(enabled: bool) -> void:
 	name_from_zero = enabled
 
@@ -109,7 +123,9 @@ func export(output_path: String) -> void:
 			palette,
 			palette_alpha_mode,
 			obj_data.has("palettes"),
-			sprite_reindex)
+			sprite_reindex,
+			sprite_flip_h,
+			sprite_flip_v)
 	
 	if export_bin_u:
 		SpriteExporter.export_sprites(
@@ -121,7 +137,9 @@ func export(output_path: String) -> void:
 			palette,
 			palette_alpha_mode,
 			obj_data.has("palettes"),
-			sprite_reindex)
+			sprite_reindex,
+			sprite_flip_h,
+			sprite_flip_v)
 	
 	if export_raw:
 		SpriteExporter.export_sprites(
@@ -135,7 +153,9 @@ func export(output_path: String) -> void:
 			AlphaMode.AS_IS,
 			false,
 			# ^ Ignored
-			sprite_reindex)
+			sprite_reindex,
+			sprite_flip_h,
+			sprite_flip_v)
 	
 	if export_png:
 		SpriteExporter.export_sprites(
@@ -147,7 +167,9 @@ func export(output_path: String) -> void:
 			palette,
 			palette_alpha_mode,
 			obj_data.has("palettes"),
-			sprite_reindex)
+			sprite_reindex,
+			sprite_flip_h,
+			sprite_flip_v)
 
 	if export_bmp:
 		SpriteExporter.export_sprites(
@@ -159,4 +181,6 @@ func export(output_path: String) -> void:
 			palette,
 			palette_alpha_mode,
 			obj_data.has("palettes"),
-			sprite_reindex)
+			sprite_reindex,
+			sprite_flip_h,
+			sprite_flip_v)

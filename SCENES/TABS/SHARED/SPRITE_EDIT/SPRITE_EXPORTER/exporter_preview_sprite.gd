@@ -6,21 +6,36 @@ var current_palette: PackedByteArray = SpriteExport.pal_gray
 
 @onready var sprite_edit: SpriteEdit = owner
 
+var sprite_index: int = 0
+
 
 func _ready() -> void:
-	sprite_index_spinbox.value_changed.connect(update_texture)
+	sprite_index_spinbox.value_changed.connect(set_sprite_index)
 	
 	SpriteExport.palette_include_set.connect(update_palette)
 	SpriteExport.palette_index_set.connect(update_palette)
 	SpriteExport.palette_alpha_mode_set.connect(update_palette)
 	SpriteExport.sprite_reindex_set.connect(update_palette)
+	SpriteExport.sprite_flip_h_set.connect(update_texture)
+	SpriteExport.sprite_flip_v_set.connect(update_texture)
 	
-	update_texture(0)
+	update_texture()
 
 
-func update_texture(sprite_index: int) -> void:
-	#var sprite: BinSprite = sprite_edit.sprite_get(sprite_index)
-	texture = sprite_edit.sprite_get_texture(sprite_index)
+func set_sprite_index(new_index: int) -> void:
+	sprite_index = new_index
+	update_texture()
+
+
+func update_texture() -> void:
+	var image: Image = sprite_edit.sprite_get_image(sprite_index).duplicate()
+	
+	if SpriteExport.sprite_flip_h:
+		image.flip_x()
+	if SpriteExport.sprite_flip_v:
+		image.flip_y()
+	
+	texture = ImageTexture.create_from_image(image)
 	
 	if sprite_edit.obj_data.has("palettes"):
 		return
