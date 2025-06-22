@@ -27,9 +27,6 @@ signal cell_snapshots_done
 @export var box_type_menu: Button
 @export var box_edit_mode: Button
 
-@export_group("Snapshots")
-@export var origin_textures: Array[Texture2D] = []
-
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
@@ -92,9 +89,11 @@ func _ready() -> void:
 	
 	SessionData.sprite_reindexed.connect(on_sprite_reindexed)
 	
-	provider.palette_load()
+	visibility_changed.connect(register_action_history)
 	
+	provider.palette_load()
 	cell_load(0)
+	
 
 
 func _physics_process(_delta: float) -> void:
@@ -121,36 +120,24 @@ func _input(event: InputEvent) -> void:
 		redo()
 
 	if Input.is_action_just_pressed("ui_copy"):
-		if Input.is_key_pressed(KEY_ALT):
-			Clipboard.set_sprite_info(this_cell)
-			
-			Status.set_status(tr("STATUS_CELL_EDIT_SPRITE_INFO_COPY").format({
-				"index": cell_get_index()
-			}))
+		if Input.is_key_pressed(KEY_SHIFT):
+			sprite_info_copy()
+		
+		elif Input.is_key_pressed(KEY_ALT):
+			box_copy()
 		
 		else:
-			if boxes_selected.size() == 0:
-				Status.set_status("STATUS_CELL_EDIT_BOX_COPY_NOTHING")
-			
-			else:
-				var array: Array[BoxInfo] = []
-				
-				for box in boxes_selected:
-					array.append(this_cell.boxes[box])
-				
-				Clipboard.set_box_data(array)
-				
-				Status.set_status("STATUS_CELL_EDIT_BOX_COPY")
+			cell_copy()
 
 	elif Input.is_action_just_pressed("ui_paste"):
-		if Input.is_key_pressed(KEY_ALT):
+		if Input.is_key_pressed(KEY_SHIFT):
 			sprite_info_paste()
-
-		elif Input.is_key_pressed(KEY_SHIFT):
-			box_paste(true)
-		
+			
+		elif Input.is_key_pressed(KEY_ALT):
+			box_paste()
+			
 		else:
-			box_paste(false)
+			cell_paste()
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		box_delete()
@@ -315,14 +302,7 @@ func cell_remove_try_reload() -> void:
 
 # Copy Cell
 func cell_copy() -> void:
-	cell_clipboard = this_cell.duplicate(true)
-	
-	# Arrays of custom resources return shallow copies
-	var new_box_array: Array[BoxInfo] = []
-	for box in cell_clipboard.boxes:
-		new_box_array.append(box.duplicate())
-	
-	cell_clipboard.boxes = new_box_array
+	Clipboard.cell = this_cell.duplicate(true)
 	
 	Status.set_status(tr("CELL_EDIT_CELL_COPY").format({
 		"index": cell_index
@@ -330,22 +310,15 @@ func cell_copy() -> void:
 
 
 func cell_paste(at: int = 0) -> void:
-	if cell_clipboard == null:
-		Status.set_status("CELL_EDIT_CELL_PASTE_NOTHING")
+	if Clipboard.cell == null:
+		Status.set_status("STATUS_CELL_EDIT_CELL_PASTE_NOTHING")
 		return
 	
 	var action_text: String = tr("ACTION_CELL_EDIT_CELL_PASTE").format({
 		"index": cell_index + clampi(at, 0, 1)
 	})
 	
-	var cell: Cell = cell_clipboard.duplicate(true)
-	
-	# Arrays of custom resources return shallow copies
-	var new_box_array: Array[BoxInfo] = []
-	for box in cell.boxes:
-		new_box_array.append(box.duplicate())
-	
-	cell.boxes = new_box_array
+	var cell: Cell = Clipboard.cell.duplicate(true)
 	
 	undo_redo.create_action(action_text)
 	
@@ -492,9 +465,16 @@ func sprite_set_position_y(new_y: int) -> void:
 	undo_redo.commit_action()
 
 
+func sprite_info_copy() -> void:
+	Clipboard.set_sprite_info(this_cell)
+	Status.set_status(tr("STATUS_CELL_EDIT_SPRITE_INFO_COPY").format({
+		"index": cell_get_index()
+	}))
+
+
 func sprite_info_paste() -> void:
-	if Clipboard.sprite_info == null:
-		Status.set_status("CELL_EDIT_SPRITE_INFO_PASTE_NOTHING")
+	if not Clipboard.has_sprite_info():
+		Status.set_status("STATUS_CELL_EDIT_SPRITE_INFO_PASTE_NOTHING")
 		return
 	
 	var action_text: String = tr("ACTION_CELL_EDIT_SPRITE_INFO_PASTE").format({
@@ -672,7 +652,15 @@ func box_delete_commit(cell: Cell, box: BoxInfo) -> void:
 	cell.boxes.remove_at(cell.boxes.find(box))
 
 
-func box_paste(overwrite: bool = false) -> void:
+func box_copy() -> void:
+	if boxes_selected.size() == 0:
+		Status.set_status("STATUS_CELL_EDIT_BOX_COPY_NOTHING")
+	else:
+		Clipboard.set_box_data(this_cell.boxes, boxes_selected)
+		Status.set_status("STATUS_CELL_EDIT_BOX_COPY")
+
+
+func box_paste() -> void:
 	if Clipboard.box_data.size() == 0:
 		Status.set_status("STATUS_CELL_EDIT_BOX_PASTE_NOTHING")
 		return
@@ -681,15 +669,7 @@ func box_paste(overwrite: bool = false) -> void:
 		"index": cell_index
 	})
 	
-	if overwrite:
-		action_text = action_text + " " + "ACTION_CELL_EDIT_BOX_PASTE_OVERWRITE"
-	
 	undo_redo.create_action(action_text)
-	
-	if overwrite:
-		for box in this_cell.boxes:
-			undo_redo.add_do_method(box_delete_commit.bind(this_cell, box))
-			undo_redo.add_undo_method(box_append_commit.bind(this_cell, box))
 	
 	for box in Clipboard.get_box_data():
 		undo_redo.add_do_method(box_append_commit.bind(this_cell, box))
@@ -975,12 +955,9 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 		types_to_draw = box_display_types
 	
 	if Settings.cell_draw_origin:
-		var this_tex: Texture2D = origin_textures[Settings.cell_origin_type]
-		# Tex width/height
-		origin.append(this_tex.get_width())
-		# Pixels
-		origin.append_array(this_tex.get_image().get_data())
-	
+		var this_img: Image = Settings.get_origin_texture().get_image()
+		origin.append(this_img.get_width())
+		origin.append_array(this_img.get_data())
 	
 	# Options 0 and 2: PNG
 	if Settings.cell_snapshot_format % 2 == 0:
