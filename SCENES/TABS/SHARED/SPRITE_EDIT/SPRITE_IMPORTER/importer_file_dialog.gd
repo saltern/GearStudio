@@ -18,5 +18,5 @@ func on_browse_clicked() -> void:
 	show()
 
 
-func on_files_selected(files: PackedStringArray) -> void:
+func on_files_selected(_files: PackedStringArray) -> void:
 	FileMemory.sprite_sprite_import = current_path
