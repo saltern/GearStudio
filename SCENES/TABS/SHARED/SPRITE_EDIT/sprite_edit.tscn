@@ -51,8 +51,8 @@
 [ext_resource type="Script" uid="uid://b4b546bd12th" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_progress.gd" id="42_k4ivw"]
 [ext_resource type="Script" uid="uid://db2lbgtx03sv8" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_file_dialog.gd" id="43_05050"]
 [ext_resource type="Script" uid="uid://som8h7u5nuxf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format.gd" id="45_3pi4a"]
-[ext_resource type="Script" uid="uid://bxfq7dkvl07ge" path="res://SCENES/TABS/SHARED/expand_collapse.gd" id="45_e7btt"]
 [ext_resource type="Script" uid="uid://b7ii1r66cfq4g" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
+[ext_resource type="Script" uid="uid://lulxq5vlqnyo" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_flip_hv.gd" id="50_e7btt"]
 [ext_resource type="Script" uid="uid://dond4w4wi7ox2" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_from.gd" id="52_eg8u3"]
 [ext_resource type="Script" uid="uid://w20b7j7pdnwj" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_to.gd" id="52_ft3y0"]
 [ext_resource type="Material" uid="uid://vbeu42vxu2wt" path="res://MATERIALS/max_importer_preview.tres" id="52_mpstw"]
@@ -453,6 +453,7 @@ script = ExtResource("8_vk3xv")
 display_toggle = NodePath("../../../../../../left_panel/scroll/margin/data/display_bounds")
 
 [node name="sprite_import" type="Window" parent="." node_paths=PackedStringArray("summon_button", "import_file_dialog")]
+oversampling_override = 1.0
 title = "SPRITE_EDIT_IMPORT_TITLE"
 initial_position = 2
 size = Vector2i(1000, 614)
@@ -818,6 +819,8 @@ visualizer = NodePath("visualizer")
 
 [node name="visualizer" type="Node2D" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper"]
 script = ExtResource("35_m8wg2")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="background_a" type="ColorRect" parent="sprite_import/background/content_margin/window_content/preview/borders/clipper/visualizer"]
 texture_filter = 1
@@ -934,6 +937,7 @@ script = ExtResource("43_05050")
 browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/browse")
 
 [node name="sprite_export" type="Window" parent="." node_paths=PackedStringArray("summon_button", "export_path_dialog")]
+oversampling_override = 1.0
 title = "Export sprites"
 initial_position = 2
 size = Vector2i(1000, 614)
@@ -979,37 +983,20 @@ custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="range_title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config" node_paths=PackedStringArray("collapsible")]
-custom_minimum_size = Vector2(0, 30)
+[node name="range" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP"
-mouse_filter = 0
-script = ExtResource("45_e7btt")
-collapsible = NodePath("../range_collapsible")
+title = "SPRITE_EDIT_EXPORT_RANGE_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_title"]
-layout_mode = 2
-text = "SPRITE_EDIT_EXPORT_RANGE_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="range_collapsible" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range"]
 layout_mode = 2
 
-[node name="start" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible"]
+[node name="start" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible/start"]
+[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content/start"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1019,18 +1006,18 @@ text = "SPRITE_EDIT_EXPORT_RANGE_START"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible/start"]
+[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content/start"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("10_tbtm3")
 
-[node name="end" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible"]
+[node name="end" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible/end"]
+[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content/end"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -1040,39 +1027,22 @@ text = "SPRITE_EDIT_EXPORT_RANGE_END"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range_collapsible/end" node_paths=PackedStringArray("sprite_range_start")]
+[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/range/content/end" node_paths=PackedStringArray("sprite_range_start")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("11_o6jgh")
 sprite_range_start = NodePath("../../start/value")
 
-[node name="format_title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config" node_paths=PackedStringArray("collapsible")]
-custom_minimum_size = Vector2(0, 30)
+[node name="format" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_FORMAT_TITLE_TOOLTIP"
-mouse_filter = 0
-script = ExtResource("45_e7btt")
-collapsible = NodePath("../format_collapsible")
+title = "SPRITE_EDIT_EXPORT_FORMAT_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_title"]
-layout_mode = 2
-text = "SPRITE_EDIT_EXPORT_FORMAT_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="format_collapsible" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format"]
 layout_mode = 2
 
-[node name="bin" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_collapsible"]
+[node name="bin" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1080,7 +1050,7 @@ text = "BIN"
 text_overrun_behavior = 3
 script = ExtResource("45_3pi4a")
 
-[node name="bin_uncompressed" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_collapsible"]
+[node name="bin_uncompressed" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1089,7 +1059,7 @@ text_overrun_behavior = 3
 script = ExtResource("45_3pi4a")
 export_format = 1
 
-[node name="raw" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_collapsible"]
+[node name="raw" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1098,7 +1068,7 @@ text = "RAW"
 script = ExtResource("45_3pi4a")
 export_format = 2
 
-[node name="png" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_collapsible"]
+[node name="png" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1108,7 +1078,7 @@ text = "PNG"
 script = ExtResource("45_3pi4a")
 export_format = 3
 
-[node name="bmp" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format_collapsible"]
+[node name="bmp" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/format/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1116,31 +1086,15 @@ text = "BMP"
 script = ExtResource("45_3pi4a")
 export_format = 4
 
-[node name="palette_title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config" node_paths=PackedStringArray("collapsible")]
-custom_minimum_size = Vector2(0, 30)
+[node name="palette" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_PALETTE_TITLE_TOOLTIP"
-script = ExtResource("45_e7btt")
-collapsible = NodePath("../palette_collapsible")
+title = "SPRITE_EDIT_EXPORT_PALETTE_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_title"]
-layout_mode = 2
-text = "SPRITE_EDIT_EXPORT_PALETTE_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="palette_collapsible" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 layout_mode = 2
 
-[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible" node_paths=PackedStringArray("control_index", "control_alpha")]
+[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content" node_paths=PackedStringArray("control_index", "control_alpha")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SPRITE_EDIT_EXPORT_PALETTE_INCLUDE"
@@ -1148,28 +1102,28 @@ script = ExtResource("16_2qa0c")
 control_index = NodePath("../index")
 control_alpha = NodePath("../alpha")
 
-[node name="index" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible"]
+[node name="index" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content"]
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible/index"]
+[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 0
 text = "SPRITE_EDIT_EXPORT_PALETTE_INDEX"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible/index"]
+[node name="value" type="SpinBox" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content/index"]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 21.0
 alignment = 2
 script = ExtResource("17_er65l")
 
-[node name="alpha" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible"]
+[node name="alpha" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible/alpha"]
+[node name="title" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content/alpha"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_EXPORT_PALETTE_ALPHA_TOOLTIP"
@@ -1177,7 +1131,7 @@ mouse_filter = 0
 text = "SPRITE_EDIT_EXPORT_PALETTE_ALPHA"
 text_overrun_behavior = 3
 
-[node name="mode" type="OptionButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette_collapsible/alpha"]
+[node name="mode" type="OptionButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content/alpha"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -1195,31 +1149,14 @@ popup/item_3/text = "SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE"
 popup/item_3/id = 3
 script = ExtResource("20_014r4")
 
-[node name="misc_title" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config" node_paths=PackedStringArray("collapsible")]
-custom_minimum_size = Vector2(0, 30)
+[node name="miscellaneous" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
-mouse_filter = 0
-script = ExtResource("45_e7btt")
-collapsible = NodePath("../misc_collapsible")
+title = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="label" type="Label" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_title"]
-layout_mode = 2
-text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="misc_collapsible" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous"]
 layout_mode = 2
 
-[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_collapsible"]
+[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP"
@@ -1227,7 +1164,24 @@ text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX"
 text_overrun_behavior = 3
 script = ExtResource("21_qqr6w")
 
-[node name="name_from_zero" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/misc_collapsible"]
+[node name="flip_h" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_H_TOOLTIP"
+text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_H"
+text_overrun_behavior = 3
+script = ExtResource("50_e7btt")
+
+[node name="flip_v" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_V_TOOLTIP"
+text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_V"
+text_overrun_behavior = 3
+script = ExtResource("50_e7btt")
+mode = 1
+
+[node name="name_from_zero" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP"
@@ -1265,8 +1219,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("23_vt36f")
-sprite_range_start = NodePath("../../../config_contents/config_scroll/config_margin/config/range_collapsible/start/value")
-sprite_range_end = NodePath("../../../config_contents/config_scroll/config_margin/config/range_collapsible/end/value")
+sprite_range_start = NodePath("../../../config_contents/config_scroll/config_margin/config/range/content/start/value")
+sprite_range_end = NodePath("../../../config_contents/config_scroll/config_margin/config/range/content/end/value")
 
 [node name="borders" type="PanelContainer" parent="sprite_export/background/content_margin/window_content/preview"]
 layout_mode = 2
