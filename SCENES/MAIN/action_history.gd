@@ -7,7 +7,7 @@ func _ready() -> void:
 	ActionHistory.undo_redo_changed.connect(generate_list)
 	ActionHistory.version_changed.connect(update_list)
 	ActionHistory.show_window.connect(show)
-	item_list.item_clicked.connect(on_item_clicked.unbind(2))
+	item_list.item_clicked.connect(on_item_clicked)
 	close_requested.connect(hide)
 
 
@@ -31,7 +31,11 @@ func update_list() -> void:
 	item_list.select(ActionHistory.get_version())
 
 
-func on_item_clicked(index: int) -> void:
+func on_item_clicked(index: int, _pos: Vector2, mouse_button: int) -> void:
+	# Disallow selecting with mouse wheel and extra buttons
+	if mouse_button > 2:
+		return
+	
 	ActionHistory.set_version(index)
 
 
