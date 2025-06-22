@@ -14,7 +14,7 @@ config/name="Gear Studio"
 config/description="Mod tool for GGXXAC+R"
 config/tags=PackedStringArray("tool")
 run/main_scene="res://SCENES/MAIN/main.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="res://gear_studio.png"
@@ -34,6 +34,7 @@ SpriteImport="*res://AUTOLOADS/sprite_import.gd"
 SpriteExport="*res://AUTOLOADS/sprite_export.gd"
 Handshake="*res://AUTOLOADS/handshake.gd"
 ScriptInstructions="*res://AUTOLOADS/script_instructions.gd"
+ActionHistory="*res://AUTOLOADS/action_history.gd"
 
 [debug]
 
