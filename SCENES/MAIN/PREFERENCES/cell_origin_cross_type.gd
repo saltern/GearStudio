@@ -4,9 +4,9 @@ const MAX_ICON_WIDTH: int = 22
 
 
 func _ready() -> void:
-	selected = Settings.cell_origin_type
 	item_selected.connect(on_item_selected)
 	load_options()
+	selected = Settings.cell_origin_type
 
 
 func load_options() -> void:
