@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=56 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" load_steps=62 format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://dlgxqrir2wfju" path="res://FONTS/jetbrainsmono_semibold.ttf" id="1_a2l2q"]
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
@@ -164,6 +164,54 @@ corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0it0"]
 corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_py0i1"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_58jnp"]
+content_margin_left = 5.0
+content_margin_top = 6.0
+content_margin_right = 5.0
+content_margin_bottom = 6.0
+bg_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxwih"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_466ly"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt4o7"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.20784314, 0.20784314, 0.20784314, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_52mx2"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwgj5"]
 corner_detail = 1
@@ -396,6 +444,12 @@ CodeEdit/fonts/font = ExtResource("1_a2l2q")
 CodeEdit/styles/normal = SubResource("StyleBoxFlat_0omi4")
 ColorPicker/styles/tab_selected = SubResource("StyleBoxFlat_bxrua")
 ColorPicker/styles/tab_unselected = SubResource("StyleBoxFlat_o0it0")
+FoldableContainer/styles/focus = SubResource("StyleBoxFlat_py0i1")
+FoldableContainer/styles/panel = SubResource("StyleBoxFlat_58jnp")
+FoldableContainer/styles/title_collapsed_hover_panel = SubResource("StyleBoxFlat_sxwih")
+FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_466ly")
+FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_rt4o7")
+FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_52mx2")
 HBoxContainer/constants/separation = 6
 HScrollBar/styles/grabber = SubResource("StyleBoxFlat_gwgj5")
 HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mjd1p")
