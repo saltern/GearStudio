@@ -28,17 +28,41 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if Input.is_action_just_pressed("redo"):
-		undo_redo.redo()
+		redo()
 	
 	elif Input.is_action_just_pressed("undo"):
-		undo_redo.undo()
+		undo()
 
 
+#region Undo/Redo
 func register_action_history() -> void:
 	if not is_visible_in_tree():
 		return
 	
 	ActionHistory.set_undo_redo(undo_redo)
+
+
+func undo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_undo():
+		Status.set_status("ACTION_NO_UNDO")
+		return
+	
+	undo_redo.undo()
+
+
+func redo() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	if not undo_redo.has_redo():
+		Status.set_status("ACTION_NO_REDO")
+		return
+	
+	undo_redo.redo()
+#endregion
 
 
 func update_title() -> void:
