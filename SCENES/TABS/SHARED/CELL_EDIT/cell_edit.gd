@@ -155,6 +155,13 @@ func status_register_action(action_text: String) -> void:
 
 
 #region Undo/Redo
+func register_action_history() -> void:
+	if not is_visible_in_tree():
+		return
+	
+	ActionHistory.set_undo_redo(undo_redo)
+
+
 func undo() -> void:
 	if not is_visible_in_tree():
 		return

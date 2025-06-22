@@ -37,7 +37,7 @@ func menu_clicked(menu_id: int) -> void:
 			GlobalSignals.menu_redo.emit()
 
 		ButtonID.ACTION_HISTORY:
-			Status.set_status("STATUS_ACTION_HISTORY_NO")
+			ActionHistory.display()
 		
 		ButtonID.PREFERENCES:
 			Settings.display_window.emit()

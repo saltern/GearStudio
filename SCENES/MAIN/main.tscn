@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene load_steps=43 format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -36,11 +36,8 @@
 [ext_resource type="Script" uid="uid://dg5ke7hjoabse" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
 [ext_resource type="Script" uid="uid://cg2m3kk5iqejb" path="res://SCENES/MAIN/save_lock.gd" id="28_j0856"]
 [ext_resource type="Script" uid="uid://dpim21nuwcox8" path="res://SCENES/MAIN/PREFERENCES/cell_snapshot_format.gd" id="34_8vno3"]
-[ext_resource type="Texture2D" uid="uid://cnudlthiitnny" path="res://ICONS/origin_a.png" id="36_biqay"]
-[ext_resource type="Texture2D" uid="uid://l752kjruckn" path="res://ICONS/origin_b.png" id="37_127pr"]
-[ext_resource type="Texture2D" uid="uid://cc6o788mhl7im" path="res://ICONS/origin_c.png" id="38_larvh"]
-[ext_resource type="Texture2D" uid="uid://bskus8yfid024" path="res://ICONS/origin_d.png" id="39_yld3e"]
-[ext_resource type="Texture2D" uid="uid://cm3ui2x0mhunf" path="res://ICONS/origin_e.png" id="40_obp7x"]
+[ext_resource type="Script" uid="uid://bgl2871ew8sv1" path="res://SCENES/MAIN/action_history.gd" id="39_larvh"]
+[ext_resource type="Script" uid="uid://565ekkigruur" path="res://SCENES/MAIN/action_history_undoredo.gd" id="40_obp7x"]
 [ext_resource type="Script" uid="uid://c326q634s1r02" path="res://SCENES/MAIN/PREFERENCES/cell_origin_cross_type.gd" id="40_yld3e"]
 [ext_resource type="Script" uid="uid://cf2kwo4cc1bgf" path="res://SCENES/MAIN/PREFERENCES/palette_gradient_reindex.gd" id="43_4qwfh"]
 
@@ -390,6 +387,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="preferences" type="Window" parent="." node_paths=PackedStringArray("save_button")]
+oversampling_override = 1.0
 title = "PREFERENCES_TITLE"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -414,10 +412,11 @@ theme_override_constants/separation = 0
 [node name="categories" type="TabContainer" parent="preferences/background/margin/contents"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 3
 use_hidden_tabs_for_min_size = true
 
 [node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -543,7 +542,6 @@ size_flags_horizontal = 3
 script = ExtResource("16_n6nme")
 
 [node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
@@ -571,23 +569,6 @@ text = "PREFERENCES_CELLS_CROSS_TYPE"
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
-selected = 0
-item_count = 5
-popup/item_0/text = "PREFERENCES_CELLS_CROSS_A"
-popup/item_0/icon = ExtResource("36_biqay")
-popup/item_0/id = 0
-popup/item_1/text = "PREFERENCES_CELLS_CROSS_B"
-popup/item_1/icon = ExtResource("37_127pr")
-popup/item_1/id = 1
-popup/item_2/text = "PREFERENCES_CELLS_CROSS_C"
-popup/item_2/icon = ExtResource("38_larvh")
-popup/item_2/id = 2
-popup/item_3/text = "PREFERENCES_CELLS_CROSS_D"
-popup/item_3/icon = ExtResource("39_yld3e")
-popup/item_3/id = 3
-popup/item_4/text = "PREFERENCES_CELLS_CROSS_E"
-popup/item_4/icon = ExtResource("40_obp7x")
-popup/item_4/id = 4
 script = ExtResource("40_yld3e")
 
 [node name="onion" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
@@ -795,6 +776,57 @@ script = ExtResource("43_4qwfh")
 layout_mode = 2
 size_flags_vertical = 8
 text = "PREFERENCES_SAVE"
+
+[node name="action_history" type="Window" parent="." node_paths=PackedStringArray("item_list")]
+oversampling_override = 1.0
+title = "ACTION_HISTORY_TITLE"
+initial_position = 2
+size = Vector2i(300, 600)
+visible = false
+script = ExtResource("39_larvh")
+item_list = NodePath("margin/content/scroll/list")
+
+[node name="margin" type="MarginContainer" parent="action_history"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="content" type="VBoxContainer" parent="action_history/margin"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="action_history/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="scroll" type="ScrollContainer" parent="action_history/margin/content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="list" type="ItemList" parent="action_history/margin/content/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="buttons" type="HBoxContainer" parent="action_history/margin/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="undo" type="Button" parent="action_history/margin/content/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "EDIT_UNDO"
+script = ExtResource("40_obp7x")
+
+[node name="redo" type="Button" parent="action_history/margin/content/buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "EDIT_REDO"
+script = ExtResource("40_obp7x")
+mode = 1
 
 [connection signal="meta_clicked" from="about/content/details/acknowledgments/ryn_header" to="about/content/details/acknowledgments/ryn_header" method="link_clicked"]
 [connection signal="meta_clicked" from="about/content/details/acknowledgments/lovenus_header" to="about/content/details/acknowledgments/lovenus_header" method="link_clicked"]
