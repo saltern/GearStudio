@@ -145,6 +145,10 @@ func sprite_set(index: int) -> void:
 	sprite_updated.emit(this_sprite)
 
 
+func sprite_get_image(index: int) -> Image:
+	return obj_data["sprites"][index].image
+
+
 func sprite_get_texture(index: int) -> ImageTexture:
 	return obj_data["sprites"][index].texture
 
