@@ -16,15 +16,12 @@ func generate_list() -> void:
 	item_list.add_item("ACTION_HISTORY_FILE_OPENED")
 	item_list.select(0)
 	
-	if ActionHistory.get_version() == 0:
-		return
-	
-	for action in ActionHistory.get_version():
+	for action in ActionHistory.get_action_count():
 		item_list.add_item(ActionHistory.get_action(action))
 
 
 func update_list() -> void:
-	if get_max_index() > ActionHistory.get_action_count():
+	if get_max_index() >= ActionHistory.get_action_count():
 		generate_list()
 		
 	elif get_max_index() < ActionHistory.get_action_count():
