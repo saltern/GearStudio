@@ -11,6 +11,8 @@ var provider: PaletteProvider = PaletteProvider.new()
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
+	GlobalSignals.menu_undo.connect(undo)
+	GlobalSignals.menu_redo.connect(redo)
 	
 	obj_data = SessionData.object_data_get(get_parent().get_index())
 	
@@ -20,8 +22,6 @@ func _enter_tree() -> void:
 	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
 	
-	GlobalSignals.menu_undo.connect(undo)
-	GlobalSignals.menu_redo.connect(redo)
 	visibility_changed.connect(register_action_history)
 
 
