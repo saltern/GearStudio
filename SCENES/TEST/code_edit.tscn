@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bs7gdfn4jexm0" path="res://SCENES/TEST/code_edit.gd" id="3_wh060"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="4_rvtv6"]
 [ext_resource type="Script" uid="uid://1vrtmn5wbtle" path="res://CLASSES/CONTROL/class_cell_sprite_display.gd" id="4_vyh7o"]
-[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="5_lkt25"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="5_lkt25"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="6_wh060"]
 [ext_resource type="Material" uid="uid://c5rvpsthw3570" path="res://MATERIALS/mat_script_palette.tres" id="9_7fuyq"]
 

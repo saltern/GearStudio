@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://44utueqvrc1t" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_start.gd" id="10_tbtm3"]
 [ext_resource type="Script" uid="uid://d6xs4guymfaq" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_range_end.gd" id="11_o6jgh"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="13_htehq"]
-[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="14_pyfkm"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="14_pyfkm"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="15_uhgr3"]
 [ext_resource type="Script" uid="uid://8ucqepthpk4j" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_include.gd" id="16_2qa0c"]
 [ext_resource type="Script" uid="uid://d76u2wexlqt3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_index.gd" id="17_er65l"]

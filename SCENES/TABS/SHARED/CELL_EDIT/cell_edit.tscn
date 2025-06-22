@@ -41,7 +41,7 @@
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="22_4xx0u"]
 [ext_resource type="Texture2D" uid="uid://d20u5ru5u3txy" path="res://ICONS/arrow_right.svg" id="22_hdyd6"]
 [ext_resource type="Script" uid="uid://c78eje3ekheev" path="res://SCENES/TABS/SHARED/background_color_a.gd" id="23_jn2pb"]
-[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD_CUSTOM.PNG" id="24_kifap"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="24_kifap"]
 [ext_resource type="Script" uid="uid://bo2yy3x4q81al" path="res://SCENES/TABS/SHARED/CELL_EDIT/CELL/onion_skin_sprite.gd" id="25_4rpsl"]
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="25_4scjx"]
 [ext_resource type="Script" uid="uid://b3fbwsivrxg4h" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_visual_1_preview.gd" id="25_hdyd6"]
