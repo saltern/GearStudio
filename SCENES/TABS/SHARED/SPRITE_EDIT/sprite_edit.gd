@@ -45,6 +45,7 @@ func _ready() -> void:
 	provider.palette_load(0)
 	sprite_set(0)
 	
+	undo_redo.max_steps = Settings.misc_max_undo
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 

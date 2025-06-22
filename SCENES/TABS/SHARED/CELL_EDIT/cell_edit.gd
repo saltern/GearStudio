@@ -80,6 +80,7 @@ func _ready() -> void:
 	if is_queued_for_deletion():
 		return
 
+	undo_redo.max_steps = Settings.misc_max_undo
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
