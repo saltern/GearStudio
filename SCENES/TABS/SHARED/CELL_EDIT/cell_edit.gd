@@ -397,6 +397,10 @@ func sprite_set_index(new_index: int) -> void:
 	
 	var old_index: int = sprite_get_index()
 	
+	# Ensure cell selected before making changes
+	undo_redo.add_do_method(cell_ensure_selected.bind(cell_index))
+	undo_redo.add_undo_method(cell_ensure_selected.bind(cell_index))
+	
 	undo_redo.add_do_property(this_cell, "sprite_index", new_index)
 	undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
 	
