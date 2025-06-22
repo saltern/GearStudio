@@ -1,6 +1,6 @@
 extends Label
 
-@export var grid_flags: GridContainer
+@export var grid_flags: Container
 
 
 func _ready() -> void:
