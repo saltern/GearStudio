@@ -14,10 +14,11 @@ func _ready() -> void:
 func generate_list() -> void:
 	item_list.clear()
 	item_list.add_item("ACTION_HISTORY_FILE_OPENED")
-	item_list.select(0)
 	
 	for action in ActionHistory.get_action_count():
 		item_list.add_item(ActionHistory.get_action(action))
+	
+	item_list.select(ActionHistory.get_version())
 
 
 func update_list() -> void:
