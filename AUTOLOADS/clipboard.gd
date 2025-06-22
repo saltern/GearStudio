@@ -5,12 +5,13 @@ var pal_selection: Array[bool] = []
 var pal_data: Array[Color] = []
 
 # CellEdit
+var cell: Cell
 var box_data: Array[BoxInfo] = []
-var sprite_index: int
-var sprite_x_offset: int
-var sprite_y_offset: int
-var unknown_1: int
-var unknown_2: int
+var sprite_index: int = -1
+var sprite_x_offset: int = 0
+var sprite_y_offset: int = 0
+var unknown_1: int = 0
+var unknown_2: int = 0
 
 # ScriptEdit
 var script_action: ScriptAction
@@ -21,19 +22,24 @@ func _ready() -> void:
 	pal_selection.resize(256)
 
 
-func set_sprite_info(cell: Cell) -> void:
-	sprite_index = cell.sprite_index
-	sprite_x_offset = cell.sprite_x_offset
-	sprite_y_offset = cell.sprite_y_offset
-	unknown_1 = cell.unknown_1
-	unknown_2 = cell.unknown_2
+func has_sprite_info() -> bool:
+	return sprite_index != -1
 
 
-func set_box_data(boxes: Array[BoxInfo]) -> void:
+func set_sprite_info(source_cell: Cell) -> void:
+	sprite_index = source_cell.sprite_index
+	sprite_x_offset = source_cell.sprite_x_offset
+	sprite_y_offset = source_cell.sprite_y_offset
+	unknown_1 = source_cell.unknown_1
+	unknown_2 = source_cell.unknown_2
+
+
+func set_box_data(
+	source: Array[BoxInfo], selection: PackedInt32Array
+) -> void:
 	box_data.clear()
-	
-	for box in boxes:
-		box_data.append(duplicate_box(box))
+	for box in selection:
+		box_data.append(source[box])
 
 
 func get_box_data() -> Array[BoxInfo]:
