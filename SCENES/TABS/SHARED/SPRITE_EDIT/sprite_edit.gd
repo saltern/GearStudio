@@ -35,6 +35,8 @@ func _enter_tree() -> void:
 	provider.palette_imported.connect(sprite_set)
 	provider.sprite_reindexed.connect(sprite_reload)
 	
+	provider.sprite_select.connect(sprite_set)
+	
 	if obj_data.has("palettes"):
 		SessionData.palette_changed.connect(palette_set_session)
 	

@@ -7,10 +7,11 @@ enum GradientMode {
 }
 
 signal palette_updated
-@warning_ignore("unused_signal")
+@warning_ignore_start("unused_signal")
 signal palette_imported		# Used by SpriteEdit
-@warning_ignore("unused_signal")
 signal sprite_reindexed
+signal sprite_select
+@warning_ignore_restore("unused_signal")
 
 var undo_redo: UndoRedo
 
@@ -176,6 +177,10 @@ func palette_set_color_palette(
 	
 	undo_redo.create_action(action_text)
 	
+	# Ensure palette selected before making changes
+	undo_redo.add_do_method(palette_load.bind(palette_index))
+	undo_redo.add_undo_method(palette_load.bind(palette_index))
+	
 	for index in 256:
 		if not selection[index]:
 			continue
@@ -206,7 +211,11 @@ func palette_set_color_sprite(
 	})
 	
 	undo_redo.create_action(action_text)
-		
+	
+	# Ensure sprite selected before making changes
+	undo_redo.add_do_method(emit_signal.bind("sprite_select", sprite_index))
+	undo_redo.add_undo_method(emit_signal.bind("sprite_select", sprite_index))
+	
 	for index in pow(2, sprite.bit_depth): # 16 or 256
 		if not selection[index]:
 			continue
@@ -219,12 +228,10 @@ func palette_set_color_sprite(
 		)
 	
 	# palette_updated signal needs to happen before palette_load call
-	#undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_do_method(
 		SessionData.set_sprite_palette.bind(obj_data, sprite_index))
 	undo_redo.add_do_method(palette_load.bind(sprite_index))
 
-	#undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	undo_redo.add_undo_method(
 		SessionData.set_sprite_palette.bind(obj_data, sprite_index))
 	undo_redo.add_undo_method(palette_load.bind(sprite_index))
