@@ -798,10 +798,6 @@ size_flags_vertical = 3
 [node name="content" type="VBoxContainer" parent="action_history/margin"]
 layout_mode = 2
 
-[node name="session" type="Label" parent="action_history/margin/content"]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
 [node name="scroll" type="ScrollContainer" parent="action_history/margin/content"]
 layout_mode = 2
 size_flags_vertical = 3
