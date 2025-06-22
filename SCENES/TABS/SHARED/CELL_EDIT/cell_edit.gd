@@ -96,7 +96,6 @@ func _ready() -> void:
 	cell_load(0)
 	
 
-
 func _physics_process(_delta: float) -> void:
 	for task in waiting_tasks:
 		if WorkerThreadPool.is_task_completed(task):
