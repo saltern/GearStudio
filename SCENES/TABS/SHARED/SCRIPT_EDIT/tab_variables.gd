@@ -87,11 +87,11 @@ func set_chain_table(table_index: int) -> void:
 
 
 func set_variable(var_name: String, new_value: int) -> void:
-	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_VARIABLE")#.format({
-		#"variable": var_name, "value": new_value
-	#})
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_VARIABLE").format({
+		"variable": var_name
+	})
 	
-	undo_redo.create_action(action_text)
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	undo_redo.add_do_method(play_data.variables.set.bind(var_name, new_value))
 	undo_redo.add_do_method(
@@ -114,11 +114,11 @@ func get_chain_table_bit(entry_name: String, bit: int) -> bool:
 
 
 func set_chain_table_bit(entry_name: String, bit: int, value: bool) -> void:
-	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_CHAIN_BIT")#.format({
-		#"table": chain_table_index, "bit": bit, "value": value
-	#})
+	var action_text: String = tr("ACTION_SCRIPT_EDIT_SET_CHAIN_BIT").format({
+		"table": chain_table_index, "bit": bit
+	})
 	
-	undo_redo.create_action(action_text)
+	undo_redo.create_action(action_text, UndoRedo.MERGE_ENDS)
 	
 	var chain_table: ChainTable = play_data.chain_tables[chain_table_index]
 	var old_flags: int = chain_table.get(entry_name)
