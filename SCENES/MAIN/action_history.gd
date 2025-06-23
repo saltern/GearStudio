@@ -11,6 +11,17 @@ func _ready() -> void:
 	close_requested.connect(hide)
 
 
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+	
+	if event.is_echo():
+		return
+	
+	if event.keycode == KEY_ESCAPE:
+		hide()
+
+
 func generate_list() -> void:
 	item_list.clear()
 	item_list.add_item("ACTION_HISTORY_FILE_OPENED")
