@@ -499,33 +499,19 @@ theme_override_constants/margin_left = 20
 [node name="config" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin"]
 layout_mode = 2
 
-[node name="files" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
-custom_minimum_size = Vector2(0, 30)
+[node name="files" type="FoldableContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP"
+title = "SPRITE_EDIT_IMPORT_FILES_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
+[node name="content" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
-layout_mode = 2
-text = "SPRITE_EDIT_IMPORT_FILES_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="browse" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
+[node name="browse" type="Button" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/content"]
 layout_mode = 2
 text = "SPRITE_EDIT_IMPORT_FILES_BROWSE"
 
-[node name="import_count" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files"]
+[node name="import_count" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SPRITE_EDIT_IMPORT_FILES_COUNT"
@@ -533,33 +519,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("27_r1shb")
 
-[node name="placement" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
-custom_minimum_size = Vector2(0, 30)
+[node name="placement" type="FoldableContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_PLACEMENT_TITLE_TOOLTIP"
+title = "SPRITE_EDIT_IMPORT_PLACEMENT_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
+[node name="content" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
-layout_mode = 2
-text = "SPRITE_EDIT_IMPORT_PLACEMENT_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="method" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
+[node name="method" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/method"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content/method"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_IMPORT_PLACEMENT_METHOD_TOOLTIP"
@@ -567,7 +539,7 @@ mouse_filter = 0
 text = "SPRITE_EDIT_IMPORT_PLACEMENT_METHOD"
 text_overrun_behavior = 3
 
-[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/method"]
+[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content/method"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -583,12 +555,12 @@ popup/item_2/text = "SPRITE_EDIT_IMPORT_PLACEMENT_INSERT"
 popup/item_2/id = 2
 script = ExtResource("28_stfek")
 
-[node name="position" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
+[node name="position" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("29_xvhlu")
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/position"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content/position"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_IMPORT_PLACEMENT_POSITION_TOOLTIP"
@@ -596,13 +568,13 @@ mouse_filter = 0
 text = "SPRITE_EDIT_IMPORT_PLACEMENT_POSITION"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/position"]
+[node name="value" type="SpinBox" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content/position"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("30_yw1xa")
 
-[node name="pos_by_filename" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
+[node name="pos_by_filename" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME_TOOLTIP"
@@ -610,7 +582,7 @@ text = "SPRITE_EDIT_IMPORT_PLACEMENT_POS_BY_NAME"
 text_overrun_behavior = 3
 script = ExtResource("26_sifk5")
 
-[node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement"]
+[node name="info" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/placement/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SPRITE_EDIT_IMPORT_PLACEMENT_WAITING"
@@ -618,29 +590,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("31_klf4c")
 
-[node name="palette" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
-custom_minimum_size = Vector2(0, 30)
+[node name="palette" type="FoldableContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_PALETTE_TITLE_TOOLTIP"
+title = "SPRITE_EDIT_IMPORT_PALETTE_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
+[node name="content" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
-layout_mode = 2
-text = "SPRITE_EDIT_IMPORT_PALETTE_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="embed_pal" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
+[node name="embed_pal" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -649,7 +607,7 @@ text = "SPRITE_EDIT_IMPORT_PALETTE_EMBED"
 text_overrun_behavior = 3
 script = ExtResource("32_4i4k0")
 
-[node name="halve_alpha" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette"]
+[node name="halve_alpha" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/palette/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -658,30 +616,15 @@ text = "SPRITE_EDIT_IMPORT_PALETTE_HALVE_ALPHA"
 text_overrun_behavior = 3
 script = ExtResource("33_lxtrp")
 
-[node name="sprite" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
-layout_mode = 2
-
-[node name="title" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
-custom_minimum_size = Vector2(0, 30)
+[node name="sprite" type="FoldableContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config"]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_SPRITE_TITLE_TOOLTIP"
-mouse_filter = 0
+title = "SPRITE_EDIT_IMPORT_SPRITE_TITLE"
 
-[node name="hsep_0" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
+[node name="content" type="VBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
 
-[node name="label" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
-layout_mode = 2
-text = "SPRITE_EDIT_IMPORT_SPRITE_TITLE"
-
-[node name="hsep_1" type="HSeparator" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/title"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="flip_h" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
+[node name="flip_h" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -689,7 +632,7 @@ tooltip_text = "SPRITE_EDIT_IMPORT_SPRITE_FLIP_H_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_SPRITE_FLIP_H"
 script = ExtResource("34_82qre")
 
-[node name="flip_v" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
+[node name="flip_v" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -697,7 +640,7 @@ tooltip_text = "SPRITE_EDIT_IMPORT_SPRITE_FLIP_V_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_SPRITE_FLIP_V"
 script = ExtResource("35_my7nx")
 
-[node name="as_rgb" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
+[node name="as_rgb" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -705,7 +648,7 @@ tooltip_text = "SPRITE_EDIT_IMPORT_INDEX_WITH_RED_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_INDEX_WITH_RED"
 script = ExtResource("36_i6rxh")
 
-[node name="reindex" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
+[node name="reindex" type="CheckButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -713,11 +656,11 @@ tooltip_text = "SPRITE_EDIT_IMPORT_REINDEX_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_REINDEX"
 script = ExtResource("37_ok3ax")
 
-[node name="bit_depth" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite"]
+[node name="bit_depth" type="HBoxContainer" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/bit_depth"]
+[node name="title" type="Label" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content/bit_depth"]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SPRITE_EDIT_IMPORT_BIT_DEPTH_TOOLTIP"
@@ -725,7 +668,7 @@ mouse_filter = 0
 text = "SPRITE_EDIT_IMPORT_BIT_DEPTH"
 text_overrun_behavior = 3
 
-[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/bit_depth"]
+[node name="value" type="OptionButton" parent="sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/sprite/content/bit_depth"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -925,6 +868,7 @@ text = "0 / 0"
 horizontal_alignment = 1
 
 [node name="sprite_import_files" type="FileDialog" parent="." node_paths=PackedStringArray("browse_button")]
+oversampling_override = 1.0
 title = "Open File(s)"
 initial_position = 2
 size = Vector2i(640, 480)
@@ -934,7 +878,7 @@ access = 2
 filters = PackedStringArray("*.bin; Binary sprites", "*.raw; RAW images", "*.png; PNG images", "*.bmp; BMP images")
 use_native_dialog = true
 script = ExtResource("43_05050")
-browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/browse")
+browse_button = NodePath("../sprite_import/background/content_margin/window_content/config_contents/scroll/margin/config/files/content/browse")
 
 [node name="sprite_export" type="Window" parent="." node_paths=PackedStringArray("summon_button", "export_path_dialog")]
 oversampling_override = 1.0
@@ -1149,14 +1093,14 @@ popup/item_3/text = "SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE"
 popup/item_3/id = 3
 script = ExtResource("20_014r4")
 
-[node name="miscellaneous" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
+[node name="sprite" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2
 title = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_TITLE"
 
-[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous"]
+[node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite"]
 layout_mode = 2
 
-[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX_TOOLTIP"
@@ -1164,7 +1108,7 @@ text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_REINDEX"
 text_overrun_behavior = 3
 script = ExtResource("21_qqr6w")
 
-[node name="flip_h" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+[node name="flip_h" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_H_TOOLTIP"
@@ -1172,7 +1116,7 @@ text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_H"
 text_overrun_behavior = 3
 script = ExtResource("50_e7btt")
 
-[node name="flip_v" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+[node name="flip_v" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_FLIP_V_TOOLTIP"
@@ -1181,7 +1125,7 @@ text_overrun_behavior = 3
 script = ExtResource("50_e7btt")
 mode = 1
 
-[node name="name_from_zero" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/miscellaneous/content"]
+[node name="name_from_zero" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/content"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP"
@@ -1283,6 +1227,7 @@ script = ExtResource("24_s7ufg")
 sprite_index_spinbox = NodePath("../../../../title/sprite_index")
 
 [node name="sprite_export_path" type="FileDialog" parent="." node_paths=PackedStringArray("export_button")]
+oversampling_override = 1.0
 title = "Open a Directory"
 initial_position = 2
 size = Vector2i(640, 480)
@@ -1294,6 +1239,7 @@ script = ExtResource("25_ainjy")
 export_button = NodePath("../sprite_export/background/content_margin/window_content/config_contents/export")
 
 [node name="sprite_delete" type="Window" parent="." node_paths=PackedStringArray("summon_button")]
+oversampling_override = 1.0
 title = "SPRITE_EDIT_DELETE_TITLE"
 initial_position = 2
 size = Vector2i(900, 500)
@@ -1528,6 +1474,7 @@ dialog_text = "SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT"
 script = ExtResource("64_vgp6d")
 
 [node name="palette_import" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
+oversampling_override = 1.0
 title = "Open a File"
 initial_position = 2
 size = Vector2i(640, 480)
@@ -1540,6 +1487,7 @@ script = ExtResource("67_vriyv")
 summon_button = NodePath("../content/left_panel/margin/palette_buttons/import_export/import")
 
 [node name="palette_export" type="FileDialog" parent="." node_paths=PackedStringArray("summon_button")]
+oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(640, 480)
 dialog_hide_on_ok = true
