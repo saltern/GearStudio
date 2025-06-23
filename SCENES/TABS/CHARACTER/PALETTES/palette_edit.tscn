@@ -137,7 +137,7 @@ theme_override_constants/v_separation = 1
 columns = 16
 script = ExtResource("5_ocm7y")
 preview = NodePath("../../../preview/borders/clipper/visualizer/sprite")
-color_picker = NodePath("../../../color_edit/color_pick")
+color_picker = NodePath("../../../scroll/MarginContainer/color_edit/color_pick")
 
 [node name="reindex" type="Button" parent="scroll/margin/content/editors/color_grid"]
 layout_mode = 2
@@ -166,11 +166,22 @@ text_overrun_behavior = 3
 [node name="v_sep_1" type="VSeparator" parent="scroll/margin/content/editors"]
 layout_mode = 2
 
-[node name="color_edit" type="VBoxContainer" parent="scroll/margin/content/editors"]
+[node name="scroll" type="ScrollContainer" parent="scroll/margin/content/editors"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+vertical_scroll_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="scroll/margin/content/editors/scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_right = 0
+
+[node name="color_edit" type="VBoxContainer" parent="scroll/margin/content/editors/scroll/MarginContainer"]
 custom_minimum_size = Vector2(264, 0)
 layout_mode = 2
 
-[node name="title" type="Label" parent="scroll/margin/content/editors/color_edit"]
+[node name="title" type="Label" parent="scroll/margin/content/editors/scroll/MarginContainer/color_edit"]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -179,7 +190,7 @@ mouse_filter = 0
 text = "PALETTE_EDIT_COLOR_EDITOR"
 vertical_alignment = 1
 
-[node name="by_channel" type="CheckButton" parent="scroll/margin/content/editors/color_edit" node_paths=PackedStringArray("picker")]
+[node name="by_channel" type="CheckButton" parent="scroll/margin/content/editors/scroll/MarginContainer/color_edit" node_paths=PackedStringArray("picker")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 8
@@ -188,7 +199,7 @@ text = "PALETTE_EDIT_BY_CHANNEL"
 script = ExtResource("6_ana8q")
 picker = NodePath("../color_pick")
 
-[node name="color_pick" type="ColorPicker" parent="scroll/margin/content/editors/color_edit"]
+[node name="color_pick" type="ColorPicker" parent="scroll/margin/content/editors/scroll/MarginContainer/color_edit"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
