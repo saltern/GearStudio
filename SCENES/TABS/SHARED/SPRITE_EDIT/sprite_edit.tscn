@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=73 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
@@ -57,6 +57,7 @@
 [ext_resource type="Script" uid="uid://w20b7j7pdnwj" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_to.gd" id="52_ft3y0"]
 [ext_resource type="Material" uid="uid://vbeu42vxu2wt" path="res://MATERIALS/max_importer_preview.tres" id="52_mpstw"]
 [ext_resource type="Script" uid="uid://bw2xuvg4fpqf7" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_window.gd" id="52_ujkov"]
+[ext_resource type="Script" uid="uid://dsrimrpxow2me" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_name_zero_padding.gd" id="52_vriyv"]
 [ext_resource type="Script" uid="uid://lkslufkq0rwm" path="res://SCENES/TABS/CHARACTER/PALETTES/palette_color_picker.gd" id="52_wfq3j"]
 [ext_resource type="Script" uid="uid://d0dma0ads2k3w" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_sprite_index.gd" id="54_kmxcs"]
 [ext_resource type="Script" uid="uid://buh18xtvxoqc3" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_preview.gd" id="55_oqxu8"]
@@ -80,7 +81,7 @@ border_width_bottom = 1
 resource_local_to_scene = true
 shader = ExtResource("18_sifk5")
 shader_parameter/alpha_double = true
-shader_parameter/reindex = true
+shader_parameter/reindex = false
 shader_parameter/hover_index = -1
 shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/palette = PackedInt32Array()
@@ -887,6 +888,7 @@ initial_position = 2
 size = Vector2i(1000, 614)
 visible = false
 transient = true
+exclusive = true
 min_size = Vector2i(600, 160)
 script = ExtResource("9_oa8py")
 summon_button = NodePath("../content/left_panel/scroll/margin/data/imp_exp_del/export")
@@ -1132,6 +1134,14 @@ tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING_TOOLTIP"
 text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_ZERO_NAMING"
 text_overrun_behavior = 3
 script = ExtResource("22_j4vvt")
+
+[node name="name_zero_pad" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/sprite/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_NAME_ZERO_PAD_TOOLTIP"
+text = "SPRITE_EDIT_EXPORT_MISCELLANEOUS_NAME_ZERO_PAD"
+text_overrun_behavior = 3
+script = ExtResource("52_vriyv")
 
 [node name="export" type="Button" parent="sprite_export/background/content_margin/window_content/config_contents"]
 layout_mode = 2

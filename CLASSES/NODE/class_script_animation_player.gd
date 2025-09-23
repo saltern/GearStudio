@@ -50,7 +50,12 @@ func load_action(index: int) -> void:
 	if not provider.obj_data.has("scripts"):
 		return
 	
+	if provider is ReferenceHandler:
+		print_debug("Load action %s" % index)
+	
 	if provider.obj_data.scripts.actions.size() <= index:
+		if provider is ReferenceHandler:
+			print_debug("cell_clear.emit()")
 		cell_clear.emit()
 		action_loaded.emit()
 		return
@@ -70,7 +75,7 @@ func load_action(index: int) -> void:
 
 
 func load_frame(frame: int) -> void:
-	if assigned_animation == "" or current_animation == "":
+	if assigned_animation == "" and current_animation == "":
 		return
 	
 	if frame > current_animation_length:

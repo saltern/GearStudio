@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func on_toggle(enabled: bool) -> void:
-	Settings.pal_gradient_reindex = enabled
+	Settings.set_palette_gradient_reindex(enabled)

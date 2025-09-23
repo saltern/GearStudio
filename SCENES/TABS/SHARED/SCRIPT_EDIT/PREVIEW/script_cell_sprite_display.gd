@@ -161,7 +161,10 @@ func on_palette(_player: int, section: int) -> void:
 		on_palette_clear()
 		return
 	
+	return
+	
 	var session_palettes = SessionData.session_get_palettes(session_id)
+	
 	var temp_pal: BinPalette = \
 		session_palettes[provider.palette_index].duplicate(true)
 	

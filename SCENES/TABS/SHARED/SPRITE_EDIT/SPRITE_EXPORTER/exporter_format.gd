@@ -18,12 +18,12 @@ func _ready() -> void:
 func on_format_toggled(enabled: bool) -> void:
 	match export_format:
 		ExportFormat.BIN:
-			SpriteExport.export_bin = enabled
+			SpriteExport.settings.export_bin = enabled
 		ExportFormat.BIN_UNCOMPRESSED:
-			SpriteExport.export_bin_u = enabled
+			SpriteExport.settings.export_bin_uncompressed = enabled
 		ExportFormat.RAW:
-			SpriteExport.export_raw = enabled
+			SpriteExport.settings.export_raw = enabled
 		ExportFormat.PNG:
-			SpriteExport.export_png = enabled
+			SpriteExport.settings.export_png = enabled
 		ExportFormat.BMP:
-			SpriteExport.export_bmp = enabled
+			SpriteExport.settings.export_bmp = enabled

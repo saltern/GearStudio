@@ -190,12 +190,27 @@ func set_sprite_palette(obj_data: Dictionary, sprite_index: int) -> void:
 	sprite_palette_changed.emit(session_index, obj_data, sprite_index)
 
 
+func session_set_reindex(session_id: int, enabled: bool) -> void:
+	var session: Dictionary = get_session(session_id)
+	session["reindex"] = enabled
+
+
 # Called by script_cell_sprite_display.gd
 func session_get_palettes(session_id: int) -> Array[BinPalette]:
 	if not session_has_palettes(session_id):
 		return []
 	else:
 		return get_session(session_id).palettes
+
+
+func session_get_reindex(session_id: int) -> bool:
+	var session: Dictionary = get_session(session_id)
+	
+	if not session.has("reindex"):
+		return false
+	
+	else:
+		return session["reindex"]
 
 
 func session_has_palettes(session_id: int) -> bool:

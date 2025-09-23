@@ -7,5 +7,4 @@ func _ready() -> void:
 
 
 func update(new_color: Color) -> void:
-	Settings.cell_guide = new_color
-	Settings.guide_color_changed.emit()
+	Settings.set_cell_guide_color(new_color)

@@ -12,10 +12,7 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	if not sprite_edit.obj_data.has("name") or \
-	sprite_edit.obj_data.name != "player":
-		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
-	
+	material.set_shader_parameter("reindex", should_reindex(sprite))
 	texture = sprite.texture
 	apply_palette(provider.palette_get_colors())
 
@@ -26,3 +23,17 @@ func on_palette_updated(palette: PackedByteArray) -> void:
 
 func apply_palette(palette: PackedByteArray) -> void:
 	material.set_shader_parameter("palette", palette)
+
+
+func should_reindex(sprite: BinSprite) -> bool:
+	if not SessionData.session_get_reindex(sprite_edit.session_id):
+		return false
+	
+	if not sprite_edit.obj_data.has("name") or \
+	sprite_edit.obj_data.name != "player":
+		return sprite.bit_depth == 8
+	
+	if sprite_edit.obj_data.name == "player":
+		return true
+	
+	return false

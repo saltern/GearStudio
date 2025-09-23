@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func update(new_color: Color) -> void:
-	Settings.sprite_color_bounds = new_color
+	Settings.set_sprite_color_bounds(new_color)

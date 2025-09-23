@@ -21,28 +21,32 @@ enum AlphaMode {
 var preview_index: int = 0
 var preview_sprite: BinSprite
 
-var export_bin: bool = false
-var export_bin_u: bool = false
-var export_raw: bool = false
-var export_png: bool = false
-var export_bmp: bool = false
+var palette_index: int = 0
 
 var export_list: Array[BinSprite] = []
 var export_start_index: int = 0
 var export_end_index: int = 0
 
-var palette_index: int = 0
-var palette_include: bool = false
-var palette_alpha_mode: AlphaMode = AlphaMode.AS_IS
-
-var sprite_reindex: bool = false
-var sprite_flip_h: bool = false
-var sprite_flip_v: bool = false
-var name_from_zero: bool = false
-
 var obj_data: Dictionary
 
 var pal_gray: PackedByteArray
+
+var settings := SpriteExporterSettings.new()
+# export_bin
+# export_bin_uncompressed
+# export_raw
+# export_png
+# export_bmp
+
+# palette_include
+# palette_alpha_mode
+# palette_reindex
+
+# sprite_reindex
+# sprite_flip_h
+# sprite_flip_v
+# name_from_zero
+# name_zero_pad
 
 
 func _ready() -> void:
@@ -73,32 +77,55 @@ func set_palette_index(index: int) -> void:
 
 
 func set_palette_include(enabled: bool) -> void:
-	palette_include = enabled
+	settings.palette_include = enabled
 	palette_include_set.emit()
 
 
 func set_palette_alpha_mode(mode: AlphaMode) -> void:
-	palette_alpha_mode = mode
+	settings.palette_alpha_mode = mode
 	palette_alpha_mode_set.emit()
 
 
 func set_sprite_reindex(enabled: bool) -> void:
-	sprite_reindex = enabled
+	settings.reindex = enabled
 	sprite_reindex_set.emit()
 
 
 func set_sprite_flip_h(enabled: bool) -> void:
-	sprite_flip_h = enabled
+	settings.flip_h = enabled
 	sprite_flip_h_set.emit()
 
 
 func set_sprite_flip_v(enabled: bool) -> void:
-	sprite_flip_v = enabled
+	settings.flip_v = enabled
 	sprite_flip_v_set.emit()
 
 
 func set_name_from_zero(enabled: bool) -> void:
-	name_from_zero = enabled
+	if enabled:
+		settings.name_start_index = 0
+	else:
+		settings.name_start_index = export_start_index
+
+
+func set_name_zero_pad(enabled: bool) -> void:
+	settings.name_zero_pad = enabled
+
+
+func get_palette_included() -> bool:
+	return settings.palette_include
+
+
+func get_reindex() -> bool:
+	return settings.reindex
+
+
+func get_flip_h() -> bool:
+	return settings.flip_h
+
+
+func get_flip_v() -> bool:
+	return settings.flip_v
 
 
 func export(output_path: String) -> void:
@@ -106,81 +133,12 @@ func export(output_path: String) -> void:
 	
 	for sprite_index in range(export_start_index, export_end_index + 1):
 		export_list.append(obj_data.sprites[sprite_index])
-	
-	var name_start_index: int = 0 if name_from_zero else export_start_index
+
 	var palette: PackedByteArray = pal_gray
 	
-	if palette_include and obj_data.has("palettes"):
-		palette = obj_data["palettes"][palette_index].palette
+	if settings.palette_include and obj_data.has("palettes"):
+		settings.palette_colors = obj_data["palettes"][palette_index].palette
 	
-	if export_bin:
-		SpriteExporter.export_sprites(
-			"bin",
-			output_path,
-			export_list,
-			name_start_index,
-			palette_include,
-			palette,
-			palette_alpha_mode,
-			obj_data.has("palettes"),
-			sprite_reindex,
-			sprite_flip_h,
-			sprite_flip_v)
+	settings.palette_override = obj_data.has("palettes")
 	
-	if export_bin_u:
-		SpriteExporter.export_sprites(
-			"bin_u",
-			output_path,
-			export_list,
-			name_start_index,
-			palette_include,
-			palette,
-			palette_alpha_mode,
-			obj_data.has("palettes"),
-			sprite_reindex,
-			sprite_flip_h,
-			sprite_flip_v)
-	
-	if export_raw:
-		SpriteExporter.export_sprites(
-			"raw",
-			output_path,
-			export_list,
-			name_start_index,
-			# v Ignored
-			false,
-			PackedByteArray([]),
-			AlphaMode.AS_IS,
-			false,
-			# ^ Ignored
-			sprite_reindex,
-			sprite_flip_h,
-			sprite_flip_v)
-	
-	if export_png:
-		SpriteExporter.export_sprites(
-			"png",
-			output_path,
-			export_list,
-			name_start_index,
-			palette_include,
-			palette,
-			palette_alpha_mode,
-			obj_data.has("palettes"),
-			sprite_reindex,
-			sprite_flip_h,
-			sprite_flip_v)
-
-	if export_bmp:
-		SpriteExporter.export_sprites(
-			"bmp",
-			output_path,
-			export_list,
-			name_start_index,
-			palette_include,
-			palette,
-			palette_alpha_mode,
-			obj_data.has("palettes"),
-			sprite_reindex,
-			sprite_flip_h,
-			sprite_flip_v)
+	SpriteExporter.export_sprites(export_list, output_path, settings)

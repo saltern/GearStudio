@@ -20,7 +20,8 @@ func set_undo_redo(undo_redo: UndoRedo) -> void:
 
 
 func on_version_changed() -> void:
-	version_changed.emit()
+	call_deferred("emit_signal", "version_changed")
+	#version_changed.emit.call_deferred()
 
 
 func get_action(index: int) -> String:

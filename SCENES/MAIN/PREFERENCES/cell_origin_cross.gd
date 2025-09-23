@@ -7,5 +7,4 @@ func _ready() -> void:
 
 
 func on_toggle(enabled: bool) -> void:
-	Settings.cell_draw_origin = enabled
-	Settings.draw_origin_changed.emit()
+	Settings.set_cell_draw_origin(enabled)

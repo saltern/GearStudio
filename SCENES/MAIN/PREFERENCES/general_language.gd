@@ -20,6 +20,4 @@ func _ready() -> void:
 
 func update(item: int) -> void:
 	var new_language: String = keys[item]
-	
-	Settings.general_language = new_language
-	Settings.update_locale()
+	Settings.set_language(new_language)

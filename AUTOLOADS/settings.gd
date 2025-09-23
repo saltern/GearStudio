@@ -63,6 +63,7 @@ const CFG_SPRITE_COLOR_BOUNDS: String = "color_bounds"
 const CFG_SPRITE_REINDEX: String = "reindex"
 
 const CFG_SECTION_PALETTES: String = "palettes"
+const CFG_PAL_REINDEX_MODE: String = "reindex_mode"
 const CFG_PAL_GRAD_REINDEX: String = "gradient_reindex"
 
 const CFG_SECTION_MISC: String = "misc"
@@ -80,12 +81,19 @@ enum BoxType {
 	SPAWN,				# 5
 	REGION_F,			# 6
 	UNKNOWN,			# 7+
+	MAX,
 }
 
 enum SnapshotFormat {
 	PNG,
 	PSD,
 	BOTH,
+}
+
+enum ReindexMode {
+	ASK,
+	NEVER,
+	ALWAYS,
 }
 
 var general_language: String = "en"
@@ -117,6 +125,7 @@ var cell_guide: Color = Color8(255, 0, 0, 0xA0)
 var cell_snapshot_format: SnapshotFormat = SnapshotFormat.PNG
 
 var box_thickness: int = 2
+
 var box_colors: Array[Color] = [
 	Color.RED,
 	Color.RED,
@@ -133,6 +142,7 @@ var sprite_color_bounds: Color = Color.BLACK:
 		sprite_color_bounds = value
 		sprite_bounds_color_changed.emit()
 
+var pal_reindex_mode: ReindexMode = ReindexMode.ASK
 var pal_gradient_reindex: bool = false
 
 var misc_max_undo: int = 200
@@ -224,7 +234,7 @@ func load_config() -> bool:
 	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
-	set_origin_type(
+	set_cell_origin_type(
 		config.get_value(CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0))
 	
 	cell_onion_skin = config.get_value(
@@ -235,20 +245,39 @@ func load_config() -> bool:
 		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format)
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
-	box_colors = [
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[0]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[1]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[2]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[3]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[4]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[5]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[6]),
-		config.get_value(CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[7]),
-	]
+	
+	#region Box Colors
+	box_colors[BoxType.HITBOX_ALT] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[BoxType.HITBOX]
+	)
+	box_colors[BoxType.HITBOX] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[BoxType.HITBOX]
+	)
+	box_colors[BoxType.HURTBOX] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[BoxType.HURTBOX]
+	)
+	box_colors[BoxType.REGION_B] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[BoxType.REGION_B]
+	)
+	box_colors[BoxType.COLLISION_EXTEND] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[BoxType.COLLISION_EXTEND]
+	)
+	box_colors[BoxType.SPAWN] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN]
+	)
+	box_colors[BoxType.REGION_F] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F]
+	)
+	box_colors[BoxType.UNKNOWN] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN]
+	)
+	#endregion
 	
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
 	
+	pal_reindex_mode = config.get_value(
+		CFG_SECTION_PALETTES, CFG_PAL_REINDEX_MODE, pal_reindex_mode)
 	pal_gradient_reindex = config.get_value(
 		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
 	
@@ -347,11 +376,101 @@ func load_origin_textures() -> void:
 		var new_texture: ImageTexture = ImageTexture.create_from_image(new_icon)
 		cell_origin_icons[icon_index] = new_texture
 
+#region Setters
 
-func set_origin_type(type: int) -> void:
+#region General
+func set_language(key: String) -> void:
+	if not key in language_keys:
+		return
+	
+	general_language = key
+	update_locale()
+
+
+func set_max_undo(step_count: int) -> void:
+	misc_max_undo = clampi(step_count, 1, 200)
+	max_undo_changed.emit()
+
+
+func set_allow_reopen(enabled: bool) -> void:
+	misc_allow_reopen = enabled
+#endregion
+
+
+#region Customization
+func set_custom_color_bg_a(new_color: Color) -> void:
+	custom_color_bg_a = new_color
+	custom_color_bg_a_changed.emit()
+
+
+func set_custom_color_bg_b(new_color: Color) -> void:
+	custom_color_bg_b = new_color
+	custom_color_bg_b_changed.emit()
+
+
+func set_custom_color_status(new_color: Color) -> void:
+	custom_color_status = new_color
+	custom_color_status_changed.emit()
+#endregion
+
+
+#region Sprites
+func set_sprite_color_bounds(new_color: Color) -> void:
+	sprite_color_bounds = new_color
+	sprite_bounds_color_changed.emit()
+#endregion
+
+
+#region Cells
+func set_cell_draw_origin(enabled: bool) -> void:
+	cell_draw_origin = enabled
+	draw_origin_changed.emit()
+
+
+func set_cell_origin_type(type: int) -> void:
 	type = clampi(type, 0, cell_origin_textures.size() - 1)
 	cell_origin_type = type
 	origin_type_changed.emit()
+
+
+func set_cell_onion_skin_color(new_color: Color) -> void:
+	cell_onion_skin = new_color
+	onion_color_changed.emit()
+
+
+func set_cell_guide_color(new_color: Color) -> void:
+	cell_guide = new_color
+	guide_color_changed.emit()
+
+
+func set_cell_snapshot_format(mode: int) -> void:
+	cell_snapshot_format = mode as SnapshotFormat
+#endregion
+
+
+#region Boxes
+func set_box_thickness(value: int) -> void:
+	box_thickness = value
+
+
+func set_box_color(type: BoxType, color: Color) -> void:
+	box_colors[type] = color
+	
+	if type == BoxType.HITBOX:
+		box_colors[BoxType.HITBOX_ALT] = color
+#endregion
+
+
+#region Palettes
+func set_palette_reindex_mode(mode: ReindexMode) -> void:
+	pal_reindex_mode = mode
+
+
+func set_palette_gradient_reindex(enabled: bool) -> void:
+	pal_gradient_reindex = enabled
+#endregion
+
+#endregion
 
 
 func get_origin_texture(index: int = -1) -> ImageTexture:

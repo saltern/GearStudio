@@ -845,7 +845,7 @@ script = ExtResource("42_e5pnn")
 visible = false
 custom_minimum_size = Vector2(6000, 1)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -863,7 +863,7 @@ script = ExtResource("26_q1wae")
 visible = false
 custom_minimum_size = Vector2(1, 6000)
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1327,7 +1327,7 @@ script = ExtResource("22_4xx0u")
 [node name="background_a" type="ColorRect" parent="delete_cells/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(3000, 3000)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1390,7 +1390,6 @@ sprite_origin = NodePath(".")
 [node name="boxes" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index")]
 custom_minimum_size = Vector2(2000, 2000)
 layout_mode = 1
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1718,7 +1717,7 @@ script = ExtResource("22_4xx0u")
 [node name="background_a" type="ColorRect" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer"]
 texture_filter = 1
 custom_minimum_size = Vector2(3000, 3000)
-anchors_preset = 8
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1781,7 +1780,6 @@ sprite_origin = NodePath(".")
 [node name="boxes" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" node_paths=PackedStringArray("cell_index", "box_display_toggle")]
 custom_minimum_size = Vector2(2000, 2000)
 layout_mode = 1
-anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1838,7 +1836,7 @@ script = ExtResource("86_ehmjy")
 progress_label = NodePath("content/progress")
 
 [node name="content" type="VBoxContainer" parent="multi_snapshots/snapshot_progress"]
-anchors_preset = 14
+anchors_preset = -1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5

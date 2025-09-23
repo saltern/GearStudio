@@ -31,6 +31,9 @@ enum BitDepth {
 	FORCE_8_BPP,
 }
 
+const GENERATE_PALETTE: bool = true
+const NEUQUANT_QUALITY: int = 1
+
 # Used by preview
 var preview_index: int = 0
 var preview_sprite: BinSprite
@@ -90,7 +93,7 @@ func status_register_action(action_text: String) -> void:
 
 func import_file_direct(path: String) -> BinSprite:
 	return SpriteImporter.import_sprite(
-		path, false, false, false, false, false, false, 8)
+		path, false, false, false, false, false, false, 8, GENERATE_PALETTE, NEUQUANT_QUALITY)
 
 
 # First step after hitting OK to import
@@ -104,7 +107,7 @@ func import_files(object_data: Dictionary) -> void:
 func import_files_thread() -> void:
 	var sprites: Array[BinSprite] = sprite_importer.import_sprites(
 		import_list, embed_palette, halve_alpha,
-		flip_h, flip_v, as_rgb, reindex, bit_depth)
+		flip_h, flip_v, as_rgb, reindex, bit_depth, GENERATE_PALETTE, NEUQUANT_QUALITY)
 	
 	call_deferred("emit_signal", "sprite_import_finished", sprites)
 
@@ -280,7 +283,9 @@ func generate_preview(sprite_index: int) -> void:
 	
 	preview_sprite = SpriteImporter.import_sprite(
 		import_list[sprite_index], embed_palette, halve_alpha,
-		flip_h, flip_v, as_rgb, reindex, bit_depth)
+		flip_h, flip_v, as_rgb, reindex, bit_depth,
+		GENERATE_PALETTE, NEUQUANT_QUALITY
+	)
 	
 	if obj_data.has("palettes"):
 		preview_palette = obj_data["palettes"][preview_palette_index].palette

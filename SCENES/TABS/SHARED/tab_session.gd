@@ -11,11 +11,30 @@ var session_id: int
 @export var TabPaletteEdit: PackedScene
 @export var TabSelectEdit: PackedScene
 
+@export var popup: PopupMenu
+
 var base_name: String = ""
 
 
 func _ready() -> void:
 	SessionData.tab_reset_session_ids.connect(reset_session_id)
+	set_popup(popup)
+
+
+func _gui_input(event: InputEvent) -> void:
+	if not event is InputEventMouseButton:
+		return
+	
+	var e: InputEventMouseButton = event
+	
+	if not e.pressed:
+		return
+	
+	if e.is_echo():
+		return
+	
+	if e.button_index == MOUSE_BUTTON_RIGHT:
+		print("Tab right clicked")
 
 
 func reset_session_id() -> void:

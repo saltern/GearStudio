@@ -21,4 +21,4 @@ func load_options() -> void:
 
 
 func on_item_selected(item: int) -> void:
-	Settings.set_origin_type(item)
+	Settings.set_cell_origin_type(item)

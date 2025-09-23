@@ -7,5 +7,4 @@ func _ready() -> void:
 
 
 func update(new_color: Color) -> void:
-	Settings.cell_onion_skin = new_color
-	Settings.onion_color_changed.emit()
+	Settings.set_cell_onion_skin_color(new_color)

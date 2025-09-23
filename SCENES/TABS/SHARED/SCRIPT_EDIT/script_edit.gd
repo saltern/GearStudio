@@ -30,7 +30,6 @@ enum FlagType {
 @export var box_parent: Control
 @export var box_parent_ref: Control
 
-var SI := ScriptInstructions
 var session_id: int
 var undo_redo := UndoRedo.new()
 
@@ -63,6 +62,7 @@ func _enter_tree() -> void:
 	
 	cell_display_ref.anim = anim_ref
 	
+	ref_handler.ref_data_set.connect(script_animation_load_ref.unbind(1))
 	ref_handler.ref_action_index_set.connect(script_animation_load_ref.unbind(1))
 	
 	if obj_data.scripts.has_play_data:

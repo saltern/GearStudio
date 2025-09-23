@@ -7,3 +7,6 @@ reloadable = true
 windows.debug.x86_64 =	"res://../rust/ggpr_bin/target/release/ggpr_bin.dll"
 windows.release.x86_64 = "res://../rust/ggpr_bin/target/release/ggpr_bin.dll"
 windows.template_release.x64_64 = "res://../rust/ggpr_bin/target/release/ggpr_bin.dll"
+linux.debug.x86_64 = "res://../rust/ggpr_bin/target/release/libggpr_bin.so"
+linux.release.x86_64 = "res://../rust/ggpr_bin/target/release/libggpr_bin.so"
+linux.template_release.x86_64 = "res://../rust/ggpr_bin/target/release/libggpr_bin.so"

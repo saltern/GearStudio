@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func update(enabled: bool) -> void:
-	Settings.misc_allow_reopen = enabled
+	Settings.set_allow_reopen(enabled)

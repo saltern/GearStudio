@@ -636,7 +636,7 @@ func box_append(box: BoxInfo) -> void:
 
 func box_delete() -> void:
 	if boxes_selected.size() == 0:
-		Status.set_status("CELL_EDIT_BOX_DELETE_NOTHING")
+		Status.set_status("STATUS_CELL_EDIT_BOX_DELETE_NOTHING")
 		return
 	
 	var action_text: String

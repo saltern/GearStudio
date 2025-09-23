@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqh1wnv1ogdi4"]
+[gd_scene load_steps=9 format=3 uid="uid://bqh1wnv1ogdi4"]
 
 [ext_resource type="Script" uid="uid://x60l5bb1kyfs" path="res://SCENES/TABS/SHARED/tab_session.gd" id="1_aynoi"]
 [ext_resource type="PackedScene" uid="uid://b0utvdt6m12v6" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.tscn" id="2_nba0e"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://b4fya04yqkrn6" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.tscn" id="4_d4ra2"]
 [ext_resource type="PackedScene" uid="uid://db5rbab1qdsas" path="res://SCENES/TEST/code_edit.tscn" id="5_b7esy"]
 [ext_resource type="PackedScene" uid="uid://b08yjbg1fixq8" path="res://SCENES/TABS/SELECT/select_edit.tscn" id="5_nba0e"]
+[ext_resource type="Script" uid="uid://xfq7mkb25svd" path="res://SCENES/TABS/SHARED/tab_menu.gd" id="8_pkgy4"]
 
-[node name="session" type="TabContainer"]
+[node name="session" type="TabContainer" node_paths=PackedStringArray("popup")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,4 +22,11 @@ TabScriptEdit = ExtResource("4_d4ra2")
 TabScriptEditCode = ExtResource("5_b7esy")
 TabPaletteEdit = ExtResource("4_b7esy")
 TabSelectEdit = ExtResource("5_nba0e")
+popup = NodePath("tab_menu")
 metadata/_tab_index = 0
+
+[node name="tab_menu" type="PopupMenu" parent="."]
+oversampling_override = 1.0
+size = Vector2i(285, 100)
+hide_on_checkable_item_selection = false
+script = ExtResource("8_pkgy4")

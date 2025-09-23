@@ -7,4 +7,4 @@ func _ready() -> void:
 
 
 func update(new_value: int) -> void:
-	Settings.box_thickness = new_value
+	Settings.set_box_thickness(new_value)

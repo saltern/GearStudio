@@ -1,5 +1,7 @@
 extends ColorPickerButton
 
+@export var type: Settings.BoxType
+
 
 func _ready() -> void:
 	color = Settings.box_colors[Settings.BoxType.UNKNOWN]
@@ -7,4 +9,4 @@ func _ready() -> void:
 
 
 func update(new_color: Color) -> void:
-	Settings.box_colors[Settings.BoxType.UNKNOWN] = new_color
+	Settings.set_box_color(type, new_color)

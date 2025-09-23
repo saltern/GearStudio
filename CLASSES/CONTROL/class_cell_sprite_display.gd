@@ -46,6 +46,7 @@ func load_cell(cell: Cell) -> void:
 
 
 func unload_sprite() -> void:
+	#print_debug("Unloading sprite")
 	for child in sprite_origin.get_children():
 		child.queue_free()
 
@@ -53,9 +54,12 @@ func unload_sprite() -> void:
 func get_palette(index: int) -> PackedByteArray:
 	# Global palette
 	if provider.obj_data.has("palettes"):
+		if palette_index >= provider.obj_data.palettes.size():
+			palette_index = 0
 		return provider.obj_data.palettes[palette_index].palette
 	
 	# Embedded palette
+	index = mini(index, provider.obj_data.sprites.size() - 1)
 	var sprite: BinSprite = provider.obj_data.sprites[index]
 	return sprite.palette
 

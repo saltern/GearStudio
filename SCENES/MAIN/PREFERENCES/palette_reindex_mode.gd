@@ -2,9 +2,9 @@ extends OptionButton
 
 
 func _ready() -> void:
-	selected = Settings.cell_snapshot_format
+	selected = Settings.pal_reindex_mode as int
 	item_selected.connect(on_item_selected)
 
 
 func on_item_selected(item: int) -> void:
-	Settings.set_cell_snapshot_format(item)
+	Settings.set_palette_reindex_mode(item as Settings.ReindexMode)

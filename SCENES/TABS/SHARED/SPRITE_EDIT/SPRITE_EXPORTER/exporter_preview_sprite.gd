@@ -30,9 +30,9 @@ func set_sprite_index(new_index: int) -> void:
 func update_texture() -> void:
 	var image: Image = sprite_edit.sprite_get_image(sprite_index).duplicate()
 	
-	if SpriteExport.sprite_flip_h:
+	if SpriteExport.get_flip_h():
 		image.flip_x()
-	if SpriteExport.sprite_flip_v:
+	if SpriteExport.get_flip_v():
 		image.flip_y()
 	
 	texture = ImageTexture.create_from_image(image)
@@ -48,7 +48,7 @@ func update_palette() -> void:
 	
 	current_palette = SpriteExport.pal_gray
 	
-	if SpriteExport.palette_include:
+	if SpriteExport.get_palette_included():
 		if sprite_edit.obj_data.has("palettes"):
 			current_palette = sprite_edit.palette_get(SpriteExport.palette_index)
 			current_palette = process_alpha(current_palette)
@@ -63,7 +63,7 @@ func update_palette() -> void:
 
 
 func process_reindex(palette: PackedByteArray) -> PackedByteArray:
-	if not SpriteExport.sprite_reindex:
+	if not SpriteExport.get_reindex():
 		return palette
 	
 	if sprite_edit.sprite_get(sprite_index_spinbox.value).bit_depth == 4:
@@ -94,7 +94,7 @@ func process_alpha(palette: PackedByteArray) -> PackedByteArray:
 		var this_index: int = 4 * index + 3
 		var this_alpha: int = palette[this_index]
 		
-		match SpriteExport.palette_alpha_mode:
+		match SpriteExport.settings.palette_alpha_mode:
 			SpriteExport.AlphaMode.DOUBLE:
 				palette[this_index] = min(this_alpha * 2, 0xFF)
 			

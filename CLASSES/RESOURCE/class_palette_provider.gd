@@ -78,6 +78,12 @@ func palette_load(index: int = 0) -> void:
 		sprite_index = index
 		sprite = obj_data["sprites"][sprite_index]
 		bit_depth = sprite.bit_depth
+		
+		# A bit silly, but keeps external functionality/consistency
+		var new_bin_pal: BinPalette = BinPalette.new()
+		new_bin_pal.palette = sprite.palette
+		palette = new_bin_pal
+		
 		palette_updated.emit(sprite.palette)
 
 
