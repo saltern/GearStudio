@@ -14,11 +14,6 @@ func _enter_tree() -> void:
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 	
-	obj_data = SessionData.object_data_get(get_parent().get_index())
-	
-	if not obj_data.has("palettes"):
-		queue_free()
-	
 	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
 	

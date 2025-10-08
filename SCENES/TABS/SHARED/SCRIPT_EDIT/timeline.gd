@@ -29,6 +29,7 @@ func _ready() -> void:
 	
 	script_edit.action_loaded.connect(update)
 	script_edit.action_seek_to_frame.connect(external_seek)
+	script_edit.action_select_instruction.connect(on_action_select_instruction)
 	anim.inst_cell_jump.connect(on_cell_jump)
 	anim.inst_end_action.connect(set_end_mode)
 	button_play_from_start.pressed.connect(play_from_start)
@@ -91,3 +92,8 @@ func on_cell_jump(index: int) -> void:
 	var frame: int = script_edit.script_instruction_get_cell_frame(index)
 	value = frame
 #endregion
+
+
+func on_action_select_instruction(index: int) -> void:
+	var frame: int = script_edit.script_instruction_get_frame(index)
+	set_value_no_signal(frame)

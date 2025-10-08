@@ -29,11 +29,7 @@ func should_reindex(sprite: BinSprite) -> bool:
 	if not SessionData.session_get_reindex(sprite_edit.session_id):
 		return false
 	
-	if not sprite_edit.obj_data.has("name") or \
-	sprite_edit.obj_data.name != "player":
+	if not sprite_edit.obj_data.has("palettes"):
 		return sprite.bit_depth == 8
 	
-	if sprite_edit.obj_data.name == "player":
-		return true
-	
-	return false
+	return true

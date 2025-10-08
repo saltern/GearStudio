@@ -9,6 +9,7 @@ enum ItemIDs {
 
 func _ready() -> void:
 	add_check_item("Reindex 8bpp palettes in previews", ItemIDs.REINDEX)
+	set_item_checked(ItemIDs.REINDEX, Settings.general_reindex_mode)
 	index_pressed.connect(on_index_pressed)
 
 

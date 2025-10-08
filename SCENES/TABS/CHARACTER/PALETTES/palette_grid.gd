@@ -46,13 +46,6 @@ func _ready() -> void:
 	
 	mouse_entered.connect(on_mouse_enter)
 	mouse_exited.connect(on_mouse_exit)
-	
-	for index in 256:
-		var new_color := ColorRect.new()
-		new_color.custom_minimum_size = Vector2(CELL_SIZE,CELL_SIZE)
-		new_color.mouse_filter = MOUSE_FILTER_IGNORE
-		new_color.show_behind_parent = true
-		add_child(new_color)
 
 
 #region Draw
@@ -63,43 +56,68 @@ func _process(_delta: float) -> void:
 func _draw() -> void:
 	var color_count: int = provider.palette_get_color_count()
 	
-	for cell in min(get_child_count(), color_count):
+	for cell: int in color_count:
+		#region Colors
+		var color: Color = provider.palette_get_color(cell)
+		color.a8 = min(color.a8 * 2, 0xFF)
+		
+		draw_rect(
+			Rect2(
+				GRID_SIZE * (cell % 16) + 1,
+				GRID_SIZE * (cell / 16) + 1,
+				GRID_SIZE - 1, GRID_SIZE - 1
+			), color
+		)
+		#endregion
+		
 		#region Selection in progress (prioritized)
 		if selecting[cell]:
 			# Inner black outline
-			draw_rect(Rect2(
-					GRID_SIZE * (cell % 16) + 2,
-					GRID_SIZE * (cell / 16) + 2,
+			draw_rect(
+				Rect2(
+					GRID_SIZE * (cell % 16) + 3,
+					GRID_SIZE * (cell / 16) + 3,
 					GRID_SIZE - 5,
-					GRID_SIZE - 5),
-				Color.BLACK, false, 2)
+					GRID_SIZE - 5
+				),
+				Color.BLACK, false, 2
+			)
 			
 			# White square
-			draw_rect(Rect2(
-					GRID_SIZE * (cell % 16) + 1,
-					GRID_SIZE * (cell / 16) + 1,
+			draw_rect(
+				Rect2(
+					GRID_SIZE * (cell % 16) + 2,
+					GRID_SIZE * (cell / 16) + 2,
 					GRID_SIZE - 3,
-					GRID_SIZE - 3),
-				Color.WHITE, false, 2)
+					GRID_SIZE - 3
+				),
+				Color.WHITE, false, 2
+			)
 		#endregion
 		
 		#region Previously selected
 		elif selected[cell]:
 			# Inner black outline
-			draw_rect(Rect2(
-					GRID_SIZE * (cell % 16) + 2,
-					GRID_SIZE * (cell / 16) + 2,
+			draw_rect(
+				Rect2(
+					GRID_SIZE * (cell % 16) + 3,
+					GRID_SIZE * (cell / 16) + 3,
 					GRID_SIZE - 5,
-					GRID_SIZE - 5),
-				Color.BLACK, false, 2)
+					GRID_SIZE - 5
+				),
+				Color.BLACK, false, 2
+			)
 			
 			# Red square
-			draw_rect(Rect2(
-					GRID_SIZE * (cell % 16) + 1,
-					GRID_SIZE * (cell / 16) + 1,
+			draw_rect(
+				Rect2(
+					GRID_SIZE * (cell % 16) + 2,
+					GRID_SIZE * (cell / 16) + 2,
 					GRID_SIZE - 3,
-					GRID_SIZE - 3),
-				Color.RED, false, 2)
+					GRID_SIZE - 3
+				),
+				Color.RED, false, 2
+			)
 		#endregion
 		
 	if Input.is_key_pressed(KEY_CTRL):
@@ -108,20 +126,26 @@ func _draw() -> void:
 	#region Hovered color
 	if index_hovered > -1:
 		# Inner black outline
-		draw_rect(Rect2(
-				GRID_SIZE * (index_hovered % 16) + 2,
-				GRID_SIZE * (index_hovered / 16) + 2,
+		draw_rect(
+			Rect2(
+				GRID_SIZE * (index_hovered % 16) + 3,
+				GRID_SIZE * (index_hovered / 16) + 3,
 				GRID_SIZE - 5,
-				GRID_SIZE - 5),
-			Color.BLACK, false, 2)
+				GRID_SIZE - 5
+			),
+			Color.BLACK, false, 2
+		)
 		
 		# Cyan square
-		draw_rect(Rect2(
-				GRID_SIZE * (index_hovered % 16) + 1,
-				GRID_SIZE * (index_hovered / 16) + 1,
+		draw_rect(
+			Rect2(
+				GRID_SIZE * (index_hovered % 16) + 2,
+				GRID_SIZE * (index_hovered / 16) + 2,
 				GRID_SIZE - 3,
-				GRID_SIZE - 3),
-			Color.CYAN, false, 2)
+				GRID_SIZE - 3
+			),
+			Color.CYAN, false, 2
+		)
 	#endregion
 #endregion
 
@@ -469,18 +493,18 @@ func on_palette_load(palette: PackedByteArray) -> void:
 		get_parent().custom_minimum_size.y = 17 * (palette.size() / 64) + 1
 		custom_minimum_size.y = get_parent().custom_minimum_size.y - 1
 	
-	for child in get_children():
-		child.hide()
+	#for child in get_children():
+		#child.hide()
 	
-	for index in palette.size() / 4:
-		get_child(index).show()
-		var alpha: int = palette[4 * index + 3]
-		
-		get_child(index).color = Color8(
-			palette[4 * index + 0],
-			palette[4 * index + 1],
-			palette[4 * index + 2],
-			min(alpha * 2, 0xFF))
+	#for index in palette.size() / 4:
+		#get_child(index).show()
+		#var alpha: int = palette[4 * index + 3]
+		#
+		#get_child(index).color = Color8(
+			#palette[4 * index + 0],
+			#palette[4 * index + 1],
+			#palette[4 * index + 2],
+			#min(alpha * 2, 0xFF))
 #endregion
 
 

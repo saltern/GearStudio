@@ -34,6 +34,7 @@ const CUSTOM_PATH: String = "/custom"
 
 const CFG_SECTION_GENERAL: String = "general"
 const CFG_GENERAL_LANGUAGE: String = "language"
+const CFG_GENERAL_REINDEX_MODE: String = "reindex_mode"
 
 const CFG_SECTION_CUSTOM: String = "customization"
 const CFG_CUSTOM_BG_A: String = "color_bg_a"
@@ -63,7 +64,6 @@ const CFG_SPRITE_COLOR_BOUNDS: String = "color_bounds"
 const CFG_SPRITE_REINDEX: String = "reindex"
 
 const CFG_SECTION_PALETTES: String = "palettes"
-const CFG_PAL_REINDEX_MODE: String = "reindex_mode"
 const CFG_PAL_GRAD_REINDEX: String = "gradient_reindex"
 
 const CFG_SECTION_MISC: String = "misc"
@@ -90,13 +90,8 @@ enum SnapshotFormat {
 	BOTH,
 }
 
-enum ReindexMode {
-	ASK,
-	NEVER,
-	ALWAYS,
-}
-
 var general_language: String = "en"
+var general_reindex_mode: bool = true
 
 var custom_color_bg_a: Color = Color8(0x60, 0x60, 0x60)
 var custom_color_bg_b: Color = Color8(0x40, 0x40, 0x40)
@@ -142,7 +137,6 @@ var sprite_color_bounds: Color = Color.BLACK:
 		sprite_color_bounds = value
 		sprite_bounds_color_changed.emit()
 
-var pal_reindex_mode: ReindexMode = ReindexMode.ASK
 var pal_gradient_reindex: bool = false
 
 var misc_max_undo: int = 200
@@ -224,6 +218,8 @@ func load_config() -> bool:
 	
 	general_language = config.get_value(
 		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language)
+	general_reindex_mode = config.get_value(
+		CFG_SECTION_GENERAL, CFG_GENERAL_REINDEX_MODE, general_reindex_mode)
 	
 	custom_color_status = config.get_value(
 		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
@@ -275,9 +271,7 @@ func load_config() -> bool:
 	
 	sprite_color_bounds = config.get_value(
 		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
-	
-	pal_reindex_mode = config.get_value(
-		CFG_SECTION_PALETTES, CFG_PAL_REINDEX_MODE, pal_reindex_mode)
+		
 	pal_gradient_reindex = config.get_value(
 		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
 	
@@ -462,8 +456,8 @@ func set_box_color(type: BoxType, color: Color) -> void:
 
 
 #region Palettes
-func set_palette_reindex_mode(mode: ReindexMode) -> void:
-	pal_reindex_mode = mode
+func set_general_reindex_mode(enabled: bool) -> void:
+	general_reindex_mode = enabled
 
 
 func set_palette_gradient_reindex(enabled: bool) -> void:

@@ -463,28 +463,12 @@ button_pressed = true
 text = "PREFERENCES_GENERAL_REOPEN"
 script = ExtResource("20_560p1")
 
-[node name="reindex_mode" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+clip_contents = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/reindex_mode"]
-layout_mode = 2
-size_flags_horizontal = 3
+button_pressed = true
 text = "PREFERENCES_GENERAL_REINDEX"
-text_overrun_behavior = 3
-
-[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/reindex_mode"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-fit_to_longest_item = false
-item_count = 3
-popup/item_0/text = "PREFERENCES_PALETTES_REINDEX_MODE_ASK"
-popup/item_0/id = 0
-popup/item_1/text = "PREFERENCES_PALETTES_REINDEX_MODE_NEVER"
-popup/item_1/id = 1
-popup/item_2/text = "PREFERENCES_PALETTES_REINDEX_MODE_ALWAYS"
-popup/item_2/id = 2
 script = ExtResource("32_nliut")
 
 [node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]

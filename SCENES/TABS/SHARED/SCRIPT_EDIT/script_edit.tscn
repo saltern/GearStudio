@@ -1025,7 +1025,6 @@ script = ExtResource("41_jqa1b")
 [node name="palette" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/PALETTE_preview"]
 texture_filter = 1
 custom_minimum_size = Vector2(128, 128)
-anchors_preset = -1
 offset_right = 128.0
 offset_bottom = 128.0
 size_flags_horizontal = 0
@@ -1040,6 +1039,7 @@ vertical_alignment = 1
 text_overrun_behavior = 3
 
 [node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 

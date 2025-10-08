@@ -115,6 +115,8 @@ func new_directory_session(path: String) -> void:
 		"data": BinResource.from_path(path, ScriptInstructions.INSTRUCTION_DB),
 	}
 	
+	new_session["reindex"] = Settings.general_reindex_mode
+	
 	if not new_session["data"].is_empty():
 		sessions.append(new_session)
 		this_session = new_session
@@ -137,6 +139,8 @@ func new_binary_session(path: String) -> void:
 		"current_object": 0,
 		"data": bin_resource,
 	}
+	
+	new_session["reindex"] = Settings.general_reindex_mode
 	
 	sessions.append(new_session)
 	this_session = new_session
@@ -205,12 +209,7 @@ func session_get_palettes(session_id: int) -> Array[BinPalette]:
 
 func session_get_reindex(session_id: int) -> bool:
 	var session: Dictionary = get_session(session_id)
-	
-	if not session.has("reindex"):
-		return false
-	
-	else:
-		return session["reindex"]
+	return session["reindex"]
 
 
 func session_has_palettes(session_id: int) -> bool:

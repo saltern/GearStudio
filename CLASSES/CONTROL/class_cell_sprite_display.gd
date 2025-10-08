@@ -35,11 +35,7 @@ func load_cell(cell: Cell) -> void:
 		sprite_origin.add_child(new_texture_rect)
 
 	material.set_shader_parameter("palette", get_palette(cell.sprite_index))
-
-	if not provider.obj_data.has("palettes"):
-		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
-	else:
-		material.set_shader_parameter("reindex", true)
+	material.set_shader_parameter("reindex", should_reindex(sprite))
 	
 	sprite_origin.position.x = cell.sprite_x_offset
 	sprite_origin.position.y = cell.sprite_y_offset
@@ -74,3 +70,13 @@ func reload_palette() -> void:
 		load_palette(palette_index)
 	else:
 		load_palette(sprite_index)
+
+
+func should_reindex(sprite: BinSprite) -> bool:
+	if not SessionData.session_get_reindex(provider.session_id):
+		return false
+	
+	if not provider.obj_data.has("palettes"):
+		return sprite.bit_depth == 8
+	
+	return true

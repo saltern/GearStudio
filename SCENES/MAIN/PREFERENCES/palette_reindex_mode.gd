@@ -1,10 +1,9 @@
-extends OptionButton
+extends CheckButton
 
 
 func _ready() -> void:
-	selected = Settings.pal_reindex_mode as int
-	item_selected.connect(on_item_selected)
+	button_pressed = Settings.general_reindex_mode
 
 
-func on_item_selected(item: int) -> void:
-	Settings.set_palette_reindex_mode(item as Settings.ReindexMode)
+func _toggled(toggled_on: bool) -> void:
+	Settings.set_general_reindex_mode(toggled_on)
