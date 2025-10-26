@@ -96,4 +96,4 @@ func on_cell_jump(index: int) -> void:
 
 func on_action_select_instruction(index: int) -> void:
 	var frame: int = script_edit.script_instruction_get_frame(index)
-	set_value_no_signal(frame)
+	value = frame
