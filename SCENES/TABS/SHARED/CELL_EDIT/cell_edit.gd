@@ -964,12 +964,13 @@ func box_set_crop_offset_y(new_value: int) -> void:
 #region Snapshots
 func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 	var cell: Cell = obj_data.cells[cell_number]
+	var number: int = get_parent().get_index()
 	
 	# Generate filename, path
 	var file: String = \
 		SessionData.get_session(session_id)["path"].get_file()
 	var date: Dictionary = Time.get_datetime_dict_from_system()
-	var file_name: String = "%s_CELL-%04d" % [file, cell_number]
+	var file_name: String = "%s_#%s_CELL-%04d" % [file, number, cell_number]
 	
 	file_name += "_%04d-%02d-%02d_%02d-%02d-%02d" % [
 		date["year"], date["month"], date["day"],
