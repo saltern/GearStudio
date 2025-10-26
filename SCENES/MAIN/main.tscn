@@ -98,7 +98,7 @@ size = Vector2i(600, 400)
 ok_button_text = "Open"
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.bin;Binary files")
+filters = PackedStringArray("*.bin,*.lot;Binary files")
 use_native_dialog = true
 script = ExtResource("4_csxth")
 
