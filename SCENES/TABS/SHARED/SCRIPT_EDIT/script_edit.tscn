@@ -764,6 +764,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+allow_reselect = true
 item_count = 1
 script = ExtResource("12_0a85a")
 action_spinbox = NodePath("../../../../action_idx/value")
