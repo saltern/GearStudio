@@ -26,6 +26,7 @@ var palette_index: int = 0
 var export_list: Array[BinSprite] = []
 var export_start_index: int = 0
 var export_end_index: int = 0
+var export_start_from_zero: bool = false
 
 var obj_data: Dictionary
 
@@ -102,6 +103,8 @@ func set_sprite_flip_v(enabled: bool) -> void:
 
 
 func set_name_from_zero(enabled: bool) -> void:
+	export_start_from_zero = enabled
+	
 	if enabled:
 		settings.name_start_index = 0
 	else:
@@ -140,5 +143,6 @@ func export(output_path: String) -> void:
 		settings.palette_colors = obj_data["palettes"][palette_index].palette
 	
 	settings.palette_override = obj_data.has("palettes")
+	set_name_from_zero(export_start_from_zero)
 	
 	SpriteExporter.export_sprites(export_list, output_path, settings)
