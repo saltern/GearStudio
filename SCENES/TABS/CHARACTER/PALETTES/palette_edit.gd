@@ -14,6 +14,8 @@ func _enter_tree() -> void:
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
 	
+	# Preview refresh handled from preview_sprite.gd (bottom-most preview node)
+	
 	provider.undo_redo = undo_redo
 	provider.obj_data = obj_data
 	

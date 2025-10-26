@@ -9,6 +9,7 @@ signal palette_changed
 @warning_ignore("unused_signal")
 signal sprite_reindexed			# Emitted by SpriteEdit's PaletteProvider
 signal sprite_palette_changed
+signal refresh_previews
 
 enum SessionType {
 	DIRECTORY,
@@ -134,6 +135,10 @@ func new_binary_session(path: String) -> void:
 		binary_load_error.bind(bin_resource["error"]).call_deferred()
 		return
 	
+	if bin_resource.size() < 1:
+		Status.set_status.bind("STATUS_LOAD_INVALID").call_deferred()
+		return
+	
 	var new_session: Dictionary = {
 		"session_type": SessionType.BINARY,
 		"current_object": 0,
@@ -197,6 +202,7 @@ func set_sprite_palette(obj_data: Dictionary, sprite_index: int) -> void:
 func session_set_reindex(session_id: int, enabled: bool) -> void:
 	var session: Dictionary = get_session(session_id)
 	session["reindex"] = enabled
+	refresh_previews.emit(session_id)
 
 
 # Called by script_cell_sprite_display.gd

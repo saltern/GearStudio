@@ -89,6 +89,7 @@ func _ready() -> void:
 		SessionData.palette_changed.connect(palette_set_session)
 	
 	SessionData.sprite_reindexed.connect(on_sprite_reindexed)
+	SessionData.refresh_previews.connect(refresh_preview)
 	
 	visibility_changed.connect(register_action_history)
 	
@@ -152,6 +153,13 @@ func status_register_action(action_text: String) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
 		"action": action_text
 	})))
+
+
+func refresh_preview(for_id: int) -> void:
+	if for_id != session_id:
+		return
+	
+	cell_load(cell_index)
 
 
 #region Undo/Redo

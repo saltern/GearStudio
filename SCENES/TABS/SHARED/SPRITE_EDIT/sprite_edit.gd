@@ -50,6 +50,8 @@ func _ready() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	GlobalSignals.menu_undo.connect(undo)
 	GlobalSignals.menu_redo.connect(redo)
+	
+	SessionData.refresh_previews.connect(refresh_preview)
 
 
 func _input(event: InputEvent) -> void:
@@ -76,6 +78,13 @@ func status_register_action(action_text: String) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
 		"action": action_text
 	})))
+
+
+func refresh_preview(for_id: int) -> void:
+	if for_id != session_id:
+		return
+	
+	sprite_reload()
 
 
 #region Undo/Redo

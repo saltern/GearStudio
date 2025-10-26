@@ -82,6 +82,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	script_action_load(0)
+	SessionData.refresh_previews.connect(refresh_preview)
 
 
 func _input(event: InputEvent) -> void:
@@ -108,6 +109,15 @@ func status_register_action(action_text: String) -> void:
 	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
 		"action": action_text
 	})))
+
+
+func refresh_preview(for_id: int) -> void:
+	if for_id != session_id:
+		return
+	
+	var frame: int = script_animation_get_current_frame()
+	anim.load_frame(frame)
+	anim_ref.load_frame(frame)
 
 
 #region Undo/Redo
