@@ -7,6 +7,7 @@ signal export_end_index_set
 signal palette_index_set
 signal palette_include_set
 signal palette_alpha_mode_set
+signal palette_reindex_set
 signal sprite_reindex_set
 signal sprite_flip_h_set
 signal sprite_flip_v_set
@@ -46,8 +47,9 @@ var settings := SpriteExporterSettings.new()
 # sprite_reindex
 # sprite_flip_h
 # sprite_flip_v
-# name_from_zero
-# name_zero_pad
+
+# file_name_from_zero
+# file_name_zero_pad
 
 
 func _ready() -> void:
@@ -87,18 +89,23 @@ func set_palette_alpha_mode(mode: AlphaMode) -> void:
 	palette_alpha_mode_set.emit()
 
 
+func set_palette_reindex(enabled: bool) -> void:
+	settings.palette_reindex = enabled
+	palette_reindex_set.emit()
+
+
 func set_sprite_reindex(enabled: bool) -> void:
-	settings.reindex = enabled
+	settings.sprite_reindex = enabled
 	sprite_reindex_set.emit()
 
 
 func set_sprite_flip_h(enabled: bool) -> void:
-	settings.flip_h = enabled
+	settings.sprite_flip_h = enabled
 	sprite_flip_h_set.emit()
 
 
 func set_sprite_flip_v(enabled: bool) -> void:
-	settings.flip_v = enabled
+	settings.sprite_flip_v = enabled
 	sprite_flip_v_set.emit()
 
 
@@ -106,29 +113,33 @@ func set_name_from_zero(enabled: bool) -> void:
 	export_start_from_zero = enabled
 	
 	if enabled:
-		settings.name_start_index = 0
+		settings.file_name_start_index = 0
 	else:
-		settings.name_start_index = export_start_index
+		settings.file_name_start_index = export_start_index
 
 
 func set_name_zero_pad(enabled: bool) -> void:
-	settings.name_zero_pad = enabled
+	settings.file_name_zero_pad = enabled
 
 
 func get_palette_included() -> bool:
 	return settings.palette_include
 
 
-func get_reindex() -> bool:
-	return settings.reindex
+func get_palette_reindex() -> bool:
+	return settings.palette_reindex
 
 
-func get_flip_h() -> bool:
-	return settings.flip_h
+func get_sprite_reindex() -> bool:
+	return settings.sprite_reindex
 
 
-func get_flip_v() -> bool:
-	return settings.flip_v
+func get_sprite_flip_h() -> bool:
+	return settings.sprite_flip_h
+
+
+func get_sprite_flip_v() -> bool:
+	return settings.sprite_flip_v
 
 
 func export(output_path: String) -> void:

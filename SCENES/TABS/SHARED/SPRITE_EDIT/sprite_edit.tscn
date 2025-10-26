@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://b0utvdt6m12v6"]
+[gd_scene load_steps=74 format=3 uid="uid://b0utvdt6m12v6"]
 
 [ext_resource type="Script" uid="uid://ckc1gxoyhb6q0" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_edit.gd" id="1_ogryx"]
 [ext_resource type="Script" uid="uid://bro022adk74wf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/sprite_reindex.gd" id="3_1wybh"]
@@ -52,6 +52,7 @@
 [ext_resource type="Script" uid="uid://db2lbgtx03sv8" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_file_dialog.gd" id="43_05050"]
 [ext_resource type="Script" uid="uid://som8h7u5nuxf" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_format.gd" id="45_3pi4a"]
 [ext_resource type="Script" uid="uid://b7ii1r66cfq4g" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_IMPORTER/importer_palette_index.gd" id="46_cp5l3"]
+[ext_resource type="Script" uid="uid://dyeyd6kyarmsy" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_palette_reindex.gd" id="49_3pi4a"]
 [ext_resource type="Script" uid="uid://lulxq5vlqnyo" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_EXPORTER/exporter_sprite_flip_hv.gd" id="50_e7btt"]
 [ext_resource type="Script" uid="uid://dond4w4wi7ox2" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_from.gd" id="52_eg8u3"]
 [ext_resource type="Script" uid="uid://w20b7j7pdnwj" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/SPRITE_DELETE/delete_range_to.gd" id="52_ft3y0"]
@@ -1038,13 +1039,14 @@ title = "SPRITE_EDIT_EXPORT_PALETTE_TITLE"
 [node name="content" type="VBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette"]
 layout_mode = 2
 
-[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content" node_paths=PackedStringArray("control_index", "control_alpha")]
+[node name="include" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content" node_paths=PackedStringArray("control_index", "control_alpha", "control_reindex")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SPRITE_EDIT_EXPORT_PALETTE_INCLUDE"
 script = ExtResource("16_2qa0c")
 control_index = NodePath("../index")
 control_alpha = NodePath("../alpha")
+control_reindex = NodePath("../reindex")
 
 [node name="index" type="HBoxContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content"]
 layout_mode = 2
@@ -1092,6 +1094,13 @@ popup/item_2/id = 2
 popup/item_3/text = "SPRITE_EDIT_EXPORT_PALETTE_ALPHA_OPAQUE"
 popup/item_3/id = 3
 script = ExtResource("20_014r4")
+
+[node name="reindex" type="CheckButton" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config/palette/content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+tooltip_text = "SPRITE_EDIT_EXPORT_PALETTE_REINDEX_TOOLTIP"
+text = "SPRITE_EDIT_EXPORT_PALETTE_REINDEX"
+script = ExtResource("49_3pi4a")
 
 [node name="sprite" type="FoldableContainer" parent="sprite_export/background/content_margin/window_content/config_contents/config_scroll/config_margin/config"]
 layout_mode = 2

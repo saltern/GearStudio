@@ -2,6 +2,7 @@ extends CheckButton
 
 @export var control_index: HBoxContainer
 @export var control_alpha: HBoxContainer
+@export var control_reindex: CheckButton
 
 @onready var sprite_edit: SpriteEdit = owner
 
@@ -19,3 +20,4 @@ func update() -> void:
 		control_index.visible = button_pressed
 		
 	control_alpha.visible = button_pressed
+	control_reindex.visible = button_pressed

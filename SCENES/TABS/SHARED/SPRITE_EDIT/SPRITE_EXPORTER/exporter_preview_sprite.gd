@@ -15,6 +15,7 @@ func _ready() -> void:
 	SpriteExport.palette_include_set.connect(update_palette)
 	SpriteExport.palette_index_set.connect(update_palette)
 	SpriteExport.palette_alpha_mode_set.connect(update_palette)
+	SpriteExport.palette_reindex_set.connect(update_palette)
 	SpriteExport.sprite_reindex_set.connect(update_palette)
 	SpriteExport.sprite_flip_h_set.connect(update_texture)
 	SpriteExport.sprite_flip_v_set.connect(update_texture)
@@ -30,9 +31,9 @@ func set_sprite_index(new_index: int) -> void:
 func update_texture() -> void:
 	var image: Image = sprite_edit.sprite_get_image(sprite_index).duplicate()
 	
-	if SpriteExport.get_flip_h():
+	if SpriteExport.get_sprite_flip_h():
 		image.flip_x()
-	if SpriteExport.get_flip_v():
+	if SpriteExport.get_sprite_flip_v():
 		image.flip_y()
 	
 	texture = ImageTexture.create_from_image(image)
@@ -63,7 +64,8 @@ func update_palette() -> void:
 
 
 func process_reindex(palette: PackedByteArray) -> PackedByteArray:
-	if not SpriteExport.get_reindex():
+	# Need (sprite_reindex XOR palette_reindex == true) to advance
+	if SpriteExport.get_sprite_reindex() == SpriteExport.get_palette_reindex():
 		return palette
 	
 	if sprite_edit.sprite_get(sprite_index_spinbox.value).bit_depth == 4:
