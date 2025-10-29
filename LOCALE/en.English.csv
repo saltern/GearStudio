@@ -1,5 +1,4 @@
 key,en
-,
 TOP_MENU_FILE,File
 TOP_MENU_EDIT,Edit
 TOP_MENU_HELP,Help
@@ -14,9 +13,7 @@ EDIT_REDO,Redo
 EDIT_ACTION_HISTORY,Action History...
 EDIT_PREFERENCES,Preferences...
 HELP_ABOUT,About...
-,
 SESSION_PREVIEW_REINDEX,Reindex 8bpp palettes in previews
-,
 PREFERENCES_TITLE,Preferences
 PREFERENCES_GENERAL_TITLE,General
 PREFERENCES_GENERAL_LANGUAGE,Language
@@ -58,10 +55,8 @@ PREFERENCES_PALETTES_GRADIENT_REINDEX,Reindex palette gradients
 PREFERENCES_PALETTES_GRADIENT_REINDEX_TOOLTIP,"If enabled, gradients will be generated respecting
 +R's color order on 8 bpp (256-color) palettes."
 PREFERENCES_SAVE,Save preferences
-,
 ACTION_HISTORY_TITLE,Action History
 ACTION_HISTORY_FILE_OPENED,File opened
-,
 ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS
 ABOUT_ACKNOWLEDGMENTS_RYN,"- Character BIN parser
 - +R sprite decoder"
@@ -70,7 +65,6 @@ ABOUT_ACKNOWLEDGMENTS_LOVENUS,"- Parser for various other resource files
 ABOUT_ACKNOWLEDGMENTS_CHLOE,"- Testing, various improvement suggestions"
 ABOUT_BY,by
 ABOUT_CLOSE,Close
-,
 TAB_BASE_NAME,File {id}: {name}
 TAB_TITLE_OBJECT,Object
 TAB_TITLE_PLAYER,Player
@@ -79,12 +73,10 @@ TAB_TITLE_SPRITE_LIST,Sprites
 TAB_TITLE_SPRITE_LIST_SELECT,Sprites + Cursor Mask
 TAB_TITLE_PLAIN_TEXT,Plain Text
 TAB_TITLE_MULTI_SCRIPTABLE,Effects
-,
 REINDEX_PROMPT_TITLE,Reindex player palettes?
 REINDEX_PROMPT_CONTENT,Reindex the player object's palettes (if present)?
 REINDEX_PROMPT_REMEMBER,Remember this choice
 REINDEX_PROMPT_REMEMBER_TIP,This setting can be changed from the Preferences menu.
-,
 SPRITE_EDIT_TITLE,Sprites
 SPRITE_EDIT_PREVIEW,Preview
 SPRITE_EDIT_SPRITE_IMPORT,Import...
@@ -111,7 +103,6 @@ SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,Export the embedded palette to a file...
 SPRITE_EDIT_PALETTE_EDITOR,Open palette editor
 SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,Open the embedded palette editor and enable changes
 SPRITE_EDIT_PALETTE_EDITOR_TITLE,Color editor
-,
 SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...
 SPRITE_EDIT_IMPORT_FILES_TITLE,Input files
 SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,Select files to import here.
@@ -185,7 +176,6 @@ SPRITE_EDIT_IMPORT_CONFIRM_TEXT,Import {count} sprite(s)?
 SPRITE_EDIT_IMPORT_CONFIRM_CANCEL,Cancel
 SPRITE_EDIT_IMPORT_PROGRESS_TITLE,Importing sprites...
 SPRITE_EDIT_IMPORT_PLACING,Placing sprites...
-,
 SPRITE_EDIT_EXPORT_TITLE,Export '{name}' sprites...
 SPRITE_EDIT_EXPORT_RANGE_TITLE,Sprite range
 SPRITE_EDIT_EXPORT_RANGE_TITLE_TOOLTIP,"Select the range of sprites to export here.
@@ -260,7 +250,6 @@ SPRITE_EDIT_EXPORT_PREVIEW_SPRITE,Preview sprite
 SPRITE_EDIT_EXPORT_PREVIEW_SPRITE_TOOLTIP,Set the exported sprite to preview.
 SPRITE_EDIT_EXPORT_EXPORT_BUTTON,Export...
 SPRITE_EDIT_EXPORT_EXPORT_BUTTON_TOOLTIP,Click to begin exporting sprites with the above settings.
-,
 SPRITE_EDIT_DELETE_TITLE,Delete '{name}' sprites...
 SPRITE_EDIT_DELETE_RANGE_TITLE,Range
 SPRITE_EDIT_DELETE_RANGE_TITLE_TOOLTIP,"Select the range of sprites to delete here.
@@ -295,7 +284,6 @@ SPRITE_EDIT_DELETE_CANNOT_DELETE_TITLE,Cannot delete
 SPRITE_EDIT_DELETE_CANNOT_DELETE_TEXT,"Cannot delete all sprites! Object needs at least 1.
 Consider importing new sprites to replace the old ones."
 SPRITE_EDIT_DELETE_CANNOT_DELETE_OK_BUTTON,OK
-,
 CELL_EDIT_TITLE,Cells
 CELL_EDIT_DELETE_TOOLTIP,Delete a single cell or a range of cells.
 CELL_EDIT_NEW_BEFORE_TOOLTIP,"Add a new cell before the current one.
@@ -370,7 +358,6 @@ CELL_EDIT_PREVIEW_PALETTE_INDEX_TOOLTIP,Set the palette to preview sprites with.
 SNAPSHOT_BUTTON,Save snapshot
 SNAPSHOT_BUTTON_TOOLTIP,"Saves the current cell as an image to Gear Studio's install path, under 'snapshots'.
 Shift+click to bring up a dialog to save multiple snapshots at once."
-,
 CELL_EDIT_DELETE_TITLE,Delete cells
 CELL_EDIT_DELETE_RANGE_TITLE,Range
 CELL_EDIT_DELETE_RANGE_FROM,From cell
@@ -384,7 +371,6 @@ CELL_EDIT_DELETE_CONFIRM_DELETE,Delete
 CELL_EDIT_DELETE_CANNOT_TITLE,Cannot delete
 CELL_EDIT_DELETE_CANNOT_TEXT,"Cannot delete all cells! Object needs at least 1.
 Consider creating new cells before deleting all the old ones."
-,
 CELL_EDIT_SNAPSHOTS_TITLE,Take multiple snapshots
 CELL_EDIT_SNAPSHOTS_RANGE_TITLE,Range
 CELL_EDIT_SNAPSHOTS_RANGE_FROM,From cell
@@ -400,7 +386,6 @@ CELL_EDIT_SNAPSHOTS_PALETTE_BROWSE,Browse...
 CELL_EDIT_SNAPSHOTS_PALETTE_ERROR,The selected file does not appear to be a valid palette file.
 CELL_EDIT_SNAPSHOTS_SAVE_BUTTON,Take snapshot(s)
 CELL_EDIT_SNAPSHOTS_PROGRESS_TITLE,Taking snapshots...
-,
 PALETTE_EDIT_TITLE,Palettes
 PALETTE_EDIT_PALETTE_INDEX,Palette #
 PALETTE_EDIT_PALETTE_INDEX_TOOLTIP,Set the palette to edit.
@@ -428,7 +413,6 @@ PALETTE_EDIT_BY_CHANNEL,Edit individual channels
 PALETTE_EDIT_BY_CHANNEL_TOOLTIP,"If enabled and when multiple indices are selected, changing their color will be
 done on a channel by channel basis, e.g. setting a new red value will not affect
 the existing green, blue, or alpha values of each selected index."
-,
 SCRIPT_INSTRUCTION_NOT_FOUND,ERROR
 SCRIPT_EDIT_TITLE,Script
 SCRIPT_EDIT_TITLE_PLAY_DATA,Play data
@@ -465,6 +449,7 @@ SCRIPT_EDIT_FLAGS_10,Can be blocked high
 SCRIPT_EDIT_FLAGS_11,Can be blocked low
 SCRIPT_EDIT_FLAGS_12,Can be blocked in the air
 SCRIPT_EDIT_FLAGS_14,Requires FD to air block
+SCRIPT_EDIT_FLAGS_16,Staggers
 SCRIPT_EDIT_FLAGS_18,Enables fire effect
 SCRIPT_EDIT_FLAGS_19,Enables lightning effect
 SCRIPT_EDIT_FLAGS_20,No hitstop
@@ -503,7 +488,6 @@ SCRIPT_EDIT_STOP_TOOLTIP,Stop
 SCRIPT_EDIT_CURRENT_FRAME_TOOLTIP,Current frame
 SCRIPT_EDIT_TOTAL_FRAMES_TOOLTIP,Total frames
 SCRIPT_EDIT_INSTRUCTIONS,Instructions
-,
 SCRIPT_VARIABLES_SECTION_PROPERTIES,Character properties
 SCRIPT_VARIABLES_SECTION_TENSION,Tension gain
 SCRIPT_VARIABLES_SECTION_GROUND,Grounded movement
@@ -550,7 +534,6 @@ VAR_ADASH_BWD_ATK,Airdash backward attack time
 VAR_DEFENSE_GRAVITY,Defense gravity
 CHAIN_TABLE_INDEX,Table #
 CHAIN_TABLE_UNKNOWN,Unknown
-,
 INSTRUCTION_PARAM_UNUSED,Unused
 INSTRUCTION_PARAM_UNKNOWN,Unknown
 INSTRUCTION_PARAM_MODE,Mode
@@ -592,7 +575,6 @@ INSTRUCTION_PARAM_ACTION,Action
 INSTRUCTION_PARAM_ARGUMENT,Argument
 INSTRUCTION_PARAM_HITCOUNT,Hit Count
 INSTRUCTION_PARAM_ANGLE,Angle
-,
 SELECT_EDIT_TITLE,Cursor Mask
 SELECT_EDIT_IMPORT,Import...
 SELECT_EDIT_IMPORT_TOOLTIP,Select an image to replace the cursor mask with.
@@ -628,7 +610,6 @@ SELECT_CHAR_24,Kliff Undersn
 SELECT_CHAR_25,Justice
 SELECT_CHAR_255,Random select
 SELECT_CHAR_INVALID,Invalid pixel!
-,
 PLEASE_WAIT,Please wait.
 BUTTON_CANCEL,Cancel
 BUTTON_OK,OK
@@ -665,8 +646,6 @@ REFERENCE_SESSION_NONE,None
 REFERENCE_SESSION_ENTRY,File {index}: {name}
 REFERENCE_OBJECT_NONE,None
 REFERENCE_OBJECT_ENTRY,Object #{index}
-,
-,
 STATUS_READY,Ready.
 STATUS_OPEN_ALREADY_OPEN_DIR,Directory already open!
 STATUS_OPEN_ALREADY_OPEN_BIN,File already open!
@@ -700,9 +679,7 @@ STATUS_PALETTE_IMPORT_NULL,"Could not load palette, file is invalid or does not 
 STATUS_INSTRUCTION_DB_START,Building script instruction database...
 STATUS_INSTRUCTION_DB_FILE_NOT_FOUND,Instruction database file not found!
 STATUS_INSTRUCTION_DB_FINISH,Script instruction database build complete. Entries: {count}.
-,
 STATUS_SPRITE_EDIT_IMPORT_NOTHING,"No sprites selected, can't import."
-,
 STATUS_CELL_EDIT_CELL_LOAD,Loaded cell #{index}.
 STATUS_CELL_EDIT_CELL_COPY,Copied cell #{index} to the clipboard.
 STATUS_CELL_EDIT_CELL_PASTE_NOTHING,"No cell on clipboard, nothing pasted."
@@ -712,10 +689,8 @@ STATUS_CELL_EDIT_BOX_COPY_NOTHING,"No boxes selected, nothing copied."
 STATUS_CELL_EDIT_BOX_COPY,Copied box(es).
 STATUS_CELL_EDIT_BOX_PASTE_NOTHING,"No boxes on clipboard, nothing pasted."
 STATUS_CELL_EDIT_BOX_DELETE_NOTHING,"No boxes selected, can't delete."
-,
 STATUS_PROVIDER_NOTHING_SELECTED,Nothing selected. Palette has not been modified.
 STATUS_PROVIDER_CANNOT_IMPORT,"Could not apply palette, no sprite selected."
-,
 STATUS_SCRIPT_EDIT_CANNOT_DELETE_ALL_ACTIONS,Cannot delete all actions! Nothing done.
 STATUS_SCRIPT_EDIT_ACTION_COPY,Copied action #{index} to the clipboard.
 STATUS_SCRIPT_EDIT_ACTION_CANNOT_PASTE,"No actions on clipboard, nothing pasted."
@@ -723,16 +698,12 @@ STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_COPY,"No instruction selected, nothing cop
 STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_PASTE,"No instructions on clipboard, nothing pasted."
 STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_MOVE,Cannot move instruction any further!
 STATUS_SCRIPT_EDIT_INSTRUCTION_MOVE_NOTHING,"No instruction selected, nothing moved."
-,
 ACTION_UNDO,Undo: {action}
 ACTION_NO_UNDO,Nothing to undo.
 ACTION_NO_REDO,Nothing to redo.
-,
 ACTION_SPRITE_EDIT_DELETE,Delete {count} sprite(s)
 ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,Cannot delete all sprites!
-,
 ACTION_SPRITE_IMPORTER_IMPORT,Import {count} '{object}' sprites
-,
 ACTION_CELL_EDIT_CELL_NEW,New cell (#{index})
 ACTION_CELL_EDIT_CELL_PASTE,Paste cell (#{index})
 ACTION_CELL_EDIT_CELL_DELETE,Delete {count} cell(s)
@@ -756,7 +727,6 @@ ACTION_CELL_EDIT_BOX_MODIFY,Cell #{index}: Modify box #{box}
 ACTION_CELL_EDIT_BOX_MODIFY_MULTI,Cell #{index}: Modify multiple boxes
 ACTION_CELL_EDIT_REGION_OFFSET_X,Cell #{index}: Set sprite region x offset
 ACTION_CELL_EDIT_REGION_OFFSET_Y,Cell #{index}: Set sprite region y offset
-,
 ACTION_PROVIDER_PALETTE_SET_COLOR,Palette #{index}: set color(s)
 ACTION_PROVIDER_PALETTE_PASTE_COLOR,Palette #{index}: paste color(s)
 ACTION_PROVIDER_PALETTE_IMPORT,Palette #{index}: import replacement
@@ -766,9 +736,7 @@ ACTION_PROVIDER_SPRITE_PASTE_COLOR,Sprite #{index}: paste color(s)
 ACTION_PROVIDER_SPRITE_IMPORT,Sprite #{index}: import palette
 ACTION_PROVIDER_SPRITE_REINDEX,Sprite #{index}: reindex
 ACTION_PROVIDER_MAKE_GRADIENT,Generate and apply gradient
-,
 ACTION_SELECT_IMPORT,Import cursor mask
-,
 ACTION_SCRIPT_EDIT_DELETE_ACTION,Action #{index}: delete
 ACTION_SCRIPT_EDIT_NEW_ACTION,New action at index #{index}
 ACTION_SCRIPT_EDIT_PASTE_ACTION,Paste action at index #{index}
