@@ -87,7 +87,7 @@ size_flags_horizontal = 3
 clip_contents = true
 layout_mode = 2
 script = ExtResource("2_52bim")
-metadata/_custom_type_script = ExtResource("2_52bim")
+metadata/_custom_type_script = "uid://bwaqqkmcb37ld"
 
 [node name="Visualizer" type="Node2D" parent="MarginContainer/HBoxContainer/PanelContainer/ZoomablePreview"]
 script = ExtResource("3_rf3ak")
@@ -168,4 +168,4 @@ grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("4_vyh7o")
 sprite_origin = NodePath(".")
-metadata/_custom_type_script = ExtResource("4_vyh7o")
+metadata/_custom_type_script = "uid://1vrtmn5wbtle"
