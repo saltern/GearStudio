@@ -21,7 +21,7 @@ func hide_info() -> void:
 
 func show_info(bit: int) -> void:
 	match bit:
-		1, 3, 5, 6, 7, 13, 15, 17, 22, 24, 27, 28, 29, 30, 31:
+		13, 15, 17, 22, 24, 27, 28, 29, 30, 31:
 			text = "SCRIPT_EDIT_FLAGS_UNKNOWN"
 		_:
 			text = "SCRIPT_EDIT_FLAGS_%s" % bit
