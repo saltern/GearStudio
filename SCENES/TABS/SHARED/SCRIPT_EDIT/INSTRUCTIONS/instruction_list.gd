@@ -17,7 +17,21 @@ func update() -> void:
 	var action: ScriptAction = script_edit.this_action
 	
 	for instruction in action.instructions:
-		add_item(ScriptInstructions.get_instruction_name(instruction.id))
+		var inst_name: String = ScriptInstructions.get_instruction_name(
+			instruction.id
+		)
+		
+		inst_name = "%s (" % inst_name
+		
+		for argument: int in instruction.arguments.size():
+			if argument > 0:
+				inst_name = "%s, " % inst_name
+			
+			inst_name = "%s%s" % [inst_name, instruction.arguments[argument].value]
+		
+		inst_name = "%s)" % inst_name
+		
+		add_item(inst_name)
 
 
 func external_select(index: int) -> void:
