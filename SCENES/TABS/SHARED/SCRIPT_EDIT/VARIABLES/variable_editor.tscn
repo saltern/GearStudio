@@ -1005,7 +1005,7 @@ script = ExtResource("3_s76eq")
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "j.2K"
+text = "j.D"
 flat = false
 script = ExtResource("3_s76eq")
 
@@ -1013,7 +1013,7 @@ script = ExtResource("3_s76eq")
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "3P"
+text = "5D"
 flat = false
 script = ExtResource("3_s76eq")
 
@@ -1021,7 +1021,7 @@ script = ExtResource("3_s76eq")
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "[?]"
+text = "3P"
 flat = false
 script = ExtResource("3_s76eq")
 
@@ -1029,7 +1029,7 @@ script = ExtResource("3_s76eq")
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "[?]"
+text = "j.6P"
 flat = false
 script = ExtResource("3_s76eq")
 
