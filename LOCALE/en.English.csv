@@ -477,7 +477,7 @@ SCRIPT_EDIT_FLAGS_20,No hitstop
 SCRIPT_EDIT_FLAGS_21,Reduced hitstop
 SCRIPT_EDIT_FLAGS_23,Seals Burst (both players)
 SCRIPT_EDIT_FLAGS_25,Is Instant Kill
-SCRIPT_EDIT_FLAGS_26,Seals Burst (?)
+SCRIPT_EDIT_FLAGS_26,Is Overdrive
 SCRIPT_EDIT_FLAGS_UNKNOWN,Unknown
 SCRIPT_EDIT_INSTRUCTIONS,Instructions
 SCRIPT_EDIT_INSTRUCTIONS_TOOLTIP,"This section holds the action's instructions (the list of functions to run, in order) and allows modifying them."
