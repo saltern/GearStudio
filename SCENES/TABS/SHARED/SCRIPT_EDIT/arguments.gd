@@ -12,6 +12,9 @@ var instruction_index: int = -1
 
 func _ready() -> void:
 	script_edit.action_select_instruction.connect(create_controls)
+	# Force clear controls if an instruction paste has been done or undone
+	# Fixes incorrect argument control updates and non-updates
+	script_edit.instruction_pasted.connect(clear_controls)
 	action_index.value_changed.connect(clear_controls.unbind(1))
 	instruction_list.item_selected.connect(create_controls)
 

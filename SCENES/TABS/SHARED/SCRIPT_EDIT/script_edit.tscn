@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://b4fya04yqkrn6"]
+[gd_scene format=3 uid="uid://b4fya04yqkrn6"]
 
 [ext_resource type="Script" uid="uid://dm7f4oebkoxbd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/script_edit.gd" id="1_jcqcc"]
 [ext_resource type="Script" uid="uid://ch6ervqlqpu8i" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/action_index.gd" id="2_5hivn"]
@@ -86,7 +86,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="SCRIPT_EDIT_TITLE" type="TabContainer" node_paths=PackedStringArray("tab_action_edit", "anim", "anim_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
+[node name="SCRIPT_EDIT_TITLE" type="TabContainer" unique_id=962220030 node_paths=PackedStringArray("tab_action_edit", "anim", "anim_ref", "cell_display", "cell_display_ref", "box_parent", "box_parent_ref")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -103,58 +103,58 @@ cell_display_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/previe
 box_parent = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
 box_parent_ref = NodePath("SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/box_parent")
 
-[node name="script_anim" type="AnimationPlayer" parent="."]
+[node name="script_anim" type="AnimationPlayer" parent="." unique_id=159181382]
 root_node = NodePath(".")
 callback_mode_process = 2
 script = ExtResource("2_hca04")
 
-[node name="script_anim_ref" type="AnimationPlayer" parent="."]
+[node name="script_anim_ref" type="AnimationPlayer" parent="." unique_id=1993334744]
 root_node = NodePath(".")
 callback_mode_process = 2
 script = ExtResource("2_hca04")
 reference_mode = true
 
-[node name="SCRIPT_EDIT_TITLE_ACTIONS" type="MarginContainer" parent="."]
+[node name="SCRIPT_EDIT_TITLE_ACTIONS" type="MarginContainer" parent="." unique_id=407796783]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="content" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS"]
+[node name="content" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS" unique_id=138693851]
 layout_mode = 2
 
-[node name="actions" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content"]
+[node name="actions" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content" unique_id=17240647]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions"]
+[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions" unique_id=330031358]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 
-[node name="data" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin"]
+[node name="data" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin" unique_id=2118176036]
 layout_mode = 2
 
-[node name="toolbar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
+[node name="toolbar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=684044197]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="delete" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="delete" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=740742039]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_DELETE_TOOLTIP"
 icon = ExtResource("3_y47wv")
 script = ExtResource("3_dxoqf")
 
-[node name="new_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="new_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=336997732]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_NEW_BEFORE_TOOLTIP"
 icon = ExtResource("4_v65u5")
 script = ExtResource("5_8cd30")
 
-[node name="new_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="new_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=1402397434]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_NEW_AFTER_TOOLTIP"
@@ -162,14 +162,14 @@ icon = ExtResource("5_qi07w")
 script = ExtResource("5_8cd30")
 insert_mode = 1
 
-[node name="copy" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="copy" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=898987473]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_COPY_TOOLTIP"
 icon = ExtResource("6_uc0na")
 script = ExtResource("8_vffee")
 
-[node name="paste_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="paste_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=1674122532]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_PASTE_BEFORE_TOOLTIP"
@@ -177,14 +177,14 @@ icon = ExtResource("7_5hivn")
 script = ExtResource("10_8bvup")
 insert_mode = -1
 
-[node name="paste" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="paste" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=424735733]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_PASTE_TOOLTIP"
 icon = ExtResource("8_3otq7")
 script = ExtResource("10_8bvup")
 
-[node name="paste_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar"]
+[node name="paste_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/toolbar" unique_id=384691336]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_ACTIONS_PASTE_AFTER_TOOLTIP"
@@ -192,14 +192,14 @@ icon = ExtResource("9_0a85a")
 script = ExtResource("10_8bvup")
 insert_mode = 1
 
-[node name="h_sep" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
+[node name="h_sep" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=1256416436]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="action_idx" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
+[node name="action_idx" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=1077834667]
 layout_mode = 2
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/action_idx"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/action_idx" unique_id=9264839]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "SCRIPT_EDIT_ACTION_TOOLTIP"
@@ -207,27 +207,27 @@ mouse_filter = 0
 text = "SCRIPT_EDIT_ACTION"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/action_idx"]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/action_idx" unique_id=24819713]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_5hivn")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="properties" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
+[node name="properties" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=131489535]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_TOOLTIP"
 title = "SCRIPT_EDIT_PROPERTIES"
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties" unique_id=1481165735]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="damage" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content"]
+[node name="damage" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content" unique_id=691626511]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/damage"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/damage" unique_id=1670145489]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -237,7 +237,7 @@ text = "SCRIPT_EDIT_PROPERTIES_DAMAGE"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/damage"]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/damage" unique_id=1081716269]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 255.0
@@ -245,18 +245,18 @@ alignment = 2
 script = ExtResource("5_h01nf")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="flags" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content"]
+[node name="flags" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content" unique_id=1065663929]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP"
 folded = true
 title = "SCRIPT_EDIT_PROPERTIES_FLAGS"
 title_text_overrun_behavior = 3
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags" unique_id=444402053]
 visible = false
 layout_mode = 2
 
-[node name="info" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content" node_paths=PackedStringArray("grid_flags")]
+[node name="info" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content" unique_id=95248506 node_paths=PackedStringArray("grid_flags")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "-"
@@ -264,231 +264,231 @@ vertical_alignment = 1
 script = ExtResource("17_sq6ji")
 grid_flags = NodePath("../flags_value")
 
-[node name="flags_value" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content"]
+[node name="flags_value" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content" unique_id=1274021793]
 layout_mode = 2
 theme_override_constants/separation = 2
 script = ExtResource("6_mno2r")
 total_flags = 32
 
-[node name="flags_0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value" unique_id=1912842691]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0
 
-[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=564818672]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=1031076557]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=309801590]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=2076686305]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "3"
 
-[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=2081095164]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=911128144]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "5"
 
-[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=1701667310]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "6"
 
-[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0"]
+[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_0" unique_id=1539368639]
 custom_minimum_size = Vector2(30, 20)
 layout_mode = 2
 toggle_mode = true
 text = "7"
 
-[node name="flags_1" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_1" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value" unique_id=1680256819]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0
 
-[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=634052562]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "8"
 
-[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=232122123]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "9"
 
-[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=449963524]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "10"
 
-[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=220069283]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "11"
 
-[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=982176181]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "12"
 
-[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=552209717]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "13"
 
-[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=981552163]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "14"
 
-[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1"]
+[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_1" unique_id=1153360066]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "15"
 
-[node name="flags_2" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_2" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value" unique_id=1063599934]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0
 
-[node name="16" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="16" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=97748]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "16"
 
-[node name="17" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="17" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=105462969]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "17"
 
-[node name="18" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="18" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=1994007599]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "18"
 
-[node name="19" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="19" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=744258467]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "19"
 
-[node name="20" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="20" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=1745906138]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "20"
 
-[node name="21" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="21" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=1321443990]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "21"
 
-[node name="22" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="22" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=1742290682]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "22"
 
-[node name="23" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2"]
+[node name="23" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_2" unique_id=1176465620]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "23"
 
-[node name="flags_3" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value"]
+[node name="flags_3" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value" unique_id=2097151084]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0
 
-[node name="24" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="24" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=482966031]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "24"
 
-[node name="25" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="25" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=100167681]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "25"
 
-[node name="26" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="26" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=1947275345]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "26"
 
-[node name="27" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="27" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=743458731]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "27"
 
-[node name="28" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="28" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=1847686973]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "28"
 
-[node name="29" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="29" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=2067688059]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "29"
 
-[node name="30" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="30" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=2066493340]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "30"
 
-[node name="31" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3"]
+[node name="31" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flags/content/flags_value/flags_3" unique_id=477206700]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "31"
 
-[node name="lvflag" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content"]
+[node name="lvflag" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content" unique_id=392176945]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP"
 folded = true
 title = "SCRIPT_EDIT_PROPERTIES_LVFLAGS"
 
-[node name="lvflag_value" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag"]
+[node name="lvflag_value" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag" unique_id=2055653328]
 visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 0
@@ -497,131 +497,131 @@ script = ExtResource("6_mno2r")
 total_flags = 16
 flag_type = 1
 
-[node name="lvflag_0" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value"]
+[node name="lvflag_0" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value" unique_id=249349036]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
 
-[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=1611648180]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=307715214]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=34983744]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=1847938904]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "3"
 
-[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=1650978947]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=1224366682]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "5"
 
-[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=1884004002]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "6"
 
-[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0"]
+[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_0" unique_id=892414739]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = true
 text = "7"
 
-[node name="lvflag_1" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value"]
+[node name="lvflag_1" type="GridContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value" unique_id=1779886327]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 8
 
-[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="8" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=1124715808]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "8"
 
-[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="9" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=1242420111]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "9"
 
-[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="10" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=1414427099]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "10"
 
-[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="11" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=991173462]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "11"
 
-[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="12" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=725656094]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "12"
 
-[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="13" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=151169028]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "13"
 
-[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="14" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=149986368]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "14"
 
-[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1"]
+[node name="15" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/lvflag/lvflag_value/lvflag_1" unique_id=1590299160]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 toggle_mode = true
 text = "15"
 
-[node name="flag2" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content"]
+[node name="flag2" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content" unique_id=793841589]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_FLAGS_TOOLTIP"
 folded = true
 title = "SCRIPT_EDIT_PROPERTIES_FLAGS2"
 
-[node name="value" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2"]
+[node name="value" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2" unique_id=474008358]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -629,96 +629,96 @@ script = ExtResource("6_mno2r")
 total_flags = 8
 flag_type = 2
 
-[node name="flag2_0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value"]
+[node name="flag2_0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value" unique_id=1812992268]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 0
 
-[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="0" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=2068376744]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "0"
 
-[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="1" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=124550466]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "1"
 
-[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="2" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=1065136985]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "2"
 
-[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="3" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=1991869346]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "3"
 
-[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="4" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=1891279557]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "4"
 
-[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="5" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=272241497]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "5"
 
-[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="6" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=73896459]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "6"
 
-[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0"]
+[node name="7" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties/content/flag2/value/flag2_0" unique_id=1727717904]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 text = "7"
 
-[node name="instructions" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data"]
+[node name="instructions" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=1517833811]
 layout_mode = 2
 size_flags_vertical = 3
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_TOOLTIP"
 title = "SCRIPT_EDIT_INSTRUCTIONS"
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions" unique_id=1858319644]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="toolbar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content"]
+[node name="toolbar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" unique_id=1788920394]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="delete" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="delete" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=1863478879]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_DELETE_TOOLTIP"
 icon = ExtResource("3_y47wv")
 script = ExtResource("8_mno2r")
 
-[node name="new_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="new_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=495581673]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_NEW_BEFORE_TOOLTIP"
 icon = ExtResource("4_v65u5")
 script = ExtResource("10_hxwds")
 
-[node name="new_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="new_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=748036566]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_NEW_AFTER_TOOLTIP"
@@ -726,14 +726,14 @@ icon = ExtResource("5_qi07w")
 script = ExtResource("10_hxwds")
 after = true
 
-[node name="copy" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="copy" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=873922852]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_COPY_TOOLTIP"
 icon = ExtResource("6_uc0na")
 script = ExtResource("16_sx0bg")
 
-[node name="paste_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="paste_before" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=1705124331]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_PASTE_BEFORE_TOOLTIP"
@@ -741,14 +741,14 @@ icon = ExtResource("7_5hivn")
 script = ExtResource("17_h0fgr")
 paste_mode = -1
 
-[node name="paste" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="paste" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=361976696]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_PASTE_TOOLTIP"
 icon = ExtResource("8_3otq7")
 script = ExtResource("17_h0fgr")
 
-[node name="paste_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar"]
+[node name="paste_after" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/toolbar" unique_id=1813810031]
 layout_mode = 2
 size_flags_horizontal = 6
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_PASTE_AFTER_TOOLTIP"
@@ -756,16 +756,16 @@ icon = ExtResource("9_0a85a")
 script = ExtResource("17_h0fgr")
 paste_mode = 1
 
-[node name="type" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content"]
+[node name="type" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" unique_id=1164868805]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_INSTRUCTIONS_TYPE_TOOLTIP"
 text = "CellBegin"
 
-[node name="list" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content"]
+[node name="list" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" unique_id=8978968]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="items" type="ItemList" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list" node_paths=PackedStringArray("action_spinbox")]
+[node name="items" type="ItemList" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list" unique_id=96339291 node_paths=PackedStringArray("action_spinbox")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -774,18 +774,18 @@ item_count = 1
 script = ExtResource("12_0a85a")
 action_spinbox = NodePath("../../../../action_idx/value")
 
-[node name="move_buttons" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list"]
+[node name="move_buttons" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list" unique_id=483735191]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="up" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list/move_buttons"]
+[node name="up" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list/move_buttons" unique_id=973032696]
 layout_mode = 2
 size_flags_vertical = 3
 icon = ExtResource("23_5tpxh")
 icon_alignment = 1
 script = ExtResource("24_sq6ji")
 
-[node name="down" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list/move_buttons"]
+[node name="down" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/list/move_buttons" unique_id=937901940]
 layout_mode = 2
 size_flags_vertical = 3
 icon = ExtResource("25_oai88")
@@ -793,7 +793,7 @@ icon_alignment = 1
 script = ExtResource("24_sq6ji")
 direction = 1
 
-[node name="resizer" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" node_paths=PackedStringArray("content_container", "argument_container")]
+[node name="resizer" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" unique_id=140247589 node_paths=PackedStringArray("content_container", "argument_container")]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 color = Color(1, 1, 1, 0.5019608)
@@ -801,44 +801,44 @@ script = ExtResource("27_jqa1b")
 content_container = NodePath("..")
 argument_container = NodePath("../arguments")
 
-[node name="arguments" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content"]
+[node name="arguments" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content" unique_id=849297974]
 custom_minimum_size = Vector2(0, 106)
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PARAMETERS_TOOLTIP"
 title = "SCRIPT_EDIT_PARAMETERS"
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments" unique_id=337480552]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="arg0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content"]
+[node name="arg0" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content" unique_id=1690766590]
 visible = false
 layout_mode = 2
 
-[node name="display_name" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/arg0"]
+[node name="display_name" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/arg0" unique_id=1580582122]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/arg0"]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/arg0" unique_id=1786425740]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("19_dn4hq")
 metadata/_custom_type_script = "uid://bwetp10s0dg8u"
 
-[node name="nothing" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content"]
+[node name="nothing" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content" unique_id=1548365517]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PARAMETERS_NOTHING_TOOLTIP"
 mouse_filter = 0
 text = "SCRIPT_EDIT_PARAMETERS_NOTHING"
 
-[node name="scroll" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content"]
+[node name="scroll" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content" unique_id=1375759260]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="arg_container" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/scroll" node_paths=PackedStringArray("action_index", "instruction_list", "model_arg", "nothing_selected")]
+[node name="arg_container" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/arguments/content/scroll" unique_id=1901799820 node_paths=PackedStringArray("action_index", "instruction_list", "model_arg", "nothing_selected")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -848,42 +848,42 @@ instruction_list = NodePath("../../../../list/items")
 model_arg = NodePath("../../arg0")
 nothing_selected = NodePath("../../nothing")
 
-[node name="v_sep" type="VSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content"]
+[node name="v_sep" type="VSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content" unique_id=40174989]
 layout_mode = 2
 
-[node name="visualizer" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content"]
+[node name="visualizer" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content" unique_id=1059405102]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="top_bar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="top_bar" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer" unique_id=1882328848]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar" unique_id=1430273288]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "SCRIPT_EDIT_PREVIEW"
 
-[node name="expand_button" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar" node_paths=PackedStringArray("collapsible")]
+[node name="expand_button" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/top_bar" unique_id=2055676027 node_paths=PackedStringArray("collapsible")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 text = "PREVIEW_OPTIONS"
 script = ExtResource("28_oai88")
 collapsible = NodePath("../../preview_contents/options")
 
-[node name="preview_contents" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="preview_contents" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer" unique_id=1973727124]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
+[node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents" unique_id=213639782]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders" node_paths=PackedStringArray("visualizer")]
+[node name="clipper" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders" unique_id=666031209 node_paths=PackedStringArray("visualizer")]
 texture_filter = 1
 clip_contents = true
 layout_mode = 2
@@ -891,11 +891,11 @@ size_flags_vertical = 3
 script = ExtResource("13_fi3dn")
 visualizer = NodePath("visualizer")
 
-[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper"]
+[node name="visualizer" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper" unique_id=740375093]
 position = Vector2(400, 400)
 script = ExtResource("2_hled3")
 
-[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer"]
+[node name="background_a" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer" unique_id=1656222585]
 texture_filter = 1
 custom_minimum_size = Vector2(3000, 3000)
 anchors_preset = 8
@@ -909,7 +909,7 @@ mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("3_i86rk")
 
-[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/background_a"]
+[node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/background_a" unique_id=1625501495]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -923,7 +923,7 @@ stretch_mode = 1
 script = ExtResource("5_7mwsm")
 metadata/_edit_lock_ = true
 
-[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer"]
+[node name="origin" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer" unique_id=990267845]
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 4
@@ -931,7 +931,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
+[node name="guide" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=219662843]
 modulate = Color(1, 1, 1, 0.313726)
 show_behind_parent = true
 custom_minimum_size = Vector2(1, 4000)
@@ -941,7 +941,7 @@ offset_right = 1.0
 offset_bottom = 2000.0
 mouse_filter = 2
 
-[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/guide"]
+[node name="guide_horz" type="ColorRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/guide" unique_id=724857591]
 show_behind_parent = true
 custom_minimum_size = Vector2(2000, 1)
 layout_mode = 0
@@ -951,15 +951,15 @@ offset_right = 2000.0
 offset_bottom = 2001.0
 mouse_filter = 2
 
-[node name="reference" type="CanvasGroup" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
+[node name="reference" type="CanvasGroup" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=1223049272]
 fit_margin = 1000.0
 clear_margin = 1000.0
 
-[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference"]
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference" unique_id=2124010938]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" unique_id=1721263632 node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "sprite_origin")]
 material = ExtResource("35_jy6ly")
 anchors_preset = 0
 script = ExtResource("9_rfuac")
@@ -968,16 +968,16 @@ sprite_scale = NodePath("scale")
 sprite_scale_y = NodePath("scale/scale_y")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite" unique_id=389497946]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale" unique_id=1554545755]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent/sprite/scale/scale_y" unique_id=1472286353]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" unique_id=1480857992 node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
 visible = false
 anchors_preset = 0
 script = ExtResource("20_fi3dn")
@@ -985,10 +985,10 @@ box_display_toggle = NodePath("../../../../../../../options/margin/data/referenc
 sprite_handler = NodePath("../sprite")
 anim = NodePath("../../../../../../../../../../../script_anim_ref")
 
-[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin"]
+[node name="parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=360253035]
 anchors_preset = 0
 
-[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "palette_preview", "sprite_origin")]
+[node name="sprite" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=35579128 node_paths=PackedStringArray("ignore_visual_toggle", "sprite_scale", "sprite_scale_y", "palette_preview", "sprite_origin")]
 material = ExtResource("34_sq6ji")
 layout_mode = 1
 anchors_preset = 15
@@ -1004,16 +1004,16 @@ sprite_scale_y = NodePath("scale/scale_y")
 palette_preview = NodePath("../../../../PALETTE_preview/palette")
 sprite_origin = NodePath("scale/scale_y/origin")
 
-[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite"]
+[node name="scale" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite" unique_id=1748804485]
 use_parent_material = true
 
-[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale"]
+[node name="scale_y" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale" unique_id=947813677]
 use_parent_material = true
 
-[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale/scale_y"]
+[node name="origin" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/sprite/scale/scale_y" unique_id=979391480]
 use_parent_material = true
 
-[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
+[node name="box_parent" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=1788874167 node_paths=PackedStringArray("box_display_toggle", "sprite_handler", "anim")]
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("20_fi3dn")
@@ -1021,7 +1021,7 @@ box_display_toggle = NodePath("../../../../../../options/margin/data/miscellaneo
 sprite_handler = NodePath("../sprite")
 anim = NodePath("../../../../../../../../../../script_anim")
 
-[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent"]
+[node name="origin_cross" type="Control" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=517217251]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1033,11 +1033,11 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("11_uvd1h")
 
-[node name="PALETTE_preview" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper"]
+[node name="PALETTE_preview" type="Node2D" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper" unique_id=2075516418]
 position = Vector2(16, 16)
 script = ExtResource("41_jqa1b")
 
-[node name="palette" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/PALETTE_preview"]
+[node name="palette" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/PALETTE_preview" unique_id=419333444]
 texture_filter = 1
 custom_minimum_size = Vector2(128, 128)
 offset_right = 128.0
@@ -1045,7 +1045,7 @@ offset_bottom = 128.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper"]
+[node name="warning" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper" unique_id=1738419659]
 layout_mode = 2
 size_flags_vertical = 8
 text = "SCRIPT_EDIT_WARNING"
@@ -1053,31 +1053,31 @@ label_settings = SubResource("LabelSettings_oai88")
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents"]
+[node name="options" type="ScrollContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents" unique_id=660748403]
 visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
-[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options"]
+[node name="margin" type="MarginContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options" unique_id=688398173]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="data" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin"]
+[node name="data" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin" unique_id=615896984]
 layout_mode = 2
 
-[node name="miscellaneous" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data"]
+[node name="miscellaneous" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" unique_id=310209338]
 layout_mode = 2
 title = "PREVIEW_TITLE_MISC"
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous" unique_id=173360911]
 layout_mode = 2
 
-[node name="palette" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content"]
+[node name="palette" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content" unique_id=1195105544]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content/palette"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content/palette" unique_id=403884468]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1087,14 +1087,14 @@ text = "PREVIEW_PALETTE_INDEX"
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content/palette"]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content/palette" unique_id=1193033496]
 custom_minimum_size = Vector2(134, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("42_jqa1b")
 
-[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content"]
+[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content" unique_id=1094728269]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 tooltip_text = "PREVIEW_HITBOXES_TOOLTIP"
@@ -1103,7 +1103,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ejhjo")
 button_pressed = true
 text = "PREVIEW_HITBOXES"
 
-[node name="ignore_visual" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content"]
+[node name="ignore_visual" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/miscellaneous/content" unique_id=796624820]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_IGNORE_VISUAL_TOOLTIP"
@@ -1111,18 +1111,18 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_hxwds")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_mno2r")
 text = "SCRIPT_EDIT_IGNORE_VISUAL"
 
-[node name="reference" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data"]
+[node name="reference" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" unique_id=1845334410]
 layout_mode = 2
 title = "PREVIEW_TITLE_REFERENCE"
 
-[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference"]
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference" unique_id=399115196]
 layout_mode = 2
 
-[node name="session" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content"]
+[node name="session" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=634989200]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/session"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/session" unique_id=1613975222]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_SESSION_TOOLTIP"
@@ -1130,7 +1130,7 @@ mouse_filter = 0
 text = "REFERENCE_SESSION"
 clip_text = true
 
-[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/session"]
+[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/session" unique_id=1553487853]
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
@@ -1139,12 +1139,12 @@ item_count = 1
 popup/item_0/id = 0
 script = ExtResource("38_lnoga")
 
-[node name="object" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content"]
+[node name="object" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=392307288]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/object"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/object" unique_id=1306199057]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
@@ -1152,7 +1152,7 @@ mouse_filter = 0
 text = "REFERENCE_OBJECT"
 clip_text = true
 
-[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/object"]
+[node name="value" type="OptionButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/object" unique_id=1510143104]
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
@@ -1161,12 +1161,12 @@ item_count = 1
 popup/item_0/id = 0
 script = ExtResource("39_30w5o")
 
-[node name="specific_action" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content"]
+[node name="specific_action" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=1479908053]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/specific_action"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/specific_action" unique_id=1151215878]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_ACTION_TOOLTIP"
@@ -1174,19 +1174,19 @@ mouse_filter = 0
 text = "REFERENCE_ACTION"
 clip_text = true
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/specific_action"]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/specific_action" unique_id=1064971637]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("44_hca04")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="opacity" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content"]
+[node name="opacity" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=897337955]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
 
-[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/opacity"]
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/opacity" unique_id=44735056]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_OPACITY_TOOLTIP"
@@ -1194,7 +1194,7 @@ mouse_filter = 0
 text = "REFERENCE_OPACITY"
 clip_text = true
 
-[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/opacity" node_paths=PackedStringArray("reference_node")]
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content/opacity" unique_id=1708617665 node_paths=PackedStringArray("reference_node")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
@@ -1202,7 +1202,7 @@ script = ExtResource("48_3vsx4")
 reference_node = NodePath("../../../../../../../borders/clipper/visualizer/origin/reference")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" node_paths=PackedStringArray("reference_parent")]
+[node name="in_front" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=364806155 node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_FRONT_TOOLTIP"
@@ -1210,7 +1210,7 @@ text = "REFERENCE_FRONT"
 script = ExtResource("41_h0kyv")
 reference_parent = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
 
-[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" node_paths=PackedStringArray("box_parent")]
+[node name="hitboxes" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=119905714 node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_HITBOXES_TOOLTIP"
@@ -1218,7 +1218,7 @@ text = "REFERENCE_HITBOXES"
 script = ExtResource("42_2p55a")
 box_parent = NodePath("../../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
-[node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" node_paths=PackedStringArray("reference")]
+[node name="semitransparent" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=1546645452 node_paths=PackedStringArray("reference")]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -1227,25 +1227,25 @@ text = "REFERENCE_SEMITRANS"
 script = ExtResource("43_f47ks")
 reference = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
 
-[node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer"]
+[node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer" unique_id=1380742326]
 layout_mode = 2
 
-[node name="play_from_start" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline"]
+[node name="play_from_start" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=23281400]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PLAY_FROM_START_TOOLTIP"
 icon = ExtResource("18_uc0na")
 
-[node name="play" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline"]
+[node name="play" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=456027256]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PLAY_TOOLTIP"
 icon = ExtResource("19_5hivn")
 
-[node name="stop" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline"]
+[node name="stop" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=343425841]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_STOP_TOOLTIP"
 icon = ExtResource("20_3otq7")
 
-[node name="timeline" type="HSlider" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" node_paths=PackedStringArray("anim", "action_spinbox", "button_play_from_start", "button_play", "button_stop")]
+[node name="timeline" type="HSlider" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=1493139379 node_paths=PackedStringArray("anim", "action_spinbox", "button_play_from_start", "button_play", "button_stop")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -1256,7 +1256,7 @@ button_play_from_start = NodePath("../play_from_start")
 button_play = NodePath("../play")
 button_stop = NodePath("../stop")
 
-[node name="f_current" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" node_paths=PackedStringArray("timeline")]
+[node name="f_current" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=113981641 node_paths=PackedStringArray("timeline")]
 custom_minimum_size = Vector2(41, 0)
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_CURRENT_FRAME_TOOLTIP"
@@ -1266,12 +1266,12 @@ horizontal_alignment = 2
 script = ExtResource("25_puh6r")
 timeline = NodePath("../timeline")
 
-[node name="f_separator" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline"]
+[node name="f_separator" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=15673337]
 layout_mode = 2
 text = "/"
 horizontal_alignment = 1
 
-[node name="f_total" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" node_paths=PackedStringArray("timeline")]
+[node name="f_total" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/timeline" unique_id=1781192516 node_paths=PackedStringArray("timeline")]
 custom_minimum_size = Vector2(51, 0)
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_TOTAL_FRAMES_TOOLTIP"
@@ -1281,7 +1281,7 @@ horizontal_alignment = 1
 script = ExtResource("26_f2brd")
 timeline = NodePath("../timeline")
 
-[node name="instruction_select" type="Window" parent="." node_paths=PackedStringArray("summon_button", "instruction_list")]
+[node name="instruction_select" type="Window" parent="." unique_id=1621866614 node_paths=PackedStringArray("summon_button", "instruction_list")]
 title = "Select Instruction"
 initial_position = 2
 size = Vector2i(300, 500)
@@ -1295,7 +1295,7 @@ script = ExtResource("36_dn4hq")
 summon_button = NodePath("../SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/instructions/content/type")
 instruction_list = NodePath("panel/margin/items")
 
-[node name="panel" type="PanelContainer" parent="instruction_select"]
+[node name="panel" type="PanelContainer" parent="instruction_select" unique_id=1695118505]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1305,11 +1305,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h0fgr")
 
-[node name="margin" type="MarginContainer" parent="instruction_select/panel"]
+[node name="margin" type="MarginContainer" parent="instruction_select/panel" unique_id=1911291982]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="items" type="ItemList" parent="instruction_select/panel/margin"]
+[node name="items" type="ItemList" parent="instruction_select/panel/margin" unique_id=1278466958]
 layout_mode = 2
 script = ExtResource("36_h0fgr")

@@ -8,6 +8,7 @@ signal action_seek_to_frame
 signal action_select_instruction
 signal action_count_changed
 signal action_force_select
+signal instruction_pasted
 signal cell_updated
 @warning_ignore_restore("unused_signal")
 
@@ -565,7 +566,6 @@ func script_instruction_paste(at: int) -> void:
 	if at == 0:
 		var old_instruction = script_instruction_get(instruction_index)
 		
-		
 		undo_redo.add_do_method(
 			script_action_ensure_selected.bind(action_index))
 		undo_redo.add_do_method(
@@ -596,10 +596,12 @@ func script_instruction_paste(at: int) -> void:
 			script_instruction_delete_commit.bind(instruction_index + at))
 	
 	undo_redo.add_do_method(script_action_load.bind(action_index))
+	undo_redo.add_do_method(emit_signal.bind("instruction_pasted"))
 	undo_redo.add_do_method(
 		script_instruction_select.bind(instruction_index + at))
 	
 	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(emit_signal.bind("instruction_pasted"))
 	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
 	
 	status_register_action(action_text)
