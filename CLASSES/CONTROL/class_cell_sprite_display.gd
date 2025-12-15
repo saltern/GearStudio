@@ -73,7 +73,7 @@ func reload_palette() -> void:
 
 
 func should_reindex(sprite: BinSprite) -> bool:
-	if not SessionData.session_get_reindex(provider.session_id):
+	if not SessionData.session_get_reindex(get_owner().session_id):
 		return false
 	
 	if not provider.obj_data.has("palettes"):
