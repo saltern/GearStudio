@@ -148,7 +148,7 @@ func export(output_path: String) -> void:
 	for sprite_index in range(export_start_index, export_end_index + 1):
 		export_list.append(obj_data.sprites[sprite_index])
 
-	var palette: PackedByteArray = pal_gray
+	settings.palette_colors = pal_gray
 	
 	if settings.palette_include and obj_data.has("palettes"):
 		settings.palette_colors = obj_data["palettes"][palette_index].palette
