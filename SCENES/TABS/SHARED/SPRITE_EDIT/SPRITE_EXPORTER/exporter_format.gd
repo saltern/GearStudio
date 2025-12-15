@@ -12,18 +12,23 @@ enum ExportFormat {
 
 
 func _ready() -> void:
-	toggled.connect(on_format_toggled)
+	visibility_changed.connect(update)
+	
 
-
-func on_format_toggled(enabled: bool) -> void:
+func _toggled(toggled_on: bool) -> void:
 	match export_format:
 		ExportFormat.BIN:
-			SpriteExport.settings.export_bin = enabled
+			SpriteExport.settings.export_bin = toggled_on
 		ExportFormat.BIN_UNCOMPRESSED:
-			SpriteExport.settings.export_bin_uncompressed = enabled
+			SpriteExport.settings.export_bin_uncompressed = toggled_on
 		ExportFormat.RAW:
-			SpriteExport.settings.export_raw = enabled
+			SpriteExport.settings.export_raw = toggled_on
 		ExportFormat.PNG:
-			SpriteExport.settings.export_png = enabled
+			SpriteExport.settings.export_png = toggled_on
 		ExportFormat.BMP:
-			SpriteExport.settings.export_bmp = enabled
+			SpriteExport.settings.export_bmp = toggled_on
+
+
+func update() -> void:
+	if visible:
+		_toggled(button_pressed)

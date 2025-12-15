@@ -4,6 +4,7 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
+	visibility_changed.connect(update)
 	value_changed.connect(on_range_start_changed)
 	SpriteImport.sprite_placement_finished.connect(update_range)
 	update_range()
@@ -16,3 +17,8 @@ func on_range_start_changed(new_value: int) -> void:
 func update_range() -> void:
 	min_value = 0
 	max_value = sprite_edit.sprite_get_count() - 1
+
+
+func update() -> void:
+	if visible:
+		on_range_start_changed(value)
