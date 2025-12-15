@@ -370,11 +370,9 @@ func palette_paste_color_commit(
 		undo_redo.create_action(action_text)
 		
 		undo_redo.add_do_property(sprite, "palette", new)
-		undo_redo.add_do_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_do_method(palette_load.bind(sprite_index))
 		
 		undo_redo.add_undo_property(sprite, "palette", old)
-		undo_redo.add_undo_method(obj_data.emit_signal.bind("palette_updated"))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
 	
 	status_register_action(action_text)
