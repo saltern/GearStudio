@@ -44,17 +44,17 @@ var box_edits_allowed: bool
 
 var box_type_ids: Array[PackedInt32Array] = [
 	# Hitbox
-	[0, 1],
+	[0, 1] as PackedInt32Array,
 	# Hurtbox
-	[2],
+	[2] as PackedInt32Array,
 	# Region (back and front)
-	[3, 6],
+	[3, 6] as PackedInt32Array,
 	# Collision extension
-	[4],
+	[4] as PackedInt32Array,
 	# Spawn point
-	[5],
+	[5] as PackedInt32Array,
 	# Unknown type (>=this)
-	[7],
+	[7] as PackedInt32Array,
 ]
 
 var box_display_types: Array[bool] = [
