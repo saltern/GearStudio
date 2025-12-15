@@ -26,7 +26,6 @@
 [ext_resource type="Script" uid="uid://b4hkcqpln37rk" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_type.gd" id="13_vxqe1"]
 [ext_resource type="Script" uid="uid://boit1dc4ewkwm" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_x.gd" id="14_1wdu3"]
 [ext_resource type="Script" uid="uid://c202mce6w80ay" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_offset_y.gd" id="15_0f2v1"]
-[ext_resource type="Script" uid="uid://bxfq7dkvl07ge" path="res://SCENES/TABS/SHARED/expand_collapse.gd" id="15_5ipus"]
 [ext_resource type="Script" uid="uid://x3lnl8485814" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_width.gd" id="16_88dc2"]
 [ext_resource type="Script" uid="uid://5f87wfo45rol" path="res://SCENES/TABS/SHARED/CELL_EDIT/BOX/box_height.gd" id="17_7hjvn"]
 [ext_resource type="Script" uid="uid://1syvxtfk0ibd" path="res://SCENES/TABS/SHARED/CELL_EDIT/SPRITE/sprite_offset_control_type_toggle.gd" id="17_586km"]
@@ -830,8 +829,8 @@ offset_top = -128.0
 offset_right = -128.0
 offset_bottom = -128.0
 script = ExtResource("25_4rpsl")
-onion_index = NodePath("../../../../../options/margin/data/misc_content/onion/value")
-front_toggle = NodePath("../../../../../options/margin/data/misc_content/onion_in_front")
+onion_index = NodePath("../../../../../options/margin/data/misc/content/onion/value")
+front_toggle = NodePath("../../../../../options/margin/data/misc/content/onion_in_front")
 
 [node name="transparent" type="CanvasGroup" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=688556101]
 modulate = Color(1, 1, 1, 0.784314)
@@ -945,7 +944,6 @@ mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
 [node name="options" type="ScrollContainer" parent="content/visualizer/preview_contents" unique_id=1124161995]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -957,36 +955,18 @@ size_flags_vertical = 3
 [node name="data" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin" unique_id=856878496]
 layout_mode = 2
 
-[node name="misc_title" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=326663128 node_paths=PackedStringArray("collapsible")]
+[node name="misc" type="FoldableContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=1260161457]
 layout_mode = 2
-script = ExtResource("15_5ipus")
-collapsible = NodePath("../misc_content")
+title = "PREVIEW_TITLE_MISC"
 
-[node name="h_sep" type="HSeparator" parent="content/visualizer/preview_contents/options/margin/data/misc_title" unique_id=1896263323]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc_title" unique_id=1697477622]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "PREVIEW_TITLE_MISC"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="h_sep2" type="HSeparator" parent="content/visualizer/preview_contents/options/margin/data/misc_title" unique_id=1127650356]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="misc_content" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=1653653792]
+[node name="content" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/misc" unique_id=1653653792]
 layout_mode = 2
 
-[node name="palette" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/misc_content" unique_id=1163228110]
+[node name="palette" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/misc/content" unique_id=1163228110]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc_content/palette" unique_id=486126622]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc/content/palette" unique_id=486126622]
 custom_minimum_size = Vector2(120, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -996,18 +976,18 @@ text = "PREVIEW_PALETTE_INDEX"
 clip_text = true
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/misc_content/palette" unique_id=744794937]
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/misc/content/palette" unique_id=744794937]
 custom_minimum_size = Vector2(134, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("32_dcsig")
 
-[node name="onion" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/misc_content" unique_id=1465855923]
+[node name="onion" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/misc/content" unique_id=1465855923]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc_content/onion" unique_id=1443633501]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/misc/content/onion" unique_id=1443633501]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "CELL_EDIT_ONION_INDEX_TOOLTIP"
@@ -1015,19 +995,19 @@ mouse_filter = 0
 text = "CELL_EDIT_ONION_INDEX"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/misc_content/onion" unique_id=115450072]
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/misc/content/onion" unique_id=115450072]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("3_rc8ef")
 
-[node name="onion_in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/misc_content" unique_id=1641527149]
+[node name="onion_in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/misc/content" unique_id=1641527149]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "CELL_EDIT_ONION_IN_FRONT_TOOLTIP"
 text = "CELL_EDIT_ONION_IN_FRONT"
 
-[node name="visual_1" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/misc_content" unique_id=601973532 node_paths=PackedStringArray("cell_sprite_display")]
+[node name="visual_1" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/misc/content" unique_id=601973532 node_paths=PackedStringArray("cell_sprite_display")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1035,38 +1015,20 @@ tooltip_text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1_TOOLTIP"
 text = "CELL_EDIT_SPRITE_INFO_PREVIEW_VISUAL_1"
 text_overrun_behavior = 3
 script = ExtResource("25_hdyd6")
-cell_sprite_display = NodePath("../../../../../borders/clipper/visualizer/origin/parent/sprite")
+cell_sprite_display = NodePath("../../../../../../borders/clipper/visualizer/origin/parent/sprite")
 
-[node name="ref_title" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=2086658201 node_paths=PackedStringArray("collapsible")]
+[node name="reference" type="FoldableContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=890508507]
 layout_mode = 2
-script = ExtResource("15_5ipus")
-collapsible = NodePath("../ref_content")
+title = "PREVIEW_TITLE_REFERENCE"
 
-[node name="h_sep" type="HSeparator" parent="content/visualizer/preview_contents/options/margin/data/ref_title" unique_id=735425159]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_title" unique_id=1064335195]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "PREVIEW_TITLE_REFERENCE"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="h_sep2" type="HSeparator" parent="content/visualizer/preview_contents/options/margin/data/ref_title" unique_id=649151021]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-
-[node name="ref_content" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=1224829135]
+[node name="content" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/reference" unique_id=1224829135]
 layout_mode = 2
 
-[node name="session" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=1308583897]
+[node name="session" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=1308583897]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/session" unique_id=1523134220]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/reference/content/session" unique_id=1523134220]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_SESSION_TOOLTIP"
@@ -1075,7 +1037,7 @@ text = "REFERENCE_SESSION"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="OptionButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content/session" unique_id=1925781187]
+[node name="value" type="OptionButton" parent="content/visualizer/preview_contents/options/margin/data/reference/content/session" unique_id=1925781187]
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
@@ -1086,11 +1048,11 @@ popup/item_0/id = 0
 popup/item_0/disabled = true
 script = ExtResource("60_3nb3e")
 
-[node name="object" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=1961814805]
+[node name="object" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=1961814805]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/object" unique_id=139065815]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/reference/content/object" unique_id=139065815]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_OBJECT_TOOLTIP"
@@ -1099,7 +1061,7 @@ text = "REFERENCE_OBJECT"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="OptionButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content/object" unique_id=281416123]
+[node name="value" type="OptionButton" parent="content/visualizer/preview_contents/options/margin/data/reference/content/object" unique_id=281416123]
 layout_mode = 2
 size_flags_horizontal = 3
 selected = 0
@@ -1109,10 +1071,10 @@ popup/item_0/text = "None"
 popup/item_0/id = 0
 script = ExtResource("59_i1mux")
 
-[node name="specific_cell" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=743264609]
+[node name="specific_cell" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=743264609]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/specific_cell" unique_id=1705595640]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/reference/content/specific_cell" unique_id=1705595640]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_CELL_TOOLTIP"
@@ -1121,7 +1083,7 @@ text = "REFERENCE_CELL"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/ref_content/specific_cell" unique_id=1868341582]
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/reference/content/specific_cell" unique_id=1868341582]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
@@ -1130,10 +1092,10 @@ editable = false
 script = ExtResource("62_fxvck")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="opacity" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=644820982]
+[node name="opacity" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=644820982]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/ref_content/opacity" unique_id=2043051512]
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/reference/content/opacity" unique_id=2043051512]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "REFERENCE_OPACITY_TOOLTIP"
@@ -1142,41 +1104,41 @@ text = "REFERENCE_OPACITY"
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/ref_content/opacity" unique_id=1454141600 node_paths=PackedStringArray("reference_node")]
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/reference/content/opacity" unique_id=1454141600 node_paths=PackedStringArray("reference_node")]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = -1.0
 alignment = 2
 script = ExtResource("66_mkpt3")
-reference_node = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
+reference_node = NodePath("../../../../../../../borders/clipper/visualizer/origin/reference")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=2109956242 node_paths=PackedStringArray("reference_parent")]
+[node name="in_front" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=2109956242 node_paths=PackedStringArray("reference_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_FRONT_TOOLTIP"
 text = "REFERENCE_FRONT"
 text_overrun_behavior = 3
 script = ExtResource("60_jqdwu")
-reference_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
+reference_parent = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
 
-[node name="hitboxes" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=2056675170 node_paths=PackedStringArray("box_parent")]
+[node name="hitboxes" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=2056675170 node_paths=PackedStringArray("box_parent")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 tooltip_text = "REFERENCE_HITBOXES_TOOLTIP"
 text = "REFERENCE_HITBOXES"
 text_overrun_behavior = 3
 script = ExtResource("62_qauf1")
-box_parent = NodePath("../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
+box_parent = NodePath("../../../../../../borders/clipper/visualizer/origin/reference/parent/box_parent")
 
-[node name="semitransparent" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/ref_content" unique_id=955510130 node_paths=PackedStringArray("reference")]
+[node name="semitransparent" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/reference/content" unique_id=955510130 node_paths=PackedStringArray("reference")]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "REFERENCE_SEMITRANS"
 text_overrun_behavior = 3
 script = ExtResource("63_3nb3e")
-reference = NodePath("../../../../../borders/clipper/visualizer/origin/reference")
+reference = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
 
 [node name="snapshot" type="Button" parent="content/visualizer" unique_id=1569758456 node_paths=PackedStringArray("multi_snap_dialog")]
 custom_minimum_size = Vector2(180, 0)
