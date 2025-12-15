@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://8p06dcxfha7v"]
+[gd_scene format=3 uid="uid://8p06dcxfha7v"]
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
@@ -46,7 +46,7 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[node name="main" type="Control"]
+[node name="main" type="Control" unique_id=1864826422]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -55,7 +55,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rl44a")
 
-[node name="content" type="VBoxContainer" parent="."]
+[node name="content" type="VBoxContainer" parent="." unique_id=565525890]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,15 +64,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="top_bar" type="PanelContainer" parent="content"]
+[node name="top_bar" type="PanelContainer" parent="content" unique_id=245150448]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nliut")
 
-[node name="menu_bar" type="MenuBar" parent="content/top_bar"]
+[node name="menu_bar" type="MenuBar" parent="content/top_bar" unique_id=624740232]
 layout_mode = 2
 prefer_global_menu = false
 
-[node name="TOP_MENU_FILE" type="PopupMenu" parent="content/top_bar/menu_bar" node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin", "save_as_dialog", "overwrite_dialog")]
+[node name="TOP_MENU_FILE" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=934525159 node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin", "save_as_dialog", "overwrite_dialog")]
 size = Vector2i(100, 122)
 script = ExtResource("1_2rc5h")
 load_dialog_dir = NodePath("load_dialog_dir")
@@ -80,7 +80,7 @@ load_dialog_bin = NodePath("load_dialog_bin")
 save_as_dialog = NodePath("save_as_dialog")
 overwrite_dialog = NodePath("../../../../save_overwrite")
 
-[node name="load_dialog_dir" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE"]
+[node name="load_dialog_dir" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=406109777]
 title = "Open a Directory"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -90,7 +90,7 @@ access = 2
 use_native_dialog = true
 script = ExtResource("3_j7c6i")
 
-[node name="load_dialog_bin" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE"]
+[node name="load_dialog_bin" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=8101890]
 auto_translate_mode = 1
 title = "Open a File"
 initial_position = 2
@@ -102,7 +102,7 @@ filters = PackedStringArray("*.bin,*.lot;Binary files")
 use_native_dialog = true
 script = ExtResource("4_csxth")
 
-[node name="save_as_dialog" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE"]
+[node name="save_as_dialog" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=1646546565]
 initial_position = 2
 size = Vector2i(600, 400)
 access = 2
@@ -110,11 +110,11 @@ filters = PackedStringArray("*.bin;Binary files")
 use_native_dialog = true
 script = ExtResource("5_nliut")
 
-[node name="TOP_MENU_EDIT" type="PopupMenu" parent="content/top_bar/menu_bar"]
+[node name="TOP_MENU_EDIT" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=678787542]
 size = Vector2i(149, 109)
 script = ExtResource("3_lymwu")
 
-[node name="TOP_MENU_HELP" type="PopupMenu" parent="content/top_bar/menu_bar" node_paths=PackedStringArray("about_dialog")]
+[node name="TOP_MENU_HELP" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=2114301527 node_paths=PackedStringArray("about_dialog")]
 auto_translate_mode = 1
 size = Vector2i(115, 100)
 item_count = 1
@@ -123,7 +123,7 @@ item_0/id = 0
 script = ExtResource("2_pvowg")
 about_dialog = NodePath("../../../../about")
 
-[node name="sessions" type="TabContainer" parent="content" node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin", "save_as_dialog")]
+[node name="sessions" type="TabContainer" parent="content" unique_id=257639791 node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin", "save_as_dialog")]
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_86rm5")
@@ -132,14 +132,14 @@ load_dialog_bin = NodePath("../top_bar/menu_bar/TOP_MENU_FILE/load_dialog_bin")
 save_as_dialog = NodePath("../top_bar/menu_bar/TOP_MENU_FILE/save_as_dialog")
 session_scene = ExtResource("3_kwuap")
 
-[node name="status" type="Label" parent="content"]
+[node name="status" type="Label" parent="content" unique_id=2143236123]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "STATUS_READY"
 vertical_alignment = 1
 script = ExtResource("6_x8l4e")
 
-[node name="color" type="ColorRect" parent="content/status"]
+[node name="color" type="ColorRect" parent="content/status" unique_id=1660132818]
 show_behind_parent = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 1
@@ -151,7 +151,7 @@ grow_vertical = 2
 color = Color(0.101961, 0.101961, 0.101961, 1)
 script = ExtResource("8_5nt50")
 
-[node name="about" type="Panel" parent="."]
+[node name="about" type="Panel" parent="." unique_id=1906557162]
 visible = false
 z_index = 1
 custom_minimum_size = Vector2(650, 420)
@@ -172,7 +172,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_i6eya")
 script = ExtResource("9_jufyb")
 
-[node name="content" type="VBoxContainer" parent="about"]
+[node name="content" type="VBoxContainer" parent="about" unique_id=1945859691]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -181,22 +181,22 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="details" type="HBoxContainer" parent="about/content"]
+[node name="details" type="HBoxContainer" parent="about/content" unique_id=1149858250]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="acknowledgments" type="VBoxContainer" parent="about/content/details"]
+[node name="acknowledgments" type="VBoxContainer" parent="about/content/details" unique_id=392114064]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="title" type="Label" parent="about/content/details/acknowledgments"]
+[node name="title" type="Label" parent="about/content/details/acknowledgments" unique_id=1216669968]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_TITLE"
 horizontal_alignment = 1
 
-[node name="ryn_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
+[node name="ryn_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=628569560]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -211,17 +211,17 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="ryn_contributions" type="Label" parent="about/content/details/acknowledgments"]
+[node name="ryn_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=675604983]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_RYN"
 horizontal_alignment = 1
 
-[node name="pad_0" type="Control" parent="about/content/details/acknowledgments"]
+[node name="pad_0" type="Control" parent="about/content/details/acknowledgments" unique_id=1637856858]
 visible = false
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="lovenus_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
+[node name="lovenus_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=1219357853]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -236,17 +236,17 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="lovenus_contributions" type="Label" parent="about/content/details/acknowledgments"]
+[node name="lovenus_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=1566746478]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_LOVENUS"
 horizontal_alignment = 1
 
-[node name="pad_1" type="Control" parent="about/content/details/acknowledgments"]
+[node name="pad_1" type="Control" parent="about/content/details/acknowledgments" unique_id=1699952946]
 visible = false
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 
-[node name="chloe_header" type="RichTextLabel" parent="about/content/details/acknowledgments"]
+[node name="chloe_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=2110597057]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -260,21 +260,21 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="chloe_contributions" type="Label" parent="about/content/details/acknowledgments"]
+[node name="chloe_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=1783903389]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_CHLOE"
 horizontal_alignment = 1
 
-[node name="v_sep" type="VSeparator" parent="about/content/details"]
+[node name="v_sep" type="VSeparator" parent="about/content/details" unique_id=1020013132]
 layout_mode = 2
 
-[node name="info" type="VBoxContainer" parent="about/content/details"]
+[node name="info" type="VBoxContainer" parent="about/content/details" unique_id=759678275]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 
-[node name="gear_studio" type="RichTextLabel" parent="about/content/details/info"]
+[node name="gear_studio" type="RichTextLabel" parent="about/content/details/info" unique_id=1016299096]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -289,19 +289,19 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="author" type="HBoxContainer" parent="about/content/details/info"]
+[node name="author" type="HBoxContainer" parent="about/content/details/info" unique_id=1745340619]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = -2
 
-[node name="by" type="RichTextLabel" parent="about/content/details/info/author"]
+[node name="by" type="RichTextLabel" parent="about/content/details/info/author" unique_id=357317607]
 layout_mode = 2
 text = "ABOUT_BY"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="name" type="RichTextLabel" parent="about/content/details/info/author"]
+[node name="name" type="RichTextLabel" parent="about/content/details/info/author" unique_id=1144365980]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -314,21 +314,21 @@ autowrap_mode = 0
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="h_sep" type="HSeparator" parent="about/content"]
+[node name="h_sep" type="HSeparator" parent="about/content" unique_id=911283573]
 layout_mode = 2
 
-[node name="close_button" type="CenterContainer" parent="about/content"]
+[node name="close_button" type="CenterContainer" parent="about/content" unique_id=1242888308]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.15
 
-[node name="button" type="Button" parent="about/content/close_button"]
+[node name="button" type="Button" parent="about/content/close_button" unique_id=1137858565]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="save_overwrite" type="ConfirmationDialog" parent="."]
+[node name="save_overwrite" type="ConfirmationDialog" parent="." unique_id=1734852331]
 oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(222, 100)
@@ -336,7 +336,7 @@ force_native = true
 dialog_text = "OK to overwrite existing file(s)?"
 script = ExtResource("3_yhl02")
 
-[node name="save_lock" type="Window" parent="."]
+[node name="save_lock" type="Window" parent="." unique_id=336412911]
 oversampling_override = 1.0
 title = "Saving..."
 initial_position = 2
@@ -348,7 +348,7 @@ unresizable = true
 force_native = true
 script = ExtResource("28_j0856")
 
-[node name="content" type="VBoxContainer" parent="save_lock"]
+[node name="content" type="VBoxContainer" parent="save_lock" unique_id=1377697791]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -361,7 +361,7 @@ offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="title" type="Label" parent="save_lock/content"]
+[node name="title" type="Label" parent="save_lock/content" unique_id=321514901]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
@@ -369,21 +369,21 @@ text = "Please wait..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="step" type="Label" parent="save_lock/content"]
+[node name="step" type="Label" parent="save_lock/content" unique_id=1825025432]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="sub" type="Label" parent="save_lock/content"]
+[node name="sub" type="Label" parent="save_lock/content" unique_id=659335712]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="preferences" type="Window" parent="." node_paths=PackedStringArray("save_button")]
+[node name="preferences" type="Window" parent="." unique_id=827181893 node_paths=PackedStringArray("save_button")]
 oversampling_override = 1.0
 title = "PREFERENCES_TITLE"
 initial_position = 2
@@ -392,42 +392,42 @@ visible = false
 script = ExtResource("9_amh60")
 save_button = NodePath("background/margin/contents/save")
 
-[node name="background" type="PanelContainer" parent="preferences"]
+[node name="background" type="PanelContainer" parent="preferences" unique_id=2064379282]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="margin" type="MarginContainer" parent="preferences/background"]
+[node name="margin" type="MarginContainer" parent="preferences/background" unique_id=1413705811]
 layout_mode = 2
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin" unique_id=1165233616]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="categories" type="TabContainer" parent="preferences/background/margin/contents"]
+[node name="categories" type="TabContainer" parent="preferences/background/margin/contents" unique_id=1164033383]
 layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 use_hidden_tabs_for_min_size = true
 
-[node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_GENERAL_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=636851998]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE" unique_id=148036977]
 layout_mode = 2
 
-[node name="language" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="language" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents" unique_id=506862272]
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language" unique_id=135313492]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_GENERAL_LANGUAGE"
 
-[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language"]
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/language" unique_id=1595685101]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -437,17 +437,17 @@ popup/item_0/text = "ENGLISH"
 popup/item_0/id = 0
 script = ExtResource("13_hgppk")
 
-[node name="max_undo" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="max_undo" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents" unique_id=1640319208]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo" unique_id=700928240]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_GENERAL_UNDO"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo"]
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents/max_undo" unique_id=1288494488]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -456,14 +456,14 @@ value = 1.0
 alignment = 2
 script = ExtResource("19_w7ci1")
 
-[node name="reopen" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="reopen" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents" unique_id=1974753840]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 button_pressed = true
 text = "PREFERENCES_GENERAL_REOPEN"
 script = ExtResource("20_560p1")
 
-[node name="reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents"]
+[node name="reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents" unique_id=1706161109]
 clip_contents = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -471,91 +471,91 @@ button_pressed = true
 text = "PREFERENCES_GENERAL_REINDEX"
 script = ExtResource("32_nliut")
 
-[node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_CUSTOMIZATION_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=1436070114]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE" unique_id=1033507289]
 layout_mode = 2
 
-[node name="bg_a" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="bg_a" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents" unique_id=165258437]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a" unique_id=1333687033]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_BG_GRID_1"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_a" unique_id=39137480]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("10_32rfu")
 
-[node name="bg_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="bg_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents" unique_id=209128843]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b" unique_id=1533420646]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_BG_GRID_2"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/bg_b" unique_id=259329814]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("11_36hta")
 
-[node name="status" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents"]
+[node name="status" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents" unique_id=616505991]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status" unique_id=2093569771]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CUSTOMIZATION_STATUS"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CUSTOMIZATION_TITLE/contents/status" unique_id=576323904]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("13_pomsy")
 
-[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_SPRITES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=741523258]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE" unique_id=772003997]
 layout_mode = 2
 
-[node name="color_bounds" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents"]
+[node name="color_bounds" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents" unique_id=1636972338]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds" unique_id=1594355756]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_SPRITES_BOUNDS"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_SPRITES_TITLE/contents/color_bounds" unique_id=1899383570]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("16_n6nme")
 
-[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_CELLS_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=1331915876]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE" unique_id=1574312466]
 layout_mode = 2
 
-[node name="origin" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="origin" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents" unique_id=1817732228]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -563,60 +563,60 @@ button_pressed = true
 text = "PREFERENCES_CELLS_CROSS"
 script = ExtResource("10_ed0ih")
 
-[node name="origin_type" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="origin_type" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents" unique_id=617899306]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type" unique_id=1080676584]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_CROSS_TYPE"
 
-[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type"]
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/origin_type" unique_id=1646144535]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 script = ExtResource("40_yld3e")
 
-[node name="onion" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="onion" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents" unique_id=57315940]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion" unique_id=936749652]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_ONION"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/onion" unique_id=398284166]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("10_p1185")
 
-[node name="guide" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="guide" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents" unique_id=1132622515]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide" unique_id=1068298637]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_GUIDE"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/guide" unique_id=753657223]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("17_nxxtx")
 
-[node name="snapshot_format" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents"]
+[node name="snapshot_format" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents" unique_id=1837154985]
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format" unique_id=522101992]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_CELLS_SNAPSHOT_FORMAT"
 
-[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format"]
+[node name="value" type="OptionButton" parent="preferences/background/margin/contents/categories/PREFERENCES_CELLS_TITLE/contents/snapshot_format" unique_id=1796186456]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -630,25 +630,25 @@ popup/item_2/text = "PREFERENCES_CELLS_SNAPSHOT_BOTH"
 popup/item_2/id = 2
 script = ExtResource("34_8vno3")
 
-[node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_BOXES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=488897038]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE" unique_id=1223323603]
 layout_mode = 2
 
-[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=163806688]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness" unique_id=97974804]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_THICKNESS"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness"]
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness" unique_id=417310671]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -657,127 +657,127 @@ value = 1.0
 alignment = 2
 script = ExtResource("9_t7qug")
 
-[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=917840670]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown" unique_id=240507627]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_UNKNOWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown" unique_id=199493197]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 7
 
-[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=187758672]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox" unique_id=1200824089]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HURTBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox" unique_id=1803489266]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 2
 
-[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1068906082]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox" unique_id=2006871807]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HITBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox" unique_id=50242679]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 1
 
-[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1541193011]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b" unique_id=1840702555]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_BACK"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b" unique_id=1984117542]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 3
 
-[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1419805691]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f" unique_id=1753301450]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_FRONT"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f" unique_id=1873230984]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 6
 
-[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=605025548]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend" unique_id=1908227014]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_COLLISION_EXTENSION"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend" unique_id=1037185947]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 4
 
-[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents"]
+[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1140462486]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn" unique_id=1310259379]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_SPAWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn"]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn" unique_id=369545894]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 5
 
-[node name="PREFERENCES_PALETTES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories"]
+[node name="PREFERENCES_PALETTES_TITLE" type="MarginContainer" parent="preferences/background/margin/contents/categories" unique_id=1620572225]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 5
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_PALETTES_TITLE"]
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_PALETTES_TITLE" unique_id=916112216]
 layout_mode = 2
 
-[node name="gradient_reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_PALETTES_TITLE/contents"]
+[node name="gradient_reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_PALETTES_TITLE/contents" unique_id=907194622]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -786,12 +786,12 @@ text = "PREFERENCES_PALETTES_GRADIENT_REINDEX"
 text_overrun_behavior = 3
 script = ExtResource("43_4qwfh")
 
-[node name="save" type="Button" parent="preferences/background/margin/contents"]
+[node name="save" type="Button" parent="preferences/background/margin/contents" unique_id=854263016]
 layout_mode = 2
 size_flags_vertical = 8
 text = "PREFERENCES_SAVE"
 
-[node name="action_history" type="Window" parent="." node_paths=PackedStringArray("item_list")]
+[node name="action_history" type="Window" parent="." unique_id=1283867951 node_paths=PackedStringArray("item_list")]
 oversampling_override = 1.0
 title = "ACTION_HISTORY_TITLE"
 initial_position = 2
@@ -800,7 +800,7 @@ visible = false
 script = ExtResource("39_larvh")
 item_list = NodePath("margin/content/scroll/list")
 
-[node name="margin" type="MarginContainer" parent="action_history"]
+[node name="margin" type="MarginContainer" parent="action_history" unique_id=2086074942]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -809,29 +809,29 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="VBoxContainer" parent="action_history/margin"]
+[node name="content" type="VBoxContainer" parent="action_history/margin" unique_id=798249552]
 layout_mode = 2
 
-[node name="scroll" type="ScrollContainer" parent="action_history/margin/content"]
+[node name="scroll" type="ScrollContainer" parent="action_history/margin/content" unique_id=654852129]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="list" type="ItemList" parent="action_history/margin/content/scroll"]
+[node name="list" type="ItemList" parent="action_history/margin/content/scroll" unique_id=1169924716]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="buttons" type="HBoxContainer" parent="action_history/margin/content"]
+[node name="buttons" type="HBoxContainer" parent="action_history/margin/content" unique_id=3600018]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="undo" type="Button" parent="action_history/margin/content/buttons"]
+[node name="undo" type="Button" parent="action_history/margin/content/buttons" unique_id=569441835]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "EDIT_UNDO"
 script = ExtResource("40_obp7x")
 
-[node name="redo" type="Button" parent="action_history/margin/content/buttons"]
+[node name="redo" type="Button" parent="action_history/margin/content/buttons" unique_id=613970066]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "EDIT_REDO"
