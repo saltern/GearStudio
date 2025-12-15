@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=62 format=3 uid="uid://bompixxaxswea"]
+[gd_resource type="Theme" format=3 uid="uid://bompixxaxswea"]
 
 [ext_resource type="FontFile" uid="uid://dlgxqrir2wfju" path="res://FONTS/jetbrainsmono_semibold.ttf" id="1_a2l2q"]
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
