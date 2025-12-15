@@ -4,7 +4,7 @@ extends ColorPickerButton
 
 
 func _ready() -> void:
-	color = Settings.box_colors[Settings.BoxType.UNKNOWN]
+	color = Settings.box_colors[type]
 	color_changed.connect(update)
 
 
