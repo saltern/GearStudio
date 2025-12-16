@@ -34,7 +34,11 @@ func _ready() -> void:
 
 
 func on_ref_data_set() -> void:
-	load_action(script_edit.action_index)
+	if provider.action_index != -1:
+		load_action(provider.action_index)
+	else:
+		load_action(script_edit.action_index)
+	
 	load_frame(script_edit.script_animation_get_current_frame())
 
 
