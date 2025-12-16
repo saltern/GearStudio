@@ -82,6 +82,7 @@
 [ext_resource type="Script" uid="uid://dyqb1f2hgtfm4" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_dialog.gd" id="74_ehmjy"]
 [ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="74_kemly"]
 [ext_resource type="Script" uid="uid://ba2jqkm63eqoc" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_count_info.gd" id="83_tjwtw"]
+[ext_resource type="Shader" uid="uid://pyjrqqoid2mx" path="res://MATERIALS/palette_basic.gdshader" id="84_ifugv"]
 [ext_resource type="Script" uid="uid://cic6infif3we7" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_box_visibility.gd" id="84_lpevd"]
 [ext_resource type="Script" uid="uid://d3snfjn721waq" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_progress_dialog.gd" id="86_ehmjy"]
 
@@ -118,6 +119,13 @@ shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 shader_parameter/palette = PackedInt32Array()
 shader_parameter/post_transparency = 1.0
 shader_parameter/modulate = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kemly"]
+resource_local_to_scene = true
+shader = ExtResource("84_ifugv")
+shader_parameter/reindex = true
+shader_parameter/alpha_double = true
+shader_parameter/palette = PackedInt32Array()
 
 [node name="CELL_EDIT_TITLE" type="MarginContainer" unique_id=1072943859 node_paths=PackedStringArray("box_draw_node", "box_type_menu", "box_edit_mode")]
 anchors_preset = 15
@@ -910,6 +918,7 @@ sprite_origin = NodePath(".")
 [node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" unique_id=2049101847]
 visible = false
 layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1711,7 +1720,7 @@ offset_bottom = 2001.0
 mouse_filter = 2
 
 [node name="sprite" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" unique_id=252677191 node_paths=PackedStringArray("cell_index", "sprite_origin")]
-material = ExtResource("26_gliws")
+material = SubResource("ShaderMaterial_kemly")
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("49_hlqrw")
