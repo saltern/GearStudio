@@ -28,5 +28,4 @@ func on_ref_data_cleared() -> void:
 
 
 func update(_new_value: float) -> void:
-	max_value = ref_handler.obj_data.scripts.actions.size() - 1
 	ref_handler.reference_action_set(value)

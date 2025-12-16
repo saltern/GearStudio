@@ -20,6 +20,9 @@ func load_cell(cell: Cell) -> void:
 	if cell.sprite_index >= provider.obj_data.sprites.size():
 		return
 	
+	if provider.obj_data.is_empty():
+		return
+	
 	sprite_index = cell.sprite_index
 	
 	var sprite: BinSprite = provider.obj_data.sprites[cell.sprite_index]
@@ -61,6 +64,9 @@ func get_palette(index: int) -> PackedByteArray:
 
 
 func load_palette(index: int) -> void:
+	if provider.obj_data.is_empty():
+		return
+	
 	palette_index = index
 	material.set_shader_parameter("palette", get_palette(palette_index))
 

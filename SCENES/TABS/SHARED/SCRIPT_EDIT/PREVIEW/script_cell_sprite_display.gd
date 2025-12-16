@@ -14,6 +14,7 @@ var angle: int = 0
 var scale_x: int = -1
 var scale_y: int = -1
 
+var session_palette: int = 0
 var palette_override: PackedByteArray = []
 
 var ignore_visual: bool = false
@@ -36,6 +37,10 @@ func _ready() -> void:
 	anim.inst_palette.connect(on_palette)
 	anim.inst_visual.connect(on_visual)
 	ignore_visual_toggle.toggled.connect(toggle_visual)
+	
+	if provider is ReferenceHandler:
+		provider.ref_session_cleared.connect(unload_sprite)
+		provider.ref_data_cleared.connect(unload_sprite)
 
 
 func load_cell(cell: Cell) -> void:
@@ -45,8 +50,11 @@ func load_cell(cell: Cell) -> void:
 func get_palette(index: int) -> PackedByteArray:
 	if not palette_override.is_empty():
 		return palette_override
-	else:
-		return super.get_palette(index)
+	
+	if provider.obj_data.has("palettes"):
+		palette_index = session_palette
+
+	return super.get_palette(index)
 
 
 func toggle_visual(enabled: bool) -> void:
@@ -62,6 +70,9 @@ func disable_visual_1() -> void:
 
 
 func on_cell(index: int) -> void:
+	if provider.obj_data.is_empty():
+		return
+	
 	if provider.cell_get_count() > index:
 		var this_cell: Cell = provider.cell_get(index)
 		load_cell(this_cell)
@@ -210,10 +221,10 @@ func on_palette_changed(for_session: int, pal_index: int) -> void:
 	if for_session != owner.session_id:
 		return
 	
-	if not provider.obj_data.has("palettes"):
-		return
+	session_palette = pal_index
 	
-	load_palette(pal_index)
+	if provider.obj_data.has("palettes"):
+		load_palette(pal_index)
 
 
 func on_sprite_palette_changed(

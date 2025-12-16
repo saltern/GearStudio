@@ -74,6 +74,9 @@ func load_action(index: int) -> void:
 
 
 func load_frame(frame: int) -> void:
+	if provider.obj_data.is_empty():
+		return
+	
 	if assigned_animation == "" and current_animation == "":
 		return
 	

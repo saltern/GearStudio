@@ -19,6 +19,10 @@ func _ready() -> void:
 	anim.inst_draw_normal.connect(on_draw_normal)
 	anim.inst_draw_reverse.connect(on_draw_reverse)
 	sprite_handler.scale_set.connect(on_scale)
+	
+	if provider is ReferenceHandler:
+		provider.ref_session_cleared.connect(clear_boxes)
+		provider.ref_data_cleared.connect(clear_boxes)
 
 
 func _process(_delta: float) -> void:
@@ -97,9 +101,12 @@ func load_boxes(boxes: Array[BoxInfo]) -> void:
 
 #region INSTRUCTION SIMULATION
 func on_cell(index: int) -> void:
+	if provider.obj_data.is_empty():
+		return
+	
 	var cell: Cell
 	
-	if script_edit.obj_data["cells"].size() > index:
+	if provider.obj_data["cells"].size() > index:
 		cell = provider.obj_data["cells"][index]
 	else:
 		cell = Cell.new()
