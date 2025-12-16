@@ -881,6 +881,8 @@ anchors_preset = 0
 script = ExtResource("27_vdvp0")
 
 [node name="reference" type="CanvasGroup" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=926291469]
+fit_margin = 1000.0
+clear_margin = 1000.0
 
 [node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference" unique_id=317822443]
 layout_mode = 3
