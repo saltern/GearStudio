@@ -886,16 +886,36 @@ clear_margin = 1000.0
 
 [node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference" unique_id=317822443]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" unique_id=478096679 node_paths=PackedStringArray("sprite_origin")]
 material = ExtResource("53_d2y4c")
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("52_3nb3e")
 sprite_origin = NodePath(".")
 
 [node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/reference/parent" unique_id=2049101847]
-anchors_preset = 0
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("55_vjh8k")
 
 [node name="parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin" unique_id=910494692]
@@ -911,10 +931,6 @@ grow_vertical = 2
 [node name="sprite" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=1958802131 node_paths=PackedStringArray("sprite_origin")]
 material = ExtResource("26_gliws")
 anchors_preset = 0
-offset_left = 1273.0
-offset_top = 1551.0
-offset_right = 1273.0
-offset_bottom = 1551.0
 mouse_filter = 2
 script = ExtResource("27_na53u")
 sprite_origin = NodePath(".")
@@ -946,6 +962,7 @@ mouse_filter = 2
 script = ExtResource("29_uhtn5")
 
 [node name="options" type="ScrollContainer" parent="content/visualizer/preview_contents" unique_id=1124161995]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 

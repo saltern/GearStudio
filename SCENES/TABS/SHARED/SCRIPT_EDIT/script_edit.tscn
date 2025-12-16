@@ -217,9 +217,11 @@ metadata/_custom_type_script = "uid://ojsjmxp21twu"
 [node name="properties" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=131489535]
 layout_mode = 2
 tooltip_text = "SCRIPT_EDIT_PROPERTIES_TOOLTIP"
+folded = true
 title = "SCRIPT_EDIT_PROPERTIES"
 
 [node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data/properties" unique_id=1481165735]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -875,8 +877,6 @@ collapsible = NodePath("../../preview_contents/options")
 [node name="preview_contents" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer" unique_id=1973727124]
 layout_mode = 2
 size_flags_vertical = 3
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="borders" type="PanelContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents" unique_id=213639782]
 layout_mode = 2
@@ -908,6 +908,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.376471, 0.376471, 0.376471, 1)
 script = ExtResource("3_i86rk")
+metadata/_edit_lock_ = true
 
 [node name="background_b" type="TextureRect" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/borders/clipper/visualizer/background_a" unique_id=1625501495]
 modulate = Color(0.25098, 0.25098, 0.25098, 1)
