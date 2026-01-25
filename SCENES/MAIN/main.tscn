@@ -154,7 +154,7 @@ script = ExtResource("8_5nt50")
 [node name="about" type="Panel" parent="." unique_id=1906557162]
 visible = false
 z_index = 1
-custom_minimum_size = Vector2(650, 420)
+custom_minimum_size = Vector2(850, 420)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -186,17 +186,23 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="acknowledgments" type="VBoxContainer" parent="about/content/details" unique_id=392114064]
+[node name="ScrollContainer" type="ScrollContainer" parent="about/content/details" unique_id=2064217916]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
 
-[node name="title" type="Label" parent="about/content/details/acknowledgments" unique_id=1216669968]
+[node name="acknowledgments" type="VBoxContainer" parent="about/content/details/ScrollContainer" unique_id=392114064]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+
+[node name="title" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1216669968]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_TITLE"
 horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="ryn_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=628569560]
+[node name="ryn_header" type="RichTextLabel" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=628569560]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -211,17 +217,12 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="ryn_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=675604983]
+[node name="ryn_contributions" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=675604983]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_RYN"
 horizontal_alignment = 1
 
-[node name="pad_0" type="Control" parent="about/content/details/acknowledgments" unique_id=1637856858]
-visible = false
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="lovenus_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=1219357853]
+[node name="lovenus_header" type="RichTextLabel" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1219357853]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -236,17 +237,12 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="lovenus_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=1566746478]
+[node name="lovenus_contributions" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1566746478]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_LOVENUS"
 horizontal_alignment = 1
 
-[node name="pad_1" type="Control" parent="about/content/details/acknowledgments" unique_id=1699952946]
-visible = false
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="chloe_header" type="RichTextLabel" parent="about/content/details/acknowledgments" unique_id=2110597057]
+[node name="chloe_header" type="RichTextLabel" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=2110597057]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -260,10 +256,52 @@ scroll_active = false
 shortcut_keys_enabled = false
 script = ExtResource("5_jbgtt")
 
-[node name="chloe_contributions" type="Label" parent="about/content/details/acknowledgments" unique_id=1783903389]
+[node name="chloe_contributions" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1783903389]
 layout_mode = 2
 text = "ABOUT_ACKNOWLEDGMENTS_CHLOE"
 horizontal_alignment = 1
+
+[node name="athenya_header" type="RichTextLabel" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=128749507]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("10_1bryt")
+bbcode_enabled = true
+text = "
+[center][b]Athenya (@athenya)[/b]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("5_jbgtt")
+
+[node name="athenya_contributions" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=458722331]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_ATHENYA"
+horizontal_alignment = 1
+
+[node name="voll_header" type="RichTextLabel" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1878946892]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_fonts/bold_font = ExtResource("10_1bryt")
+bbcode_enabled = true
+text = "
+[center][b]Voll (@vollzx)[/b]"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+script = ExtResource("5_jbgtt")
+
+[node name="voll_contributions" type="Label" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1880851019]
+layout_mode = 2
+text = "ABOUT_ACKNOWLEDGMENTS_VOLL"
+horizontal_alignment = 1
+
+[node name="padding" type="Control" parent="about/content/details/ScrollContainer/acknowledgments" unique_id=1771523415]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="v_sep" type="VSeparator" parent="about/content/details" unique_id=1020013132]
 layout_mode = 2
@@ -281,7 +319,7 @@ size_flags_vertical = 4
 theme_override_fonts/bold_font = ExtResource("10_1bryt")
 bbcode_enabled = true
 text = "[center][b]GEAR STUDIO[/b]
-0.7.0-dev (May 2025)
+0.7.0 (January 25th 2026)
 
 "
 fit_content = true
@@ -838,9 +876,11 @@ text = "EDIT_REDO"
 script = ExtResource("40_obp7x")
 mode = 1
 
-[connection signal="meta_clicked" from="about/content/details/acknowledgments/ryn_header" to="about/content/details/acknowledgments/ryn_header" method="link_clicked"]
-[connection signal="meta_clicked" from="about/content/details/acknowledgments/lovenus_header" to="about/content/details/acknowledgments/lovenus_header" method="link_clicked"]
-[connection signal="meta_clicked" from="about/content/details/acknowledgments/chloe_header" to="about/content/details/acknowledgments/chloe_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/ScrollContainer/acknowledgments/ryn_header" to="about/content/details/ScrollContainer/acknowledgments/ryn_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/ScrollContainer/acknowledgments/lovenus_header" to="about/content/details/ScrollContainer/acknowledgments/lovenus_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/ScrollContainer/acknowledgments/chloe_header" to="about/content/details/ScrollContainer/acknowledgments/chloe_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/ScrollContainer/acknowledgments/athenya_header" to="about/content/details/ScrollContainer/acknowledgments/athenya_header" method="link_clicked"]
+[connection signal="meta_clicked" from="about/content/details/ScrollContainer/acknowledgments/voll_header" to="about/content/details/ScrollContainer/acknowledgments/voll_header" method="link_clicked"]
 [connection signal="meta_clicked" from="about/content/details/info/gear_studio" to="about/content/details/info/gear_studio" method="link_clicked"]
 [connection signal="meta_clicked" from="about/content/details/info/author/name" to="about/content/details/info/author/name" method="link_clicked"]
 [connection signal="pressed" from="about/content/close_button/button" to="about" method="hide"]
