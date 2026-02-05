@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://bejbhwyc88o4m" path="res://SCENES/MAIN/save_as_dialog.gd" id="5_nliut"]
 [ext_resource type="Script" uid="uid://dqb5e70xt55vb" path="res://SCENES/MAIN/status.gd" id="6_x8l4e"]
 [ext_resource type="Script" uid="uid://br715q4nlkbn6" path="res://SCENES/MAIN/status_color.gd" id="8_5nt50"]
+[ext_resource type="Script" uid="uid://dyeu1nhmix2dp" path="res://SCENES/MAIN/decrypt_confirm.gd" id="8_biqay"]
+[ext_resource type="Script" uid="uid://gcdb68etpqa0" path="res://SCENES/MAIN/topmenu_tools.gd" id="8_c3wsu"]
 [ext_resource type="Script" uid="uid://capgpsp6n0cqf" path="res://SCENES/MAIN/PREFERENCES/preferences.gd" id="9_amh60"]
 [ext_resource type="Script" uid="uid://cyracgls2ywa8" path="res://SCENES/MAIN/about.gd" id="9_jufyb"]
 [ext_resource type="Script" uid="uid://bfa0ufwbvd0c4" path="res://SCENES/MAIN/PREFERENCES/box_thickness.gd" id="9_t7qug"]
@@ -24,6 +26,7 @@
 [ext_resource type="Script" uid="uid://c5r6jjaccxx1c" path="res://SCENES/MAIN/PREFERENCES/general_language.gd" id="13_hgppk"]
 [ext_resource type="Script" uid="uid://b54j22ehk4xxt" path="res://SCENES/MAIN/PREFERENCES/custom_color_status.gd" id="13_pomsy"]
 [ext_resource type="Script" uid="uid://4cyjm7au0vdi" path="res://SCENES/MAIN/PREFERENCES/sprite_color_bounds.gd" id="16_n6nme"]
+[ext_resource type="Script" uid="uid://cn8pav0wtegpj" path="res://SCENES/MAIN/decrypt_lock.gd" id="17_127pr"]
 [ext_resource type="Script" uid="uid://c1ax6oebrub2c" path="res://SCENES/MAIN/PREFERENCES/cell_guide_color.gd" id="17_nxxtx"]
 [ext_resource type="Script" uid="uid://ch0kfhlvhxbdh" path="res://SCENES/MAIN/PREFERENCES/misc_max_undo.gd" id="19_w7ci1"]
 [ext_resource type="Script" uid="uid://dg5ke7hjoabse" path="res://SCENES/MAIN/PREFERENCES/misc_reopen.gd" id="20_560p1"]
@@ -114,9 +117,24 @@ script = ExtResource("5_nliut")
 size = Vector2i(149, 109)
 script = ExtResource("3_lymwu")
 
+[node name="Tools" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=2008326816 node_paths=PackedStringArray("decrypt_browser", "decrypt_confirm")]
+size = Vector2i(600, 400)
+script = ExtResource("8_c3wsu")
+decrypt_browser = NodePath("decrypt_browser")
+decrypt_confirm = NodePath("../../../../decrypt_confirm")
+
+[node name="decrypt_browser" type="FileDialog" parent="content/top_bar/menu_bar/Tools" unique_id=555999056]
+title = "Open a Directory"
+size = Vector2i(640, 400)
+file_mode = 2
+display_mode = 1
+access = 2
+use_native_dialog = true
+
 [node name="TOP_MENU_HELP" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=2114301527 node_paths=PackedStringArray("about_dialog")]
 auto_translate_mode = 1
-size = Vector2i(115, 100)
+oversampling_override = 1.0
+size = Vector2i(156, 100)
 item_count = 1
 item_0/text = "HELP_ABOUT"
 item_0/id = 0
@@ -365,6 +383,42 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
+
+[node name="decrypt_confirm" type="ConfirmationDialog" parent="." unique_id=1121620959]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(375, 126)
+transient_to_focused = true
+dialog_text = "Do you want to decrypt the files in the following folder?
+PATH
+This action cannot be undone."
+script = ExtResource("8_biqay")
+
+[node name="decrypt_lock" type="Window" parent="." unique_id=234480262]
+oversampling_override = 1.0
+title = "Decrypting..."
+initial_position = 2
+size = Vector2i(250, 120)
+visible = false
+transient = true
+exclusive = true
+unresizable = true
+minimize_disabled = true
+maximize_disabled = true
+force_native = true
+script = ExtResource("17_127pr")
+
+[node name="title" type="Label" parent="decrypt_lock" unique_id=742757104]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Please wait..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="save_overwrite" type="ConfirmationDialog" parent="." unique_id=1734852331]
 oversampling_override = 1.0

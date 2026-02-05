@@ -11,3 +11,6 @@ signal save_start
 signal save_object
 signal save_sub_object
 signal save_complete
+
+signal decryption_start
+signal decryption_end
