@@ -15,7 +15,7 @@ func display() -> void:
 
 
 func object(obj_name: String) -> void:
-	$content/step.text = "Saving '%s'..." % obj_name
+	$content/step.text = tr("SAVE_PROGRESS_OBJECT").format({"object": obj_name})
 
 
 func sub_object(sub_obj_name: String) -> void:

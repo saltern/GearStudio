@@ -117,13 +117,13 @@ script = ExtResource("5_nliut")
 size = Vector2i(149, 109)
 script = ExtResource("3_lymwu")
 
-[node name="Tools" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=2008326816 node_paths=PackedStringArray("decrypt_browser", "decrypt_confirm")]
+[node name="TOP_MENU_TOOLS" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=2008326816 node_paths=PackedStringArray("decrypt_browser", "decrypt_confirm")]
 size = Vector2i(600, 400)
 script = ExtResource("8_c3wsu")
 decrypt_browser = NodePath("decrypt_browser")
 decrypt_confirm = NodePath("../../../../decrypt_confirm")
 
-[node name="decrypt_browser" type="FileDialog" parent="content/top_bar/menu_bar/Tools" unique_id=555999056]
+[node name="decrypt_browser" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_TOOLS" unique_id=555999056]
 title = "Open a Directory"
 size = Vector2i(640, 400)
 file_mode = 2
@@ -386,17 +386,18 @@ text = "Close"
 
 [node name="decrypt_confirm" type="ConfirmationDialog" parent="." unique_id=1121620959]
 oversampling_override = 1.0
+title = "DIALOG_CONFIRM_ACTION"
 initial_position = 2
-size = Vector2i(375, 126)
+size = Vector2i(375, 90)
 transient_to_focused = true
-dialog_text = "Do you want to decrypt the files in the following folder?
-PATH
-This action cannot be undone."
+ok_button_text = "BUTTON_OK"
+dialog_text = "DECRYPTION_CONFIRM_TEXT"
+cancel_button_text = "BUTTON_CANCEL"
 script = ExtResource("8_biqay")
 
 [node name="decrypt_lock" type="Window" parent="." unique_id=234480262]
 oversampling_override = 1.0
-title = "Decrypting..."
+title = "DECRYPTION_PROGRESS_TITLE"
 initial_position = 2
 size = Vector2i(250, 120)
 visible = false
@@ -416,21 +417,24 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "Please wait..."
+text = "PLEASE_WAIT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="save_overwrite" type="ConfirmationDialog" parent="." unique_id=1734852331]
 oversampling_override = 1.0
+title = "DIALOG_CONFIRM_ACTION"
 initial_position = 2
-size = Vector2i(222, 100)
+size = Vector2i(264, 90)
 force_native = true
-dialog_text = "OK to overwrite existing file(s)?"
+ok_button_text = "BUTTON_OK"
+dialog_text = "SAVE_CONFIRM_OVERWRITE"
+cancel_button_text = "BUTTON_CANCEL"
 script = ExtResource("3_yhl02")
 
 [node name="save_lock" type="Window" parent="." unique_id=336412911]
 oversampling_override = 1.0
-title = "Saving..."
+title = "SAVE_PROGRESS_TITLE"
 initial_position = 2
 size = Vector2i(250, 120)
 visible = false
@@ -457,7 +461,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-text = "Please wait..."
+text = "PLEASE_WAIT"
 horizontal_alignment = 1
 vertical_alignment = 1
 

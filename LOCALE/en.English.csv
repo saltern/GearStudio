@@ -1,6 +1,7 @@
 key,en
 TOP_MENU_FILE,File
 TOP_MENU_EDIT,Edit
+TOP_MENU_TOOLS,Tools
 TOP_MENU_HELP,Help
 FILE_OPEN_DIR,Open directory...
 FILE_OPEN_BIN,Open binary...
@@ -12,6 +13,7 @@ EDIT_UNDO,Undo
 EDIT_REDO,Redo
 EDIT_ACTION_HISTORY,Action History...
 EDIT_PREFERENCES,Preferences...
+TOOLS_DECRYPT_FOLDER,Decrypt directory...
 HELP_ABOUT,About...
 SESSION_PREVIEW_REINDEX,Reindex 8bpp palettes in previews
 PREFERENCES_TITLE,Preferences
@@ -57,6 +59,10 @@ PREFERENCES_PALETTES_GRADIENT_REINDEX_TOOLTIP,"If enabled, gradients will be gen
 PREFERENCES_SAVE,Save preferences
 ACTION_HISTORY_TITLE,Action History
 ACTION_HISTORY_FILE_OPENED,File opened
+DECRYPTION_CONFIRM_TEXT,"Do you want to decrypt the files in the following directory?
+{path}
+This action cannot be undone."
+DECRYPTION_PROGRESS_TITLE,Decrypting...
 ABOUT_ACKNOWLEDGMENTS_TITLE,ACKNOWLEDGMENTS
 ABOUT_ACKNOWLEDGMENTS_RYN,"- First tool for parsing and rebuilding character files
 - First tool for decoding compressed +R sprites
@@ -72,6 +78,12 @@ ABOUT_ACKNOWLEDGMENTS_VOLL,"- Script instruction documentation
 - Additional research and information"
 ABOUT_BY,by
 ABOUT_CLOSE,Close
+SAVE_CONFIRM_OVERWRITE,OK to overwrite existing file(s)?
+SAVE_PROGRESS_TITLE,Saving...
+SAVE_PROGRESS_OBJECT,Saving '{object}'...
+SAVE_PROGRESS_OBJ_UNSUPPORTED,Unsupported
+SAVE_PROGRESS_SUB_SINGLE_SPRITE,Single sprite
+SAVE_PROGRESS_SUB_RAW_BYTES,Raw bytes
 TAB_BASE_NAME,File {id}: {name}
 TAB_TITLE_OBJECT,Object
 TAB_TITLE_PLAYER,Player

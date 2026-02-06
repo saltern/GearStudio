@@ -16,7 +16,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func display(path: String) -> void:
-	dialog_text = path
+	dialog_text = tr("DECRYPTION_CONFIRM_TEXT").format({"path": path})
 	decryption_path = path
 	grab_focus.call_deferred()
 	show()
