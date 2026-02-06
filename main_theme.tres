@@ -425,6 +425,8 @@ bg_color = Color(0, 0, 0, 1)
 [resource]
 default_font = ExtResource("1_mlsfx")
 default_font_size = 14
+AcceptDialog/constants/buttons_min_width = 80
+AcceptDialog/constants/buttons_separation = 20
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_u221g")
 Button/styles/disabled = SubResource("StyleBoxFlat_usqe5")
 Button/styles/disabled_mirrored = SubResource("StyleBoxFlat_pat3b")
