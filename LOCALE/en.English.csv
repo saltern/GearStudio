@@ -122,6 +122,43 @@ SPRITE_EDIT_PALETTE_EXPORT_TOOLTIP,Export the embedded palette to a file...
 SPRITE_EDIT_PALETTE_EDITOR,Open palette editor
 SPRITE_EDIT_PALETTE_EDITOR_TOOLTIP,Open the embedded palette editor and enable changes
 SPRITE_EDIT_PALETTE_EDITOR_TITLE,Color editor
+SPRITE_EDIT_BATCH_REPAL,Batch replace...
+SPRITE_EDIT_BATCH_REPAL_TOOLTIP,Replace the palette for one or more sprites...
+SPRITE_EDIT_BATCH_REPAL_TITLE,Batch replace palettes
+SPRITE_EDIT_BATCH_REPAL_SOURCE_TITLE,Palette source
+SPRITE_EDIT_BATCH_REPAL_SOURCE_TITLE_TOOLTIP,Choose your source palette here.
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF,Copy existing
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_TOOLTIP,Reuse an existing palette from this file; either from an object sprite or player palette.
+SPRITE_EDIT_BATCH_REPAL_SOURCE_FILE,Import file
+SPRITE_EDIT_BATCH_REPAL_SOURCE_FILE_TOOLTIP,Use an external file as a source palette.
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_OBJECT,Object
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_OBJECT_TOOLTIP,The object containing the sprite or palette you want to source colors from.
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_SPRITE,Sprite #
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_SPRITE_TOOLTIP,The sprite to pull the palette from.
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_PALETTE,Palette #
+SPRITE_EDIT_BATCH_REPAL_SOURCE_SELF_PALETTE_TOOLTIP,The palette to use.
+SPRITE_EDIT_BATCH_REPAL_RANGE_TITLE,Sprite range
+SPRITE_EDIT_BATCH_REPAL_RANGE_TITLE_TOOLTIP,"Choose the range of sprites whose palettes to replace here.
+To modify only one sprite, set both boxes to the same value."
+SPRITE_EDIT_BATCH_REPAL_RANGE_START,From sprite
+SPRITE_EDIT_BATCH_REPAL_RANGE_START_TOOLTIP,Sets the starting sprite of the range to modify.
+SPRITE_EDIT_BATCH_REPAL_RANGE_END,To sprite
+SPRITE_EDIT_BATCH_REPAL_RANGE_END_TOOLTIP,Sets the ending sprite of the range to modify.
+SPRITE_EDIT_BATCH_REPAL_RANGE_PROCESS_COUNT,Will replace {count} sprites' palettes.
+SPRITE_EDIT_BATCH_REPAL_MISC_TITLE,Miscellaneous
+SPRITE_EDIT_BATCH_REPAL_MISC_TITLE_TOOLTIP,Modify miscellaneous processing options here.
+SPRITE_EDIT_BATCH_REPAL_MISC_REINDEX,Reindex
+SPRITE_EDIT_BATCH_REPAL_MISC_REINDEX_TOOLTIP,"Reindex the palette, changing the order of its color
+groups from 1-2-3-4 to 1-3-2-4 and vice-versa.
+
+Only applies to 8 bpp palettes.
+
+Try this option if the preview differs from the expected result."
+SPRITE_EDIT_BATCH_REPAL_APPLY,Apply
+SPRITE_EDIT_BATCH_REPAL_APPLY_TOOLTIP,Batch replace palettes with the above settings.
+SPRITE_EDIT_BATCH_REPAL_PREVIEW_SPRITE,Preview sprite
+SPRITE_EDIT_BATCH_REPAL_PREVIEW_SPRITE_TOOLTIP,Sets the sprite with which to preview your results.
+SPRITE_EDIT_BATCH_REPAL_PREVIEW_INVALID_PALETTE,The selected palette file is invalid and cannot be used.
 SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...
 SPRITE_EDIT_IMPORT_FILES_TITLE,Input files
 SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,Select files to import here.
