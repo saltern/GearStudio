@@ -1,5 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://bompixxaxswea"]
 
+[ext_resource type="Texture2D" uid="uid://dwq5hykx1b18" path="res://ICONS/radio_unchecked_black.svg" id="1_0omi4"]
 [ext_resource type="FontFile" uid="uid://dlgxqrir2wfju" path="res://FONTS/jetbrainsmono_semibold.ttf" id="1_a2l2q"]
 [ext_resource type="FontFile" uid="uid://baruwur6x1qav" path="res://FONTS/segoeui.ttf" id="1_mlsfx"]
 
@@ -98,7 +99,20 @@ border_width_bottom = 1
 border_color = Color(1, 1, 1, 1)
 corner_detail = 1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_343fp"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_58jnp"]
+content_margin_left = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_466ly"]
+content_margin_left = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_52mx2"]
+content_margin_left = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_py0i1"]
+content_margin_left = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sxwih"]
+content_margin_left = 5.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ekg8"]
 content_margin_left = 5.0
@@ -435,7 +449,13 @@ Button/styles/hover = SubResource("StyleBoxFlat_g1wju")
 Button/styles/hover_pressed = SubResource("StyleBoxFlat_op3vy")
 Button/styles/normal = SubResource("StyleBoxFlat_xua55")
 Button/styles/pressed = SubResource("StyleBoxFlat_fgh8h")
-CheckBox/styles/focus = SubResource("StyleBoxEmpty_343fp")
+CheckBox/constants/h_separation = 10
+CheckBox/icons/radio_unchecked = ExtResource("1_0omi4")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_58jnp")
+CheckBox/styles/hover = SubResource("StyleBoxEmpty_466ly")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxEmpty_52mx2")
+CheckBox/styles/normal = SubResource("StyleBoxEmpty_py0i1")
+CheckBox/styles/pressed = SubResource("StyleBoxEmpty_sxwih")
 CheckButton/styles/disabled = SubResource("StyleBoxEmpty_8ekg8")
 CheckButton/styles/focus = SubResource("StyleBoxEmpty_s22pw")
 CheckButton/styles/hover = SubResource("StyleBoxFlat_s4t8r")
