@@ -6,7 +6,7 @@ extends Window
 
 
 func _ready() -> void:
-	summon_button.pressed.connect(show)
+	summon_button.pressed.connect(display)
 	close_requested.connect(hide)
 
 
@@ -28,3 +28,4 @@ func display() -> void:
 	title = tr("SPRITE_EDIT_DELETE_TITLE").format({
 		"name": sprite_edit.get_parent().name.right(-5)
 	})
+	show()

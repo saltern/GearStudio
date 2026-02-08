@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://mts1oi8b755v"]
+
+[ext_resource type="Shader" uid="uid://pyjrqqoid2mx" path="res://MATERIALS/palette_basic.gdshader" id="1_wxx0m"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_wxx0m")
+shader_parameter/reindex = false
+shader_parameter/alpha_double = true
+shader_parameter/palette = PackedInt32Array()
