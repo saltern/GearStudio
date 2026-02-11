@@ -57,6 +57,7 @@
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="43_f47ks"]
 [ext_resource type="Script" uid="uid://1cdimsixei7p" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/REFERENCE/reference_action_index.gd" id="44_hca04"]
 [ext_resource type="Script" uid="uid://bihjs517xc2oc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_opacity.gd" id="48_3vsx4"]
+[ext_resource type="Script" uid="uid://c2s0ffxohp728" path="res://SCENES/TABS/SHARED/PREVIEW/collision_box_coords.gd" id="50_gbic1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oai88"]
 font_size = 14
@@ -1227,6 +1228,56 @@ tooltip_text = "REFERENCE_SEMITRANS_TOOLTIP"
 text = "REFERENCE_SEMITRANS"
 script = ExtResource("43_f47ks")
 reference = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
+
+[node name="collision" type="FoldableContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data" unique_id=1210453047]
+layout_mode = 2
+title = "PREVIEW_TITLE_COLLISION_BOX"
+
+[node name="content" type="VBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision" unique_id=940423815]
+layout_mode = 2
+
+[node name="enabled" type="CheckButton" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=74245954]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "PREVIEW_COLLISION_ENABLED"
+
+[node name="width" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=2140690256]
+layout_mode = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content/width" unique_id=1083595117]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_WIDTH_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_WIDTH"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content/width" unique_id=280849846]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("50_gbic1")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="height" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=1560657358]
+layout_mode = 2
+
+[node name="title" type="Label" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content/height" unique_id=756561509]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_WIDTH_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_HEIGHT"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer/preview_contents/options/margin/data/collision/content/height" unique_id=756130474]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("50_gbic1")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="timeline" type="HBoxContainer" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/visualizer" unique_id=1380742326]
 layout_mode = 2

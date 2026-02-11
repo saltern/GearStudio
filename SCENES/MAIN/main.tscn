@@ -34,6 +34,8 @@
 [ext_resource type="Script" uid="uid://du2yulm7rtwxk" path="res://SCENES/MAIN/PREFERENCES/box_color.gd" id="31_yld3e"]
 [ext_resource type="Script" uid="uid://vwch72ailkwq" path="res://SCENES/MAIN/PREFERENCES/palette_reindex_mode.gd" id="32_nliut"]
 [ext_resource type="Script" uid="uid://dpim21nuwcox8" path="res://SCENES/MAIN/PREFERENCES/cell_snapshot_format.gd" id="34_8vno3"]
+[ext_resource type="Script" uid="uid://c6tcn7e61lckb" path="res://SCENES/MAIN/PREFERENCES/box_collision_toggle.gd" id="35_yld3e"]
+[ext_resource type="Script" uid="uid://coggel1cb4ks8" path="res://SCENES/MAIN/PREFERENCES/box_collision_coords.gd" id="36_obp7x"]
 [ext_resource type="Script" uid="uid://bgl2871ew8sv1" path="res://SCENES/MAIN/action_history.gd" id="39_larvh"]
 [ext_resource type="Script" uid="uid://565ekkigruur" path="res://SCENES/MAIN/action_history_undoredo.gd" id="40_obp7x"]
 [ext_resource type="Script" uid="uid://c326q634s1r02" path="res://SCENES/MAIN/PREFERENCES/cell_origin_cross_type.gd" id="40_yld3e"]
@@ -731,20 +733,31 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE" unique_id=1223323603]
+[node name="scroll" type="ScrollContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE" unique_id=2077560109]
 layout_mode = 2
+horizontal_scroll_mode = 4
 
-[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=163806688]
+[node name="inner_margin" type="MarginContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll" unique_id=1485137630]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+
+[node name="contents" type="VBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin" unique_id=1223323603]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="thickness" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=163806688]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness" unique_id=97974804]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/thickness" unique_id=97974804]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_THICKNESS"
 text_overrun_behavior = 3
 
-[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/thickness" unique_id=417310671]
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/thickness" unique_id=417310671]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 1.0
@@ -753,113 +766,230 @@ value = 1.0
 alignment = 2
 script = ExtResource("9_t7qug")
 
-[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=917840670]
+[node name="collision_on" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=317646941]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "PREFERENCES_BOXES_COLLISION_ON_BY_DEFAULT"
+script = ExtResource("35_yld3e")
+
+[node name="collision_x" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1750071180]
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_x" unique_id=953286841]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREFERENCES_BOXES_COLLISION_DEFAULT_X_TOOLTIP"
+mouse_filter = 0
+text = "PREFERENCES_BOXES_COLLISION_DEFAULT_X"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_x" unique_id=599472303]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -300.0
+max_value = 300.0
+value = 1.0
+alignment = 2
+script = ExtResource("36_obp7x")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="collision_y" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=980651564]
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_y" unique_id=861042440]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREFERENCES_BOXES_COLLISION_DEFAULT_Y_TOOLTIP"
+mouse_filter = 0
+text = "PREFERENCES_BOXES_COLLISION_DEFAULT_Y"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_y" unique_id=1922756561]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -300.0
+max_value = 300.0
+value = 1.0
+alignment = 2
+script = ExtResource("36_obp7x")
+coord_type = 1
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="collision_width" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1683473357]
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_width" unique_id=218191013]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREFERENCES_BOXES_COLLISION_DEFAULT_W_TOOLTIP"
+mouse_filter = 0
+text = "PREFERENCES_BOXES_COLLISION_DEFAULT_W"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_width" unique_id=752494449]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 300.0
+value = 1.0
+alignment = 2
+script = ExtResource("36_obp7x")
+coord_type = 2
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="collision_height" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=931296738]
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_height" unique_id=1259344242]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREFERENCES_BOXES_COLLISION_DEFAULT_H_TOOLTIP"
+mouse_filter = 0
+text = "PREFERENCES_BOXES_COLLISION_DEFAULT_H"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/collision_height" unique_id=1962143678]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 300.0
+value = 1.0
+alignment = 2
+script = ExtResource("36_obp7x")
+coord_type = 3
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="color_unknown" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=917840670]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown" unique_id=240507627]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_unknown" unique_id=240507627]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_UNKNOWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_unknown" unique_id=199493197]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_unknown" unique_id=199493197]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("31_yld3e")
+type = 8
+
+[node name="color_collision" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=776577238]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_collision" unique_id=1377851840]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "PREFERENCES_BOXES_COLLISION"
+text_overrun_behavior = 3
+
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_collision" unique_id=764323125]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 7
 
-[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=187758672]
+[node name="color_hurtbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=187758672]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox" unique_id=1200824089]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_hurtbox" unique_id=1200824089]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HURTBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hurtbox" unique_id=1803489266]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_hurtbox" unique_id=1803489266]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 2
 
-[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1068906082]
+[node name="color_hitbox" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1068906082]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox" unique_id=2006871807]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_hitbox" unique_id=2006871807]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_HITBOX"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_hitbox" unique_id=50242679]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_hitbox" unique_id=50242679]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 1
 
-[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1541193011]
+[node name="color_region_b" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1541193011]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b" unique_id=1840702555]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_region_b" unique_id=1840702555]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_BACK"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_b" unique_id=1984117542]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_region_b" unique_id=1984117542]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 3
 
-[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1419805691]
+[node name="color_region_f" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1419805691]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f" unique_id=1753301450]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_region_f" unique_id=1753301450]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_REGION_FRONT"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_region_f" unique_id=1873230984]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_region_f" unique_id=1873230984]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 6
 
-[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=605025548]
+[node name="color_collision_extend" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=605025548]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend" unique_id=1908227014]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_collision_extend" unique_id=1908227014]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_COLLISION_EXTENSION"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_collision_extend" unique_id=1037185947]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_collision_extend" unique_id=1037185947]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")
 type = 4
 
-[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents" unique_id=1140462486]
+[node name="color_spawn" type="HBoxContainer" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents" unique_id=1140462486]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn" unique_id=1310259379]
+[node name="title" type="Label" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_spawn" unique_id=1310259379]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "PREFERENCES_BOXES_SPAWN"
 text_overrun_behavior = 3
 
-[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/contents/color_spawn" unique_id=369545894]
+[node name="color" type="ColorPickerButton" parent="preferences/background/margin/contents/categories/PREFERENCES_BOXES_TITLE/scroll/inner_margin/contents/color_spawn" unique_id=369545894]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("31_yld3e")

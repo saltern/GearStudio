@@ -23,6 +23,25 @@ signal sprite_bounds_color_changed
 # Misc
 signal max_undo_changed
 
+enum BoxType {
+	HITBOX_ALT,			# 0
+	HITBOX,				# 1
+	HURTBOX,			# 2
+	REGION_B,			# 3
+	COLLISION_EXTEND,	# 4
+	SPAWN,				# 5
+	REGION_F,			# 6
+	COLLISION,			# 7 (fake)
+	UNKNOWN,			# 8+
+	MAX,
+}
+
+enum SnapshotFormat {
+	PNG,
+	PSD,
+	BOTH,
+}
+
 const FILENAME: String = "/gearstudio.ini"
 
 const LOCALE_PATH: String = "/locale"
@@ -51,11 +70,14 @@ const CFG_CELL_SNAPSHOT: String = "snapshot_format"
 
 const CFG_SECTION_BOXES: String = "boxes"
 const CFG_BOX_THICKNESS: String = "thickness"
+const CFG_BOX_COLLISION_ON: String = "collision_default_state"
+const CFG_BOX_COLLISION_RECT: String = "collision_default_rect"
 const CFG_BOX_COLOR_HIT: String = "color_hitbox"
 const CFG_BOX_COLOR_HURT: String = "color_hurtbox"
 const CFG_BOX_COLOR_CROP_B: String = "color_region_b"
 const CFG_BOX_COLOR_CROP_F: String = "color_region_f"
-const CFG_BOX_COLOR_COLL_EXT: String = "color_collision"
+const CFG_BOX_COLOR_COLL: String = "color_collision"
+const CFG_BOX_COLOR_COLL_EXT: String = "color_collision_extension"
 const CFG_BOX_COLOR_SPAWN: String = "color_spawn"
 const CFG_BOX_COLOR_UNK: String = "color_unknown"
 
@@ -71,24 +93,6 @@ const CFG_MISC_MAX_UNDO: String = "max_undo"
 const CFG_MISC_REOPEN: String = "allow_reopen"
 
 const ORIGIN_ICON_SIZE: int = 21
-
-enum BoxType {
-	HITBOX_ALT,			# 0
-	HITBOX,				# 1
-	HURTBOX,			# 2
-	REGION_B,			# 3
-	COLLISION_EXTEND,	# 4
-	SPAWN,				# 5
-	REGION_F,			# 6
-	UNKNOWN,			# 7+
-	MAX,
-}
-
-enum SnapshotFormat {
-	PNG,
-	PSD,
-	BOTH,
-}
 
 var general_language: String = "en"
 var general_reindex_mode: bool = true
@@ -120,6 +124,8 @@ var cell_guide: Color = Color8(255, 0, 0, 0xA0)
 var cell_snapshot_format: SnapshotFormat = SnapshotFormat.PNG
 
 var box_thickness: int = 2
+var box_collision_default: bool = false
+var box_collision: Rect2i = Rect2i(-30, -130, 60, 130)
 
 var box_colors: Array[Color] = [
 	Color.RED,
@@ -129,6 +135,7 @@ var box_colors: Array[Color] = [
 	Color.PURPLE,
 	Color.GOLD,
 	Color.CYAN,
+	Color.DARK_ORANGE,
 	Color.WHITE,
 ]
 
@@ -217,30 +224,45 @@ func load_config() -> bool:
 		return false
 	
 	general_language = config.get_value(
-		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language)
+		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language
+	)
 	general_reindex_mode = config.get_value(
-		CFG_SECTION_GENERAL, CFG_GENERAL_REINDEX_MODE, general_reindex_mode)
+		CFG_SECTION_GENERAL, CFG_GENERAL_REINDEX_MODE, general_reindex_mode
+	)
 	
 	custom_color_status = config.get_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status
+	)
 	custom_color_bg_a = config.get_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a
+	)
 	custom_color_bg_b = config.get_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b
+	)
 	
 	cell_draw_origin = config.get_value(
 		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, true)
 	set_cell_origin_type(
-		config.get_value(CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0))
+		config.get_value(CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, 0)
+	)
 	
 	cell_onion_skin = config.get_value(
-		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
+		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin
+	)
 	cell_guide = config.get_value(
-		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
+		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide
+	)
 	cell_snapshot_format = config.get_value(
-		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format)
+		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format
+	)
 	
 	box_thickness = config.get_value(CFG_SECTION_BOXES, CFG_BOX_THICKNESS, 2)
+	box_collision_default = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLLISION_ON, false
+	)
+	box_collision = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLLISION_RECT, box_collision
+	)
 	
 	#region Box Colors
 	box_colors[BoxType.HITBOX_ALT] = config.get_value(
@@ -256,7 +278,8 @@ func load_config() -> bool:
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[BoxType.REGION_B]
 	)
 	box_colors[BoxType.COLLISION_EXTEND] = config.get_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[BoxType.COLLISION_EXTEND]
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT,
+		box_colors[BoxType.COLLISION_EXTEND]
 	)
 	box_colors[BoxType.SPAWN] = config.get_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN]
@@ -264,69 +287,107 @@ func load_config() -> bool:
 	box_colors[BoxType.REGION_F] = config.get_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F]
 	)
+	box_colors[BoxType.COLLISION] = config.get_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL, box_colors[BoxType.COLLISION]
+	)
 	box_colors[BoxType.UNKNOWN] = config.get_value(
 		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN]
 	)
 	#endregion
 	
 	sprite_color_bounds = config.get_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
+		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds
+	)
 		
 	pal_gradient_reindex = config.get_value(
-		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
+		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex
+	)
 	
 	misc_max_undo = config.get_value(
-		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
+		CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo
+	)
 	misc_allow_reopen = config.get_value(
-		CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)
+		CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen
+	)
 	
 	return true
 
 
 func save_config() -> bool:
 	config.set_value(
-		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language)
+		CFG_SECTION_GENERAL, CFG_GENERAL_LANGUAGE, general_language
+	)
 		
 	config.set_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_STATUS, custom_color_status
+	)
 	config.set_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_A, custom_color_bg_a
+	)
 	config.set_value(
-		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b)
+		CFG_SECTION_CUSTOM, CFG_CUSTOM_BG_B, custom_color_bg_b
+	)
 	
 	config.set_value(
-		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin)
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN, cell_draw_origin
+	)
 	config.set_value(
-		CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, cell_origin_type)
+		CFG_SECTION_CELLS, CFG_CELL_ORIGIN_TYPE, cell_origin_type
+	)
 	config.set_value(
-		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin)
+		CFG_SECTION_CELLS, CFG_CELL_ONION, cell_onion_skin
+	)
 	config.set_value(
-		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide)
+		CFG_SECTION_CELLS, CFG_CELL_GUIDE, cell_guide
+	)
 	config.set_value(
-		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format)
+		CFG_SECTION_CELLS, CFG_CELL_SNAPSHOT, cell_snapshot_format
+	)
 	
 	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_THICKNESS, box_thickness)
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[BoxType.HITBOX])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[BoxType.HURTBOX])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[BoxType.REGION_B])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT, box_colors[BoxType.COLLISION_EXTEND])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F])
-	config.set_value(
-		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN])
+		CFG_SECTION_BOXES, CFG_BOX_THICKNESS, box_thickness
+	)
 	
 	config.set_value(
-		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds)
+		CFG_SECTION_BOXES, CFG_BOX_COLLISION_ON, box_collision_default
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLLISION_RECT, box_collision
+	)
 	
 	config.set_value(
-		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex)
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_HIT, box_colors[BoxType.HITBOX]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_HURT, box_colors[BoxType.HURTBOX]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_B, box_colors[BoxType.REGION_B]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL_EXT,
+		box_colors[BoxType.COLLISION_EXTEND]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_SPAWN, box_colors[BoxType.SPAWN]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_CROP_F, box_colors[BoxType.REGION_F]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_COLL, box_colors[BoxType.COLLISION]
+	)
+	config.set_value(
+		CFG_SECTION_BOXES, CFG_BOX_COLOR_UNK, box_colors[BoxType.UNKNOWN]
+	)
+	
+	config.set_value(
+		CFG_SECTION_SPRITES, CFG_SPRITE_COLOR_BOUNDS, sprite_color_bounds
+	)
+	
+	config.set_value(
+		CFG_SECTION_PALETTES, CFG_PAL_GRAD_REINDEX, pal_gradient_reindex
+	)
 	
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_MAX_UNDO, misc_max_undo)
 	config.set_value(CFG_SECTION_MISC, CFG_MISC_REOPEN, misc_allow_reopen)

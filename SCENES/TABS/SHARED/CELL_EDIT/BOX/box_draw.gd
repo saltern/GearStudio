@@ -1,6 +1,11 @@
 extends Control
 
 @export var box_type: SpinBox
+@export var collision_toggle: CheckButton
+@export var collision_x: SteppingSpinBox
+@export var collision_y: SteppingSpinBox
+@export var collision_width: SteppingSpinBox
+@export var collision_height: SteppingSpinBox
 
 @warning_ignore("unused_signal")
 signal box_changed
@@ -24,6 +29,23 @@ func _process(_delta: float) -> void:
 
 
 func _draw():
+	var thickness: int = Settings.box_thickness
+	
+	if collision_toggle.button_pressed:
+		var x: int = collision_x.value
+		var y: int = collision_y.value
+		var w: int = collision_width.value
+		var h: int = collision_height.value
+		
+		@warning_ignore("confusable_local_declaration")
+		var color: Color = Settings.box_colors[Settings.BoxType.COLLISION]
+		
+		# U, D, L, R
+		draw_rect(Rect2(x, y, w, thickness), color)
+		draw_rect(Rect2(x, y + h - thickness, w, thickness), color)
+		draw_rect(Rect2(x, y, thickness, h), color)
+		draw_rect(Rect2(x + w - thickness, y, thickness, h), color)
+	
 	if not drawing:
 		return
 	
@@ -40,29 +62,29 @@ func _draw():
 	# Upper
 	draw_rect(Rect2(
 			drawing_box.position,
-			Vector2i(drawing_box.size.x, Settings.box_thickness)),
+			Vector2i(drawing_box.size.x, thickness)),
 		color)
 	
 	# Lower
 	draw_rect(Rect2(
 			Vector2i(
 				drawing_box.position.x,
-				drawing_box.position.y + drawing_box.size.y - Settings.box_thickness),
-			Vector2i(drawing_box.size.x, Settings.box_thickness)),
+				drawing_box.position.y + drawing_box.size.y - thickness),
+			Vector2i(drawing_box.size.x, thickness)),
 		color)
 	
 	# Left
 	draw_rect(Rect2(
 			drawing_box.position,
-			Vector2i(Settings.box_thickness, drawing_box.size.y)),
+			Vector2i(thickness, drawing_box.size.y)),
 		color)
 	
 	# Right
 	draw_rect(Rect2(
 			Vector2i(
-				drawing_box.position.x + drawing_box.size.x - Settings.box_thickness,
+				drawing_box.position.x + drawing_box.size.x - thickness,
 				drawing_box.position.y),
-			Vector2i(Settings.box_thickness, drawing_box.size.y)),
+			Vector2i(thickness, drawing_box.size.y)),
 		color)
 
 

@@ -79,6 +79,8 @@
 [ext_resource type="Script" uid="uid://crm43xp04kp4u" path="res://SCENES/TABS/SHARED/REFERENCE/reference_hitboxes.gd" id="62_qauf1"]
 [ext_resource type="Script" uid="uid://ccv1335gwp1tr" path="res://SCENES/TABS/SHARED/REFERENCE/semitransparent_display.gd" id="63_3nb3e"]
 [ext_resource type="Script" uid="uid://bihjs517xc2oc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_opacity.gd" id="66_mkpt3"]
+[ext_resource type="Script" uid="uid://cvtui8kax6hg5" path="res://SCENES/TABS/SHARED/PREVIEW/collision_box_toggle.gd" id="70_ehmjy"]
+[ext_resource type="Script" uid="uid://c2s0ffxohp728" path="res://SCENES/TABS/SHARED/PREVIEW/collision_box_coords.gd" id="71_uu8pr"]
 [ext_resource type="Script" uid="uid://dyqb1f2hgtfm4" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_dialog.gd" id="74_ehmjy"]
 [ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="74_kemly"]
 [ext_resource type="Script" uid="uid://ba2jqkm63eqoc" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_count_info.gd" id="83_tjwtw"]
@@ -127,7 +129,7 @@ shader_parameter/reindex = true
 shader_parameter/alpha_double = true
 shader_parameter/palette = PackedInt32Array()
 
-[node name="CELL_EDIT_TITLE" type="MarginContainer" unique_id=1072943859 node_paths=PackedStringArray("box_draw_node", "box_type_menu", "box_edit_mode")]
+[node name="CELL_EDIT_TITLE" type="MarginContainer" unique_id=1072943859 node_paths=PackedStringArray("box_draw_node", "box_type_menu", "box_edit_mode", "box_coll_draw", "box_coll_x", "box_coll_y", "box_coll_width", "box_coll_height")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -138,6 +140,11 @@ script = ExtResource("1_tgv18")
 box_draw_node = NodePath("content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent")
 box_type_menu = NodePath("content/scroll/margin/data/boxes_f/content/type_menu_button")
 box_edit_mode = NodePath("content/scroll/margin/data/boxes_f/content/toggles/edit_mode")
+box_coll_draw = NodePath("content/visualizer/preview_contents/options/margin/data/collision/content/enabled")
+box_coll_x = NodePath("content/visualizer/preview_contents/options/margin/data/collision/content/x/value")
+box_coll_y = NodePath("content/visualizer/preview_contents/options/margin/data/collision/content/y/value")
+box_coll_width = NodePath("content/visualizer/preview_contents/options/margin/data/collision/content/width/value")
+box_coll_height = NodePath("content/visualizer/preview_contents/options/margin/data/collision/content/height/value")
 metadata/_tab_index = 1
 
 [node name="content" type="HBoxContainer" parent="." unique_id=1370580450]
@@ -944,7 +951,7 @@ mouse_filter = 2
 script = ExtResource("27_na53u")
 sprite_origin = NodePath(".")
 
-[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=1867922123 node_paths=PackedStringArray("box_type")]
+[node name="box_parent" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=1867922123 node_paths=PackedStringArray("box_type", "collision_toggle", "collision_x", "collision_y", "collision_width", "collision_height")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -956,6 +963,11 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("28_h6aqa")
 box_type = NodePath("../../../../../../../../scroll/margin/data/boxes_f/content/editable/type/value")
+collision_toggle = NodePath("../../../../../../options/margin/data/collision/content/enabled")
+collision_x = NodePath("../../../../../../options/margin/data/collision/content/x/value")
+collision_y = NodePath("../../../../../../options/margin/data/collision/content/y/value")
+collision_width = NodePath("../../../../../../options/margin/data/collision/content/width/value")
+collision_height = NodePath("../../../../../../options/margin/data/collision/content/height/value")
 
 [node name="origin_cross" type="Control" parent="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent" unique_id=2124873918]
 z_index = 1
@@ -1167,6 +1179,108 @@ text = "REFERENCE_SEMITRANS"
 text_overrun_behavior = 3
 script = ExtResource("63_3nb3e")
 reference = NodePath("../../../../../../borders/clipper/visualizer/origin/reference")
+
+[node name="collision" type="FoldableContainer" parent="content/visualizer/preview_contents/options/margin/data" unique_id=1085597637]
+layout_mode = 2
+title = "PREVIEW_TITLE_COLLISION_BOX"
+
+[node name="content" type="VBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/collision" unique_id=1505085651]
+layout_mode = 2
+
+[node name="enabled" type="CheckButton" parent="content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=1213674629]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "PREVIEW_COLLISION_ENABLED"
+script = ExtResource("70_ehmjy")
+
+[node name="x" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=287253851]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/collision/content/x" unique_id=1143727155]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_X_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_X"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/collision/content/x" unique_id=326338299]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -100.0
+value = 1.0
+script = ExtResource("71_uu8pr")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="y" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=621096817]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/collision/content/y" unique_id=1411712703]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_Y_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_Y"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/collision/content/y" unique_id=1179569356]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -300.0
+max_value = 300.0
+value = -1.0
+script = ExtResource("71_uu8pr")
+coord_type = 1
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="width" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=2015411688]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/collision/content/width" unique_id=714244747]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_WIDTH_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_WIDTH"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/collision/content/width" unique_id=1324028684]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+script = ExtResource("71_uu8pr")
+coord_type = 2
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="height" type="HBoxContainer" parent="content/visualizer/preview_contents/options/margin/data/collision/content" unique_id=630288985]
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/visualizer/preview_contents/options/margin/data/collision/content/height" unique_id=2044373269]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "PREVIEW_COLLISION_WIDTH_TOOLTIP"
+mouse_filter = 0
+text = "PREVIEW_COLLISION_HEIGHT"
+vertical_alignment = 1
+text_overrun_behavior = 5
+
+[node name="value" type="SpinBox" parent="content/visualizer/preview_contents/options/margin/data/collision/content/height" unique_id=1443030940]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 300.0
+value = 1.0
+script = ExtResource("71_uu8pr")
+coord_type = 3
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="snapshot" type="Button" parent="content/visualizer" unique_id=1569758456 node_paths=PackedStringArray("multi_snap_dialog")]
 custom_minimum_size = Vector2(180, 0)

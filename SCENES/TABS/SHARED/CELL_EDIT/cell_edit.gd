@@ -26,6 +26,11 @@ signal cell_snapshots_done
 @export var box_draw_node: Control
 @export var box_type_menu: Button
 @export var box_edit_mode: Button
+@export var box_coll_draw: CheckButton
+@export var box_coll_x: SteppingSpinBox
+@export var box_coll_y: SteppingSpinBox
+@export var box_coll_width: SteppingSpinBox
+@export var box_coll_height: SteppingSpinBox
 
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
@@ -1002,8 +1007,16 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 	var types_to_draw: Array[bool] = []
 	types_to_draw.resize(box_display_types.size())
 	
+	var coll_box: Rect2i = Rect2i(0, 0, 0, 0);
+	
 	if display_boxes:
 		types_to_draw = box_display_types
+	
+		if box_coll_draw.button_pressed:
+			coll_box.position.x = box_coll_x.value
+			coll_box.position.y = box_coll_y.value
+			coll_box.size.x = box_coll_width.value
+			coll_box.size.y = box_coll_height.value
 	
 	if Settings.cell_draw_origin:
 		var this_img: Image = Settings.get_origin_texture().get_image()
@@ -1020,6 +1033,8 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 			types_to_draw,
 			Settings.box_colors,
 			Settings.box_thickness,
+			coll_box,
+			Settings.box_colors[Settings.BoxType.COLLISION],
 			# Origin cross
 			origin,
 			# Save path
@@ -1036,6 +1051,8 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 			types_to_draw,
 			Settings.box_colors,
 			Settings.box_thickness,
+			coll_box,
+			Settings.box_colors[Settings.BoxType.COLLISION],
 			# Origin cross
 			origin,
 			# Save path
