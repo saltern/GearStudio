@@ -1,5 +1,7 @@
 extends OptionButton
 
+@onready var sprite_edit: SpriteEdit = owner
+
 
 func _ready() -> void:
 	var session: Dictionary = SessionData.get_current_session()

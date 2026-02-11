@@ -31,6 +31,8 @@ enum SourceMode {
 var source_mode: SourceMode = SourceMode.SELF
 var source_object: Dictionary
 
+var self_palette: BinPalette
+var file_palette: BinPalette
 var palette: BinPalette
 var reindex: bool
 
@@ -49,6 +51,10 @@ func _ready() -> void:
 	source_file_dialog.file_selected.connect(on_source_file_selected)
 	
 	misc_reindex.toggled.connect(on_reindex_toggled)
+	
+	file_palette = BinPalette.new()
+	file_palette.palette = PackedByteArray([])
+	file_palette.palette.resize(256 * 4)
 	
 	on_object_selected()
 
@@ -75,6 +81,12 @@ func set_new_palette(colors: PackedByteArray) -> void:
 	if reindex:
 		new_palette.reindex()
 	
+	match source_mode:
+		SourceMode.SELF:
+			self_palette = new_palette
+		SourceMode.FILE:
+			file_palette = new_palette
+	
 	palette = new_palette
 	palette_changed.emit()
 
@@ -82,8 +94,12 @@ func set_new_palette(colors: PackedByteArray) -> void:
 func toggle_source_self(toggled_on: bool) -> void:
 	if toggled_on:
 		source_mode = SourceMode.SELF
+		palette = self_palette
 	else:
 		source_mode = SourceMode.FILE
+		palette = file_palette
+	
+	palette_changed.emit()
 
 
 func on_object_selected() -> void:
@@ -142,12 +158,30 @@ func on_repal_confirmed() -> void:
 	var start: int = range_start.value
 	var count: int = range_end.value - range_start.value + 1
 	
+	var undo_redo: UndoRedo = sprite_edit.undo_redo
+	var action_text: String = tr("ACTION_SPRITE_EDIT_REPAL").format(
+		{"count": count}
+	)
+	
+	undo_redo.create_action(action_text)
+	
 	for i: int in count:
 		text_progress.text = "%s / %s" % [i, count]
 		
 		var this_sprite: BinSprite = sprite_edit.obj_data.sprites[start + i]
-		this_sprite.palette = palette.palette.slice(
+		
+		var old_palette: PackedByteArray = this_sprite.palette
+		var new_palette: PackedByteArray = palette.palette.slice(
 			0, (2 ** this_sprite.bit_depth) * 4
 		)
-
+		
+		undo_redo.add_do_property(this_sprite, "palette", new_palette)
+		undo_redo.add_undo_property(this_sprite, "palette", old_palette)
+	
+	undo_redo.add_do_method(sprite_edit.sprite_reload)
+	undo_redo.add_undo_method(sprite_edit.sprite_reload)
+	
+	sprite_edit.status_register_action(action_text)
+	undo_redo.commit_action()
+	
 	dialog_progress.hide()
