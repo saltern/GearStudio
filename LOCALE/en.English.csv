@@ -43,7 +43,17 @@ PREFERENCES_CELLS_SNAPSHOT_FORMAT,Snapshot file format
 PREFERENCES_CELLS_SNAPSHOT_BOTH,Both
 PREFERENCES_BOXES_TITLE,Boxes
 PREFERENCES_BOXES_THICKNESS,Edge thickness
+PREFERENCES_BOXES_COLLISION_ON_BY_DEFAULT,Enable custom collision box by default
+PREFERENCES_BOXES_COLLISION_DEFAULT_X,Custom collision box: default X
+PREFERENCES_BOXES_COLLISION_DEFAULT_X_TOOLTIP,The default horizontal position to draw the custom collision box at in the cell and script editors.
+PREFERENCES_BOXES_COLLISION_DEFAULT_Y,Custom collision box: default Y
+PREFERENCES_BOXES_COLLISION_DEFAULT_Y_TOOLTIP,The default vertical position to draw the custom collision box at in the cell and script editors.
+PREFERENCES_BOXES_COLLISION_DEFAULT_W,Custom collision box: default width
+PREFERENCES_BOXES_COLLISION_DEFAULT_W_TOOLTIP,The default width used to draw custom collision boxes in the cell and script editors.
+PREFERENCES_BOXES_COLLISION_DEFAULT_H,Custom collision box: default height
+PREFERENCES_BOXES_COLLISION_DEFAULT_H_TOOLTIP,The default height used to draw custom collision boxes in the cell and script editors.
 PREFERENCES_BOXES_UNKNOWN,Color (unknown)
+PREFERENCES_BOXES_COLLISION,Color (custom collision)
 PREFERENCES_BOXES_HURTBOX,Color (hurtbox)
 PREFERENCES_BOXES_HITBOX,Color (hitbox)
 PREFERENCES_BOXES_REGION_BACK,"Color (region, back)"
@@ -159,6 +169,7 @@ SPRITE_EDIT_BATCH_REPAL_APPLY_TOOLTIP,Batch replace palettes with the above sett
 SPRITE_EDIT_BATCH_REPAL_PREVIEW_SPRITE,Preview sprite
 SPRITE_EDIT_BATCH_REPAL_PREVIEW_SPRITE_TOOLTIP,Sets the sprite with which to preview your results.
 SPRITE_EDIT_BATCH_REPAL_PREVIEW_INVALID_PALETTE,The selected palette file is invalid and cannot be used.
+SPRITE_EDIT_BATCH_REPAL_CONFIRM_TEXT,Replace palette for {count} sprite(s)?
 SPRITE_EDIT_IMPORT_TITLE,Import '{name}' sprites...
 SPRITE_EDIT_IMPORT_FILES_TITLE,Input files
 SPRITE_EDIT_IMPORT_FILES_TITLE_TOOLTIP,Select files to import here.
@@ -683,8 +694,21 @@ BUTTON_YES,Yes
 BUTTON_NO,No
 DIALOG_CONFIRM_ACTION,Confirm action
 DIALOG_ERROR,Error
+DIALOG_WORKING,Working...
 PREVIEW_OPTIONS,Preview options
 PREVIEW_OPTIONS_TOOLTIP,Opens the preview options side panel.
+PREVIEW_TITLE_COLLISION_BOX,Custom collision box
+PREVIEW_COLLISION_ENABLED,Draw box
+PREVIEW_COLLISION_ENABLED_TOOLTIP,"Draw a custom collision box with the below settings.
+This does not source data from the game! As such, it should not be used as a reference for gameplay behavior."
+PREVIEW_COLLISION_X,X Offset
+PREVIEW_COLLISION_X_TOOLTIP,The desired horizontal position of the custom collision box.
+PREVIEW_COLLISION_Y,Y Offset
+PREVIEW_COLLISION_Y_TOOLTIP,The desired vertical position of the custom collision box.
+PREVIEW_COLLISION_WIDTH,Width
+PREVIEW_COLLISION_WIDTH_TOOLTIP,The desired width of the custom collision box.
+PREVIEW_COLLISION_HEIGHT,Height
+PREVIEW_COLLISION_HEIGHT_TOOLTIP,The desired height of the custom collision box.
 PREVIEW_TITLE_MISC,Miscellaneous
 PREVIEW_PALETTE_INDEX,Palette #
 PREVIEW_PALETTE_INDEX_TOOLTIP,"Select which palette to use in the preview.
@@ -769,6 +793,7 @@ ACTION_NO_UNDO,Nothing to undo.
 ACTION_NO_REDO,Nothing to redo.
 ACTION_SPRITE_EDIT_DELETE,Delete {count} sprite(s)
 ACTION_SPRITE_EDIT_CANNOT_DELETE_ALL,Cannot delete all sprites!
+ACTION_SPRITE_EDIT_REPAL,Batch replace embedded palettes for {count} sprite(s)
 ACTION_SPRITE_IMPORTER_IMPORT,Import {count} '{object}' sprites
 ACTION_CELL_EDIT_CELL_NEW,New cell (#{index})
 ACTION_CELL_EDIT_CELL_PASTE,Paste cell (#{index})
