@@ -329,7 +329,7 @@ func cell_remove_try_reload() -> void:
 func cell_copy() -> void:
 	Clipboard.cell = this_cell.duplicate(true)
 	
-	Status.set_status(tr("CELL_EDIT_CELL_COPY").format({
+	Status.set_status(tr("STATUS_CELL_EDIT_CELL_COPY").format({
 		"index": cell_index
 	}))
 
