@@ -493,8 +493,11 @@ summon_button = NodePath("../content/left_panel/scroll/margin/data/imp_exp_del/i
 import_file_dialog = NodePath("../sprite_import_files")
 
 [node name="margin" type="MarginContainer" parent="sprite_import" unique_id=1123769644]
-offset_right = 1000.0
-offset_bottom = 614.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="content" type="HBoxContainer" parent="sprite_import/margin" unique_id=331622829]
 layout_mode = 2
@@ -914,8 +917,11 @@ summon_button = NodePath("../content/left_panel/scroll/margin/data/imp_exp_del/e
 export_path_dialog = NodePath("../sprite_export_path")
 
 [node name="margin" type="MarginContainer" parent="sprite_export" unique_id=2098090072]
-offset_right = 1000.0
-offset_bottom = 614.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="content" type="HBoxContainer" parent="sprite_export/margin" unique_id=1060773409]
 layout_mode = 2
@@ -1281,8 +1287,11 @@ script = ExtResource("52_ujkov")
 summon_button = NodePath("../content/left_panel/scroll/margin/data/imp_exp_del/delete")
 
 [node name="margin" type="MarginContainer" parent="sprite_delete" unique_id=90069501]
-offset_right = 900.0
-offset_bottom = 500.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -1551,8 +1560,13 @@ range_end = NodePath("margin/content/config/scroll/margin/config/range/content/t
 misc_reindex = NodePath("margin/content/config/scroll/margin/config/misc/content/reindex")
 
 [node name="margin" type="MarginContainer" parent="palette_batch_replace" unique_id=663175366]
-offset_right = 1000.0
-offset_bottom = 614.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="content" type="HBoxContainer" parent="palette_batch_replace/margin" unique_id=2029153294]
 layout_mode = 2
