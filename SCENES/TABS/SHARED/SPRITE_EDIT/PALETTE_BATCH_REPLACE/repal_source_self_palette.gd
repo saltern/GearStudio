@@ -13,6 +13,7 @@ func on_object_selected() -> void:
 	var id: int = object_dropdown.get_selected_id()
 	var session: Dictionary = SessionData.get_current_session()
 	var object: Dictionary = session.data[id]
+	
 	visible = object.has("palettes")
 	if not object.has("palettes"):
 		return
