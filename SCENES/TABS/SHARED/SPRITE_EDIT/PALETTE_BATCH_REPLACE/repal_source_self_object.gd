@@ -8,6 +8,6 @@ func _ready() -> void:
 	
 	for key: int in session.data:
 		if not session.data[key].has("name"):
-			continue
-		
-		add_item(session.data[key].name, key)
+			add_item("(Tab #%d)" % key, key)
+		else:
+			add_item(session.data[key].name, key)
