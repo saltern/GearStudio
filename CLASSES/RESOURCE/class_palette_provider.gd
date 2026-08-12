@@ -384,7 +384,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 	
 	if obj_data.has("palettes"):
 		# Ensure size of at least 256 colors.
-		pal_array.resize(1024)
+		pal_array.resize(4 * 256)
 		
 		action_text = tr("ACTION_PROVIDER_PALETTE_IMPORT").format({
 			"index": palette_index

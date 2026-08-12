@@ -562,8 +562,8 @@ text = "PREFERENCES_GENERAL_REOPEN"
 script = ExtResource("20_560p1")
 
 [node name="reindex" type="CheckButton" parent="preferences/background/margin/contents/categories/PREFERENCES_GENERAL_TITLE/contents" unique_id=1706161109]
-clip_contents = true
 custom_minimum_size = Vector2(0, 30)
+clip_contents = true
 layout_mode = 2
 button_pressed = true
 text = "PREFERENCES_GENERAL_REINDEX"

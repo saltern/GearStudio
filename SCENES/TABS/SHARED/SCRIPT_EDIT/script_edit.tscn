@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://cvw23emwhpqw1" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/instruction_list.gd" id="12_0a85a"]
 [ext_resource type="Script" uid="uid://driaid5d3iwtf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/arguments.gd" id="13_ctvg6"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="13_fi3dn"]
+[ext_resource type="Script" uid="uid://ce07edvcwysg4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="15_x5pyg"]
 [ext_resource type="Script" uid="uid://bqjpr18xm0kt7" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/copy_instruction.gd" id="16_sx0bg"]
 [ext_resource type="Script" uid="uid://b5jjbrvtaa2on" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/INSTRUCTIONS/TOOLBAR/paste_instruction.gd" id="17_h0fgr"]
 [ext_resource type="Script" uid="uid://ib4qoh5rfwwd" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/info_flags.gd" id="17_sq6ji"]
@@ -58,6 +59,10 @@
 [ext_resource type="Script" uid="uid://1cdimsixei7p" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/REFERENCE/reference_action_index.gd" id="44_hca04"]
 [ext_resource type="Script" uid="uid://bihjs517xc2oc" path="res://SCENES/TABS/SHARED/REFERENCE/reference_opacity.gd" id="48_3vsx4"]
 [ext_resource type="Script" uid="uid://c2s0ffxohp728" path="res://SCENES/TABS/SHARED/PREVIEW/collision_box_coords.gd" id="50_gbic1"]
+[ext_resource type="Script" uid="uid://dk0cis83rof2w" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/RICK_TOOL/rick_tool_sprite_range.gd" id="59_cd6kv"]
+[ext_resource type="Script" uid="uid://c1e0ogqa11ome" path="res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd" id="60_jdeum"]
+[ext_resource type="Script" uid="uid://ojsjmxp21twu" path="res://CLASSES/CONTROL/class_stepping_spinbox.gd" id="60_x5pyg"]
+[ext_resource type="Script" uid="uid://exr6248tv1d4" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/RICK_TOOL/rick_tool.gd" id="61_jdeum"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oai88"]
 font_size = 14
@@ -192,6 +197,12 @@ tooltip_text = "SCRIPT_EDIT_ACTIONS_PASTE_AFTER_TOOLTIP"
 icon = ExtResource("9_0a85a")
 script = ExtResource("10_8bvup")
 insert_mode = 1
+
+[node name="seq_man" type="Button" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=191595548 node_paths=PackedStringArray("window")]
+layout_mode = 2
+text = "Rick Tool"
+script = ExtResource("15_x5pyg")
+window = NodePath("../../../../../../seq_man")
 
 [node name="h_sep" type="HSeparator" parent="SCRIPT_EDIT_TITLE_ACTIONS/content/actions/margin/data" unique_id=1256416436]
 custom_minimum_size = Vector2(0, 10)
@@ -1365,3 +1376,85 @@ size_flags_vertical = 3
 [node name="items" type="ItemList" parent="instruction_select/panel/margin" unique_id=1278466958]
 layout_mode = 2
 script = ExtResource("36_h0fgr")
+
+[node name="seq_man" type="Window" parent="." unique_id=826328733]
+oversampling_override = 1.0
+title = "Rick Tool"
+initial_position = 2
+size = Vector2i(400, 175)
+visible = false
+script = ExtResource("60_jdeum")
+
+[node name="margin" type="MarginContainer" parent="seq_man" unique_id=246738612]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="VBoxContainer" parent="seq_man/margin" unique_id=1392482885]
+layout_mode = 2
+
+[node name="from_cell" type="HBoxContainer" parent="seq_man/margin/content" unique_id=1125437177]
+layout_mode = 2
+
+[node name="title" type="Label" parent="seq_man/margin/content/from_cell" unique_id=867299792]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From cell"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="seq_man/margin/content/from_cell" unique_id=294654525]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("59_cd6kv")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="to_cell" type="HBoxContainer" parent="seq_man/margin/content" unique_id=242197446]
+layout_mode = 2
+
+[node name="title" type="Label" parent="seq_man/margin/content/to_cell" unique_id=47130108]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To cell"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="seq_man/margin/content/to_cell" unique_id=651183691]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("59_cd6kv")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="duration" type="HBoxContainer" parent="seq_man/margin/content" unique_id=1754600476]
+layout_mode = 2
+
+[node name="title" type="Label" parent="seq_man/margin/content/duration" unique_id=142367140]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Duration"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="seq_man/margin/content/duration" unique_id=970263689]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 255.0
+value = 1.0
+alignment = 2
+script = ExtResource("60_x5pyg")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="go" type="Button" parent="seq_man/margin/content" unique_id=1292579147 node_paths=PackedStringArray("from_cell_spinbox", "to_cell_spinbox", "duration_spinbox")]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 10
+text = "Go!"
+script = ExtResource("61_jdeum")
+from_cell_spinbox = NodePath("../from_cell/value")
+to_cell_spinbox = NodePath("../to_cell/value")
+duration_spinbox = NodePath("../duration/value")

@@ -1,6 +1,6 @@
 extends Control
 
-var texture: ImageTexture
+var texture: Texture2D
 
 
 func _ready() -> void:

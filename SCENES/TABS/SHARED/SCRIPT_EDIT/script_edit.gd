@@ -530,6 +530,45 @@ func script_instruction_insert_commit(
 	this_action.instructions.insert(at_index, instruction)
 
 
+func script_instruction_sequence(
+	at_index: int, instructions: Array[Instruction]
+) -> void:
+	var action_text: String = "Insert Rick-Seq"
+	
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(
+		script_instruction_sequence_commit.bind(at_index, instructions)
+	)
+	undo_redo.add_do_method(script_action_load.bind(action_index))
+	undo_redo.add_do_method(script_instruction_select.bind(at_index))
+	
+	undo_redo.add_undo_method(script_instruction_delete_sequence.bind(
+		at_index, instructions.size())
+	)
+	undo_redo.add_undo_method(script_action_load.bind(action_index))
+	undo_redo.add_undo_method(script_instruction_select.bind(instruction_index))
+	
+	status_register_action(action_text)
+	
+	undo_redo.commit_action()
+
+
+func script_instruction_sequence_commit(
+	at_index: int, instructions: Array[Instruction]
+) -> void:
+	var count: int = 1
+	
+	for instruction: Instruction in instructions:
+		this_action.instructions.insert(at_index + count, instruction)
+		count += 1
+
+
+func script_instruction_delete_sequence(at_index: int, count: int) -> void:
+	for _i: int in count:
+		this_action.instructions.remove_at(at_index + 1)
+
+
 func script_instruction_copy() -> void:
 	if instruction_index < 0:
 		Status.set_status("STATUS_SCRIPT_EDIT_INSTRUCTION_CANNOT_COPY")

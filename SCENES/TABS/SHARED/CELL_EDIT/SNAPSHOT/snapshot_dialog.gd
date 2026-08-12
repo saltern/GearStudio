@@ -14,6 +14,8 @@ extends "res://SCENES/TABS/SHARED/CELL_EDIT/dialog.gd"
 @export_group("")
 @export var preview: CellSpriteDisplay
 
+@onready var cell_edit: CellEdit = owner
+
 var override_pal: PackedByteArray = []
 
 

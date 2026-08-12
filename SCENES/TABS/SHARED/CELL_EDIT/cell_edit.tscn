@@ -87,6 +87,8 @@
 [ext_resource type="Shader" uid="uid://pyjrqqoid2mx" path="res://MATERIALS/palette_basic.gdshader" id="84_ifugv"]
 [ext_resource type="Script" uid="uid://cic6infif3we7" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_box_visibility.gd" id="84_lpevd"]
 [ext_resource type="Script" uid="uid://d3snfjn721waq" path="res://SCENES/TABS/SHARED/CELL_EDIT/SNAPSHOT/snapshot_progress_dialog.gd" id="86_ehmjy"]
+[ext_resource type="Script" uid="uid://c5bitdg16nm5p" path="res://SCENES/TABS/SHARED/CELL_EDIT/rick_tool_sprite_range.gd" id="88_pkyj1"]
+[ext_resource type="Script" uid="uid://bj74dpw2su3aa" path="res://SCENES/TABS/SHARED/CELL_EDIT/rick_tool.gd" id="89_oqvfv"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_12gym"]
 size = Vector2(0, 0)
@@ -224,6 +226,12 @@ tooltip_text = "CELL_EDIT_PASTE_AFTER_TOOLTIP"
 icon = ExtResource("12_pqsn1")
 script = ExtResource("9_umb15")
 at = 1
+
+[node name="rick_tool" type="Button" parent="content/scroll/margin/data" unique_id=1166437555 node_paths=PackedStringArray("window")]
+layout_mode = 2
+text = "Rick Tool"
+script = ExtResource("3_5mq13")
+window = NodePath("../../../../../rick_tool")
 
 [node name="sep" type="HSeparator" parent="content/scroll/margin/data" unique_id=332530177]
 custom_minimum_size = Vector2(0, 10)
@@ -1922,5 +1930,68 @@ layout_mode = 2
 size_flags_vertical = 1
 text = "0 / 0"
 horizontal_alignment = 1
+
+[node name="rick_tool" type="Window" parent="." unique_id=26586197]
+oversampling_override = 1.0
+title = "Rick Tool"
+initial_position = 2
+size = Vector2i(400, 150)
+visible = false
+script = ExtResource("74_kemly")
+
+[node name="margin" type="MarginContainer" parent="rick_tool" unique_id=1497786406]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="VBoxContainer" parent="rick_tool/margin" unique_id=1963240566]
+layout_mode = 2
+
+[node name="from_sprite" type="HBoxContainer" parent="rick_tool/margin/content" unique_id=1934014802]
+layout_mode = 2
+
+[node name="title" type="Label" parent="rick_tool/margin/content/from_sprite" unique_id=1624172675]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From sprite"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="rick_tool/margin/content/from_sprite" unique_id=1325583271]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("88_pkyj1")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="to_sprite" type="HBoxContainer" parent="rick_tool/margin/content" unique_id=928642677]
+layout_mode = 2
+
+[node name="title" type="Label" parent="rick_tool/margin/content/to_sprite" unique_id=1367920681]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To sprite"
+vertical_alignment = 1
+
+[node name="value" type="SpinBox" parent="rick_tool/margin/content/to_sprite" unique_id=1815636415]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("88_pkyj1")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="buttons" type="HBoxContainer" parent="rick_tool/margin/content" unique_id=1472758942]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="go" type="Button" parent="rick_tool/margin/content/buttons" unique_id=331781817 node_paths=PackedStringArray("from_sprite_spinbox", "to_sprite_spinbox")]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Go!"
+script = ExtResource("89_oqvfv")
+from_sprite_spinbox = NodePath("../../from_sprite/value")
+to_sprite_spinbox = NodePath("../../to_sprite/value")
 
 [connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent" to="." method="on_box_changed"]

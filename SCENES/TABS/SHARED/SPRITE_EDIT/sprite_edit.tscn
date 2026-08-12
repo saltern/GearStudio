@@ -240,6 +240,10 @@ text_overrun_behavior = 3
 [node name="value" type="Label" parent="content/left_panel/scroll/margin/data/dimensions" unique_id=1057372371]
 layout_mode = 2
 size_flags_horizontal = 10
+tooltip_text = "WARNING: This sprite has a color depth of 4 bpp,
+but it has an odd width. It will display properly
+in Gear Studio, but will look incorrect ingame.
+For 4 bpp sprites, use even widths."
 text = "65535 x 65535"
 script = ExtResource("5_lrujt")
 

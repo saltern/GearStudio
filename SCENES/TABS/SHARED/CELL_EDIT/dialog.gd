@@ -1,6 +1,6 @@
 extends Window
 
-@onready var cell_edit: CellEdit = owner
+#@onready var cell_edit: CellEdit = owner
 
 
 func _enter_tree() -> void:

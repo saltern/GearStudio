@@ -180,7 +180,8 @@ func on_palette(_player: int, section: int) -> void:
 	var temp_pal: BinPalette = \
 		session_palettes[provider.palette_index].duplicate(true)
 	
-	temp_pal.reindex()
+	if provider.obj_data.sprites[sprite_index].bit_depth == 4:
+		temp_pal.reindex()
 	
 	var new_pal: PackedByteArray = []
 	

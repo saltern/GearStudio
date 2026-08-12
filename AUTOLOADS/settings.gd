@@ -528,7 +528,7 @@ func set_palette_gradient_reindex(enabled: bool) -> void:
 #endregion
 
 
-func get_origin_texture(index: int = -1) -> ImageTexture:
+func get_origin_texture(index: int = -1) -> Texture2D:
 	if index == -1:
 		index = cell_origin_type
 	
@@ -539,7 +539,7 @@ func get_origin_textures() -> Array[Texture2D]:
 	return cell_origin_textures
 
 
-func get_origin_icon(index: int = -1) -> ImageTexture:
+func get_origin_icon(index: int = -1) -> Texture2D:
 	if index == -1:
 		index = cell_origin_type
 		

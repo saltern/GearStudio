@@ -31,9 +31,18 @@ func display() -> void:
 
 
 func on_file_selected(file: String) -> void:
+	# Default for player character palettes
+	var imp_half_size: bool = false
+	var imp_bpp: int = 8
+	var imp_reindexed: bool = true
+	
 	match import_context:
 		ImportContext.SPRITES:
 			FileMemory.sprite_palette_import = current_path
+			#TODO: Modify import settings for sprites
+			#
+			#
+			#
 		ImportContext.PALETTES:
 			FileMemory.palette_import = current_path
 	
@@ -45,13 +54,13 @@ func on_file_selected(file: String) -> void:
 			palette = BinPalette.from_bin_file(file)
 		
 		"act":
-			palette = BinPalette.from_act_file(file)
+			palette = BinPalette.from_act_file(file, imp_half_size, imp_bpp, imp_reindexed)
 		
 		"png":
-			palette = BinPalette.from_png_file(file)
+			palette = BinPalette.from_png_file(file, imp_reindexed)
 		
 		"bmp":
-			palette = BinPalette.from_bmp_file(file)
+			palette = BinPalette.from_bmp_file(file, imp_reindexed)
 	
 	# Transfer alpha from previous palette
 	if import_extension == "bmp" or import_extension == "act":
