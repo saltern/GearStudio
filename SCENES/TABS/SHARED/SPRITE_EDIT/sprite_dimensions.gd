@@ -8,13 +8,13 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	if sprite.texture == null:
+	if sprite.get_width() == 0 or sprite.get_height() == 0:
 		text = "- x -"
 	else:
-		var tex_size: Vector2i = sprite.texture.get_size()
+		var tex_size: Vector2i = sprite.get_texture().get_size()
 		text = "%s x %s" % [tex_size.x, tex_size.y]
 	
-	if sprite.bit_depth == 4 and sprite.width % 2 == 1:
+	if sprite.get_bit_depth() == 4 and sprite.get_width() % 2 == 1:
 		modulate = Color.ORANGE
 		text = text + " (!)"
 		mouse_filter = Control.MOUSE_FILTER_STOP

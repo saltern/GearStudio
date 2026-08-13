@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func cell_loaded(cell: Cell) -> void:
 	hide()
-	texture = cell_edit.obj_data["sprites"][cell.sprite_index].texture
+	texture = cell_edit.obj_data["sprites"][cell.sprite_index].get_texture()
 
 
 func select_check(box: BoxInfo) -> void:

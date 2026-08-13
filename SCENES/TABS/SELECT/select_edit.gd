@@ -104,10 +104,13 @@ func export(path: String) -> void:
 	if path.get_extension().to_lower() != "png":
 		path += ".png"
 	
-	var sprite: BinSprite = BinSprite.new_from_data(
-		obj_data["select_pixels"],
-		image.get_width(), image.get_height(),
-		image, 8, PackedByteArray([]))
+	#var sprite: BinSprite = BinSprite.new_from_data(
+		#obj_data["select_pixels"],
+		#image.get_width(), image.get_height(),
+		#image, 8, PackedByteArray([])
+	#)
+	
+	var sprite: BinSprite = BinSprite.new()
 	
 	SpriteExporter.export_png_direct(path, sprite, SpriteExport.pal_gray)
 

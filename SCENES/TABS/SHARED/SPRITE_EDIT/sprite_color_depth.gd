@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func on_sprite_updated(sprite: BinSprite) -> void:
-	text = "%s bpp" % sprite.bit_depth
+	text = "%s bpp" % sprite.get_bit_depth()

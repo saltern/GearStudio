@@ -91,7 +91,11 @@ func load_cell_sprite_pieces(
 	if not cell_edit.obj_data.has("palettes"):
 		material.set_shader_parameter("reindex", sprite.bit_depth == 8)
 	
-	var source_image := sprite.image
+	#var source_image := sprite.image
+	var source_image: Image = Image.create_from_data(
+		sprite.get_width(), sprite.get_height(),
+		false, Image.FORMAT_L8, sprite.get_pixels()
+	)
 	
 	if rects.is_empty():
 		rects.append(Rect2i(0, 0, 

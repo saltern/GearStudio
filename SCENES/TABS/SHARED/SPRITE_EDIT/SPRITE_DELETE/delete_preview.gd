@@ -18,14 +18,15 @@ func on_sprites_changed() -> void:
 func update_sprite(index: int) -> void:
 	var sprite: BinSprite = sprite_edit.obj_data["sprites"][index]
 	
-	texture = sprite.texture
+	texture = sprite.get_texture()
 	
 	material.set_shader_parameter("reindex",
-		sprite.bit_depth == 8 or sprite_edit.obj_data.has("palettes"))
+		sprite.get_bit_depth() == 8 or sprite_edit.obj_data.has("palettes")
+	)
 	
 	if sprite_edit.obj_data.has("palettes"):
 		material.set_shader_parameter(
-			"palette", sprite_edit.obj_data["palettes"][0].palette)
+			"palette", sprite_edit.obj_data["palettes"][0].get_palette())
 	
 	else:
-		material.set_shader_parameter("palette", sprite.palette)
+		material.set_shader_parameter("palette", sprite.get_palette())

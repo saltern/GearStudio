@@ -54,8 +54,8 @@ func update_palette() -> void:
 			current_palette = sprite_edit.palette_get(SpriteExport.palette_index)
 			current_palette = process_alpha(current_palette)
 		
-		elif not this_sprite.palette.is_empty():
-			current_palette = this_sprite.palette
+		elif this_sprite.has_palette():
+			current_palette = this_sprite.get_palette()
 			current_palette = process_alpha(current_palette)
 
 	current_palette = process_reindex(current_palette)

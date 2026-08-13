@@ -42,20 +42,20 @@ func on_pal_mode_set(pal_mode: int) -> void:
 
 
 func on_pal_file_selected(path: String) -> void:
-	var new_palette: BinPalette
+	var new_palette: BinSprite = BinSprite.load_from_file(path, true)
 	
-	match path.get_extension().to_lower():
-		"bin":
-			new_palette = BinPalette.from_bin_file(path)
-		"act":
-			new_palette = BinPalette.from_act_file(path)
-		"png":
-			new_palette = BinPalette.from_png_file(path)
-		"bmp":
-			new_palette = BinPalette.from_bmp_file(path)
-		_:
-			pal_error_dialog.show()
-			return
+	#match path.get_extension().to_lower():
+		#"bin":
+			#new_palette = BinPalette.from_bin_file(path)
+		#"act":
+			#new_palette = BinPalette.from_act_file(path)
+		#"png":
+			#new_palette = BinPalette.from_png_file(path)
+		#"bmp":
+			#new_palette = BinPalette.from_bmp_file(path)
+		#_:
+			#pal_error_dialog.show()
+			#return
 	
 	if not new_palette:
 		pal_error_dialog.show()

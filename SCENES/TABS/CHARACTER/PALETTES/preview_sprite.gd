@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func on_sprite_changed(new_index: int) -> void:
-	texture = palette_edit.sprite_get(new_index).texture
+	texture = palette_edit.sprite_get(new_index).get_texture()
 
 
 func on_palette_updated(palette: PackedByteArray) -> void:

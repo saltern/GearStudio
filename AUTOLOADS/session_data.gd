@@ -206,7 +206,7 @@ func session_set_reindex(session_id: int, enabled: bool) -> void:
 
 
 # Called by script_cell_sprite_display.gd
-func session_get_palettes(session_id: int) -> Array[BinPalette]:
+func session_get_palettes(session_id: int) -> Array[BinSprite]:
 	if not session_has_palettes(session_id):
 		return []
 	else:

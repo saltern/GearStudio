@@ -17,7 +17,7 @@ var undo_redo: UndoRedo
 
 var obj_data: Dictionary
 var palette_index: int = 0
-var palette: BinPalette
+var palette: BinSprite
 var sprite_index: int = 0
 var sprite: BinSprite
 
@@ -72,19 +72,19 @@ func palette_load(index: int = 0) -> void:
 		palette_index = index
 		palette = obj_data["palettes"][palette_index]
 		bit_depth = 8
-		palette_updated.emit(palette.palette)
+		palette_updated.emit(palette.get_palette())
 	
 	else:
 		sprite_index = index
 		sprite = obj_data["sprites"][sprite_index]
-		bit_depth = sprite.bit_depth
+		bit_depth = sprite.get_bit_depth()
 		
 		# A bit silly, but keeps external functionality/consistency
-		var new_bin_pal: BinPalette = BinPalette.new()
-		new_bin_pal.palette = sprite.palette
+		var new_bin_pal: BinSprite = BinSprite.new()
+		new_bin_pal.set_palette(sprite.get_palette())
 		palette = new_bin_pal
 		
-		palette_updated.emit(sprite.palette)
+		palette_updated.emit(sprite.get_palette())
 
 
 func palette_reload() -> void:
@@ -100,28 +100,27 @@ func palette_get_color_count() -> int:
 
 func palette_get_colors() -> PackedByteArray:
 	if obj_data.has("palettes"):
-		return obj_data["palettes"][palette_index].palette
+		return obj_data["palettes"][palette_index].get_palette()
 	else:
-		return obj_data["sprites"][sprite_index].palette
+		return obj_data["sprites"][sprite_index].get_palette()
 
 
 func palette_get_color(index: int = 0) -> Color:
+	var pal: PackedByteArray
+	
 	if obj_data.has("palettes"):
-		return Color8(
-			palette.palette[4 * index + 0],
-			palette.palette[4 * index + 1],
-			palette.palette[4 * index + 2],
-			palette.palette[4 * index + 3])
-			
+		pal = palette.get_palette()
 	else:
-		if 4 * index >= sprite.palette.size():
+		pal = sprite.get_palette()
+		if 4 * index >= pal.size():
 			return Color8(0, 0, 0, 255)
-		
-		return Color8(
-			sprite.palette[4 * index + 0],
-			sprite.palette[4 * index + 1],
-			sprite.palette[4 * index + 2],
-			sprite.palette[4 * index + 3])
+	
+	return Color8(
+		pal[4 * index + 0],
+		pal[4 * index + 1],
+		pal[4 * index + 2],
+		pal[4 * index + 3]
+	)
 
 
 func palette_get_color_in(color: int = 0, index: int = 0) -> Color:
@@ -249,27 +248,35 @@ func palette_set_color_sprite(
 func palette_set_color_commit(
 	index: int, color: Color, channels: Array[bool]
 ) -> void:
+	var pal: PackedByteArray = palette.get_palette()
+	
 	if channels[0]:
-		palette.palette[4 * index + 0] = color.r8
+		pal[4 * index + 0] = color.r8
 	if channels[1]:
-		palette.palette[4 * index + 1] = color.g8
+		pal[4 * index + 1] = color.g8
 	if channels[2]:
-		palette.palette[4 * index + 2] = color.b8
+		pal[4 * index + 2] = color.b8
 	if channels[3]:
-		palette.palette[4 * index + 3] = color.a8
+		pal[4 * index + 3] = color.a8
+	
+	palette.set_palette(pal)
 
 
 func sprite_set_color_commit(
 	index: int, color: Color, channels: Array[bool]
 ) -> void:
+	var pal: PackedByteArray = sprite.get_palette()
+	
 	if channels[0]:
-		sprite.palette[4 * index + 0] = color.r8
+		pal[4 * index + 0] = color.r8
 	if channels[1]:
-		sprite.palette[4 * index + 1] = color.g8
+		pal[4 * index + 1] = color.g8
 	if channels[2]:
-		sprite.palette[4 * index + 2] = color.b8
+		pal[4 * index + 2] = color.b8
 	if channels[3]:
-		sprite.palette[4 * index + 3] = color.a8
+		pal[4 * index + 3] = color.a8
+	
+	sprite.set_palette(pal)
 
 
 func palette_paste_color(at_index: int) -> void:
@@ -409,8 +416,8 @@ func palette_import(pal_array: PackedByteArray) -> void:
 			return
 		
 		# Adapt palette size to sprite bit depth
-		pal_array.append_array(sprite.palette)
-		pal_array.resize(4 * pow(2, sprite.bit_depth))
+		pal_array.append_array(sprite.get_palette())
+		pal_array.resize(4 * pow(2, sprite.get_bit_depth()))
 		
 		action_text = tr("ACTION_PROVIDER_SPRITE_IMPORT").format({
 			"index": sprite_index
@@ -424,7 +431,7 @@ func palette_import(pal_array: PackedByteArray) -> void:
 		undo_redo.add_do_method(SessionData.set_palette.bind(sprite_index))
 		
 		undo_redo.add_undo_method(
-			palette_import_sprite_commit.bind(sprite, sprite.palette))
+			palette_import_sprite_commit.bind(sprite, sprite.get_palette()))
 		undo_redo.add_undo_method(palette_load.bind(sprite_index))
 		undo_redo.add_undo_method(SessionData.set_palette.bind(sprite_index))
 	
@@ -435,13 +442,13 @@ func palette_import(pal_array: PackedByteArray) -> void:
 func palette_import_sprite_commit(
 	spr: BinSprite, pal_array: PackedByteArray
 ) -> void:
-	spr.palette = pal_array
+	spr.set_palette(pal_array)
 
 
 func palette_import_commit(
-	pal: BinPalette, pal_array: PackedByteArray
+	pal: BinSprite, pal_array: PackedByteArray
 ) -> void:
-	pal.palette = pal_array
+	pal.set_palette(pal_array)
 
 
 func palette_reindex() -> void:

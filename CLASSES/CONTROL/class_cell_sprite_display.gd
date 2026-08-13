@@ -55,12 +55,12 @@ func get_palette(index: int) -> PackedByteArray:
 	if provider.obj_data.has("palettes"):
 		if palette_index >= provider.obj_data.palettes.size():
 			palette_index = 0
-		return provider.obj_data.palettes[palette_index].palette
+		return provider.obj_data.palettes[palette_index].get_palette()
 	
 	# Embedded palette
 	index = mini(index, provider.obj_data.sprites.size() - 1)
 	var sprite: BinSprite = provider.obj_data.sprites[index]
-	return sprite.palette
+	return sprite.get_palette()
 
 
 func load_palette(index: int) -> void:
@@ -83,6 +83,6 @@ func should_reindex(sprite: BinSprite) -> bool:
 		return false
 	
 	if not provider.obj_data.has("palettes"):
-		return sprite.bit_depth == 8
+		return sprite.get_bit_depth() == 8
 	
 	return true

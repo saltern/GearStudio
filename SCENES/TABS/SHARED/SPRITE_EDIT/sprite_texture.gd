@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func on_sprite_updated(sprite: BinSprite) -> void:
 	material.set_shader_parameter("reindex", should_reindex(sprite))
-	texture = sprite.texture
+	texture = sprite.get_texture()
 	apply_palette(provider.palette_get_colors())
 
 
@@ -30,6 +30,6 @@ func should_reindex(sprite: BinSprite) -> bool:
 		return false
 	
 	if not sprite_edit.obj_data.has("palettes"):
-		return sprite.bit_depth == 8
+		return sprite.get_bit_depth() == 8
 	
 	return true

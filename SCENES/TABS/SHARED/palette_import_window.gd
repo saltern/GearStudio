@@ -32,9 +32,11 @@ func display() -> void:
 
 func on_file_selected(file: String) -> void:
 	# Default for player character palettes
-	var imp_half_size: bool = false
-	var imp_bpp: int = 8
-	var imp_reindexed: bool = true
+	#var imp_half_size: bool = false
+	#var imp_bpp: int = 8
+	#var imp_reindexed: bool = true
+	
+	var palette: BinSprite = BinSprite.load_from_file(file, true)
 	
 	match import_context:
 		ImportContext.SPRITES:
@@ -45,31 +47,24 @@ func on_file_selected(file: String) -> void:
 			#
 		ImportContext.PALETTES:
 			FileMemory.palette_import = current_path
+			palette.reindex_palette()
 	
 	var import_extension: String = file.get_extension().to_lower()
-	var palette: BinPalette
-	
-	match import_extension:
-		"bin":
-			palette = BinPalette.from_bin_file(file)
-		
-		"act":
-			palette = BinPalette.from_act_file(file, imp_half_size, imp_bpp, imp_reindexed)
-		
-		"png":
-			palette = BinPalette.from_png_file(file, imp_reindexed)
-		
-		"bmp":
-			palette = BinPalette.from_bmp_file(file, imp_reindexed)
 	
 	# Transfer alpha from previous palette
-	if import_extension == "bmp" or import_extension == "act":
-		for index in palette.palette.size() / 4:
-			palette.palette[4 * index + 3] = provider.palette_get_color(index).a8
-		
 	if palette == null:
 		Status.set_status("STATUS_PALETTE_IMPORT_NULL")
+		var array: PackedByteArray = []
+		
+		for i in 256:
+			array.append_array([i, i, i, 0xFF])
+		
+		provider.palette_import(array)
 		return
+	
+	elif import_extension == "bmp" or import_extension == "act":
+		for index in palette.get_palette().size() / 4:
+			palette.palette[4 * index + 3] = provider.palette_get_color(index).a8
 	
 	var pal_array: PackedByteArray = palette.palette.duplicate()
 	provider.palette_import(pal_array)

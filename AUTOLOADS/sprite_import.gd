@@ -8,7 +8,8 @@ signal halve_alpha_set
 signal flip_h_set
 signal flip_v_set
 signal as_rgb_set
-signal reindex_set
+signal reindex_sprite_set
+signal reindex_palette_set
 signal bit_depth_set
 
 signal preview_generated
@@ -57,7 +58,8 @@ var halve_alpha: bool = false
 var flip_h: bool = false
 var flip_v: bool = false
 var as_rgb: bool = false
-var reindex: bool = false
+var reindex_sprite: bool = false
+var reindex_palette: bool = false
 var bit_depth: BitDepth = BitDepth.AS_IS
 
 # Multithreading
@@ -92,8 +94,21 @@ func status_register_action(action_text: String) -> void:
 
 
 func import_file_direct(path: String) -> BinSprite:
+	#var embed_palette: bool = false
+	#var halve_alpha: bool = false
+	#var flip_h: bool = false
+	#var flip_v: bool = false
+	#var as_rgb: bool = false
+	#var reindex_sprite: bool = false
+	#var reindex_palette: bool = false
+	#var bit_depth: int = 8
+	
 	return SpriteImporter.import_sprite(
-		path, false, false, false, false, false, false, 8, GENERATE_PALETTE, NEUQUANT_QUALITY)
+		path,
+		embed_palette, halve_alpha,
+		flip_h, flip_v,
+		as_rgb, reindex_sprite, reindex_palette, bit_depth
+	)
 
 
 # First step after hitting OK to import
@@ -106,8 +121,11 @@ func import_files(object_data: Dictionary) -> void:
 # Actual worker for above
 func import_files_thread() -> void:
 	var sprites: Array[BinSprite] = sprite_importer.import_sprites(
-		import_list, embed_palette, halve_alpha,
-		flip_h, flip_v, as_rgb, reindex, bit_depth, GENERATE_PALETTE, NEUQUANT_QUALITY)
+		import_list,
+		embed_palette, halve_alpha,
+		flip_h, flip_v,
+		as_rgb, reindex_sprite, reindex_palette, bit_depth
+	)
 	
 	call_deferred("emit_signal", "sprite_import_finished", sprites)
 
@@ -282,9 +300,10 @@ func generate_preview(sprite_index: int) -> void:
 		return
 	
 	preview_sprite = SpriteImporter.import_sprite(
-		import_list[sprite_index], embed_palette, halve_alpha,
-		flip_h, flip_v, as_rgb, reindex, bit_depth,
-		GENERATE_PALETTE, NEUQUANT_QUALITY
+		import_list[sprite_index],
+		embed_palette, halve_alpha,
+		flip_h, flip_v,
+		as_rgb, reindex_sprite, reindex_palette, bit_depth,
 	)
 	
 	if obj_data.has("palettes"):
@@ -358,9 +377,15 @@ func set_as_rgb(enabled: bool) -> void:
 	regenerate_preview = true
 
 
-func set_reindex(enabled: bool) -> void:
-	reindex = enabled
-	reindex_set.emit()
+func set_reindex_sprite(enabled: bool) -> void:
+	reindex_sprite = enabled
+	reindex_sprite_set.emit()
+	regenerate_preview = true
+
+
+func set_reindex_palette(enabled: bool) -> void:
+	reindex_palette = enabled
+	reindex_palette_set.emit()
 	regenerate_preview = true
 
 

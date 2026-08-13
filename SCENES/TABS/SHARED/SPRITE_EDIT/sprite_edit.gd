@@ -11,7 +11,7 @@ var sprite_index: int
 var this_sprite: BinSprite
 
 var palette_index: int
-var this_palette: BinPalette
+var this_palette: BinSprite
 
 @export var sprite_index_spinbox: SpinBox
 
@@ -167,11 +167,12 @@ func sprite_set(index: int) -> void:
 
 
 func sprite_get_image(index: int) -> Image:
-	return obj_data["sprites"][index].image
+	var sprite: BinSprite = sprite_get(index)
+	return sprite.get_image()
 
 
 func sprite_get_texture(index: int) -> ImageTexture:
-	return obj_data["sprites"][index].texture
+	return obj_data["sprites"][index].get_texture()
 
 
 func sprite_reload() -> void:

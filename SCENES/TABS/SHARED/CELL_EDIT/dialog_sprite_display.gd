@@ -30,8 +30,8 @@ func get_palette(index: int) -> PackedByteArray:
 	
 	# Global palette
 	if provider.obj_data.has("palettes"):
-		return provider.obj_data.palettes[palette_index].palette
+		return provider.obj_data.palettes[palette_index].get_palette()
 	
 	# Embedded palette
 	var sprite: BinSprite = provider.obj_data.sprites[index]
-	return sprite.palette
+	return sprite.get_palette()

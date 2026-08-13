@@ -174,18 +174,18 @@ func on_palette(_player: int, section: int) -> void:
 	
 	#return
 	
-	var session_palettes: Array[BinPalette] = \
+	var session_palettes: Array[BinSprite] = \
 	SessionData.session_get_palettes(session_id)
 	
-	var temp_pal: BinPalette = \
+	var temp_pal: BinSprite = \
 		session_palettes[provider.palette_index].duplicate(true)
 	
-	if provider.obj_data.sprites[sprite_index].bit_depth == 4:
-		temp_pal.reindex()
+	if provider.obj_data.sprites[sprite_index].get_bit_depth() == 4:
+		temp_pal.reindex_palette()
 	
 	var new_pal: PackedByteArray = []
 	
-	new_pal.append_array(temp_pal.palette.slice(4 * section * 16))
+	new_pal.append_array(temp_pal.get_palette().slice(4 * section * 16))
 	new_pal.resize(4 * 256)
 	
 	# Index 0 in newly obtained palette is always transparent, apparently

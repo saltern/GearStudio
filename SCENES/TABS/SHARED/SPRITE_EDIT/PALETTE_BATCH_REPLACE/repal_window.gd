@@ -31,9 +31,9 @@ enum SourceMode {
 var source_mode: SourceMode = SourceMode.SELF
 var source_object: Dictionary
 
-var self_palette: BinPalette
-var file_palette: BinPalette
-var palette: BinPalette
+var self_palette: BinSprite
+var file_palette: BinSprite
+var palette: BinSprite
 var reindex: bool
 
 @onready var sprite_edit: SpriteEdit = owner
@@ -52,9 +52,7 @@ func _ready() -> void:
 	
 	misc_reindex.toggled.connect(on_reindex_toggled)
 	
-	file_palette = BinPalette.new()
-	file_palette.palette = PackedByteArray([])
-	file_palette.palette.resize(256 * 4)
+	file_palette = BinSprite.init_empty_palette()
 	
 	on_object_selected()
 
@@ -74,9 +72,8 @@ func _input(event: InputEvent) -> void:
 
 
 func set_new_palette(colors: PackedByteArray) -> void:
-	var new_palette: BinPalette = BinPalette.new()
-	colors.resize(256 * 4)
-	new_palette.palette = colors
+	var new_palette: BinSprite = BinSprite.init_empty_palette()
+	new_palette.set_palette(colors)
 	
 	if reindex:
 		new_palette.reindex()
@@ -112,10 +109,10 @@ func on_object_selected() -> void:
 	
 	if source_object.has("palettes"):
 		var colors: PackedByteArray = \
-			source_object.palettes[source_self_palette.value].palette
+			source_object.palettes[source_self_palette.value].get_palette()
 		set_new_palette(colors)
 	else:
-		set_new_palette(source_object.sprites[source_self_sprite.value].palette)
+		set_new_palette(source_object.sprites[source_self_sprite.value].get_palette())
 
 
 func on_source_sprite_set(index: int) -> void:
@@ -129,20 +126,7 @@ func on_source_palette_set(index: int) -> void:
 func on_source_file_selected(file: String) -> void:
 	var import_extension: String = file.get_extension().to_lower()
 	
-	var new_palette: BinPalette
-	
-	match import_extension:
-		"bin":
-			new_palette = BinPalette.from_bin_file(file)
-		
-		"act":
-			new_palette = BinPalette.from_act_file(file)
-		
-		"png":
-			new_palette = BinPalette.from_png_file(file)
-		
-		"bmp":
-			new_palette = BinPalette.from_bmp_file(file)
+	var new_palette: BinSprite = BinSprite.load_from_file(file, true)
 	
 	set_new_palette(new_palette.palette)
 

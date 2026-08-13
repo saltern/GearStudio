@@ -997,9 +997,9 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 		pal = override_pal
 	else:
 		if obj_data.has("palettes"):
-			pal = provider.palette.palette
+			pal = provider.palette.get_palette()
 		else:
-			pal = obj_data.sprites[cell.sprite_index].palette
+			pal = obj_data.sprites[cell.sprite_index].get_palette()
 	
 	# Origin cross
 	var origin: PackedByteArray = []

@@ -754,11 +754,11 @@ func palette_get_count() -> int:
 		return 0
 
 
-func palette_get(index: int) -> BinPalette:
+func palette_get(index: int) -> BinSprite:
 	if index < palette_get_count():
 		return obj_data["palettes"][index]
 	else:
-		return BinPalette.new()
+		return BinSprite.new()
 
 
 func palette_set_index(index: int) -> void:
