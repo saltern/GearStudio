@@ -1516,8 +1516,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("48_qqw76")
-cell_index = NodePath("../../../../../cell_index/value")
 offset = Vector2i(1000, 1000)
+cell_index = NodePath("../../../../../cell_index/value")
 
 [node name="origin_cross" type="Control" parent="delete_cells/margin/content/preview/borders/clipper/visualizer/origin" unique_id=1693322770]
 layout_mode = 1
@@ -1865,9 +1865,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("48_qqw76")
-cell_index = NodePath("../../../../../cell_index/value")
 offset = Vector2i(1000, 1000)
 match_cell_editor = true
+cell_index = NodePath("../../../../../cell_index/value")
 box_display_toggle = NodePath("../../../../../../../../../content/scroll/margin/data/boxes_f/content/toggles/visibility")
 
 [node name="origin_cross" type="Control" parent="multi_snapshots/margin/content/preview/borders/clipper/visualizer/origin" unique_id=1281265679]
@@ -1993,5 +1993,3 @@ text = "Go!"
 script = ExtResource("89_oqvfv")
 from_sprite_spinbox = NodePath("../../from_sprite/value")
 to_sprite_spinbox = NodePath("../../to_sprite/value")
-
-[connection signal="box_changed" from="content/visualizer/preview_contents/borders/clipper/visualizer/origin/parent/box_parent" to="." method="on_box_changed"]

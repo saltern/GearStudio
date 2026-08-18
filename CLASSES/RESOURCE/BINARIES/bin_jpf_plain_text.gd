@@ -1,16 +1,43 @@
 class_name BinJPFPlainText extends BinObject
 
+const CHARIDX_SIGNATURE: int = 0x082A2000
+
 var char_index: PackedByteArray
 var sprites: Array[BinSprite]
 
 
+static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
+	
+	if pointers.size() < 3:
+		return false
+	
+	var cursor_char_idx: int = pointers[0]
+	if cursor_char_idx + 0x03 >= bin_data.size():
+		return false
+	
+	var char_idx_check: bool = \
+		bin_data.decode_u32(cursor_char_idx) == CHARIDX_SIGNATURE
+	
+	var cursor_sprite: int = pointers[1]
+	
+	if cursor_sprite + 0x05 >= bin_data.size():
+		return false
+	
+	var sprite_check: bool = BinSprite.identify(
+		bin_data.slice(pointers[1], pointers[2]), is_big_endian
+	)
+	
+	return char_idx_check && sprite_check
+
+
 func serialize() -> PackedByteArray:
 	# Include pointer to first object
-	var pointers	: PackedInt32Array = [0]
+	var pointers	: PackedInt64Array = [0]
 	var data		: PackedByteArray = []
-	var output		: StreamPeerBuffer = StreamPeerBuffer.new()
+	var stream		: StreamPeerBuffer = StreamPeerBuffer.new()
 	
-	output.big_endian = big_endian
+	stream.big_endian = big_endian
 	
 	# Add character index to data block
 	data.append_array(char_index)
@@ -20,27 +47,13 @@ func serialize() -> PackedByteArray:
 		pointers.append(data.size())
 		data.append_array(sprite.serialize())
 	
-	# Add terminators to pointers
-	pointers.append(TERMINATOR)
-	
-	while pointers.size() % 0x10 != 0x00:
-		pointers.append(TERMINATOR)
-	
-	# Add size of pointer block to each pointer
-	for p: int in pointers.size():
-		if pointers[p] == TERMINATOR:
-			break
-		
-		pointers[p] += pointers.size()
-	
 	# Write pointers
-	for p: int in pointers.size():
-		output.put_u32(pointers[p])
+	stream.put_data(finalize_pointers(pointers))
 	
 	# Write data
-	output.put_data(data)
+	stream.put_data(data)
 	
-	return output.data_array
+	return stream.data_array
 
 
 func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
@@ -48,9 +61,17 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	stream.big_endian = is_big_endian
 	big_endian = is_big_endian
 	
-	var pointers: PackedInt64Array = get_pointers(bin_data)
+	var pointers: PackedInt64Array = get_pointers(bin_data, big_endian)
+	pointers.append(bin_data.size()) # Auxiliary pointer for deserialization
 	
 	char_index = bin_data.slice(pointers[0], pointers[1])
 	
-	for i: int in range(pointers[1], pointers[-1]):
+	for p: int in pointers.size() - 1:
+		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p + 1])
 		
+		if !BinSprite.identify(slice, big_endian):
+			continue
+		
+		var sprite: BinSprite = BinSprite.new()
+		sprite.deserialize(slice, big_endian)
+		sprites.append(sprite)

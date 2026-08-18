@@ -138,25 +138,30 @@ var image			: Image
 var texture			: ImageTexture
 
 
-static func identify(bin_data: PackedByteArray) -> bool:
-	if GGXP_MODES.has(bin_data[ADDRESS_MODE]):
-		if !GGXP_COMPRESSION.has(bin_data[ADDRESS_GGXP_CC] >> 0x4):
+static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
+	stream.data_array = bin_data
+	stream.big_endian = is_big_endian
+	
+	var ggxp_mode: int = stream.get_u8()
+	var ggxp_cc: int = stream.get_u8()
+	
+	if GGXP_MODES.has(ggxp_mode):
+		if !GGXP_COMPRESSION.has(ggxp_cc >> 0x4):
 			return false
-		if !GGXP_CLUT.has(bin_data[ADDRESS_GGXP_CC] & 0xF):
+		if !GGXP_CLUT.has(ggxp_cc & 0xF):
 			return false
 		
 		return true
 	
-	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
-	stream.data_array = bin_data
-	
+	stream.seek(0)
 	var bin_mode: int = stream.get_u16()
 	var bin_clut: int = stream.get_u16()
 	var bin_bpp: int = stream.get_u16()
 	
 	if !COMMON_MODES.has(bin_mode)	: return false
-	if !COMMON_CLUT.has(bin_clut)		: return false
-	if !COMMON_DEPTH.has(bin_bpp)		: return false
+	if !COMMON_CLUT.has(bin_clut)	: return false
+	if !COMMON_DEPTH.has(bin_bpp)	: return false
 	
 	return true
 

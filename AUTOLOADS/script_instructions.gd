@@ -2,8 +2,6 @@ extends Node
 
 const FILE_NAME: String = "res://DATA/ggpr_instructions.csv"
 
-const ID_PALETTE: int = 0x3C
-
 enum DBKeys {
 	ID,
 	NAME,
