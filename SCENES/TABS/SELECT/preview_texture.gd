@@ -1,7 +1,7 @@
 extends TextureRect
 
 @onready var select_edit: SelectEdit = owner
-@onready var obj_data: Dictionary = select_edit.obj_data
+@onready var obj_data: BinCursorMask = select_edit.obj_data
 
 
 func _ready() -> void:
@@ -38,10 +38,10 @@ func get_string_at(at: Vector2) -> String:
 
 
 func get_index_at(at: Vector2) -> int:
-	var width: int = obj_data["select_width"]
+	var width: int = obj_data.width
 	var pixel: int = max(0, at.y - 1) * width + int(at.x)
 	
-	return obj_data["select_pixels"][pixel]
+	return obj_data.pixels[pixel]
 
 
 func highlight_index(index: int) -> void:

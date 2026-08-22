@@ -1,0 +1,415 @@
+[gd_scene format=3 uid="uid://c7geg4xryfewj"]
+
+[ext_resource type="Script" uid="uid://chfsn5n4hcdtw" path="res://SCENES/TABS/SPRITE_EDITOR/sprite_editor.gd" id="1_7pv4t"]
+[ext_resource type="Texture2D" uid="uid://q26jok3yts71" path="res://ICONS/import.svg" id="1_avote"]
+[ext_resource type="Texture2D" uid="uid://bkcdk2x4eje3b" path="res://GRAPHICS/CHECKERBOARD_PAL.PNG" id="1_nkgc2"]
+[ext_resource type="Texture2D" uid="uid://uc1mgd5bm3j5" path="res://ICONS/reorder.svg" id="1_wlvqu"]
+[ext_resource type="Texture2D" uid="uid://vnrdcl8g8xxm" path="res://ICONS/cut_bit_depth.svg" id="2_834oc"]
+[ext_resource type="Texture2D" uid="uid://dpgdncktodice" path="res://ICONS/import_batch.svg" id="2_cvmid"]
+[ext_resource type="Script" uid="uid://dkg1ldo4iv8ay" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_index.gd" id="2_hsdhq"]
+[ext_resource type="Script" uid="uid://d3pyu8is5soxp" path="res://SCENES/TABS/SPRITE_EDITOR/control_palette_index.gd" id="3_d0clq"]
+[ext_resource type="Texture2D" uid="uid://dq2o04r08a8px" path="res://ICONS/flip_h.svg" id="3_eehnk"]
+[ext_resource type="Texture2D" uid="uid://dyfhm3sm3f8ci" path="res://ICONS/export.svg" id="3_k44mp"]
+[ext_resource type="Texture2D" uid="uid://cl1laklxoq4fx" path="res://ICONS/flip_v.svg" id="4_7pv4t"]
+[ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="4_k8l8e"]
+[ext_resource type="Texture2D" uid="uid://b1w8dm0hjvb60" path="res://ICONS/reindex.svg" id="4_smuy5"]
+[ext_resource type="Texture2D" uid="uid://bdqplu6ec5fte" path="res://ICONS/edit.svg" id="5_dd2h3"]
+[ext_resource type="Script" uid="uid://6xv0ecejr1es" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_reindex.gd" id="6_goolq"]
+[ext_resource type="Script" uid="uid://bkqpe8e8nt6vy" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_cut_depth.gd" id="8_0pyps"]
+[ext_resource type="Script" uid="uid://s7nn3gh7q4yf" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_flip.gd" id="9_iyd73"]
+[ext_resource type="Texture2D" uid="uid://bsihkepltih0d" path="res://ICONS/half.svg" id="10_hsdhq"]
+[ext_resource type="Script" uid="uid://dcgn0u86kb04v" path="res://SCENES/TABS/SPRITE_EDITOR/info_sprite_size.gd" id="12_vtil6"]
+[ext_resource type="Script" uid="uid://bfqhi1l0ix3wh" path="res://SCENES/TABS/SPRITE_EDITOR/info_bit_depth.gd" id="13_3i040"]
+[ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="13_eehnk"]
+[ext_resource type="Script" uid="uid://dlh1x88f2tqme" path="res://SCENES/TABS/SPRITE_EDITOR/control_hash.gd" id="13_yk3wa"]
+[ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="14_7pv4t"]
+[ext_resource type="Script" uid="uid://bovccg07dbp5o" path="res://SCENES/TABS/SPRITE_EDITOR/control_palette_container.gd" id="14_yk3wa"]
+[ext_resource type="Script" uid="uid://b1sa2xlb1v8w3" path="res://SCENES/TABS/SPRITE_EDITOR/preview_sprite_texture.gd" id="17_smuy5"]
+[ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="21_27fn0"]
+[ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="22_8f7uu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv0qh"]
+bg_color = Color(0.25098, 0.313726, 0.156863, 1)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hsdhq"]
+resource_local_to_scene = true
+shader = ExtResource("14_7pv4t")
+shader_parameter/opaque_bg = true
+shader_parameter/alpha_double = true
+shader_parameter/reindex = false
+shader_parameter/hover_index = -1
+shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/palette = PackedInt32Array()
+
+[node name="SPRITE_EDIT_TITLE" type="MarginContainer" unique_id=1798707014 node_paths=PackedStringArray("control_spr_index")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7pv4t")
+control_spr_index = NodePath("content/control_panel/sprite_index/value")
+
+[node name="content" type="HBoxContainer" parent="." unique_id=753960067]
+layout_mode = 2
+
+[node name="control_panel" type="VBoxContainer" parent="content" unique_id=894969306]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="main_buttons" type="HBoxContainer" parent="content/control_panel" unique_id=1005579931]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="import" type="Button" parent="content/control_panel/main_buttons" unique_id=1711564300]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SPRITE_EDIT_SPRITE_IMPORT_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_IMPORT"
+text_overrun_behavior = 3
+icon_alignment = 1
+
+[node name="export" type="Button" parent="content/control_panel/main_buttons" unique_id=1147457971]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SPRITE_EDIT_SPRITE_EXPORT_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_EXPORT"
+text_overrun_behavior = 3
+icon_alignment = 1
+
+[node name="delete" type="Button" parent="content/control_panel/main_buttons" unique_id=1015609212]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "SPRITE_EDIT_SPRITE_DELETE_TOOLTIP"
+text = "SPRITE_EDIT_SPRITE_DELETE"
+text_overrun_behavior = 3
+icon_alignment = 1
+
+[node name="separator_0" type="HSeparator" parent="content/control_panel" unique_id=940983581]
+layout_mode = 2
+
+[node name="sprite_index" type="HBoxContainer" parent="content/control_panel" unique_id=1569671244]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/control_panel/sprite_index" unique_id=828520216]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SPRITE_EDIT_SPRITE_INDEX"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="content/control_panel/sprite_index" unique_id=709979844]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+script = ExtResource("2_hsdhq")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="palette_index" type="HBoxContainer" parent="content/control_panel" unique_id=21782924]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="title" type="Label" parent="content/control_panel/palette_index" unique_id=254188754]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SPRITE_EDIT_PALETTE_INDEX"
+text_overrun_behavior = 3
+
+[node name="value" type="SpinBox" parent="content/control_panel/palette_index" unique_id=2008466735]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 0.0
+alignment = 2
+script = ExtResource("3_d0clq")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="separator_1" type="HSeparator" parent="content/control_panel" unique_id=280841182]
+layout_mode = 2
+
+[node name="scroll" type="ScrollContainer" parent="content/control_panel" unique_id=795279683]
+layout_mode = 2
+size_flags_vertical = 3
+offset_transform_visual_only = false
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 4
+
+[node name="content" type="VBoxContainer" parent="content/control_panel/scroll" unique_id=110679497]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="sprite" type="FoldableContainer" parent="content/control_panel/scroll/content" unique_id=2035760015]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+title = "Sprite"
+
+[node name="content" type="VBoxContainer" parent="content/control_panel/scroll/content/sprite" unique_id=2015254573]
+layout_mode = 2
+
+[node name="tools" type="HBoxContainer" parent="content/control_panel/scroll/content/sprite/content" unique_id=33806221]
+layout_mode = 2
+
+[node name="edit" type="Button" parent="content/control_panel/scroll/content/sprite/content/tools" unique_id=174737806]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_dd2h3")
+icon_alignment = 1
+
+[node name="reindex" type="Button" parent="content/control_panel/scroll/content/sprite/content/tools" unique_id=1514201251]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Reindex"
+icon = ExtResource("4_smuy5")
+icon_alignment = 1
+script = ExtResource("6_goolq")
+
+[node name="cut_depth" type="Button" parent="content/control_panel/scroll/content/sprite/content/tools" unique_id=777016767]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Cut bit depth"
+icon = ExtResource("2_834oc")
+icon_alignment = 1
+script = ExtResource("8_0pyps")
+
+[node name="flip_h" type="Button" parent="content/control_panel/scroll/content/sprite/content/tools" unique_id=1905249199]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Mirror horizontally"
+icon = ExtResource("3_eehnk")
+icon_alignment = 1
+script = ExtResource("9_iyd73")
+
+[node name="flip_v" type="Button" parent="content/control_panel/scroll/content/sprite/content/tools" unique_id=382051435]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Mirror vertically"
+icon = ExtResource("4_7pv4t")
+icon_alignment = 1
+script = ExtResource("9_iyd73")
+mode = 1
+
+[node name="separator" type="HSeparator" parent="content/control_panel/scroll/content/sprite/content" unique_id=1241041374]
+layout_mode = 2
+
+[node name="size" type="HBoxContainer" parent="content/control_panel/scroll/content/sprite/content" unique_id=281809716]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/control_panel/scroll/content/sprite/content/size" unique_id=507611033]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Size"
+
+[node name="value" type="Label" parent="content/control_panel/scroll/content/sprite/content/size" unique_id=521135468]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "- x -"
+horizontal_alignment = 2
+script = ExtResource("12_vtil6")
+
+[node name="bit_depth" type="HBoxContainer" parent="content/control_panel/scroll/content/sprite/content" unique_id=1797645017]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/control_panel/scroll/content/sprite/content/bit_depth" unique_id=414146065]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color depth"
+
+[node name="value" type="Label" parent="content/control_panel/scroll/content/sprite/content/bit_depth" unique_id=144809462]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "8 bpp"
+horizontal_alignment = 2
+script = ExtResource("13_3i040")
+
+[node name="hash" type="HBoxContainer" parent="content/control_panel/scroll/content/sprite/content" unique_id=1746298402]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="content/control_panel/scroll/content/sprite/content/hash" unique_id=142749691]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hash"
+
+[node name="value" type="SpinBox" parent="content/control_panel/scroll/content/sprite/content/hash" unique_id=926376536]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("13_yk3wa")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="palette" type="FoldableContainer" parent="content/control_panel/scroll/content" unique_id=272045696]
+layout_mode = 2
+title = "Embedded palette"
+script = ExtResource("14_yk3wa")
+
+[node name="content" type="VBoxContainer" parent="content/control_panel/scroll/content/palette" unique_id=620399388]
+layout_mode = 2
+
+[node name="tools" type="HBoxContainer" parent="content/control_panel/scroll/content/palette/content" unique_id=1449865641]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="open_editor" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=1818794532]
+layout_mode = 2
+icon = ExtResource("5_dd2h3")
+
+[node name="import" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=226760019]
+layout_mode = 2
+icon = ExtResource("1_avote")
+
+[node name="batch_replace" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=1227516101]
+visible = false
+layout_mode = 2
+icon = ExtResource("2_cvmid")
+
+[node name="export" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=1768968649]
+layout_mode = 2
+icon = ExtResource("3_k44mp")
+
+[node name="reindex" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=646594565]
+layout_mode = 2
+icon = ExtResource("4_smuy5")
+
+[node name="reorder" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=706085418]
+layout_mode = 2
+icon = ExtResource("1_wlvqu")
+
+[node name="half" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=1983393499]
+layout_mode = 2
+icon = ExtResource("10_hsdhq")
+
+[node name="purge" type="Button" parent="content/control_panel/scroll/content/palette/content/tools" unique_id=961951551]
+layout_mode = 2
+icon = ExtResource("4_k8l8e")
+
+[node name="separator" type="HSeparator" parent="content/control_panel/scroll/content/palette/content" unique_id=600190626]
+layout_mode = 2
+
+[node name="palette_grid" type="TextureRect" parent="content/control_panel/scroll/content/palette/content" unique_id=316043217]
+texture_filter = 1
+custom_minimum_size = Vector2(273, 273)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+texture = ExtResource("1_nkgc2")
+stretch_mode = 1
+
+[node name="palette" type="GridContainer" parent="content/control_panel/scroll/content/palette/content/palette_grid" unique_id=1965010466]
+custom_minimum_size = Vector2(272, 272)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 16
+
+[node name="separator" type="VSeparator" parent="content" unique_id=200202886]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="content" unique_id=396584645]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="options" type="HBoxContainer" parent="content/preview" unique_id=1102968322]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="opaque_background" type="CheckButton" parent="content/preview/options" unique_id=1493377291]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Display the sprite's background color as fully opaque."
+button_pressed = true
+text = "Opaque background"
+
+[node name="borders" type="PanelContainer" parent="content/preview" unique_id=1366611387]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv0qh")
+
+[node name="clipper" type="PanelContainer" parent="content/preview/borders" unique_id=1983692362 node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("21_27fn0")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="content/preview/borders/clipper" unique_id=762893186]
+position = Vector2(471, 337)
+script = ExtResource("22_8f7uu")
+
+[node name="background_a" type="ColorRect" parent="content/preview/borders/clipper/visualizer" unique_id=1905276979]
+texture_filter = 1
+custom_minimum_size = Vector2(3000, 3000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+metadata/_edit_lock_ = true
+
+[node name="background_b" type="TextureRect" parent="content/preview/borders/clipper/visualizer/background_a" unique_id=1370229842]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_eehnk")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="TextureRect" parent="content/preview/borders/clipper/visualizer" unique_id=1327165193 node_paths=PackedStringArray("control_opaque_bg")]
+texture_filter = 1
+material = SubResource("ShaderMaterial_hsdhq")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("17_smuy5")
+control_opaque_bg = NodePath("../../../../options/opaque_background")
+
+[node name="background" type="ColorRect" parent="content/preview/borders/clipper/visualizer/sprite" unique_id=956131805]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

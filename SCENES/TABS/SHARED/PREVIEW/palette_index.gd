@@ -4,11 +4,12 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
-	if not provider.obj_data.has("palettes"):
+	if not provider.obj_data is BinScriptable && not provider.obj_data.has_palettes():
 		get_parent().hide()
 		return
 	
-	max_value = provider.obj_data["palettes"].size() - 1
+	#max_value = provider.obj_data["palettes"].size() - 1
+	max_value = provider.obj_data.get_palette_count() - 1
 	
 	value_changed.connect(SessionData.set_palette)
 	SessionData.palette_changed.connect(external_set_palette)

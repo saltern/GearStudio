@@ -11,7 +11,7 @@ func _ready() -> void:
 	update_max_value()
 
 
-func on_cell_update(cell: Cell) -> void:
+func on_cell_update(cell: BinCell) -> void:
 	call_deferred("set_value_no_signal", cell.sprite_index)
 
 

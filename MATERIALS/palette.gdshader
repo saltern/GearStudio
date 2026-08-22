@@ -3,6 +3,7 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
 
+uniform bool opaque_bg = false;
 uniform bool alpha_double = true;
 uniform bool reindex = true;
 uniform int hover_index = -1;
@@ -27,6 +28,10 @@ void fragment() {
 
 	if (alpha_double) {
 		alpha = min(alpha * 2.0, 1.0);
+	}
+
+	if (index == 0 && opaque_bg) {
+		alpha = 1.0;
 	}
 
 	vec4 pal_color = vec4(

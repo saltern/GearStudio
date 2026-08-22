@@ -10,11 +10,11 @@ func _pressed() -> void:
 	var from: int = from_sprite_spinbox.value
 	var to: int = to_sprite_spinbox.value
 	
-	var obj_data: Dictionary = cell_edit.obj_data
+	var obj_data: BinScriptable = cell_edit.obj_data
 
 	for i: int in range(from, to, 1):
-		var new_cell: Cell = Cell.new()
-		var sprite: BinSprite = obj_data.sprites[i]
+		var new_cell: BinCell = BinCell.new()
+		var sprite: BinSprite = obj_data.get_sprite(i)
 		
 		new_cell.sprite_index = i
 		new_cell.sprite_x_offset = 128 - sprite.width / 2

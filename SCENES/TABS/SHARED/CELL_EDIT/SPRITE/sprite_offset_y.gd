@@ -8,5 +8,5 @@ func _ready() -> void:
 	cell_edit.cell_updated.connect(on_cell_update)
 
 
-func on_cell_update(cell: Cell) -> void:
+func on_cell_update(cell: BinCell) -> void:
 	call_deferred("set_value_no_signal", cell.sprite_y_offset)

@@ -10,5 +10,5 @@ func _ready() -> void:
 
 
 func update() -> void:
-	var action: ScriptAction = script_edit.this_action
+	var action: Action = script_edit.this_action
 	set_value_no_signal(action.damage)

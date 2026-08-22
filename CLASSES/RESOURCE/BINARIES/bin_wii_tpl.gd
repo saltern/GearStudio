@@ -6,6 +6,7 @@ var data: PackedByteArray
 
 
 static func identify(bin_data: PackedByteArray, _is_big_endian: bool) -> bool:
+	#print("Identifying BinWiiTPL")
 	return bin_data.decode_u32(0) == SIGNATURE
 
 

@@ -2,7 +2,7 @@ class_name BoxPreview extends Control
 
 var cell_edit: CellEdit
 
-var box_info: BoxInfo
+var box_info: BinBoxInfo
 var box_index: int = -1
 
 var tentative_select: bool = false
@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = cell_edit.box_is_type_visible(box_info.box_type)
+	visible = cell_edit.box_is_type_visible(box_info.type)
 	
 	if not being_dragged and not being_resized:
 		position = Vector2i(box_info.x_offset, box_info.y_offset)
@@ -54,7 +54,7 @@ func _draw() -> void:
 	if !is_visible_in_tree():
 		return
 
-	var type_color: int = box_info.box_type
+	var type_color: int = box_info.type
 	
 	var color := Settings.box_colors[
 		clampi(type_color, 0, Settings.box_colors.size() - 1)]
@@ -165,7 +165,7 @@ func clicked(event: InputEventMouseButton) -> void:
 		tentative_select = false
 
 
-func external_select(box: BoxInfo) -> void:
+func external_select(box: BinBoxInfo) -> void:
 	if box != box_info:
 		if is_selected:
 			resizers_hide()

@@ -5,8 +5,8 @@ var pal_selection: Array[bool] = []
 var pal_data: Array[Color] = []
 
 # CellEdit
-var cell: Cell
-var box_data: Array[BoxInfo] = []
+var cell: BinCell
+var box_data: Array[BinBoxInfo] = []
 var sprite_index: int = -1
 var sprite_x_offset: int = 0
 var sprite_y_offset: int = 0
@@ -14,7 +14,7 @@ var unknown_1: int = 0
 var unknown_2: int = 0
 
 # ScriptEdit
-var script_action: ScriptAction
+var script_action: Action
 var instruction: Instruction
 
 
@@ -26,7 +26,7 @@ func has_sprite_info() -> bool:
 	return sprite_index != -1
 
 
-func set_sprite_info(source_cell: Cell) -> void:
+func set_sprite_info(source_cell: BinCell) -> void:
 	sprite_index = source_cell.sprite_index
 	sprite_x_offset = source_cell.sprite_x_offset
 	sprite_y_offset = source_cell.sprite_y_offset
@@ -35,15 +35,15 @@ func set_sprite_info(source_cell: Cell) -> void:
 
 
 func set_box_data(
-	source: Array[BoxInfo], selection: PackedInt32Array
+	source: Array[BinBoxInfo], selection: PackedInt32Array
 ) -> void:
 	box_data.clear()
 	for box in selection:
 		box_data.append(source[box])
 
 
-func get_box_data() -> Array[BoxInfo]:
-	var return_array: Array[BoxInfo] = []
+func get_box_data() -> Array[BinBoxInfo]:
+	var return_array: Array[BinBoxInfo] = []
 	
 	for box in box_data:
 		return_array.append(duplicate_box(box))
@@ -51,10 +51,10 @@ func get_box_data() -> Array[BoxInfo]:
 	return return_array
 
 
-func duplicate_box(box: BoxInfo) -> BoxInfo:
-	var new_box := BoxInfo.new()
+func duplicate_box(box: BinBoxInfo) -> BinBoxInfo:
+	var new_box := BinBoxInfo.new()
 	
-	new_box.box_type = box.box_type
+	new_box.type = box.box_type
 	new_box.x_offset = box.x_offset
 	new_box.y_offset = box.y_offset
 	new_box.width = box.width
@@ -66,7 +66,7 @@ func duplicate_box(box: BoxInfo) -> BoxInfo:
 
 
 # Wouldn't want to always return the same reference
-func get_script_action() -> ScriptAction:
+func get_script_action() -> Action:
 	if script_action == null:
 		return null
 	
@@ -80,8 +80,8 @@ func get_instruction() -> Instruction:
 	return duplicate_instruction(instruction)
 
 
-func duplicate_script_action(from_action: ScriptAction) -> ScriptAction:
-	var new_script_action := ScriptAction.new()
+func duplicate_script_action(from_action: Action) -> Action:
+	var new_script_action := Action.new()
 	
 	new_script_action.flags = from_action.flags
 	new_script_action.lvflag = from_action.lvflag

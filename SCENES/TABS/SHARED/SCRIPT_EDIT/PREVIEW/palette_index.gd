@@ -4,7 +4,7 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
-	if script_edit.obj_data.has("palettes"):
+	if script_edit.obj_data.has_palettes():
 		value_changed.connect(SessionData.set_palette)
 		SessionData.palette_changed.connect(external_set_palette)
 	else:

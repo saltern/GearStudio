@@ -11,11 +11,11 @@ func _ready() -> void:
 
 func on_object_selected() -> void:
 	var id: int = object_dropdown.get_selected_id()
-	var session: Dictionary = SessionData.get_current_session()
-	var object: Dictionary = session.data[id]
+	var session: Session = SessionData.get_current_session()
+	var object: BinObject = session.archive.get_object(id)
+	visible = true
 	
-	visible = object.has("palettes")
-	if not object.has("palettes"):
-		return
+	if object is BinScriptable && object.has_palettes():
+		visible = false
 	
-	palette_index.max_value = object.palettes.size() - 1
+	palette_index.max_value = object.palettes.get_sprite_count() - 1

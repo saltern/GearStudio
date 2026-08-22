@@ -5,7 +5,15 @@ signal sprite_updated
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: Dictionary
+#var obj_data: BinSpriteBlock
+#var pal_data: BinSpriteBlock
+
+# Possibilities:
+# - BinScriptable
+# - BinSpriteBlock
+# - BinSpriteSelectBlock
+var obj_data: BinObject
+var with_palettes: bool = false
 
 var sprite_index: int
 var this_sprite: BinSprite
@@ -22,29 +30,38 @@ var this_palette: BinSprite
 var embedded_pal: bool = false
 var redirect_cells: bool = true
 
-var provider: PaletteProvider
+#var provider: PaletteProvider
 
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
 	
-	provider = PaletteProvider.new()
-	provider.undo_redo = undo_redo
-	provider.obj_data = obj_data
+	if obj_data is BinScriptable:
+		if obj_data.has_palettes():
+			with_palettes = true
 	
-	provider.palette_imported.connect(sprite_set)
-	provider.sprite_reindexed.connect(sprite_reload)
+	#provider = PaletteProvider.new()
+	#provider.undo_redo = undo_redo
+	#provider.obj_data = obj_data
+	#if with_palettes:
+		#provider.obj_data = pal_data
+	#else:
+		#provider.obj_data = obj_data
 	
-	provider.sprite_select.connect(sprite_set)
+	#provider.palette_imported.connect(sprite_set)
+	#provider.sprite_reindexed.connect(sprite_reload)
 	
-	if obj_data.has("palettes"):
-		SessionData.palette_changed.connect(palette_set_session)
+	#provider.sprite_select.connect(sprite_set)
+	
+	#if with_palettes:
+		#SessionData.palette_changed.connect(palette_set_session)
 	
 	visibility_changed.connect(register_action_history)
 
 
 func _ready() -> void:
-	provider.palette_load(0)
+	#provider.palette_load(0)
+	palette_load(0)
 	sprite_set(0)
 	
 	undo_redo.max_steps = Settings.misc_max_undo
@@ -122,32 +139,38 @@ func palette_set_session(for_session: int, index: int) -> void:
 	if for_session != session_id:
 		return
 	
+	#palette_index = index
+	palette_load(index)
+
+
+#func get_provider() -> PaletteProvider:
+	#return provider
+
+
+func palette_load(index: int) -> void:
 	palette_index = index
-	palette_load()
-
-
-func get_provider() -> PaletteProvider:
-	return provider
-
-
-func palette_load() -> void:
-	provider.palette_load(palette_index)
+	if with_palettes:
+		#this_palette = pal_data.get_sprite(palette_index)
+		this_palette = obj_data.get_palette(palette_index)
+	else:
+		this_palette = obj_data.get_sprite(sprite_index)
 
 
 func palette_get(index: int) -> PackedByteArray:
-	if obj_data.has("palettes"):
-		return obj_data["palettes"][index].palette
+	if with_palettes:
+		#return pal_data.get_palette(index)
+		return obj_data.get_palette_array(index)
 	else:
 		return sprite_get(index).palette
 
 
 #region Sprites
 func sprite_get(index: int) -> BinSprite:
-	return obj_data["sprites"][index]
+	return obj_data.get_sprite(index)
 
 
 func sprite_get_count() -> int:
-	return obj_data["sprites"].size()
+	return obj_data.get_sprite_count()
 
 
 func sprite_set(index: int) -> void:
@@ -156,12 +179,14 @@ func sprite_set(index: int) -> void:
 	sprite_index = index
 	this_sprite = sprite_get(sprite_index)
 	
-	if obj_data.has("palettes"):
-		pass
+	if with_palettes:
+		#provider.palette_load(palette_index)
+		palette_load(palette_index)
 	
 	else:
 		palette_index = sprite_index
-		provider.palette_load(sprite_index)
+		#provider.palette_load(sprite_index)
+		palette_load(sprite_index)
 	
 	sprite_updated.emit(this_sprite)
 
@@ -172,7 +197,8 @@ func sprite_get_image(index: int) -> Image:
 
 
 func sprite_get_texture(index: int) -> ImageTexture:
-	return obj_data["sprites"][index].get_texture()
+	#return obj_data["sprites"][index].get_texture()
+	return obj_data.get_sprite(index).texture
 
 
 func sprite_reload() -> void:
@@ -195,7 +221,8 @@ func sprite_delete(from: int, to: int) -> void:
 	for index in how_many:
 		undo_redo.add_do_method(sprite_delete_commit.bind(from))
 		undo_redo.add_undo_method(sprite_insert_commit.bind(
-			from, obj_data.sprites[from + how_many - index - 1]))
+			from, obj_data.get_sprite(from + how_many - index - 1))
+		)
 	
 	var affected_cells: PackedInt64Array
 	
@@ -209,8 +236,8 @@ func sprite_delete(from: int, to: int) -> void:
 	
 	for cell in affected_cells:
 		undo_redo.add_undo_property(
-			obj_data.cells[cell], "sprite_index",
-			obj_data.cells[cell].sprite_index)
+			obj_data.get_cell(cell), "sprite_index",
+			obj_data.get_cell(cell).sprite_index)
 	
 	undo_redo.add_do_method(
 		SpriteImport.emit_signal.bind("sprite_placement_finished"))

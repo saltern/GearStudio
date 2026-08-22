@@ -54,7 +54,7 @@ func select_onion_skin(index: int) -> void:
 	if cell_index < 0:
 		unload_sprite()
 	else:
-		var cell: Cell = cell_edit.cell_get(cell_index)
+		var cell: BinCell = cell_edit.cell_get(cell_index)
 		load_cell_sprite(cell.sprite_index, cell.boxes)
 		position = Vector2i(cell.sprite_x_offset, cell.sprite_y_offset)
 
@@ -64,7 +64,7 @@ func unload_sprite() -> void:
 		child.queue_free()
 
 
-func load_cell_sprite(index: int, boxes: Array[BoxInfo]) -> void:
+func load_cell_sprite(index: int, boxes: Array[BinBoxInfo]) -> void:
 	unload_sprite()
 	
 	var cutout_list: Array[Rect2i]

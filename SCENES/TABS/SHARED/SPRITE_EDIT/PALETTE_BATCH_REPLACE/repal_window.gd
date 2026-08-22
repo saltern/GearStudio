@@ -29,7 +29,7 @@ enum SourceMode {
 @export var misc_reindex: CheckButton
 
 var source_mode: SourceMode = SourceMode.SELF
-var source_object: Dictionary
+var source_object: BinObject
 
 var self_palette: BinSprite
 var file_palette: BinSprite
@@ -73,7 +73,7 @@ func _input(event: InputEvent) -> void:
 
 func set_new_palette(colors: PackedByteArray) -> void:
 	var new_palette: BinSprite = BinSprite.init_empty_palette()
-	new_palette.set_palette(colors)
+	new_palette.palette = colors
 	
 	if reindex:
 		new_palette.reindex()
@@ -104,15 +104,21 @@ func on_object_selected() -> void:
 		return
 	
 	var object_id: int = source_self_object.get_selected_id()
-	var session: Dictionary = SessionData.get_current_session()
-	source_object = session.data[object_id]
+	var session: Session = SessionData.get_current_session()
+	source_object = session.archive.get_object(object_id)
 	
-	if source_object.has("palettes"):
-		var colors: PackedByteArray = \
-			source_object.palettes[source_self_palette.value].get_palette()
-		set_new_palette(colors)
+	if source_object is BinScriptable:
+		if source_object.has_palettes():
+			var colors: PackedByteArray = source_object.get_palette_array(
+				source_self_palette.value
+			)
+			set_new_palette(colors)
+
 	else:
-		set_new_palette(source_object.sprites[source_self_sprite.value].get_palette())
+		var colors: PackedByteArray = source_object.get_palette_array(
+			source_self_sprite.value
+		)
+		set_new_palette(colors)
 
 
 func on_source_sprite_set(index: int) -> void:
@@ -124,7 +130,7 @@ func on_source_palette_set(index: int) -> void:
 
 
 func on_source_file_selected(file: String) -> void:
-	var import_extension: String = file.get_extension().to_lower()
+	#var import_extension: String = file.get_extension().to_lower()
 	
 	var new_palette: BinSprite = BinSprite.load_from_file(file, true)
 	
@@ -152,7 +158,7 @@ func on_repal_confirmed() -> void:
 	for i: int in count:
 		text_progress.text = "%s / %s" % [i, count]
 		
-		var this_sprite: BinSprite = sprite_edit.obj_data.sprites[start + i]
+		var this_sprite: BinSprite = sprite_edit.obj_data.get_sprite(start + i)
 		
 		var old_palette: PackedByteArray = this_sprite.palette
 		var new_palette: PackedByteArray = palette.palette.slice(

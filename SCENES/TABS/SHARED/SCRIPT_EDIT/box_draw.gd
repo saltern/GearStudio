@@ -5,7 +5,7 @@ extends Control
 @export var anim: ScriptAnimationPlayer
 
 var provider: Object
-var box_list: Array[BoxInfo]
+var box_list: Array[BinBoxInfo]
 var scale_factor: Vector2 = Vector2(1.0, 1.0)
 
 @onready var script_edit: ScriptEdit = owner
@@ -35,10 +35,10 @@ func _draw():
 	
 	for box in box_list:
 		# Don't draw cutout boxes
-		if box.box_type in [3, 6]:
+		if box.type in [3, 6]:
 			continue
 		
-		var color := Settings.box_colors[box.box_type]
+		var color := Settings.box_colors[box.type]
 		
 		var top: float = box.y_offset * scale_factor.y
 		top += draw_offset.y
@@ -86,7 +86,7 @@ func toggle_display(enabled: bool) -> void:
 	visible = enabled
 
 
-func on_cell_update(cell: Cell) -> void:
+func on_cell_update(cell: BinCell) -> void:
 	load_boxes(cell.boxes)
 
 
@@ -94,22 +94,22 @@ func clear_boxes() -> void:
 	box_list = []
 
 
-func load_boxes(boxes: Array[BoxInfo]) -> void:
+func load_boxes(boxes: Array[BinBoxInfo]) -> void:
 	clear_boxes()
 	box_list = boxes
 
 
 #region INSTRUCTION SIMULATION
 func on_cell(index: int) -> void:
-	if provider.obj_data.is_empty():
+	if provider.obj_data == null:
 		return
 	
-	var cell: Cell
+	var cell: BinCell
 	
-	if provider.obj_data["cells"].size() > index:
-		cell = provider.obj_data["cells"][index]
+	if provider.obj_data.get_cell_count() > index:
+		cell = provider.obj_data.get_cell(index)
 	else:
-		cell = Cell.new()
+		cell = BinCell.new()
 	
 	on_cell_update(cell)
 

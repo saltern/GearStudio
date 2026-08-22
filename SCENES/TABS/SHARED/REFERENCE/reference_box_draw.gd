@@ -2,7 +2,7 @@ extends Control
 
 @onready var ref_handler: ReferenceHandler = owner.ref_handler
 
-var box_array: Array[BoxInfo] = []
+var box_array: Array[BinBoxInfo] = []
 
 
 func _ready() -> void:
@@ -57,7 +57,7 @@ func _draw() -> void:
 			color)
 
 
-func cell_update(cell: Cell) -> void:
+func cell_update(cell: BinCell) -> void:
 	box_array = cell.boxes
 	queue_redraw()
 
@@ -73,7 +73,7 @@ func on_ref_data_set() -> void:
 	if ref_handler.cell_index > -1:
 		cell_index = ref_handler.cell_index
 	
-	var cell: Cell = ref_handler.reference_cell_get(cell_index)
+	var cell: BinCell = ref_handler.reference_cell_get(cell_index)
 	box_array = cell.boxes
 
 

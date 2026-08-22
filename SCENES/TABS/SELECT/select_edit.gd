@@ -7,7 +7,7 @@ signal select_changed
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: Dictionary
+var obj_data: BinCursorMask
 
 var image: Image
 
@@ -110,9 +110,7 @@ func export(path: String) -> void:
 		#image, 8, PackedByteArray([])
 	#)
 	
-	var sprite: BinSprite = BinSprite.new()
-	
-	SpriteExporter.export_png_direct(path, sprite, SpriteExport.pal_gray)
+	#SpriteExporter.export_png_direct(path, sprite, SpriteExport.pal_gray)
 
 
 func set_mask_from_image(from_image: Image) -> void:

@@ -8,7 +8,7 @@ var sprites_done: int = 0
 
 func _ready() -> void:
 	SpriteImport.sprite_import_started.connect(on_sprite_import_started)
-	SpriteImport.sprite_importer.sprite_imported.connect(on_sprite_imported)
+	#SpriteImport.sprite_importer.sprite_imported.connect(on_sprite_imported)
 	SpriteImport.sprite_placement_started.connect(on_sprite_placement_started)
 	SpriteImport.sprite_placement_finished.connect(on_sprite_placement_finished)
 	set_process(false)

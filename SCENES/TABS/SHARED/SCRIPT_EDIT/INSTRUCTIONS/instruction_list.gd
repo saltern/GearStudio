@@ -14,7 +14,7 @@ func _ready() -> void:
 func update() -> void:
 	clear()
 	
-	var action: ScriptAction = script_edit.this_action
+	var action: Action = script_edit.this_action
 	
 	for instruction in action.instructions:
 		var inst_name: String = ScriptInstructions.get_instruction_name(

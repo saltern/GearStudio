@@ -35,12 +35,12 @@ signal cell_snapshots_done
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: Dictionary
+var obj_data: BinScriptable
 var ref_handler: ReferenceHandler = ReferenceHandler.new()
 
 var cell_index: int
-var this_cell: Cell
-var cell_clipboard: Cell
+var this_cell: BinCell
+var cell_clipboard: BinCell
 
 var display_boxes: bool = true
 var boxes_selected: PackedInt32Array = []
@@ -73,11 +73,6 @@ var waiting_tasks: Array[int] = []
 
 func _enter_tree() -> void:
 	undo_redo.max_steps = Settings.misc_max_undo
-	
-	if not obj_data.has("cells"):
-		queue_free()
-		return
-	
 	provider.obj_data = obj_data
 
 
@@ -90,7 +85,7 @@ func _ready() -> void:
 	GlobalSignals.menu_redo.connect(redo)
 	SpriteImport.sprite_placement_finished.connect(on_sprites_imported)
 	
-	if obj_data.has("palettes"):
+	if obj_data.has_palettes():
 		SessionData.palette_changed.connect(palette_set_session)
 	
 	SessionData.sprite_reindexed.connect(on_sprite_reindexed)
@@ -207,7 +202,7 @@ func palette_set_session(for_session: int, index: int) -> void:
 
 
 func on_sprite_palette_changed(
-	for_session: int, object: Dictionary, index: int
+	for_session: int, object: BinObject, index: int
 ) -> void:
 	if for_session != session_id:
 		return
@@ -222,20 +217,20 @@ func on_sprite_palette_changed(
 
 #region Cells
 func cell_get_count() -> int:
-	return obj_data.cells.size()
+	return obj_data.get_cell_count()
 
 
 func cell_get_index() -> int:
 	return cell_index
 
 
-func cell_get(index: int) -> Cell:
-	return obj_data.cells[index]
+func cell_get(index: int) -> BinCell:
+	return obj_data.get_cell(index)
 
 
 func cell_load(index: int) -> void:
 	cell_index = index
-	this_cell = obj_data.cells[cell_index]
+	this_cell = obj_data.get_cell(cell_index)
 	cell_updated.emit(this_cell)
 	boxes_selected.resize(0)
 	
@@ -272,7 +267,7 @@ func cell_delete(from: int, to: int) -> void:
 	# Is this excessive...?
 	for cell in 1 + to - from:
 		undo_redo.add_undo_method(
-			cell_add_commit.bind(from, obj_data.cells[to - cell]))
+			cell_add_commit.bind(from, obj_data.get_cell(to - cell)))
 	
 	undo_redo.add_undo_method(emit_signal.bind("cell_count_changed"))
 	undo_redo.add_undo_method(cell_remove_try_reload)
@@ -283,7 +278,7 @@ func cell_delete(from: int, to: int) -> void:
 
 # Add Cell
 func cell_new(after: bool = false) -> void:
-	var new_cell: Cell = Cell.new()
+	var new_cell: BinCell = BinCell.new()
 	
 	var at: int = cell_index + (after as int)
 	
@@ -304,7 +299,7 @@ func cell_new(after: bool = false) -> void:
 	undo_redo.commit_action()
 
 
-func cell_add_commit(at: int, cell: Cell) -> void:
+func cell_add_commit(at: int, cell: BinCell) -> void:
 	if at >= obj_data.cells.size():
 		obj_data.cells.append(cell)
 	else:
@@ -343,7 +338,7 @@ func cell_paste(at: int = 0) -> void:
 		"index": cell_index + clampi(at, 0, 1)
 	})
 	
-	var cell: Cell = Clipboard.cell.duplicate(true)
+	var cell: BinCell = Clipboard.cell.duplicate(true)
 	
 	undo_redo.create_action(action_text)
 	
@@ -360,7 +355,7 @@ func cell_paste(at: int = 0) -> void:
 			undo_redo.add_undo_method(cell_remove_try_reload)
 		
 		0: # Replace current
-			var old_cell: Cell = this_cell
+			var old_cell: BinCell = this_cell
 			
 			undo_redo.add_do_method(cell_remove_commit.bind(cell_index))
 			undo_redo.add_do_method(cell_add_commit.bind(cell_index, cell))
@@ -383,7 +378,7 @@ func sprite_get(index: int = 0) -> BinSprite:
 	
 	
 func sprite_get_count() -> int:
-	return obj_data["sprites"].size()
+	return obj_data.get_sprite_count()
 
 
 func on_sprites_imported() -> void:
@@ -571,11 +566,11 @@ func box_update_display() -> void:
 	box_edit_mode.disabled = !display_boxes
 
 
-func box_get(index: int = 0) -> BoxInfo:
+func box_get(index: int = 0) -> BinBoxInfo:
 	return box_get_all()[index]
 
 
-func box_get_all() -> Array[BoxInfo]:
+func box_get_all() -> Array[BinBoxInfo]:
 	return this_cell.boxes
 
 
@@ -627,7 +622,7 @@ func box_set_type_visible(type: int, enabled: bool) -> void:
 		box_display_types[index] = enabled
 
 
-func box_append(box: BoxInfo) -> void:
+func box_append(box: BinBoxInfo) -> void:
 	var action_text: String = tr("ACTION_CELL_EDIT_BOX_NEW").format({
 		"index": cell_index
 	})
@@ -670,7 +665,7 @@ func box_delete() -> void:
 	cell_ensure_selected_undo(cell_index)
 	
 	for box_index in boxes_selected:
-		var deleted_box: BoxInfo = box_get(box_index)
+		var deleted_box: BinBoxInfo = box_get(box_index)
 		
 		undo_redo.add_do_method(box_delete_commit.bind(this_cell, deleted_box))
 		undo_redo.add_do_method(emit_signal.bind("cell_updated", this_cell))
@@ -685,14 +680,14 @@ func box_delete() -> void:
 	undo_redo.commit_action()
 
 
-func box_append_commit(cell: Cell, box: BoxInfo, index: int = -1) -> void:
+func box_append_commit(cell: BinCell, box: BinBoxInfo, index: int = -1) -> void:
 	if index < 0:
 		cell.boxes.append(box)
 	else:
 		cell.boxes.insert(index, box)
 
 
-func box_delete_commit(cell: Cell, box: BoxInfo) -> void:
+func box_delete_commit(cell: BinCell, box: BinBoxInfo) -> void:
 	cell.boxes.remove_at(cell.boxes.find(box))
 
 
@@ -754,7 +749,7 @@ func box_set_type(new_type: int) -> void:
 	cell_ensure_selected_undo(cell_index)
 	
 	for box in boxes_selected:
-		var current_box: BoxInfo = this_cell.boxes[box]
+		var current_box: BinBoxInfo = this_cell.boxes[box]
 		
 		undo_redo.add_do_property(current_box, "box_type", new_type)
 		undo_redo.add_do_method(emit_signal.bind("box_updated", current_box))
@@ -789,7 +784,7 @@ func box_set_offset_x(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "x_offset", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -814,7 +809,7 @@ func box_set_offset_y(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "y_offset", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -839,7 +834,7 @@ func box_set_width(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "width", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -864,7 +859,7 @@ func box_set_height(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "height", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -894,7 +889,7 @@ func box_set_rect_for(index: int, rect: Rect2i) -> void:
 		})
 		undo_redo.create_action(action_text)
 	
-	var this_box: BoxInfo = box_get(index)
+	var this_box: BinBoxInfo = box_get(index)
 	
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
@@ -928,7 +923,7 @@ func box_set_crop_offset_x(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "crop_x_offset", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -953,7 +948,7 @@ func box_set_crop_offset_y(new_value: int) -> void:
 	# Ensure cell selected before making changes
 	cell_ensure_selected_undo(cell_index)
 	
-	var this_box: BoxInfo = box_get(boxes_selected[0])
+	var this_box: BinBoxInfo = box_get(boxes_selected[0])
 	
 	undo_redo.add_do_property(this_box, "crop_y_offset", new_value)
 	undo_redo.add_do_method(emit_signal.bind("box_updated", this_box))
@@ -968,7 +963,7 @@ func box_set_crop_offset_y(new_value: int) -> void:
 
 #region Snapshots
 func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
-	var cell: Cell = obj_data.cells[cell_number]
+	var cell: BinCell = obj_data.get_cell(cell_number)
 	var number: int = get_parent().get_index()
 	
 	# Generate filename, path
@@ -999,7 +994,7 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 		if obj_data.has("palettes"):
 			pal = provider.palette.get_palette()
 		else:
-			pal = obj_data.sprites[cell.sprite_index].get_palette()
+			pal = obj_data.get_sprite(cell.sprite_index).palette
 	
 	# Origin cross
 	var origin: PackedByteArray = []
@@ -1028,7 +1023,7 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 		# Save
 		cell.save_snapshot_png(
 			# Sprite
-			obj_data.sprites[cell.sprite_index], pal, false,
+			obj_data.get_sprite(cell.sprite_index), pal, false,
 			# Boxes
 			types_to_draw,
 			Settings.box_colors,
@@ -1046,7 +1041,7 @@ func save_snapshot(cell_number: int, override_pal: PackedByteArray) -> void:
 		# Save
 		cell.save_snapshot_psd(
 			# Sprite
-			obj_data.sprites[cell.sprite_index], pal, false,
+			obj_data.get_sprite(cell.sprite_index), pal, false,
 			# Boxes
 			types_to_draw,
 			Settings.box_colors,

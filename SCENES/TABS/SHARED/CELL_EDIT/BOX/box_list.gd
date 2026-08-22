@@ -14,7 +14,7 @@ const box_types: Dictionary = {
 }
 
 @onready var cell_edit: CellEdit = get_owner()
-var current_cell: Cell
+var current_cell: BinCell
 
 
 func _ready() -> void:
@@ -30,7 +30,7 @@ func _ready() -> void:
 	empty_clicked.connect(on_empty_clicked)
 
 
-func on_cell_update(cell: Cell) -> void:
+func on_cell_update(cell: BinCell) -> void:
 	if cell == current_cell:
 		update(cell.boxes, current_selection)
 	else:
@@ -39,7 +39,7 @@ func on_cell_update(cell: Cell) -> void:
 	current_cell = cell
 
 
-func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
+func update(boxes: Array[BinBoxInfo], reselect: int = -1) -> void:
 	current_selection = -1
 	clear()
 	
@@ -47,7 +47,7 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 		var type: String = get_type_text(box)
 		
 		add_item("Box %02d, Type: %s (%s)" % [
-				item_count, box.box_type, type])
+				item_count, box.type, type])
 		
 		set_item_tooltip_enabled(item_count - 1, false)
 	
@@ -58,10 +58,10 @@ func update(boxes: Array[BoxInfo], reselect: int = -1) -> void:
 		select(current_selection)
 
 
-func get_type_text(box_info: BoxInfo) -> String:
+func get_type_text(box_info: BinBoxInfo) -> String:
 	var type: String = STRING_BOX_TYPE_UNKNOWN
 	
-	if box_info.box_type == 3 || box_info.box_type == 6:
+	if box_info.is_region():
 		type = box_types[box_info.box_type]
 		
 		var offset_x: String = "%s" % (box_info.crop_x_offset)
@@ -69,8 +69,8 @@ func get_type_text(box_info: BoxInfo) -> String:
 		
 		type  += " [%s, %s]" % [offset_x, offset_y]
 	
-	elif box_info.box_type in box_types:
-		type = box_types[box_info.box_type]
+	elif box_info.type in box_types:
+		type = box_types[box_info.type]
 	
 	return type
 
@@ -105,7 +105,7 @@ func external_clear_selection() -> void:
 	current_selection = -1
 
 
-func external_update(_box: BoxInfo) -> void:
+func external_update(_box: BinBoxInfo) -> void:
 	if current_cell == cell_edit.this_cell:
 		update(cell_edit.this_cell.boxes, current_selection)
 	else:

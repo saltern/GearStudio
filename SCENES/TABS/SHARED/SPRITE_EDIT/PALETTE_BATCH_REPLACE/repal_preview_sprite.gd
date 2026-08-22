@@ -12,8 +12,8 @@ func _ready() -> void:
 
 
 func update_preview() -> void:
-	var sprite: BinSprite = sprite_edit.obj_data.sprites[sprite_index.value]
+	var sprite: BinSprite = sprite_edit.obj_data.get_sprite(sprite_index.value)
 	texture = sprite.get_texture()
 	
-	material.set_shader_parameter("reindex", sprite.get_bit_depth() == 8)
-	material.set_shader_parameter("palette", main_window.palette.get_palette())
+	material.set_shader_parameter("reindex", sprite.bit_depth == 8)
+	material.set_shader_parameter("palette", main_window.palette.palette)

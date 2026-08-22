@@ -10,7 +10,7 @@ func _ready() -> void:
 	update_range()
 
 
-func update(_cell: Cell) -> void:
+func update(_cell: BinCell) -> void:
 	call_deferred("set_value_no_signal", cell_edit.cell_get_index())
 
 

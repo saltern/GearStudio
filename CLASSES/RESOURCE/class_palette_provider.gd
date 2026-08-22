@@ -15,7 +15,7 @@ signal sprite_select
 
 var undo_redo: UndoRedo
 
-var obj_data: Dictionary
+var obj_data: BinObject
 var palette_index: int = 0
 var palette: BinSprite
 var sprite_index: int = 0
@@ -68,23 +68,25 @@ func paste(at: int, selection: Array[bool]) -> void:
 
 #region Palettes
 func palette_load(index: int = 0) -> void:
-	if obj_data.has("palettes"):
-		palette_index = index
-		palette = obj_data["palettes"][palette_index]
-		bit_depth = 8
-		palette_updated.emit(palette.get_palette())
+	#if obj_data.has("palettes"):
+	if obj_data is BinScriptable:
+		if obj_data.has_palettes():
+			palette_index = index
+			palette = obj_data.get_palette(palette_index)
+			bit_depth = 8
+			palette_updated.emit(palette.palette)
 	
 	else:
 		sprite_index = index
 		sprite = obj_data["sprites"][sprite_index]
-		bit_depth = sprite.get_bit_depth()
+		bit_depth = sprite.bit_depth
 		
 		# A bit silly, but keeps external functionality/consistency
 		var new_bin_pal: BinSprite = BinSprite.new()
-		new_bin_pal.set_palette(sprite.get_palette())
+		new_bin_pal.palette = sprite.palette
 		palette = new_bin_pal
 		
-		palette_updated.emit(sprite.get_palette())
+		palette_updated.emit(sprite.palette)
 
 
 func palette_reload() -> void:
@@ -99,19 +101,20 @@ func palette_get_color_count() -> int:
 
 
 func palette_get_colors() -> PackedByteArray:
-	if obj_data.has("palettes"):
-		return obj_data["palettes"][palette_index].get_palette()
+	#if obj_data.has("palettes"):
+	if obj_data is BinScriptable && obj_data.has_palettes():
+		return obj_data.get_palette_array(palette_index)
 	else:
-		return obj_data["sprites"][sprite_index].get_palette()
+		return obj_data.get_palette(sprite_index)
 
 
 func palette_get_color(index: int = 0) -> Color:
 	var pal: PackedByteArray
 	
-	if obj_data.has("palettes"):
-		pal = palette.get_palette()
+	if obj_data.has_palettes():
+		pal = palette.palette
 	else:
-		pal = sprite.get_palette()
+		pal = sprite.palette
 		if 4 * index >= pal.size():
 			return Color8(0, 0, 0, 255)
 	

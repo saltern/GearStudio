@@ -25,7 +25,7 @@ func serialize() -> PackedByteArray:
 		pointers.append(data.size())
 		data.append_array(cell.serialize())
 	
-	stream.put_data(finalize_pointers(pointers))
+	stream.put_data(finalize_pointers(pointers, big_endian))
 	stream.put_data(data)
 	
 	return stream.data_array

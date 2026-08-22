@@ -48,10 +48,10 @@ func on_ref_data_cleared() -> void:
 
 
 func load_action(index: int) -> void:
-	if provider.obj_data.is_empty():
+	if provider.obj_data == null:
 		return
 	
-	if not provider.obj_data.has("scripts"):
+	if not provider.obj_data.has_script():
 		return
 	
 	if provider.obj_data.scripts.actions.size() <= index:
@@ -59,7 +59,7 @@ func load_action(index: int) -> void:
 		action_loaded.emit()
 		return
 	
-	var action: ScriptAction = provider.obj_data.scripts.actions[index]
+	var action: Action = provider.obj_data.scripts.actions[index]
 	var anim: Animation = action.get_animation()
 	
 	# Restart animation
@@ -74,7 +74,7 @@ func load_action(index: int) -> void:
 
 
 func load_frame(frame: int) -> void:
-	if provider.obj_data.is_empty():
+	if provider.obj_data == null:
 		return
 	
 	if assigned_animation == "" and current_animation == "":

@@ -2,7 +2,7 @@ extends FileDialog
 
 @export var summon_button: Button
 
-@onready var provider: PaletteProvider = get_owner().provider
+#@onready var provider: PaletteProvider = get_owner().provider
 
 
 func _ready() -> void:
@@ -22,8 +22,8 @@ func display() -> void:
 func on_file_selected(path: String) -> void:
 	FileMemory.sprite_palette_export = current_path
 	
-	match path.get_extension():
-		"bin":
-			provider.palette.to_bin_file(path)
-		"act":
-			provider.palette.to_act_file(path)
+	#match path.get_extension():
+		#"bin":
+			#provider.palette.to_bin_file(path)
+		#"act":
+			#provider.palette.to_act_file(path)

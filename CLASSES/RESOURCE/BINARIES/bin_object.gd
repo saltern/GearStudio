@@ -4,8 +4,6 @@ const TERMINATOR: int = 0xFFFFFFFF
 const SIZE_U16: int = 2
 const SIZE_U32: int = 4
 
-var big_endian: bool = false
-
 
 static func identify(_bin_data: PackedByteArray, _is_big_endian: bool) -> bool:
 	return false
@@ -16,13 +14,10 @@ static func get_pointers(bin_data: PackedByteArray, is_big_endian: bool) -> Pack
 	stream.big_endian = is_big_endian
 	stream.data_array = bin_data
 	
-	var pointers: PackedInt64Array = []
+	var pointers: PackedInt64Array = [stream.get_u32()]
 	
-	while pointers[-1] != TERMINATOR:
+	while pointers[-1] != TERMINATOR && stream.get_position() < stream.get_size() - 4:
 		pointers.append(stream.get_u32())
-		
-		if pointers[-1] >= bin_data.size():
-			return []
 	
 	# Kick terminator
 	pointers.resize(pointers.size() - 1)
@@ -30,9 +25,9 @@ static func get_pointers(bin_data: PackedByteArray, is_big_endian: bool) -> Pack
 	return pointers
 
 
-func finalize_pointers(pointers: PackedInt64Array) -> PackedByteArray:
+static func finalize_pointers(pointers: PackedInt64Array, is_big_endian: bool) -> PackedByteArray:
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
-	stream.big_endian = big_endian
+	stream.big_endian = is_big_endian
 	
 	var target_pointers: PackedInt64Array = pointers.duplicate()
 	target_pointers.append(TERMINATOR)

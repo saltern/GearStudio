@@ -23,7 +23,7 @@ func display(path: String) -> void:
 
 
 func fulfill() -> void:
-	DirDecrypter.decrypt_folder(decryption_path, GlobalSignals)
+	BinDecrypter.decrypt_folder(decryption_path)
 
 
 func on_confirmed() -> void:

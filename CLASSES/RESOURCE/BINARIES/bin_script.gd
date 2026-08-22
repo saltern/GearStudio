@@ -72,6 +72,8 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		if stream.get_u16() == 0x00FD:
 			break
 		
+		stream.seek(stream.get_position() - 2)
+		
 		var action: Action = Action.new()
 		action.deserialize(
 			bin_data.slice(stream.get_position(), bin_data.size()),

@@ -43,7 +43,7 @@ func _ready() -> void:
 		provider.ref_data_cleared.connect(unload_sprite)
 
 
-func load_cell(cell: Cell) -> void:
+func load_cell(cell: BinCell) -> void:
 	super.load_cell(cell)
 
 
@@ -51,7 +51,7 @@ func get_palette(index: int) -> PackedByteArray:
 	if not palette_override.is_empty():
 		return palette_override
 	
-	if provider.obj_data.has("palettes"):
+	if provider.obj_data.has_palettes():
 		palette_index = session_palette
 
 	return super.get_palette(index)
@@ -70,11 +70,11 @@ func disable_visual_1() -> void:
 
 
 func on_cell(index: int) -> void:
-	if provider.obj_data.is_empty():
+	if provider.obj_data == null:
 		return
 	
 	if provider.cell_get_count() > index:
-		var this_cell: Cell = provider.cell_get(index)
+		var this_cell: BinCell = provider.cell_get(index)
 		load_cell(this_cell)
 	else:
 		unload_sprite()
@@ -180,12 +180,12 @@ func on_palette(_player: int, section: int) -> void:
 	var temp_pal: BinSprite = \
 		session_palettes[provider.palette_index].duplicate(true)
 	
-	if provider.obj_data.sprites[sprite_index].get_bit_depth() == 4:
+	if provider.obj_data.get_sprite(sprite_index).bit_depth == 4:
 		temp_pal.reindex_palette()
 	
 	var new_pal: PackedByteArray = []
 	
-	new_pal.append_array(temp_pal.get_palette().slice(4 * section * 16))
+	new_pal.append_array(temp_pal.palette.slice(4 * section * 16))
 	new_pal.resize(4 * 256)
 	
 	# Index 0 in newly obtained palette is always transparent, apparently

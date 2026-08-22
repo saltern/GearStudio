@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://unjmpix74y7x" path="res://SCENES/MAIN/topmenu_file.gd" id="1_2rc5h"]
 [ext_resource type="Script" uid="uid://dn2fpogyaibb8" path="res://SCENES/MAIN/main.gd" id="1_rl44a"]
-[ext_resource type="Script" uid="uid://cymsb74jdg0i3" path="res://SCENES/MAIN/session_tabs.gd" id="2_86rm5"]
+[ext_resource type="Script" uid="uid://cymsb74jdg0i3" path="res://SCENES/MAIN/session_tab_container.gd" id="2_86rm5"]
 [ext_resource type="Script" uid="uid://lbfev34e36ih" path="res://SCENES/MAIN/topmenu_help.gd" id="2_pvowg"]
 [ext_resource type="Script" uid="uid://cpdgr6f6ftl10" path="res://SCENES/MAIN/load_dialog_dir.gd" id="3_j7c6i"]
 [ext_resource type="PackedScene" uid="uid://bqh1wnv1ogdi4" path="res://SCENES/TABS/SHARED/tab_session.tscn" id="3_kwuap"]
@@ -78,42 +78,13 @@ layout_mode = 2
 prefer_global_menu = false
 
 [node name="TOP_MENU_FILE" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=934525159 node_paths=PackedStringArray("load_dialog_dir", "load_dialog_bin", "save_as_dialog", "overwrite_dialog")]
+oversampling_override = 1.0
 size = Vector2i(100, 122)
 script = ExtResource("1_2rc5h")
-load_dialog_dir = NodePath("load_dialog_dir")
-load_dialog_bin = NodePath("load_dialog_bin")
-save_as_dialog = NodePath("save_as_dialog")
+load_dialog_dir = NodePath("../../../../load_dialog_dir")
+load_dialog_bin = NodePath("../../../../load_dialog_bin")
+save_as_dialog = NodePath("../../../../save_as_dialog")
 overwrite_dialog = NodePath("../../../../save_overwrite")
-
-[node name="load_dialog_dir" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=406109777]
-title = "Open a Directory"
-initial_position = 2
-size = Vector2i(600, 400)
-ok_button_text = "Select Current Folder"
-file_mode = 2
-access = 2
-use_native_dialog = true
-script = ExtResource("3_j7c6i")
-
-[node name="load_dialog_bin" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=8101890]
-auto_translate_mode = 1
-title = "Open a File"
-initial_position = 2
-size = Vector2i(600, 400)
-ok_button_text = "Open"
-file_mode = 0
-access = 2
-filters = PackedStringArray("*.bin,*.lot;Binary files")
-use_native_dialog = true
-script = ExtResource("4_csxth")
-
-[node name="save_as_dialog" type="FileDialog" parent="content/top_bar/menu_bar/TOP_MENU_FILE" unique_id=1646546565]
-initial_position = 2
-size = Vector2i(600, 400)
-access = 2
-filters = PackedStringArray("*.bin;Binary files")
-use_native_dialog = true
-script = ExtResource("5_nliut")
 
 [node name="TOP_MENU_EDIT" type="PopupMenu" parent="content/top_bar/menu_bar" unique_id=678787542]
 size = Vector2i(149, 109)
@@ -147,9 +118,9 @@ about_dialog = NodePath("../../../../about")
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("2_86rm5")
-load_dialog_dir = NodePath("../top_bar/menu_bar/TOP_MENU_FILE/load_dialog_dir")
-load_dialog_bin = NodePath("../top_bar/menu_bar/TOP_MENU_FILE/load_dialog_bin")
-save_as_dialog = NodePath("../top_bar/menu_bar/TOP_MENU_FILE/save_as_dialog")
+load_dialog_dir = NodePath("../../load_dialog_dir")
+load_dialog_bin = NodePath("../../load_dialog_bin")
+save_as_dialog = NodePath("../../save_as_dialog")
 session_scene = ExtResource("3_kwuap")
 
 [node name="status" type="Label" parent="content" unique_id=2143236123]
@@ -386,42 +357,35 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[node name="decrypt_confirm" type="ConfirmationDialog" parent="." unique_id=1121620959]
-oversampling_override = 1.0
-title = "DIALOG_CONFIRM_ACTION"
+[node name="load_dialog_dir" type="FileDialog" parent="." unique_id=406109777]
+title = "Open a Directory"
 initial_position = 2
-size = Vector2i(375, 90)
-transient_to_focused = true
-ok_button_text = "BUTTON_OK"
-dialog_text = "DECRYPTION_CONFIRM_TEXT"
-cancel_button_text = "BUTTON_CANCEL"
-script = ExtResource("8_biqay")
+size = Vector2i(600, 400)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+use_native_dialog = true
+script = ExtResource("3_j7c6i")
 
-[node name="decrypt_lock" type="Window" parent="." unique_id=234480262]
-oversampling_override = 1.0
-title = "DECRYPTION_PROGRESS_TITLE"
+[node name="load_dialog_bin" type="FileDialog" parent="." unique_id=8101890]
+auto_translate_mode = 1
+title = "Open a File"
 initial_position = 2
-size = Vector2i(250, 120)
-visible = false
-transient = true
-exclusive = true
-unresizable = true
-minimize_disabled = true
-maximize_disabled = true
-force_native = true
-script = ExtResource("17_127pr")
+size = Vector2i(600, 400)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin,*.lot;Binary files")
+use_native_dialog = true
+script = ExtResource("4_csxth")
 
-[node name="title" type="Label" parent="decrypt_lock" unique_id=742757104]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-text = "PLEASE_WAIT"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="save_as_dialog" type="FileDialog" parent="." unique_id=1646546565]
+initial_position = 2
+size = Vector2i(600, 400)
+access = 2
+filters = PackedStringArray("*.bin;Binary files")
+use_native_dialog = true
+script = ExtResource("5_nliut")
 
 [node name="save_overwrite" type="ConfirmationDialog" parent="." unique_id=1734852331]
 oversampling_override = 1.0
@@ -478,6 +442,43 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="decrypt_confirm" type="ConfirmationDialog" parent="." unique_id=1121620959]
+oversampling_override = 1.0
+title = "DIALOG_CONFIRM_ACTION"
+initial_position = 2
+size = Vector2i(393, 136)
+transient_to_focused = true
+ok_button_text = "BUTTON_OK"
+dialog_text = "DECRYPTION_CONFIRM_TEXT"
+cancel_button_text = "BUTTON_CANCEL"
+script = ExtResource("8_biqay")
+
+[node name="decrypt_lock" type="Window" parent="." unique_id=234480262]
+oversampling_override = 1.0
+title = "DECRYPTION_PROGRESS_TITLE"
+initial_position = 2
+size = Vector2i(250, 120)
+visible = false
+transient = true
+exclusive = true
+unresizable = true
+minimize_disabled = true
+maximize_disabled = true
+force_native = true
+script = ExtResource("17_127pr")
+
+[node name="title" type="Label" parent="decrypt_lock" unique_id=742757104]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "PLEASE_WAIT"
 horizontal_alignment = 1
 vertical_alignment = 1
 

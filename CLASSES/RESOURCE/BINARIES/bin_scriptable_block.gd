@@ -5,9 +5,9 @@ var scriptables: Array[BinScriptable]
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
-	pointers.append(bin_data.size())
+	pointers.append(bin_data.size()) # Auxiliary fake pointer
 	
-	for p: int in pointers.size():
+	for p: int in pointers.size() - 1:
 		var obj: PackedByteArray = bin_data.slice(
 			pointers[p], pointers[p + 1]
 		)
@@ -34,7 +34,7 @@ func serialize() -> PackedByteArray:
 		pointers.append(data.size())
 		data.append_array(scriptable.serialize())
 	
-	stream.put_data(finalize_pointers(pointers))
+	stream.put_data(finalize_pointers(pointers, big_endian))
 	stream.put_data(data)
 	
 	return stream.data_array

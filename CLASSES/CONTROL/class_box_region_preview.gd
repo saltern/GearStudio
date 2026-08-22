@@ -1,7 +1,7 @@
 class_name BoxRegionPreview extends Control
 
 var cell_edit: CellEdit
-var box_info: BoxInfo
+var box_info: BinBoxInfo
 
 
 func _ready() -> void:
@@ -11,9 +11,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	visible = (box_info.box_type == 3 or box_info.box_type == 6) and \
-		get_parent().is_selected
-	
+	visible = box_info.is_region() and get_parent().is_selected
 	queue_redraw()
 
 
@@ -29,7 +27,7 @@ func _draw() -> void:
 	var thickness: int = Settings.box_thickness
 	var color: Color
 	
-	if box_info.box_type == 3:
+	if box_info.type == 3:
 		color = Settings.box_colors[Settings.BoxType.REGION_B]
 	else:
 		color = Settings.box_colors[Settings.BoxType.REGION_F]

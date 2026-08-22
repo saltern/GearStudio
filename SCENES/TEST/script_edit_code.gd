@@ -4,7 +4,7 @@ class_name ScriptEditCode extends Control
 @export var code_edit: BinScriptEdit
 
 var session_id: int
-var obj_data: Dictionary
+var obj_data: BinScriptable
 
 
 func _ready() -> void:
@@ -20,7 +20,7 @@ func code_edit_inst_cell_begin(_duration: int, cell_index: int) -> void:
 	if not obj_data.has("cells"):
 		return
 	
-	var cell: Cell
+	var cell: BinCell
 	
 	if obj_data.cells.size() > cell_index:
 		cell = obj_data["cells"][cell_index]

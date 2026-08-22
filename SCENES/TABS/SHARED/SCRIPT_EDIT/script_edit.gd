@@ -34,13 +34,13 @@ enum FlagType {
 var session_id: int
 var undo_redo := UndoRedo.new()
 
-var obj_data: Dictionary
+var obj_data: BinScriptable
 var ref_handler: ReferenceHandler = ReferenceHandler.new()
 
 var action_index: int = 0
 var instruction_index: int = -1
 
-var this_action: ScriptAction
+var this_action: Action
 var new_instruction_type: int = 0
 
 var palette_index: int = 0
@@ -152,7 +152,7 @@ func redo() -> void:
 #endregion
 
 
-func script_action_get(index: int) -> ScriptAction:
+func script_action_get(index: int) -> Action:
 	return obj_data.scripts.actions[index]
 
 
@@ -216,7 +216,7 @@ func script_action_insert(at_offset: int) -> void:
 	
 	undo_redo.create_action(action_text)
 	
-	var new_action := ScriptAction.new()
+	var new_action := Action.new()
 	new_action.instructions.append(
 		ScriptInstructions.get_instruction(255)
 	)
@@ -240,7 +240,7 @@ func script_action_delete_commit(at_index: int) -> void:
 	action_count_changed.emit()
 
 
-func script_action_insert_commit(at_index: int, action: ScriptAction) -> void:
+func script_action_insert_commit(at_index: int, action: Action) -> void:
 	obj_data.scripts.actions.insert(at_index, action)
 	action_count_changed.emit()
 
@@ -253,7 +253,7 @@ func script_action_copy() -> void:
 
 
 func script_action_paste(at: int) -> void:
-	var new_action: ScriptAction = Clipboard.get_script_action()
+	var new_action: Action = Clipboard.get_script_action()
 	
 	if new_action == null:
 		Status.set_status("STATUS_SCRIPT_EDIT_ACTION_CANNOT_PASTE")
@@ -266,7 +266,7 @@ func script_action_paste(at: int) -> void:
 	undo_redo.create_action(action_text)
 	
 	if at == 0:
-		var old_action: ScriptAction = script_action_get(action_index)
+		var old_action: Action = script_action_get(action_index)
 		
 		undo_redo.add_do_method(script_action_delete_commit.bind(action_index))
 		undo_redo.add_do_method(
@@ -734,17 +734,14 @@ func sprite_get_count() -> int:
 
 
 func cell_get_count() -> int:
-	if obj_data.has("cells"):
-		return obj_data["cells"].size()
-	else:
-		return 0
+	return obj_data.get_cell_count()
 
 
-func cell_get(index: int) -> Cell:
+func cell_get(index: int) -> BinCell:
 	if cell_get_count() > index:
-		return obj_data.cells[index]
+		return obj_data.cells.cells[index]
 	else:
-		return Cell.new()
+		return BinCell.new()
 
 
 func palette_get_count() -> int:

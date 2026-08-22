@@ -4,15 +4,15 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
-	if not sprite_edit.obj_data.has("palettes"):
+	if not sprite_edit.with_palettes:
 		get_parent().queue_free()
 		return
 	
-	max_value = sprite_edit.obj_data["palettes"].size() - 1
+	max_value = sprite_edit.pal_data.get_sprite_count() - 1
 	
 	value_changed.connect(SessionData.set_palette)
 	
-	if sprite_edit.obj_data.has("palettes"):
+	if sprite_edit.with_palettes:
 		SessionData.palette_changed.connect(external_update_value)
 
 

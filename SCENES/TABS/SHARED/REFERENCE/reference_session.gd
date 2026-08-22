@@ -13,8 +13,8 @@ func _ready() -> void:
 
 
 func get_entry_name(index: int) -> String:
-	var this_session: Dictionary = SessionData.get_session(index)
-	var file_name: String = this_session["path"].get_file()
+	var this_session: Session = SessionData.get_session(index)
+	var file_name: String = this_session.path.get_file()
 	
 	return tr("REFERENCE_SESSION_ENTRY").format({
 		"index": index, "name": file_name

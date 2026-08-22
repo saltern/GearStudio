@@ -1,4 +1,4 @@
-class_name BinBoxInfo extends BinObject
+class_name BinBoxInfo extends Serializable
 
 const SIZE: int = 0xC
 const ADDRESS_TYPE: int = 0x08
@@ -20,13 +20,6 @@ var height: int			# u16
 var type: Type			# u16
 var crop_x_offset: int	# i8
 var crop_y_offset: int	# i8
-
-
-static func identify(bin_data: PackedByteArray, _is_big_endian: bool) -> bool:
-	if bin_data.size() != SIZE:
-		return false
-	
-	return true
 
 
 func serialize() -> PackedByteArray:
@@ -56,3 +49,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	type = stream.get_u16() as Type
 	crop_x_offset = stream.get_8()
 	crop_y_offset = stream.get_8()
+
+
+func is_region() -> bool:
+	return (type == Type.REGION_BACK or type == Type.REGION_FRONT)

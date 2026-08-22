@@ -5,7 +5,7 @@ class_name PaletteEdit extends MarginContainer
 var session_id: int
 var undo_redo: UndoRedo = UndoRedo.new()
 
-var obj_data: Dictionary
+var obj_data: BinScriptable
 var provider: PaletteProvider = PaletteProvider.new()
 
 
@@ -89,19 +89,16 @@ func get_provider() -> PaletteProvider:
 
 #region Sprites/Preview
 func sprite_get_count() -> int:
-	return obj_data["sprites"].size()
+	return obj_data.get_sprite_count()
 
 
 func sprite_get(index: int) -> BinSprite:
-	return obj_data["sprites"][index]
+	return obj_data.get_sprite(index)
 #endregion
 
 
 func palette_get_count() -> int:
-	if obj_data.has("palettes"):
-		return obj_data["palettes"].size()
-	else:
-		return 0
+	return obj_data.get_palette_count()
 
 
 func palette_reindex() -> void:

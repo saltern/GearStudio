@@ -10,11 +10,11 @@ func _ready() -> void:
 	#cell_edit.box_deselected_all.connect(hide)
 
 
-func on_cell_update(_cell: Cell) -> void:
+func on_cell_update(_cell: BinCell) -> void:
 	$value.editable = false
 
 
-func on_box_update(box: BoxInfo) -> void:
+func on_box_update(box: BinBoxInfo) -> void:
 	if box.box_type != 3 and box.box_type != 6:
 		$value.editable = false
 	else:

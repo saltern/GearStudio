@@ -4,6 +4,7 @@ var cursor_mask: BinCursorMask
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	#print("Identifying BinSpriteSelectBlock")
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
 	pointers.append(bin_data.size()) # Auxiliary fake pointer
 	
@@ -30,7 +31,7 @@ func serialize() -> PackedByteArray:
 	pointers.append(data.size())
 	data.append_array(cursor_mask.serialize())
 	
-	stream.put_data(finalize_pointers(pointers))
+	stream.put_data(finalize_pointers(pointers, big_endian))
 	stream.put_data(data)
 	
 	return stream.data_array

@@ -2,9 +2,11 @@ extends TabContainer
 
 signal session_id_changed
 
+var session: Session
 var session_id: int
 
 @export var TabSpriteEdit: PackedScene
+@export var TabSpriteEditor: PackedScene
 @export var TabCellEdit: PackedScene
 @export var TabScriptEdit: PackedScene
 @export var TabScriptEditCode: PackedScene
@@ -37,38 +39,89 @@ func _gui_input(event: InputEvent) -> void:
 		print("Tab right clicked")
 
 
+func initialize(p_session: Session) -> void:
+	session = p_session
+	load_tabs(session.archive)
+
+
 func reset_session_id() -> void:
 	session_id = get_index()
 	session_id_changed.emit(session_id)
 
 
-func load_tabs(data: Dictionary) -> void:
-	for object in data["data"].size():
-		var this_object: Dictionary = data["data"][object]
+func load_tabs(archive: BinArchive) -> void:
+	for object: BinObject in archive.objects:
+		if object is BinSprite:
+			add_child(load_sprite(object))
 		
-		match this_object["type"]:
-			"sprite":
-				add_child(load_sprite(this_object))
+		elif object is BinSpriteSelectBlock:
+			add_child(load_sprite_list_select(object))
+		
+		elif object is BinSpriteBlock:
+			add_child(load_sprite_list(object))
+		
+		elif object is BinJPFPlainText:
+			add_child(load_jpf_plain_text(object))
+		
+		elif object is BinScriptable:
+			add_child(load_scriptable(object))
+		
+		elif object is BinScriptableBlock:
+			add_child(load_multi_scriptable(object))
 			
-			"sprite_list_select":
-				add_child(load_sprite_list_select(this_object))
-			
-			"sprite_list", "sprite_list_file":
-				add_child(load_sprite_list(this_object))
-			
-			"jpf_plain_text":
-				add_child(load_jpf_plain_text(this_object))
-			
-			"scriptable":
-				add_child(load_scriptable(this_object))
-			
-			"multi_scriptable":
-				add_child(load_multi_scriptable(this_object))
-			
-			#"unsupported":
-				#print("Loading unsupported")
+		#"unsupported":
+			#print("Loading unsupported")
 
 
+#region Editor creation
+func get_sprite_editor(object: BinObject) -> SpriteEditor:
+	var sprite_editor: SpriteEditor = TabSpriteEditor.instantiate()
+	sprite_editor.initialize(session, object)
+	return sprite_editor
+
+
+func get_cell_editor(object: BinScriptable) -> CellEdit:
+	var cell_edit: CellEdit = TabCellEdit.instantiate()
+	session_id_changed.connect(cell_edit.set_session_id)
+	cell_edit.session_id = session_id
+	cell_edit.obj_data = object
+	return cell_edit
+
+
+func get_script_editor(object: BinScriptable) -> ScriptEdit:
+	var script_edit: ScriptEdit = TabScriptEdit.instantiate()
+	session_id_changed.connect(script_edit.set_session_id)
+	script_edit.session_id = session_id
+	script_edit.obj_data = object
+	return script_edit
+
+
+func get_script_editor_code(object: BinScriptable) -> ScriptEditCode:
+	var script_edit_code: ScriptEditCode = TabScriptEditCode.instantiate()
+	session_id_changed.connect(script_edit_code.set_session_id)
+	script_edit_code.session_id = session_id
+	script_edit_code.obj_data = object
+	return script_edit_code
+
+
+func get_palette_editor(object: BinScriptable) -> PaletteEdit:
+	var palette_edit: PaletteEdit = TabPaletteEdit.instantiate()
+	session_id_changed.connect(palette_edit.set_session_id)
+	palette_edit.session_id = session_id
+	palette_edit.obj_data = object
+	return palette_edit
+
+
+func get_select_editor(object: BinCursorMask) -> SelectEdit:
+	var select_edit: SelectEdit = TabSelectEdit.instantiate()
+	session_id_changed.connect(select_edit.set_session_id)
+	select_edit.session_id = session_id
+	select_edit.obj_data = object
+	return select_edit
+#endregion
+
+
+#region Tab control creation
 func get_base_tab() -> TabContainer:
 	var new_tab: TabContainer = TabContainer.new()
 	new_tab.anchor_right = 1
@@ -77,55 +130,7 @@ func get_base_tab() -> TabContainer:
 	return new_tab
 
 
-func get_sprite_editor(object: Dictionary) -> SpriteEdit:
-	var sprite_edit: SpriteEdit = TabSpriteEdit.instantiate()
-	session_id_changed.connect(sprite_edit.set_session_id)
-	sprite_edit.session_id = session_id
-	sprite_edit.obj_data = object
-	return sprite_edit
-
-
-func get_cell_editor(object: Dictionary) -> CellEdit:
-	var cell_edit: CellEdit = TabCellEdit.instantiate()
-	session_id_changed.connect(cell_edit.set_session_id)
-	cell_edit.session_id = session_id
-	cell_edit.obj_data = object
-	return cell_edit
-
-
-func get_script_editor(object: Dictionary) -> ScriptEdit:
-	var script_edit: ScriptEdit = TabScriptEdit.instantiate()
-	session_id_changed.connect(script_edit.set_session_id)
-	script_edit.session_id = session_id
-	script_edit.obj_data = object
-	return script_edit
-
-
-func get_script_editor_code(object: Dictionary) -> ScriptEditCode:
-	var script_edit_code: ScriptEditCode = TabScriptEditCode.instantiate()
-	session_id_changed.connect(script_edit_code.set_session_id)
-	script_edit_code.session_id = session_id
-	script_edit_code.obj_data = object
-	return script_edit_code
-
-
-func get_palette_editor(object: Dictionary) -> PaletteEdit:
-	var palette_edit: PaletteEdit = TabPaletteEdit.instantiate()
-	session_id_changed.connect(palette_edit.set_session_id)
-	palette_edit.session_id = session_id
-	palette_edit.obj_data = object
-	return palette_edit
-
-
-func get_select_editor(object: Dictionary) -> SelectEdit:
-	var select_edit: SelectEdit = TabSelectEdit.instantiate()
-	session_id_changed.connect(select_edit.set_session_id)
-	select_edit.session_id = session_id
-	select_edit.obj_data = object
-	return select_edit
-
-
-func load_sprite(object: Dictionary) -> TabContainer:
+func load_sprite(object: BinSpriteBlock) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE")]
 	
@@ -134,17 +139,17 @@ func load_sprite(object: Dictionary) -> TabContainer:
 	return new_tab
 
 
-func load_sprite_list_select(object: Dictionary) -> TabContainer:
+func load_sprite_list_select(object: BinSpriteSelectBlock) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE_LIST_SELECT")]
 	
 	new_tab.add_child(get_sprite_editor(object))
-	new_tab.add_child(get_select_editor(object))
+	new_tab.add_child(get_select_editor(object.cursor_mask))
 	
 	return new_tab
 
 
-func load_sprite_list(object: Dictionary) -> TabContainer:
+func load_sprite_list(object: BinSpriteBlock) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_SPRITE_LIST")]
 	
@@ -153,7 +158,7 @@ func load_sprite_list(object: Dictionary) -> TabContainer:
 	return new_tab
 
 
-func load_jpf_plain_text(object: Dictionary) -> TabContainer:
+func load_jpf_plain_text(object: BinJPFPlainText) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_PLAIN_TEXT")]
 	
@@ -162,7 +167,7 @@ func load_jpf_plain_text(object: Dictionary) -> TabContainer:
 	return new_tab
 
 
-func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
+func load_scriptable(object: BinScriptable, number: int = -1) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	var object_number: int = get_child_count()
 	
@@ -172,11 +177,11 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	new_tab.add_child(get_sprite_editor(object))
 	new_tab.add_child(get_cell_editor(object))
 	
-	if object.has("scripts") and ScriptInstructions.INSTRUCTION_DB.size() > 0:
+	if object.has_script() and ScriptInstructions.INSTRUCTION_DB.size() > 0:
 		new_tab.add_child(get_script_editor(object))
 		#new_tab.add_child(get_script_editor_code(object))
 	
-	if object.has("palettes"):
+	if object.has_palettes():
 		new_tab.name = "#%s | %s" % [object_number, tr("TAB_TITLE_PLAYER")]
 		new_tab.add_child(get_palette_editor(object))
 	else:
@@ -185,13 +190,17 @@ func load_scriptable(object: Dictionary, number: int = -1) -> TabContainer:
 	return new_tab
 
 
-func load_multi_scriptable(object: Dictionary) -> TabContainer:
+func load_multi_scriptable(object: BinScriptableBlock) -> TabContainer:
 	var new_tab: TabContainer = get_base_tab()
 	new_tab.name = "#%s | %s" % [get_child_count(), tr("TAB_TITLE_MULTI_SCRIPTABLE")]
 	
-	for sub_object in object["data"]:
+	var index: int = 0
+	for sub_object in object.scriptables:
 		new_tab.add_child(
-			load_scriptable(object["data"][sub_object], sub_object)
+			load_scriptable(sub_object, index)
 		)
+		
+		index += 1
 	
 	return new_tab
+#endregion

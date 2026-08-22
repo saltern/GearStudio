@@ -35,9 +35,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	damage = stream.get_u8()
 	flag2 = stream.get_u8()
 	
-	var action_over: bool = false
-	
-	while !action_over && stream.get_position() < bin_data.size():
+	while stream.get_position() < bin_data.size():
 		var id: int = stream.get_u8()
 		var inst: Instruction = ScriptInstructions.get_instruction(id)
 		
@@ -60,7 +58,9 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 						inst.set_argument(a, stream.get_u32())
 				
 		instructions.append(inst)
-		action_over = id == 0xFF
+		
+		if id == 0xFF:
+			break
 
 
 static func from_data(

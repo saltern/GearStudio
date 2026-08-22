@@ -5,8 +5,8 @@ extends Control
 @export var match_cell_editor: bool
 @export var box_display_toggle: CheckButton
 
-var obj_data: Dictionary
-var current_cell: Cell
+var obj_data: BinObject
+var current_cell: BinCell
 
 @onready var cell_edit: CellEdit = owner
 
@@ -14,8 +14,8 @@ var current_cell: Cell
 func _ready() -> void:
 	obj_data = cell_edit.obj_data
 	
-	if obj_data.has("cells"):
-		cell_load(cell_index.value)
+	#if obj_data.has_cells():
+	cell_load(cell_index.value)
 	
 	cell_index.value_changed.connect(cell_load)
 
@@ -38,7 +38,7 @@ func _draw() -> void:
 		draw_box(box_info)
 
 
-func draw_box(box: BoxInfo) -> void:
+func draw_box(box: BinBoxInfo) -> void:
 	var color := Settings.box_colors[
 		clampi(box.box_type, 0, Settings.box_colors.size() - 1)]
 		
@@ -74,4 +74,4 @@ func draw_box(box: BoxInfo) -> void:
 
 
 func cell_load(index: int) -> void:
-	current_cell = obj_data.cells[index]
+	current_cell = obj_data.get_cell(index)#cells[index]

@@ -6,8 +6,8 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
-	var object: Dictionary = sprite_edit.obj_data
-	max_value = object.sprites.size() - 1
+	var object: BinSpriteBlock = sprite_edit.obj_data
+	max_value = object.get_sprite_count() - 1
 	
 	if range_start:
 		range_start.value_changed.connect(on_minimum_changed)

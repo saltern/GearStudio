@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func update_max_value() -> void:
-	max_value = cell_edit.obj_data.sprites.size() - 1
+	max_value = cell_edit.obj_data.get_sprite_count() - 1#sprites.size() - 1

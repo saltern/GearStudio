@@ -12,7 +12,7 @@ func _pressed() -> void:
 	var to: int = to_cell_spinbox.value
 	var duration: int = duration_spinbox.value
 	
-	var this_action: ScriptAction = script_edit.this_action
+	var this_action: Action = script_edit.this_action
 	var inst_index: int = script_edit.instruction_index
 	
 	var counter: int = 1

@@ -11,64 +11,34 @@ signal sprite_reindexed			# Emitted by SpriteEdit's PaletteProvider
 signal sprite_palette_changed
 signal refresh_previews
 
-enum SessionType {
-	DIRECTORY,
-	BINARY,
-}
+#const serialize_ignore: Array[String] = ["path", "current_object"]
 
-const serialize_ignore: Array[String] = ["path", "current_object"]
-
-#var object_name: String
-var sessions: Array = []
+var sessions: Array[Session] = []
 var session_index: int = 0
-var this_session: Dictionary = {}
+var this_session: Session
 
-# sessions = [
-#	{
-#		"current_object": 0,
-#		"session_type": "directory",
-#		"palettes": Array[BinPalette],
-#		"data": {
-#			0: {
-#				"type": "scriptable",
-#				"data": {
-#					"cells": Array[Cell],
-#					"sprites": Array[BinSprite],
-#					"scripts": PackedByteArray,
-#					"palettes": Array[BinPalette],
-#				},
-#			},
+
+#func save_directory(path: String) -> void:
+	#SaveErrors.reset()
+	#
+	#if path.is_empty() and this_session.has("path"):
+		#path = this_session["path"]
+	#
+	#if path.is_empty():
+		#Status.call_deferred(\
+			#"set_status", "STATUS_SAVE_DIR_PATH_ERROR"
+		#)
+		#
+		#GlobalSignals.save_complete.emit.call_deferred()
+		#return
+	#
+	#GlobalSignals.save_start.emit.call_deferred()
+	#Status.save_status_start.call_deferred(true, path)
+	#
+	#BinResource.save_resource_directory(this_session, path, GlobalSignals)
 #
-#			1: {
-#				"type": "unsupported",
-#				"data": PackedByteArray,
-#			},
-#		},
-#	},
-#	...
-
-
-func save_directory(path: String) -> void:
-	SaveErrors.reset()
-	
-	if path.is_empty() and this_session.has("path"):
-		path = this_session["path"]
-	
-	if path.is_empty():
-		Status.call_deferred(\
-			"set_status", "STATUS_SAVE_DIR_PATH_ERROR"
-		)
-		
-		GlobalSignals.save_complete.emit.call_deferred()
-		return
-	
-	GlobalSignals.save_start.emit.call_deferred()
-	Status.save_status_start.call_deferred(true, path)
-	
-	BinResource.save_resource_directory(this_session, path, GlobalSignals)
-
-	SaveErrors.call_deferred("set_status", path)
-	GlobalSignals.save_complete.emit.call_deferred()
+	#SaveErrors.call_deferred("set_status", path)
+	#GlobalSignals.save_complete.emit.call_deferred()
 
 
 func save_binary(path: String) -> void:
@@ -86,77 +56,62 @@ func save_binary(path: String) -> void:
 	GlobalSignals.save_start.emit.call_deferred()
 	Status.save_status_start.call_deferred(false, path)
 	
-	BinResource.save_resource_file(this_session["data"], path, GlobalSignals)
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
+	file.store_buffer(get_current_session().archive.serialize())
 	
 	Status.save_status_end.call_deferred(path)
 	GlobalSignals.save_complete.emit.call_deferred()
 
 
 #region Sessions
-func get_session(index: int) -> Dictionary:
+func get_session(index: int) -> Session:
 	return sessions[index]
 
 
-func get_current_session() -> Dictionary:
+func get_current_session() -> Session:
 	return get_session(session_index)
 
 
-func get_session_type() -> SessionType:
-	return this_session["session_type"]
+func get_session_type() -> Session.Type:
+	return this_session.type
 
 
 func get_session_count() -> int:
 	return sessions.size()
 
 
-func new_directory_session(path: String) -> void:
-	var new_session: Dictionary = {
-		"session_type": SessionType.DIRECTORY,
-		"current_object": 0,
-		"data": BinResource.from_path(path, ScriptInstructions.INSTRUCTION_DB),
-	}
-	
-	new_session["reindex"] = Settings.general_reindex_mode
-	
-	if not new_session["data"].is_empty():
-		sessions.append(new_session)
-		this_session = new_session
-		this_session["path"] = path
-	
-	load_complete.emit.bind(path, new_session).call_deferred()
+#func new_directory_session(path: String) -> void:
+	#var new_session: Dictionary = {
+		#"session_type": SessionType.DIRECTORY,
+		#"current_object": 0,
+		#"data": BinResource.from_path(path, ScriptInstructions.INSTRUCTION_DB),
+	#}
+	#
+	#new_session["reindex"] = Settings.general_reindex_mode
+	#
+	#if not new_session["data"].is_empty():
+		#sessions.append(new_session)
+		#this_session = new_session
+		#this_session["path"] = path
+	#
+	#load_complete.emit.bind(path, new_session).call_deferred()
 
 
 func new_binary_session(path: String) -> void:
-	var bin_resource: Dictionary = BinResource.from_file(
-		path, ScriptInstructions.INSTRUCTION_DB
-	)
+	var session: Session = Session.new(path)
+	session.type = Session.Type.BINARY
+	sessions.append(session)
 	
-	if bin_resource.has("error"):
-		binary_load_error.bind(bin_resource["error"]).call_deferred()
-		return
-	
-	if bin_resource.size() < 1:
-		Status.set_status.bind("STATUS_LOAD_INVALID").call_deferred()
-		return
-	
-	var new_session: Dictionary = {
-		"session_type": SessionType.BINARY,
-		"current_object": 0,
-		"data": bin_resource,
-	}
-	
-	new_session["reindex"] = Settings.general_reindex_mode
-	
-	sessions.append(new_session)
-	this_session = new_session
-	this_session["path"] = path
+	this_session = session
 	
 	# Add session-wide reference to palette data
 	# Palettes should always be under object 0 (player)
-	if this_session.data[0].has("palettes"):
-		this_session["palettes"] = this_session.data[0].palettes
+	var object: BinObject = this_session.get_object(0)
 	
-	load_complete.emit.bind(path, new_session).call_deferred()
+	if object is BinScriptable && object.has_palettes():
+		this_session.palettes = object.palettes
+	
+	load_complete.emit.bind(session).call_deferred()
 
 
 func binary_load_error(error: String) -> void:
@@ -177,12 +132,10 @@ func tab_close() -> void:
 		Status.set_status("STATUS_NOTHING_OPEN_CANT_CLOSE")
 		return
 	
-	#tab_closed.emit(session_index)
 	sessions.remove_at(session_index)
-	this_session = {}
 	tab_closed.emit(session_index)
-	tab_load(min(session_index, sessions.size() - 1))
 	Status.set_status("STATUS_TAB_CLOSE")
+	tab_load(min(session_index, sessions.size() - 1))
 #endregion
 
 
@@ -200,8 +153,8 @@ func set_sprite_palette(obj_data: Dictionary, sprite_index: int) -> void:
 
 
 func session_set_reindex(session_id: int, enabled: bool) -> void:
-	var session: Dictionary = get_session(session_id)
-	session["reindex"] = enabled
+	var session: Session = get_session(session_id)
+	session.reindex_mode = enabled
 	refresh_previews.emit(session_id)
 
 
@@ -210,13 +163,13 @@ func session_get_palettes(session_id: int) -> Array[BinSprite]:
 	if not session_has_palettes(session_id):
 		return []
 	else:
-		return get_session(session_id).palettes
+		return get_session(session_id).palettes.sprites
 
 
 func session_get_reindex(session_id: int) -> bool:
-	var session: Dictionary = get_session(session_id)
-	return session["reindex"]
+	var session: Session = get_session(session_id)
+	return session.reindex_mode
 
 
 func session_has_palettes(session_id: int) -> bool:
-	return get_session(session_id).has("palettes")
+	return get_session(session_id).has_palettes()

@@ -113,11 +113,11 @@ var height			: int
 
 var texture_width	: int:
 	get:
-		return pow(2, texture_width)
+		return 2 ** texture_width
 		
 var texture_height	: int:
 	get:
-		return pow(2, texture_height)
+		return 2 ** texture_height
 
 var id_hash			: int
 var manual_hash		: bool
@@ -127,6 +127,7 @@ var palette			: PackedByteArray:
 			return []
 		else:
 			return palette
+	
 	set(value):
 		value.resize(COLOR_SIZE * get_color_count())
 		palette = value
@@ -139,6 +140,7 @@ var texture			: ImageTexture
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	#print("Identifying BinSprite")
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
 	stream.data_array = bin_data
 	stream.big_endian = is_big_endian
@@ -201,7 +203,10 @@ func serialize() -> PackedByteArray:
 
 	# Palette
 	if clut != CLUT.NONE:
-		stream.put_data(palette)
+		if bit_depth == DEPTH_8:
+			stream.put_data(transform_rgba_array(palette))
+		else:
+			stream.put_data(palette)
 
 	# Pixel data
 	match mode:
@@ -328,7 +333,11 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 				pass
 
 	var pointer: int = ADDRESS_HEADER_END + pal_size
+	
 	palette = bin_data.slice(ADDRESS_HEADER_END, pointer)
+	
+	if bit_depth == DEPTH_8:
+		palette = transform_rgba_array(palette)
 
 	var pixel_data: PackedByteArray = bin_data.slice(pointer, bin_data.size())
 
@@ -347,8 +356,8 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 			else:
 				pixels = pixel_data
 
-	image = Image.create_from_data(width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels)
-	texture = ImageTexture.create_from_image(image)
+	if mode != Mode.PALETTE:
+		update_preview()
 
 
 static func get_texture_size(dimension: int) -> int:
@@ -381,7 +390,7 @@ static func init_empty_palette() -> BinSprite:
 	sprite.height = 0
 	sprite.texture_width = 0
 	sprite.texture_height = 0
-	sprite.hash = 0
+	sprite.id_hash = 0
 	sprite.manual_hash = true
 	sprite.palette = new_palette
 	sprite.pixels = []
@@ -424,11 +433,11 @@ static func load_from_file(path: String, with_palette: bool) -> BinSprite:
 		"bin":
 			return load_from_bin(path, with_palette)
 		"png":
-			import_data = ImageImporter.load_from_png(path, with_palette)
+			import_data = SpriteImporter.load_from_png(path, with_palette)
 		"bmp":
-			import_data = ImageImporter.load_from_bmp(path, with_palette)
+			import_data = SpriteImporter.load_from_bmp(path, with_palette)
 		"raw":
-			import_data = ImageImporter.load_from_raw(path)
+			import_data = SpriteImporter.load_from_raw(path)
 		_:
 			print("BinSprite::load_from_file() error! Invalid source format provided")
 			return null
@@ -450,6 +459,29 @@ static func load_from_bin(path: String, with_palette: bool) -> BinSprite:
 		sprite.purge_palette()
 	
 	return sprite
+
+
+func update_preview() -> void:
+	update_image()
+	update_texture()
+
+
+func update_image() -> void:
+	image = Image.create_from_data(
+		width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels
+	)
+
+
+func update_texture() -> void:
+	texture = ImageTexture.create_from_image(image)
+
+
+func get_image() -> Image:
+	return image
+
+
+func get_texture() -> ImageTexture:
+	return texture
 
 
 func has_palette() -> bool:
@@ -537,7 +569,7 @@ func get_pixel(x: int, y: int) -> int:
 func flip_h() -> void:
 	image.flip_x()
 	pixels = image.get_data()
-	texture = ImageTexture.create_from_image(image)
+	update_texture()
 
 
 func flip_v() -> void:
@@ -585,6 +617,7 @@ func reindex_pixels() -> void:
 		return
 	
 	pixels = transform_index_array(pixels)
+	update_preview()
 
 
 func reindex_palette() -> void:
@@ -592,3 +625,21 @@ func reindex_palette() -> void:
 		return
 	
 	palette = transform_rgba_array(palette)
+
+
+func cut_bit_depth() -> void:
+	if bit_depth == DEPTH_4:
+		return
+	
+	bit_depth = DEPTH_4
+	var max_color: int
+	
+	if clut == CLUT.FULL:
+		max_color = COLOR_COUNT_4_FULL
+	else:
+		max_color = COLOR_COUNT_4_HALF
+	
+	for p: int in pixels.size():
+		pixels[p] = mini(pixels[p], max_color)
+	
+	update_preview()

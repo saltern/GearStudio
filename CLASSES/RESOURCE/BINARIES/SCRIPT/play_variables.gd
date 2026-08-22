@@ -1,7 +1,6 @@
 class_name PlayVariables extends BinObject
 
 # u16, little endian (write as 0xE504)
-const HEADER				: int = 0x04E5
 const VARIABLE_NAMES		: PackedStringArray = [
 	"walk_fwd_x_speed",		"walk_bwd_x_speed",			"dash_x_speed",
 	"backdash_x_speed",		"backdash_y_speed",			"backdash_gravity",
@@ -18,6 +17,7 @@ const VARIABLE_NAMES		: PackedStringArray = [
 	"gc_gauge_def_point",	"gc_gauge_recovery",		"tension_ib",
 ]
 
+var header					: int
 # All are i16
 var walk_fwd_x_speed		: int
 var walk_bwd_x_speed		: int
@@ -61,26 +61,26 @@ var tension_ib				: int
 var padding					: PackedByteArray
 
 
-static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
-	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
-	stream.data_array = bin_data
-	stream.big_endian = is_big_endian
-	
-	var header: int = bin_data.decode_u16(0)
-	if header != HEADER:
-		return false
-	
-	if bin_data.size() < SIZE_U16 * VARIABLE_NAMES.size():
-		return false
-	
-	return true
+#static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	#var stream: StreamPeerBuffer = StreamPeerBuffer.new()
+	#stream.data_array = bin_data
+	#stream.big_endian = is_big_endian
+	#
+	#var header: int = bin_data.decode_u16(0)
+	#if header != HEADER:
+		#return false
+	#
+	#if bin_data.size() < SIZE_U16 * VARIABLE_NAMES.size():
+		#return false
+	#
+	#return true
 
 
 func serialize() -> PackedByteArray:
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
 	stream.big_endian = big_endian
 	
-	stream.put_u16(HEADER)
+	stream.put_u16(header)
 	
 	for variable: String in VARIABLE_NAMES:
 		stream.put_16(get(variable))
@@ -93,8 +93,9 @@ func serialize() -> PackedByteArray:
 func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
 	stream.big_endian = is_big_endian
-	stream.seek(2)
 	big_endian = is_big_endian
+	
+	header = stream.get_u16()
 	
 	for variable in VARIABLE_NAMES:
 		set(variable, stream.get_16())

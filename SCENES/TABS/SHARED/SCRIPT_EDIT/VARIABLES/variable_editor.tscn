@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5uc6fdtlf2nq"]
+[gd_scene format=3 uid="uid://c5uc6fdtlf2nq"]
 
 [ext_resource type="Script" uid="uid://biv7dfbokh105" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/tab_variables.gd" id="1_povuj"]
 [ext_resource type="StyleBox" uid="uid://bbpvttjmvomis" path="res://panel_borders.tres" id="2_7kkro"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cdgx7q6v8yvqf" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_entry.gd" id="3_s76eq"]
 [ext_resource type="Script" uid="uid://bn3448pegp5s3" path="res://SCENES/TABS/SHARED/SCRIPT_EDIT/VARIABLES/chain_table_index.gd" id="3_saasy"]
 
-[node name="SCRIPT_EDIT_TITLE_PLAY_DATA" type="MarginContainer"]
+[node name="SCRIPT_EDIT_TITLE_PLAY_DATA" type="MarginContainer" unique_id=62718476]
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
@@ -20,22 +20,22 @@ size_flags_vertical = 3
 script = ExtResource("1_povuj")
 metadata/_tab_index = 0
 
-[node name="content" type="HBoxContainer" parent="."]
+[node name="content" type="HBoxContainer" parent="." unique_id=665759831]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="column_0" type="VBoxContainer" parent="content"]
+[node name="column_0" type="VBoxContainer" parent="content" unique_id=834146189]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="title_prop" type="Label" parent="content/column_0"]
+[node name="title_prop" type="Label" parent="content/column_0" unique_id=877077393]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SCRIPT_VARIABLES_SECTION_PROPERTIES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scroll_prop" type="ScrollContainer" parent="content/column_0"]
+[node name="scroll_prop" type="ScrollContainer" parent="content/column_0" unique_id=1840149181]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -43,27 +43,27 @@ theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="content/column_0/scroll_prop"]
+[node name="margin" type="MarginContainer" parent="content/column_0/scroll_prop" unique_id=141357004]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="VBoxContainer" parent="content/column_0/scroll_prop/margin"]
+[node name="content" type="VBoxContainer" parent="content/column_0/scroll_prop/margin" unique_id=2067786455]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="faint_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="faint_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=2082529841]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/faint_point"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/faint_point" unique_id=1262832595]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_FAINT_POINT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/faint_point"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/faint_point" unique_id=150410395]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -71,17 +71,17 @@ script = ExtResource("2_s76eq")
 variable = "faint_point"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="defense_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="defense_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=812532890]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/defense_point"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/defense_point" unique_id=1419333102]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_DEFENSE_POINT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/defense_point"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/defense_point" unique_id=2023019050]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -89,53 +89,53 @@ script = ExtResource("2_s76eq")
 variable = "defense_point"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="konjo" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="konjo" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=1082920412]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/konjo"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/konjo" unique_id=724935030]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_KONJO"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/konjo"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/konjo" unique_id=781847823]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
 script = ExtResource("2_s76eq")
-variable = "konjo"
+variable = "guts"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="kaishin" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="kaishin" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=488290429]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/kaishin"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/kaishin" unique_id=1333286591]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_KAISHIN"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/kaishin"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/kaishin" unique_id=1314199820]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
 script = ExtResource("2_s76eq")
-variable = "kaishin"
+variable = "critical"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="gc_gauge_def_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="gc_gauge_def_point" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=562799568]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point" unique_id=1913531967]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_GC_DEF_POINT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_def_point" unique_id=902578980]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -143,17 +143,17 @@ script = ExtResource("2_s76eq")
 variable = "gc_gauge_def_point"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="gc_gauge_recovery" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content"]
+[node name="gc_gauge_recovery" type="HBoxContainer" parent="content/column_0/scroll_prop/margin/content" unique_id=1111055863]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery"]
+[node name="title" type="Label" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery" unique_id=1247297968]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_GC_RECOVERY"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_prop/margin/content/gc_gauge_recovery" unique_id=1389967539]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -161,39 +161,39 @@ script = ExtResource("2_s76eq")
 variable = "gc_gauge_recovery"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="title_tension" type="Label" parent="content/column_0"]
+[node name="title_tension" type="Label" parent="content/column_0" unique_id=107238188]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SCRIPT_VARIABLES_SECTION_TENSION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scroll_tension" type="ScrollContainer" parent="content/column_0"]
+[node name="scroll_tension" type="ScrollContainer" parent="content/column_0" unique_id=1346024788]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("2_7kkro")
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="content/column_0/scroll_tension"]
+[node name="margin" type="MarginContainer" parent="content/column_0/scroll_tension" unique_id=503863127]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="VBoxContainer" parent="content/column_0/scroll_tension/margin"]
+[node name="content" type="VBoxContainer" parent="content/column_0/scroll_tension/margin" unique_id=148497560]
 layout_mode = 2
 
-[node name="pd_tension_walk" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+[node name="pd_tension_walk" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content" unique_id=1082825380]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk"]
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk" unique_id=691628907]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_TENSION_WALK"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_walk" unique_id=1902163443]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -201,17 +201,17 @@ script = ExtResource("2_s76eq")
 variable = "tension_walk"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="pd_tension_jump" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+[node name="pd_tension_jump" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content" unique_id=1034029843]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump"]
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump" unique_id=1630558357]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_TENSION_JUMP"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_jump" unique_id=892654874]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -219,17 +219,17 @@ script = ExtResource("2_s76eq")
 variable = "tension_jump"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="pd_tension_dash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+[node name="pd_tension_dash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content" unique_id=1531856519]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash"]
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash" unique_id=1443825941]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_TENSION_DASH"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_dash" unique_id=84472085]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -237,17 +237,17 @@ script = ExtResource("2_s76eq")
 variable = "tension_dash"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="pd_tension_airdash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+[node name="pd_tension_airdash" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content" unique_id=502577457]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash"]
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash" unique_id=1217681272]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_TENSION_ADASH"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_airdash" unique_id=121283683]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -255,17 +255,17 @@ script = ExtResource("2_s76eq")
 variable = "tension_airdash"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="pd_tension_ib" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content"]
+[node name="pd_tension_ib" type="HBoxContainer" parent="content/column_0/scroll_tension/margin/content" unique_id=1324592603]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib"]
+[node name="title" type="Label" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib" unique_id=1018410773]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_TENSION_IB"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib"]
+[node name="value" type="SpinBox" parent="content/column_0/scroll_tension/margin/content/pd_tension_ib" unique_id=441851308]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -273,11 +273,11 @@ script = ExtResource("2_s76eq")
 variable = "tension_ib"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="column_1" type="VBoxContainer" parent="content"]
+[node name="column_1" type="VBoxContainer" parent="content" unique_id=367353680]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="title_ground" type="Label" parent="content/column_1"]
+[node name="title_ground" type="Label" parent="content/column_1" unique_id=1253185329]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 8
@@ -285,7 +285,7 @@ text = "SCRIPT_VARIABLES_SECTION_GROUND"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scroll_ground" type="ScrollContainer" parent="content/column_1"]
+[node name="scroll_ground" type="ScrollContainer" parent="content/column_1" unique_id=538830230]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -293,26 +293,26 @@ theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="content/column_1/scroll_ground"]
+[node name="margin" type="MarginContainer" parent="content/column_1/scroll_ground" unique_id=142976956]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="content" type="VBoxContainer" parent="content/column_1/scroll_ground/margin"]
+[node name="content" type="VBoxContainer" parent="content/column_1/scroll_ground/margin" unique_id=1554967751]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="walk_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="walk_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=755448122]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed" unique_id=270243660]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_WALK_FWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_fwd_x_speed" unique_id=1903753896]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -320,17 +320,17 @@ script = ExtResource("2_s76eq")
 variable = "walk_fwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="walk_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="walk_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=759251703]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed" unique_id=1436011527]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_WALK_BWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/walk_bwd_x_speed" unique_id=115583596]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -338,17 +338,17 @@ script = ExtResource("2_s76eq")
 variable = "walk_bwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="dash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="dash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=350715440]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_x_speed" unique_id=38897118]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_DASH_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_x_speed" unique_id=1986774255]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -356,17 +356,17 @@ script = ExtResource("2_s76eq")
 variable = "dash_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="backdash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="backdash_x_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=135347597]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed" unique_id=1602416165]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_BACKDASH_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_x_speed" unique_id=46744277]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -374,17 +374,17 @@ script = ExtResource("2_s76eq")
 variable = "backdash_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="backdash_y_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="backdash_y_speed" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=200380008]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed" unique_id=1493291977]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_BACKDASH_Y"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_y_speed" unique_id=1226712807]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -392,17 +392,17 @@ script = ExtResource("2_s76eq")
 variable = "backdash_y_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="backdash_gravity" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="backdash_gravity" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=1831495014]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_gravity"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/backdash_gravity" unique_id=739310015]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_BACKDASH_GRAVITY"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_gravity"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/backdash_gravity" unique_id=1953839562]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -410,17 +410,17 @@ script = ExtResource("2_s76eq")
 variable = "backdash_gravity"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="dash_acceleration" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="dash_acceleration" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=100206682]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_acceleration"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_acceleration" unique_id=1786113900]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_DASH_ACCELERATION"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_acceleration"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_acceleration" unique_id=918055657]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -428,17 +428,17 @@ script = ExtResource("2_s76eq")
 variable = "dash_acceleration"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="dash_resist" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content"]
+[node name="dash_resist" type="HBoxContainer" parent="content/column_1/scroll_ground/margin/content" unique_id=713313900]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_resist"]
+[node name="title" type="Label" parent="content/column_1/scroll_ground/margin/content/dash_resist" unique_id=1499384538]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_DASH_RESIST"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_resist"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_ground/margin/content/dash_resist" unique_id=181145346]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -446,38 +446,38 @@ script = ExtResource("2_s76eq")
 variable = "dash_resist"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="title_air" type="Label" parent="content/column_1"]
+[node name="title_air" type="Label" parent="content/column_1" unique_id=716298399]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "SCRIPT_VARIABLES_SECTION_AIR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="scroll_air" type="ScrollContainer" parent="content/column_1"]
+[node name="scroll_air" type="ScrollContainer" parent="content/column_1" unique_id=1245666534]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("2_7kkro")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
-[node name="margin" type="MarginContainer" parent="content/column_1/scroll_air"]
+[node name="margin" type="MarginContainer" parent="content/column_1/scroll_air" unique_id=1190643395]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="content" type="VBoxContainer" parent="content/column_1/scroll_air/margin"]
+[node name="content" type="VBoxContainer" parent="content/column_1/scroll_air/margin" unique_id=295263642]
 layout_mode = 2
 
-[node name="jump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="jump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1488297055]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed" unique_id=200442383]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_JUMP_FWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_fwd_x_speed" unique_id=1272524635]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -485,17 +485,17 @@ script = ExtResource("2_s76eq")
 variable = "jump_fwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="jump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="jump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=157411804]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed" unique_id=2062128193]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_JUMP_BWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_bwd_x_speed" unique_id=1062358431]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -503,17 +503,17 @@ script = ExtResource("2_s76eq")
 variable = "jump_bwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="jump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="jump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=597164110]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_y_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_y_speed" unique_id=308774974]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_JUMP_Y_SPEED"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_y_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_y_speed" unique_id=1197376575]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -521,17 +521,17 @@ script = ExtResource("2_s76eq")
 variable = "jump_y_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="jump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="jump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=921479342]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_gravity"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_gravity" unique_id=1689217746]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_JUMP_GRAVITY"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_gravity"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_gravity" unique_id=934801711]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -539,17 +539,17 @@ script = ExtResource("2_s76eq")
 variable = "jump_gravity"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="sjump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="sjump_fwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1945542920]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed" unique_id=2096925174]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_SUPERJUMP_FWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_fwd_x_speed" unique_id=1616744221]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -557,17 +557,17 @@ script = ExtResource("2_s76eq")
 variable = "sjump_fwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="sjump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="sjump_bwd_x_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=265686039]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed" unique_id=1745655746]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_SUPERJUMP_BWD_X"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_bwd_x_speed" unique_id=1438616413]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -575,17 +575,17 @@ script = ExtResource("2_s76eq")
 variable = "sjump_bwd_x_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="sjump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="sjump_y_speed" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1586374575]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_y_speed"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_y_speed" unique_id=1486146214]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_SUPERJUMP_Y"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_y_speed"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_y_speed" unique_id=30435456]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -593,17 +593,17 @@ script = ExtResource("2_s76eq")
 variable = "sjump_y_speed"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="sjump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="sjump_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=660335103]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_gravity"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/sjump_gravity" unique_id=1481653146]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_SUPERJUMP_GRAVITY"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_gravity"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/sjump_gravity" unique_id=1509601802]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -611,17 +611,17 @@ script = ExtResource("2_s76eq")
 variable = "sjump_gravity"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="homing_jump_y_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="homing_jump_y_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=134172766]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max" unique_id=1272215585]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_HOMING_Y_MAX"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_y_max" unique_id=300720756]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -629,17 +629,17 @@ script = ExtResource("2_s76eq")
 variable = "homing_jump_y_max"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="homing_jump_x_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="homing_jump_x_max" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=2030503634]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max" unique_id=659200070]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_HOMING_X_MAX"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_max" unique_id=1438110726]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -647,17 +647,17 @@ script = ExtResource("2_s76eq")
 variable = "homing_jump_x_max"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="homing_jump_x_resist" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="homing_jump_x_resist" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1310544240]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist" unique_id=1778163088]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_HOMING_X_RESIST"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_jump_x_resist" unique_id=1691660713]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -665,17 +665,17 @@ script = ExtResource("2_s76eq")
 variable = "homing_jump_x_resist"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="homing_target_y_offset" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="homing_target_y_offset" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1063919308]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset" unique_id=1650901084]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_HOMING_TARGET_Y"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/homing_target_y_offset" unique_id=467857255]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -683,17 +683,17 @@ script = ExtResource("2_s76eq")
 variable = "homing_target_y_offset"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_height" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_height" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=419438204]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_height"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_height" unique_id=931448658]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_AIRDASH_HEIGHT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_height"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_height" unique_id=465572242]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -701,17 +701,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_height"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_fwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_fwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=674560010]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_fwd_time"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_fwd_time" unique_id=701559776]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_ADASH_FWD_TIME"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_fwd_time"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_fwd_time" unique_id=1161455381]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -719,17 +719,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_fwd_time"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_bwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_bwd_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1159706952]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_bwd_time"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_bwd_time" unique_id=797011173]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_ADASH_BWD_TIME"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_bwd_time"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_bwd_time" unique_id=1165199195]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -737,17 +737,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_bwd_time"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=316155948]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_count"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_count" unique_id=281549898]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_AIRDASH_COUNT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_count"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_count" unique_id=460377947]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -755,17 +755,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_count"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="jump_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="jump_count" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=388526141]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_count"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/jump_count" unique_id=489475122]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_JUMP_COUNT"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_count"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/jump_count" unique_id=254785362]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -773,17 +773,17 @@ script = ExtResource("2_s76eq")
 variable = "jump_count"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_fwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_fwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=981670932]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_fwd_atk_time"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_fwd_atk_time" unique_id=704947818]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_ADASH_FWD_ATK"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_fwd_atk_time"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_fwd_atk_time" unique_id=1691894837]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -791,17 +791,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_fwd_atk_time"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="airdash_bwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="airdash_bwd_atk_time" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=1662556127]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_bwd_atk_time"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/airdash_bwd_atk_time" unique_id=275917913]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_ADASH_BWD_ATK"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_bwd_atk_time"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/airdash_bwd_atk_time" unique_id=1629666142]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -809,17 +809,17 @@ script = ExtResource("2_s76eq")
 variable = "airdash_bwd_atk_time"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="defense_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content"]
+[node name="defense_gravity" type="HBoxContainer" parent="content/column_1/scroll_air/margin/content" unique_id=643476854]
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/defense_gravity"]
+[node name="title" type="Label" parent="content/column_1/scroll_air/margin/content/defense_gravity" unique_id=1445908527]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VAR_DEFENSE_GRAVITY"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/defense_gravity"]
+[node name="value" type="SpinBox" parent="content/column_1/scroll_air/margin/content/defense_gravity" unique_id=1506995151]
 layout_mode = 2
 min_value = -32768.0
 value = -32768.0
@@ -827,16 +827,16 @@ script = ExtResource("2_s76eq")
 variable = "defense_gravity"
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="column_2" type="MarginContainer" parent="content"]
+[node name="column_2" type="MarginContainer" parent="content" unique_id=1188093559]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="chain_tables" type="VBoxContainer" parent="content/column_2"]
+[node name="chain_tables" type="VBoxContainer" parent="content/column_2" unique_id=1225216116]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="title" type="Label" parent="content/column_2/chain_tables"]
+[node name="title" type="Label" parent="content/column_2/chain_tables" unique_id=695989897]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_vertical = 0
@@ -844,28 +844,28 @@ text = "SCRIPT_VARIABLES_CHAIN_TABLES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="table_index" type="HBoxContainer" parent="content/column_2/chain_tables"]
+[node name="table_index" type="HBoxContainer" parent="content/column_2/chain_tables" unique_id=181835182]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="content/column_2/chain_tables/table_index"]
+[node name="title" type="Label" parent="content/column_2/chain_tables/table_index" unique_id=1116932968]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CHAIN_TABLE_INDEX"
 vertical_alignment = 1
 
-[node name="value" type="SpinBox" parent="content/column_2/chain_tables/table_index"]
+[node name="value" type="SpinBox" parent="content/column_2/chain_tables/table_index" unique_id=1518776350]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("3_saasy")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="entries" type="GridContainer" parent="content/column_2/chain_tables"]
+[node name="entries" type="GridContainer" parent="content/column_2/chain_tables" unique_id=849398390]
 layout_mode = 2
 size_flags_vertical = 4
 columns = 4
 
-[node name="chain_00" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_00" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1736034022]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -873,7 +873,7 @@ text = "5P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_01" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_01" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2051297062]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -881,7 +881,7 @@ text = "6P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_02" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_02" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=711859719]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -889,7 +889,7 @@ text = "5K"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_03" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_03" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1456150222]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -897,7 +897,7 @@ text = "f.S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_04" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_04" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1619524128]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -905,7 +905,7 @@ text = "c.S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_05" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_05" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=569831273]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -913,7 +913,7 @@ text = "5H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_06" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_06" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2073367668]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -921,7 +921,7 @@ text = "6H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_07" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_07" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2093721884]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -929,7 +929,7 @@ text = "2P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_08" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_08" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=587530566]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -937,7 +937,7 @@ text = "2K"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_09" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_09" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1192698323]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -945,7 +945,7 @@ text = "2D"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_10" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_10" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=643433197]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -953,7 +953,7 @@ text = "2S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_11" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_11" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=702952341]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -961,7 +961,7 @@ text = "2H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_12" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_12" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2014423178]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -969,7 +969,7 @@ text = "j.P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_13" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_13" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=306367482]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -977,7 +977,7 @@ text = "j.K"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_14" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_14" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=452141011]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -985,7 +985,7 @@ text = "j.S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_15" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_15" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=706167920]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -993,7 +993,7 @@ text = "j.H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_16" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_16" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2007424423]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1001,7 +1001,7 @@ text = "[?]"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_17" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_17" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1550739266]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1009,7 +1009,7 @@ text = "j.D"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_18" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_18" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1444746903]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1017,7 +1017,7 @@ text = "5D"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_19" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_19" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=698879885]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1025,7 +1025,7 @@ text = "3P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_20" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_20" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1585773220]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1033,7 +1033,7 @@ text = "j.6P"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_21" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_21" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1404392554]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1041,7 +1041,7 @@ text = "6K"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_22" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_22" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1371519715]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1049,7 +1049,7 @@ text = "j.2S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_23" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_23" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=802572803]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1057,7 +1057,7 @@ text = "3S"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_24" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_24" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1268183072]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1065,7 +1065,7 @@ text = "3K"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_25" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_25" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2102186360]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1073,7 +1073,7 @@ text = "3H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_26" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_26" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1453488510]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1081,7 +1081,7 @@ text = "j.2H"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_27" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_27" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=204497662]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1089,7 +1089,7 @@ text = "[?]"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_28" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_28" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=1189987923]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1097,7 +1097,7 @@ text = "[?]"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_29" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_29" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=147550516]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1105,7 +1105,7 @@ text = "[?]"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_30" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_30" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=2066234621]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1113,7 +1113,7 @@ text = "[?]"
 flat = false
 script = ExtResource("3_s76eq")
 
-[node name="chain_31" type="MenuButton" parent="content/column_2/chain_tables/entries"]
+[node name="chain_31" type="MenuButton" parent="content/column_2/chain_tables/entries" unique_id=514187078]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3

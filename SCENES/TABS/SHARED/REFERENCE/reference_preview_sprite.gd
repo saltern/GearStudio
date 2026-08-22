@@ -41,7 +41,7 @@ func palette_set_session(for_session: int, index: int) -> void:
 	if for_session != owner.session_id:
 		return
 	
-	if ref_handler.obj_data.is_empty():
+	if ref_handler.obj_data == null:
 		return
 	
 	load_palette(index)
@@ -61,8 +61,8 @@ func get_palette(index: int) -> PackedByteArray:
 	
 	# Global palette
 	if ref_handler.obj_data.has("palettes"):
-		return ref_handler.obj_data.palettes[palette_index].palette
+		return ref_handler.obj_data.get_palette_array(palette_index)
 	
 	# Embedded palette
-	var sprite: BinSprite = ref_handler.obj_data.sprites[index]
+	var sprite: BinSprite = ref_handler.obj_data.get_sprite(index)
 	return sprite.palette

@@ -44,7 +44,7 @@ var regenerate_preview: bool = false
 
 # Used by this singleton
 var undo_redo: UndoRedo
-var obj_data: Dictionary
+var obj_data: BinSpriteBlock
 var obj_name: String
 var import_list: PackedStringArray = []
 var placement_method: int
@@ -64,8 +64,6 @@ var bit_depth: BitDepth = BitDepth.AS_IS
 
 # Multithreading
 var waiting_tasks: Array[int] = []
-
-@onready var sprite_importer: SpriteImporter = SpriteImporter.new()
 
 
 func _ready() -> void:
@@ -103,16 +101,18 @@ func import_file_direct(path: String) -> BinSprite:
 	#var reindex_palette: bool = false
 	#var bit_depth: int = 8
 	
-	return SpriteImporter.import_sprite(
-		path,
-		embed_palette, halve_alpha,
-		flip_h, flip_v,
-		as_rgb, reindex_sprite, reindex_palette, bit_depth
-	)
+	#return ImageImporter.import_sprite(
+		#path,
+		#embed_palette, halve_alpha,
+		#flip_h, flip_v,
+		#as_rgb, reindex_sprite, reindex_palette, bit_depth
+	#)
+	
+	return BinSprite.load_from_file(path, embed_palette)
 
 
 # First step after hitting OK to import
-func import_files(object_data: Dictionary) -> void:
+func import_files(object_data: BinSpriteBlock) -> void:
 	obj_data = object_data
 	sprite_import_started.emit()
 	waiting_tasks.append(WorkerThreadPool.add_task(import_files_thread))
@@ -120,12 +120,10 @@ func import_files(object_data: Dictionary) -> void:
 
 # Actual worker for above
 func import_files_thread() -> void:
-	var sprites: Array[BinSprite] = sprite_importer.import_sprites(
-		import_list,
-		embed_palette, halve_alpha,
-		flip_h, flip_v,
-		as_rgb, reindex_sprite, reindex_palette, bit_depth
-	)
+	var sprites: Array[BinSprite] = []
+	
+	for path: String in import_list:
+		sprites.append(BinSprite.load_from_file(path, embed_palette))
 	
 	call_deferred("emit_signal", "sprite_import_finished", sprites)
 
@@ -299,11 +297,8 @@ func generate_preview(sprite_index: int) -> void:
 		preview_generated.emit()
 		return
 	
-	preview_sprite = SpriteImporter.import_sprite(
-		import_list[sprite_index],
-		embed_palette, halve_alpha,
-		flip_h, flip_v,
-		as_rgb, reindex_sprite, reindex_palette, bit_depth,
+	preview_sprite = BinSprite.load_from_file(
+		import_list[sprite_index], embed_palette
 	)
 	
 	if obj_data.has("palettes"):

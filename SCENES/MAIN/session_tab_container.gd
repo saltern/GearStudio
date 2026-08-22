@@ -12,7 +12,7 @@ func _ready() -> void:
 	GlobalSignals.menu_save.connect(save_resource)
 	
 	SessionData.tab_closed.connect(on_tab_closed)
-	SessionData.load_complete.connect(finished_loading)
+	SessionData.load_complete.connect(create_tab)
 	
 	load_dialog_dir.dir_selected.connect(load_directory)
 	load_dialog_bin.file_selected.connect(load_binary)
@@ -93,27 +93,26 @@ func save_binary(path: String = ""):
 	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
 
 
-func finished_loading(path: String, data: Dictionary) -> void:
-	if data["data"].is_empty():
-		if data["session_type"] == SessionData.SessionType.DIRECTORY:
-			Status.set_status(tr("STATUS_LOAD_DIR_NOTHING").format({path=path}))
+func create_tab(session: Session) -> void:
+	if session.get_object_count() == 0:
+		if session.type == Session.Type.DIRECTORY:
+			Status.set_status(tr("STATUS_LOAD_DIR_NOTHING").format({path=session.path}))
 		else:
 			Status.set_status("STATUS_LOAD_INVALID")
 		return
 	
-	Opened.path_open(path)
+	Opened.path_open(session.path)
 	
 	var new_tab: Control = session_scene.instantiate()
-	new_tab.session_id = get_child_count()
-	new_tab.load_tabs(data)
+	new_tab.initialize(session)
 	
-	var names: PackedStringArray = get_new_tab_name(path)
+	var names: PackedStringArray = get_new_tab_name(session.path)
 	new_tab.base_name = names[0]
 	
 	add_child(new_tab)
 	set_tab_title(get_tab_count() - 1, names[1])
 	
-	Status.set_status(tr("STATUS_LOAD_COMPLETE").format({path=path}))
+	Status.set_status(tr("STATUS_LOAD_COMPLETE").format({path=session.path}))
 
 
 func get_new_tab_name(path: String) -> PackedStringArray:

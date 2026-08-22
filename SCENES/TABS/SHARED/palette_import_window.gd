@@ -8,7 +8,7 @@ enum ImportContext {
 @export var import_context: ImportContext
 @export var summon_button: Button
 
-@onready var provider: PaletteProvider = get_owner().provider
+#@onready var provider: PaletteProvider = get_owner().provider
 
 
 func _ready() -> void:
@@ -59,12 +59,12 @@ func on_file_selected(file: String) -> void:
 		for i in 256:
 			array.append_array([i, i, i, 0xFF])
 		
-		provider.palette_import(array)
+		#provider.palette_import(array)
 		return
 	
-	elif import_extension == "bmp" or import_extension == "act":
-		for index in palette.get_palette().size() / 4:
-			palette.palette[4 * index + 3] = provider.palette_get_color(index).a8
+	#elif import_extension == "bmp" or import_extension == "act":
+		#for index in palette.get_palette().size() / 4:
+			#palette.palette[4 * index + 3] = provider.palette_get_color(index).a8
 	
 	var pal_array: PackedByteArray = palette.palette.duplicate()
-	provider.palette_import(pal_array)
+	#provider.palette_import(pal_array)

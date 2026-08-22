@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func update_max_value() -> void:
-	max_value = script_edit.obj_data.cells.size() - 1
+	max_value = script_edit.obj_data.get_cell_count() - 1

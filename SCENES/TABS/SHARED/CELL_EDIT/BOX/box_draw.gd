@@ -88,16 +88,16 @@ func _draw():
 		color)
 
 
-func on_cell_update(cell: Cell) -> void:
+func on_cell_update(cell: BinCell) -> void:
 	load_boxes(cell.boxes)
 
 
-func load_boxes(boxes: Array[BoxInfo]) -> void:
+func load_boxes(boxes: Array[BinBoxInfo]) -> void:
 	for box in get_children():
 		box.queue_free()
 	
 	for box in boxes.size():
-		var this_box: BoxInfo = boxes[box]
+		var this_box: BinBoxInfo = boxes[box]
 		var new_box := BoxPreview.new()
 		
 		cell_edit.box_selected.connect(new_box.external_select)
@@ -145,7 +145,7 @@ func stop_drawing(at: Vector2, finished: bool) -> void:
 	point_b = at as Vector2i / get_zoom()
 	
 	var new_box_rect = get_box_rect()
-	var new_box := BoxInfo.new()
+	var new_box := BinBoxInfo.new()
 	
 	new_box.box_type = box_type.value as int
 	new_box.x_offset = new_box_rect.position.x

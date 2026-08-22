@@ -21,12 +21,12 @@ func update_sprite(index: int) -> void:
 	texture = sprite.get_texture()
 	
 	material.set_shader_parameter("reindex",
-		sprite.get_bit_depth() == 8 or sprite_edit.obj_data.has("palettes")
+		sprite.bit_depth == 8# or sprite_edit.obj_data.has("palettes")
 	)
 	
-	if sprite_edit.obj_data.has("palettes"):
-		material.set_shader_parameter(
-			"palette", sprite_edit.obj_data["palettes"][0].get_palette())
+	#if sprite_edit.obj_data.has("palettes"):
+		#material.set_shader_parameter(
+			#"palette", sprite_edit.obj_data["palettes"][0].get_palette())
 	
-	else:
-		material.set_shader_parameter("palette", sprite.get_palette())
+	#else:
+		#material.set_shader_parameter("palette", sprite.get_palette())

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 6.3499999 6.35"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="bit_depth.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">Two sheets of paper</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="3.6239223"
+     inkscape:cy="17.942835"
+     inkscape:window-width="1920"
+     inkscape:window-height="1054"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458332"
+       spacingy="0.26458332"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="1"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="powerclip"
+       message=""
+       id="path-effect9"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <path
+         style="display:block;fill:#e000e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2.1166666,2.3812499 V 0.79375003 L 1.0583333,2.38125 Z"
+         id="path9"
+         sodipodi:nodetypes="cccc" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="m 5.2270616,4.3581465 q 0.1181668,0.065112 0.2242757,0.144694 0.1085206,0.07717 0.1881023,0.1808676 0.081993,0.1012858 0.127813,0.2315105 0.048231,0.127813 0.048231,0.2917996 0,0.2146295 -0.086816,0.3786161 -0.086817,0.1639866 -0.2411568,0.2749187 -0.1519287,0.1109321 -0.3593235,0.1663981 -0.2049832,0.055466 -0.4437284,0.055466 -0.2652724,0 -0.4702556,-0.055466 Q 4.0116316,5.9690735 3.8717607,5.8653761 3.7343013,5.7616787 3.6619543,5.6145731 3.5920189,5.4674675 3.5920189,5.2865999 q 0,-0.161575 0.04582,-0.2869765 Q 3.68607,4.8718103 3.7680633,4.7681129 3.8500566,4.6644156 3.9561655,4.5824223 4.0646861,4.500429 4.1852644,4.4304935 4.0767439,4.3677928 3.9802812,4.2930342 3.8862301,4.2182756 3.8138831,4.1242245 3.7415361,4.0301733 3.6981278,3.9144181 3.6571312,3.7986629 3.6571312,3.6515573 q 0,-0.1712213 0.065112,-0.3207385 0.067524,-0.1519288 0.1977485,-0.2652724 0.1326362,-0.1133437 0.3303848,-0.178456 0.2001601,-0.065112 0.467844,-0.065112 0.2459799,0 0.4389053,0.053055 0.1929254,0.050643 0.32315,0.1471056 0.1326362,0.096463 0.2001601,0.2315104 0.069935,0.1326362 0.069935,0.2942113 0,0.1495171 -0.040997,0.2700955 -0.040997,0.1205784 -0.1109321,0.2194526 -0.069935,0.096463 -0.1663981,0.1760445 -0.096463,0.07717 -0.2049832,0.144694 z M 4.7640406,4.1314592 q 0.086816,-0.048231 0.161575,-0.1012859 0.07717,-0.055466 0.1326362,-0.1205783 0.055466,-0.065112 0.089228,-0.1422825 0.033762,-0.07717 0.033762,-0.1712213 0,-0.1567519 -0.12299,-0.2387452 -0.1229899,-0.081993 -0.3545004,-0.081993 -0.2266873,0 -0.3496772,0.084405 -0.12299,0.084405 -0.12299,0.2532146 0,0.09164 0.040997,0.1639866 0.040997,0.072347 0.1133436,0.1350477 0.072347,0.060289 0.1688098,0.1133437 0.098874,0.053055 0.209806,0.1061086 z M 4.6410507,4.6644156 q -0.094051,0.050643 -0.178456,0.1085205 -0.081993,0.057878 -0.144694,0.1278131 -0.060289,0.069935 -0.096463,0.1543403 -0.036174,0.081993 -0.036174,0.1856907 0,0.1832791 0.1422825,0.2797418 0.1422825,0.096463 0.3762045,0.096463 0.106109,0 0.2001601,-0.021704 0.094051,-0.021704 0.1639866,-0.067524 0.072347,-0.04582 0.1133437,-0.1157553 0.040997,-0.072347 0.040997,-0.1712212 0,-0.1012859 -0.04582,-0.1808676 Q 5.1305989,4.9779193 5.0510171,4.9103954 4.9714354,4.8428715 4.8653264,4.7825824 4.7592175,4.7222932 4.6410507,4.6644156 Z"
+       id="text6-3"
+       style="font-weight:bold;font-size:4.93889px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#e0e0e0;stroke-width:0.264583"
+       aria-label="8" />
+    <path
+       style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 3.1749999,0.2645833 h 1.5874999 c 0.79375,0 1.0583333,0.5291667 1.0583333,1.0583333 V 2.9104165 L 5.0270831,1.8520833 H 5.5562498 V 1.3229166 c 0,-0.2645833 -0.2645833,-0.7937499 -0.79375,-0.7937499 H 3.1749999 Z"
+       id="path6"
+       sodipodi:nodetypes="csscccsscc" />
+    <path
+       style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 3.1749999,6.0854163 h -1.5875 c -0.79374996,0 -1.05833326,-0.5291666 -1.05833326,-1.0583333 l 10e-8,-0.5291666 V 3.4395831 L 1.3229167,4.4979163 H 0.79375004 V 5.027083 c 0,0.2645834 0.26458326,0.79375 0.79374986,0.79375 l 1.5875,-1e-7 z"
+       id="path6-3"
+       sodipodi:nodetypes="cssccccsscc" />
+    <path
+       d="m 2.5688256,2.7750249 v 0.641477 H 1.9948726 V 2.7750249 H 0.52863963 V 2.2710074 L 1.758539,0.26458332 H 2.5688256 V 2.256538 H 3.046316 V 2.7750249 Z M 2.0021073,0.83371322 1.1050043,2.256538 h 0.897103 z"
+       id="text10"
+       style="font-weight:bold;font-size:4.93889px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#e0e0e0;stroke-width:0.264583"
+       aria-label="4" />
+  </g>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Two sheets of paper</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

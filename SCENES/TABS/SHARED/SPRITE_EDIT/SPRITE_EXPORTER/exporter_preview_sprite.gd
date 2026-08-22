@@ -38,8 +38,8 @@ func update_texture() -> void:
 	
 	texture = ImageTexture.create_from_image(image)
 	
-	if sprite_edit.obj_data.has("palettes"):
-		return
+	#if sprite_edit.obj_data.has("palettes"):
+		#return
 	
 	update_palette()
 

@@ -12,12 +12,13 @@ func _ready() -> void:
 	cell_index.value_changed.connect(cell_selected)
 	cell_edit.cell_count_changed.connect(on_cell_count_changed)
 	
-	if provider.obj_data.has("cells"):
+	#if provider.obj_data.has("cells"):
+	if provider.obj_data is BinScriptable:
 		cell_selected(cell_index.value)
 
 
 func cell_selected(index: int) -> void:
-	load_cell(provider.obj_data.cells[index])
+	load_cell(provider.obj_data.get_cell(index))
 
 
 func on_cell_count_changed() -> void:
@@ -29,9 +30,10 @@ func get_palette(index: int) -> PackedByteArray:
 		return override_pal
 	
 	# Global palette
-	if provider.obj_data.has("palettes"):
-		return provider.obj_data.palettes[palette_index].get_palette()
+	#if provider.obj_data.has("palettes"):
+	if provider.obj_data is BinScriptable and provider.obj_data.has_palettes():
+		return provider.obj_data.get_palette_array(palette_index)
 	
 	# Embedded palette
-	var sprite: BinSprite = provider.obj_data.sprites[index]
-	return sprite.get_palette()
+	var sprite: BinSprite = provider.obj_data.get_sprite(index)
+	return sprite.palette

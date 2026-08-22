@@ -17,12 +17,12 @@ func reset() -> void:
 	call_deferred("set_value_no_signal", 0)
 
 
-func on_cell_update(_cell: Cell) -> void:
+func on_cell_update(_cell: BinCell) -> void:
 	if not cell_edit.box_drawing_mode:
 		reset()
 
 
-func on_box_update(box: BoxInfo) -> void:
+func on_box_update(box: BinBoxInfo) -> void:
 	if cell_edit.boxes_selected.size() > 1:
 		return
 	else:

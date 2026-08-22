@@ -1,12 +1,13 @@
-class_name BinJPFPlainText extends BinObject
+class_name BinJPFPlainText extends BinSpriteBlock
 
 const CHARIDX_SIGNATURE: int = 0x082A2000
 
 var char_index: PackedByteArray
-var sprites: Array[BinSprite]
+#var sprites: Array[BinSprite]
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	#print("Identifying BinJPFPlainText")
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
 	
 	if pointers.size() < 3:
@@ -48,7 +49,7 @@ func serialize() -> PackedByteArray:
 		data.append_array(sprite.serialize())
 	
 	# Write pointers
-	stream.put_data(finalize_pointers(pointers))
+	stream.put_data(finalize_pointers(pointers, big_endian))
 	
 	# Write data
 	stream.put_data(data)

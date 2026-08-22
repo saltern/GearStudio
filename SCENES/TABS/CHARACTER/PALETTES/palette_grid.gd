@@ -32,13 +32,13 @@ func _ready() -> void:
 	selected.resize(256)
 	selecting.resize(256)
 	
-	provider = get_owner().get_provider()
+	#provider = get_owner().get_provider()
 
-	if owner is SpriteEdit and provider.obj_data.has("palettes"):
-		get_parent().queue_free()
-		return
+	#if owner is SpriteEdit and provider.obj_data.has("palettes"):
+		#get_parent().queue_free()
+		#return
 	
-	provider.palette_updated.connect(on_palette_load)
+	#provider.palette_updated.connect(on_palette_load)
 	
 	if color_picker:
 		color_picker.color_changed.connect(color_set)
@@ -54,8 +54,8 @@ func _process(_delta: float) -> void:
 
 
 func _draw() -> void:
-	var color_count: int = provider.palette_get_color_count()
-	
+	#var color_count: int = provider.palette_get_color_count()
+	var color_count: int = 256
 	for cell: int in color_count:
 		#region Colors
 		var color: Color = provider.palette_get_color(cell)
