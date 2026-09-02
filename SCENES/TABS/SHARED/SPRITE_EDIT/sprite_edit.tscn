@@ -94,10 +94,11 @@ border_width_bottom = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7btt"]
 resource_local_to_scene = true
 shader = ExtResource("18_sifk5")
+shader_parameter/opaque_bg = false
 shader_parameter/alpha_double = true
-shader_parameter/reindex = false
 shader_parameter/hover_index = -1
-shader_parameter/highlight = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/selecting_min = -1
+shader_parameter/selecting_max = -1
 shader_parameter/palette = PackedInt32Array()
 
 [sub_resource type="LabelSettings" id="LabelSettings_gwjl0"]
@@ -367,7 +368,6 @@ palette_grid = NodePath("../../../../scroll/margin/data/palette_grid/palette")
 editor_panel = NodePath("../../../../../pal_edit")
 
 [node name="pal_edit" type="HBoxContainer" parent="content" unique_id=1135658424]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 

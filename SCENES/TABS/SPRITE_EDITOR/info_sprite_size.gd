@@ -5,7 +5,6 @@ extends Label
 
 func _ready() -> void:
 	editor.info_outdated.connect(update)
-	
 	update()
 
 

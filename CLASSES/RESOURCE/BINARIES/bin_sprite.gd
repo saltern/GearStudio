@@ -634,12 +634,15 @@ func cut_bit_depth() -> void:
 	bit_depth = DEPTH_4
 	var max_color: int
 	
-	if clut == CLUT.FULL:
-		max_color = COLOR_COUNT_4_FULL
-	else:
-		max_color = COLOR_COUNT_4_HALF
+	match clut:
+		CLUT.NONE, CLUT.FULL:
+			max_color = COLOR_COUNT_4_FULL
+		CLUT.HALF:
+			max_color = COLOR_COUNT_4_HALF
 	
 	for p: int in pixels.size():
 		pixels[p] = mini(pixels[p], max_color)
+	
+	palette.resize(4 * max_color)
 	
 	update_preview()

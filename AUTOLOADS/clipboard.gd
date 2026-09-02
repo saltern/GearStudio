@@ -2,7 +2,7 @@ extends Node
 
 # PaletteEdit
 var pal_selection: Array[bool] = []
-var pal_data: Array[Color] = []
+var pal_data: PackedColorArray = []
 
 # CellEdit
 var cell: BinCell

@@ -8,6 +8,9 @@ static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 	pointers.append(bin_data.size()) # Auxiliary fake pointer
 	
 	for p: int in pointers.size() - 1:
+		if pointers[p] >= pointers[p + 1]:
+			return false
+		
 		var obj: PackedByteArray = bin_data.slice(
 			pointers[p], pointers[p + 1]
 		)
