@@ -25,17 +25,24 @@
 [ext_resource type="Script" uid="uid://bovccg07dbp5o" path="res://SCENES/TABS/SPRITE_EDITOR/control_palette_container.gd" id="14_yk3wa"]
 [ext_resource type="Script" uid="uid://nc8rno7rvc4r" path="res://SCENES/TABS/SHARED/visibility_toggler.gd" id="16_33ko7"]
 [ext_resource type="Script" uid="uid://b1sa2xlb1v8w3" path="res://SCENES/TABS/SPRITE_EDITOR/preview_sprite_texture.gd" id="17_smuy5"]
+[ext_resource type="Script" uid="uid://ce07edvcwysg4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="19_lfy6y"]
+[ext_resource type="Script" uid="uid://bbloqr5fyfafu" path="res://SCENES/TABS/SPRITE_EDITOR/palette_importer.gd" id="20_f1cbw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="21_27fn0"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="22_8f7uu"]
+[ext_resource type="Script" uid="uid://ckx5lmq37jxqa" path="res://SCENES/TABS/SPRITE_EDITOR/palette_exporter.gd" id="22_dtwcn"]
+[ext_resource type="Script" uid="uid://qecwyl3pqnvj" path="res://SCENES/TABS/SPRITE_EDITOR/palette_reindex.gd" id="23_jjeie"]
 [ext_resource type="Script" uid="uid://mp06qgcrepsu" path="res://SCENES/TABS/SPRITE_EDITOR/palette_grid_size.gd" id="23_tdt6p"]
 [ext_resource type="Script" uid="uid://b7p6n2f11c5o8" path="res://SCENES/TABS/SPRITE_EDITOR/palette_color_display.gd" id="23_wbp26"]
+[ext_resource type="Script" uid="uid://edhwb4o5q8k4" path="res://SCENES/TABS/SPRITE_EDITOR/palette_reorder_toggle.gd" id="25_nugno"]
 [ext_resource type="Script" uid="uid://b72r26cjbcqj" path="res://SCENES/TABS/SPRITE_EDITOR/palette_selection.gd" id="26_2tpm8"]
 [ext_resource type="Texture2D" uid="uid://tq1ev8j8s6yn" path="res://GRAPHICS/PALGRID_HOVER.PNG" id="27_x6tge"]
 [ext_resource type="Texture2D" uid="uid://bqxqi03a3dx52" path="res://GRAPHICS/PALGRID_SELECTING.PNG" id="28_d2j2r"]
-[ext_resource type="Texture2D" uid="uid://bk1xery8hpemg" path="res://GRAPHICS/PALGRID_SELECTED.PNG" id="29_5ln6j"]
 [ext_resource type="Script" uid="uid://cvq25y2r7xtud" path="res://SCENES/TABS/SPRITE_EDITOR/palette_color_picker.gd" id="30_mau1i"]
-[ext_resource type="Texture2D" uid="uid://emqtwxn0tvg1" path="res://GRAPHICS/PALGRID_PASTE.PNG" id="30_qapqx"]
+[ext_resource type="Script" uid="uid://cchhsj2cdlsbj" path="res://SCENES/TABS/SPRITE_EDITOR/palette_reorder.gd" id="36_bxqq6"]
 [ext_resource type="Script" uid="uid://dw5aflstffho6" path="res://CLASSES/NODE/palette_editor_helper.gd" id="37_lfy6y"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_crfo6"]
+allow_unpress = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gv0qh"]
 bg_color = Color(0.25098, 0.313726, 0.156863, 1)
@@ -283,36 +290,55 @@ size_flags_horizontal = 4
 [node name="open_editor" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=1818794532 node_paths=PackedStringArray("controls")]
 layout_mode = 2
 toggle_mode = true
+button_group = SubResource("ButtonGroup_crfo6")
 icon = ExtResource("5_dd2h3")
 script = ExtResource("16_33ko7")
 controls = [NodePath("../../../../../../../palette_edit"), NodePath("../../palette_grid/selection_manager")]
 
-[node name="import" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=226760019]
+[node name="import" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=226760019 node_paths=PackedStringArray("window")]
 layout_mode = 2
 tooltip_text = "SPRITE_EDIT_PALETTE_IMPORT_TOOLTIP"
 icon = ExtResource("1_avote")
+script = ExtResource("19_lfy6y")
+window = NodePath("import_dialog")
 
-[node name="import_dialog" type="FileDialog" parent="content/control_panel/editors/content/palette/content/tools/import" unique_id=762912658]
+[node name="import_dialog" type="FileDialog" parent="content/control_panel/editors/content/palette/content/tools/import" unique_id=762912658 node_paths=PackedStringArray("pal_helper")]
+oversampling_override = 1.0
 title = "Open a File"
 file_mode = 0
+access = 2
+filters = PackedStringArray("*.bin; Binary sprites and palettes", "*.act; Adobe Color Table", "*.png; PNG images", "*.bmp; BMP images")
 use_native_dialog = true
+script = ExtResource("20_f1cbw")
+pal_helper = NodePath("../../../../../../../../../PaletteEditorHelper")
 
-[node name="export" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=1768968649]
+[node name="export" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=1768968649 node_paths=PackedStringArray("window")]
 layout_mode = 2
 icon = ExtResource("3_k44mp")
+script = ExtResource("19_lfy6y")
+window = NodePath("export_dialog")
 
-[node name="export_dialog" type="FileDialog" parent="content/control_panel/editors/content/palette/content/tools/export" unique_id=82877424]
-title = "Open a File"
-file_mode = 0
+[node name="export_dialog" type="FileDialog" parent="content/control_panel/editors/content/palette/content/tools/export" unique_id=577012899 node_paths=PackedStringArray("pal_helper")]
+oversampling_override = 1.0
+access = 2
+filters = PackedStringArray("*.bin; Binary sprites and palettes", "*.act; Adobe Color Table")
 use_native_dialog = true
+script = ExtResource("22_dtwcn")
+pal_helper = NodePath("../../../../../../../../../PaletteEditorHelper")
 
-[node name="reindex" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=646594565]
+[node name="reindex" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=646594565 node_paths=PackedStringArray("pal_helper")]
 layout_mode = 2
 icon = ExtResource("4_smuy5")
+script = ExtResource("23_jjeie")
+pal_helper = NodePath("../../../../../../../../PaletteEditorHelper")
 
-[node name="reorder" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=706085418]
+[node name="reorder" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=706085418 node_paths=PackedStringArray("selection_manager")]
 layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_crfo6")
 icon = ExtResource("1_wlvqu")
+script = ExtResource("25_nugno")
+selection_manager = NodePath("../../palette_grid/selection_manager")
 
 [node name="half" type="Button" parent="content/control_panel/editors/content/palette/content/tools" unique_id=1983393499]
 layout_mode = 2
@@ -338,7 +364,7 @@ by_channel = NodePath("../../../../../../palette_edit/by_channel")
 selection_mgr = NodePath("selection_manager")
 picker = NodePath("../../../../../../palette_edit/color_picker")
 
-[node name="color_display" type="Control" parent="content/control_panel/editors/content/palette/content/palette_grid" unique_id=1421097040 node_paths=PackedStringArray("pal_helper")]
+[node name="color_display" type="Control" parent="content/control_panel/editors/content/palette/content/palette_grid" unique_id=1421097040 node_paths=PackedStringArray("pal_helper", "selection")]
 custom_minimum_size = Vector2(272, 272)
 layout_mode = 1
 anchors_preset = 15
@@ -353,6 +379,7 @@ size_flags_vertical = 6
 mouse_filter = 2
 script = ExtResource("23_wbp26")
 pal_helper = NodePath("../../../../../../../../PaletteEditorHelper")
+selection = NodePath("../selection_manager")
 
 [node name="selection_manager" type="Control" parent="content/control_panel/editors/content/palette/content/palette_grid" unique_id=1500398040 node_paths=PackedStringArray("pal_helper")]
 visible = false
@@ -365,9 +392,14 @@ grow_vertical = 2
 script = ExtResource("26_2tpm8")
 pal_helper = NodePath("../../../../../../../../PaletteEditorHelper")
 tex_hover = ExtResource("27_x6tge")
-tex_selecting = ExtResource("28_d2j2r")
-tex_selected = ExtResource("29_5ln6j")
-tex_paste = ExtResource("30_qapqx")
+tex_select = ExtResource("28_d2j2r")
+
+[node name="reorder_manager" type="Control" parent="content/control_panel/editors/content/palette/content/palette_grid" unique_id=471204726]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("36_bxqq6")
 
 [node name="palette_edit" type="VBoxContainer" parent="content" unique_id=18428840]
 visible = false

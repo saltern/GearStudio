@@ -150,6 +150,13 @@ func paste(at: int) -> void:
 	if Clipboard.pal_data.size() < 1:
 		return
 	
+	var action_text: String = tr("ACTION_PROVIDER_SPRITE_PASTE_COLOR").format({
+		"index": edit_index
+	})
+	
+	undo_redo.create_action(action_text)
+	status_register_action(action_text)
+	
 	if selected_count == 0:
 		paste_at(at)
 	else:
@@ -205,17 +212,11 @@ func paste_into() -> void:
 		new_palette[4 * index + 3] = Clipboard.pal_data[current_color].a8
 		
 		current_color = wrapi(current_color + 1, 0, Clipboard.pal_data.size())
-	
+
 	paste_commit(old_palette, new_palette)
 
 
 func paste_commit(old: PackedByteArray, new: PackedByteArray) -> void:
-	var action_text: String = tr("ACTION_PROVIDER_SPRITE_PASTE_COLOR").format({
-		"index": edit_index
-	})
-	
-	undo_redo.create_action(action_text)
-	
 	undo_redo.add_do_property(sprite, "palette", new)
 	undo_redo.add_do_method(signal_index_edited.bind(edit_index))
 	undo_redo.add_do_method(signal_sprite_updated)
@@ -224,10 +225,54 @@ func paste_commit(old: PackedByteArray, new: PackedByteArray) -> void:
 	undo_redo.add_undo_method(signal_index_edited.bind(edit_index))
 	undo_redo.add_undo_method(signal_sprite_updated)
 	
+	undo_redo.commit_action()
+
+
+func import(colors: PackedByteArray) -> void:
+	var action_text: String
+	
+	# Adapt palette size to sprite bit depth
+	colors.resize(4 * get_color_count())
+	
+	var old: PackedByteArray = sprite.palette.duplicate()
+	var new: PackedByteArray = colors.duplicate()
+	
+	action_text = tr("ACTION_PROVIDER_SPRITE_IMPORT").format({
+		"index": edit_index
+	})
+	
+	undo_redo.create_action(action_text)
+	status_register_action(action_text)
+	
+	paste_commit(old, new)
+	
+	
+func reindex() -> void:
+	var action_text: String = tr("ACTION_PROVIDER_PALETTE_REINDEX").format({
+		"index": edit_index
+	})
+	
+	undo_redo.create_action(action_text)
+	
+	undo_redo.add_do_method(sprite.reindex_palette)
+	undo_redo.add_do_method(signal_index_edited.bind(edit_index))
+	
+	undo_redo.add_undo_method(sprite.reindex_palette)
+	undo_redo.add_undo_method(signal_index_edited.bind(edit_index))
+	
 	status_register_action(action_text)
 	undo_redo.commit_action()
 
 
-# func import(colors: PackedByteArray) -> void:
-# func reindex() -> void:
+func reorder() -> void:
+	var action_text: String = tr("ACTION_PROVIDER_REORDER").format({
+		"index": edit_index
+	})
+	
+	undo_redo.create_action(action_text)
+	status_register_action(action_text)
+	
+	undo_redo.add_do_
+
+
 # func apply_gradient(mode: GradientMode) -> void:

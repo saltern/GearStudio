@@ -4,4 +4,5 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect(window.show)
+	if !window.visible:
+		pressed.connect(window.show)

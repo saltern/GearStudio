@@ -94,9 +94,9 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 
 
 # Variables
-var mode			: Mode
-var clut			: CLUT
-var bit_depth		: int:
+@export var mode			: Mode
+@export var clut			: CLUT
+@export var bit_depth		: int:
 	get:
 		if bit_depth == DEPTH_4:
 			return DEPTH_4
@@ -108,20 +108,20 @@ var bit_depth		: int:
 		else:
 			bit_depth = DEPTH_8
 
-var width			: int
-var height			: int
+@export var width			: int
+@export var height			: int
 
-var texture_width	: int:
+@export var texture_width	: int:
 	get:
 		return 2 ** texture_width
 		
-var texture_height	: int:
+@export var texture_height	: int:
 	get:
 		return 2 ** texture_height
 
-var id_hash			: int
-var manual_hash		: bool
-var palette			: PackedByteArray:
+@export var id_hash			: int
+@export var manual_hash		: bool
+@export var palette			: PackedByteArray:
 	get:
 		if clut == CLUT.NONE:
 			return []
@@ -132,7 +132,7 @@ var palette			: PackedByteArray:
 		value.resize(COLOR_SIZE * get_color_count())
 		palette = value
 	
-var pixels			: PackedByteArray
+@export var pixels			: PackedByteArray
 
 # Not serialized
 var image			: Image
@@ -195,8 +195,8 @@ func serialize() -> PackedByteArray:
 	stream.put_u16(height)
 
 	# Allocated texture width, height
-	stream.put_u16(texture_width)
-	stream.put_u16(texture_height)
+	stream.put_u16(get_texture_size(width))
+	stream.put_u16(get_texture_size(height))
 
 	# Hash
 	stream.put_u16(id_hash)
@@ -449,7 +449,10 @@ static func load_from_bin(path: String, with_palette: bool) -> BinSprite:
 	var bin_data: PackedByteArray = FileAccess.get_file_as_bytes(path)
 	
 	if FileAccess.get_open_error() != Error.OK:
-		print("BinSprite::load_from_bin(%s, %s) error! %s" % [path, with_palette, FileAccess.get_open_error()])
+		print(
+			"BinSprite::load_from_bin(%s, %s) error! %s" %
+			[path, with_palette, FileAccess.get_open_error()]
+		)
 		return null
 	
 	var sprite: BinSprite = BinSprite.new()
@@ -578,7 +581,7 @@ func flip_v() -> void:
 	texture = ImageTexture.create_from_image(image)
 
 
-func transform_index(index: int) -> int:
+static func transform_index(index: int) -> int:
 	if ((index / 8) + 2) % 4 == 0:
 		return index - 8
 	
@@ -588,7 +591,7 @@ func transform_index(index: int) -> int:
 	return index
 
 
-func transform_index_array(array: PackedByteArray) -> PackedByteArray:
+static func transform_index_array(array: PackedByteArray) -> PackedByteArray:
 	var temp_array: PackedByteArray = []
 	
 	for pixel: int in array.size():
@@ -597,10 +600,13 @@ func transform_index_array(array: PackedByteArray) -> PackedByteArray:
 	return temp_array
 
 
-func transform_rgba_array(array: PackedByteArray) -> PackedByteArray:
+static func transform_rgba_array(array: PackedByteArray) -> PackedByteArray:
 	var temp_array: PackedByteArray = []
 	temp_array.resize(array.size())
 	var color_count: int = array.size() / COLOR_SIZE
+	
+	if color_count <= COLOR_COUNT_4_FULL:
+		return array.duplicate()
 	
 	for index: int in color_count:
 		var new_index: int = transform_index(index)

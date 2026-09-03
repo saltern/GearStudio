@@ -9,23 +9,26 @@ const TILE_OFFSET	: int = 1
 const COLUMNS		: int = 16
 const MAX_INDEX		: int = 255
 
-#var sprite: BinSprite
-
 var hover: int = -1
 var dragging: bool = false
 var subtract: bool = false
+
+var reorder_mode: bool = false
+var reordering: bool = false
+var reorder_source: int = -1
+var reorder_target: int = -1
 
 var selecting_start: int = -1
 var selecting_min: int = -1
 var selecting_max: int = -1
 
 var selected: Array[bool]
+var selection_min: int = -1
+var selection_max: int = -1
 
 @export var pal_helper		: PaletteEditorHelper
 @export var tex_hover		: Texture2D
-@export var tex_selecting	: Texture2D
-@export var tex_selected	: Texture2D
-@export var tex_paste		: Texture2D
+@export var tex_select		: Texture2D
 
 
 func _ready() -> void:
@@ -47,10 +50,14 @@ func _input(event: InputEvent) -> void:
 	if not event.pressed or event.echo:
 		return
 	
-	match event.keycode:		
+	match event.keycode:
 		KEY_ESCAPE:
 			deselect_all()
-		
+	
+	if reorder_mode:
+		return
+	
+	match event.keycode:
 		KEY_C:
 			if event.ctrl_pressed:
 				pal_helper.copy()
@@ -79,19 +86,31 @@ func input_mouse(event: InputEventMouse) -> void:
 				
 				# On start dragging
 				if dragging:
+					# Subtractive selection
 					if event.alt_pressed:
 						subtract = true
 					
+					# Shift not pressed: reset selection
 					if !event.shift_pressed && !subtract:
-						selected.fill(false)
+						# Reorder mode
+						if is_selected(index) && reorder_mode:
+							reordering = true
+							reorder_source = index
+							reorder_target = index
+						else:
+							selected.fill(false)
 					
-					selecting_start = index
-					selecting_min = index
-					selecting_max = index
+					if !reordering:
+						selecting_start = index
+						selecting_min = index
+						selecting_max = index
 				
 				# On release
 				else:
-					if !subtract:
+					if reordering:
+						pal_helper.reorder()
+					
+					elif !subtract:
 						index_clicked.emit(
 							get_color_index_at(event.position)
 						)
@@ -101,18 +120,37 @@ func input_mouse(event: InputEventMouse) -> void:
 							selected[i] = !subtract
 					
 					subtract = false
+					reordering = false
 					selecting_start = -1
 					selecting_min = -1
 					selecting_max = -1
+					
+					# Record selection extents
+					selection_min = 0x100
+					for i: int in pal_helper.get_color_count():
+						if is_selected(i):
+							selection_min = mini(selection_min, i)
+							selection_max = i
 	
-	# Adjust selection extents if going backwards
+	var max_index: int = pal_helper.get_color_count() - 1
+	
 	if dragging:
-		selecting_min = mini(selecting_start, index)
-		selecting_max = maxi(selecting_start, index)
-		selecting_max = mini(selecting_max, pal_helper.get_color_count() - 1)
+		if reordering:
+			reorder_target = clampi(
+				# requested displacement
+				index - reorder_source,
+				# left limit		right limit
+				- selection_min,	max_index - selection_max
+			)
+			
+		else:
+			# Adjust selection extents if going backwards
+			selecting_min = mini(selecting_start, index)
+			selecting_max = maxi(selecting_start, index)
+			selecting_max = mini(selecting_max, max_index)
 	
 	# Hovering
-	if index < 0 || index > (pal_helper.get_color_count() - 1):
+	if index < 0 || index > max_index:
 		hover = -1
 	else:
 		hover = index
@@ -122,19 +160,36 @@ func input_mouse(event: InputEventMouse) -> void:
 
 func _draw() -> void:
 	#region Selection
+	# Selected
 	for i: int in pal_helper.get_color_count():
-		if selected[i]:
+		if is_selected(i):
 			draw_texture(
-				tex_selected, Vector2(
+				tex_select, Vector2(
 					TILE_SIZE * (i % COLUMNS),
 					TILE_SIZE * (i / COLUMNS),
-				)
+				), Color.RED
 			)
 	
+	# Reorder target
+	if reordering:
+		for i: int in pal_helper.get_color_count():
+			if not is_selected(i):
+				continue
+			
+			var index: int = i + reorder_target
+			
+			draw_texture(
+				tex_select, Vector2(
+					TILE_SIZE * (index % COLUMNS),
+					TILE_SIZE * (index / COLUMNS),
+				), Color.GREEN_YELLOW
+			)
+	
+	# Selecting
 	if selecting_min > -1:
 		for i: int in range(selecting_min, selecting_max + 1):
 			draw_texture(
-				tex_selecting, Vector2(
+				tex_select, Vector2(
 					TILE_SIZE * (i % COLUMNS),
 					TILE_SIZE * (i / COLUMNS),
 				)
@@ -142,7 +197,7 @@ func _draw() -> void:
 	#endregion
 	
 	# Paste region
-	if Input.is_key_pressed(KEY_CTRL):
+	if Input.is_key_pressed(KEY_CTRL) && !reorder_mode:
 		draw_paste_region()
 	
 	#region Hovered color
@@ -205,10 +260,10 @@ func draw_paste_at_cursor() -> void:
 		current_color += 1
 		
 		draw_texture(
-			tex_paste, Vector2(
+			tex_select, Vector2(
 				TILE_SIZE * (this_index % COLUMNS),
 				TILE_SIZE * (this_index / COLUMNS),
-			)
+			), Color.PURPLE
 		)
 
 
@@ -234,13 +289,12 @@ func draw_paste_at_selection() -> void:
 				current_color + 1, 0, Clipboard.pal_data.size()
 			)
 		
-			# Black outline
 			draw_texture(
-			tex_paste, Vector2(
-				TILE_SIZE * (index % COLUMNS),
-				TILE_SIZE * (index / COLUMNS),
+				tex_select, Vector2(
+					TILE_SIZE * (index % COLUMNS),
+					TILE_SIZE * (index / COLUMNS),
+				), Color.PURPLE
 			)
-		)
 #endregion
 
 
@@ -271,3 +325,61 @@ func deselect_all() -> void:
 func on_mouse_exited() -> void:
 	hover = -1
 	selection_changed.emit()
+
+
+func get_reordered_colors() -> PackedByteArray:
+	var palette: PackedByteArray = pal_helper.get_palette().duplicate()
+	var reordered: PackedByteArray = []
+	
+	var indices: PackedInt64Array = []
+	var colors: PackedColorArray = []
+	
+	for i: int in pal_helper.get_color_count():
+		if is_selected(i):
+			indices.append(i)
+			colors.append(
+				Color8(
+					palette[4 * i + 0],
+					palette[4 * i + 1],
+					palette[4 * i + 2],
+					palette[4 * i + 3],
+				)
+			)
+			continue
+		
+		reordered.append(palette[4 * i + 0])
+		reordered.append(palette[4 * i + 1])
+		reordered.append(palette[4 * i + 2])
+		reordered.append(palette[4 * i + 3])
+	
+	for i: int in indices:
+		var color: Color = colors[0]
+		colors.remove_at(0)
+		
+		reordered.insert(4 * (i + reorder_target), color.a8)
+		reordered.insert(4 * (i + reorder_target), color.b8)
+		reordered.insert(4 * (i + reorder_target), color.g8)
+		reordered.insert(4 * (i + reorder_target), color.r8)
+	
+	return reordered
+
+
+func get_reordered_pixels(source_pixels: PackedByteArray) -> PackedByteArray:
+	var indices: PackedInt64Array = []
+	var transforms: PackedByteArray = []
+	var result: PackedByteArray = []
+	
+	for i: int in transforms.size():
+		if is_selected(i):
+			indices.append(i)
+			continue
+		
+		transforms.append(i)
+	
+	for i: int in indices:
+		transforms.insert(i + reorder_target, i)
+	
+	for p: int in source_pixels:
+		result.append(transforms[p])
+	
+	return result

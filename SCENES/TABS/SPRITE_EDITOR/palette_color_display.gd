@@ -1,6 +1,7 @@
 class_name PaletteDisplay extends Control
 
 @export var pal_helper: PaletteEditorHelper
+@export var selection: PaletteSelection
 
 const COLUMNS: int = 16
 const TILE_SIZE: int = 17
@@ -11,11 +12,15 @@ const DRAW_OFFSET: int = 1
 func _ready() -> void:
 	get_parent().resized.connect(resize)
 	pal_helper.sprite_updated.connect(update)
+	selection.selection_changed.connect(queue_redraw)
 	update()
 
 
 func _draw() -> void:
 	var palette: PackedByteArray = pal_helper.get_palette()
+	
+	if selection.reordering:
+		palette = selection.get_reordered_colors()
 	
 	for i: int in palette.size() / 4:
 		var x: int = i % COLUMNS
@@ -33,7 +38,7 @@ func _draw() -> void:
 			clampi(palette[4 * i + 3] * 2, 0x00, 0xFF),
 		)
 		
-		draw_rect(r, color, true, -1, false)
+		draw_rect(r, color)
 
 
 func resize() -> void:
