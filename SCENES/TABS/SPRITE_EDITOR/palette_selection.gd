@@ -16,7 +16,7 @@ var subtract: bool = false
 var reorder_mode: bool = false
 var reordering: bool = false
 var reorder_source: int = -1
-var reorder_target: int = -1
+var reorder_target: int = 0
 
 var selecting_start: int = -1
 var selecting_min: int = -1
@@ -109,6 +109,15 @@ func input_mouse(event: InputEventMouse) -> void:
 				else:
 					if reordering:
 						pal_helper.reorder()
+						var new: Array[bool] = []
+						new.resize(selected.size())
+						new.fill(false)
+						
+						for i: int in selected.size():
+							if is_selected(i):
+								new[i + reorder_target] = true
+						
+						selected = new
 					
 					elif !subtract:
 						index_clicked.emit(
@@ -120,7 +129,11 @@ func input_mouse(event: InputEventMouse) -> void:
 							selected[i] = !subtract
 					
 					subtract = false
+					
 					reordering = false
+					reorder_source = -1
+					reorder_target = 0
+					
 					selecting_start = -1
 					selecting_min = -1
 					selecting_max = -1
@@ -328,7 +341,7 @@ func on_mouse_exited() -> void:
 
 
 func get_reordered_colors() -> PackedByteArray:
-	var palette: PackedByteArray = pal_helper.get_palette().duplicate()
+	var palette: PackedByteArray = pal_helper.get_palette()
 	var reordered: PackedByteArray = []
 	
 	var indices: PackedInt64Array = []
@@ -366,20 +379,24 @@ func get_reordered_colors() -> PackedByteArray:
 
 func get_reordered_pixels(source_pixels: PackedByteArray) -> PackedByteArray:
 	var indices: PackedInt64Array = []
-	var transforms: PackedByteArray = []
+	var transformed: PackedByteArray = []
 	var result: PackedByteArray = []
 	
-	for i: int in transforms.size():
-		if is_selected(i):
+	# Get indices to withhold
+	for i: int in pal_helper.get_color_count():
+		if is_selected(i - reorder_target):
 			indices.append(i)
 			continue
 		
-		transforms.append(i)
+		# Build transform array without them
+		transformed.append(i)
 	
+	# Insert them
 	for i: int in indices:
-		transforms.insert(i + reorder_target, i)
+		transformed.insert(i - reorder_target, i)
 	
+	# Transform pixel array
 	for p: int in source_pixels:
-		result.append(transforms[p])
+		result.append(transformed[p])
 	
 	return result

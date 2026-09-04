@@ -132,7 +132,9 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		value.resize(COLOR_SIZE * get_color_count())
 		palette = value
 	
-@export var pixels			: PackedByteArray
+@export var pixels			: PackedByteArray:
+	set(value):
+		pixels = value
 
 # Not serialized
 var image			: Image

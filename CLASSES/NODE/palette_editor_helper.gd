@@ -1,5 +1,10 @@
 class_name PaletteEditorHelper extends Node
 
+enum Context {
+	SPRITE_EDITOR,
+	PALETTE_EDITOR,
+}
+
 enum GradientMode {
 	RGB,
 	HSV,
@@ -20,6 +25,7 @@ var undo_redo: UndoRedo
 var sprite: BinSprite
 var edit_index: int
 
+@export var context: Context
 @export var selection: PaletteSelection
 
 var by_channel: bool
@@ -164,7 +170,6 @@ func paste(at: int) -> void:
 
 
 func paste_at(at: int) -> void:
-	var old_palette: PackedByteArray = sprite.palette.duplicate()
 	var new_palette: PackedByteArray = sprite.palette.duplicate()
 		
 	var start_index: int = 0
@@ -194,12 +199,12 @@ func paste_at(at: int) -> void:
 		
 		current_color += 1
 	
-	paste_commit(old_palette, new_palette)
+	apply_palette(new_palette)
+	undo_redo.commit_action()
 
 
 func paste_into() -> void:
 	var current_color: int = 0
-	var old_palette: PackedByteArray = sprite.palette.duplicate()
 	var new_palette: PackedByteArray = sprite.palette.duplicate()
 	
 	for index: int in get_color_count():
@@ -213,19 +218,18 @@ func paste_into() -> void:
 		
 		current_color = wrapi(current_color + 1, 0, Clipboard.pal_data.size())
 
-	paste_commit(old_palette, new_palette)
+	apply_palette(new_palette)
+	undo_redo.commit_action()
 
 
-func paste_commit(old: PackedByteArray, new: PackedByteArray) -> void:
+func apply_palette(new: PackedByteArray) -> void:
 	undo_redo.add_do_property(sprite, "palette", new)
 	undo_redo.add_do_method(signal_index_edited.bind(edit_index))
 	undo_redo.add_do_method(signal_sprite_updated)
 	
-	undo_redo.add_undo_property(sprite, "palette", old)
+	undo_redo.add_undo_property(sprite, "palette", sprite.palette.duplicate())
 	undo_redo.add_undo_method(signal_index_edited.bind(edit_index))
 	undo_redo.add_undo_method(signal_sprite_updated)
-	
-	undo_redo.commit_action()
 
 
 func import(colors: PackedByteArray) -> void:
@@ -233,8 +237,7 @@ func import(colors: PackedByteArray) -> void:
 	
 	# Adapt palette size to sprite bit depth
 	colors.resize(4 * get_color_count())
-	
-	var old: PackedByteArray = sprite.palette.duplicate()
+
 	var new: PackedByteArray = colors.duplicate()
 	
 	action_text = tr("ACTION_PROVIDER_SPRITE_IMPORT").format({
@@ -244,7 +247,8 @@ func import(colors: PackedByteArray) -> void:
 	undo_redo.create_action(action_text)
 	status_register_action(action_text)
 	
-	paste_commit(old, new)
+	apply_palette(new)
+	undo_redo.commit_action()
 	
 	
 func reindex() -> void:
@@ -265,14 +269,30 @@ func reindex() -> void:
 
 
 func reorder() -> void:
-	var action_text: String = tr("ACTION_PROVIDER_REORDER").format({
+	match context:
+		Context.SPRITE_EDITOR:
+			reorder_sprite()
+
+
+func reorder_sprite() -> void:
+	var action_text: String = tr("ACTION_PROVIDER_REORDER_SPRITE").format({
 		"index": edit_index
 	})
 	
 	undo_redo.create_action(action_text)
 	status_register_action(action_text)
 	
-	undo_redo.add_do_
+	var old_pixels: PackedByteArray = sprite.pixels.duplicate()
+	var new_pixels: PackedByteArray = selection.get_reordered_pixels(old_pixels)
+	
+	undo_redo.add_do_property(sprite, "pixels", new_pixels)
+	undo_redo.add_do_method(sprite.update_preview)
+	
+	undo_redo.add_undo_property(sprite, "pixels", old_pixels)
+	undo_redo.add_undo_method(sprite.update_preview)
+	
+	apply_palette(selection.get_reordered_colors())
+	undo_redo.commit_action()
 
 
 # func apply_gradient(mode: GradientMode) -> void:
