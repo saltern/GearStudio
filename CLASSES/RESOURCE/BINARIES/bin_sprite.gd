@@ -496,17 +496,23 @@ func has_palette() -> bool:
 	return !palette.is_empty()
 
 
-func get_color_count() -> int:
+func get_color_count(ignore_clut: bool = false) -> int:
 	match clut:
 		CLUT.NONE:
-			return 0
+			if ignore_clut:
+				if bit_depth == DEPTH_4:
+					return COLOR_COUNT_4_FULL
+				else:
+					return COLOR_COUNT_8_FULL
+			else:
+				return 0
 		CLUT.HALF:
-			if bit_depth == 4:
+			if bit_depth == DEPTH_4:
 				return COLOR_COUNT_4_HALF
 			else:
 				return COLOR_COUNT_8_HALF
 		_:
-			if bit_depth == 4:
+			if bit_depth == DEPTH_4:
 				return COLOR_COUNT_4_FULL
 			else:
 				return COLOR_COUNT_8_FULL
@@ -635,22 +641,29 @@ func reindex_palette() -> void:
 	palette = transform_rgba_array(palette)
 
 
-func cut_bit_depth() -> void:
-	if bit_depth == DEPTH_4:
-		return
+func toggle_bit_depth() -> void:
+	match bit_depth:
+		DEPTH_4:
+			bit_depth = DEPTH_8
+		DEPTH_8:
+			bit_depth = DEPTH_4
+			
+			var max_color: int = get_color_count(true)
+			
+			for p: int in pixels.size():
+				pixels[p] = mini(pixels[p], max_color - 1)
 	
-	bit_depth = DEPTH_4
-	var max_color: int
-	
-	match clut:
-		CLUT.NONE, CLUT.FULL:
-			max_color = COLOR_COUNT_4_FULL
-		CLUT.HALF:
-			max_color = COLOR_COUNT_4_HALF
-	
-	for p: int in pixels.size():
-		pixels[p] = mini(pixels[p], max_color)
-	
-	palette.resize(4 * max_color)
-	
+	palette.resize(COLOR_SIZE * get_color_count())
 	update_preview()
+
+
+func toggle_clut_size() -> void:
+	match clut:
+		CLUT.NONE:
+			return
+		CLUT.HALF:
+			clut = CLUT.FULL
+		CLUT.FULL:
+			clut = CLUT.HALF
+	
+	palette.resize(COLOR_SIZE * get_color_count())

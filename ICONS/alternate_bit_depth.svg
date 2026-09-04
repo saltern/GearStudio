@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="24"
+   height="24"
+   viewBox="0 0 6.3499999 6.35"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="alternate_bit_depth.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4">An 8 and a 4 with arrows going from one to the other</title>
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="true"
+     inkscape:zoom="11.313709"
+     inkscape:cx="23.201941"
+     inkscape:cy="-2.4306796"
+     inkscape:window-width="1920"
+     inkscape:window-height="1054"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="false">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="0.26458332"
+       spacingy="0.26458332"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="1"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <defs
+     id="defs1">
+    <inkscape:path-effect
+       effect="powerclip"
+       message=""
+       id="path-effect9"
+       is_visible="true"
+       lpeversion="1"
+       inverse="true"
+       flatten="false"
+       hide_clip="false" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <path
+         style="display:block;fill:#e000e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 2.1166666,2.3812499 V 0.79375003 L 1.0583333,2.38125 Z"
+         id="path9"
+         sodipodi:nodetypes="cccc" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       d="m 2.1642094,1.8007514 q 0.1181668,0.065112 0.2242757,0.144694 0.1085206,0.07717 0.1881023,0.1808676 0.081993,0.1012858 0.127813,0.2315105 0.048231,0.127813 0.048231,0.2917996 0,0.2146295 -0.086816,0.3786161 Q 2.5789984,3.1922258 2.4246586,3.3031579 2.2727299,3.41409 2.0653351,3.469556 1.8603519,3.525022 1.6216067,3.525022 1.3563343,3.525022 1.1513511,3.469556 0.94877937,3.4116784 0.80890847,3.307981 0.67144907,3.2042836 0.59910207,3.057178 0.52916667,2.9100724 0.52916667,2.7292048 q 0,-0.161575 0.04582,-0.2869765 Q 0.62321777,2.3144152 0.70521107,2.2107178 0.78720437,2.1070205 0.89331327,2.0250272 1.0018338,1.9430342 1.1224121,1.8730984 1.0138916,1.8103974 0.91742897,1.7356391 0.82337787,1.6608801 0.75103087,1.5668294 0.67868387,1.4727784 0.63527557,1.357023 0.59427897,1.2412678 0.59427897,1.0941622 q 0,-0.17122128 0.065112,-0.32073848 0.067524,-0.1519288 0.1977485,-0.2652724 0.1326362,-0.1133437 0.33038483,-0.178456 0.2001601,-0.065112 0.467844,-0.065112 0.2459799,0 0.4389053,0.053055 0.1929254,0.050643 0.32315,0.1471056 0.1326362,0.096463 0.2001601,0.2315104 0.069935,0.1326362 0.069935,0.2942113 0,0.14951708 -0.040997,0.27009548 -0.040997,0.1205784 -0.1109321,0.2194526 -0.069935,0.096463 -0.1663981,0.1760445 -0.096463,0.07717 -0.2049832,0.144694 z M 1.7011884,1.5740641 q 0.086816,-0.048231 0.161575,-0.1012859 0.07717,-0.055466 0.1326362,-0.1205783 0.055466,-0.065112 0.089228,-0.1422825 0.033762,-0.07717 0.033762,-0.1712213 0,-0.15675188 -0.12299,-0.23874518 -0.1229899,-0.081993 -0.3545004,-0.081993 -0.2266873,0 -0.3496772,0.084405 -0.12299,0.084405 -0.12299,0.25321458 0,0.09164 0.040997,0.1639866 0.040997,0.072347 0.1133436,0.1350477 0.072347,0.060289 0.1688098,0.1133437 0.098874,0.053055 0.209806,0.1061086 z M 1.5781985,2.1070205 q -0.094051,0.050643 -0.178456,0.1085205 -0.081993,0.057878 -0.144694,0.1278131 -0.060289,0.069935 -0.096463,0.1543403 -0.036174,0.081993 -0.036174,0.1856907 0,0.1832791 0.1422825,0.2797418 0.1422825,0.096463 0.3762045,0.096463 0.106109,0 0.2001601,-0.021704 0.094051,-0.021704 0.1639866,-0.067524 0.072347,-0.04582 0.1133437,-0.1157553 0.040997,-0.072347 0.040997,-0.1712212 0,-0.1012859 -0.04582,-0.1808676 Q 2.0677467,2.4205242 1.9881649,2.3530003 1.9085832,2.2854764 1.8024742,2.2251873 1.6963653,2.1648981 1.5781985,2.1070205 Z"
+       id="text6-3"
+       style="font-weight:bold;font-size:4.93889px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#e0e0e0;stroke-width:0.264583"
+       aria-label="8" />
+    <path
+       style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 2.9104166,0.52916662 h 1.0583333 c 0.7937499,0 1.3229166,0 1.3229166,1.05833328 v 0.2645833 h 0.5291666 l -0.7937499,0.79375 -0.79375,-0.79375 H 4.7624998 V 1.5874999 c 0,-0.3830036 -0.1885785,-0.5291666 -0.5291666,-0.5291666 H 2.9104166 Z"
+       id="path6"
+       sodipodi:nodetypes="csscccccsscc" />
+    <path
+       style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 3.1749999,5.820833 -0.5291667,0 c -0.7937499,0 -1.3229166,0 -1.3229166,-1.0583333 V 4.4979164 H 0.79375 l 0.7937499,-0.79375 0.79375,0.79375 H 1.8520833 v 0.2645833 c 0,0.3830036 0.1885785,0.5291666 0.5291666,0.5291666 l 0.79375,1e-7 z"
+       id="path6-2"
+       sodipodi:nodetypes="csscccccsscc" />
+    <path
+       d="M 5.2916665,5.5562497 V 6.0854163 H 4.7624998 V 5.5562497 l -1.3229166,0 V 5.0270831 L 4.7624998,2.9104165 H 5.2916665 V 5.0270831 H 5.8208331 V 5.5562497 Z M 4.7624998,3.7041665 3.9687499,5.0270831 l 0.7937499,0 z"
+       id="text10"
+       style="font-weight:bold;font-size:4.93889px;line-height:1.25;font-family:Consolas;-inkscape-font-specification:'Consolas Bold';fill:#e0e0e0;stroke-width:0.264583"
+       aria-label="4"
+       sodipodi:nodetypes="cccccccccccccccc" />
+  </g>
+  <metadata
+     id="metadata4">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>An 8 and a 4 with arrows going from one to the other</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

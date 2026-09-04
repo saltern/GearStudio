@@ -316,6 +316,11 @@ func get_color_index_at(at: Vector2i) -> int:
 
 
 func is_selected(index: int) -> bool:
+	if index < 0:
+		return false
+	if index >= selected.size():
+		return false
+	
 	return selected[index]
 
 

@@ -1,27 +1,47 @@
 extends Button
 
+enum Property {
+	BIT_DEPTH,
+	CLUT_SIZE,
+}
+
+@export var property: Property
+
 @onready var editor: SpriteEditor = owner
 
 
 func _pressed() -> void:
-	var action_text: String = tr("ACTION_SPRITE_CUT_DEPTH").format({
-		"index": editor.sprite_index
-	})
-	
 	var undo_redo: UndoRedo = editor.undo_redo
 	var sprite: BinSprite = editor.this_sprite
 	
 	var old_pixels: PackedByteArray = sprite.pixels.duplicate()
 	var old_palette: PackedByteArray = sprite.palette.duplicate()
 	
+	var action_text: String = tr("ACTION_SPRITE_TOGGLE_DEPTH").format({
+		"index": editor.sprite_index
+	})
+	
 	undo_redo.create_action(action_text)
 	undo_redo.add_do_method(editor.force_sprite.bind(editor.sprite_index))
-	undo_redo.add_do_method(sprite.cut_bit_depth)
+	
+	match property:
+		Property.BIT_DEPTH:
+			undo_redo.add_do_method(sprite.toggle_bit_depth)
+		Property.CLUT_SIZE:
+			undo_redo.add_do_method(sprite.toggle_clut_size)
+	
 	undo_redo.add_do_method(editor.notify_info_outdated)
 	undo_redo.add_do_method(editor.notify_preview_outdated)
 	
+	
 	undo_redo.add_undo_method(editor.force_sprite.bind(editor.sprite_index))
-	undo_redo.add_undo_property(sprite, "bit_depth", sprite.bit_depth)
+	
+	match property:
+		Property.BIT_DEPTH:
+			undo_redo.add_undo_property(sprite, "bit_depth", sprite.bit_depth)
+		Property.CLUT_SIZE:
+			undo_redo.add_undo_property(sprite, "clut", sprite.clut)
+
 	undo_redo.add_undo_method(restore_sprite.bind(sprite, old_pixels, old_palette))
 	undo_redo.add_undo_method(sprite.update_preview)
 	undo_redo.add_undo_method(editor.notify_info_outdated)
