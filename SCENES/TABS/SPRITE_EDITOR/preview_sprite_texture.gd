@@ -9,6 +9,8 @@ var object: BinObject
 var sprite_block: BinSpriteBlock
 var sprite: BinSprite
 
+var reindex: bool = false
+
 
 func _ready() -> void:
 	pal_helper.sprite_updated.connect(update)
@@ -44,9 +46,15 @@ func set_sprite(index: int) -> void:
 	update()
 
 
+func set_reindex(enabled: bool) -> void:
+	reindex = enabled
+	reindex_check()
+
+
 func update() -> void:
 	texture = sprite.get_texture()
 	load_palette()
+	reindex_check()
 
 
 func load_palette() -> void:
@@ -67,3 +75,10 @@ func on_selection_changed() -> void:
 	(material as ShaderMaterial).set_shader_parameter(
 		"selecting_max", selection.selecting_max
 	)
+
+
+func reindex_check() -> void:
+	if sprite.bit_depth == BinSprite.DEPTH_4:
+		material.set_shader_parameter("reindex", false)
+	else:
+		material.set_shader_parameter("reindex", reindex)

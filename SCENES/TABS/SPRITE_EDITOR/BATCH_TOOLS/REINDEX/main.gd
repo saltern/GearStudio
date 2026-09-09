@@ -38,16 +38,12 @@ func _ready() -> void:
 
 func toggle_sprites(toggled_on: bool) -> void:
 	reindex_sprites = toggled_on
-	preview.material.set_shader_parameter(
-		"reindex", reindex_sprites != reindex_palettes
-	)
+	preview.set_reindex(reindex_sprites != reindex_palettes)
 
 
 func toggle_palettes(toggled_on: bool) -> void:
 	reindex_palettes = toggled_on
-	preview.material.set_shader_parameter(
-		"reindex", reindex_sprites != reindex_palettes
-	)
+	preview.set_reindex(reindex_sprites != reindex_palettes)
 
 
 func apply_pressed() -> void:
