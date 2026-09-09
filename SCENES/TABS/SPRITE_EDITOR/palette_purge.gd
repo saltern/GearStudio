@@ -1,32 +1,27 @@
 extends Button
 
-@export var batch_dialog: Window
 
 @onready var editor: SpriteEditor = owner
 
 
 func _pressed() -> void:
-	if Input.is_key_pressed(KEY_SHIFT):
-		batch_dialog.show()
-		return
+	var undo_redo: UndoRedo = editor.undo_redo
+	var sprite: BinSprite = editor.this_sprite
 	
-	if editor.this_sprite.bit_depth == BinSprite.DEPTH_4:
-		Status.set_status(tr("STATUS_SPRITE_CANNOT_REINDEX"))
-		return
-	
-	var action_text: String = tr("ACTION_PROVIDER_SPRITE_REINDEX").format({
+	var action_text: String = tr("ACTION_SPRITE_PURGE_PALETTE").format({
 		"index": editor.sprite_index
 	})
 	
-	var undo_redo: UndoRedo = editor.undo_redo
-	
 	undo_redo.create_action(action_text)
+	
 	undo_redo.add_do_method(editor.force_sprite.bind(editor.sprite_index))
-	undo_redo.add_do_method(editor.this_sprite.reindex_pixels)
+	undo_redo.add_do_method(sprite.toggle_clut)
+	undo_redo.add_do_method(editor.notify_info_outdated)
 	undo_redo.add_do_method(editor.notify_preview_outdated)
 	
 	undo_redo.add_undo_method(editor.force_sprite.bind(editor.sprite_index))
-	undo_redo.add_undo_method(editor.this_sprite.reindex_pixels)
+	undo_redo.add_undo_method(sprite.toggle_clut)
+	undo_redo.add_undo_method(editor.notify_info_outdated)
 	undo_redo.add_undo_method(editor.notify_preview_outdated)
 	
 	editor.status_register_action(action_text)

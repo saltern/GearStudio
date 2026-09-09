@@ -1,49 +1,69 @@
-extends TextureRect
+class_name SpriteDisplay extends TextureRect
 
 @export var pal_helper: PaletteEditorHelper
-@export var control_opaque_bg: CheckButton
-@export var control_pal_selection: Control
+@export var selection: PaletteSelection
+@export var sprite_index: SteppingSpinBox
 
-@onready var editor: SpriteEditor = owner
+var session: Session
+var object: BinObject
+var sprite_block: BinSpriteBlock
+var sprite: BinSprite
 
 
 func _ready() -> void:
-	editor.session.palette_changed.connect(load_palette.unbind(1))
-	editor.preview_outdated.connect(update)
-	#editor.sprite_changed.connect(update.unbind(1))
 	pal_helper.sprite_updated.connect(update)
-	control_opaque_bg.toggled.connect(on_opaque_bg_toggled)
-	control_pal_selection.selection_changed.connect(on_selection_changed)
+	selection.selection_changed.connect(on_selection_changed)
 	
+	session = owner.session
+	object = owner.object
+	
+	if owner is SpriteEditor:
+		owner.preview_outdated.connect(update)
+	
+	session.palette_changed.connect(load_palette.unbind(1))
+	sprite_index.value_changed.connect(set_sprite)
+	
+	if object is BinSpriteBlock:
+		sprite_block = object
+	if object is BinScriptable:
+		sprite_block = object.sprites
+	
+	set_sprite(0)
+
+
+func get_current_palette() -> PackedByteArray:
+	if object is BinScriptable && object.has_palettes():
+		return session.get_current_palette()
+	else:
+		return sprite.palette
+	
+
+func set_sprite(index: int) -> void:
+	index = clampi(index, 0, sprite_block.get_sprite_count() - 1)
+	sprite = sprite_block.get_sprite(index)
 	update()
 
 
 func update() -> void:
-	texture = editor.this_sprite.get_texture()
+	texture = sprite.get_texture()
 	load_palette()
 
 
 func load_palette() -> void:
 	(material as ShaderMaterial).set_shader_parameter(
-		"palette", editor.get_current_palette()
+		"palette", get_current_palette()
 	)
 
 
 func on_selection_changed() -> void:
 	(material as ShaderMaterial).set_shader_parameter(
-		"hover_index", control_pal_selection.hover
+		"hover_index", selection.hover
 	)
 	
 	(material as ShaderMaterial).set_shader_parameter(
-		"selecting_min", control_pal_selection.selecting_min
+		"selecting_min", selection.selecting_min
 	)
 	
 	(material as ShaderMaterial).set_shader_parameter(
-		"selecting_max", control_pal_selection.selecting_max
-	)
-
-
-func on_opaque_bg_toggled(enabled: bool) -> void:
-	(material as ShaderMaterial).set_shader_parameter(
-		"opaque_bg", enabled
+		"selecting_max", selection.selecting_max
 	)

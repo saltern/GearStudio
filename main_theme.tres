@@ -354,6 +354,24 @@ border_width_bottom = 1
 border_color = Color(0.7, 0.7, 0.7, 1)
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xx80s"]
+bg_color = Color(0.15127608, 0.15127608, 0.15127608, 1)
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qud4"]
+border_width_top = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_detail = 1
+anti_aliasing = false
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt75c"]
 bg_color = Color(0.18, 0.18, 0.18, 1)
 border_width_top = 1
@@ -507,6 +525,8 @@ PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_ny7gb")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_ny7gb")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_2uuvn")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_ny7gb")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_xx80s")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_3qud4")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_rt75c")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_jrioy")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_m4wsk")

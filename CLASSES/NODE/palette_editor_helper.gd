@@ -64,18 +64,9 @@ func get_color(index: int) -> Color:
 	return sprite.get_color(index)
 	
 	
-func set_color(color: Color) -> void:
-	var channels: Array[bool] = [true, true, true, true]
-	
-	if by_channel:
-		if color.r == last_color.r:
-			channels[0] = false
-		if color.g == last_color.g:
-			channels[1] = false
-		if color.b == last_color.b:
-			channels[2] = false
-		if color.a == last_color.a:
-			channels[3] = false
+func set_color(color: Color, channels: Array[bool]) -> void:
+	if !by_channel:
+		channels = [true, true, true, true]
 	
 	var selected_count: int = 0
 	
@@ -131,7 +122,7 @@ func set_color_commit(
 	if channels[Channel.ALPHA]:
 		to_color.a8 = color.a8
 	
-	target.set_color(index, to_color.r8, to_color.g8, to_color.b8, to_color.a8)
+	target.set_color(index, to_color)
 
 
 func copy() -> void:

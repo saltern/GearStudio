@@ -11,6 +11,7 @@ func _ready() -> void:
 		return
 	
 	max_value = editor.get_palette_count() - 1
+	session.palette_changed.connect(set_value_no_signal)
 
 
 func _value_changed(new_value: float) -> void:

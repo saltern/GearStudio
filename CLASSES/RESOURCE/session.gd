@@ -77,3 +77,7 @@ func set_palette(index: int) -> void:
 
 func get_palette(index: int) -> PackedByteArray:
 	return palettes.get_palette(index)
+
+
+func get_current_palette() -> PackedByteArray:
+	return get_palette(palette_index)

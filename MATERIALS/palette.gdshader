@@ -3,25 +3,41 @@
 shader_type canvas_item;
 #pragma disable_preprocessor
 
-uniform bool opaque_bg = false;
 uniform bool alpha_double = true;
+uniform bool reindex = false;
 uniform int hover_index = -1;
 uniform int selecting_min = -1;
 uniform int selecting_max = -1;
-uniform int[0x400]	palette;
+uniform int[0x400] palette;
+
+
+int transform_index(int index) {
+	if ((index & 0x10) != 0) {
+		if ((index & 8) == 0) {
+			index -= 8;
+		}
+	}
+	
+	else if ((index & 8) != 0) {
+		index += 8;
+	}
+	
+	return index;
+}
+
 
 void fragment() {
 	int index = int(COLOR.r * 256.00);
 	index = min(index, 255);
 
+	if (reindex) {
+		index = transform_index(index);
+	}
+
 	float alpha = float(palette[4 * index + 3]) / 255.00;
 
 	if (alpha_double) {
 		alpha = min(alpha * 2.0, 1.0);
-	}
-
-	if (index == 0 && opaque_bg) {
-		alpha = 1.0;
 	}
 
 	vec4 pal_color = vec4(

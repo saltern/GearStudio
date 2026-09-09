@@ -27,6 +27,7 @@ var selection_min: int = -1
 var selection_max: int = -1
 
 @export var pal_helper		: PaletteEditorHelper
+@export var tex_background	: Texture2D
 @export var tex_hover		: Texture2D
 @export var tex_select		: Texture2D
 
@@ -257,6 +258,14 @@ func draw_paste_at_cursor() -> void:
 		if this_index < 0 || this_index > color_count - 1:
 			continue
 		
+		# Background
+		draw_texture(
+			tex_background, Vector2(
+				TILE_SIZE * (this_index % COLUMNS),
+				TILE_SIZE * (this_index / COLUMNS),
+			)
+		)
+		
 		# Double alpha of preview color
 		var preview_color: Color = Clipboard.pal_data[current_color]
 		preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
@@ -288,6 +297,14 @@ func draw_paste_at_selection() -> void:
 			# Double alpha of preview color
 			var preview_color: Color = Clipboard.pal_data[current_color]
 			preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
+		
+			# Background
+			draw_texture(
+				tex_background, Vector2(
+					TILE_SIZE * (index % COLUMNS),
+					TILE_SIZE * (index / COLUMNS),
+				)
+			)
 		
 			# Color preview
 			draw_rect(

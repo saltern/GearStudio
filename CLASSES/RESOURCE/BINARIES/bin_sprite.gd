@@ -92,7 +92,6 @@ const IMAGE_EMPTY_H			: int = 1
 const IMAGE_MIPMAPS			: bool = false
 const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 
-
 # Variables
 @export var mode			: Mode
 @export var clut			: CLUT
@@ -137,6 +136,7 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		pixels = value
 
 # Not serialized
+var old_clut		: CLUT = CLUT.FULL
 var image			: Image
 var texture			: ImageTexture
 
@@ -530,19 +530,14 @@ func get_color(index: int) -> Color:
 		)
 
 
-func set_color(index: int, r: int, g: int, b: int, a: int) -> void:
+func set_color(index: int, color: Color) -> void:
 	if index >= get_color_count():
 		return
 	
-	palette[COLOR_SIZE * index + 0] = r
-	palette[COLOR_SIZE * index + 1] = g
-	palette[COLOR_SIZE * index + 2] = b
-	palette[COLOR_SIZE * index + 3] = a
-
-
-func purge_palette() -> void:
-	palette.clear()
-	clut = CLUT.NONE
+	palette[COLOR_SIZE * index + 0] = color.r8
+	palette[COLOR_SIZE * index + 1] = color.g8
+	palette[COLOR_SIZE * index + 2] = color.b8
+	palette[COLOR_SIZE * index + 3] = color.a8
 
 
 func palette_halve_alpha() -> void:
@@ -590,10 +585,11 @@ func flip_v() -> void:
 
 
 static func transform_index(index: int) -> int:
-	if ((index / 8) + 2) % 4 == 0:
-		return index - 8
+	if index & 0x10:
+		if index & 0x8 == 0:
+			return index - 8
 	
-	elif ((index / 8) + 3) % 4 == 0:
+	elif index & 0x8:
 		return index + 8
 	
 	return index
@@ -630,7 +626,7 @@ func reindex_pixels() -> void:
 	if bit_depth == DEPTH_4:
 		return
 	
-	pixels = transform_index_array(pixels)
+	pixels = SpriteTransformer.transform_pixels(pixels)
 	update_preview()
 
 
@@ -638,7 +634,13 @@ func reindex_palette() -> void:
 	if bit_depth == DEPTH_4 || clut == CLUT.NONE:
 		return
 	
-	palette = transform_rgba_array(palette)
+	palette = SpriteTransformer.transform_palette(palette)
+
+
+func cap_pixels() -> void:
+	var max_color: int = get_color_count(true) - 1
+	for p: int in pixels.size():
+		pixels[p] = mini(pixels[p], max_color)
 
 
 func toggle_bit_depth() -> void:
@@ -647,11 +649,7 @@ func toggle_bit_depth() -> void:
 			bit_depth = DEPTH_8
 		DEPTH_8:
 			bit_depth = DEPTH_4
-			
-			var max_color: int = get_color_count(true)
-			
-			for p: int in pixels.size():
-				pixels[p] = mini(pixels[p], max_color - 1)
+			cap_pixels()
 	
 	palette.resize(COLOR_SIZE * get_color_count())
 	update_preview()
@@ -665,5 +663,16 @@ func toggle_clut_size() -> void:
 			clut = CLUT.FULL
 		CLUT.FULL:
 			clut = CLUT.HALF
+			cap_pixels()
 	
 	palette.resize(COLOR_SIZE * get_color_count())
+
+
+func toggle_clut() -> void:
+	match clut:
+		CLUT.NONE:
+			clut = old_clut
+		_:
+			old_clut = clut
+			clut = CLUT.NONE
+			update_preview()

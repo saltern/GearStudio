@@ -20,6 +20,12 @@ func update() -> void:
 	var sprite: BinSprite = editor.this_sprite
 	var color_count: int = sprite.get_color_count()
 	
+	if color_count == 0:
+		hide()
+		return
+	
+	show()
+	
 	var rows: int = color_count / COLUMNS
 	custom_minimum_size.y = TILE_SIZE * rows + 1
 	

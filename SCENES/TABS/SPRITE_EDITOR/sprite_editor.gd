@@ -65,6 +65,7 @@ func initialize(p_session: Session, p_object: BinObject) -> void:
 	if object is BinScriptable:
 		mode = Mode.SCRIPTABLE
 		scriptable = object
+		sprite_block = scriptable.sprites
 	else:
 		mode = Mode.SPRITE_BLOCK
 		sprite_block = object
@@ -80,7 +81,7 @@ func notify_preview_outdated() -> void:
 
 #region Undo/Redo
 func register_action_history() -> void:
-	if !visible:
+	if !is_visible_in_tree():
 		return
 	
 	ActionHistory.set_undo_redo(undo_redo)
@@ -117,7 +118,8 @@ func redo() -> void:
 
 
 func get_sprite_count() -> int:
-	return object.get_sprite_count()
+	#return object.get_sprite_count()
+	return sprite_block.get_sprite_count()
 
 
 func set_sprite(index: int) -> void:
@@ -125,7 +127,8 @@ func set_sprite(index: int) -> void:
 		return
 	
 	sprite_index = index
-	this_sprite = object.get_sprite(index)
+	#this_sprite = object.get_sprite(index)
+	this_sprite = sprite_block.get_sprite(index)
 	
 	pal_helper.set_sprite(this_sprite)
 	pal_helper.edit_index = index
@@ -133,6 +136,22 @@ func set_sprite(index: int) -> void:
 	notify_preview_outdated()
 	notify_info_outdated()
 	sprite_changed.emit()
+
+
+func get_sprite(index: int) -> BinSprite:
+	if index < get_sprite_count():
+		#return object.get_sprite(index)
+		return sprite_block.get_sprite(index)
+	else:
+		return null
+
+
+func get_sprite_block() -> BinSpriteBlock:
+	match mode:
+		Mode.SPRITE_BLOCK:
+			return sprite_block
+		_:
+			return scriptable.sprites
 
 
 func force_sprite(index: int) -> void:

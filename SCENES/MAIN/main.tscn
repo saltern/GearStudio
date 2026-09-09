@@ -369,6 +369,7 @@ script = ExtResource("3_j7c6i")
 
 [node name="load_dialog_bin" type="FileDialog" parent="." unique_id=8101890]
 auto_translate_mode = 1
+oversampling_override = 1.0
 title = "Open a File"
 initial_position = 2
 size = Vector2i(600, 400)
@@ -377,6 +378,7 @@ file_mode = 0
 access = 2
 filters = PackedStringArray("*.bin,*.lot;Binary files")
 use_native_dialog = true
+deleting_enabled = false
 script = ExtResource("4_csxth")
 
 [node name="save_as_dialog" type="FileDialog" parent="." unique_id=1646546565]

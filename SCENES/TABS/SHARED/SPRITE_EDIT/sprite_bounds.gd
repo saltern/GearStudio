@@ -1,11 +1,6 @@
 extends ColorRect
 
-var draw_bounds: bool = true
-var bounds: Rect2i
-
 @export var display_toggle: CheckButton
-
-@onready var sprite_edit: SpriteEdit = get_owner()
 
 
 func _ready() -> void:
