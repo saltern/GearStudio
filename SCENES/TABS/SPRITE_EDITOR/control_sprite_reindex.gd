@@ -6,10 +6,6 @@ extends Button
 
 
 func _pressed() -> void:
-	if Input.is_key_pressed(KEY_SHIFT):
-		batch_dialog.show()
-		return
-	
 	if editor.this_sprite.bit_depth == BinSprite.DEPTH_4:
 		Status.set_status(tr("STATUS_SPRITE_CANNOT_REINDEX"))
 		return
