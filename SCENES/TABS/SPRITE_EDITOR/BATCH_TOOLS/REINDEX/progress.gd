@@ -23,6 +23,9 @@ func progress() -> void:
 	label_current.text = "%d" % current
 	progress_bar.value = current
 	
+	if current >= progress_bar.max_value:
+		finish()
+	
 
 func finish() -> void:
 	hide()

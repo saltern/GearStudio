@@ -3,6 +3,7 @@ class_name SpriteDisplay extends TextureRect
 @export var pal_helper: PaletteEditorHelper
 @export var selection: PaletteSelection
 @export var sprite_index: SteppingSpinBox
+@export var use_true_texture: bool = false
 
 var session: Session
 var object: BinObject
@@ -10,6 +11,9 @@ var sprite_block: BinSpriteBlock
 var sprite: BinSprite
 
 var reindex: bool = false
+
+var force_4bpp: bool = false
+var force_8bpp: bool = false
 
 
 func _ready() -> void:
@@ -48,13 +52,42 @@ func set_sprite(index: int) -> void:
 
 func set_reindex(enabled: bool) -> void:
 	reindex = enabled
-	reindex_check()
+	check_reindex()
+
+
+func set_depth_4(enabled: bool) -> void:
+	force_4bpp = enabled
+	
+	if enabled:
+		force_8bpp = false
+	
+	check_bpp()
+
+
+func set_depth_8(enabled: bool) -> void:
+	force_8bpp = enabled
+	
+	if enabled:
+		force_4bpp = false
+	
+	check_bpp()
+
+
+func set_half_clut(enabled: bool) -> void:
+	(material as ShaderMaterial).set_shader_parameter(
+		"half_clut", enabled
+	)
 
 
 func update() -> void:
-	texture = sprite.get_texture()
+	if use_true_texture:
+		texture = sprite.get_true_texture()
+	else:
+		texture = sprite.get_texture()
+	
 	load_palette()
-	reindex_check()
+	check_reindex()
+	check_bpp()
 
 
 func load_palette() -> void:
@@ -77,8 +110,27 @@ func on_selection_changed() -> void:
 	)
 
 
-func reindex_check() -> void:
+func check_reindex() -> void:
+	if use_true_texture:
+		material.set_shader_parameter("reindex", reindex)
+		return
+	
 	if sprite.bit_depth == BinSprite.DEPTH_4:
 		material.set_shader_parameter("reindex", false)
 	else:
 		material.set_shader_parameter("reindex", reindex)
+
+
+func check_bpp() -> void:
+	(material as ShaderMaterial).set_shader_parameter(
+		"force_depth_4", force_4bpp
+	)
+	(material as ShaderMaterial).set_shader_parameter(
+		"force_depth_8", force_8bpp
+	)
+	(material as ShaderMaterial).set_shader_parameter(
+		"is_depth_4", sprite.bit_depth == BinSprite.DEPTH_4
+	)
+	(material as ShaderMaterial).set_shader_parameter(
+		"is_depth_8", sprite.bit_depth == BinSprite.DEPTH_8
+	)

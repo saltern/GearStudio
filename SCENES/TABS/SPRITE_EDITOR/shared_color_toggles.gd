@@ -42,12 +42,6 @@ func _pressed() -> void:
 		Property.CLUT:
 			undo_redo.add_do_method(sprite.toggle_clut)
 			undo_redo.add_undo_method(sprite.toggle_clut)
-	
-	#var old_palette: PackedByteArray = sprite.palette.duplicate()
-	#undo_redo.add_undo_method(restore_palette.bind(sprite, old_palette))
-	
-	#var old_pixels: PackedByteArray = sprite.pixels.duplicate()
-	#undo_redo.add_undo_method(restore_pixels.bind(sprite, old_pixels))
 
 	undo_redo.add_do_method(sprite.update_preview)
 	undo_redo.add_do_method(editor.notify_info_outdated)
@@ -59,12 +53,3 @@ func _pressed() -> void:
 	
 	editor.status_register_action(action_text)
 	undo_redo.commit_action()
-
-
-# I don't necessarily like this, but it's a pass-by-reference world out here.
-func restore_pixels(sprite: BinSprite, pixels: PackedByteArray) -> void:
-	sprite.pixels = pixels.duplicate()
-
-
-func restore_palette(sprite: BinSprite, palette: PackedByteArray) -> void:
-	sprite.palette = palette.duplicate()

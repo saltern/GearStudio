@@ -1,4 +1,3 @@
-
 extends "res://SCENES/TABS/SHARED/basic_dialog.gd"
 
 signal finished
@@ -41,6 +40,12 @@ var depth_setting		: DepthSetting = DepthSetting.NO_CHANGE
 var clut_setting		: CLUTSetting = CLUTSetting.NO_CHANGE
 var palette				: PackedByteArray = []
 
+var depth_memory		: PackedInt32Array
+var clut_memory			: Dictionary[int, CLUTSetting]
+
+var task_start			: int
+var task_count			: int
+
 @onready var editor				: SpriteEditor	= owner
 @onready var undo_redo			: UndoRedo		= editor.undo_redo
 
@@ -58,6 +63,9 @@ func _ready() -> void:
 	
 	action_flip_h.toggled.connect(toggle_flip_h)
 	action_flip_v.toggled.connect(toggle_flip_v)
+	
+	action_bit_depth.item_selected.connect(set_depth_mode)
+	action_clut_size.item_selected.connect(set_clut_mode)
 	
 	apply_button.pressed.connect(apply_pressed)
 	
@@ -92,21 +100,89 @@ func toggle_flip_v(toggled_on: bool) -> void:
 	preview.set_flip_v(flip_v)
 
 
-func apply_pressed() -> void:
+func set_depth_mode(new_mode: DepthSetting) -> void:
+	depth_setting = new_mode
 	
+	match depth_setting:
+		DepthSetting.NO_CHANGE:
+			preview.set_depth_4(false)
+			preview.set_depth_8(false)
+		DepthSetting.SET_TO_4:
+			preview.set_depth_4(true)
+		_:
+			preview.set_depth_8(true)
+
+
+func set_clut_mode(new_mode: CLUTSetting) -> void:
+	clut_setting = new_mode
+	
+	preview.show()
+	
+	match clut_setting:
+		CLUTSetting.REMOVE:
+			preview.hide()
+		CLUTSetting.SET_TO_HALF:
+			preview.set_half_clut(true)
+		CLUTSetting.SET_TO_FULL, CLUTSetting.NO_CHANGE:
+			preview.set_half_clut(false)
+
+
+func apply_pressed() -> void:
 	var action_text: String = "Batch process sprites #%s - #%s" % [from, to]
 	
 	undo_redo.create_action(action_text)
 	editor.status_register_action(action_text)
 	
+	# Set up depth memory
+	var new_depth_memory: PackedInt32Array = []
+	var new_clut_memory: Dictionary[int, CLUTSetting] = {}
+	
+	for i: int in range(from, to + 1):
+		var sprite: BinSprite = editor.get_sprite(i)
+		
+		match depth_setting:
+			DepthSetting.SET_TO_4:
+				if sprite.bit_depth == BinSprite.DEPTH_8:
+					new_depth_memory.append(i)
+			DepthSetting.SET_TO_8:
+				if sprite.bit_depth == BinSprite.DEPTH_4:
+					new_depth_memory.append(i)
+		
+		if clut_setting != CLUTSetting.NO_CHANGE:
+			match sprite.clut:
+				BinSprite.CLUT.NONE:
+					if clut_setting != CLUTSetting.REMOVE:
+						new_clut_memory[i] = CLUTSetting.REMOVE
+				BinSprite.CLUT.HALF:
+					if clut_setting != CLUTSetting.SET_TO_HALF:
+						new_clut_memory[i] = CLUTSetting.SET_TO_HALF
+				BinSprite.CLUT.FULL:
+					if clut_setting != CLUTSetting.SET_TO_FULL:
+						new_clut_memory[i] = CLUTSetting.SET_TO_FULL
+		
+	undo_redo.add_do_property(self, "depth_memory", new_depth_memory)
+	undo_redo.add_do_property(self, "clut_memory", new_clut_memory)
+	undo_redo.add_undo_property(self, "depth_memory", new_depth_memory)
+	undo_redo.add_undo_property(self, "clut_memory", new_clut_memory)
+	
+	# Set up processes
 	undo_redo.add_do_method(
 		process_thread.bind(
-			from, to, reindex_pixels, reindex_palettes, flip_h, flip_v
+			false,
+			from, to,
+			reindex_pixels, reindex_palettes,
+			flip_h, flip_v,
+			depth_setting, clut_setting,
 		)
 	)
+	
 	undo_redo.add_undo_method(
 		process_thread.bind(
-			from, to, reindex_pixels, reindex_palettes, flip_h, flip_v
+			true,
+			from, to,
+			reindex_pixels, reindex_palettes,
+			flip_h, flip_v,
+			depth_setting, clut_setting,
 		)
 	)
 	
@@ -114,29 +190,93 @@ func apply_pressed() -> void:
 
 
 func process_thread(
+	p_undo: bool,
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
-	p_flip_h: bool, p_flip_v: bool
+	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
+	p_clut_setting: CLUTSetting,
 ) -> void:
-	WorkerThreadPool.add_task(
-		process.bind(p_from, p_to, p_pixels, p_palettes, p_flip_h, p_flip_v)
-	)
+	if !(p_pixels || p_palettes || p_flip_h || p_flip_v):
+		if (
+			p_depth == DepthSetting.NO_CHANGE &&
+			p_clut_setting == CLUTSetting.NO_CHANGE
+		):
+			return
+	
+	progress_dialog.start.call_deferred(p_from, p_to)
+	
+	# Multithreading (min 1, max 4 threads)
+	task_count = mini(p_to - p_from + 1, 4)
+	task_start = Time.get_ticks_usec()
+	
+	for i: int in task_count:
+		WorkerThreadPool.add_task(
+			process.bind(
+				task_count, i, p_undo,
+				p_from, p_to,
+				p_pixels, p_palettes,
+				p_flip_h, p_flip_v,
+				p_depth, p_clut_setting
+			)
+		)
 
 
 func process(
+	thread_count: int, thread_number: int, p_undo: bool, 
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
-	p_flip_h: bool, p_flip_v: bool
+	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
+	p_clut: CLUTSetting,
 ) -> void:
-	progress_dialog.start.call_deferred(from, to)
 	
 	var sprite_block: BinSpriteBlock = editor.sprite_block
-
-	for i: int in range(p_from, p_to + 1):
+	
+	var n_from: int = p_from
+	var n_to: int = p_to
+	
+	while n_from % thread_count != thread_number:
+		n_from += 1
+	while n_to % thread_count != thread_number:
+		n_to -= 1
+	
+	for i: int in range(n_from, n_to + 1, thread_count):
 		var sprite: BinSprite = sprite_block.get_sprite(i)
+		var depth: DepthSetting = DepthSetting.NO_CHANGE
+		var clut: CLUTSetting = CLUTSetting.NO_CHANGE
 		
+		if i in depth_memory:
+			depth = p_depth
+			
+			if p_undo:
+				if depth == DepthSetting.SET_TO_4:
+					depth = DepthSetting.SET_TO_8
+				else:
+					depth = DepthSetting.SET_TO_4
+		
+		if i in clut_memory:
+			if p_undo:
+				clut = clut_memory[i]
+			else:
+				clut = p_clut
+		
+		if clut == CLUTSetting.SET_TO_FULL:
+			sprite.set_clut_full()
+		
+		if depth == DepthSetting.SET_TO_8:
+			sprite.set_bit_depth_8()
+			
 		if p_pixels:
 			sprite.reindex_pixels(false)
 		if p_palettes:
 			sprite.reindex_palette()
+		
+		if depth == DepthSetting.SET_TO_4:
+			sprite.set_bit_depth_4()
+		
+		match clut:
+			CLUTSetting.REMOVE:
+				sprite.set_clut_none()
+			CLUTSetting.SET_TO_HALF:
+				sprite.set_clut_half()
+		
 		if p_flip_h && p_flip_v:
 			sprite.flip_both(false)
 		elif p_flip_h:
@@ -145,23 +285,18 @@ func process(
 			sprite.flip_v(false)
 		
 		sprite.update_preview()
-		
 		progress_dialog.progress.call_deferred()
 	
 	var task_id: int = WorkerThreadPool.get_caller_task_id()
 	finished.emit.call_deferred(task_id)
-	progress_dialog.finish.call_deferred()
 
 
 func on_finished(task_id: int) -> void:
 	WorkerThreadPool.wait_for_task_completion(task_id)
-	editor.notify_preview_outdated()
-
-
-# I don't necessarily like this, but it's a pass-by-reference world out here.
-func restore_pixels(sprite: BinSprite, pixels: PackedByteArray) -> void:
-	sprite.pixels = pixels.duplicate()
-
-
-func restore_palette(sprite: BinSprite, pal: PackedByteArray) -> void:
-	sprite.palette = pal.duplicate()
+	task_count -= 1
+	
+	if task_count == 0:
+		print("Done in: %s" % [Time.get_ticks_usec() - task_start])
+		editor.notify_info_outdated()
+		editor.notify_preview_outdated()
+		progress_dialog.finish.call_deferred()

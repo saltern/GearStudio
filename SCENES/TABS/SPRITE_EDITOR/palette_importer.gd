@@ -51,5 +51,5 @@ func import_act(path: String) -> void:
 		colors[4 * index + 1] = file.get_8()
 		colors[4 * index + 2] = file.get_8()
 	
-	colors = BinSprite.transform_rgba_array(colors)
+	colors = SpriteTransformer.transform_palette(colors)
 	pal_helper.import(colors)
