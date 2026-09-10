@@ -1,4 +1,4 @@
-extends CheckButton
+extends Control
 
 @onready var editor: SpriteEditor = owner
 

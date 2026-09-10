@@ -69,6 +69,10 @@ func get_sprite_count() -> int:
 	return sprites.size()
 
 
+func set_sprite(index: int, sprite: BinSprite) -> void:
+	sprites[index] = sprite
+
+
 func get_sprite(index: int) -> BinSprite:
 	return sprites[index]
 

@@ -132,13 +132,15 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		palette = value
 	
 @export var pixels			: PackedByteArray:
+	get:
+		return cap_pixels(pixels)
 	set(value):
 		pixels = value
 
 # Not serialized
-var old_clut		: CLUT = CLUT.FULL
-var image			: Image
-var texture			: ImageTexture
+@export var old_clut		: CLUT = CLUT.FULL
+@export var image			: Image
+@export var texture			: ImageTexture
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
@@ -565,6 +567,12 @@ func palette_make_opaque() -> void:
 		palette[COLOR_SIZE * index + 3] = 0xFF
 
 
+func palette_resize(input_palette: PackedByteArray) -> PackedByteArray:
+	var result: PackedByteArray = input_palette.duplicate()
+	result.resize(COLOR_SIZE * get_color_count())
+	return result
+
+
 func get_pixel(x: int, y: int) -> int:
 	x = clampi(x, 0, width - 1)
 	y = clampi(y, 0, height - 1)
@@ -572,16 +580,22 @@ func get_pixel(x: int, y: int) -> int:
 	return pixels[y * height + x]
 
 
-func flip_h() -> void:
-	image.flip_x()
-	pixels = image.get_data()
-	update_texture()
+func flip_h(update: bool = true) -> void:
+	pixels = SpriteTransformer.flip_horz(pixels, width)
+	if update:
+		update_preview()
 
 
-func flip_v() -> void:
-	image.flip_y()
-	pixels = image.get_data()
-	texture = ImageTexture.create_from_image(image)
+func flip_v(update: bool = true) -> void:
+	pixels = SpriteTransformer.flip_vert(pixels, width)
+	if update:
+		update_preview()
+
+
+func flip_both(update: bool = true) -> void:
+	pixels = SpriteTransformer.flip_both(pixels)
+	if update:
+		update_preview()
 
 
 static func transform_index(index: int) -> int:
@@ -622,12 +636,14 @@ static func transform_rgba_array(array: PackedByteArray) -> PackedByteArray:
 	return temp_array
 
 
-func reindex_pixels() -> void:
+func reindex_pixels(update: bool = true) -> void:
 	if bit_depth == DEPTH_4:
 		return
 	
 	pixels = SpriteTransformer.transform_pixels(pixels)
-	update_preview()
+	
+	if update:
+		update_preview()
 
 
 func reindex_palette() -> void:
@@ -637,22 +653,34 @@ func reindex_palette() -> void:
 	palette = SpriteTransformer.transform_palette(palette)
 
 
-func cap_pixels() -> void:
+func cap_pixels(input_pixels: PackedByteArray) -> PackedByteArray:
 	var max_color: int = get_color_count(true) - 1
-	for p: int in pixels.size():
-		pixels[p] = mini(pixels[p], max_color)
+	var new_pixels: PackedByteArray = []
+	for p: int in input_pixels:
+		new_pixels.append(mini(p, max_color))
+	
+	return new_pixels
+
+
+func set_bit_depth_4(update: bool = true) -> void:
+	bit_depth = DEPTH_4
+	#pixels = cap_pixels(pixels)
+	#palette = palette_resize(palette)
+	if update:
+		update_preview()
+
+
+func set_bit_depth_8() -> void:
+	bit_depth = DEPTH_8
+	#palette = palette_resize(palette)
 
 
 func toggle_bit_depth() -> void:
 	match bit_depth:
 		DEPTH_4:
-			bit_depth = DEPTH_8
+			set_bit_depth_8()
 		DEPTH_8:
-			bit_depth = DEPTH_4
-			cap_pixels()
-	
-	palette.resize(COLOR_SIZE * get_color_count())
-	update_preview()
+			set_bit_depth_4()
 
 
 func toggle_clut_size() -> void:
@@ -663,9 +691,9 @@ func toggle_clut_size() -> void:
 			clut = CLUT.FULL
 		CLUT.FULL:
 			clut = CLUT.HALF
-			cap_pixels()
+			pixels = cap_pixels(pixels)
 	
-	palette.resize(COLOR_SIZE * get_color_count())
+	#palette = palette_resize(palette)
 
 
 func toggle_clut() -> void:

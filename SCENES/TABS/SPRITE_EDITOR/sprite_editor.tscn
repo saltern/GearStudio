@@ -9,15 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://dq2o04r08a8px" path="res://ICONS/flip_h.svg" id="3_eehnk"]
 [ext_resource type="Texture2D" uid="uid://dyfhm3sm3f8ci" path="res://ICONS/export.svg" id="3_k44mp"]
 [ext_resource type="Texture2D" uid="uid://cl1laklxoq4fx" path="res://ICONS/flip_v.svg" id="4_7pv4t"]
+[ext_resource type="Script" uid="uid://b7jvyayboctal" path="res://SCENES/TABS/SPRITE_EDITOR/MENU/tools.gd" id="4_j87ms"]
 [ext_resource type="Texture2D" uid="uid://rd6ydtspghqt" path="res://ICONS/cross.svg" id="4_k8l8e"]
 [ext_resource type="Texture2D" uid="uid://b1w8dm0hjvb60" path="res://ICONS/reindex.svg" id="4_smuy5"]
 [ext_resource type="Texture2D" uid="uid://bdqplu6ec5fte" path="res://ICONS/edit.svg" id="5_dd2h3"]
 [ext_resource type="Script" uid="uid://6xv0ecejr1es" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_reindex.gd" id="6_goolq"]
 [ext_resource type="Script" uid="uid://bkqpe8e8nt6vy" path="res://SCENES/TABS/SPRITE_EDITOR/shared_color_toggles.gd" id="8_0pyps"]
 [ext_resource type="Texture2D" uid="uid://dish6b8boosur" path="res://ICONS/alternate_bit_depth.svg" id="8_jjeie"]
-[ext_resource type="Script" uid="uid://camaj8na8faoq" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/main.gd" id="8_tgars"]
-[ext_resource type="Script" uid="uid://v0xnc55fx27l" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/what_sprites.gd" id="9_efox0"]
-[ext_resource type="Script" uid="uid://cgo6vcewet6dx" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/what_palettes.gd" id="9_eqjkf"]
+[ext_resource type="Script" uid="uid://camaj8na8faoq" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/batch_processing.gd" id="8_tgars"]
+[ext_resource type="Script" uid="uid://cgo6vcewet6dx" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/remove_if_player.gd" id="9_eqjkf"]
 [ext_resource type="Script" uid="uid://s7nn3gh7q4yf" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_flip.gd" id="9_iyd73"]
 [ext_resource type="Script" uid="uid://cbadot1mkkh7p" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/sprite_range.gd" id="9_qq2li"]
 [ext_resource type="Texture2D" uid="uid://bsihkepltih0d" path="res://ICONS/half.svg" id="10_hsdhq"]
@@ -121,7 +121,49 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
+[node name="menu" type="MenuBar" parent="VBoxContainer/content/control_panel" unique_id=2011268830]
+layout_mode = 2
+
+[node name="Sprites" type="PopupMenu" parent="VBoxContainer/content/control_panel/menu" unique_id=1932808088]
+oversampling_override = 1.0
+size = Vector2i(183, 100)
+hide_on_checkable_item_selection = false
+item_count = 3
+item_0/text = "Import..."
+item_0/id = 0
+item_1/text = "Export..."
+item_1/id = 1
+item_2/text = "Delete..."
+item_2/id = 2
+
+[node name="Preview" type="PopupMenu" parent="VBoxContainer/content/control_panel/menu" unique_id=1596363992 node_paths=PackedStringArray("sprite_background")]
+oversampling_override = 1.0
+size = Vector2i(183, 100)
+hide_on_checkable_item_selection = false
+item_count = 1
+item_0/text = "Solid background"
+item_0/checkable = 1
+item_0/id = 0
+script = ExtResource("46_eucjh")
+sprite_background = NodePath("../../../preview/borders/clipper/visualizer/sprite/bounds")
+
+[node name="Tools" type="PopupMenu" parent="VBoxContainer/content/control_panel/menu" unique_id=844570232 node_paths=PackedStringArray("batch_dialog")]
+oversampling_override = 1.0
+size = Vector2i(183, 100)
+hide_on_checkable_item_selection = false
+item_count = 1
+item_0/text = "Batch processing..."
+item_0/id = 0
+script = ExtResource("4_j87ms")
+batch_dialog = NodePath("../../editors/content/sprite/content/tools/batch")
+
+[node name="Control" type="Control" parent="VBoxContainer/content/control_panel" unique_id=1691163532]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
 [node name="buttons" type="HBoxContainer" parent="VBoxContainer/content/control_panel" unique_id=876973303]
+visible = false
 layout_mode = 2
 
 [node name="import" type="Button" parent="VBoxContainer/content/control_panel/buttons" unique_id=1711564300]
@@ -232,269 +274,7 @@ tooltip_text = "Reindex"
 icon = ExtResource("4_smuy5")
 icon_alignment = 1
 script = ExtResource("6_goolq")
-batch_dialog = NodePath("batch")
-
-[node name="batch" type="Window" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex" unique_id=721382806 node_paths=PackedStringArray("what_sprites", "what_palettes", "range_from", "range_to", "apply_button", "preview", "progress_dialog")]
-oversampling_override = 1.0
-title = "Batch reindex"
-initial_position = 2
-size = Vector2i(800, 600)
-visible = false
-transient = true
-exclusive = true
-script = ExtResource("8_tgars")
-what_sprites = NodePath("margin/content/controls/what/content/sprites")
-what_palettes = NodePath("margin/content/controls/what/content/palettes")
-range_from = NodePath("margin/content/controls/range/content/from/value")
-range_to = NodePath("margin/content/controls/range/content/to/value")
-apply_button = NodePath("margin/content/controls/apply")
-preview = NodePath("margin/content/preview/borders/clipper/visualizer/sprite")
-progress_dialog = NodePath("../batch_progress")
-
-[node name="margin" type="MarginContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch" unique_id=1491229970]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="content" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin" unique_id=2055656270]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="controls" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content" unique_id=1002334642]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-
-[node name="what" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls" unique_id=1131704608]
-layout_mode = 2
-title = "Action"
-
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/what" unique_id=1037233784]
-layout_mode = 2
-
-[node name="sprites" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/what/content" unique_id=611228065]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "Reindex sprites"
-script = ExtResource("9_efox0")
-
-[node name="palettes" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/what/content" unique_id=1382322894]
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-text = "Reindex palettes"
-script = ExtResource("9_eqjkf")
-
-[node name="range" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls" unique_id=71351395]
-layout_mode = 2
-title = "Range"
-
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range" unique_id=681350203]
-layout_mode = 2
-
-[node name="from" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content" unique_id=625651163]
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content/from" unique_id=1018507658]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "From sprite"
-
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content/from" unique_id=370055920 node_paths=PackedStringArray("limiter_max")]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("9_qq2li")
-limiter_max = NodePath("../../to/value")
-metadata/_custom_type_script = "uid://ojsjmxp21twu"
-
-[node name="to" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content" unique_id=105087510]
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content/to" unique_id=155024808]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "To sprite"
-
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("limiter_min")]
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("9_qq2li")
-limiter_min = NodePath("../../from/value")
-metadata/_custom_type_script = "uid://ojsjmxp21twu"
-
-[node name="apply" type="Button" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/controls" unique_id=452925605]
-layout_mode = 2
-size_flags_vertical = 10
-text = "Apply"
-
-[node name="separator" type="VSeparator" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content" unique_id=1321672322]
-layout_mode = 2
-
-[node name="preview" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content" unique_id=1094255727]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview" unique_id=1387901447]
-layout_mode = 2
-
-[node name="sprite" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content" unique_id=1327038868]
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content/sprite" unique_id=1078505712]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Preview sprite"
-
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content/sprite" unique_id=577233468 node_paths=PackedStringArray("limiter_min", "limiter_max")]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-script = ExtResource("2_hsdhq")
-limiter_min = NodePath("../../../../controls/range/content/from/value")
-limiter_max = NodePath("../../../../controls/range/content/to/value")
-metadata/_custom_type_script = "uid://ojsjmxp21twu"
-
-[node name="palette" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content" unique_id=2127990584]
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content/palette" unique_id=1502033227]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Preview palette"
-
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/content/palette" unique_id=199712138]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-script = ExtResource("3_d0clq")
-metadata/_custom_type_script = "uid://ojsjmxp21twu"
-
-[node name="borders" type="PanelContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview" unique_id=322888087]
-clip_contents = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_gv0qh")
-
-[node name="clipper" type="PanelContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/borders" unique_id=618799873 node_paths=PackedStringArray("visualizer")]
-clip_contents = true
-layout_mode = 2
-script = ExtResource("21_27fn0")
-visualizer = NodePath("visualizer")
-
-[node name="visualizer" type="Node2D" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/borders/clipper" unique_id=1292197253]
-position = Vector2(471, 337)
-script = ExtResource("22_8f7uu")
-
-[node name="background_a" type="ColorRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1410329678]
-texture_filter = 1
-custom_minimum_size = Vector2(3000, 3000)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1500.0
-offset_top = -1500.0
-offset_right = 1500.0
-offset_bottom = 1500.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.376471, 0.376471, 0.376471, 1)
-script = ExtResource("39_rkkj2")
-metadata/_edit_lock_ = true
-
-[node name="background_b" type="TextureRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/borders/clipper/visualizer/background_a" unique_id=892679044]
-modulate = Color(0.25098, 0.25098, 0.25098, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("13_eehnk")
-stretch_mode = 1
-script = ExtResource("41_fscsg")
-metadata/_edit_lock_ = true
-
-[node name="sprite" type="TextureRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1719155773 node_paths=PackedStringArray("pal_helper", "selection", "sprite_index")]
-texture_filter = 1
-material = SubResource("ShaderMaterial_efox0")
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("17_smuy5")
-pal_helper = NodePath("../../../../../../../../../../../../../../../../../PaletteEditorHelper")
-selection = NodePath("../../../../../../../../../../../../palette/content/palette_grid/selection_manager")
-sprite_index = NodePath("../../../../content/sprite/value")
-
-[node name="batch_progress" type="Window" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex" unique_id=68937049 node_paths=PackedStringArray("label_current", "label_max", "progress_bar")]
-oversampling_override = 1.0
-title = "PLEASE_WAIT"
-initial_position = 2
-size = Vector2i(350, 80)
-visible = false
-exclusive = true
-unresizable = true
-always_on_top = true
-minimize_disabled = true
-maximize_disabled = true
-force_native = true
-script = ExtResource("17_qq2li")
-label_current = NodePath("margin/content/items/current")
-label_max = NodePath("margin/content/items/out_of")
-progress_bar = NodePath("margin/content/bar")
-
-[node name="margin" type="MarginContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress" unique_id=1220883376]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin" unique_id=570744975]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 12
-
-[node name="items" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content" unique_id=1163200286]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="action" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content/items" unique_id=77389003]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Reindexing:"
-
-[node name="current" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content/items" unique_id=2060159289]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "0"
-
-[node name="slash" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content/items" unique_id=382394113]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "/"
-
-[node name="out_of" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content/items" unique_id=1484491752]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "256"
-
-[node name="bar" type="ProgressBar" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/reindex/batch_progress/margin/content" unique_id=65323571]
-layout_mode = 2
-value = 50.0
-show_percentage = false
+batch_dialog = NodePath("../batch")
 
 [node name="toggle_depth" type="Button" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools" unique_id=777016767]
 layout_mode = 2
@@ -520,6 +300,356 @@ icon = ExtResource("4_7pv4t")
 icon_alignment = 1
 script = ExtResource("9_iyd73")
 mode = 1
+
+[node name="batch" type="Window" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools" unique_id=721382806 node_paths=PackedStringArray("range_from", "range_to", "action_sprites", "action_palettes", "action_flip_h", "action_flip_v", "apply_button", "preview", "progress_dialog")]
+oversampling_override = 1.0
+title = "Batch processing"
+initial_position = 2
+size = Vector2i(800, 600)
+visible = false
+transient = true
+exclusive = true
+script = ExtResource("8_tgars")
+range_from = NodePath("margin/content/controls/range/content/from/value")
+range_to = NodePath("margin/content/controls/range/content/to/value")
+action_sprites = NodePath("margin/content/controls/actions/content/reindex_pixels")
+action_palettes = NodePath("margin/content/controls/actions/content/reindex_palettes")
+action_flip_h = NodePath("margin/content/controls/actions/content/flip_h")
+action_flip_v = NodePath("margin/content/controls/actions/content/flip_v")
+apply_button = NodePath("margin/content/controls/apply")
+preview = NodePath("margin/content/preview/borders/clipper/visualizer/sprite")
+progress_dialog = NodePath("../batch_progress")
+
+[node name="margin" type="MarginContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch" unique_id=1491229970]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="content" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin" unique_id=2055656270]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="controls" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content" unique_id=1002334642]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+
+[node name="range" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=71351395]
+layout_mode = 2
+title = "Range"
+
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range" unique_id=681350203]
+layout_mode = 2
+
+[node name="from" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content" unique_id=625651163]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/from" unique_id=1018507658]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "From sprite"
+
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/from" unique_id=370055920 node_paths=PackedStringArray("limiter_max")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_qq2li")
+limiter_max = NodePath("../../to/value")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="to" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content" unique_id=105087510]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/to" unique_id=155024808]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "To sprite"
+
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("limiter_min")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("9_qq2li")
+limiter_min = NodePath("../../from/value")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="actions" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=1131704608]
+layout_mode = 2
+title = "Actions"
+
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions" unique_id=1037233784]
+layout_mode = 2
+
+[node name="reindex_pixels" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=611228065]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Reindex pixels"
+
+[node name="reindex_palettes" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1382322894]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Reindex palettes"
+script = ExtResource("9_eqjkf")
+
+[node name="flip_h" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1694244540]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Flip horizontally"
+
+[node name="flip_v" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=514115080]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Flip vertically"
+
+[node name="bit_depth" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1715738284]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/bit_depth" unique_id=1545092727]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Bit depth"
+
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/bit_depth" unique_id=613543875]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+text_overrun_behavior = 5
+clip_text = true
+selected = 0
+fit_to_longest_item = false
+item_count = 3
+popup/item_0/text = "(No change)"
+popup/item_0/id = 0
+popup/item_1/text = "Set to 4"
+popup/item_1/id = 1
+popup/item_2/text = "Set to 8"
+popup/item_2/id = 2
+
+[node name="clut_size" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1629108774]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("9_eqjkf")
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/clut_size" unique_id=601286397]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "CLUT mode"
+
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/clut_size" unique_id=1215645622]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+text_overrun_behavior = 5
+selected = 0
+item_count = 4
+popup/item_0/text = "(No change)"
+popup/item_0/id = 0
+popup/item_1/text = "Remove"
+popup/item_1/id = 1
+popup/item_2/text = "Set to half"
+popup/item_2/id = 2
+popup/item_3/text = "Set to full"
+popup/item_3/id = 3
+
+[node name="palette_replacement" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=34046611]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("9_eqjkf")
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/palette_replacement" unique_id=85758955]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Palette replacement"
+
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/palette_replacement" unique_id=1872370997]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+text_overrun_behavior = 5
+selected = 0
+item_count = 4
+popup/item_0/text = "(No change)"
+popup/item_0/id = 0
+popup/item_1/text = "Sprite"
+popup/item_1/id = 1
+popup/item_2/text = "File"
+popup/item_2/id = 2
+popup/item_3/text = "Clipboard"
+popup/item_3/id = 3
+
+[node name="apply" type="Button" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=452925605]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Apply"
+
+[node name="separator" type="VSeparator" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content" unique_id=1321672322]
+layout_mode = 2
+
+[node name="preview" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content" unique_id=1094255727]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview" unique_id=1387901447]
+layout_mode = 2
+
+[node name="sprite" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content" unique_id=1327038868]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content/sprite" unique_id=1078505712]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview sprite"
+
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content/sprite" unique_id=577233468 node_paths=PackedStringArray("limiter_min", "limiter_max")]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("2_hsdhq")
+limiter_min = NodePath("../../../../controls/range/content/from/value")
+limiter_max = NodePath("../../../../controls/range/content/to/value")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="palette" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content" unique_id=2127990584]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content/palette" unique_id=1502033227]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Preview palette"
+
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content/palette" unique_id=199712138]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+script = ExtResource("3_d0clq")
+metadata/_custom_type_script = "uid://ojsjmxp21twu"
+
+[node name="borders" type="PanelContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview" unique_id=322888087]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_gv0qh")
+
+[node name="clipper" type="PanelContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/borders" unique_id=618799873 node_paths=PackedStringArray("visualizer")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("21_27fn0")
+visualizer = NodePath("visualizer")
+
+[node name="visualizer" type="Node2D" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/borders/clipper" unique_id=1292197253]
+position = Vector2(471, 337)
+script = ExtResource("22_8f7uu")
+
+[node name="background_a" type="ColorRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1410329678]
+texture_filter = 1
+custom_minimum_size = Vector2(3000, 3000)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1500.0
+offset_top = -1500.0
+offset_right = 1500.0
+offset_bottom = 1500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.376471, 0.376471, 0.376471, 1)
+script = ExtResource("39_rkkj2")
+metadata/_edit_lock_ = true
+
+[node name="background_b" type="TextureRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/borders/clipper/visualizer/background_a" unique_id=892679044]
+modulate = Color(0.25098, 0.25098, 0.25098, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("13_eehnk")
+stretch_mode = 1
+script = ExtResource("41_fscsg")
+metadata/_edit_lock_ = true
+
+[node name="sprite" type="TextureRect" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1719155773 node_paths=PackedStringArray("pal_helper", "selection", "sprite_index")]
+texture_filter = 1
+material = SubResource("ShaderMaterial_efox0")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("17_smuy5")
+pal_helper = NodePath("../../../../../../../../../../../../../../../../PaletteEditorHelper")
+selection = NodePath("../../../../../../../../../../../palette/content/palette_grid/selection_manager")
+sprite_index = NodePath("../../../../content/sprite/value")
+
+[node name="batch_progress" type="Window" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools" unique_id=68937049 node_paths=PackedStringArray("label_current", "label_max", "progress_bar")]
+oversampling_override = 1.0
+title = "PLEASE_WAIT"
+initial_position = 2
+size = Vector2i(350, 80)
+visible = false
+exclusive = true
+unresizable = true
+always_on_top = true
+minimize_disabled = true
+maximize_disabled = true
+force_native = true
+script = ExtResource("17_qq2li")
+label_current = NodePath("margin/content/items/current")
+label_max = NodePath("margin/content/items/out_of")
+progress_bar = NodePath("margin/content/bar")
+
+[node name="margin" type="MarginContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress" unique_id=1220883376]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin" unique_id=570744975]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="items" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content" unique_id=1163200286]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="action" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content/items" unique_id=77389003]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "Processing:"
+
+[node name="current" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content/items" unique_id=2060159289]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0"
+
+[node name="slash" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content/items" unique_id=382394113]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "/"
+
+[node name="out_of" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content/items" unique_id=1484491752]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "256"
+
+[node name="bar" type="ProgressBar" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content" unique_id=65323571]
+layout_mode = 2
+value = 50.0
+show_percentage = false
 
 [node name="separator" type="HSeparator" parent="VBoxContainer/content/control_panel/editors/content/sprite/content" unique_id=1241041374]
 layout_mode = 2
@@ -740,20 +870,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 metadata/_edit_lock_ = true
-
-[node name="menu" type="MenuBar" parent="VBoxContainer/content/preview" unique_id=2011268830]
-layout_mode = 2
-
-[node name="View" type="PopupMenu" parent="VBoxContainer/content/preview/menu" unique_id=1596363992 node_paths=PackedStringArray("sprite_background")]
-oversampling_override = 1.0
-size = Vector2i(183, 100)
-hide_on_checkable_item_selection = false
-item_count = 1
-item_0/text = "Solid background"
-item_0/checkable = 1
-item_0/id = 0
-script = ExtResource("46_eucjh")
-sprite_background = NodePath("../../borders/clipper/visualizer/sprite/bounds")
 
 [node name="borders" type="PanelContainer" parent="VBoxContainer/content/preview" unique_id=1366611387]
 clip_contents = true

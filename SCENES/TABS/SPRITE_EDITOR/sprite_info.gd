@@ -13,5 +13,5 @@ func update() -> void:
 	text = "%s bpp | %s x %s (%s x %s)" % [
 		sprite.bit_depth,
 		sprite.width, sprite.height,
-		sprite.texture_width, sprite.texture_height
+		sprite.texture_width, sprite.texture_height,
 	]

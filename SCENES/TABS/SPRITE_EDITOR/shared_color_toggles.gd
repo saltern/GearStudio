@@ -43,11 +43,11 @@ func _pressed() -> void:
 			undo_redo.add_do_method(sprite.toggle_clut)
 			undo_redo.add_undo_method(sprite.toggle_clut)
 	
-	var old_palette: PackedByteArray = sprite.palette.duplicate()
-	undo_redo.add_undo_method(restore_palette.bind(sprite, old_palette))
+	#var old_palette: PackedByteArray = sprite.palette.duplicate()
+	#undo_redo.add_undo_method(restore_palette.bind(sprite, old_palette))
 	
-	var old_pixels: PackedByteArray = sprite.pixels.duplicate()
-	undo_redo.add_undo_method(restore_pixels.bind(sprite, old_pixels))
+	#var old_pixels: PackedByteArray = sprite.pixels.duplicate()
+	#undo_redo.add_undo_method(restore_pixels.bind(sprite, old_pixels))
 
 	undo_redo.add_do_method(sprite.update_preview)
 	undo_redo.add_do_method(editor.notify_info_outdated)
