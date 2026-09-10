@@ -125,17 +125,20 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		if clut == CLUT.NONE:
 			return []
 		else:
-			return palette
+			var result: PackedByteArray = palette.duplicate()
+			result.resize(COLOR_SIZE * get_color_count())
+			return result
 	
 	set(value):
-		value.resize(COLOR_SIZE * get_color_count())
+		value.resize(CLUT_SIZE_8_FULL)
 		palette = value
-	
+
+var pixels_true				: PackedByteArray
 @export var pixels			: PackedByteArray:
 	get:
-		return cap_pixels(pixels)
+		return cap_pixels(pixels_true)
 	set(value):
-		pixels = value
+		pixels_true = value
 
 # Not serialized
 @export var old_clut		: CLUT = CLUT.FULL
@@ -144,7 +147,6 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
-	#print("Identifying BinSprite")
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
 	stream.data_array = bin_data
 	stream.big_endian = is_big_endian
@@ -208,7 +210,7 @@ func serialize() -> PackedByteArray:
 	# Palette
 	if clut != CLUT.NONE:
 		if bit_depth == DEPTH_8:
-			stream.put_data(transform_rgba_array(palette))
+			stream.put_data(SpriteTransformer.transform_palette(palette))
 		else:
 			stream.put_data(palette)
 
@@ -341,7 +343,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	palette = bin_data.slice(ADDRESS_HEADER_END, pointer)
 	
 	if bit_depth == DEPTH_8:
-		palette = transform_rgba_array(palette)
+		palette = SpriteTransformer.transform_palette(palette)
 
 	var pixel_data: PackedByteArray = bin_data.slice(pointer, bin_data.size())
 
@@ -491,6 +493,14 @@ func get_texture() -> ImageTexture:
 	return texture
 
 
+func get_true_texture() -> ImageTexture:
+	var new_image: Image = Image.create_from_data(
+		width, height, false, Image.FORMAT_L8, pixels_true
+	)
+	
+	return ImageTexture.create_from_image(new_image)
+
+
 func has_palette() -> bool:
 	if clut == CLUT.NONE:
 		return false
@@ -567,12 +577,6 @@ func palette_make_opaque() -> void:
 		palette[COLOR_SIZE * index + 3] = 0xFF
 
 
-func palette_resize(input_palette: PackedByteArray) -> PackedByteArray:
-	var result: PackedByteArray = input_palette.duplicate()
-	result.resize(COLOR_SIZE * get_color_count())
-	return result
-
-
 func get_pixel(x: int, y: int) -> int:
 	x = clampi(x, 0, width - 1)
 	y = clampi(y, 0, height - 1)
@@ -581,66 +585,28 @@ func get_pixel(x: int, y: int) -> int:
 
 
 func flip_h(update: bool = true) -> void:
-	pixels = SpriteTransformer.flip_horz(pixels, width)
+	pixels = SpriteTransformer.flip_horz(pixels_true, width)
 	if update:
 		update_preview()
 
 
 func flip_v(update: bool = true) -> void:
-	pixels = SpriteTransformer.flip_vert(pixels, width)
+	pixels = SpriteTransformer.flip_vert(pixels_true, width)
 	if update:
 		update_preview()
 
 
 func flip_both(update: bool = true) -> void:
-	pixels = SpriteTransformer.flip_both(pixels)
+	pixels = SpriteTransformer.flip_both(pixels_true)
 	if update:
 		update_preview()
-
-
-static func transform_index(index: int) -> int:
-	if index & 0x10:
-		if index & 0x8 == 0:
-			return index - 8
-	
-	elif index & 0x8:
-		return index + 8
-	
-	return index
-
-
-static func transform_index_array(array: PackedByteArray) -> PackedByteArray:
-	var temp_array: PackedByteArray = []
-	
-	for pixel: int in array.size():
-		temp_array.append(transform_index(array[pixel]))
-	
-	return temp_array
-
-
-static func transform_rgba_array(array: PackedByteArray) -> PackedByteArray:
-	var temp_array: PackedByteArray = []
-	temp_array.resize(array.size())
-	var color_count: int = array.size() / COLOR_SIZE
-	
-	if color_count <= COLOR_COUNT_4_FULL:
-		return array.duplicate()
-	
-	for index: int in color_count:
-		var new_index: int = transform_index(index)
-		temp_array[COLOR_SIZE * index + 0] = array[COLOR_SIZE * new_index + 0]
-		temp_array[COLOR_SIZE * index + 1] = array[COLOR_SIZE * new_index + 1]
-		temp_array[COLOR_SIZE * index + 2] = array[COLOR_SIZE * new_index + 2]
-		temp_array[COLOR_SIZE * index + 3] = array[COLOR_SIZE * new_index + 3]
-	
-	return temp_array
 
 
 func reindex_pixels(update: bool = true) -> void:
 	if bit_depth == DEPTH_4:
 		return
 	
-	pixels = SpriteTransformer.transform_pixels(pixels)
+	pixels = SpriteTransformer.transform_pixels(pixels_true)
 	
 	if update:
 		update_preview()
@@ -662,17 +628,12 @@ func cap_pixels(input_pixels: PackedByteArray) -> PackedByteArray:
 	return new_pixels
 
 
-func set_bit_depth_4(update: bool = true) -> void:
+func set_bit_depth_4() -> void:
 	bit_depth = DEPTH_4
-	#pixels = cap_pixels(pixels)
-	#palette = palette_resize(palette)
-	if update:
-		update_preview()
 
 
 func set_bit_depth_8() -> void:
 	bit_depth = DEPTH_8
-	#palette = palette_resize(palette)
 
 
 func toggle_bit_depth() -> void:
@@ -691,9 +652,6 @@ func toggle_clut_size() -> void:
 			clut = CLUT.FULL
 		CLUT.FULL:
 			clut = CLUT.HALF
-			pixels = cap_pixels(pixels)
-	
-	#palette = palette_resize(palette)
 
 
 func toggle_clut() -> void:
@@ -704,3 +662,17 @@ func toggle_clut() -> void:
 			old_clut = clut
 			clut = CLUT.NONE
 			update_preview()
+
+
+func set_clut_none() -> void:
+	if clut != CLUT.NONE:
+		old_clut = clut
+	clut = CLUT.NONE
+
+
+func set_clut_half() -> void:
+	clut = CLUT.HALF
+
+
+func set_clut_full() -> void:
+	clut = CLUT.FULL
