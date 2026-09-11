@@ -128,6 +128,16 @@ func set_clut_mode(new_mode: CLUTSetting) -> void:
 
 
 func apply_pressed() -> void:
+	if (
+		!reindex_pixels && !reindex_palettes &&
+		!flip_h && !flip_v &&
+		depth_setting == DepthSetting.NO_CHANGE &&
+		clut_setting == CLUTSetting.NO_CHANGE &&
+		palette.is_empty()
+	):
+		Status.set_status("No processes were selected, so no action was taken.")
+		return
+	
 	var action_text: String = "Batch process sprites #%s - #%s" % [from, to]
 	
 	undo_redo.create_action(action_text)
@@ -167,7 +177,7 @@ func apply_pressed() -> void:
 	
 	# Set up processes
 	undo_redo.add_do_method(
-		process_thread.bind(
+		create_process_threads.bind(
 			false,
 			from, to,
 			reindex_pixels, reindex_palettes,
@@ -177,7 +187,7 @@ func apply_pressed() -> void:
 	)
 	
 	undo_redo.add_undo_method(
-		process_thread.bind(
+		create_process_threads.bind(
 			true,
 			from, to,
 			reindex_pixels, reindex_palettes,
@@ -189,19 +199,12 @@ func apply_pressed() -> void:
 	undo_redo.commit_action()
 
 
-func process_thread(
+func create_process_threads(
 	p_undo: bool,
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
 	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
 	p_clut_setting: CLUTSetting,
 ) -> void:
-	if !(p_pixels || p_palettes || p_flip_h || p_flip_v):
-		if (
-			p_depth == DepthSetting.NO_CHANGE &&
-			p_clut_setting == CLUTSetting.NO_CHANGE
-		):
-			return
-	
 	progress_dialog.start.call_deferred(p_from, p_to)
 	
 	# Multithreading (min 1, max 4 threads)
@@ -296,7 +299,6 @@ func on_finished(task_id: int) -> void:
 	task_count -= 1
 	
 	if task_count == 0:
-		print("Done in: %s" % [Time.get_ticks_usec() - task_start])
 		editor.notify_info_outdated()
 		editor.notify_preview_outdated()
 		progress_dialog.finish.call_deferred()
