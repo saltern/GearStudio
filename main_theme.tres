@@ -227,20 +227,33 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gwgj5"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjox"]
+border_width_left = 1
+border_width_top = 1
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mjd1p"]
-bg_color = Color(1, 1, 1, 1)
-corner_detail = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0x12"]
-corner_detail = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyqug"]
-content_margin_top = 7.0
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hjjl"]
+bg_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
+border_width_left = 1
+border_width_top = 1
 border_color = Color(1, 1, 1, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnmfn"]
+bg_color = Color(0.5014065, 0.50140655, 0.50140643, 1)
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1i34x"]
+content_margin_top = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.4627451)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.23753929, 0.23753911, 0.237539, 1)
 corner_detail = 1
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ols8d"]
@@ -354,6 +367,9 @@ border_width_bottom = 1
 border_color = Color(0.7, 0.7, 0.7, 1)
 corner_detail = 1
 
+[sub_resource type="FontVariation" id="FontVariation_xx80s"]
+variation_embolden = 0.4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xx80s"]
 bg_color = Color(0.15127608, 0.15127608, 0.15127608, 1)
 border_color = Color(0, 0, 0, 1)
@@ -365,7 +381,9 @@ expand_margin_bottom = 1.0
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qud4"]
+border_width_left = 2
 border_width_top = 10
+border_width_right = 2
 border_width_bottom = 10
 border_color = Color(1, 1, 1, 1)
 border_blend = true
@@ -425,34 +443,29 @@ border_width_right = 1
 border_width_bottom = 1
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgjox"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yhfeq"]
+bg_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
+border_width_left = 1
+border_width_top = 1
+border_color = Color(1, 1, 1, 1)
 corner_detail = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0vmr"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(1, 1, 1, 1)
-corner_detail = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bksn"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kida"]
+bg_color = Color(0.49747366, 0.49747372, 0.49747354, 1)
+border_width_right = 1
+border_width_bottom = 1
 corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1tnr"]
 content_margin_left = 5.0
-content_margin_top = 0.0
 content_margin_right = 5.0
-content_margin_bottom = 0.0
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0, 0, 0, 0.4627451)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.23753929, 0.23753911, 0.237539, 1)
+corner_detail = 1
 
 [resource]
 default_font = ExtResource("1_mlsfx")
@@ -491,10 +504,12 @@ FoldableContainer/styles/title_collapsed_panel = SubResource("StyleBoxFlat_466ly
 FoldableContainer/styles/title_hover_panel = SubResource("StyleBoxFlat_rt4o7")
 FoldableContainer/styles/title_panel = SubResource("StyleBoxFlat_52mx2")
 HBoxContainer/constants/separation = 6
-HScrollBar/styles/grabber = SubResource("StyleBoxFlat_gwgj5")
-HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_mjd1p")
-HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_j0x12")
-HScrollBar/styles/scroll = SubResource("StyleBoxFlat_eyqug")
+HScrollBar/constants/padding_bottom = 4
+HScrollBar/constants/padding_top = 4
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_sgjox")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_7hjjl")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_wnmfn")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_1i34x")
 ItemList/styles/cursor = SubResource("StyleBoxEmpty_ols8d")
 ItemList/styles/cursor_unfocused = SubResource("StyleBoxEmpty_g2cls")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_wpn7q")
@@ -525,8 +540,12 @@ PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_ny7gb")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_ny7gb")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_2uuvn")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_ny7gb")
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 6
+ProgressBar/fonts/font = SubResource("FontVariation_xx80s")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_xx80s")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_3qud4")
+ScrollContainer/constants/scrollbar_h_separation = 5
 TabContainer/styles/panel = SubResource("StyleBoxFlat_rt75c")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_jrioy")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_m4wsk")
@@ -536,6 +555,6 @@ TabContainer/styles/tabbar_background = SubResource("StyleBoxEmpty_coa8e")
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_n5uko")
 VBoxContainer/constants/separation = 4
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_sgjox")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_f0vmr")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_1bksn")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_yhfeq")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_0kida")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_p1tnr")
