@@ -21,8 +21,6 @@
 [ext_resource type="Script" uid="uid://s7nn3gh7q4yf" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_flip.gd" id="9_iyd73"]
 [ext_resource type="Script" uid="uid://cbadot1mkkh7p" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/REINDEX/sprite_range.gd" id="9_qq2li"]
 [ext_resource type="Texture2D" uid="uid://bsihkepltih0d" path="res://ICONS/half.svg" id="10_hsdhq"]
-[ext_resource type="Script" uid="uid://dcgn0u86kb04v" path="res://SCENES/TABS/SPRITE_EDITOR/info_sprite_size.gd" id="12_vtil6"]
-[ext_resource type="Script" uid="uid://bfqhi1l0ix3wh" path="res://SCENES/TABS/SPRITE_EDITOR/info_bit_depth.gd" id="13_3i040"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="13_eehnk"]
 [ext_resource type="Script" uid="uid://dlh1x88f2tqme" path="res://SCENES/TABS/SPRITE_EDITOR/control_hash.gd" id="13_yk3wa"]
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="14_7pv4t"]
@@ -315,20 +313,20 @@ mode = 1
 oversampling_override = 1.0
 title = "Batch processing"
 initial_position = 2
-size = Vector2i(800, 600)
+size = Vector2i(900, 600)
 visible = false
 transient = true
 exclusive = true
 script = ExtResource("8_tgars")
-range_from = NodePath("margin/content/controls/range/content/from/value")
-range_to = NodePath("margin/content/controls/range/content/to/value")
-action_sprites = NodePath("margin/content/controls/actions/content/reindex_pixels")
-action_palettes = NodePath("margin/content/controls/actions/content/reindex_palettes")
-action_flip_h = NodePath("margin/content/controls/actions/content/flip_h")
-action_flip_v = NodePath("margin/content/controls/actions/content/flip_v")
-action_bit_depth = NodePath("margin/content/controls/actions/content/bit_depth/value")
-action_clut_size = NodePath("margin/content/controls/actions/content/clut_size/value")
-action_palette = NodePath("margin/content/controls/actions/content/palette_replacement/value")
+range_from = NodePath("margin/content/controls/scroll/categories/range/content/from/value")
+range_to = NodePath("margin/content/controls/scroll/categories/range/content/to/value")
+action_sprites = NodePath("margin/content/controls/scroll/categories/actions/content/reindex_pixels")
+action_palettes = NodePath("margin/content/controls/scroll/categories/actions/content/reindex_palettes")
+action_flip_h = NodePath("margin/content/controls/scroll/categories/actions/content/flip_h")
+action_flip_v = NodePath("margin/content/controls/scroll/categories/actions/content/flip_v")
+action_bit_depth = NodePath("margin/content/controls/scroll/categories/actions/content/bit_depth/value")
+action_clut_size = NodePath("margin/content/controls/scroll/categories/actions/content/clut_size/value")
+action_palette = NodePath("margin/content/controls/scroll/categories/actions/content/palette_replacement/value")
 apply_button = NodePath("margin/content/controls/apply")
 preview = NodePath("margin/content/preview/borders/clipper/visualizer/sprite")
 progress_dialog = NodePath("../batch_progress")
@@ -346,84 +344,93 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="controls" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content" unique_id=1002334642]
-custom_minimum_size = Vector2(320, 0)
+custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 
-[node name="range" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=71351395]
+[node name="scroll" type="ScrollContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=1417518441]
+layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 4
+
+[node name="categories" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll" unique_id=1368842256]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="range" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories" unique_id=71351395]
 layout_mode = 2
 title = "Range"
 
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range" unique_id=681350203]
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range" unique_id=681350203]
 layout_mode = 2
 
-[node name="from" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content" unique_id=625651163]
+[node name="from" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content" unique_id=625651163]
 layout_mode = 2
 
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/from" unique_id=1018507658]
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content/from" unique_id=1018507658]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "From sprite"
 
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/from" unique_id=370055920 node_paths=PackedStringArray("limiter_max")]
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content/from" unique_id=370055920 node_paths=PackedStringArray("limiter_max")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_qq2li")
 limiter_max = NodePath("../../to/value")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="to" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content" unique_id=105087510]
+[node name="to" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content" unique_id=105087510]
 layout_mode = 2
 
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/to" unique_id=155024808]
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content/to" unique_id=155024808]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "To sprite"
 
-[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("limiter_min")]
+[node name="value" type="SpinBox" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("limiter_min")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_qq2li")
 limiter_min = NodePath("../../from/value")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
-[node name="actions" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=1131704608]
+[node name="actions" type="FoldableContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories" unique_id=1131704608]
 layout_mode = 2
 title = "Actions"
 
-[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions" unique_id=1037233784]
+[node name="content" type="VBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions" unique_id=1037233784]
 layout_mode = 2
 
-[node name="reindex_pixels" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=611228065]
+[node name="reindex_pixels" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=611228065]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Reindex pixels"
 
-[node name="reindex_palettes" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1382322894]
+[node name="reindex_palettes" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1382322894]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Reindex palettes"
 script = ExtResource("9_eqjkf")
 
-[node name="flip_h" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1694244540]
+[node name="flip_h" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1694244540]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Flip horizontally"
 
-[node name="flip_v" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=514115080]
+[node name="flip_v" type="CheckButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=514115080]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Flip vertically"
 
-[node name="bit_depth" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1715738284]
+[node name="bit_depth" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1715738284]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/bit_depth" unique_id=1545092727]
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/bit_depth" unique_id=1545092727]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Bit depth"
 
-[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/bit_depth" unique_id=613543875]
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/bit_depth" unique_id=613543875]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -439,17 +446,17 @@ popup/item_1/id = 1
 popup/item_2/text = "Set to 8"
 popup/item_2/id = 2
 
-[node name="clut_size" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=1629108774]
+[node name="clut_size" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1629108774]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("9_eqjkf")
 
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/clut_size" unique_id=601286397]
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/clut_size" unique_id=601286397]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "CLUT mode"
 
-[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/clut_size" unique_id=1215645622]
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/clut_size" unique_id=1215645622]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -465,17 +472,17 @@ popup/item_2/id = 2
 popup/item_3/text = "Set to full"
 popup/item_3/id = 3
 
-[node name="palette_replacement" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content" unique_id=34046611]
+[node name="palette_replacement" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content" unique_id=34046611]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 script = ExtResource("9_eqjkf")
 
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/palette_replacement" unique_id=85758955]
+[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=85758955]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette replacement"
 
-[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/actions/content/palette_replacement" unique_id=1872370997]
+[node name="value" type="OptionButton" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=1872370997]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
@@ -493,7 +500,7 @@ popup/item_3/id = 3
 
 [node name="apply" type="Button" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/controls" unique_id=452925605]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 text = "Apply"
 
 [node name="separator" type="VSeparator" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content" unique_id=1321672322]
@@ -519,8 +526,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("2_hsdhq")
-limiter_min = NodePath("../../../../controls/range/content/from/value")
-limiter_max = NodePath("../../../../controls/range/content/to/value")
+limiter_min = NodePath("../../../../controls/scroll/categories/range/content/from/value")
+limiter_max = NodePath("../../../../controls/scroll/categories/range/content/to/value")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="palette" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch/margin/content/preview/content" unique_id=2127990584]
@@ -609,7 +616,7 @@ use_true_texture = true
 oversampling_override = 1.0
 title = "PLEASE_WAIT"
 initial_position = 2
-size = Vector2i(350, 80)
+size = Vector2i(350, 100)
 visible = false
 transient = true
 transient_to_focused = true
@@ -662,47 +669,13 @@ size_flags_horizontal = 4
 text = "256"
 
 [node name="bar" type="ProgressBar" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/tools/batch_progress/margin/content" unique_id=65323571]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 value = 50.0
 show_percentage = false
 
 [node name="separator" type="HSeparator" parent="VBoxContainer/content/control_panel/editors/content/sprite/content" unique_id=1241041374]
 layout_mode = 2
-
-[node name="size" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content" unique_id=281809716]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/size" unique_id=507611033]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "SPRITE_EDIT_INFO_DIMENSIONS"
-
-[node name="value" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/size" unique_id=521135468]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 0
-text = "- x -"
-horizontal_alignment = 2
-script = ExtResource("12_vtil6")
-
-[node name="bit_depth" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content" unique_id=1797645017]
-visible = false
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-
-[node name="title" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/bit_depth" unique_id=414146065]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "SPRITE_EDIT_INFO_BIT_DEPTH"
-
-[node name="value" type="Label" parent="VBoxContainer/content/control_panel/editors/content/sprite/content/bit_depth" unique_id=144809462]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "8 bpp"
-horizontal_alignment = 2
-script = ExtResource("13_3i040")
 
 [node name="hash" type="HBoxContainer" parent="VBoxContainer/content/control_panel/editors/content/sprite/content" unique_id=1746298402]
 custom_minimum_size = Vector2(0, 30)
@@ -811,7 +784,7 @@ stretch_mode = 1
 script = ExtResource("23_tdt6p")
 by_channel = NodePath("../../../../../../palette_edit/by_channel")
 selection_mgr = NodePath("selection_manager")
-picker = NodePath("../../../../../../palette_edit/color_picker")
+picker = NodePath("../../../../../../palette_edit/scroll/color_picker")
 
 [node name="color_display" type="Control" parent="VBoxContainer/content/control_panel/editors/content/palette/content/palette_grid" unique_id=1421097040 node_paths=PackedStringArray("pal_helper", "selection")]
 custom_minimum_size = Vector2(272, 272)
@@ -864,8 +837,15 @@ text = "PALETTE_EDIT_BY_CHANNEL"
 script = ExtResource("35_bxqq6")
 pal_helper = NodePath("../../../../PaletteEditorHelper")
 
-[node name="color_picker" type="ColorPicker" parent="VBoxContainer/content/palette_edit" unique_id=1011070240 node_paths=PackedStringArray("pal_helper", "selection_mgr")]
+[node name="scroll" type="ScrollContainer" parent="VBoxContainer/content/palette_edit" unique_id=211326479]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_vertical = 3
+vertical_scroll_mode = 4
+
+[node name="color_picker" type="ColorPicker" parent="VBoxContainer/content/palette_edit/scroll" unique_id=1011070240 node_paths=PackedStringArray("pal_helper", "selection_mgr")]
+layout_mode = 2
+size_flags_horizontal = 6
 size_flags_vertical = 6
 offset_transform_visual_only = false
 edit_intensity = false
@@ -875,8 +855,8 @@ picker_shape = 1
 can_add_swatches = false
 presets_visible = false
 script = ExtResource("30_mau1i")
-pal_helper = NodePath("../../../../PaletteEditorHelper")
-selection_mgr = NodePath("../../control_panel/editors/content/palette/content/palette_grid/selection_manager")
+pal_helper = NodePath("../../../../../PaletteEditorHelper")
+selection_mgr = NodePath("../../../control_panel/editors/content/palette/content/palette_grid/selection_manager")
 
 [node name="separator" type="VSeparator" parent="VBoxContainer/content" unique_id=1996742490]
 layout_mode = 2
