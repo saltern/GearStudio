@@ -108,17 +108,8 @@ func input_mouse(event: InputEventMouse) -> void:
 				
 				# On release
 				else:
-					if reordering:
+					if reordering && reorder_target != 0:
 						pal_helper.reorder()
-						var new: Array[bool] = []
-						new.resize(selected.size())
-						new.fill(false)
-						
-						for i: int in selected.size():
-							if is_selected(i):
-								new[i + reorder_target] = true
-						
-						selected = new
 					
 					elif !subtract:
 						index_clicked.emit(
@@ -355,6 +346,11 @@ func deselect_all() -> void:
 	selecting_min = -1
 	selecting_max = -1
 	selected.fill(false)
+
+
+func restore_if_selected(selection: Array[bool]) -> void:
+	if get_selected_count() > 0:
+		selected = selection
 
 
 func on_mouse_exited() -> void:

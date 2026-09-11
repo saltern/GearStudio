@@ -276,9 +276,20 @@ func reorder_sprite() -> void:
 	var old_pixels: PackedByteArray = sprite.pixels.duplicate()
 	var new_pixels: PackedByteArray = selection.get_reordered_pixels(old_pixels)
 	
+	var old_selection: Array[bool] = selection.selected.duplicate()
+	var new_selection: Array[bool] = []
+	new_selection.resize(old_selection.size())
+	new_selection.fill(false)
+
+	for i: int in old_selection.size():
+		if old_selection[i]:
+			new_selection[i + selection.reorder_target] = true
+	
+	undo_redo.add_do_method(selection.restore_if_selected.bind(new_selection))
 	undo_redo.add_do_property(sprite, "pixels", new_pixels)
 	undo_redo.add_do_method(sprite.update_preview)
 	
+	undo_redo.add_do_method(selection.restore_if_selected.bind(old_selection))
 	undo_redo.add_undo_property(sprite, "pixels", old_pixels)
 	undo_redo.add_undo_method(sprite.update_preview)
 	
