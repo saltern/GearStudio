@@ -351,7 +351,10 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		Mode.PALETTE:
 			pixels = []
 		Mode.RAW:
-			pixels = pixel_data
+			if bit_depth == DEPTH_4:
+				pixels = SpriteTransformer.expand_4bpp_array(pixel_data, false)
+			else:
+				pixels = pixel_data
 		Mode.ACPR:
 			pixels = SpriteCompression.decompress_acpr(bin_data)
 		Mode.MODE_5:
