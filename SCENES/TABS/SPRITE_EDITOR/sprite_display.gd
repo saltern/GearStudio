@@ -15,16 +15,19 @@ var reindex: bool = false
 var force_4bpp: bool = false
 var force_8bpp: bool = false
 
+var palette_override: bool = false
+var palette: PackedByteArray = []
+
 
 func _ready() -> void:
 	pal_helper.sprite_updated.connect(update)
-	selection.selection_changed.connect(on_selection_changed)
 	
 	session = owner.session
 	object = owner.object
 	
 	if owner is SpriteEditor:
 		owner.preview_outdated.connect(update)
+		selection.selection_changed.connect(show_selection)
 	
 	session.palette_changed.connect(load_palette.unbind(1))
 	sprite_index.value_changed.connect(set_sprite)
@@ -38,6 +41,9 @@ func _ready() -> void:
 
 
 func get_current_palette() -> PackedByteArray:
+	if palette_override:
+		return palette
+	
 	if object is BinScriptable && object.has_palettes():
 		return session.get_current_palette()
 	else:
@@ -79,6 +85,12 @@ func set_half_clut(enabled: bool) -> void:
 	)
 
 
+func set_palette_override(new_palette: PackedByteArray = []) -> void:
+	palette_override = !new_palette.is_empty()
+	palette = new_palette
+	load_palette()
+
+
 func update() -> void:
 	if use_true_texture:
 		texture = sprite.get_true_texture()
@@ -96,17 +108,17 @@ func load_palette() -> void:
 	)
 
 
-func on_selection_changed() -> void:
+func show_selection(from: int, to: int, hover: int) -> void:
 	(material as ShaderMaterial).set_shader_parameter(
-		"hover_index", selection.hover
+		"hover_index", hover
 	)
 	
 	(material as ShaderMaterial).set_shader_parameter(
-		"selecting_min", selection.selecting_min
+		"selecting_min", from
 	)
 	
 	(material as ShaderMaterial).set_shader_parameter(
-		"selecting_max", selection.selecting_max
+		"selecting_max", to
 	)
 
 

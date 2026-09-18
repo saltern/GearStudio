@@ -98,7 +98,8 @@ func get_session_count() -> int:
 
 
 func new_binary_session(path: String) -> void:
-	var session: Session = Session.new(path)
+	var session: Session = await Session.new(path)
+	await session.initialized
 	session.type = Session.Type.BINARY
 	sessions.append(session)
 	

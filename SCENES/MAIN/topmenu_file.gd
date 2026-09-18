@@ -63,7 +63,7 @@ func menu_clicked(menu_id: int) -> void:
 				return
 			
 			var session_type := SessionData.get_session_type()
-			if session_type == SessionData.SessionType.DIRECTORY:
+			if session_type == Session.Type.DIRECTORY:
 				Status.set_status("STATUS_DIRECTORY_CANT_SAVE_AS")
 				return
 			

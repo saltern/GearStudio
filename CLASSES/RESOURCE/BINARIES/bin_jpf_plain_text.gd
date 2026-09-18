@@ -17,19 +17,20 @@ static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 	if cursor_char_idx + 0x03 >= bin_data.size():
 		return false
 	
-	var char_idx_check: bool = \
-		bin_data.decode_u32(cursor_char_idx) == CHARIDX_SIGNATURE
+	if bin_data.decode_u32(cursor_char_idx) != CHARIDX_SIGNATURE:
+		return false
 	
 	var cursor_sprite: int = pointers[1]
 	
 	if cursor_sprite + 0x05 >= bin_data.size():
 		return false
 	
-	var sprite_check: bool = BinSprite.identify(
+	if !BinSprite.identify(
 		bin_data.slice(pointers[1], pointers[2]), is_big_endian
-	)
+	):
+		return false
 	
-	return char_idx_check && sprite_check
+	return true
 
 
 func serialize() -> PackedByteArray:
@@ -76,3 +77,6 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		var sprite: BinSprite = BinSprite.new()
 		sprite.deserialize(slice, big_endian)
 		sprites.append(sprite)
+	
+	#print("BinJPFPlainText: deserialized")
+	deserialized.emit()#.call_deferred()

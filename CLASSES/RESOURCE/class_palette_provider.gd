@@ -297,7 +297,7 @@ func palette_paste_color(at_index: int) -> void:
 		new_palette = sprite.palette.duplicate()
 		
 	var start_index: int = 0
-	var current_color: int = 0
+	var offset: int = 0
 	
 	for cell in colors:
 		if Clipboard.pal_selection[cell]:
@@ -316,18 +316,18 @@ func palette_paste_color(at_index: int) -> void:
 		if this_index < 0 || this_index > colors - 1:
 			continue
 		
-		new_palette[4 * this_index + 0] = Clipboard.pal_data[current_color].r8
-		new_palette[4 * this_index + 1] = Clipboard.pal_data[current_color].g8
-		new_palette[4 * this_index + 2] = Clipboard.pal_data[current_color].b8
-		new_palette[4 * this_index + 3] = Clipboard.pal_data[current_color].a8
+		new_palette[4 * this_index + 0] = Clipboard.pal_data[4 * offset + 0]
+		new_palette[4 * this_index + 1] = Clipboard.pal_data[4 * offset + 1]
+		new_palette[4 * this_index + 2] = Clipboard.pal_data[4 * offset + 2]
+		new_palette[4 * this_index + 3] = Clipboard.pal_data[4 * offset + 3]
 		
-		current_color += 1
+		offset += 1
 	
 	palette_paste_color_commit(old_palette, new_palette)
 
 
 func palette_paste_color_into(selection: Array[bool]) -> void:
-	var current_color: int = 0
+	var offset: int = 0
 	
 	var old_palette: PackedByteArray
 	var new_palette: PackedByteArray
@@ -344,12 +344,12 @@ func palette_paste_color_into(selection: Array[bool]) -> void:
 		if !selection[cell]:
 			continue
 		
-		new_palette[4 * cell + 0] = Clipboard.pal_data[current_color].r8
-		new_palette[4 * cell + 1] = Clipboard.pal_data[current_color].g8
-		new_palette[4 * cell + 2] = Clipboard.pal_data[current_color].b8
-		new_palette[4 * cell + 3] = Clipboard.pal_data[current_color].a8
+		new_palette[4 * cell + 0] = Clipboard.pal_data[4 * offset + 0]
+		new_palette[4 * cell + 1] = Clipboard.pal_data[4 * offset + 1]
+		new_palette[4 * cell + 2] = Clipboard.pal_data[4 * offset + 2]
+		new_palette[4 * cell + 3] = Clipboard.pal_data[4 * offset + 3]
 		
-		current_color = wrapi(current_color + 1, 0, Clipboard.pal_data.size())
+		offset = wrapi(offset + 1, 0, Clipboard.pal_data.size())
 	
 	palette_paste_color_commit(old_palette, new_palette)
 	

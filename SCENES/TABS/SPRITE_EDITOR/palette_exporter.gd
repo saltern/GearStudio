@@ -37,10 +37,11 @@ func on_file_selected(path: String) -> void:
 		
 		"act":
 			var rgb: PackedByteArray
-			var pal: PackedByteArray = pal_helper.sprite.palette
-			pal.resize(4 * 256)
+			var pal: PackedByteArray = pal_helper.sprite.palette.duplicate()
+			pal.resize(BinSprite.CLUT_SIZE_8_FULL)
+			pal = SpriteTransformer.transform_palette(pal)
 			
-			for index: int in 256:
+			for index: int in BinSprite.COLOR_COUNT_8_FULL:
 				rgb.append(pal[4 * index + 0])
 				rgb.append(pal[4 * index + 1])
 				rgb.append(pal[4 * index + 2])

@@ -1,5 +1,6 @@
 class_name Session extends Resource
 
+signal initialized
 signal palette_changed
 
 enum Type {
@@ -35,15 +36,20 @@ func _init(p_path: String) -> void:
 	data = BinDecrypter.decrypt_file(p_path.get_file(), data)
 	
 	# Endianness check
-	var is_big_endian: bool = false
 	var pointers_le: PackedInt64Array = BinObject.get_pointers(data, false)
-	
+	var pointers_be: PackedInt64Array = BinObject.get_pointers(data, true)
 	var padded_size: int = 4 * (pointers_le.size() / 4) + 4
+	var is_big_endian: bool = pointers_be[0] == 4 * padded_size
 	
-	if pointers_le[0] != 4 * padded_size:
-		is_big_endian = true
+	if !is_big_endian && pointers_le[0] != 4 * padded_size:
+		Status.set_status.bind("STATUS_LOAD_INVALID").call_deferred()
+		return
 	
 	archive.deserialize(data, is_big_endian)
+	await archive.deserialized
+	#GlobalSignals.load_complete.emit()
+	GlobalSignals.progress_finish()
+	#print("Session: archive deserialized")
 	
 	if archive.get_object_count() < 1:
 		Status.set_status.bind("STATUS_LOAD_INVALID").call_deferred()
@@ -56,6 +62,8 @@ func _init(p_path: String) -> void:
 			palettes = player.palettes
 	
 	path = p_path
+	#print("Session: initialized")
+	initialized.emit.call_deferred()
 
 
 func get_object_count() -> int:

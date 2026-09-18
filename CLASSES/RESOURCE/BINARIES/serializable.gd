@@ -1,5 +1,7 @@
 @abstract class_name Serializable extends Resource
 
+signal deserialized
+
 var big_endian: bool
 
 @abstract func serialize() -> PackedByteArray

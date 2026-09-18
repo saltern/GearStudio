@@ -15,6 +15,12 @@ enum CLUTSetting {
 	SET_TO_FULL,
 }
 
+enum PaletteSetting {
+	NO_CHANGE,
+	FROM_CLIPBOARD,
+	FROM_FILE,
+}
+
 @export var range_from			: SteppingSpinBox
 @export var range_to			: SteppingSpinBox
 
@@ -26,9 +32,12 @@ enum CLUTSetting {
 @export var action_clut_size	: OptionButton
 @export var action_palette		: OptionButton
 
+@export var palette_preview		: PaletteDisplay
+
 @export var apply_button		: Button
 @export var preview				: SpriteDisplay
 @export var progress_dialog		: Window
+@export var palette_browser		: FileDialog
 
 var from				: int = 0
 var to					: int = 0
@@ -38,10 +47,12 @@ var flip_h				: bool = false
 var flip_v				: bool = false
 var depth_setting		: DepthSetting = DepthSetting.NO_CHANGE
 var clut_setting		: CLUTSetting = CLUTSetting.NO_CHANGE
+var palette_setting		: PaletteSetting = PaletteSetting.NO_CHANGE
 var palette				: PackedByteArray = []
 
 var depth_memory		: PackedInt32Array
 var clut_memory			: Dictionary[int, CLUTSetting]
+var palette_memory		: Dictionary[int, PackedByteArray]
 
 var task_start			: int
 var task_count			: int
@@ -52,6 +63,8 @@ var task_count			: int
 
 func _ready() -> void:
 	super._ready()
+	
+	visibility_changed.connect(on_display)
 	
 	range_from.value_changed.connect(set_from)
 	range_to.value_changed.connect(set_to)
@@ -66,6 +79,9 @@ func _ready() -> void:
 	
 	action_bit_depth.item_selected.connect(set_depth_mode)
 	action_clut_size.item_selected.connect(set_clut_mode)
+	action_palette.item_selected.connect(set_palette_mode)
+	
+	palette_browser.file_selected.connect(import_palette)
 	
 	apply_button.pressed.connect(apply_pressed)
 	
@@ -127,6 +143,39 @@ func set_clut_mode(new_mode: CLUTSetting) -> void:
 			preview.set_half_clut(false)
 
 
+func set_palette_mode(new_mode: PaletteSetting) -> void:
+	palette_setting = new_mode
+	
+	match palette_setting:
+		PaletteSetting.NO_CHANGE:
+			preview.set_palette_override()
+		PaletteSetting.FROM_FILE:
+			palette_browser.show()
+		PaletteSetting.FROM_CLIPBOARD:
+			palette = Clipboard.pal_data
+			update_palettes()
+
+
+func import_palette(path: String) -> void:
+	var sprite: BinSprite = BinSprite.load_from_file(path, true)
+	
+	if sprite == null:
+		Status.set_status("Invalid file selected!")
+		return
+	
+	if !sprite.has_palette():
+		Status.set_status("Imported file contains no palette data!")
+		return
+	
+	palette = sprite.palette
+	update_palettes()
+
+
+func update_palettes() -> void:
+	palette_preview.set_palette(palette)
+	preview.set_palette_override(palette)
+
+
 func apply_pressed() -> void:
 	if (
 		!reindex_pixels && !reindex_palettes &&
@@ -146,6 +195,7 @@ func apply_pressed() -> void:
 	# Set up depth memory
 	var new_depth_memory: PackedInt32Array = []
 	var new_clut_memory: Dictionary[int, CLUTSetting] = {}
+	var new_palette_memory: Dictionary[int, PackedByteArray] = {}
 	
 	for i: int in range(from, to + 1):
 		var sprite: BinSprite = editor.get_sprite(i)
@@ -170,10 +220,20 @@ func apply_pressed() -> void:
 					if clut_setting != CLUTSetting.SET_TO_FULL:
 						new_clut_memory[i] = CLUTSetting.SET_TO_FULL
 		
+		if palette_setting != PaletteSetting.NO_CHANGE:
+			new_palette_memory[i] = sprite.palette
+		
 	undo_redo.add_do_property(self, "depth_memory", new_depth_memory)
 	undo_redo.add_do_property(self, "clut_memory", new_clut_memory)
+	undo_redo.add_do_property(self, "palette_memory", new_palette_memory)
 	undo_redo.add_undo_property(self, "depth_memory", new_depth_memory)
 	undo_redo.add_undo_property(self, "clut_memory", new_clut_memory)
+	undo_redo.add_undo_property(self, "palette_memory", new_palette_memory)
+	
+	var p_palette: PackedByteArray = []
+	
+	if palette_setting != PaletteSetting.NO_CHANGE:
+		p_palette = palette.duplicate()
 	
 	# Set up processes
 	undo_redo.add_do_method(
@@ -183,6 +243,7 @@ func apply_pressed() -> void:
 			reindex_pixels, reindex_palettes,
 			flip_h, flip_v,
 			depth_setting, clut_setting,
+			p_palette,
 		)
 	)
 	
@@ -193,6 +254,7 @@ func apply_pressed() -> void:
 			reindex_pixels, reindex_palettes,
 			flip_h, flip_v,
 			depth_setting, clut_setting,
+			p_palette,
 		)
 	)
 	
@@ -203,7 +265,7 @@ func create_process_threads(
 	p_undo: bool,
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
 	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
-	p_clut_setting: CLUTSetting,
+	p_clut_setting: CLUTSetting, p_palette: PackedByteArray,
 ) -> void:
 	progress_dialog.start.call_deferred(p_from, p_to)
 	
@@ -218,7 +280,8 @@ func create_process_threads(
 				p_from, p_to,
 				p_pixels, p_palettes,
 				p_flip_h, p_flip_v,
-				p_depth, p_clut_setting
+				p_depth, p_clut_setting,
+				p_palette,
 			)
 		)
 
@@ -227,7 +290,7 @@ func process(
 	thread_count: int, thread_number: int, p_undo: bool, 
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
 	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
-	p_clut: CLUTSetting,
+	p_clut: CLUTSetting, p_palette: PackedByteArray,
 ) -> void:
 	
 	var sprite_block: BinSpriteBlock = editor.sprite_block
@@ -265,7 +328,13 @@ func process(
 		
 		if depth == DepthSetting.SET_TO_8:
 			sprite.set_bit_depth_8()
-			
+		
+		if !p_palette.is_empty():
+			if p_undo:
+				sprite.palette = palette_memory[i].duplicate()
+			else:
+				sprite.palette = p_palette
+		
 		if p_pixels:
 			sprite.reindex_pixels(false)
 		if p_palettes:
@@ -294,6 +363,15 @@ func process(
 	finished.emit.call_deferred(task_id)
 
 
+func on_display() -> void:
+	if !visible:
+		return
+	
+	if palette_setting == PaletteSetting.FROM_CLIPBOARD:
+		palette = Clipboard.pal_data
+		update_palettes()
+
+
 func on_finished(task_id: int) -> void:
 	WorkerThreadPool.wait_for_task_completion(task_id)
 	task_count -= 1
@@ -301,4 +379,5 @@ func on_finished(task_id: int) -> void:
 	if task_count == 0:
 		editor.notify_info_outdated()
 		editor.notify_preview_outdated()
+		editor.pal_helper.signal_sprite_updated()
 		progress_dialog.finish.call_deferred()

@@ -4,6 +4,9 @@ var scriptables: Array[BinScriptable]
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
+	if bin_data.size() < 1:
+		return false
+	
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
 	pointers.append(bin_data.size()) # Auxiliary fake pointer
 	
@@ -50,5 +53,8 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	for p: int in pointers.size() - 1:
 		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p + 1])
 		var scriptable: BinScriptable = BinScriptable.new()
-		scriptable.deserialize(slice, is_big_endian)
+		await scriptable.deserialize(slice, is_big_endian)
 		scriptables.append(scriptable)
+
+	#print("BinScriptableBlock: deserialized")
+	deserialized.emit.call_deferred()

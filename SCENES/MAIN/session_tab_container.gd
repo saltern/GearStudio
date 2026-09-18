@@ -18,6 +18,8 @@ func _ready() -> void:
 	load_dialog_bin.file_selected.connect(load_binary)
 	save_as_dialog.file_selected.connect(save_resource)
 	tab_changed.connect(on_tab_changed)
+	
+	get_tree().get_root().files_dropped.connect(on_files_dropped)
 
 
 func _physics_process(_delta: float) -> void:
@@ -28,6 +30,11 @@ func _physics_process(_delta: float) -> void:
 		if WorkerThreadPool.is_task_completed(task):
 			WorkerThreadPool.wait_for_task_completion(task)
 			waiting_tasks.erase(task)
+
+
+func on_files_dropped(files: PackedStringArray) -> void:
+	for file: String in files:
+		load_binary(file)
 
 
 func add_task(task_id: int) -> void:
@@ -56,8 +63,10 @@ func load_binary(path: String) -> void:
 			Status.set_status("STATUS_OPEN_ALREADY_OPEN_BIN")
 			return
 	
-	add_task(WorkerThreadPool.add_task(
-		SessionData.new_binary_session.bind(path))
+	add_task(
+		WorkerThreadPool.add_task(
+			SessionData.new_binary_session.bind(path)
+		)
 	)
 
 
@@ -113,17 +122,17 @@ func create_tab(session: Session) -> void:
 	set_tab_title(get_tab_count() - 1, names[1])
 	
 	Status.set_status(tr("STATUS_LOAD_COMPLETE").format({path=session.path}))
+	#GlobalSignals.editors_created.emit()
 
 
 func get_new_tab_name(path: String) -> PackedStringArray:
-	var base_name: String = path.split("\\")[-1]
-	base_name = base_name.split("/")[-1]
+	var base_name: String = path.get_file()
 	
-	var pretty_name: String = tr("TAB_BASE_NAME").format(
-		{id=get_child_count(), name=base_name}
-	)
+	#var pretty_name: String = tr("TAB_BASE_NAME").format(
+		#{id=get_child_count(), name=base_name}
+	#)
 	
-	return [base_name, pretty_name]
+	return [base_name, base_name]
 
 
 func on_tab_changed(new_tab: int) -> void:

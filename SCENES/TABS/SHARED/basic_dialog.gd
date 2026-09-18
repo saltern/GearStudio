@@ -1,4 +1,4 @@
-extends Window
+class_name BasicDialog extends Window
 
 
 func _ready() -> void:

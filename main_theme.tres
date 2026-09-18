@@ -231,6 +231,10 @@ bg_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
 border_width_left = 1
 border_width_top = 1
 corner_detail = 1
+shadow_color = Color(0.14, 0.14, 0.14, 1)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hjjl"]
 bg_color = Color(0.7204674, 0.72046757, 0.7204672, 1)
@@ -459,7 +463,7 @@ corner_detail = 1
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1tnr"]
 content_margin_left = 5.0
 content_margin_right = 5.0
-bg_color = Color(0, 0, 0, 0.4627451)
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 1)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2

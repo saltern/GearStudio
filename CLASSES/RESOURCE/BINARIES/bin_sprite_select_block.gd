@@ -8,14 +8,15 @@ static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
 	pointers.append(bin_data.size()) # Auxiliary fake pointer
 	
+	var found_mask: bool = false
+	
 	for p: int in pointers.size() - 1:
 		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p] + 1)
 		
 		if !BinSprite.identify(slice, is_big_endian):
-			if !BinCursorMask.identify(slice, is_big_endian):
-				return false
+			found_mask = found_mask || BinCursorMask.identify(slice, is_big_endian)
 	
-	return true
+	return found_mask
 
 
 func serialize() -> PackedByteArray:
@@ -52,3 +53,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	var mask_data: PackedByteArray = bin_data.slice(pointers[-2], pointers[-1])
 	cursor_mask = BinCursorMask.new()
 	cursor_mask.deserialize(mask_data, is_big_endian)
+	
+	#await cursor_mask.deserialized
+	#print("BinSpriteSelectBlock: deserialized")
+	deserialized.emit.call_deferred()

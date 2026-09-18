@@ -2,7 +2,13 @@ extends Node
 
 # PaletteEdit
 var pal_selection: Array[bool] = []
-var pal_data: PackedColorArray = []
+var pal_data: PackedByteArray = []:
+	set(value):
+		pal_data_size = value.size() / BinSprite.COLOR_SIZE
+		value.resize(BinSprite.CLUT_SIZE_8_FULL)
+		pal_data = value
+
+var pal_data_size: int = 0
 
 # CellEdit
 var cell: BinCell
@@ -19,7 +25,7 @@ var instruction: Instruction
 
 
 func _ready() -> void:
-	pal_selection.resize(256)
+	pal_selection.resize(BinSprite.CLUT_SIZE_8_FULL)
 
 
 func has_sprite_info() -> bool:
@@ -63,6 +69,13 @@ func duplicate_box(box: BinBoxInfo) -> BinBoxInfo:
 	new_box.crop_y_offset = box.crop_y_offset
 	
 	return new_box
+
+
+func get_palette_color(index: int) -> Color:
+	return Color8(
+		pal_data[4 * index + 0], pal_data[4 * index + 1],
+		pal_data[4 * index + 2], pal_data[4 * index + 3],
+	)
 
 
 # Wouldn't want to always return the same reference

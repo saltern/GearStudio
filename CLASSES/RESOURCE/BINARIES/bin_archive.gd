@@ -3,6 +3,10 @@ class_name BinArchive extends BinObject
 var objects: Array[BinObject]
 var gallery: bool = false
 
+var dictionary: Dictionary = {}
+var task_count: int = 0
+var task_start: int = 0
+
 
 func serialize() -> PackedByteArray:
 	var pointers: PackedInt64Array = []
@@ -21,57 +25,72 @@ func serialize() -> PackedByteArray:
 
 
 func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
+	if BinAudioWBND.identify(bin_data, is_big_endian):
+		deserialized.emit.call_deferred()
+		return
+	if BinAudioVAGp.identify(bin_data, is_big_endian):
+		deserialized.emit.call_deferred()
+		return
+	
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)	
+	
+	GlobalSignals.progress_show("Loading...", pointers.size())
+	
 	pointers.append(bin_data.size()) # Auxiliary pointer
-
+	
 	for p: int in pointers.size() - 1:
 		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p + 1])
 		var object: BinObject
-		
+	
 		if BinAudioWBND.identify(slice, is_big_endian):
-			print("Detected WBND audio")
+			#print("Found BinAudioWBND")
 			object = BinAudioWBND.new()
 		
 		elif BinAudioVAGp.identify(slice, true):
-			print("Detected VAGp audio")
+			#print("Found BinAudioVAGp")
 			object = BinAudioVAGp.new()
 		
-		elif BinSprite.identify(slice, is_big_endian):
-			print("Detected single sprite")
-			object = BinSpriteBlock.new()
-			object.single_mode = true
+		if BinSprite.identify(slice, is_big_endian):
+			#print("Found BinSprite")
+			object = BinSprite.new()
+			#object = BinSpriteBlock.new()
+			#object.single_mode = true
 		
 		elif BinSpriteSelectBlock.identify(slice, is_big_endian):
-			print("Detected sprite block + select cursor mask")
+			#print("Found BinSpriteSelectBlock")
 			object = BinSpriteSelectBlock.new()
 		
 		elif BinSpriteBlock.identify(slice, is_big_endian):
-			print("Detected sprite block")
+			#print("Found BinSpriteBlock")
 			object = BinSpriteBlock.new()
 		
 		elif BinJPFPlainText.identify(slice, is_big_endian):
-			print("Detected JPF Plain Text")
+			#print("Found BinJPFPlainText")
 			object = BinJPFPlainText.new()
 		
 		elif BinWiiTPL.identify(slice, is_big_endian):
-			print("Detected Wii TPL")
+			#print("Found BinWiiTPL")
 			object = BinWiiTPL.new()
 		
 		elif BinScriptable.identify(slice, is_big_endian):
-			print("Detected scriptable")
+			#print("Found BinScriptable")
 			object = BinScriptable.new()
 		
 		elif BinScriptableBlock.identify(slice, is_big_endian):
-			print("Detected scriptable block")
+			#print("Found BinScriptableBlock")
 			object = BinScriptableBlock.new()
 		
 		else:
-			print("Falling back to unsupported")
+			#print("Found BinRawData")
 			object = BinRawData.new()
 		
 		object.deserialize(slice, is_big_endian)
+		await object.deserialized
+		#print("BinArchive: append object")
 		objects.append(object)
-
+		#GlobalSignals.load_object.emit()
+		GlobalSignals.progress_advance()
+	
 	if is_gallery():
 		gallery = true
 		var array: Array[BinSprite] = []
@@ -82,6 +101,9 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		
 		block.sprites = array
 		objects = [block]
+	
+	#print("Archive: deserialized")
+	deserialized.emit.call_deferred()
 
 
 func is_gallery() -> bool:
@@ -98,4 +120,5 @@ func get_object_count() -> int:
 
 func get_object(index: int) -> BinObject:
 	index = clampi(index, 0, objects.size() - 1)
+	index = maxi(index, 0)
 	return objects[index]

@@ -11,6 +11,11 @@ func set_status(string: String) -> void:
 	status_updated.emit(string)
 
 
+func set_delayed_status(string: String, time: float) -> void:
+	await get_tree().create_timer(time).timeout
+	set_status(string)
+
+
 func save_status_start(dir_session: bool, path: String) -> void:
 	if dir_session:
 		set_status(tr("STATUS_SAVE_DIR_START").format({"path": path}))

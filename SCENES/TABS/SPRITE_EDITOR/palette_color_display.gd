@@ -1,5 +1,6 @@
 class_name PaletteDisplay extends Control
 
+@export var direct_mode: bool
 @export var pal_helper: PaletteEditorHelper
 @export var selection: PaletteSelection
 
@@ -8,21 +9,35 @@ const TILE_SIZE: int = 17
 const DRAW_SIZE: int = 16
 const DRAW_OFFSET: int = 1
 
+var palette: PackedByteArray
+
 
 func _ready() -> void:
 	get_parent().resized.connect(resize)
-	pal_helper.sprite_updated.connect(update)
-	selection.selection_changed.connect(queue_redraw)
+	
+	if !direct_mode:
+		pal_helper.sprite_updated.connect(update)
+		selection.selection_changed.connect(queue_redraw.unbind(3))
+	
 	update()
 
 
 func _draw() -> void:
-	var palette: PackedByteArray = pal_helper.get_palette()
+	var color_count: int
 	
-	if selection.reordering:
-		palette = selection.get_reordered_colors()
+	if direct_mode:
+		if palette.is_empty():
+			return
+		color_count = BinSprite.COLOR_COUNT_8_FULL
+	else:
+		palette = pal_helper.get_palette()
+		color_count = pal_helper.get_color_count()
 	
-	for i: int in palette.size() / 4:
+		if selection.reordering:
+			palette = selection.get_reordered_colors()
+	
+	
+	for i: int in color_count:
 		var x: int = i % COLUMNS
 		var y: int = i / COLUMNS
 		var r: Rect2i = Rect2i(
@@ -48,3 +63,8 @@ func resize() -> void:
 func update() -> void:
 	queue_redraw()
 	resize()
+
+
+func set_palette(new_palette: PackedByteArray) -> void:
+	palette = new_palette
+	update()

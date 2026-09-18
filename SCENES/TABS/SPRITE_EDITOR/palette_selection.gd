@@ -160,7 +160,7 @@ func input_mouse(event: InputEventMouse) -> void:
 	else:
 		hover = index
 	
-	selection_changed.emit()
+	selection_changed.emit(selecting_min, selecting_max, hover)
 
 
 func _draw() -> void:
@@ -216,9 +216,9 @@ func _draw() -> void:
 	#endregion
 
 
-#region Copy/Paste
+#region Draw copy/paste
 func draw_paste_region() -> void:
-	if Clipboard.pal_data.size() < 1:
+	if Clipboard.pal_data_size < 1:
 		return
 	
 	if get_selected_count() > 0:
@@ -258,7 +258,7 @@ func draw_paste_at_cursor() -> void:
 		)
 		
 		# Double alpha of preview color
-		var preview_color: Color = Clipboard.pal_data[current_color]
+		var preview_color: Color = Clipboard.get_palette_color(current_color)
 		preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
 		
 		# Actual color to paste
@@ -281,12 +281,12 @@ func draw_paste_at_cursor() -> void:
 
 
 func draw_paste_at_selection() -> void:
-	var current_color: int = 0
+	var offset: int = 0
 	
 	for index: int in pal_helper.get_color_count():
 		if selected[index]:
 			# Double alpha of preview color
-			var preview_color: Color = Clipboard.pal_data[current_color]
+			var preview_color: Color = Clipboard.get_palette_color(offset)
 			preview_color.a8 = clampi(preview_color.a8 * 2, 0x00, 0xFF)
 		
 			# Background
@@ -306,9 +306,7 @@ func draw_paste_at_selection() -> void:
 				), preview_color
 			)
 			
-			current_color = wrapi(
-				current_color + 1, 0, Clipboard.pal_data.size()
-			)
+			offset = wrapi(offset + 1, 0, Clipboard.pal_data_size)
 		
 			draw_texture(
 				tex_select, Vector2(
@@ -350,12 +348,16 @@ func deselect_all() -> void:
 
 func restore_if_selected(selection: Array[bool]) -> void:
 	if get_selected_count() > 0:
+		print("Restoring selection")
 		selected = selection
+		return
+	
+	print("Not restoring selection")
 
 
 func on_mouse_exited() -> void:
 	hover = -1
-	selection_changed.emit()
+	selection_changed.emit(selecting_min, selecting_max, hover)
 
 
 func get_reordered_colors() -> PackedByteArray:

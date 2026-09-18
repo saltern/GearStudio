@@ -37,6 +37,7 @@ const MODE_PALETTE			: int = 0x0003
 const MODE_5				: int = 0x0005
 const MODE_GGXP8			: int = 0x13
 const MODE_GGXP4			: int = 0x14
+const MODE_GGXP_PALETTE		: int = 0xFF
 
 # GGX Plus compression values
 const GGXP_UNCOMPRESSED		: int = 0x00
@@ -46,6 +47,11 @@ const GGXP_COMPRESSED		: int = 0x04
 const CLUT_NONE				: int = 0x0000
 const CLUT_HALF				: int = 0x0010
 const CLUT_FULL				: int = 0x0020
+
+# GGX Plus CLUT values
+const GGXP_CLUT_NONE		: int = 0x0F
+const GGXP_CLUT_HALF		: int = 0x02
+const GGXP_CLUT_FULL		: int = 0x00
 
 const COLOR_COUNT_4_HALF	: int = 0x08	# 8
 const COLOR_COUNT_4_FULL	: int = 0x10	# 16
@@ -59,11 +65,6 @@ const CLUT_SIZE_4_FULL		: int = COLOR_SIZE * COLOR_COUNT_4_FULL
 const CLUT_SIZE_8_HALF		: int = COLOR_SIZE * COLOR_COUNT_8_HALF
 const CLUT_SIZE_8_FULL		: int = COLOR_SIZE * COLOR_COUNT_8_FULL
 
-# GGX Plus CLUT values
-const GGXP_CLUT_NONE		: int = 0x0F
-const GGXP_CLUT_HALF		: int = 0x02
-const GGXP_CLUT_FULL		: int = 0x00
-
 # Depth values
 const DEPTH_4				: int = 0x0004
 const DEPTH_8				: int = 0x0008
@@ -74,7 +75,7 @@ const COMMON_CLUT			: PackedInt32Array = [CLUT_NONE, CLUT_HALF, CLUT_FULL]
 const COMMON_DEPTH			: PackedInt32Array = [DEPTH_4, DEPTH_8]
 
 # GGX Plus sprites
-const GGXP_MODES			: PackedInt32Array = [MODE_GGXP4, MODE_GGXP8]
+const GGXP_MODES			: PackedInt32Array = [MODE_GGXP4, MODE_GGXP8, MODE_GGXP_PALETTE]
 const GGXP_COMPRESSION		: PackedInt32Array = [GGXP_UNCOMPRESSED, GGXP_COMPRESSED]
 const GGXP_CLUT				: PackedInt32Array = [GGXP_CLUT_NONE, GGXP_CLUT_HALF, GGXP_CLUT_FULL]
 
@@ -125,9 +126,7 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		if clut == CLUT.NONE:
 			return []
 		else:
-			var result: PackedByteArray = palette.duplicate()
-			result.resize(COLOR_SIZE * get_color_count())
-			return result
+			return palette
 	
 	set(value):
 		value.resize(CLUT_SIZE_8_FULL)
@@ -151,10 +150,9 @@ static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 	stream.data_array = bin_data
 	stream.big_endian = is_big_endian
 	
-	var ggxp_mode: int = stream.get_u8()
-	var ggxp_cc: int = stream.get_u8()
-	
-	if GGXP_MODES.has(ggxp_mode):
+	if GGXP_MODES.has(stream.get_u8()):
+		var ggxp_cc: int = stream.get_u8()
+		
 		if !GGXP_COMPRESSION.has(ggxp_cc >> 0x4):
 			return false
 		if !GGXP_CLUT.has(ggxp_cc & 0xF):
@@ -163,13 +161,10 @@ static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
 		return true
 	
 	stream.seek(0)
-	var bin_mode: int = stream.get_u16()
-	var bin_clut: int = stream.get_u16()
-	var bin_bpp: int = stream.get_u16()
 	
-	if !COMMON_MODES.has(bin_mode)	: return false
-	if !COMMON_CLUT.has(bin_clut)	: return false
-	if !COMMON_DEPTH.has(bin_bpp)	: return false
+	if !COMMON_MODES.has(stream.get_u16())	: return false
+	if !COMMON_CLUT.has(stream.get_u16())	: return false
+	if !COMMON_DEPTH.has(stream.get_u16())	: return false
 	
 	return true
 
@@ -245,6 +240,9 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 				bit_depth = DEPTH_4
 			MODE_GGXP8:
 				bit_depth = DEPTH_8
+			MODE_GGXP_PALETTE:
+				bit_depth = DEPTH_8
+				mode = Mode.PALETTE
 			_:
 				push_error("BinSprite::deserialize() error! Invalid GGX Plus mode")
 				return
@@ -337,10 +335,40 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 				pal_size /= 2
 			CLUT.FULL:
 				pass
-
-	var pointer: int = ADDRESS_HEADER_END + pal_size
 	
-	palette = bin_data.slice(ADDRESS_HEADER_END, pointer)
+	var addr_pal_start: int = ADDRESS_HEADER_END
+	var addr_pal_end: int = ADDRESS_HEADER_END + pal_size
+	
+	#var is_wii: bool = true
+	#var second_row: PackedByteArray = bin_data.slice(
+		#ADDRESS_HEADER_END, ADDRESS_HEADER_END + 0x10
+	#)
+	#
+	#for byte: int in second_row:
+		#if byte != 0x00:
+			#is_wii = false
+			#break
+	
+	var pointer: int = addr_pal_end
+	
+	#if is_wii:
+		#pal_size /= 2
+		#addr_pal_start += 0x10
+		#addr_pal_end += ADDRESS_HEADER_END + 0x10 + pal_size
+		#
+		#var wii_pal: PackedByteArray = []
+		#
+		#for i: int in range(addr_pal_start, addr_pal_end, 2):
+			#var color: int = bin_data.decode_u16(i)
+			#wii_pal.append(0x11 * ((color >> 0x0) & 0xF))		# R
+			#wii_pal.append(0x11 * ((color >> 0xC) & 0xF))		# G
+			#wii_pal.append(0x11 * ((color >> 0x8) & 0xF))		# B
+			#wii_pal.append(0x11 * ((color >> 0x4) & 0xF))		# A
+			#
+		#palette = wii_pal
+		#
+	#else:
+	palette = bin_data.slice(addr_pal_start, addr_pal_end)
 	
 	if bit_depth == DEPTH_8:
 		palette = SpriteTransformer.transform_palette(palette)
@@ -352,7 +380,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 			pixels = []
 		Mode.RAW:
 			if bit_depth == DEPTH_4:
-				pixels = SpriteTransformer.expand_4bpp_array(pixel_data, false)
+				pixels = SpriteTransformer.expand_4bpp_array(pixel_data, true)
 			else:
 				pixels = pixel_data
 		Mode.ACPR:
@@ -363,10 +391,12 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 			if ggxp_compressed:
 				pixels = SpriteCompression.decompress_ggx(bin_data)
 			else:
-				pixels = pixel_data
-
-	if mode != Mode.PALETTE:
-		update_preview()
+				if bit_depth == DEPTH_4:
+					pixels = SpriteTransformer.expand_4bpp_array(pixel_data, true)
+				else:
+					pixels = pixel_data
+	
+	deserialized.emit.call_deferred()
 
 
 static func get_texture_size(dimension: int) -> int:
@@ -485,14 +515,18 @@ func update_image() -> void:
 
 
 func update_texture() -> void:
-	texture = ImageTexture.create_from_image(image)
+	texture = ImageTexture.create_from_image(get_image())
 
 
 func get_image() -> Image:
+	if image == null:
+		update_image()
 	return image
 
 
 func get_texture() -> ImageTexture:
+	if texture == null:
+		update_texture()
 	return texture
 
 
@@ -553,6 +587,8 @@ func set_color(index: int, color: Color) -> void:
 	palette[COLOR_SIZE * index + 1] = color.g8
 	palette[COLOR_SIZE * index + 2] = color.b8
 	palette[COLOR_SIZE * index + 3] = color.a8
+	
+	update_preview()
 
 
 func palette_halve_alpha() -> void:

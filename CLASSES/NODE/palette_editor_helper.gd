@@ -62,8 +62,8 @@ func get_color_count() -> int:
 	
 func get_color(index: int) -> Color:
 	return sprite.get_color(index)
-	
-	
+
+
 func set_color(color: Color, channels: Array[bool]) -> void:
 	if !by_channel:
 		channels = [true, true, true, true]
@@ -126,13 +126,17 @@ func set_color_commit(
 
 
 func copy() -> void:
-	var copy_data: PackedColorArray = []
+	var copy_data: PackedByteArray = []
 	
 	for index: int in get_color_count():
 		if not selection.is_selected(index):
 			continue
 		
-		copy_data.append(get_color(index))
+		var color: Color = get_color(index)
+		copy_data.append(color.r8)
+		copy_data.append(color.g8)
+		copy_data.append(color.b8)
+		copy_data.append(color.a8)
 	
 	Clipboard.pal_selection = selection.selected.duplicate()
 	Clipboard.pal_data = copy_data
@@ -162,9 +166,8 @@ func paste(at: int) -> void:
 
 func paste_at(at: int) -> void:
 	var new_palette: PackedByteArray = sprite.palette.duplicate()
-		
 	var start_index: int = 0
-	var current_color: int = 0
+	var offset: int = 0
 	
 	for cell in get_color_count():
 		if Clipboard.pal_selection[cell]:
@@ -173,6 +176,7 @@ func paste_at(at: int) -> void:
 	
 	if at < 0 || at > get_color_count() - 1:
 		return
+	
 	
 	for index: int in get_color_count():
 		var this_index: int = at - start_index + index
@@ -183,31 +187,31 @@ func paste_at(at: int) -> void:
 		if this_index < 0 || this_index > get_color_count() - 1:
 			continue
 		
-		new_palette[4 * this_index + 0] = Clipboard.pal_data[current_color].r8
-		new_palette[4 * this_index + 1] = Clipboard.pal_data[current_color].g8
-		new_palette[4 * this_index + 2] = Clipboard.pal_data[current_color].b8
-		new_palette[4 * this_index + 3] = Clipboard.pal_data[current_color].a8
+		new_palette[4 * this_index + 0] = Clipboard.pal_data[4 * offset + 0]
+		new_palette[4 * this_index + 1] = Clipboard.pal_data[4 * offset + 1]
+		new_palette[4 * this_index + 2] = Clipboard.pal_data[4 * offset + 2]
+		new_palette[4 * this_index + 3] = Clipboard.pal_data[4 * offset + 3]
 		
-		current_color += 1
+		offset += 1
 	
 	apply_palette(new_palette)
 	undo_redo.commit_action()
 
 
 func paste_into() -> void:
-	var current_color: int = 0
 	var new_palette: PackedByteArray = sprite.palette.duplicate()
+	var offset: int = 0
 	
 	for index: int in get_color_count():
 		if !selection.selected[index]:
 			continue
 		
-		new_palette[4 * index + 0] = Clipboard.pal_data[current_color].r8
-		new_palette[4 * index + 1] = Clipboard.pal_data[current_color].g8
-		new_palette[4 * index + 2] = Clipboard.pal_data[current_color].b8
-		new_palette[4 * index + 3] = Clipboard.pal_data[current_color].a8
+		new_palette[4 * index + 0] = Clipboard.pal_data[4 * offset + 0]
+		new_palette[4 * index + 1] = Clipboard.pal_data[4 * offset + 1]
+		new_palette[4 * index + 2] = Clipboard.pal_data[4 * offset + 2]
+		new_palette[4 * index + 3] = Clipboard.pal_data[4 * offset + 3]
 		
-		current_color = wrapi(current_color + 1, 0, Clipboard.pal_data.size())
+		offset = wrapi(offset + 1, 0, Clipboard.pal_data.size())
 
 	apply_palette(new_palette)
 	undo_redo.commit_action()
@@ -289,7 +293,7 @@ func reorder_sprite() -> void:
 	undo_redo.add_do_property(sprite, "pixels", new_pixels)
 	undo_redo.add_do_method(sprite.update_preview)
 	
-	undo_redo.add_do_method(selection.restore_if_selected.bind(old_selection))
+	undo_redo.add_undo_method(selection.restore_if_selected.bind(old_selection))
 	undo_redo.add_undo_property(sprite, "pixels", old_pixels)
 	undo_redo.add_undo_method(sprite.update_preview)
 	
