@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func _toggled(toggled_on: bool) -> void:
-	Settings.box_collision_default = button_pressed
+	Settings.box_collision_default = toggled_on

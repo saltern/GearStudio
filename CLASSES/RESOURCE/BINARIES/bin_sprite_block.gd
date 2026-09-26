@@ -2,12 +2,10 @@ class_name BinSpriteBlock extends BinObject
 
 signal sprite_deserialized
 
-var sprites: Array[BinSprite]
+@export var sprites: Array[BinSprite]
+@export var single_mode: bool = false
 
-var single_mode: bool = false
-
-var deserialize_count: int = 0
-var dictionary: Dictionary = {}
+var deserialize_count: int = -1
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
@@ -53,8 +51,9 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	if single_mode:
 		var sprite: BinSprite = BinSprite.new()
 		sprite.deserialize(bin_data, is_big_endian)
-		dictionary = { 0: sprite }
-		deserialization_finish()
+		sprites = [sprite]
+		#deserialized.emit.call_deferred()
+		semaphore.post()
 		return
 		# Early cutoff
 	
@@ -64,42 +63,41 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	deserialize_count = pointers.size() - 1
 	sprite_deserialized.connect(on_sprite_deserialized)
 	
+	sprites.clear()
+	sprites.resize(deserialize_count)
+	
+	var slices: Array[PackedByteArray] = []
+	
 	for p: int in pointers.size() - 1:
-		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p + 1])
-		
-		WorkerThreadPool.add_task(
-			deserialize_thread.bind(
-				p, slice, is_big_endian
-			)
-		)
+		slices.append(bin_data.slice(pointers[p], pointers[p + 1]))
+	
+	WorkerThreadPool.add_group_task(
+		deserialize_thread.bind(slices, is_big_endian), deserialize_count,
+		-1, true
+	)
 
 
 func deserialize_thread(
-	number: int, bin_data: PackedByteArray, is_big_endian: bool
+	index: int, slices: Array[PackedByteArray], is_big_endian: bool
 ) -> void:
 	var sprite: BinSprite = BinSprite.new()
-	sprite.deserialize(bin_data, is_big_endian)
-	dictionary[number] = sprite
-	sprite_deserialized.emit.call_deferred(WorkerThreadPool.get_caller_task_id())
+	sprite.deserialize(slices[index], is_big_endian)
+	sprites[index] = sprite
+	
+	sprite_deserialized.emit.call_deferred(
+		WorkerThreadPool.get_caller_group_id()
+	)
 
 
-func on_sprite_deserialized(task_id: int) -> void:
-	WorkerThreadPool.wait_for_task_completion(task_id)
+func on_sprite_deserialized(group_id: int) -> void:
 	deserialize_count -= 1
 	
-	if deserialize_count > 0:
+	if deserialize_count != 0:
 		return
 	
-	deserialization_finish()#.call_deferred()
-
-
-func deserialization_finish() -> void:
-	dictionary.sort()
-	
-	for i: int in dictionary.keys():
-		sprites.append(dictionary[i])
-	
-	deserialized.emit.call_deferred()
+	deserialize_count = -1
+	WorkerThreadPool.wait_for_group_task_completion(group_id)
+	semaphore.post()
 
 
 func has_sprites() -> bool:
@@ -115,6 +113,9 @@ func set_sprite(index: int, sprite: BinSprite) -> void:
 
 
 func get_sprite(index: int) -> BinSprite:
+	if index < 0 || index >= sprites.size():
+		return null
+	
 	return sprites[index]
 
 

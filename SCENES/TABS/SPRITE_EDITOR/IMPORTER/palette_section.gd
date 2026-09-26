@@ -4,8 +4,8 @@ extends FoldableContainer
 
 
 func _ready() -> void:
-	dialog.session_set.connect(check_visibility.unbind(1))
+	dialog.session_set.connect(check_visibility.unbind(2))
 
 
-func check_visibility(session: Session) -> void:
-	visible = !session.has_palettes()
+func check_visibility() -> void:
+	visible = !dialog.has_palettes()

@@ -10,7 +10,7 @@ enum Mode {
 
 
 func _ready() -> void:
-	GlobalSignals.sprite_importer_on.connect(on_sprite_importer_on)
+	dialog.sprite_range_changed.connect(on_sprite_range_changed)
 
 
 func _value_changed(new_value: float) -> void:
@@ -21,5 +21,5 @@ func _value_changed(new_value: float) -> void:
 			dialog.placement_to = int(new_value)
 
 
-func on_sprite_importer_on(_session: Session, object: BinSpriteBlock) -> void:
-	max_value = object.get_sprite_count() - 1
+func on_sprite_range_changed(block: BinSpriteBlock) -> void:
+	max_value = block.get_sprite_count() - 1

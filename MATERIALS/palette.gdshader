@@ -4,7 +4,9 @@ shader_type canvas_item;
 #pragma disable_preprocessor
 
 uniform bool alpha_double = true;
-uniform bool reindex = false;
+uniform bool as_rgb = false;
+uniform bool reindex_pixels = false;
+uniform bool reindex_palette = false;
 
 uniform bool is_depth_4 = false;
 uniform bool is_depth_8 = false;
@@ -16,6 +18,7 @@ uniform int hover_index = -1;
 uniform int selecting_min = -1;
 uniform int selecting_max = -1;
 uniform int[0x400] palette;
+uniform int[0x100] palette_as_rgb;
 
 
 int transform_index(int index) {
@@ -28,6 +31,20 @@ int transform_index(int index) {
 		case 0x08:	return index += 8;
 		default:	return index;
 	}
+}
+
+
+vec4 get_color(int index) {
+	if (reindex_palette) {
+		index = transform_index(index);
+	}
+	
+	return vec4(
+		float(palette[4 * index + 0]) / 255.00,
+		float(palette[4 * index + 1]) / 255.00,
+		float(palette[4 * index + 2]) / 255.00,
+		float(palette[4 * index + 3]) / 255.00
+	);
 }
 
 
@@ -68,25 +85,22 @@ int cap_index(int index) {
 void fragment() {
 	int index = int(COLOR.r * 256.00);
 	
-	if (reindex) {
+	if (as_rgb) {
+		index = palette_as_rgb[index];
+	}
+	
+	if (reindex_pixels) {
 		index = transform_index(index);
 	}
 	
 	index = cap_index(index);
+	vec4 color = get_color(index);
 	
-	float alpha = float(palette[4 * index + 3]) / 255.00;
-
 	if (alpha_double) {
-		alpha = min(alpha * 2.0, 1.0);
+		color.a = min(color.a * 2.0, 1.0);
 	}
-
-	vec4 pal_color = vec4(
-		float(palette[4 * index + 0]) / 255.00,
-		float(palette[4 * index + 1]) / 255.00,
-		float(palette[4 * index + 2]) / 255.00,
-		alpha);
-
-	COLOR = pal_color;
+	
+	COLOR = color;
 
 	if (index == hover_index) {
 		lowp float blend = abs(sin(TIME * 5.0));

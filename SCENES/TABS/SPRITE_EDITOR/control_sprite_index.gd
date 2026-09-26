@@ -8,13 +8,18 @@ extends SteppingSpinBox
 
 
 func _ready() -> void:
+	editor.sprite_range_changed.connect(update_max)
 	editor.sprite_forced.connect(force_update)
-	max_value = editor.get_sprite_count() - 1
+	update_max()
 	
 	if limiter_min:
 		limiter_min.value_changed.connect(min_set)
 	if limiter_max:
 		limiter_max.value_changed.connect(max_set)
+
+
+func update_max() -> void:
+	max_value = editor.get_sprite_count() - 1
 
 
 func _value_changed(new_value: float) -> void:

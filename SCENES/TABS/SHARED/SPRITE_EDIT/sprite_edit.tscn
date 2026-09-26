@@ -94,12 +94,20 @@ border_width_bottom = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e7btt"]
 resource_local_to_scene = true
 shader = ExtResource("18_sifk5")
-shader_parameter/opaque_bg = false
 shader_parameter/alpha_double = true
+shader_parameter/as_rgb = false
+shader_parameter/reindex_pixels = false
+shader_parameter/reindex_palette = false
+shader_parameter/is_depth_4 = false
+shader_parameter/is_depth_8 = false
+shader_parameter/force_depth_4 = false
+shader_parameter/force_depth_8 = false
+shader_parameter/half_clut = false
 shader_parameter/hover_index = -1
 shader_parameter/selecting_min = -1
 shader_parameter/selecting_max = -1
 shader_parameter/palette = PackedInt32Array()
+shader_parameter/palette_as_rgb = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gwjl0"]
 outline_size = 9
@@ -368,6 +376,7 @@ palette_grid = NodePath("../../../../scroll/margin/data/palette_grid/palette")
 editor_panel = NodePath("../../../../../pal_edit")
 
 [node name="pal_edit" type="HBoxContainer" parent="content" unique_id=1135658424]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 
@@ -854,6 +863,7 @@ label_settings = SubResource("LabelSettings_gwjl0")
 horizontal_alignment = 1
 
 [node name="import_confirm" type="ConfirmationDialog" parent="sprite_import" unique_id=1510232405]
+oversampling_override = 1.0
 title = "SPRITE_EDIT_IMPORT_CONFIRM_TITLE"
 initial_position = 2
 size = Vector2i(565, 100)
@@ -863,6 +873,7 @@ cancel_button_text = "SPRITE_EDIT_IMPORT_CONFIRM_CANCEL"
 
 [node name="import_progress" type="Window" parent="sprite_import" unique_id=447800393 node_paths=PackedStringArray("progress_label")]
 auto_translate_mode = 1
+oversampling_override = 1.0
 title = "SPRITE_EDIT_IMPORT_PROGRESS_TITLE"
 initial_position = 2
 size = Vector2i(300, 100)

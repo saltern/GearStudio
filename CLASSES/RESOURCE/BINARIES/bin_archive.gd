@@ -26,10 +26,10 @@ func serialize() -> PackedByteArray:
 
 func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	if BinAudioWBND.identify(bin_data, is_big_endian):
-		deserialized.emit.call_deferred()
+		semaphore.post()
 		return
 	if BinAudioVAGp.identify(bin_data, is_big_endian):
-		deserialized.emit.call_deferred()
+		semaphore.post()
 		return
 	
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)	
@@ -43,52 +43,39 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		var object: BinObject
 	
 		if BinAudioWBND.identify(slice, is_big_endian):
-			#print("Found BinAudioWBND")
 			object = BinAudioWBND.new()
 		
 		elif BinAudioVAGp.identify(slice, true):
-			#print("Found BinAudioVAGp")
 			object = BinAudioVAGp.new()
 		
 		if BinSprite.identify(slice, is_big_endian):
-			#print("Found BinSprite")
-			object = BinSprite.new()
-			#object = BinSpriteBlock.new()
-			#object.single_mode = true
+			object = BinSpriteBlock.new()
+			object.single_mode = true
 		
 		elif BinSpriteSelectBlock.identify(slice, is_big_endian):
-			#print("Found BinSpriteSelectBlock")
 			object = BinSpriteSelectBlock.new()
 		
 		elif BinSpriteBlock.identify(slice, is_big_endian):
-			#print("Found BinSpriteBlock")
 			object = BinSpriteBlock.new()
 		
 		elif BinJPFPlainText.identify(slice, is_big_endian):
-			#print("Found BinJPFPlainText")
 			object = BinJPFPlainText.new()
 		
 		elif BinWiiTPL.identify(slice, is_big_endian):
-			#print("Found BinWiiTPL")
 			object = BinWiiTPL.new()
 		
 		elif BinScriptable.identify(slice, is_big_endian):
-			#print("Found BinScriptable")
 			object = BinScriptable.new()
 		
 		elif BinScriptableBlock.identify(slice, is_big_endian):
-			#print("Found BinScriptableBlock")
 			object = BinScriptableBlock.new()
 		
 		else:
-			#print("Found BinRawData")
 			object = BinRawData.new()
 		
 		object.deserialize(slice, is_big_endian)
-		await object.deserialized
-		#print("BinArchive: append object")
+		object.semaphore.wait()
 		objects.append(object)
-		#GlobalSignals.load_object.emit()
 		GlobalSignals.progress_advance()
 	
 	if is_gallery():
@@ -102,8 +89,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		block.sprites = array
 		objects = [block]
 	
-	#print("Archive: deserialized")
-	deserialized.emit.call_deferred()
+	semaphore.post()
 
 
 func is_gallery() -> bool:

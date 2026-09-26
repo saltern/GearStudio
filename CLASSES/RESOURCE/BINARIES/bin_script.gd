@@ -44,16 +44,16 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 			else:
 				cursor = 0x100
 				
-				if bin_data[0x50] & 0x01 > 0:
+				if bin_data[0x50] & 0x01:
 					cursor = 0x180
 				
-				if bin_data[0x50] & 0x02 > 0:
+				if bin_data[0x50] & 0x02:
 					cursor += 0x80
 				
-				if bin_data[0x50] & 0x04 > 0:
+				if bin_data[0x50] & 0x04:
 					cursor += 0x80
 				
-				if bin_data[0x50] & 0x08 > 0:
+				if bin_data[0x50] & 0x08:
 					cursor += 0x80
 		else:
 			cursor = 0x80

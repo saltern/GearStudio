@@ -16,6 +16,4 @@ func _ready() -> void:
 func on_index_pressed(index: int) -> void:
 	match index:
 		Items.IMPORT:
-			GlobalSignals.sprite_importer_open(
-				editor.session, editor.sprite_block
-			)
+			GlobalSignals.sprite_importer_open(editor)

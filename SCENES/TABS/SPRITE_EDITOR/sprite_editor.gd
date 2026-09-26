@@ -1,5 +1,6 @@
 class_name SpriteEditor extends MarginContainer
 
+signal sprite_range_changed
 signal sprite_changed
 signal sprite_forced
 signal preview_outdated
@@ -88,10 +89,12 @@ func register_action_history() -> void:
 
 
 func status_register_action(action_text: String) -> void:
-	undo_redo.add_do_method(Status.set_status.bind(action_text))
-	undo_redo.add_undo_method(Status.set_status.bind(tr("ACTION_UNDO").format({
+	var undo_text: String = TranslationServer.translate("ACTION_UNDO").format({
 		"action": action_text
-	})))
+	})
+	
+	undo_redo.add_do_method(Status.set_status.bind(action_text))
+	undo_redo.add_undo_method(Status.set_status.bind(undo_text))
 
 
 func undo() -> void:
@@ -118,7 +121,6 @@ func redo() -> void:
 
 
 func get_sprite_count() -> int:
-	#return object.get_sprite_count()
 	return sprite_block.get_sprite_count()
 
 
@@ -127,7 +129,6 @@ func set_sprite(index: int) -> void:
 		return
 	
 	sprite_index = index
-	#this_sprite = object.get_sprite(index)
 	this_sprite = sprite_block.get_sprite(index)
 	
 	pal_helper.set_sprite(this_sprite)
@@ -138,9 +139,18 @@ func set_sprite(index: int) -> void:
 	sprite_changed.emit()
 
 
+func force_sprite(index: int) -> void:
+	sprite_index = -1
+	set_sprite(index)
+	sprite_forced.emit(index)
+
+
+func reload_sprite() -> void:
+	force_sprite(sprite_index)
+
+
 func get_sprite(index: int) -> BinSprite:
 	if index < get_sprite_count():
-		#return object.get_sprite(index)
 		return sprite_block.get_sprite(index)
 	else:
 		return null
@@ -154,10 +164,27 @@ func get_sprite_block() -> BinSpriteBlock:
 			return scriptable.sprites
 
 
-func force_sprite(index: int) -> void:
-	sprite_index = -1
-	set_sprite(index)
-	sprite_forced.emit(index)
+func set_sprite_array(array: Array[BinSprite], count: int) -> void:
+	var action_text: String = TranslationServer.translate(
+		"ACTION_SPRITE_IMPORTER_IMPORT").format({
+			"count": count, "object": "",
+		}
+	)
+	
+	undo_redo.create_action(action_text)
+	status_register_action(action_text)
+	
+	var block: BinSpriteBlock = get_sprite_block()
+	
+	undo_redo.add_do_property(block, "sprites", array)
+	undo_redo.add_do_method(emit_signal.bind("sprite_range_changed"))
+	undo_redo.add_do_method(reload_sprite)
+	
+	undo_redo.add_undo_property(block, "sprites", block.sprites)
+	undo_redo.add_undo_method(emit_signal.bind("sprite_range_changed"))
+	undo_redo.add_undo_method(reload_sprite)
+	
+	undo_redo.commit_action.call_deferred()
 
 
 func object_has_palettes() -> bool:

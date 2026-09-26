@@ -18,17 +18,24 @@
 [ext_resource type="Script" uid="uid://bkqpe8e8nt6vy" path="res://SCENES/TABS/SPRITE_EDITOR/shared_color_toggles.gd" id="8_0pyps"]
 [ext_resource type="Script" uid="uid://ics82d2qrjoj" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/palette_visibility.gd" id="8_efox0"]
 [ext_resource type="Texture2D" uid="uid://dish6b8boosur" path="res://ICONS/alternate_bit_depth.svg" id="8_jjeie"]
+[ext_resource type="Script" uid="uid://bfg0kxfq1t2di" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/reindex_pixels.gd" id="8_qq2li"]
 [ext_resource type="Script" uid="uid://camaj8na8faoq" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/batch_processing.gd" id="8_tgars"]
+[ext_resource type="Script" uid="uid://b0m4qpcjmdveo" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/reindex_palettes.gd" id="9_efox0"]
 [ext_resource type="Script" uid="uid://cgo6vcewet6dx" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/remove_if_player.gd" id="9_eqjkf"]
 [ext_resource type="Script" uid="uid://s7nn3gh7q4yf" path="res://SCENES/TABS/SPRITE_EDITOR/control_sprite_flip.gd" id="9_iyd73"]
 [ext_resource type="Script" uid="uid://cbadot1mkkh7p" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/sprite_range.gd" id="9_qq2li"]
+[ext_resource type="Script" uid="uid://f5leoyn3ygdp" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/flip.gd" id="10_efox0"]
 [ext_resource type="Texture2D" uid="uid://bsihkepltih0d" path="res://ICONS/half.svg" id="10_hsdhq"]
+[ext_resource type="Script" uid="uid://jamuvptbce8b" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/bit_depth_mode.gd" id="11_j87ms"]
+[ext_resource type="Script" uid="uid://cqinokucn282p" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/clut_size_mode.gd" id="13_dqpwr"]
 [ext_resource type="Texture2D" uid="uid://dfc7v03wdioc2" path="res://GRAPHICS/CHECKERBOARD.PNG" id="13_eehnk"]
 [ext_resource type="Script" uid="uid://dlh1x88f2tqme" path="res://SCENES/TABS/SPRITE_EDITOR/control_hash.gd" id="13_yk3wa"]
 [ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="14_7pv4t"]
+[ext_resource type="Script" uid="uid://fhlsk78mcykj" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/palette_replacement_mode.gd" id="14_efqxx"]
+[ext_resource type="Script" uid="uid://c15p5deq6ce7d" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/palette_browser.gd" id="15_oal4j"]
 [ext_resource type="Script" uid="uid://nc8rno7rvc4r" path="res://SCENES/TABS/SHARED/visibility_toggler.gd" id="16_33ko7"]
-[ext_resource type="Script" uid="uid://dxyxk74qwt7yx" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/progress.gd" id="17_qq2li"]
 [ext_resource type="Script" uid="uid://b1sa2xlb1v8w3" path="res://SCENES/TABS/SPRITE_EDITOR/sprite_display.gd" id="17_smuy5"]
+[ext_resource type="Script" uid="uid://cvmjw3lgp6r3s" path="res://SCENES/TABS/SPRITE_EDITOR/BATCH_TOOLS/apply.gd" id="19_ima0k"]
 [ext_resource type="Script" uid="uid://ce07edvcwysg4" path="res://SCENES/TABS/SHARED/SPRITE_EDIT/window_summon_button.gd" id="19_lfy6y"]
 [ext_resource type="Script" uid="uid://bbloqr5fyfafu" path="res://SCENES/TABS/SPRITE_EDITOR/palette_importer.gd" id="20_f1cbw"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="21_27fn0"]
@@ -62,7 +69,9 @@ border_width_bottom = 1
 resource_local_to_scene = true
 shader = ExtResource("14_7pv4t")
 shader_parameter/alpha_double = true
-shader_parameter/reindex = false
+shader_parameter/as_rgb = false
+shader_parameter/reindex_pixels = false
+shader_parameter/reindex_palette = false
 shader_parameter/is_depth_4 = false
 shader_parameter/is_depth_8 = false
 shader_parameter/force_depth_4 = false
@@ -72,6 +81,7 @@ shader_parameter/hover_index = -1
 shader_parameter/selecting_min = -1
 shader_parameter/selecting_max = -1
 shader_parameter/palette = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/palette_as_rgb = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_crfo6"]
 allow_unpress = true
@@ -91,7 +101,9 @@ blend_mode = 1
 resource_local_to_scene = true
 shader = ExtResource("14_7pv4t")
 shader_parameter/alpha_double = true
-shader_parameter/reindex = false
+shader_parameter/as_rgb = false
+shader_parameter/reindex_pixels = false
+shader_parameter/reindex_palette = false
 shader_parameter/is_depth_4 = false
 shader_parameter/is_depth_8 = false
 shader_parameter/force_depth_4 = false
@@ -101,6 +113,7 @@ shader_parameter/hover_index = -1
 shader_parameter/selecting_min = -1
 shader_parameter/selecting_max = -1
 shader_parameter/palette = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/palette_as_rgb = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [node name="SPRITE_EDIT_TITLE" type="MarginContainer" unique_id=1798707014 node_paths=PackedStringArray("pal_helper", "pal_display", "pal_selection")]
 anchors_preset = 15
@@ -168,7 +181,7 @@ item_1/id = 1
 script = ExtResource("4_j87ms")
 batch_dialog = NodePath("../batch")
 
-[node name="batch" type="Window" parent="editor/content/control_panel/menu" unique_id=721382806 node_paths=PackedStringArray("range_from", "range_to", "action_sprites", "action_palettes", "action_flip_h", "action_flip_v", "action_bit_depth", "action_clut_size", "action_palette", "palette_preview", "apply_button", "preview", "progress_dialog", "palette_browser")]
+[node name="batch" type="Window" parent="editor/content/control_panel/menu" unique_id=721382806 node_paths=PackedStringArray("palette_preview", "preview")]
 oversampling_override = 1.0
 title = "Batch processing"
 initial_position = 2
@@ -177,20 +190,8 @@ visible = false
 transient = true
 exclusive = true
 script = ExtResource("8_tgars")
-range_from = NodePath("margin/content/controls/scroll/categories/range/content/from/value")
-range_to = NodePath("margin/content/controls/scroll/categories/range/content/to/value")
-action_sprites = NodePath("margin/content/controls/scroll/categories/actions/content/reindex_pixels")
-action_palettes = NodePath("margin/content/controls/scroll/categories/actions/content/reindex_palettes")
-action_flip_h = NodePath("margin/content/controls/scroll/categories/actions/content/flip_h")
-action_flip_v = NodePath("margin/content/controls/scroll/categories/actions/content/flip_v")
-action_bit_depth = NodePath("margin/content/controls/scroll/categories/actions/content/bit_depth/value")
-action_clut_size = NodePath("margin/content/controls/scroll/categories/actions/content/clut_size/value")
-action_palette = NodePath("margin/content/controls/scroll/categories/actions/content/palette_replacement/value")
 palette_preview = NodePath("margin/content/controls/scroll/categories/actions/content/pal_container/palette_grid/color_display")
-apply_button = NodePath("margin/content/controls/apply")
 preview = NodePath("margin/content/preview/borders/clipper/visualizer/sprite")
-progress_dialog = NodePath("../batch_progress")
-palette_browser = NodePath("margin/content/controls/scroll/categories/actions/content/palette_replacement/palette_browser")
 
 [node name="margin" type="MarginContainer" parent="editor/content/control_panel/menu/batch" unique_id=1491229970]
 anchors_preset = 15
@@ -232,10 +233,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "From sprite"
 
-[node name="value" type="SpinBox" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/range/content/from" unique_id=370055920 node_paths=PackedStringArray("limiter_max")]
+[node name="value" type="SpinBox" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/range/content/from" unique_id=370055920 node_paths=PackedStringArray("batch_tool", "limiter_max")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_qq2li")
+batch_tool = NodePath("../../../../../../../../..")
 limiter_max = NodePath("../../to/value")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
@@ -247,10 +249,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "To sprite"
 
-[node name="value" type="SpinBox" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("limiter_min")]
+[node name="value" type="SpinBox" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/range/content/to" unique_id=1974024536 node_paths=PackedStringArray("batch_tool", "limiter_min")]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("9_qq2li")
+batch_tool = NodePath("../../../../../../../../..")
+mode = 1
 limiter_min = NodePath("../../from/value")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
@@ -261,26 +265,34 @@ title = "Actions"
 [node name="content" type="VBoxContainer" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions" unique_id=1037233784]
 layout_mode = 2
 
-[node name="reindex_pixels" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=611228065]
+[node name="reindex_pixels" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=611228065 node_paths=PackedStringArray("batch_tool")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Reindex pixels"
+script = ExtResource("8_qq2li")
+batch_tool = NodePath("../../../../../../../..")
 
-[node name="reindex_palettes" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1382322894]
+[node name="reindex_palettes" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1382322894 node_paths=PackedStringArray("batch_tool")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Reindex palettes"
-script = ExtResource("9_eqjkf")
+script = ExtResource("9_efox0")
+batch_tool = NodePath("../../../../../../../..")
 
-[node name="flip_h" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1694244540]
+[node name="flip_h" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1694244540 node_paths=PackedStringArray("batch_tool")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Flip horizontally"
+script = ExtResource("10_efox0")
+batch_tool = NodePath("../../../../../../../..")
 
-[node name="flip_v" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=514115080]
+[node name="flip_v" type="CheckButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=514115080 node_paths=PackedStringArray("batch_tool")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 text = "Flip vertically"
+script = ExtResource("10_efox0")
+mode = 1
+batch_tool = NodePath("../../../../../../../..")
 
 [node name="bit_depth" type="HBoxContainer" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1715738284]
 custom_minimum_size = Vector2(0, 30)
@@ -291,21 +303,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Bit depth"
 
-[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/bit_depth" unique_id=613543875]
+[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/bit_depth" unique_id=613543875 node_paths=PackedStringArray("batch_tool")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 text_overrun_behavior = 5
 clip_text = true
-selected = 0
 fit_to_longest_item = false
-item_count = 3
-popup/item_0/text = "(No change)"
-popup/item_0/id = 0
-popup/item_1/text = "Set to 4"
-popup/item_1/id = 1
-popup/item_2/text = "Set to 8"
-popup/item_2/id = 2
+script = ExtResource("11_j87ms")
+batch_tool = NodePath("../../../../../../../../..")
 
 [node name="clut_size" type="HBoxContainer" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1629108774]
 custom_minimum_size = Vector2(0, 30)
@@ -317,21 +323,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "CLUT mode"
 
-[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/clut_size" unique_id=1215645622]
+[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/clut_size" unique_id=1215645622 node_paths=PackedStringArray("batch_tool")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 text_overrun_behavior = 5
-selected = 0
-item_count = 4
-popup/item_0/text = "(No change)"
-popup/item_0/id = 0
-popup/item_1/text = "Remove"
-popup/item_1/id = 1
-popup/item_2/text = "Set to half"
-popup/item_2/id = 2
-popup/item_3/text = "Set to full"
-popup/item_3/id = 3
+script = ExtResource("13_dqpwr")
+batch_tool = NodePath("../../../../../../../../..")
 
 [node name="palette_replacement" type="HBoxContainer" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=34046611]
 custom_minimum_size = Vector2(0, 30)
@@ -343,27 +341,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Palette replacement"
 
-[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=1872370997]
+[node name="value" type="OptionButton" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=1872370997 node_paths=PackedStringArray("batch_tool", "file_browser")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 text_overrun_behavior = 5
-selected = 0
 fit_to_longest_item = false
-item_count = 3
-popup/item_0/text = "(No change)"
-popup/item_0/id = 0
-popup/item_1/text = "From clipboard"
-popup/item_1/id = 1
-popup/item_2/text = "From file"
-popup/item_2/id = 2
+script = ExtResource("14_efqxx")
+batch_tool = NodePath("../../../../../../../../..")
+file_browser = NodePath("../palette_browser")
 
-[node name="palette_browser" type="FileDialog" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=1065387380]
+[node name="palette_browser" type="FileDialog" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content/palette_replacement" unique_id=1065387380 node_paths=PackedStringArray("batch_tool")]
 title = "Open a File"
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.bin, *.act, *.png, *.bmp; Supported palette files")
 use_native_dialog = true
+script = ExtResource("15_oal4j")
+batch_tool = NodePath("../../../../../../../../..")
 
 [node name="pal_container" type="CenterContainer" parent="editor/content/control_panel/menu/batch/margin/content/controls/scroll/categories/actions/content" unique_id=1873922725 node_paths=PackedStringArray("replacement_mode")]
 visible = false
@@ -397,10 +392,12 @@ mouse_filter = 2
 script = ExtResource("23_wbp26")
 direct_mode = true
 
-[node name="apply" type="Button" parent="editor/content/control_panel/menu/batch/margin/content/controls" unique_id=452925605]
+[node name="apply" type="Button" parent="editor/content/control_panel/menu/batch/margin/content/controls" unique_id=452925605 node_paths=PackedStringArray("batch_tool")]
 layout_mode = 2
 size_flags_vertical = 8
 text = "Apply"
+script = ExtResource("19_ima0k")
+batch_tool = NodePath("../../../..")
 
 [node name="separator" type="VSeparator" parent="editor/content/control_panel/menu/batch/margin/content" unique_id=1321672322]
 layout_mode = 2
@@ -494,7 +491,7 @@ stretch_mode = 1
 script = ExtResource("41_fscsg")
 metadata/_edit_lock_ = true
 
-[node name="sprite" type="TextureRect" parent="editor/content/control_panel/menu/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1782719154 node_paths=PackedStringArray("pal_helper", "selection", "sprite_index")]
+[node name="sprite" type="TextureRect" parent="editor/content/control_panel/menu/batch/margin/content/preview/borders/clipper/visualizer" unique_id=1782719154 node_paths=PackedStringArray("pal_helper", "selection", "control_sprite_index")]
 texture_filter = 1
 material = SubResource("ShaderMaterial_efox0")
 anchors_preset = 8
@@ -508,71 +505,9 @@ mouse_filter = 2
 script = ExtResource("17_smuy5")
 pal_helper = NodePath("../../../../../../../../../../../../PaletteEditorHelper")
 selection = NodePath("../../../../../../../../../editors/content/palette/content/palette_grid/selection_manager")
-sprite_index = NodePath("../../../../content/sprite/value")
+control_sprite_index = NodePath("../../../../content/sprite/value")
 use_true_texture = true
 metadata/_custom_type_script = "uid://b1sa2xlb1v8w3"
-
-[node name="batch_progress" type="Window" parent="editor/content/control_panel/menu" unique_id=68937049 node_paths=PackedStringArray("label_current", "label_max", "progress_bar")]
-oversampling_override = 1.0
-title = "PLEASE_WAIT"
-initial_position = 2
-size = Vector2i(350, 100)
-visible = false
-transient = true
-transient_to_focused = true
-exclusive = true
-unresizable = true
-minimize_disabled = true
-maximize_disabled = true
-force_native = true
-script = ExtResource("17_qq2li")
-label_current = NodePath("margin/content/items/current")
-label_max = NodePath("margin/content/items/out_of")
-progress_bar = NodePath("margin/content/bar")
-
-[node name="margin" type="MarginContainer" parent="editor/content/control_panel/menu/batch_progress" unique_id=1220883376]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="content" type="VBoxContainer" parent="editor/content/control_panel/menu/batch_progress/margin" unique_id=570744975]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 12
-
-[node name="items" type="HBoxContainer" parent="editor/content/control_panel/menu/batch_progress/margin/content" unique_id=1163200286]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="action" type="Label" parent="editor/content/control_panel/menu/batch_progress/margin/content/items" unique_id=77389003]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Processing:"
-
-[node name="current" type="Label" parent="editor/content/control_panel/menu/batch_progress/margin/content/items" unique_id=2060159289]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "0"
-
-[node name="slash" type="Label" parent="editor/content/control_panel/menu/batch_progress/margin/content/items" unique_id=382394113]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "/"
-
-[node name="out_of" type="Label" parent="editor/content/control_panel/menu/batch_progress/margin/content/items" unique_id=1484491752]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "256"
-
-[node name="bar" type="ProgressBar" parent="editor/content/control_panel/menu/batch_progress/margin/content" unique_id=65323571]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-value = 50.0
-show_percentage = false
 
 [node name="selectors" type="VBoxContainer" parent="editor/content/control_panel" unique_id=88877410]
 layout_mode = 2
@@ -949,7 +884,7 @@ stretch_mode = 1
 script = ExtResource("41_fscsg")
 metadata/_edit_lock_ = true
 
-[node name="sprite" type="TextureRect" parent="editor/content/preview/borders/clipper/visualizer" unique_id=1067766527 node_paths=PackedStringArray("pal_helper", "selection", "sprite_index")]
+[node name="sprite" type="TextureRect" parent="editor/content/preview/borders/clipper/visualizer" unique_id=1067766527 node_paths=PackedStringArray("pal_helper", "selection", "control_sprite_index")]
 texture_filter = 1
 material = SubResource("ShaderMaterial_hsdhq")
 anchors_preset = 8
@@ -963,7 +898,7 @@ mouse_filter = 2
 script = ExtResource("17_smuy5")
 pal_helper = NodePath("../../../../../../../PaletteEditorHelper")
 selection = NodePath("../../../../../control_panel/editors/content/palette/content/palette_grid/selection_manager")
-sprite_index = NodePath("../../../../../control_panel/selectors/sprite_index/value")
+control_sprite_index = NodePath("../../../../../control_panel/selectors/sprite_index/value")
 metadata/_custom_type_script = "uid://b1sa2xlb1v8w3"
 
 [node name="bounds" type="ColorRect" parent="editor/content/preview/borders/clipper/visualizer/sprite" unique_id=1398277218 node_paths=PackedStringArray("display_toggle")]

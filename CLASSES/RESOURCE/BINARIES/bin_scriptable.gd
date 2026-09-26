@@ -77,14 +77,14 @@ func serialize() -> PackedByteArray:
 	data.append_array(scripts.serialize())
 	
 	# Palettes
-	if palettes.has_sprites():
+	if has_palettes():
 		pointers.append(data.size())
 		data.append_array(palettes.serialize())
 	
-	# EX Scripts
-	if ex_scripts != null:
-		pointers.append(data.size())
-		data.append_array(ex_scripts.serialize())
+		# EX Scripts
+		if ex_scripts != null:
+			pointers.append(data.size())
+			data.append_array(ex_scripts.serialize())
 	
 	# Write
 	stream.put_data(finalize_pointers(pointers, big_endian))
@@ -102,20 +102,14 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	var pointers: PackedInt64Array = get_pointers(bin_data, is_big_endian)
 	pointers.append(bin_data.size()) # Auxiliary pointer
 	
-	#var time: int
-	
 	var cell_block: PackedByteArray = bin_data.slice(pointers[0], pointers[1])
 	cells = BinCellBlock.new()
-	#time = Time.get_ticks_msec()
 	cells.deserialize(cell_block, is_big_endian)
-	#print("Cells time: %dms" % [Time.get_ticks_msec() - time])
 	
 	var sprite_block: PackedByteArray = bin_data.slice(pointers[1], pointers[2])
 	sprites = BinSpriteBlock.new()
-	#time = Time.get_ticks_msec()
 	sprites.deserialize(sprite_block, is_big_endian)
-	await sprites.deserialized
-	#print("Sprites time: %dms" % [Time.get_ticks_msec() - time])
+	sprites.semaphore.wait()
 	
 	if pointers.size() > 3:
 		var script_block: PackedByteArray = bin_data.slice(pointers[2], pointers[3])
@@ -124,29 +118,22 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		if pointers.size() > 4:
 			scripts.has_play_data = true
 		
-		#time = Time.get_ticks_msec()
 		scripts.deserialize(script_block, is_big_endian)
-		#print("Scripts time: %dms" % [Time.get_ticks_msec() - time])
 	
 	if pointers.size() > 4:
 		var palette_block: PackedByteArray = bin_data.slice(pointers[3], pointers[4])
 		palettes = BinSpriteBlock.new()
-		#time = Time.get_ticks_msec()
 		palettes.deserialize(palette_block, is_big_endian)
-		await palettes.deserialized
-		#print("Palettes time: %dms" % [Time.get_ticks_msec() - time])
+		palettes.semaphore.wait()
 	
 	# Reload EX scripts
 	if pointers.size() > 5:
 		var ex_block: PackedByteArray = bin_data.slice(pointers[4], pointers[5])
 		ex_scripts = BinScript.new()
 		ex_scripts.has_play_data = true
-		#time = Time.get_ticks_msec()
 		ex_scripts.deserialize(ex_block, is_big_endian)
-		#print("EX scripts time: %dms" % [Time.get_ticks_msec() - time])
 	
-	#print("BinScriptable: deserialized")
-	deserialized.emit.call_deferred()
+	semaphore.post()
 
 
 func get_cell_count() -> int:

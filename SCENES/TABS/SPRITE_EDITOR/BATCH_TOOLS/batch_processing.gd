@@ -1,4 +1,4 @@
-extends "res://SCENES/TABS/SHARED/basic_dialog.gd"
+class_name BatchProcessingTool extends BasicDialog
 
 signal finished
 
@@ -21,28 +21,13 @@ enum PaletteSetting {
 	FROM_FILE,
 }
 
-@export var range_from			: SteppingSpinBox
-@export var range_to			: SteppingSpinBox
-
-@export var action_sprites		: CheckButton
-@export var action_palettes		: CheckButton
-@export var action_flip_h		: CheckButton
-@export var action_flip_v		: CheckButton
-@export var action_bit_depth	: OptionButton
-@export var action_clut_size	: OptionButton
-@export var action_palette		: OptionButton
-
 @export var palette_preview		: PaletteDisplay
-
-@export var apply_button		: Button
 @export var preview				: SpriteDisplay
-@export var progress_dialog		: Window
-@export var palette_browser		: FileDialog
 
 var from				: int = 0
 var to					: int = 0
 var reindex_pixels		: bool = false
-var reindex_palettes	: bool = false
+var reindex_palette		: bool = false
 var flip_h				: bool = false
 var flip_v				: bool = false
 var depth_setting		: DepthSetting = DepthSetting.NO_CHANGE
@@ -63,28 +48,7 @@ var task_count			: int
 
 func _ready() -> void:
 	super._ready()
-	
 	visibility_changed.connect(on_display)
-	
-	range_from.value_changed.connect(set_from)
-	range_to.value_changed.connect(set_to)
-	
-	action_sprites.toggled.connect(toggle_sprites)
-		
-	if not editor.object_has_palettes():
-		action_palettes.toggled.connect(toggle_palettes)
-	
-	action_flip_h.toggled.connect(toggle_flip_h)
-	action_flip_v.toggled.connect(toggle_flip_v)
-	
-	action_bit_depth.item_selected.connect(set_depth_mode)
-	action_clut_size.item_selected.connect(set_clut_mode)
-	action_palette.item_selected.connect(set_palette_mode)
-	
-	palette_browser.file_selected.connect(import_palette)
-	
-	apply_button.pressed.connect(apply_pressed)
-	
 	finished.connect(on_finished)
 
 
@@ -96,23 +60,23 @@ func set_to(new_value: int) -> void:
 	to = new_value
 
 
-func toggle_sprites(toggled_on: bool) -> void:
-	reindex_pixels = toggled_on
-	preview.set_reindex(reindex_pixels != reindex_palettes)
+func set_reindex_pixels(enabled: bool) -> void:
+	reindex_pixels = enabled
+	preview.set_reindex_pixels(reindex_pixels)
 
 
-func toggle_palettes(toggled_on: bool) -> void:
-	reindex_palettes = toggled_on
-	preview.set_reindex(reindex_pixels != reindex_palettes)
+func set_reindex_palettes(enabled: bool) -> void:
+	reindex_palette = enabled
+	preview.set_reindex_palette(reindex_palette)
 
 
-func toggle_flip_h(toggled_on: bool) -> void:
-	flip_h = toggled_on
+func set_flip_h(enabled: bool) -> void:
+	flip_h = enabled
 	preview.set_flip_h(flip_h)
 
 
-func toggle_flip_v(toggled_on: bool) -> void:
-	flip_v = toggled_on
+func set_flip_v(enabled: bool) -> void:
+	flip_v = enabled
 	preview.set_flip_v(flip_v)
 
 
@@ -149,11 +113,11 @@ func set_palette_mode(new_mode: PaletteSetting) -> void:
 	match palette_setting:
 		PaletteSetting.NO_CHANGE:
 			preview.set_palette_override()
-		PaletteSetting.FROM_FILE:
-			palette_browser.show()
 		PaletteSetting.FROM_CLIPBOARD:
 			palette = Clipboard.pal_data
 			update_palettes()
+		#PaletteSetting.FROM_FILE:
+			#palette_browser.show()
 
 
 func import_palette(path: String) -> void:
@@ -176,9 +140,9 @@ func update_palettes() -> void:
 	preview.set_palette_override(palette)
 
 
-func apply_pressed() -> void:
+func confirm_process() -> void:
 	if (
-		!reindex_pixels && !reindex_palettes &&
+		!reindex_pixels && !reindex_palette &&
 		!flip_h && !flip_v &&
 		depth_setting == DepthSetting.NO_CHANGE &&
 		clut_setting == CLUTSetting.NO_CHANGE &&
@@ -237,10 +201,10 @@ func apply_pressed() -> void:
 	
 	# Set up processes
 	undo_redo.add_do_method(
-		create_process_threads.bind(
+		create_threads.bind(
 			false,
 			from, to,
-			reindex_pixels, reindex_palettes,
+			reindex_pixels, reindex_palette,
 			flip_h, flip_v,
 			depth_setting, clut_setting,
 			p_palette,
@@ -248,10 +212,10 @@ func apply_pressed() -> void:
 	)
 	
 	undo_redo.add_undo_method(
-		create_process_threads.bind(
+		create_threads.bind(
 			true,
 			from, to,
-			reindex_pixels, reindex_palettes,
+			reindex_pixels, reindex_palette,
 			flip_h, flip_v,
 			depth_setting, clut_setting,
 			p_palette,
@@ -261,106 +225,94 @@ func apply_pressed() -> void:
 	undo_redo.commit_action()
 
 
-func create_process_threads(
+func create_threads(
 	p_undo: bool,
 	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
 	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
 	p_clut_setting: CLUTSetting, p_palette: PackedByteArray,
 ) -> void:
-	progress_dialog.start.call_deferred(p_from, p_to)
+	task_start = Time.get_ticks_msec()
+	task_count = p_to - p_from + 1
 	
-	# Multithreading (min 1, max 4 threads)
-	task_count = mini(p_to - p_from + 1, 4)
-	task_start = Time.get_ticks_usec()
+	GlobalSignals.progress_show("Processing sprites...", task_count)
 	
-	for i: int in task_count:
-		WorkerThreadPool.add_task(
-			process.bind(
-				task_count, i, p_undo,
-				p_from, p_to,
-				p_pixels, p_palettes,
-				p_flip_h, p_flip_v,
-				p_depth, p_clut_setting,
-				p_palette,
-			)
-		)
+	WorkerThreadPool.add_group_task(
+		thread_process.bind(
+			p_from, p_undo,
+			p_pixels, p_palettes,
+			p_flip_h, p_flip_v,
+			p_depth,
+			p_clut_setting, p_palette
+		), task_count, -1, true
+	)
 
 
-func process(
-	thread_count: int, thread_number: int, p_undo: bool, 
-	p_from: int, p_to: int, p_pixels: bool, p_palettes: bool,
-	p_flip_h: bool, p_flip_v: bool, p_depth: DepthSetting,
+func thread_process(
+	i: int, p_from: int,
+	p_undo: bool, 
+	p_pixels: bool, p_palettes: bool,
+	p_flip_h: bool, p_flip_v: bool,
+	p_depth: DepthSetting,
 	p_clut: CLUTSetting, p_palette: PackedByteArray,
 ) -> void:
+	var index: int = p_from + i
+	var sprite: BinSprite = editor.sprite_block.get_sprite(index)
 	
-	var sprite_block: BinSpriteBlock = editor.sprite_block
+	var depth: DepthSetting = DepthSetting.NO_CHANGE
+	var clut: CLUTSetting = CLUTSetting.NO_CHANGE
 	
-	var n_from: int = p_from
-	var n_to: int = p_to
-	
-	while n_from % thread_count != thread_number:
-		n_from += 1
-	while n_to % thread_count != thread_number:
-		n_to -= 1
-	
-	for i: int in range(n_from, n_to + 1, thread_count):
-		var sprite: BinSprite = sprite_block.get_sprite(i)
-		var depth: DepthSetting = DepthSetting.NO_CHANGE
-		var clut: CLUTSetting = CLUTSetting.NO_CHANGE
+	if index in depth_memory:
+		depth = p_depth
 		
-		if i in depth_memory:
-			depth = p_depth
-			
-			if p_undo:
-				if depth == DepthSetting.SET_TO_4:
-					depth = DepthSetting.SET_TO_8
-				else:
-					depth = DepthSetting.SET_TO_4
-		
-		if i in clut_memory:
-			if p_undo:
-				clut = clut_memory[i]
+		if p_undo:
+			if depth == DepthSetting.SET_TO_4:
+				depth = DepthSetting.SET_TO_8
 			else:
-				clut = p_clut
-		
-		if clut == CLUTSetting.SET_TO_FULL:
-			sprite.set_clut_full()
-		
-		if depth == DepthSetting.SET_TO_8:
-			sprite.set_bit_depth_8()
-		
-		if !p_palette.is_empty():
-			if p_undo:
-				sprite.palette = palette_memory[i].duplicate()
-			else:
-				sprite.palette = p_palette
-		
-		if p_pixels:
-			sprite.reindex_pixels(false)
-		if p_palettes:
-			sprite.reindex_palette()
-		
-		if depth == DepthSetting.SET_TO_4:
-			sprite.set_bit_depth_4()
-		
-		match clut:
-			CLUTSetting.REMOVE:
-				sprite.set_clut_none()
-			CLUTSetting.SET_TO_HALF:
-				sprite.set_clut_half()
-		
-		if p_flip_h && p_flip_v:
-			sprite.flip_both(false)
-		elif p_flip_h:
-			sprite.flip_h(false)
-		elif p_flip_v:
-			sprite.flip_v(false)
-		
-		sprite.update_preview()
-		progress_dialog.progress.call_deferred()
+				depth = DepthSetting.SET_TO_4
 	
-	var task_id: int = WorkerThreadPool.get_caller_task_id()
-	finished.emit.call_deferred(task_id)
+	if index in clut_memory:
+		if p_undo:
+			clut = clut_memory[index]
+		else:
+			clut = p_clut
+	
+	if clut == CLUTSetting.SET_TO_FULL:
+		sprite.set_clut_full()
+	
+	if depth == DepthSetting.SET_TO_8:
+		sprite.set_bit_depth_8()
+	
+	if !p_palette.is_empty():
+		if p_undo:
+			sprite.palette = palette_memory[index].duplicate()
+		else:
+			sprite.palette = p_palette
+	
+	if p_pixels:
+		sprite.reindex_pixels()
+	if p_palettes:
+		sprite.reindex_palette()
+	
+	if depth == DepthSetting.SET_TO_4:
+		sprite.set_bit_depth_4()
+	
+	match clut:
+		CLUTSetting.REMOVE:
+			sprite.set_clut_none()
+		CLUTSetting.SET_TO_HALF:
+			sprite.set_clut_half()
+	
+	if p_flip_h && p_flip_v:
+		sprite.flip_both()
+	elif p_flip_h:
+		sprite.flip_h()
+	elif p_flip_v:
+		sprite.flip_v()
+	
+	# Speed boost: do not update previews, just delete them
+	# and let them be recreated on demand.
+	sprite.clear_preview()
+	finished.emit.call_deferred(WorkerThreadPool.get_caller_group_id())
 
 
 func on_display() -> void:
@@ -372,12 +324,17 @@ func on_display() -> void:
 		update_palettes()
 
 
-func on_finished(task_id: int) -> void:
-	WorkerThreadPool.wait_for_task_completion(task_id)
+func on_finished(group_id: int) -> void:
+	GlobalSignals.progress_advance()
 	task_count -= 1
 	
-	if task_count == 0:
-		editor.notify_info_outdated()
-		editor.notify_preview_outdated()
-		editor.pal_helper.signal_sprite_updated()
-		progress_dialog.finish.call_deferred()
+	if task_count != 0:
+		return
+	
+	task_count = -1
+	WorkerThreadPool.wait_for_group_task_completion(group_id)
+	GlobalSignals.progress_finish()
+	
+	editor.notify_info_outdated()
+	editor.notify_preview_outdated()
+	editor.pal_helper.signal_sprite_updated()

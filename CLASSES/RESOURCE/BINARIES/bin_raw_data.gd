@@ -13,5 +13,4 @@ func serialize() -> PackedByteArray:
 
 func deserialize(bin_data: PackedByteArray, _is_big_endian: bool) -> void:
 	data = bin_data
-	#print("BinRawData: deserialized")
-	deserialized.emit.call_deferred()
+	semaphore.post()

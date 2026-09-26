@@ -48,7 +48,6 @@
 [ext_resource type="Script" uid="uid://ch4x5pmckpqlc" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/placement_manual_range.gd" id="46_hvhom"]
 [ext_resource type="Script" uid="uid://d1sr5y2ir650r" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/placement_by_filename.gd" id="47_xh5ku"]
 [ext_resource type="Script" uid="uid://yvhar3i5kdwk" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/placement_position_container.gd" id="48_urodu"]
-[ext_resource type="Script" uid="uid://ojsjmxp21twu" path="res://CLASSES/CONTROL/class_stepping_spinbox.gd" id="48_w5hjy"]
 [ext_resource type="Script" uid="uid://bwaqqkmcb37ld" path="res://CLASSES/CONTROL/zoomable_preview.gd" id="49_er45i"]
 [ext_resource type="Script" uid="uid://d08nbo2ahttov" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/placement_position.gd" id="49_qst02"]
 [ext_resource type="Script" uid="uid://bv55m7m2123u6" path="res://SCENES/TABS/SHARED/visualizer.gd" id="50_ejt0a"]
@@ -61,12 +60,17 @@
 [ext_resource type="Script" uid="uid://dmqkk7bxie8g7" path="res://SCENES/TABS/SHARED/background_color_b.gd" id="53_od2uf"]
 [ext_resource type="Script" uid="uid://djiieqfs8r1em" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/palette_half_size.gd" id="53_w5hjy"]
 [ext_resource type="Script" uid="uid://dfxip3vwebgue" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/palette_halve_alpha.gd" id="54_er45i"]
-[ext_resource type="Shader" uid="uid://pyjrqqoid2mx" path="res://MATERIALS/palette_basic.gdshader" id="54_hbv3r"]
 [ext_resource type="Script" uid="uid://3480aeeueqm5" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/palette_reindex.gd" id="55_ejt0a"]
 [ext_resource type="Script" uid="uid://bgk8m7j3o861d" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/sprite_flip.gd" id="57_u5l70"]
 [ext_resource type="Script" uid="uid://c3a25jc3l1uf" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/sprite_as_rgb.gd" id="58_od2uf"]
 [ext_resource type="Script" uid="uid://g10mwrqugcy" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/sprite_reindex.gd" id="59_hbv3r"]
 [ext_resource type="Script" uid="uid://c6qih1sfqhs4t" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/sprite_bit_depth.gd" id="60_eop36"]
+[ext_resource type="Script" uid="uid://bunyrw387ewwo" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/preview_sprite_index.gd" id="61_g164j"]
+[ext_resource type="Script" uid="uid://bsfemjmppev8v" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/import_confirm.gd" id="61_tyqm6"]
+[ext_resource type="Script" uid="uid://4kk0vop0yqi4" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/preview_palette_index.gd" id="62_g164j"]
+[ext_resource type="Script" uid="uid://b1sa2xlb1v8w3" path="res://SCENES/TABS/SPRITE_EDITOR/sprite_display.gd" id="68_1uhqi"]
+[ext_resource type="Shader" uid="uid://c743r4eni6m2r" path="res://MATERIALS/palette.gdshader" id="68_g164j"]
+[ext_resource type="Script" uid="uid://bm3k1i4x4ge7n" path="res://SCENES/TABS/SPRITE_EDITOR/IMPORTER/confirmation_dialog.gd" id="71_s7i70"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nliut"]
 bg_color = Color(0, 0, 0, 1)
@@ -91,10 +95,21 @@ border_width_bottom = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g164j"]
 resource_local_to_scene = true
-shader = ExtResource("54_hbv3r")
-shader_parameter/reindex = true
+shader = ExtResource("68_g164j")
 shader_parameter/alpha_double = true
-shader_parameter/palette = PackedInt32Array()
+shader_parameter/as_rgb = false
+shader_parameter/reindex_pixels = false
+shader_parameter/reindex_palette = false
+shader_parameter/is_depth_4 = false
+shader_parameter/is_depth_8 = false
+shader_parameter/force_depth_4 = false
+shader_parameter/force_depth_8 = false
+shader_parameter/half_clut = false
+shader_parameter/hover_index = -1
+shader_parameter/selecting_min = -1
+shader_parameter/selecting_max = -1
+shader_parameter/palette = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/palette_as_rgb = PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tyqm6"]
 outline_size = 9
@@ -511,7 +526,6 @@ exclusive = true
 unresizable = true
 minimize_disabled = true
 maximize_disabled = true
-force_native = true
 script = ExtResource("18_obp7x")
 label_action = NodePath("margin/content/items/action")
 label_current = NodePath("margin/content/items/current")
@@ -1182,7 +1196,7 @@ text = "EDIT_REDO"
 script = ExtResource("40_obp7x")
 mode = 1
 
-[node name="sprite_import_dialog" type="Window" parent="." unique_id=302253828 node_paths=PackedStringArray("files_browser")]
+[node name="sprite_import_dialog" type="Window" parent="." unique_id=302253828 node_paths=PackedStringArray("files_browser", "preview")]
 oversampling_override = 1.0
 title = "SPRITE_EDIT_IMPORT_TITLE"
 initial_position = 2
@@ -1192,6 +1206,7 @@ exclusive = true
 min_size = Vector2i(580, 180)
 script = ExtResource("42_e6utn")
 files_browser = NodePath("file_browser")
+preview = NodePath("margin/content/preview/borders/clipper/visualizer/sprite")
 
 [node name="margin" type="MarginContainer" parent="sprite_import_dialog" unique_id=1514613224]
 anchors_preset = 15
@@ -1210,7 +1225,6 @@ layout_mode = 2
 [node name="scroll" type="ScrollContainer" parent="sprite_import_dialog/margin/content/config" unique_id=1163793965]
 layout_mode = 2
 size_flags_vertical = 3
-scroll_vertical = 54
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 4
 
@@ -1277,15 +1291,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 text_overrun_behavior = 3
-selected = 0
 fit_to_longest_item = false
-item_count = 3
-popup/item_0/text = "SPRITE_EDIT_IMPORT_PLACEMENT_APPEND"
-popup/item_0/id = 0
-popup/item_1/text = "SPRITE_EDIT_IMPORT_PLACEMENT_REPLACE"
-popup/item_1/id = 1
-popup/item_2/text = "SPRITE_EDIT_IMPORT_PLACEMENT_INSERT"
-popup/item_2/id = 2
 script = ExtResource("45_m1wbg")
 dialog = NodePath("../../../../../../../../..")
 
@@ -1373,6 +1379,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 script = ExtResource("51_hvhom")
+mode = 1
 dialog = NodePath("../../../../../../../../..")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
@@ -1387,7 +1394,7 @@ dialog = NodePath("../../../../../..")
 [node name="content" type="VBoxContainer" parent="sprite_import_dialog/margin/content/config/scroll/content/palette" unique_id=1509478885]
 layout_mode = 2
 
-[node name="embed_pal" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1609206259]
+[node name="embed_pal" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1609206259 node_paths=PackedStringArray("dialog")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1395,14 +1402,16 @@ tooltip_text = "SPRITE_EDIT_IMPORT_PALETTE_EMBED_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_PALETTE_EMBED"
 text_overrun_behavior = 3
 script = ExtResource("52_xh5ku")
+dialog = NodePath("../../../../../../../..")
 
-[node name="half_size" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1910590761]
+[node name="half_size" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1910590761 node_paths=PackedStringArray("dialog")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Half size"
 text_overrun_behavior = 3
 script = ExtResource("53_w5hjy")
+dialog = NodePath("../../../../../../../..")
 
 [node name="halve_alpha" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1797043276 node_paths=PackedStringArray("dialog")]
 custom_minimum_size = Vector2(0, 30)
@@ -1414,13 +1423,14 @@ text_overrun_behavior = 3
 script = ExtResource("54_er45i")
 dialog = NodePath("../../../../../../../..")
 
-[node name="reindex" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1769428953]
+[node name="reindex" type="CheckButton" parent="sprite_import_dialog/margin/content/config/scroll/content/palette/content" unique_id=1769428953 node_paths=PackedStringArray("dialog")]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reindex"
 text_overrun_behavior = 3
 script = ExtResource("55_ejt0a")
+dialog = NodePath("../../../../../../../..")
 
 [node name="sprite" type="FoldableContainer" parent="sprite_import_dialog/margin/content/config/scroll/content" unique_id=766193838]
 layout_mode = 2
@@ -1504,13 +1514,16 @@ dialog = NodePath("../../../../../../../../..")
 [node name="h_sep" type="HSeparator" parent="sprite_import_dialog/margin/content/config" unique_id=1619331669]
 layout_mode = 2
 
-[node name="confirm" type="Button" parent="sprite_import_dialog/margin/content/config" unique_id=1847321653]
+[node name="confirm" type="Button" parent="sprite_import_dialog/margin/content/config" unique_id=1847321653 node_paths=PackedStringArray("dialog", "confirmation_dialog")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 tooltip_text = "SPRITE_EDIT_IMPORT_IMPORT_BUTTON_TOOLTIP"
 text = "SPRITE_EDIT_IMPORT_IMPORT_BUTTON"
 text_overrun_behavior = 3
+script = ExtResource("61_tyqm6")
+dialog = NodePath("../../../..")
+confirmation_dialog = NodePath("../../../../confirmation_dialog")
 
 [node name="v_sep" type="VSeparator" parent="sprite_import_dialog/margin/content" unique_id=896551303]
 layout_mode = 2
@@ -1536,11 +1549,12 @@ mouse_filter = 0
 text = "SPRITE_EDIT_IMPORT_PREVIEW_SPRITE"
 vertical_alignment = 1
 
-[node name="sprite_index" type="SpinBox" parent="sprite_import_dialog/margin/content/preview/selectors/sprite" unique_id=195610915]
+[node name="sprite_index" type="SpinBox" parent="sprite_import_dialog/margin/content/preview/selectors/sprite" unique_id=195610915 node_paths=PackedStringArray("dialog")]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
-script = ExtResource("48_w5hjy")
+script = ExtResource("61_g164j")
+dialog = NodePath("../../../../../..")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="palette" type="HBoxContainer" parent="sprite_import_dialog/margin/content/preview/selectors" unique_id=1478349038]
@@ -1556,12 +1570,13 @@ mouse_filter = 0
 text = "SPRITE_EDIT_IMPORT_PREVIEW_PALETTE"
 vertical_alignment = 1
 
-[node name="palette_index" type="SpinBox" parent="sprite_import_dialog/margin/content/preview/selectors/palette" unique_id=1511672088]
+[node name="palette_index" type="SpinBox" parent="sprite_import_dialog/margin/content/preview/selectors/palette" unique_id=1511672088 node_paths=PackedStringArray("dialog")]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 0.0
 alignment = 2
-script = ExtResource("48_w5hjy")
+script = ExtResource("62_g164j")
+dialog = NodePath("../../../../../..")
 metadata/_custom_type_script = "uid://ojsjmxp21twu"
 
 [node name="borders" type="PanelContainer" parent="sprite_import_dialog/margin/content/preview" unique_id=1608394869]
@@ -1613,7 +1628,7 @@ texture = ExtResource("52_u5l70")
 stretch_mode = 1
 script = ExtResource("53_od2uf")
 
-[node name="sprite" type="TextureRect" parent="sprite_import_dialog/margin/content/preview/borders/clipper/visualizer" unique_id=426446662]
+[node name="sprite" type="TextureRect" parent="sprite_import_dialog/margin/content/preview/borders/clipper/visualizer" unique_id=457382696 node_paths=PackedStringArray("control_sprite_index")]
 texture_filter = 1
 material = SubResource("ShaderMaterial_g164j")
 anchors_preset = 8
@@ -1623,6 +1638,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("68_1uhqi")
+standalone = true
+control_sprite_index = NodePath("../../../../selectors/sprite/sprite_index")
+metadata/_custom_type_script = "uid://b1sa2xlb1v8w3"
 
 [node name="invalid" type="Label" parent="sprite_import_dialog/margin/content/preview/borders/clipper/visualizer" unique_id=266041032]
 visible = false
@@ -1641,14 +1660,17 @@ text = "SPRITE_EDIT_IMPORT_PREVIEW_INVALID"
 label_settings = SubResource("LabelSettings_tyqm6")
 horizontal_alignment = 1
 
-[node name="import_confirm" type="ConfirmationDialog" parent="sprite_import_dialog" unique_id=746652381]
+[node name="confirmation_dialog" type="ConfirmationDialog" parent="sprite_import_dialog" unique_id=746652381 node_paths=PackedStringArray("dialog")]
 oversampling_override = 1.0
 title = "SPRITE_EDIT_IMPORT_CONFIRM_TITLE"
 initial_position = 2
-size = Vector2i(565, 100)
+size = Vector2i(300, 113)
+transient_to_focused = true
 ok_button_text = "SPRITE_EDIT_IMPORT_IMPORT_BUTTON"
 dialog_text = "Import %s sprites?"
 cancel_button_text = "SPRITE_EDIT_IMPORT_CONFIRM_CANCEL"
+script = ExtResource("71_s7i70")
+dialog = NodePath("..")
 
 [node name="file_browser" type="FileDialog" parent="sprite_import_dialog" unique_id=1159571565]
 oversampling_override = 1.0

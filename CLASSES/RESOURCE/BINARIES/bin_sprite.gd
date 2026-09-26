@@ -114,10 +114,14 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 @export var texture_width	: int:
 	get:
 		return 2 ** texture_width
+	set(value):
+		texture_width = get_texture_size(value)
 		
 @export var texture_height	: int:
 	get:
 		return 2 ** texture_height
+	set(value):
+		texture_height = get_texture_size(value)
 
 @export var id_hash			: int
 @export var manual_hash		: bool
@@ -143,6 +147,8 @@ var pixels_true				: PackedByteArray
 @export var old_clut		: CLUT = CLUT.FULL
 @export var image			: Image
 @export var texture			: ImageTexture
+@export var image_rgb		: Image
+@export var texture_rgb		: ImageTexture
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
@@ -275,8 +281,8 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		height = stream.get_u16()
 
 		# Texture size
-		texture_width = get_texture_size(width)
-		texture_height = get_texture_size(height)
+		texture_width = width
+		texture_height = height
 
 		# Hash, palette
 		pal_size = COLOR_SIZE * pow(2, bit_depth)
@@ -396,7 +402,7 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 				else:
 					pixels = pixel_data
 	
-	deserialized.emit.call_deferred()
+	semaphore.post()
 
 
 static func get_texture_size(dimension: int) -> int:
@@ -455,8 +461,8 @@ static func init_from_import_data(import_data: ImportData) -> BinSprite:
 	sprite.bit_depth = import_data.bit_depth
 	sprite.width = import_data.width
 	sprite.height = import_data.height
-	sprite.texture_width = get_texture_size(sprite.width)
-	sprite.texture_height = get_texture_size(sprite.height)
+	sprite.texture_width = sprite.width
+	sprite.texture_height = sprite.height
 	sprite.id_hash = hash(import_data.pixels)
 	sprite.manual_hash = false
 	sprite.palette = import_data.palette
@@ -503,6 +509,13 @@ static func load_from_bin(path: String, with_palette: bool) -> BinSprite:
 	return sprite
 
 
+func clear_preview() -> void:
+	image = null
+	image_rgb = null
+	texture = null
+	texture_rgb = null
+
+
 func update_preview() -> void:
 	update_image()
 	update_texture()
@@ -536,6 +549,28 @@ func get_true_texture() -> ImageTexture:
 	)
 	
 	return ImageTexture.create_from_image(new_image)
+
+
+func get_rgb_texture() -> ImageTexture:
+	if image_rgb == null:
+		var rgb_pixels: PackedByteArray = SpriteTransformer.get_rgb_pixels(
+			pixels_true, palette
+		)
+		image_rgb = Image.create_from_data(
+			width, height, false, Image.FORMAT_L8, rgb_pixels
+		)
+	
+	if texture_rgb == null:
+		texture_rgb = ImageTexture.create_from_image(image_rgb)
+	
+	return texture_rgb
+
+
+func convert_as_rgb() -> void:
+	pixels_true = SpriteTransformer.get_rgb_pixels(
+		pixels_true, palette
+	)
+	clear_preview()
 
 
 func has_palette() -> bool:
@@ -588,7 +623,7 @@ func set_color(index: int, color: Color) -> void:
 	palette[COLOR_SIZE * index + 2] = color.b8
 	palette[COLOR_SIZE * index + 3] = color.a8
 	
-	update_preview()
+	clear_preview()
 
 
 func palette_halve_alpha() -> void:
@@ -623,32 +658,27 @@ func get_pixel(x: int, y: int) -> int:
 	return pixels[y * height + x]
 
 
-func flip_h(update: bool = true) -> void:
+func flip_h() -> void:
 	pixels = SpriteTransformer.flip_horz(pixels_true, width)
-	if update:
-		update_preview()
+	clear_preview()
 
 
-func flip_v(update: bool = true) -> void:
+func flip_v() -> void:
 	pixels = SpriteTransformer.flip_vert(pixels_true, width)
-	if update:
-		update_preview()
+	clear_preview()
 
 
-func flip_both(update: bool = true) -> void:
+func flip_both() -> void:
 	pixels = SpriteTransformer.flip_both(pixels_true)
-	if update:
-		update_preview()
+	clear_preview()
 
 
-func reindex_pixels(update: bool = true) -> void:
+func reindex_pixels() -> void:
 	if bit_depth == DEPTH_4:
 		return
 	
 	pixels = SpriteTransformer.transform_pixels(pixels_true)
-	
-	if update:
-		update_preview()
+	clear_preview()
 
 
 func reindex_palette() -> void:
@@ -700,7 +730,7 @@ func toggle_clut() -> void:
 		_:
 			old_clut = clut
 			clut = CLUT.NONE
-			update_preview()
+			clear_preview()
 
 
 func set_clut_none() -> void:
@@ -715,3 +745,8 @@ func set_clut_half() -> void:
 
 func set_clut_full() -> void:
 	clut = CLUT.FULL
+
+
+func nuke_palette() -> void:
+	set_clut_none()
+	palette.clear()

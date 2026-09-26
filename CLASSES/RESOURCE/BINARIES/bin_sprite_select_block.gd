@@ -54,6 +54,4 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	cursor_mask = BinCursorMask.new()
 	cursor_mask.deserialize(mask_data, is_big_endian)
 	
-	#await cursor_mask.deserialized
-	#print("BinSpriteSelectBlock: deserialized")
-	deserialized.emit.call_deferred()
+	semaphore.post()

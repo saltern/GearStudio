@@ -1,6 +1,6 @@
 @abstract class_name Serializable extends Resource
 
-signal deserialized
+var semaphore: Semaphore = Semaphore.new()
 
 var big_endian: bool
 

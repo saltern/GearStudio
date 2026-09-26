@@ -15,6 +15,10 @@ func _ready() -> void:
 
 
 func start(text: String, count: int = 0) -> void:
+	progress_bar.indeterminate = count == 0
+	label_current.visible = count != 0
+	label_max.visible = count != 0
+	
 	label_action.text = text
 	current = 0
 	progress_bar.value = 0

@@ -61,6 +61,10 @@ func save_binary(path: String) -> void:
 	
 	Status.save_status_end.call_deferred(path)
 	GlobalSignals.save_complete.emit.call_deferred()
+	
+	WorkerThreadPool.wait_for_task_completion.call_deferred(
+		WorkerThreadPool.get_caller_task_id()
+	)
 
 
 #region Sessions
@@ -98,8 +102,8 @@ func get_session_count() -> int:
 
 
 func new_binary_session(path: String) -> void:
-	var session: Session = await Session.new(path)
-	await session.initialized
+	var session: Session = Session.new(path)
+	session.semaphore_init.wait()
 	session.type = Session.Type.BINARY
 	sessions.append(session)
 	
@@ -113,6 +117,10 @@ func new_binary_session(path: String) -> void:
 		this_session.palettes = object.palettes
 	
 	load_complete.emit.bind(session).call_deferred()
+	
+	WorkerThreadPool.wait_for_task_completion.call_deferred(
+		WorkerThreadPool.get_caller_task_id()
+	)
 
 
 func binary_load_error(error: String) -> void:
@@ -121,6 +129,7 @@ func binary_load_error(error: String) -> void:
 
 func tab_load(index: int = 0) -> void:
 	if index < 0 || index >= sessions.size():
+		this_session = null
 		Status.set_ready()
 		return
 	

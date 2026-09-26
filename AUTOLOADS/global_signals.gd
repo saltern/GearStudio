@@ -19,7 +19,8 @@ signal progress_window_start
 signal progress_window_progress
 signal progress_window_finish
 
-signal sprite_importer_on
+signal sprite_importer_opened
+signal sprite_importer_finished
 
 
 func progress_show(text: String, count: int) -> void:
@@ -34,5 +35,9 @@ func progress_finish() -> void:
 	progress_window_finish.emit.call_deferred()
 
 
-func sprite_importer_open(session: Session, object: BinSpriteBlock) -> void:
-	sprite_importer_on.emit(session, object)
+func sprite_importer_open(editor: SpriteEditor) -> void:
+	sprite_importer_opened.emit(editor)
+
+
+#func sprite_importer_finish(session: Session) -> void:
+	#sprite_importer_finished.emit.call_deferred(session)

@@ -78,5 +78,4 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 		sprite.deserialize(slice, big_endian)
 		sprites.append(sprite)
 	
-	#print("BinJPFPlainText: deserialized")
-	deserialized.emit()#.call_deferred()
+	semaphore.post()

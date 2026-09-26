@@ -58,22 +58,6 @@ var tension_airdash			: int
 var gc_gauge_def_point		: int
 var gc_gauge_recovery		: int
 var tension_ib				: int
-var padding					: PackedByteArray
-
-
-#static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
-	#var stream: StreamPeerBuffer = StreamPeerBuffer.new()
-	#stream.data_array = bin_data
-	#stream.big_endian = is_big_endian
-	#
-	#var header: int = bin_data.decode_u16(0)
-	#if header != HEADER:
-		#return false
-	#
-	#if bin_data.size() < SIZE_U16 * VARIABLE_NAMES.size():
-		#return false
-	#
-	#return true
 
 
 func serialize() -> PackedByteArray:
@@ -85,19 +69,20 @@ func serialize() -> PackedByteArray:
 	for variable: String in VARIABLE_NAMES:
 		stream.put_16(get(variable))
 	
-	stream.put_data(padding)
+	# Padding
+	for i: int in 0x6:
+		stream.put_u64(0x00)
 	
 	return stream.data_array
 
 
 func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	var stream: StreamPeerBuffer = StreamPeerBuffer.new()
+	stream.data_array = bin_data
 	stream.big_endian = is_big_endian
 	big_endian = is_big_endian
 	
 	header = stream.get_u16()
 	
-	for variable in VARIABLE_NAMES:
+	for variable: String in VARIABLE_NAMES:
 		set(variable, stream.get_16())
-	
-	padding	= stream.get_data(bin_data.size() - stream.get_position())

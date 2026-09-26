@@ -5,7 +5,7 @@ extends TabContainer
 @export var save_as_dialog: FileDialog
 @export var session_scene: PackedScene
 
-var waiting_tasks: Dictionary = {}
+var task_id: int
 	
 
 func _ready() -> void:
@@ -22,24 +22,9 @@ func _ready() -> void:
 	get_tree().get_root().files_dropped.connect(on_files_dropped)
 
 
-func _physics_process(_delta: float) -> void:
-	if waiting_tasks.is_empty():
-		set_physics_process(false)
-	
-	for task in waiting_tasks:
-		if WorkerThreadPool.is_task_completed(task):
-			WorkerThreadPool.wait_for_task_completion(task)
-			waiting_tasks.erase(task)
-
-
 func on_files_dropped(files: PackedStringArray) -> void:
 	for file: String in files:
 		load_binary(file)
-
-
-func add_task(task_id: int) -> void:
-	waiting_tasks[task_id] = 0
-	set_physics_process(true)
 
 
 func load_directory(path: String) -> void:
@@ -50,9 +35,7 @@ func load_directory(path: String) -> void:
 			Status.set_status("STATUS_OPEN_ALREADY_OPEN_DIR")
 			return
 	
-	add_task(WorkerThreadPool.add_task(
-		SessionData.new_directory_session.bind(path))
-	)
+	WorkerThreadPool.add_task(SessionData.new_directory_session.bind(path))
 
 
 func load_binary(path: String) -> void:
@@ -63,23 +46,19 @@ func load_binary(path: String) -> void:
 			Status.set_status("STATUS_OPEN_ALREADY_OPEN_BIN")
 			return
 	
-	add_task(
-		WorkerThreadPool.add_task(
-			SessionData.new_binary_session.bind(path)
-		)
-	)
+	WorkerThreadPool.add_task(SessionData.new_binary_session.bind(path))
 
 
 func save_resource(path: String = ""):
-	if SessionData.this_session.is_empty():
+	if SessionData.this_session == null:
 		Status.set_status("STATUS_SAVE_NOTHING")
 		return
 	
 	match SessionData.get_session_type():
-		SessionData.SessionType.DIRECTORY:
+		Session.Type.DIRECTORY:
 			save_directory("")
 			
-		SessionData.SessionType.BINARY:
+		Session.Type.BINARY:
 			if !path.is_empty():
 				if path.get_extension() != "bin":
 					path += ".bin"
@@ -95,11 +74,11 @@ func save_resource(path: String = ""):
 
 
 func save_directory(path: String = ""):
-	add_task(WorkerThreadPool.add_task(SessionData.save_directory.bind(path)))
+	WorkerThreadPool.add_task(SessionData.save_directory.bind(path))
 
 
 func save_binary(path: String = ""):
-	add_task(WorkerThreadPool.add_task(SessionData.save_binary.bind(path)))
+	WorkerThreadPool.add_task(SessionData.save_binary.bind(path))
 
 
 func create_tab(session: Session) -> void:
@@ -121,6 +100,7 @@ func create_tab(session: Session) -> void:
 	add_child(new_tab)
 	set_tab_title(get_tab_count() - 1, names[1])
 	
+	GlobalSignals.progress_finish()
 	Status.set_status(tr("STATUS_LOAD_COMPLETE").format({path=session.path}))
 	#GlobalSignals.editors_created.emit()
 

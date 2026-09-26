@@ -1,6 +1,5 @@
 class_name Session extends Resource
 
-signal initialized
 signal palette_changed
 
 enum Type {
@@ -17,6 +16,8 @@ var reindex_mode	: bool				= Settings.general_reindex_mode
 var palettes		: BinSpriteBlock
 # For previews
 var palette_index	: int				= 0
+
+var semaphore_init	: Semaphore			= Semaphore.new()
 
 
 func _init(p_path: String) -> void:
@@ -46,10 +47,7 @@ func _init(p_path: String) -> void:
 		return
 	
 	archive.deserialize(data, is_big_endian)
-	await archive.deserialized
-	#GlobalSignals.load_complete.emit()
-	GlobalSignals.progress_finish()
-	#print("Session: archive deserialized")
+	archive.semaphore.wait()
 	
 	if archive.get_object_count() < 1:
 		Status.set_status.bind("STATUS_LOAD_INVALID").call_deferred()
@@ -62,8 +60,7 @@ func _init(p_path: String) -> void:
 			palettes = player.palettes
 	
 	path = p_path
-	#print("Session: initialized")
-	initialized.emit.call_deferred()
+	semaphore_init.post()
 
 
 func get_object_count() -> int:

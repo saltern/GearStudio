@@ -41,4 +41,4 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	width = stream.get_u32()
 	height = stream.get_u32()
 	pixels = stream.get_data(width * height)
-	deserialized.emit.call_deferred()
+	semaphore.post()

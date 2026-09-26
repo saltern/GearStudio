@@ -53,8 +53,8 @@ func deserialize(bin_data: PackedByteArray, is_big_endian: bool) -> void:
 	for p: int in pointers.size() - 1:
 		var slice: PackedByteArray = bin_data.slice(pointers[p], pointers[p + 1])
 		var scriptable: BinScriptable = BinScriptable.new()
-		await scriptable.deserialize(slice, is_big_endian)
+		scriptable.deserialize(slice, is_big_endian)
+		scriptable.semaphore.wait()
 		scriptables.append(scriptable)
 
-	#print("BinScriptableBlock: deserialized")
-	deserialized.emit.call_deferred()
+	semaphore.post()
