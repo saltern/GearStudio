@@ -1,5 +1,6 @@
 class_name BinSprite extends BinObject
 
+#region Constants
 enum Mode {
 	RAW,
 	ACPR,
@@ -92,6 +93,7 @@ const IMAGE_EMPTY_W			: int = 1
 const IMAGE_EMPTY_H			: int = 1
 const IMAGE_MIPMAPS			: bool = false
 const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
+#endregion
 
 # Variables
 @export var mode			: Mode
@@ -123,6 +125,8 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 	set(value):
 		texture_height = get_texture_size(value)
 
+const COMPRESSION: FileAccess.CompressionMode = FileAccess.COMPRESSION_DEFLATE
+
 @export var id_hash			: int
 @export var manual_hash		: bool
 @export var palette			: PackedByteArray:
@@ -136,19 +140,73 @@ const IMAGE_FORMAT			: Image.Format = Image.Format.FORMAT_L8
 		value.resize(CLUT_SIZE_8_FULL)
 		palette = value
 
-var pixels_true				: PackedByteArray
+var pixels_true				: PackedByteArray:
+	get:
+		return pixels_true#.decompress(width * height, COMPRESSION)
+
 @export var pixels			: PackedByteArray:
 	get:
-		return cap_pixels(pixels_true)
+		#return cap_pixels(pixels_true)
+		return SpriteTransformer.cap_pixels(
+			pixels_true, get_color_count(true) - 1
+		)
+	
 	set(value):
+		#value = value.compress(COMPRESSION)
 		pixels_true = value
 
 # Not serialized
 @export var old_clut		: CLUT = CLUT.FULL
-@export var image			: Image
-@export var texture			: ImageTexture
-@export var image_rgb		: Image
-@export var texture_rgb		: ImageTexture
+@export var image			: Image:
+	get:
+		#if image == null:
+			#image = Image.create_from_data(
+				#width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels
+			#)
+		#return image
+		return Image.create_from_data(
+			width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels
+		)
+	set(value):
+		return
+
+@export var image_true		: Image:
+	get:
+		return Image.create_from_data(
+			width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels_true
+		)
+	set(value):
+		return
+
+@export var texture			: ImageTexture:
+	get:
+		#if texture == null:
+			#texture = ImageTexture.create_from_image(image)
+		#return texture
+		return ImageTexture.create_from_image(image)
+	set(value):
+		return
+
+@export var texture_true	: ImageTexture:
+	get:
+		return ImageTexture.create_from_image(image_true)
+	set(value):
+		return
+
+@export var image_rgb		: Image:
+	get:
+		return Image.create_from_data(
+			width, height, IMAGE_MIPMAPS, IMAGE_FORMAT,
+			SpriteTransformer.get_rgb_pixels(pixels_true, palette)
+		)
+	set(value):
+		return
+
+@export var texture_rgb		: ImageTexture:
+	get:
+		return ImageTexture.create_from_image(image_rgb)
+	set(value):
+		return
 
 
 static func identify(bin_data: PackedByteArray, is_big_endian: bool) -> bool:
@@ -516,61 +574,62 @@ func clear_preview() -> void:
 	texture_rgb = null
 
 
-func update_preview() -> void:
-	update_image()
-	update_texture()
-
-
-func update_image() -> void:
-	image = Image.create_from_data(
-		width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels
-	)
-
-
-func update_texture() -> void:
-	texture = ImageTexture.create_from_image(get_image())
+#func update_preview() -> void:
+	#update_image()
+	#update_texture()
+#
+#
+#func update_image() -> void:
+	#image = Image.create_from_data(
+		#width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels
+	#)
+#
+#
+#func update_texture() -> void:
+	#texture = ImageTexture.create_from_image(get_image())
 
 
 func get_image() -> Image:
-	if image == null:
-		update_image()
+	#if image == null:
+		#update_image()
 	return image
 
 
 func get_texture() -> ImageTexture:
-	if texture == null:
-		update_texture()
+	#if texture == null:
+		#update_texture()
 	return texture
 
 
-func get_true_texture() -> ImageTexture:
-	var new_image: Image = Image.create_from_data(
-		width, height, false, Image.FORMAT_L8, pixels_true
-	)
-	
-	return ImageTexture.create_from_image(new_image)
+func get_texture_true() -> ImageTexture:
+	#var new_image: Image = Image.create_from_data(
+		#width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, pixels_true
+	#)
+	#
+	#return ImageTexture.create_from_image(new_image)
+	return texture_true
 
 
-func get_rgb_texture() -> ImageTexture:
-	if image_rgb == null:
-		var rgb_pixels: PackedByteArray = SpriteTransformer.get_rgb_pixels(
-			pixels_true, palette
-		)
-		image_rgb = Image.create_from_data(
-			width, height, false, Image.FORMAT_L8, rgb_pixels
-		)
+func get_texture_rgb() -> ImageTexture:
+	#if image_rgb == null:
+		#var rgb_pixels: PackedByteArray = SpriteTransformer.get_rgb_pixels(
+			#pixels_true, palette
+		#)
+		#image_rgb = Image.create_from_data(
+			#width, height, IMAGE_MIPMAPS, IMAGE_FORMAT, rgb_pixels
+		#)
+	#
+	#if texture_rgb == null:
+		#texture_rgb = ImageTexture.create_from_image(image_rgb)
 	
-	if texture_rgb == null:
-		texture_rgb = ImageTexture.create_from_image(image_rgb)
-	
-	return texture_rgb
+	return texture_rgb 
 
 
 func convert_as_rgb() -> void:
 	pixels_true = SpriteTransformer.get_rgb_pixels(
 		pixels_true, palette
 	)
-	clear_preview()
+	#clear_preview()
 
 
 func has_palette() -> bool:
@@ -623,7 +682,7 @@ func set_color(index: int, color: Color) -> void:
 	palette[COLOR_SIZE * index + 2] = color.b8
 	palette[COLOR_SIZE * index + 3] = color.a8
 	
-	clear_preview()
+	#clear_preview()
 
 
 func palette_halve_alpha() -> void:
@@ -660,17 +719,17 @@ func get_pixel(x: int, y: int) -> int:
 
 func flip_h() -> void:
 	pixels = SpriteTransformer.flip_horz(pixels_true, width)
-	clear_preview()
+	#clear_preview()
 
 
 func flip_v() -> void:
 	pixels = SpriteTransformer.flip_vert(pixels_true, width)
-	clear_preview()
+	#clear_preview()
 
 
 func flip_both() -> void:
 	pixels = SpriteTransformer.flip_both(pixels_true)
-	clear_preview()
+	#clear_preview()
 
 
 func reindex_pixels() -> void:
@@ -678,7 +737,7 @@ func reindex_pixels() -> void:
 		return
 	
 	pixels = SpriteTransformer.transform_pixels(pixels_true)
-	clear_preview()
+	#clear_preview()
 
 
 func reindex_palette() -> void:
@@ -686,15 +745,6 @@ func reindex_palette() -> void:
 		return
 	
 	palette = SpriteTransformer.transform_palette(palette)
-
-
-func cap_pixels(input_pixels: PackedByteArray) -> PackedByteArray:
-	var max_color: int = get_color_count(true) - 1
-	var new_pixels: PackedByteArray = []
-	for p: int in input_pixels:
-		new_pixels.append(mini(p, max_color))
-	
-	return new_pixels
 
 
 func set_bit_depth_4() -> void:
@@ -730,7 +780,7 @@ func toggle_clut() -> void:
 		_:
 			old_clut = clut
 			clut = CLUT.NONE
-			clear_preview()
+			#clear_preview()
 
 
 func set_clut_none() -> void:
