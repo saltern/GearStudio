@@ -111,6 +111,7 @@ func set_files(new_files: PackedStringArray) -> void:
 	task_count = new_files.size()
 	imported_sprites.sprites.clear()
 	imported_sprites.sprites.resize(task_count)
+	processed_sprites.clear()
 	GlobalSignals.progress_show("SPRITE_EDIT_IMPORT_PROGRESS_TITLE", task_count)
 	WorkerThreadPool.add_group_task(
 		thread_import.bind(new_files), task_count, -1, true
@@ -282,10 +283,8 @@ func thread_place() -> void:
 	
 	match placement_method:
 		PlacementMethod.APPEND:
-			GlobalSignals.progress_show("Placing sprites...", task_count)
-			for sprite: BinSprite in processed_sprites:
-				new_sprite_array.append(sprite)
-				GlobalSignals.progress_advance()
+			GlobalSignals.progress_show("Placing sprites...", 0)
+			new_sprite_array.append_array(processed_sprites)
 		
 		PlacementMethod.INSERT:
 			GlobalSignals.progress_show("Placing sprites...", 0)
@@ -316,7 +315,19 @@ func thread_place() -> void:
 				semaphore.wait()
 			
 			elif placement_by_filename:
-				replace_by_filename(new_sprite_array)
+				task_count = files.size()
+				var semaphore: Semaphore = Semaphore.new()
+				
+				GlobalSignals.progress_show("Placing sprites...", task_count)
+				
+				WorkerThreadPool.add_group_task(
+					replace_by_filename.bind(
+						semaphore, new_sprite_array
+					), task_count, -1, true
+				)
+				
+				semaphore.wait()
+				
 			else:
 				replace(new_sprite_array, placement_position)
 	
@@ -343,29 +354,22 @@ func replace_manual(
 	sprite_placed.emit.call_deferred(
 		WorkerThreadPool.get_caller_group_id(), semaphore
 	)
+
+
+func replace_by_filename(
+	i: int, semaphore: Semaphore, into: Array[BinSprite]
+) -> void:
+	#GlobalSignals.progress_show("Placing sprites...", processed_sprites.size())
+	var sprite: BinSprite = processed_sprites[i]
+	var at: int = clampi(files[i].to_int(), 0, into.size() - 1)
+	mutex.lock()
+	into[at] = sprite
+	mutex.unlock()
+	GlobalSignals.progress_advance()
 	
-
-func on_sprite_placed(group_id: int, semaphore: Semaphore) -> void:
-	task_count -= 1
-	
-	if task_count != 0:
-		return
-
-	task_count = -1
-	WorkerThreadPool.wait_for_group_task_completion(group_id)
-	GlobalSignals.progress_finish()
-	semaphore.post()
-
-
-func replace_by_filename(into: Array[BinSprite]) -> void:
-	GlobalSignals.progress_show("Placing sprites...", processed_sprites.size())
-	
-	for i: int in processed_sprites.size():
-		var sprite: BinSprite = processed_sprites[i]
-		var at: int = clampi(files[i].to_int(), 0, into.size() - 1)
-		into[at] = sprite
-		
-		GlobalSignals.progress_advance()
+	sprite_placed.emit.call_deferred(
+		WorkerThreadPool.get_caller_group_id(), semaphore
+	)
 
 
 func replace(into: Array[BinSprite], at: int) -> void:
@@ -408,3 +412,16 @@ func on_sprite_processed(group_id: int) -> void:
 	task_count = -1
 	WorkerThreadPool.wait_for_group_task_completion(group_id)
 	all_sprites_processed.emit()
+	
+
+func on_sprite_placed(group_id: int, semaphore: Semaphore) -> void:
+	task_count -= 1
+	
+	if task_count != 0:
+		return
+
+	task_count = -1
+	WorkerThreadPool.wait_for_group_task_completion(group_id)
+	processed_sprites.clear()
+	GlobalSignals.progress_finish()
+	semaphore.post()
