@@ -114,3 +114,7 @@ locale/translations=PackedStringArray("res://LOCALE/en.English.en.translation")
 
 renderer/rendering_method="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.180392, 0.180392, 0.180392, 1)
+
+[threading]
+
+worker_pool/max_threads=4
