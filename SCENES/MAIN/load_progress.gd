@@ -2,6 +2,7 @@ extends Window
 
 @export var label_action: Label
 @export var label_current: Label
+@export var label_out_of: Label
 @export var label_max: Label
 @export var progress_bar: ProgressBar
 

@@ -514,7 +514,7 @@ size_flags_vertical = 6
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="progress" type="Window" parent="." unique_id=868830160 node_paths=PackedStringArray("label_action", "label_current", "label_max", "progress_bar")]
+[node name="progress" type="Window" parent="." unique_id=868830160 node_paths=PackedStringArray("label_action", "label_current", "label_out_of", "label_max", "progress_bar")]
 oversampling_override = 1.0
 title = "PLEASE_WAIT"
 initial_position = 2
@@ -529,7 +529,8 @@ maximize_disabled = true
 script = ExtResource("18_obp7x")
 label_action = NodePath("margin/content/items/action")
 label_current = NodePath("margin/content/items/current")
-label_max = NodePath("margin/content/items/out_of")
+label_out_of = NodePath("margin/content/items/out_of")
+label_max = NodePath("margin/content/items/max")
 progress_bar = NodePath("margin/content/bar")
 
 [node name="margin" type="MarginContainer" parent="progress" unique_id=1197964275]
@@ -560,12 +561,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "0"
 
-[node name="slash" type="Label" parent="progress/margin/content/items" unique_id=1522801814]
+[node name="out_of" type="Label" parent="progress/margin/content/items" unique_id=1522801814]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "/"
 
-[node name="out_of" type="Label" parent="progress/margin/content/items" unique_id=1741402326]
+[node name="max" type="Label" parent="progress/margin/content/items" unique_id=1741402326]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "256"

@@ -117,7 +117,7 @@ func update() -> void:
 		return
 	
 	elif use_true_texture:
-		texture = sprite.get_true_texture()
+		texture = sprite.get_texture_true()
 	else:
 		texture = sprite.get_texture()
 	
